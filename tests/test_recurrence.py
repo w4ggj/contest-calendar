@@ -335,6 +335,157 @@ def test_naqp_is_twelve_hours(catalog):
             assert 11.9 < o.duration_hours < 12.1
 
 
+NCJ_SPRINT_2026 = {
+    "ncj-sprint-cw": [date(2026, 2, 8), date(2026, 9, 13)],
+    "ncj-sprint-rtty": [date(2026, 3, 15), date(2026, 9, 20)],
+}
+
+
+@pytest.mark.parametrize("cid,expected", sorted(NCJ_SPRINT_2026.items()))
+def test_ncj_sprint_matches_published_2026_dates(catalog, cid, expected):
+    """
+    NCJ's 2026 Sprint rules state each date twice -- once in rule 4 'Contest
+    Periods' and again in 'Table 1 - The 2026 Sprint calendar'. Both agree.
+    """
+    occ = expand(by_id(catalog, cid), 2026)
+    assert [o.start.date() for o in occ] == expected
+    assert all(o.start.hour == 0 and o.start.minute == 0 for o in occ)
+    assert all((o.end.hour, o.end.minute) == (3, 59) for o in occ)
+
+
+def test_ncj_sprint_stays_silent_for_years_ncj_has_not_published(catalog):
+    """
+    NCJ publishes dates, not a recurrence rule, and flagged 2026 September with
+    'NOTE CW DATE SHIFT'. The 2026 dates happen to land on the 2nd and 3rd
+    Sundays, but inferring that as a rule would invent dates NCJ never stated.
+    A 'manual' record must generate nothing for an unpublished year.
+    """
+    for cid in NCJ_SPRINT_2026:
+        assert expand(by_id(catalog, cid), 2027) == []
+
+
+def test_ncj_sprint_log_deadline_is_seven_days(catalog):
+    """NCJ rule 14: 'Entries must be received no later than 7 days after the
+    Sprint.' Table 1 gives logs due Feb 15 for the Feb 8 CW Sprint."""
+    feb = expand(by_id(catalog, "ncj-sprint-cw"), 2026)[0]
+    assert feb.log_due is not None
+    assert feb.log_due.date() == date(2026, 2, 15)
+
+
+NCCC_SESSIONS = {
+    "nccc-ns-ft4": (1, 0),
+    "nccc-ns-rtty": (1, 45),
+    "nccc-ns-cw": (2, 30),
+}
+
+
+@pytest.mark.parametrize("cid,hm", sorted(NCCC_SESSIONS.items()))
+def test_nccc_sprints_run_weekly_at_their_published_utc_slot(catalog, cid, hm):
+    """
+    ncccsprint.com: CW NS is '0230-0300 UTC Fridays (Thursday evening NA time,
+    DST ignored)'; RTTY NS 'is always 0145-0215 UTC'; FT4 NS starts '0100 UTC'.
+    Each runs 'each Thursday' -- so ~52 Friday-UTC sessions a year.
+    """
+    occ = expand(by_id(catalog, cid), 2026)
+    assert 51 <= len(occ) <= 53
+    assert {o.start.weekday() for o in occ} == {4}  # Friday UTC
+    assert {(o.start.hour, o.start.minute) for o in occ} == {hm}
+    assert all(o.duration_hours == 0.5 for o in occ)
+
+
+def test_nccc_sessions_are_45_minutes_apart(catalog):
+    """
+    NCCC states the gaps rather than a bare list of times: FT4 is '45 minutes
+    BEFORE the regular RTTY NS', which is in turn '45 minutes BEFORE the
+    regular CW NS'. Encoding all three lets us check that arithmetic holds.
+    """
+    week = {
+        cid: next(
+            o for o in expand(by_id(catalog, cid), 2026) if o.start.date() == date(2026, 3, 6)
+        )
+        for cid in NCCC_SESSIONS
+    }
+    ft4, rtty, cw = week["nccc-ns-ft4"], week["nccc-ns-rtty"], week["nccc-ns-cw"]
+    assert (rtty.start - ft4.start).total_seconds() == 45 * 60
+    assert (cw.start - rtty.start).total_seconds() == 45 * 60
+
+
+def test_nccc_ns_matches_sponsors_published_ladder_table(catalog):
+    """
+    Cross-check against a date table NCCC published independently of the rules
+    text: the 'NSL XXXV - 2023' schedule pairs US Thursday dates with Zulu
+    Friday dates at 0230-0300Z (US Feb 2 / Zulu Feb 3, and weekly thereafter).
+    """
+    occ = {o.start.date() for o in expand(by_id(catalog, "nccc-ns-cw"), 2023)}
+    for published in (
+        date(2023, 2, 3),
+        date(2023, 2, 10),
+        date(2023, 2, 17),
+        date(2023, 2, 24),
+        date(2023, 3, 3),
+        date(2023, 3, 10),
+    ):
+        assert published in occ, f"NCCC published {published} Zulu; engine missed it"
+
+
+def test_4sqrp_sss_anchors_second_sunday_and_runs_into_monday_utc(catalog):
+    """
+    4sqrp.com: 'The SSS is held the second Sunday night of every month (local
+    time). It runs for two (2) hours from 7 PM until 9 PM central time.' 7 PM
+    CST is 0100 UTC the following day, so every session lands on a Monday UTC
+    even though the sponsor's rule names Sunday.
+    """
+    occ = expand(by_id(catalog, "4sqrp-sss"), 2026)
+    assert len(occ) == 12
+    assert all(o.start.weekday() == 0 for o in occ)  # Monday UTC
+    assert all(o.duration_hours == 2 for o in occ)
+    # Second Sunday of May 2026 is the 10th -> 0100 UTC Monday the 11th.
+    may = next(o for o in occ if o.start.month == 5)
+    assert may.start.date() == date(2026, 5, 11)
+
+
+def test_spartan_sprint_anchors_on_first_monday_not_first_tuesday(catalog):
+    """
+    ars-qrp.com: 'Held on the first Monday of every month', 8-10 p.m. Eastern.
+    That is NOT the same as the first Tuesday UTC: whenever the 1st falls on a
+    Tuesday the two diverge by a week. September and December 2026 are both
+    such months, and the earlier encoding got both wrong.
+    """
+    occ = expand(by_id(catalog, "ars-spartan-sprint"), 2026)
+    assert len(occ) == 12
+    assert all(o.start.weekday() == 1 for o in occ)  # Tuesday UTC
+    dates = {o.start.month: o.start.date() for o in occ}
+    assert dates[9] == date(2026, 9, 8), "first Monday Sep 7 -> Sep 8 UTC, not Sep 1"
+    assert dates[12] == date(2026, 12, 8), "first Monday Dec 7 -> Dec 8 UTC, not Dec 1"
+
+
+def test_first_monday_plus_one_never_equals_first_tuesday_blindly(catalog):
+    """
+    Guard the rule itself, not just 2026: the anchor must always be the day
+    after the first Monday, which is the first Tuesday only in months whose
+    1st is not a Tuesday.
+    """
+    from datetime import timedelta
+
+    c = by_id(catalog, "ars-spartan-sprint")
+    for y in range(2026, 2036):
+        for anchor in resolve_anchors(c["recurrence"], y):
+            assert anchor.weekday() == 0 and anchor.day <= 7
+            assert (anchor + timedelta(days=1)).weekday() == 1
+
+
+def test_local_time_contests_say_so_in_their_note(catalog):
+    """
+    A contest whose sponsor publishes local times only must carry local_time
+    and explain the UTC consequence, or a reader will trust a UTC instant that
+    is an hour wrong for half the year.
+    """
+    for cid in ("4sqrp-sss", "ars-spartan-sprint"):
+        c = by_id(catalog, cid)
+        assert c.get("local_time") is True
+        assert "UTC" in c["note"]
+
+
 def test_composite_rule_handles_mixed_subrules():
     """A composite may mix rule types -- last-weekday plus nth-full-weekend."""
     anchors = resolve_anchors(

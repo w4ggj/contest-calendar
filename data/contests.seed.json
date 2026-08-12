@@ -1034,27 +1034,46 @@
       "modes": [
         "CW"
       ],
-      "exchange": "RST + state/province/country + power",
+      "exchange": "RST + state/province + power output",
       "recurrence": {
         "type": "monthly_nth_weekday",
         "n": 1,
-        "weekday": 1
+        "weekday": 0
       },
       "start": {
-        "day_offset": 0,
+        "day_offset": 1,
         "time": "0100"
       },
       "end": {
-        "day_offset": 0,
+        "day_offset": 1,
         "time": "0300"
       },
-      "verified": false,
-      "note": "Monthly QRP sprint, first Monday evening US local = Tuesday UTC. STILL UNVERIFIED -- adventureradio.us was not reachable during research. Confirm anchor and UTC times.",
-      "source_note": "rule type demonstration -- needs sponsor verification",
+      "verified": true,
+      "note": "CORRECTION: previously encoded as the first TUESDAY of the month. The sponsor's rule is the first MONDAY US local, which lands on Tuesday UTC -- and those are different dates whenever the 1st falls on a Tuesday (Sep and Dec 2026). Now anchored on the first Monday with a +1 day offset. LOCAL-TIME CONTEST: ARS gives no UTC time and states the event does not shift for DST, so the UTC time is what moves: 0100-0300 UTC Tuesday under US standard time, 0000-0200 UTC Tuesday under US daylight time. Stored value is the standard-time rendering; resolve per-season when the local-time engine gap is closed.",
+      "source_note": "ars-qrp.com Spartan Sprint page: 'Held on the first Monday of every month', 'EASTERN 8:00 p.m. to 10:00 p.m. Local. CENTRAL 7:00 p.m. to 9:00 p.m. Local MOUNTAIN 6:00 p.m. to 8:00 p.m. Local PACIFIC 5:00 p.m. to 7:00 p.m. Local', '(Does not shift for DST - This event is always at these Local Times)', 'a simple, casual 2 Hour QRP CW Event', 'open to all QRP CW operators - there is no membership requirement'.",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
-      }
+        "verified": true,
+        "note": "ars-qrp.com: 'It is open to all QRP CW operators - there is no membership requirement.'"
+      },
+      "rules_url": "https://ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html",
+      "sponsor_home": "https://ars-qrp.com/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "local_time": true,
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "rules_url_checked": "2026-08-11",
+      "summary": "Monthly two-hour QRP CW sprint on the first Monday evening. Scoring rewards a low station weight as well as QSOs, which is what makes it distinctive."
     },
     {
       "id": "cwops-cwt",
@@ -1566,6 +1585,297 @@
       },
       "source_note": "NCJ rules: winter running STARTS ON THE LAST SATURDAY IN FEBRUARY (not the last full weekend -- in 2026 that is Feb 28, whose Sunday falls in March); summer running is the third full weekend in July. Verified against NCJ's published Feb 28 2026 and Jul 18 2026.",
       "note": "Demonstrates that 'last Saturday' and 'last full weekend' are distinct rules. Same distinction likely resolves the CQ 160 SSB ambiguity."
+    },
+    {
+      "sponsor": "National Contest Journal (NCJ)",
+      "country": "US",
+      "rules_url": "https://www.ncjweb.com/Sprint-Rules.pdf",
+      "sponsor_home": "https://ncjweb.com/north-american-sprint/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "exchange": "Other station's call + your call + serial number + name + state/province/country ('DX' outside North America)",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "NCJ Sprint rule 1: 'Any amateur radio licensee may enter.' Object is for North American stations to work as many amateurs as possible and for non-NA stations to work as many NA stations as possible."
+      },
+      "summary": "Four-hour single-operator sprint on 80/40/20 m only. The QSY rule -- work one station per solicitation, then move at least 1 kHz -- makes it the most tactically demanding format in contesting.",
+      "id": "ncj-sprint-cw",
+      "name": "North American Sprint, CW",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-02-08",
+            "2026-09-13"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0359"
+      },
+      "source_note": "ncjweb.com/Sprint-Rules.pdf, 'Rules: 2026 North American Sprint (CW/RTTY)', rule 4 Contest Periods: 'CW: 0000 until 0359 UTC, February 8, 2026' and, under 'September Contests (NOTE CW DATE SHIFT)', 'CW: 0000 until 0359 UTC, September 13, 2026'. 'These four contests are entirely separate 4-hour Sprints.'",
+      "note": "Encoded as 'manual' deliberately. NCJ publishes explicit dates per year and flagged 2026 September with 'NOTE CW DATE SHIFT', so there is no stable derivable recurrence to encode. 2026 happens to land on the 2nd Sunday of February and the 2nd Sunday of September, but that pattern is NOT a rule NCJ states -- re-read the rules PDF each year."
+    },
+    {
+      "sponsor": "National Contest Journal (NCJ)",
+      "country": "US",
+      "rules_url": "https://www.ncjweb.com/Sprint-Rules.pdf",
+      "sponsor_home": "https://ncjweb.com/north-american-sprint/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "exchange": "Other station's call + your call + serial number + name + state/province/country ('DX' outside North America)",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "NCJ Sprint rule 1: 'Any amateur radio licensee may enter.' Object is for North American stations to work as many amateurs as possible and for non-NA stations to work as many NA stations as possible."
+      },
+      "summary": "Four-hour single-operator sprint on 80/40/20 m only. The QSY rule -- work one station per solicitation, then move at least 1 kHz -- makes it the most tactically demanding format in contesting.",
+      "id": "ncj-sprint-rtty",
+      "name": "North American Sprint, RTTY",
+      "modes": [
+        "RTTY"
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-15",
+            "2026-09-20"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0359"
+      },
+      "source_note": "ncjweb.com/Sprint-Rules.pdf rule 4 Contest Periods: 'RTTY: 0000 until 0359 UTC, March 15, 2026' and 'RTTY: 0000 until 0359 UTC, September 20, 2026'. Table 1 (the 2026 Sprint calendar) repeats both and gives logs due March 22 and September 27.",
+      "note": "Same 'manual' reasoning as the CW Sprint -- NCJ states dates, not a recurrence rule."
+    },
+    {
+      "sponsor": "Northern California Contest Club (NCCC)",
+      "country": "US",
+      "sponsor_home": "https://www.ncccsprint.com/",
+      "exchange": "Serial number + name + QTH (both callsigns required in the exchange)",
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "NCCC's NS rules state no entrant restriction anywhere in the text. Open participation is inferred from the ABSENCE of a clause, not from an explicit worldwide statement -- confirm before shipping the eligibility filter."
+      },
+      "note": "NCCC describes these as 'nominal rules' that may be modified on a weekly basis, and runs formal Ladder seasons interspersed with practice weeks. The 30-minute session slot itself is fixed.",
+      "id": "nccc-ns-cw",
+      "name": "NCCC Sprint (NS)",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m"
+      ],
+      "rules_url": "https://ncccsprint.com/rules.html",
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0230"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0300"
+      },
+      "power_categories": [
+        {
+          "name": "Standard",
+          "max_watts": 100
+        }
+      ],
+      "source_note": "ncccsprint.com/rules.html: '0230-0300 UTC Fridays (Thursday evening NA time, DST ignored)'. Maximum operating time 30 minutes; '100 watts or less power'.",
+      "summary": "Weekly 30-minute CW sprint with a relaxed 1 kHz QSY rule and dupes counting. Effectively a contest-practice league -- the shortest recurring contest in the calendar."
+    },
+    {
+      "sponsor": "Northern California Contest Club (NCCC)",
+      "country": "US",
+      "sponsor_home": "https://www.ncccsprint.com/",
+      "exchange": "Serial number + name + QTH (both callsigns required in the exchange)",
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "NCCC's NS rules state no entrant restriction anywhere in the text. Open participation is inferred from the ABSENCE of a clause, not from an explicit worldwide statement -- confirm before shipping the eligibility filter."
+      },
+      "note": "NCCC describes these as 'nominal rules' that may be modified on a weekly basis, and runs formal Ladder seasons interspersed with practice weeks. The 30-minute session slot itself is fixed.",
+      "id": "nccc-ns-rtty",
+      "name": "NCCC RTTY Sprint (RTTY NS)",
+      "modes": [
+        "RTTY"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m"
+      ],
+      "rules_url": "https://ncccsprint.com/rttyns.html",
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0145"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0215"
+      },
+      "power_categories": [
+        {
+          "name": "Standard",
+          "max_watts": 100
+        }
+      ],
+      "source_note": "ncccsprint.com/rttyns.html: 'RTTY NS practices are held each Thursday afternoon-evening'; 'RTTY NS time is always 0145-0215 UTC' -- stated as 45 minutes BEFORE the regular CW NS. 'Maximum operating time = 30 minutes.' '100 watts or less power'.",
+      "summary": "Weekly 30-minute RTTY sprint, run 45 minutes ahead of the CW NS on the same evening."
+    },
+    {
+      "sponsor": "Northern California Contest Club (NCCC)",
+      "country": "US",
+      "sponsor_home": "https://www.ncccsprint.com/",
+      "exchange": "Grid square (following NA VHF, WW Digi and ARRL IDC practice)",
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "NCCC's NS rules state no entrant restriction anywhere in the text. Open participation is inferred from the ABSENCE of a clause, not from an explicit worldwide statement -- confirm before shipping the eligibility filter."
+      },
+      "note": "NCCC describes these as 'nominal rules' that may be modified on a weekly basis, and runs formal Ladder seasons interspersed with practice weeks. The 30-minute session slot itself is fixed.",
+      "id": "nccc-ns-ft4",
+      "name": "NCCC FT4 Sprint (FT4 NS)",
+      "modes": [
+        "FT4"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "rules_url": "https://www.ncccsprint.com/ft4ns.html",
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0100"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0130"
+      },
+      "power_categories": [
+        {
+          "name": "Standard",
+          "max_watts": 100
+        }
+      ],
+      "source_note": "ncccsprint.com/ft4ns.html: 'FT4 NS practices will be held on each Thursday afternoon-evening'; 'start time is 0100 UTC - 45 minutes BEFORE the regular RTTY NS begins'; 'Maximum operating time = 30 minutes (i.e., 0100-0130 UTC)'. 'Maximum power is 100 watts.'",
+      "summary": "Weekly 30-minute FT4 sprint, first of the three NCCC sessions each Thursday evening NA time."
+    },
+    {
+      "id": "4sqrp-sss",
+      "name": "4 States QRP Group Second Sunday Sprint (SSS)",
+      "sponsor": "4 States QRP Group",
+      "country": "US",
+      "rules_url": "https://www.4sqrp.com/SSS/sss_rules_revised_02_2026.pdf",
+      "sponsor_home": "https://www.4sqrp.com/",
+      "modes": [
+        "CW",
+        "SSB",
+        "DIGITAL"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + state/province/country + 4SQRP member number (power if non-member)",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 1,
+        "time": "0100"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0300"
+      },
+      "local_time": true,
+      "power_categories": [
+        {
+          "name": "CW / Digital",
+          "max_watts": 5
+        },
+        {
+          "name": "SSB",
+          "max_watts": 10
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "source_note": "4sqrp.com SSS rules (revised 02/2026), TIME/DATE: 'The SSS is held the second Sunday night of every month (local time). It runs for two (2) hours from 7 PM until 9 PM central time (CST or CDT, whichever is in effect at the time). If you use UTC, that time changes when we switch from CST to CDT (or vice versa).' Power: 'CW & Digital: 5 Watts or less; SSB: 10 Watts PEP or less.'",
+      "note": "LOCAL-TIME CONTEST. The anchor is the second SUNDAY, but the sprint runs into Monday UTC. Stored UTC is the CST rendering, 0100-0300 UTC Monday. Under CDT the sponsor states the UTC time shifts an hour earlier, to 0000-0200 UTC Monday -- the sponsor says so explicitly. Resolve per-season when the local-time engine gap is closed.",
+      "summary": "Monthly two-hour QRP sprint on the second Sunday evening US Central time. CW, SSB and digital all count; the CW/SSB power limits differ, so operators switching modes must change power.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "4SQRP rules: 'Anyone can participate'. Non-member QSOs count for one point provided the non-member is also running QRP power."
+      }
     }
   ]
 }
