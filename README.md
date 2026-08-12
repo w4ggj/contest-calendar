@@ -69,8 +69,11 @@ The engine is proved against two unrelated sponsors on two continents:
 - **RSGB** — "the contest always takes place over the last FULL weekend of July"
   generates IOTA at Jul 25–26 1200Z, matching RSGB's published 2026 dates
 
+Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor's own
+published 2026 schedule.
+
 ```
-42 passed
+52 passed
 ```
 
 ---
@@ -111,6 +114,7 @@ scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
 tests/                       42 tests
 BUILD_BRIEF.md               full architecture and phased plan
+HANDOVER.md                  start here if you're picking this up
 ```
 
 ## Rule types
@@ -124,9 +128,10 @@ BUILD_BRIEF.md               full architecture and phased plan
 | `weekly` | weekly tests | CWops CWT = every Wednesday |
 | `multi_weekend` | several sessions/yr | Stew Perry Topband |
 | `manual` | sponsor sets annually | ARRL EME (lunar conditions) |
+| `composite` | seasons with different rules | NAQP RTTY (last-Sat-Feb + 3rd-wknd-Jul) |
 
-Weekly and monthly types matter most for coverage: **35 definitions currently produce
-201 occurrences**, because CWT alone is ~156. Encoding ~20 high-frequency club contests
+Weekly and monthly types matter most for coverage: **41 definitions currently produce
+386 occurrences**, because CWT alone is 208. Encoding ~20 high-frequency club contests
 fills hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
 
@@ -149,13 +154,16 @@ advice, not a filter.
 
 ## Status
 
-35 contest definitions → 201 occurrences for 2026. 22 verified at source. All eligibility
-tags except RSGB IOTA are inferred and **must be confirmed against sponsor rules before
-the filter ships** — wrongly hiding a contest someone could have entered is this
-product's worst failure mode.
+**41 contest definitions → 386 occurrences for 2026. 26 verified at source.**
 
-Next: Tier 4 high-frequency clubs (CWops, SKCC, NCJ, ARS, 4SQRP, K1USN). See
-`BUILD_BRIEF.md`.
+Two corrections surfaced during verification, both now pinned by tests:
+
+- **CWT had three sessions encoded; there are four.** The Thursday 0700Z session was
+  missing, silently dropping ~52 sessions a year.
+- **"Last Saturday" ≠ "last full weekend".** NAQP RTTY starts the last Saturday in
+  February — Feb 28 in 2026, whose Sunday falls in March. Required a `composite` rule type.
+
+Next: finish Tier 4 clubs, then resolve the 8 CQ records. See `HANDOVER.md`.
 
 ## License
 

@@ -1049,7 +1049,7 @@
         "time": "0300"
       },
       "verified": false,
-      "note": "Monthly QRP sprint, first Monday evening US = Tuesday UTC. CONFIRM exact UTC anchor with sponsor.",
+      "note": "Monthly QRP sprint, first Monday evening US local = Tuesday UTC. STILL UNVERIFIED -- adventureradio.us was not reachable during research. Confirm anchor and UTC times.",
       "source_note": "rule type demonstration -- needs sponsor verification",
       "eligibility": {
         "scope": "worldwide",
@@ -1064,7 +1064,7 @@
       "modes": [
         "CW"
       ],
-      "exchange": "Name + CWops number (or state/province/country)",
+      "exchange": "Members: name + CWops number. Non-members: name + state/province/DX prefix.",
       "recurrence": {
         "type": "weekly",
         "weekday": 2
@@ -1099,6 +1099,16 @@
             "day_offset": 1,
             "time": "0400"
           }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "0700"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0800"
+          }
         }
       ],
       "start": {
@@ -1109,13 +1119,29 @@
         "day_offset": 0,
         "time": "1400"
       },
-      "verified": false,
-      "note": "Three one-hour sessions every Wednesday. CONFIRM session times with CWops.",
-      "source_note": "rule type demonstration -- needs sponsor verification",
+      "verified": true,
+      "note": "",
+      "source_note": "cwops.org: 'four one-hour QSO party-type tests on Wednesday 1300Z and 1900Z, Thursday 0300Z and 0700Z'. CORRECTION: earlier stub had only three sessions, omitting Thursday 0700Z.",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
-      }
+        "verified": true
+      },
+      "rules_url": "https://cwops.org/cwops-tests/",
+      "sponsor_home": "https://cwops.org/",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "30m",
+        "20m",
+        "17m",
+        "15m",
+        "12m",
+        "10m",
+        "6m"
+      ],
+      "rules_url_checked": "2026-08-11",
+      "summary": "Weekly one-hour high-speed CW sprints, typically 25-40+ wpm. Four sessions per week give worldwide coverage across all time zones."
     },
     {
       "id": "rsgb-afs-cw",
@@ -1129,8 +1155,7 @@
         "80m",
         "40m"
       ],
-      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rafscw.shtml",
-      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rafscw.shtml",
+      "rules_url": "https://www.rsgbcc.org/hf/",
       "recurrence": {
         "type": "nth_weekday",
         "month": 1,
@@ -1146,7 +1171,7 @@
         "time": "1700"
       },
       "verified": false,
-      "note": "Affiliated Societies Team contest -- UK club teams.",
+      "note": "UNVERIFIED. The guessed per-year rules filename returned 404 -- find the real AFS rules page under rsgbcc.org/hf/ and set rules_url_pattern. Recurrence and eligibility both unconfirmed.",
       "eligibility": {
         "scope": "entity_list",
         "entities": [
@@ -1187,7 +1212,8 @@
         ],
         "verified": false,
         "note": "SARL contests are generally South African entrants only. Confirm."
-      }
+      },
+      "note": "UNVERIFIED. sarl.org.za returned 503 during research (may be transient). Confirm recurrence and whether DX entries are accepted."
     },
     {
       "id": "irts-80m-counties",
@@ -1226,6 +1252,320 @@
         "verified": false,
         "note": "Irish counties contest. Confirm whether DX entries are accepted."
       }
+    },
+    {
+      "id": "k1usn-sst",
+      "name": "K1USN Slow Speed Test (SST)",
+      "sponsor": "K1USN Radio Club",
+      "country": "US",
+      "rules_url": "https://www.k1usn.com/sst_rules.html",
+      "sponsor_home": "https://www.k1usn.com/sst.html",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Name + state/province/DX country",
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 0
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0000"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0100"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 4,
+            "time": "2000"
+          },
+          "end": {
+            "day_offset": 4,
+            "time": "2100"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0100"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "source_note": "k1usn.com/sst.html: 'held twice weekly at 0000Z Mondays and 2000Z Fridays'. Second EU-friendly Friday session added Feb 2021.",
+      "summary": "Weekly one-hour slow-speed CW contest with a 20 wpm upper limit and no lower limit. Designed for new CW operators; friendly greetings encouraged rather than pure rate.",
+      "note": "No formal log submission -- participants post scores to 3830scores.com.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true
+      }
+    },
+    {
+      "id": "skcc-wes",
+      "name": "SKCC Weekend Sprintathon (WES)",
+      "sponsor": "Straight Key Century Club",
+      "country": "INTL",
+      "rules_url": "https://www.skccgroup.com/operating_activities/weekend_sprintathon/",
+      "sponsor_home": "https://www.skccgroup.com/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "exchange": "RST + state/province/country + name + SKCC number (C/T/S suffix for award holders)",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "source_note": "skccgroup.com: 'starts at 1200 UTC on the 2nd Saturday of each month and ends at 2359 UTC on Sunday'. Cross-checked against SKCC's published Sep 12 2026 date.",
+      "summary": "Monthly 36-hour straight-key event. Mechanical keys only -- straight key, sideswiper or bug. WARC bands excluded. Each month carries a bonus-point theme.",
+      "note": "Older sources describe the anchor as 'the Saturday following the 6th', which differs from '2nd Saturday' in some months. SKCC's current page says 2nd Saturday; re-check if dates drift.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true
+      }
+    },
+    {
+      "id": "skcc-sks",
+      "name": "SKCC Straight Key Sprint (SKS)",
+      "sponsor": "Straight Key Century Club",
+      "country": "INTL",
+      "rules_url": "https://www.skccgroup.com/operating_activities/weekday_sprint/",
+      "sponsor_home": "https://www.skccgroup.com/",
+      "modes": [
+        "CW"
+      ],
+      "exchange": "RST + QTH + name + SKCC number",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 4,
+        "weekday": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0200"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "source_note": "skccgroup.com: 'The two-hour Straight Key Sprint (SKS) occurs on the fourth Wednesday of each month starting at 0000 UTC.' Cross-checked against SKCC's published Aug 26 2026 date.",
+      "summary": "Monthly two-hour mechanical-key sprint. Informal by design -- operators are asked to match the other station's speed.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true
+      }
+    },
+    {
+      "sponsor": "National Contest Journal (NCJ)",
+      "country": "US",
+      "rules_url": "https://www.ncjweb.com/NAQP-Rules.pdf",
+      "sponsor_home": "https://ncjweb.com/naqp/",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Name + state/province/country",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "log_format": "Cabrillo",
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "summary": "12-hour low-power North American party, 100 W maximum with no amplifiers. Multipliers count once per band, so moving multipliers between bands is central to strategy. Single ops may operate 10 of the 12 hours.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "NCJ rule 1: any amateur licensee may enter. Object is working North American stations."
+      },
+      "id": "naqp-cw",
+      "name": "North American QSO Party, CW",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "multi_weekend",
+        "weekends": [
+          {
+            "month": 1,
+            "n": 2
+          },
+          {
+            "month": 8,
+            "n": 1
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0559"
+      },
+      "source_note": "NCJ rules: second full weekend in January; first full weekend in August. 1800-0559 UTC. Verified against NCJ's published Jan 10-11 2026 and Aug 1-2 2026."
+    },
+    {
+      "sponsor": "National Contest Journal (NCJ)",
+      "country": "US",
+      "rules_url": "https://www.ncjweb.com/NAQP-Rules.pdf",
+      "sponsor_home": "https://ncjweb.com/naqp/",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Name + state/province/country",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "log_format": "Cabrillo",
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "summary": "12-hour low-power North American party, 100 W maximum with no amplifiers. Multipliers count once per band, so moving multipliers between bands is central to strategy. Single ops may operate 10 of the 12 hours.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "NCJ rule 1: any amateur licensee may enter. Object is working North American stations."
+      },
+      "id": "naqp-ssb",
+      "name": "North American QSO Party, SSB",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "multi_weekend",
+        "weekends": [
+          {
+            "month": 1,
+            "n": 3
+          },
+          {
+            "month": 8,
+            "n": 3
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0559"
+      },
+      "source_note": "NCJ rules: third full weekend in January; third full weekend in August. Verified against NCJ's published Jan 17-18 2026 and Aug 15-16 2026."
+    },
+    {
+      "sponsor": "National Contest Journal (NCJ)",
+      "country": "US",
+      "rules_url": "https://www.ncjweb.com/NAQP-Rules.pdf",
+      "sponsor_home": "https://ncjweb.com/naqp/",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Name + state/province/country",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "log_format": "Cabrillo",
+      "verified": true,
+      "rules_url_checked": "2026-08-11",
+      "summary": "12-hour low-power North American party, 100 W maximum with no amplifiers. Multipliers count once per band, so moving multipliers between bands is central to strategy. Single ops may operate 10 of the 12 hours.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "NCJ rule 1: any amateur licensee may enter. Object is working North American stations."
+      },
+      "id": "naqp-rtty",
+      "name": "North American QSO Party, RTTY",
+      "modes": [
+        "RTTY"
+      ],
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 2,
+            "n": -1,
+            "weekday": 5
+          },
+          {
+            "type": "nth_full_weekend",
+            "month": 7,
+            "n": 3
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0559"
+      },
+      "source_note": "NCJ rules: winter running STARTS ON THE LAST SATURDAY IN FEBRUARY (not the last full weekend -- in 2026 that is Feb 28, whose Sunday falls in March); summer running is the third full weekend in July. Verified against NCJ's published Feb 28 2026 and Jul 18 2026.",
+      "note": "Demonstrates that 'last Saturday' and 'last full weekend' are distinct rules. Same distinction likely resolves the CQ 160 SSB ambiguity."
     }
   ]
 }

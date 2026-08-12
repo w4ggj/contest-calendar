@@ -15,13 +15,14 @@ Usage:
     python check_links.py 2027           # check a future year's resolved URLs
 """
 
+from __future__ import annotations
+
 import sys
 from pathlib import Path
 
 # Allow running directly (python scripts/validate.py) without installing.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from __future__ import annotations
 
 import json
 import sys

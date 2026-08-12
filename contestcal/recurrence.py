@@ -223,6 +223,14 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
             _nth(_full_weekends_in_month(year, spec["month"]), spec["n"])
             for spec in rule["weekends"]
         ]
+    elif kind == "composite":
+        # A contest whose sessions follow DIFFERENT rules. NAQP RTTY is the
+        # motivating case: the winter running starts on the last Saturday in
+        # February, but the summer running is the third full weekend in July.
+        # Those are genuinely different rule types, so nest them.
+        anchors = []
+        for sub in rule["rules"]:
+            anchors.extend(resolve_anchors(sub, year))
     elif kind == "manual":
         # Sponsor sets dates annually with no derivable rule (e.g. ARRL EME).
         anchors = [

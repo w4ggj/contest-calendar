@@ -141,9 +141,10 @@ def test_iota_log_deadline_computed(catalog):
 # ---------------------------------------------------------------------------
 
 def test_weekly_contest_expands_across_year(catalog):
-    """CWops CWT: three sessions every Wednesday -> ~156 occurrences."""
+    """CWops CWT: four sessions per week -> ~208 occurrences. See the Tier 4
+    section below for the session-time detail."""
     occ = expand(by_id(catalog, "cwops-cwt"), 2026)
-    assert 150 <= len(occ) <= 159
+    assert 205 <= len(occ) <= 212
     assert all(o.start.year == 2026 for o in occ)
 
 
@@ -256,3 +257,94 @@ def test_registry_flags_derived_sources():
     derived = {d["name"] for d in reg["known_derived_sources"]}
     assert any("Corral" in n for n in derived)
     assert any("SM3CER" in n for n in derived)
+
+
+# ---------------------------------------------------------------------------
+# Tier 4 sponsor validation -- high-frequency club contests
+# ---------------------------------------------------------------------------
+
+def test_cwt_has_four_weekly_sessions(catalog):
+    """
+    cwops.org: four one-hour tests weekly -- Wed 1300Z/1900Z, Thu 0300Z/0700Z.
+    An earlier stub had only three, silently dropping ~52 sessions a year.
+    """
+    occ = expand(by_id(catalog, "cwops-cwt"), 2026)
+    assert 205 <= len(occ) <= 212
+    first_week = [o for o in occ if o.start.month == 1 and o.start.day <= 8]
+    assert len(first_week) == 4
+    assert sorted(o.start.hour for o in first_week) == [3, 7, 13, 19]
+
+
+def test_sst_runs_monday_and_friday(catalog):
+    """k1usn.com: twice weekly at 0000Z Mondays and 2000Z Fridays."""
+    occ = expand(by_id(catalog, "k1usn-sst"), 2026)
+    assert 100 <= len(occ) <= 106
+    weekdays = {o.start.weekday() for o in occ}
+    assert weekdays == {0, 4}  # Monday and Friday
+
+
+def test_skcc_wes_second_saturday(catalog):
+    """skccgroup.com: 1200 UTC on the 2nd Saturday, ending 2359 UTC Sunday."""
+    occ = expand(by_id(catalog, "skcc-wes"), 2026)
+    assert len(occ) == 12
+    assert all(o.start.weekday() == 5 for o in occ)
+    assert all(8 <= o.start.day <= 14 for o in occ)  # 2nd Saturday window
+    sep = next(o for o in occ if o.start.month == 9)
+    assert sep.start.date() == date(2026, 9, 12)  # SKCC's published date
+
+
+def test_skcc_sks_fourth_wednesday(catalog):
+    """skccgroup.com: fourth Wednesday of each month at 0000 UTC, two hours."""
+    occ = expand(by_id(catalog, "skcc-sks"), 2026)
+    assert len(occ) == 12
+    assert all(o.start.weekday() == 2 for o in occ)
+    aug = next(o for o in occ if o.start.month == 8)
+    assert aug.start.date() == date(2026, 8, 26)  # SKCC's published date
+    assert aug.duration_hours == 2
+
+
+NAQP_2026 = {
+    "naqp-cw": [date(2026, 1, 10), date(2026, 8, 1)],
+    "naqp-ssb": [date(2026, 1, 17), date(2026, 8, 15)],
+    "naqp-rtty": [date(2026, 2, 28), date(2026, 7, 18)],
+}
+
+
+@pytest.mark.parametrize("cid,expected", sorted(NAQP_2026.items()))
+def test_naqp_matches_ncj_published_dates(catalog, cid, expected):
+    occ = expand(by_id(catalog, cid), 2026)
+    assert [o.start.date() for o in occ] == expected
+
+
+def test_naqp_rtty_uses_last_saturday_not_last_full_weekend(catalog):
+    """
+    NCJ: the winter RTTY running starts on the LAST SATURDAY in February. In
+    2026 that is Feb 28, whose Sunday falls in March -- so it is explicitly NOT
+    the last full weekend (Feb 21). Proves the two rules are distinct.
+    """
+    occ = expand(by_id(catalog, "naqp-rtty"), 2026)
+    feb = next(o for o in occ if o.start.month == 2)
+    assert feb.start.date() == date(2026, 2, 28)
+    assert feb.start.date() != date(2026, 2, 21)
+    assert feb.end.month == 3  # spills into March
+
+
+def test_naqp_is_twelve_hours(catalog):
+    for cid in NAQP_2026:
+        for o in expand(by_id(catalog, cid), 2026):
+            assert 11.9 < o.duration_hours < 12.1
+
+
+def test_composite_rule_handles_mixed_subrules():
+    """A composite may mix rule types -- last-weekday plus nth-full-weekend."""
+    anchors = resolve_anchors(
+        {
+            "type": "composite",
+            "rules": [
+                {"type": "nth_weekday", "month": 2, "n": -1, "weekday": 5},
+                {"type": "nth_full_weekend", "month": 7, "n": 3},
+            ],
+        },
+        2026,
+    )
+    assert anchors == [date(2026, 2, 28), date(2026, 7, 18)]
