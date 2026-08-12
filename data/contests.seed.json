@@ -1,0 +1,1231 @@
+{
+  "$comment": "Independent contest compilation built from sponsor-published rules. Each entry carries source provenance. verified=true means the recurrence rule was read directly off the sponsor's own published generic calendar or rules page. verified=false means the rule is believed correct but MUST be confirmed against rules_url before publishing.",
+  "schema_version": "1.0",
+  "generated_from": "sponsor primary sources",
+  "weekday_key": "0=Mon 1=Tue 2=Wed 3=Thu 4=Fri 5=Sat 6=Sun",
+  "contests": [
+    {
+      "id": "arrl-straight-key-night",
+      "name": "ARRL Straight Key Night",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/straight-key-night",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 1,
+        "day": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL generic contest calendar",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-rtty-roundup",
+      "name": "ARRL RTTY Roundup",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/rtty-roundup",
+      "modes": [
+        "RTTY",
+        "Digital"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": 1,
+        "exclude_dates": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: first full weekend of January, but never on January 1",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-january-vhf",
+      "name": "ARRL January VHF Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/january-vhf",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [
+        "VHF+"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0359"
+      },
+      "verified": false,
+      "note": "ARRL states third OR fourth weekend in January -- varies by year. Confirm against current rules annually.",
+      "source_note": "ARRL generic contest calendar (explicitly variable)",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "practical": "VHF+ contest. Scoring depends heavily on local activity and grid density; Florida coverage is thinner than the Northeast."
+      }
+    },
+    {
+      "id": "arrl-dx-cw",
+      "name": "ARRL International DX Contest, CW",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/arrl-dx",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: third full weekend in February",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "two_sided",
+        "sides": {
+          "W/VE": [
+            "K",
+            "VE"
+          ],
+          "DX": [
+            "*"
+          ]
+        },
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-dx-ssb",
+      "name": "ARRL International DX Contest, Phone",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/arrl-dx",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: first full weekend in March",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "two_sided",
+        "sides": {
+          "W/VE": [
+            "K",
+            "VE"
+          ],
+          "DX": [
+            "*"
+          ]
+        },
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-rookie-roundup-ssb",
+      "name": "ARRL Rookie Roundup, SSB",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/rookie-roundup",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: third Sunday, 1800-2359 UTC",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "K",
+          "VE",
+          "XE"
+        ],
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-digital",
+      "name": "ARRL International Digital Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/arrl-digital-contest",
+      "modes": [
+        "Digital"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: first full weekend in June",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-june-vhf",
+      "name": "ARRL June VHF Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/june-vhf",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [
+        "VHF+"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0259"
+      },
+      "verified": true,
+      "source_note": "ARRL: second full weekend in June",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "practical": "June VHF benefits from sporadic-E, historically the best VHF month from Florida."
+      }
+    },
+    {
+      "id": "arrl-kids-day-jun",
+      "name": "ARRL Kids Day (June)",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/kids-day",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: third Saturday in June",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-field-day",
+      "name": "ARRL Field Day",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/field-day",
+      "modes": [
+        "Mixed"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2059"
+      },
+      "verified": true,
+      "source_note": "ARRL: fourth full weekend in June",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "K",
+          "VE"
+        ],
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-iaru-hf",
+      "name": "IARU HF World Championship",
+      "sponsor": "ARRL / IARU",
+      "rules_url": "http://www.arrl.org/iaru-hf-world-championship",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "ARRL: second full weekend of July",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-222-and-up",
+      "name": "ARRL 222 MHz and Up Distance Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/222-mhz-and-up-distance-contest",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [
+        "222MHz+"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": false,
+      "note": "Not listed in ARRL generic calendar. Rule inferred from published 2026 dates -- confirm.",
+      "source_note": "inferred",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "practical": "222 MHz and up. Needs microwave gear and nearby activity."
+      }
+    },
+    {
+      "id": "arrl-10ghz-leg1",
+      "name": "ARRL 10 GHz and Up Contest, Round 1",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/10-ghz-up",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [
+        "10GHz+"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "local_time": true,
+      "verified": true,
+      "source_note": "ARRL: third full weekend of August, 6:00AM local Sat to 11:59pm local Sun",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "practical": "10 GHz+ microwave, rover-oriented. Very small participant pool."
+      }
+    },
+    {
+      "id": "arrl-rookie-roundup-rtty",
+      "name": "ARRL Rookie Roundup, RTTY",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/rookie-roundup",
+      "modes": [
+        "RTTY"
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: third Sunday, 1800-2359 UTC",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "K",
+          "VE",
+          "XE"
+        ],
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-september-vhf",
+      "name": "ARRL September VHF Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/september-vhf",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [
+        "VHF+"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0259"
+      },
+      "verified": true,
+      "source_note": "ARRL: second full weekend of September",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "practical": "VHF+ contest."
+      }
+    },
+    {
+      "id": "arrl-10ghz-leg2",
+      "name": "ARRL 10 GHz and Up Contest, Round 2",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/10-ghz-up",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [
+        "10GHz+"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "local_time": true,
+      "verified": false,
+      "note": "ARRL generic calendar says 'third full weekend of August' for Round 2 -- an obvious typo, since their own 2026 date table shows September. Encoded as September; confirm.",
+      "source_note": "ARRL generic calendar (contains typo)",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "practical": "10 GHz+ microwave, rover-oriented. Very small participant pool."
+      }
+    },
+    {
+      "id": "arrl-sweepstakes-cw",
+      "name": "ARRL November Sweepstakes, CW",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/sweepstakes",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0259"
+      },
+      "verified": true,
+      "source_note": "ARRL: first full weekend in November",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "K",
+          "VE"
+        ],
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-sweepstakes-ssb",
+      "name": "ARRL November Sweepstakes, Phone",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/sweepstakes",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0259"
+      },
+      "verified": true,
+      "source_note": "ARRL: third full weekend in November",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "K",
+          "VE"
+        ],
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-160m",
+      "name": "ARRL 160-Meter Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/160-meter",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 1
+      },
+      "start": {
+        "day_offset": -1,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1559"
+      },
+      "verified": true,
+      "source_note": "ARRL: first full weekend in December, 2200 UTC Friday to 1559 UTC Sunday",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-10m",
+      "name": "ARRL 10-Meter Contest",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/10-meter",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "10m"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: second full weekend in December",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "arrl-rookie-roundup-cw",
+      "name": "ARRL Rookie Roundup, CW",
+      "sponsor": "ARRL",
+      "rules_url": "http://www.arrl.org/rookie-roundup",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 12,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "ARRL: third Sunday, 1800-2359 UTC",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "K",
+          "VE",
+          "XE"
+        ],
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-160-cw",
+      "name": "CQ 160-Meter Contest, CW",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cq160.com/rules.htm",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": -1
+      },
+      "start": {
+        "day_offset": -1,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2200"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-wpx-rtty",
+      "name": "CQ WW RTTY WPX Contest",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cqwpxrtty.com/rules.htm",
+      "modes": [
+        "RTTY"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-160-ssb",
+      "name": "CQ 160-Meter Contest, SSB",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cq160.com/rules.htm",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": -1
+      },
+      "start": {
+        "day_offset": -1,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2200"
+      },
+      "verified": false,
+      "note": "KNOWN EDGE CASE. In 2026 the strict 'last full weekend' reading yields Feb 20-22, but the contest is commonly listed as Feb 27-Mar 1. February's length makes this rule ambiguous. MUST be resolved against CQ's actual rules text before publishing.",
+      "source_note": "unresolved -- see note",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-wpx-ssb",
+      "name": "CQ WW WPX Contest, SSB",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cqwpx.com/rules.htm",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-wpx-cw",
+      "name": "CQ WW WPX Contest, CW",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cqwpx.com/rules.htm",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-ww-rtty",
+      "name": "CQ Worldwide DX Contest, RTTY",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cqwwrtty.com/rules.htm",
+      "modes": [
+        "RTTY"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-ww-ssb",
+      "name": "CQ Worldwide DX Contest, SSB",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cqww.com/rules.htm",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cq-ww-cw",
+      "name": "CQ Worldwide DX Contest, CW",
+      "sponsor": "CQ Magazine",
+      "rules_url": "https://www.cqww.com/rules.htm",
+      "modes": [
+        "CW"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": false,
+      "note": "CONFIRM against sponsor rules before publishing.",
+      "source_note": "widely-published rule, not yet verified at source",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "rsgb-iota",
+      "name": "RSGB IOTA Contest",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "region": "Europe",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/riota.shtml",
+      "log_submit_url": "https://www.rsgbcc.org/cgi-bin/hfenter.pl?Contest=IOTA%20Contest",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + serial; island stations add IOTA reference",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "source_note": "RSGB rules 2026, rule 2: 'the contest always takes place over the last FULL weekend of July'. Verified 2026-08-11.",
+      "summary": "Worldwide contest promoting contacts with stations on IOTA-qualifying islands and encouraging island expeditions. Island stations exchange an IOTA reference; working islands is worth substantially more than working non-island stations.",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/riota.shtml",
+      "rules_url_checked": "2026-08-11",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB rules 4(a): 'The contest is open to all stations world-wide.'"
+      }
+    },
+    {
+      "id": "ars-spartan-sprint",
+      "name": "ARS Spartan Sprint",
+      "sponsor": "Adventure Radio Society",
+      "country": "US",
+      "modes": [
+        "CW"
+      ],
+      "exchange": "RST + state/province/country + power",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 1,
+        "weekday": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0100"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0300"
+      },
+      "verified": false,
+      "note": "Monthly QRP sprint, first Monday evening US = Tuesday UTC. CONFIRM exact UTC anchor with sponsor.",
+      "source_note": "rule type demonstration -- needs sponsor verification",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "cwops-cwt",
+      "name": "CWops Test (CWT)",
+      "sponsor": "CWops",
+      "country": "INTL",
+      "modes": [
+        "CW"
+      ],
+      "exchange": "Name + CWops number (or state/province/country)",
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 2
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1300"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1900"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "2000"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "0300"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0400"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "verified": false,
+      "note": "Three one-hour sessions every Wednesday. CONFIRM session times with CWops.",
+      "source_note": "rule type demonstration -- needs sponsor verification",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false
+      }
+    },
+    {
+      "id": "rsgb-afs-cw",
+      "name": "RSGB AFS Contest, CW",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rafscw.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rafscw.shtml",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "verified": false,
+      "note": "Affiliated Societies Team contest -- UK club teams.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "G"
+        ],
+        "verified": false,
+        "note": "RSGB AFS is a UK affiliated-society team event. Confirm entrant clause."
+      }
+    },
+    {
+      "id": "sarl-hf-phone",
+      "name": "SARL HF Phone Contest",
+      "sponsor": "SARL",
+      "country": "ZS",
+      "modes": [
+        "SSB"
+      ],
+      "rules_url": "https://www.sarl.org.za/",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "verified": false,
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS"
+        ],
+        "verified": false,
+        "note": "SARL contests are generally South African entrants only. Confirm."
+      }
+    },
+    {
+      "id": "irts-80m-counties",
+      "name": "IRTS 80m Counties Contest",
+      "sponsor": "IRTS",
+      "country": "EI",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "rules_url": "https://www.irts.ie/",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": false,
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "EI",
+          "GI"
+        ],
+        "verified": false,
+        "note": "Irish counties contest. Confirm whether DX entries are accepted."
+      }
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "$comment": "Global sourcing registry for independent contest catalog construction. Every contest in the catalog must trace to a sponsor on this list. Organizations are grouped by tier: work top-down. URLs marked verified:true were confirmed during research; the rest are the organization's known primary domain and should be confirmed on first use.",
+  "schema_version": "1.0",
+  "sourcing_rule": "NEVER populate a contest record from an aggregator. Only from the sponsoring organization's own published rules. If the sponsor's page cannot be found, the record stays unverified and does not ship.",
+  "known_derived_sources": [
+    {
+      "name": "ARRL Contest Corral (monthly PDF)",
+      "url": "http://www.arrl.org/contest-calendar",
+      "status": "DO NOT USE AS SOURCE",
+      "reason": "ARRL states the Corral is generated from data maintained on the WA7BNM Contest Calendar and extracted for QST. It is downstream of contestcalendar.com, not an independent compilation."
+    },
+    {
+      "name": "SM3CER Contest Service",
+      "url": "http://www.sk3bg.se/contest",
+      "status": "DO NOT USE AS SOURCE",
+      "reason": "Third-party aggregator republishing sponsors' rules. Use it to FIND a sponsor's own site if needed, then source from the sponsor directly."
+    },
+    {
+      "name": "DXZone / hamradioworld / club news posts",
+      "status": "DO NOT USE AS SOURCE",
+      "reason": "Downstream aggregators. Useful only for locating a sponsor's primary domain."
+    }
+  ],
+
+  "tier_1_major_international": [
+    { "org": "ARRL", "country": "US", "url": "http://www.arrl.org/contest-calendar", "verified": true, "contests": 21, "notes": "Publishes a generic recurrence calendar in plain language. Fully mined -- see contests.seed.json." },
+    { "org": "CQ Magazine", "country": "US", "url": "https://www.cqww.com/rules.htm", "verified": false, "contests": 8, "notes": "CQ WW SSB/CW/RTTY, WPX SSB/CW/RTTY, CQ 160 CW/SSB. Separate domains per contest: cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com." },
+    { "org": "RSGB Contest Committee", "country": "GB", "url": "https://www.rsgbcc.org/hf/", "verified": true, "contests": 25, "notes": "Excellent source. Per-year rules at rsgbcc.org/hf/rules/YYYY/. States recurrence in words. Separate VHF pages at /vhf/. IOTA confirmed and encoded." },
+    { "org": "DARC", "country": "DE", "url": "https://www.darc.de/der-club/referate/conteste/", "verified": false, "contests": 15, "notes": "WAE DX (CW/SSB/RTTY), WAG, DARC 10m, Christmas Contest, FT4, RTTY Sprint." },
+    { "org": "JARL", "country": "JP", "url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/2016AA_rule.htm", "verified": false, "contests": 6, "notes": "All Asian DX (CW/Phone), JARL WW RTTY, ACAG, Field Day. English pages available." },
+    { "org": "IARU", "country": "INTL", "url": "http://www.arrl.org/iaru-hf-world-championship", "verified": true, "contests": 6, "notes": "HF World Championship administered by ARRL. Region 1 contests (Field Day CW/SSB, 50/145 MHz, 70 MHz) via iaru-r1.org." },
+    { "org": "WIA", "country": "AU", "url": "https://www.wia.org.au/members/contests/about/", "verified": false, "contests": 5, "notes": "Oceania DX (co-sponsored with NZART), VK Shires, John Moyle Field Day, Remembrance Day." },
+    { "org": "RAC", "country": "CA", "url": "https://www.rac.ca/operating/contesting/", "verified": false, "contests": 3, "notes": "Canada Day Contest, Winter Contest, Canada Winter." }
+  ],
+
+  "tier_2_european_societies": [
+    { "org": "REF", "country": "FR", "url": "https://concours.r-e-f.org/", "verified": false, "contests": 5, "notes": "REF Contest CW/SSB, REF 160m, DDFM 6m." },
+    { "org": "UBA", "country": "BE", "url": "https://www.uba.be/en/hf/contest-rules", "verified": false, "contests": 10, "notes": "UBA DX CW/SSB, PSK63 Prefix, Spring Contest series, ON Contest series." },
+    { "org": "VERON", "country": "NL", "url": "https://www.veron.nl/vereniging/commissies-werkgroepen/traffic-bureau/pacc-contest/", "verified": false, "contests": 2, "notes": "Dutch PACC, PACCdigi." },
+    { "org": "PZK / SP DX Club", "country": "PL", "url": "https://spdxcontest.info/", "verified": false, "contests": 2, "notes": "SP DX Contest, SP DX RTTY." },
+    { "org": "CRK / SARA", "country": "CZ/SK", "url": "https://okomdx.crk.cz/", "verified": false, "contests": 3, "notes": "OK/OM DX CW/SSB, OK DX RTTY." },
+    { "org": "ARI", "country": "IT", "url": "https://www.ari.it/", "verified": false, "contests": 6, "notes": "ARI International DX, ARI 40/80, Marconi Memorial HF, Marconi Club ARI Loano." },
+    { "org": "URE", "country": "ES", "url": "https://concursos.ure.es/en/", "verified": false, "contests": 6, "notes": "His Maj. King of Spain CW/SSB, EA RTTY, EA PSK63, EA-QRP CW." },
+    { "org": "REP", "country": "PT", "url": "https://www.rep.pt/", "verified": false, "contests": 3, "notes": "Portugal Day Contest, Navy Day." },
+    { "org": "USKA", "country": "CH", "url": "https://www.uska.ch/", "verified": false, "contests": 2, "notes": "Helvetia Contest." },
+    { "org": "OEVSV", "country": "AT", "url": "https://www.oevsv.at/", "verified": false, "contests": 2, "notes": "All Austrian 160-Meter Contest." },
+    { "org": "MRASZ", "country": "HU", "url": "https://www.mrasz.hu/", "verified": false, "contests": 4, "notes": "Hungarian DX, Hungarian Straight Key, HA3NS Sprint Memorial, Tisza Cup." },
+    { "org": "BFRA", "country": "BG", "url": "https://www.lzdx.org/", "verified": false, "contests": 2, "notes": "LZ DX Contest, LZ International 6-Meter." },
+    { "org": "FRR", "country": "RO", "url": "https://www.hamradio.ro/", "verified": false, "contests": 4, "notes": "YO DX HF, YO International PSK31, Bucharest Digital, Romanian Diaspora." },
+    { "org": "SRS / YU", "country": "RS", "url": "https://www.yudx.org/", "verified": false, "contests": 2, "notes": "YU DX Contest." },
+    { "org": "HRS", "country": "HR", "url": "https://www.hamradio.hr/", "verified": false, "contests": 1, "notes": "Croatian DX Contest." },
+    { "org": "NRAU", "country": "Nordic", "url": "https://nrau.net/", "verified": false, "contests": 3, "notes": "NRAU-Baltic CW/SSB, NRAU 10m Activity. Also SSA (SE), NRRL (NO), EDR (DK), SRAL (FI) run national contests." },
+    { "org": "LRAL / ERAU / LRMD", "country": "Baltics", "url": "https://www.lral.lv/", "verified": false, "contests": 3, "notes": "Baltic Contest, ES Open HF Championship (Estonia)." },
+    { "org": "SRR", "country": "RU", "url": "https://www.rdxc.org/", "verified": false, "contests": 8, "notes": "Russian DX Contest, RAEM, Russian 160m, Russian WW series, RCC Cup." },
+    { "org": "UARL", "country": "UA", "url": "https://www.uarl.org.ua/", "verified": false, "contests": 4, "notes": "Ukrainian DX, Open Ukraine RTTY, UDXC Classic RTTY." }
+  ],
+
+  "tier_3_other_regions": [
+    { "org": "SARL", "country": "ZA", "url": "https://www.sarl.org.za/", "verified": false, "contests": 10, "notes": "SARL HF Phone/CW/Digital, 80m QSO Party, VHF/UHF FM, Field Day, Hamnet." },
+    { "org": "NZART", "country": "NZ", "url": "https://www.nzart.org.nz/contests/", "verified": false, "contests": 4, "notes": "Sangster Shield, Memorial Contest, Trans-Tasman (with WIA)." },
+    { "org": "ORARI", "country": "ID", "url": "https://orari.or.id/", "verified": false, "contests": 8, "notes": "Large family of YB contests: YB DX, YB DX RTTY, YB ORARI DX, YBDXPI FT8, regional Indonesian contests." },
+    { "org": "LABRE", "country": "BR", "url": "https://www.labre.org.br/", "verified": false, "contests": 4, "notes": "LABRE DX, CVA DX CW/SSB, South America 10 Meter." },
+    { "org": "GACW", "country": "AR", "url": "https://www.gacw.org/", "verified": false, "contests": 2, "notes": "GACW WWSA CW DX Contest." },
+    { "org": "FMRE", "country": "MX", "url": "https://www.fmre.mx/", "verified": false, "contests": 2, "notes": "Mexico RTTY International." },
+    { "org": "TRAC", "country": "TR", "url": "https://www.trac.org.tr/", "verified": false, "contests": 3, "notes": "TRC DX, TRC Digi, TA VHF/UHF, Turkey HF." },
+    { "org": "IARC", "country": "IL", "url": "https://www.iarc.org/", "verified": false, "contests": 1, "notes": "World Wide Holyland Contest." },
+    { "org": "CRSA", "country": "CN", "url": "https://www.crac.org.cn/", "verified": false, "contests": 2, "notes": "Worked All Provinces of China DX Contest." },
+    { "org": "ARSI", "country": "IN", "url": "https://www.arsi.info/", "verified": false, "contests": 1, "notes": "ARSI VU DX Contest." }
+  ],
+
+  "tier_4_specialty_clubs": [
+    { "org": "SKCC", "url": "https://www.skccgroup.com/", "verified": false, "contests": 5, "notes": "Weekend Sprintathon, SKCC Sprint, QSO Party, Sprint Europe. High-frequency recurring -- monthly rules." },
+    { "org": "CWops", "url": "https://cwops.org/", "verified": false, "contests": 3, "notes": "CWT (weekly!), CW Open. Weekly contests need a distinct recurrence type -- see note below." },
+    { "org": "AGCW", "url": "https://www.agcw.de/", "verified": false, "contests": 10, "notes": "Happy New Year, QRP, VHF/UHF, Straight Key Party, YL-CW, Semi-Automatic Key Evening." },
+    { "org": "QRP ARCI", "url": "https://www.qrparci.org/", "verified": false, "contests": 8, "notes": "Spring/Fall QSO Party, Hootowl, Topband, Holiday Spirits, Summer Homebrew." },
+    { "org": "PODXS 070 Club", "url": "https://www.podxs070.com/", "verified": false, "contests": 10, "notes": "PSKFest, Valentine, St Patrick's, Firecracker, Great Pumpkin, Triple Play, Jay Hudak Memorial." },
+    { "org": "10-10 International", "url": "https://www.ten-ten.org/", "verified": false, "contests": 4, "notes": "Winter/Summer/Fall contests, 10-10 Day Sprint." },
+    { "org": "BARTG", "url": "https://bartg.org.uk/", "verified": false, "contests": 4, "notes": "HF RTTY, RTTY Sprint, Sprint 75, Sprint PSK63." },
+    { "org": "SARTG", "url": "https://www.sartg.com/", "verified": false, "contests": 2, "notes": "WW RTTY, New Year RTTY." },
+    { "org": "FISTS", "url": "https://fists.org/", "verified": false, "contests": 4, "notes": "" },
+    { "org": "NCJ (National Contest Journal)", "url": "https://ncjweb.com/", "verified": false, "contests": 8, "notes": "North American QSO Party CW/SSB/RTTY, North American Sprint CW/SSB/RTTY, NCCC Sprint." },
+    { "org": "4 States QRP Group", "url": "https://www.4sqrp.com/", "verified": false, "contests": 1, "notes": "Second Sunday Sprint -- monthly." },
+    { "org": "ARS (Adventure Radio Society)", "url": "https://arsqrp.blogspot.com/", "verified": false, "contests": 2, "notes": "Spartan Sprint (monthly), Flight of the Bumblebees." },
+    { "org": "Stew Perry / Boring Amateur Radio Club", "url": "https://www.kkn.net/stew/", "verified": false, "contests": 1, "notes": "Topband Challenge -- runs multiple times per year." }
+  ],
+
+  "tier_5_qso_parties": {
+    "notes": "Roughly 45 US state QSO parties plus Canadian provincial parties. Each has its own sponsoring club and site. The State QSO Party Challenge (stateqsoparty.com) indexes them but is itself an aggregator -- use it only to locate sponsors, then source from each sponsor directly. Florida QSO Party is local priority for GCCC.",
+    "index_for_discovery_only": "https://www.stateqsoparty.com/",
+    "local_priority": [
+      { "org": "Florida QSO Party", "url": "https://www.floridaqsoparty.org/", "verified": false },
+      { "org": "Georgia QSO Party", "url": "https://www.georgiaqsoparty.org/", "verified": false },
+      { "org": "Alabama QSO Party", "url": "https://www.alabamaqsoparty.org/", "verified": false },
+      { "org": "South Carolina QSO Party", "url": "https://www.scqso.com/", "verified": false },
+      { "org": "North Carolina QSO Party", "url": "https://www.ncqsoparty.org/", "verified": false },
+      { "org": "Tennessee QSO Party", "url": "https://www.tnqp.org/", "verified": false }
+    ]
+  },
+
+  "engine_gaps": [
+    {
+      "gap": "Weekly and monthly recurrence",
+      "detail": "CWops CWT runs weekly; SKCC Sprint, ARS Spartan Sprint, 4SQRP Second Sunday Sprint and NCCC Sprint run monthly. The current engine produces at most one occurrence per contest per year.",
+      "fix": "Add rule types 'weekly' {weekday, times[]} and 'monthly_nth_weekday' {n, weekday}, and change expand() to return a LIST of occurrences rather than a single one. This materially increases catalog coverage -- these high-frequency contests are a large share of WA7BNM's ~500 entries."
+    },
+    {
+      "gap": "Multi-leg contests",
+      "detail": "ARRL 10 GHz has two rounds; Stew Perry runs three or four times a year; EME has multiple weekends.",
+      "fix": "Currently handled by separate records per leg, which works but duplicates metadata. Consider a 'legs' array on one record."
+    },
+    {
+      "gap": "Sponsor-determined dates",
+      "detail": "ARRL EME dates are set annually based on lunar conditions and have no fixed rule.",
+      "fix": "Add rule type 'manual' with an explicit date table, flagged in the UI as 'confirm with sponsor'."
+    },
+    {
+      "gap": "Local-time contests",
+      "detail": "ARRL 10 GHz runs on local time, not UTC. Flagged via local_time:true but not yet resolved per timezone.",
+      "fix": "Render local-time contests as a per-timezone offset at display time rather than storing a fixed UTC instant."
+    }
+  ],
+
+  "estimated_scope": {
+    "tier_1": { "contests": 89, "hours": 8 },
+    "tier_2": { "contests": 72, "hours": 12 },
+    "tier_3": { "contests": 37, "hours": 8 },
+    "tier_4": { "contests": 62, "hours": 10 },
+    "tier_5": { "contests": 50, "hours": 12 },
+    "total_contests": 310,
+    "total_hours": 50,
+    "note": "Reaching WA7BNM's ~500 requires the long tail of small regional and weekly events, which is where the remaining effort compounds. 310 well-sourced contests covers essentially everything an active contester would ever enter."
+  }
+}

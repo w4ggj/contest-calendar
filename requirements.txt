@@ -1,0 +1,6 @@
+# Runtime has no third-party dependencies -- stdlib only, by design.
+# The engine is pure date math; keeping it dependency-free makes the
+# TypeScript port straightforward.
+
+# Development only:
+pytest>=8.0

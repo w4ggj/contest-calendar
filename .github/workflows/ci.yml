@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Monthly sponsor link check -- society sites rot and we want to know first.
+    - cron: "0 9 1 * *"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Run test suite
+        run: pytest -q
+      - name: Validate against sponsor date tables
+        run: python scripts/validate.py
+
+  links:
+    runs-on: ubuntu-latest
+    # Link rot is a data-quality bug, but a flaky society server should not
+    # fail the whole build -- report without blocking.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check sponsor rules links
+        run: python scripts/check_links.py
