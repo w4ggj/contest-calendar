@@ -18,6 +18,10 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-11 | 4 States QRP Group | 4sqrp.com/SSS/sss_rules_revised_02_2026.pdf | 1 | "The SSS is held the second Sunday night of every month (local time). It runs for two (2) hours from 7 PM until 9 PM central time (CST or CDT, whichever is in effect at the time)." Eligibility: "Anyone can participate" |
 | 2026-08-12 | PODXS 070 Club | podxs070.com/o7o-club-sponsored-contests + /contest-calendar | 10 | Rules pages state each recurrence in words — "1st Saturday following January 1st", "Valentines Day, Feb 14th", "3rd Saturday in March", "First Saturday in April", "First Weekend ending in June", "1st Saturday after July 1st", "1st Saturday in September", "2nd Saturday in October", "2nd Saturday in November to the Following Monday", "2nd Saturday in December to the Following Monday". The club's calendar page repeats each rule **and publishes a projected date table for 2026–2035** — 100 dates, all reproduced by the engine. |
 | 2026-08-12 | AGCW-DL | agcw.de/contest/{hnyc,qrp,htp,dtc,qrp-qrp,sta,vhf-uhf,yl-cw-party,tzap} | 10 | "Immer am 1. Januar eines jeden Jahres von 09:00-12:00 UTC"; "Jährlich am 2. Samstag im März von 1400 bis 2000 UTC"; HTP "am ersten Samstag im Februar" / "am ersten Samstag im September"; DTC "stets am Tag der Deutschen Einheit (3. Oktober)"; "Jährlich am 1. Mai von 1300 bis 1900 UTC"; STA "Jeden dritten Mittwoch im Februar und jeden dritten Mittwoch im Oktober"; VHF/UHF "1. Januar, 3. Samstag im März, 2. Samstag im Juni, 4. Samstag im September"; YL "Am ersten Dienstag im März"; ZMC "jeden Montag". AGCW's own "nächster Termin" dates (7 Feb 2026, 5 Sep 2026, 21 Okt 2026, 3 Mär 2026) all reproduced by the engine. |
+| 2026-08-12 | BARTG | bartg.org.uk rules PDFs + contest pages | 4 | "The contest runs on the third full weekend of March from 0200 UTC on Saturday until 0159 UTC on the Monday"; "the fourth full weekend of January from 1200 UTC on the Saturday to 1159 UTC on the Sunday"; "the fourth Sunday of April from 1700 UTC until 2059 UTC"; "the third Sunday of September from 1700 UTC until 2059 UTC". Each cross-checked against BARTG's own six-year published schedules. |
+| 2026-08-12 | SARTG | sartg.com/contest/{wwrules,nyrules}.htm | 2 | WW RTTY: "Third full weekend in August", "15 - 16 August 2026", "Three (3) separate periods: 0000-0800 UTC Saturday / 1600-2400 UTC Saturday / 0800-1600 UTC Sunday". New Year: "January 1st", "0800 - 1100 UTC" |
+| 2026-08-12 | 10-10 International Net | ten-ten.org QSO Party Rules 5.2 + QSO Party Schedule | 3 | "Winter Phone – held on the first full weekend in February – 0001 UTC Saturday through 2359 UTC Sunday"; "Summer Phone – held on the first full weekend in August"; "Sprint – a 24 hour event held on October 10th (10-10)". Schedule page independently gives Feb 7–8, Aug 1–2, Oct 10 for 2026. |
+| 2026-08-12 | FISTS CW Club (Americas) | fistsna.org/operating.php | 8 | "Winter SATURDAY SPRINT --- Second Saturday in February", "Winter SUNDAY SPRINT --- Third Sunday in February", and likewise for May, August and November. "All Sprint times are 0000 to 2359 UTC." **Suspended from 2026** — see corrections. |
 | 2026-08-11 | Adventure Radio Society | ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html | 1 | "Held on the first Monday of every month"; "EASTERN 8:00 p.m. to 10:00 p.m. Local"; "(Does not shift for DST — This event is always at these Local Times)"; "open to all QRP CW operators — there is no membership requirement" |
 
 ## Corrections found during verification
@@ -60,6 +64,26 @@ when you verify it, so the catalog stays auditable as it grows.
   trophy for combined Handtastenparty scores. No record created. The tenth AGCW record
   is instead the 40 m Handtastenparty, which shares a rules page with the 80 m running
   but is a separate contest on a separate date.
+- **FISTS sprints are suspended from 2026.** fistsna.org states plainly: "Sprints will NOT
+  continue in 2026 due to a lack of sufficiant participation." All eight sprints are
+  recorded with their verified rules and `active_until: 2025`, so they appear for 2025 and
+  earlier and generate nothing from 2026. A test pins both halves of that. Delete
+  `active_until` if FISTS restarts the series. Note also that fists.org is only a portal —
+  the sponsoring bodies are the regional chapters (fistsna.org for the Americas,
+  fists.co.uk for the UK), so the registry's single "FISTS" entry is too coarse.
+- **FISTS Friday and the two FISTS memorial events are not contests.** FISTS Friday's own
+  rules say "This is not a contest. All that is required is for one QSO to be made." The
+  G3ZQS and Nancy Kott memorial events are operating activities on all bands with no
+  exchange or scoring. No records created.
+- **NCCC and 10-10 both restrict logs, not entry.** 10-10 rule 5.2.1 lets anyone operate
+  but accepts logs only from members; FISTS requires a member on one end of each QSO;
+  AGCW's DTC requires a German station on one end. All three are recorded in
+  `eligibility.practical`, not as `can_enter: false` — hiding a contest someone can work
+  is the failure mode this project cares most about avoiding.
+- **10-10 now runs three QSO Parties, not four.** The registry lists Winter/Summer/Fall
+  plus the 10-10 Day Sprint. Rule 5.2.2 says "There are currently three QSO Parties held
+  throughout the calendar year" and names Winter Phone, Summer Phone and the Sprint. No
+  Fall party record was created.
 - **Two more local-time contests found.** 4SQRP SSS and ARS Spartan Sprint both publish
   US local times only. 4SQRP says outright that the UTC time moves with CST/CDT; ARS says
   the event "does not shift for DST", which has the same consequence. Both are flagged

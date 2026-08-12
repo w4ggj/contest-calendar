@@ -739,6 +739,179 @@ def test_agcw_zap_merit_is_flagged_unverified_for_its_missing_end_time(catalog):
     assert {o.start.weekday() for o in occ} == {0}  # Monday
 
 
+# ---------------------------------------------------------------------------
+# Sponsor validation -- BARTG, SARTG, 10-10 International, FISTS
+# ---------------------------------------------------------------------------
+
+BARTG_PUBLISHED = {
+    # BARTG states the rule in its rules PDF and the dates on its web page.
+    "bartg-hf-rtty": (
+        "third full weekend of March",
+        [(2027, 3, 20), (2028, 3, 18), (2029, 3, 17),
+         (2030, 3, 16), (2031, 3, 15), (2032, 3, 20)],
+    ),
+    "bartg-sprint": (
+        "fourth full weekend of January",
+        [(2027, 1, 23), (2028, 1, 22), (2029, 1, 27),
+         (2030, 1, 26), (2031, 1, 25), (2032, 1, 24)],
+    ),
+    "bartg-sprint75": (
+        "fourth Sunday of April",
+        [(2027, 4, 25), (2028, 4, 23), (2029, 4, 22),
+         (2030, 4, 28), (2031, 4, 27), (2032, 4, 25)],
+    ),
+    "bartg-sprint-psk63": (
+        "third Sunday of September",
+        [(2026, 9, 20), (2027, 9, 19), (2028, 9, 17),
+         (2029, 9, 16), (2030, 9, 15), (2031, 9, 21)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(BARTG_PUBLISHED.items())
+])
+def test_bartg_matches_its_own_published_schedules(catalog, cid, rule, published):
+    """
+    BARTG is unusual in publishing both halves separately: the rules PDF states
+    the recurrence in words, and the contest page lists six years of dates. The
+    rule goes in the catalog; the dates are the check.
+    """
+    c = by_id(catalog, cid)
+    for y, m, day in published:
+        occ = expand(c, y)
+        assert occ, f"{cid} produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
+
+
+def test_bartg_january_sprint_needs_full_weekends_not_saturdays(catalog):
+    """
+    January 2032 has five Saturdays but only four FULL weekends -- Jan 31 2032
+    is a Saturday whose Sunday falls in February. BARTG publishes 24 January
+    2032, the fourth full weekend. A 'fourth Saturday' reading gives the same
+    answer here, but a 'last full weekend' or five-Saturday reading would not,
+    and the distinction is exactly the one this engine exists to get right.
+    """
+    assert len(_saturdays_in_month(2032, 1)) == 5
+    assert len(_full_weekends_in_month(2032, 1)) == 4
+    occ = expand(by_id(catalog, "bartg-sprint"), 2032)[0]
+    assert occ.start.date() == date(2032, 1, 24)
+
+
+def test_bartg_sprint75_is_fourth_sunday_not_last_sunday(catalog):
+    """
+    April 2028 and April 2029 both have five Sundays, and BARTG lists the
+    fourth in each (23rd and 22nd). 'Last Sunday' would give the 30th and 29th.
+    """
+    c = by_id(catalog, "bartg-sprint75")
+    assert expand(c, 2028)[0].start.date() == date(2028, 4, 23)
+    assert expand(c, 2029)[0].start.date() == date(2029, 4, 22)
+
+
+def test_sartg_ww_rtty_runs_three_separate_periods(catalog):
+    """
+    sartg.com: 'Third full weekend in August', '15 - 16 August 2026', and
+    'Three (3) separate periods: 0000 - 0800 UTC Saturday / 1600 - 2400 UTC
+    Saturday / 0800 - 1600 UTC Sunday'. Three eight-hour blocks with real gaps
+    between them, not a continuous 48-hour run.
+    """
+    occ = expand(by_id(catalog, "sartg-ww-rtty"), 2026)
+    assert len(occ) == 3
+    assert occ[0].start.date() == date(2026, 8, 15)  # SARTG's published date
+    assert all(o.duration_hours == 8 for o in occ)
+    # There must be a gap between period 1 and period 2, and between 2 and 3.
+    assert occ[1].start > occ[0].end
+    assert occ[2].start > occ[1].end
+
+
+def test_sartg_ww_second_period_2400_normalises_to_midnight(catalog):
+    """
+    SARTG writes the second period as '1600 - 2400 UTC Saturday'. 2400 is a
+    legitimate way to write end-of-day and must roll into the next date rather
+    than throwing or clamping to 23:00.
+    """
+    second = expand(by_id(catalog, "sartg-ww-rtty"), 2026)[1]
+    assert second.start.hour == 16
+    assert second.end.hour == 0
+    assert second.end.date() == date(2026, 8, 16)
+
+
+TENTEN_2026 = {
+    "tenten-winter-phone": (date(2026, 2, 7), date(2026, 2, 8)),
+    "tenten-summer-phone": (date(2026, 8, 1), date(2026, 8, 2)),
+    "tenten-day-sprint": (date(2026, 10, 10), date(2026, 10, 10)),
+}
+
+
+@pytest.mark.parametrize("cid,expected", sorted(TENTEN_2026.items()))
+def test_tenten_matches_its_published_2026_schedule(catalog, cid, expected):
+    """
+    10-10 rule 5.2.2 states each recurrence in words ('the first full weekend
+    in February', 'the first full weekend in August', 'October 10th'); the
+    club's QSO Party Schedule page independently lists Feb 7-8, Aug 1-2 and
+    Oct 10 for 2026.
+    """
+    occ = expand(by_id(catalog, cid), 2026)[0]
+    assert (occ.start.date(), occ.end.date()) == expected
+
+
+def test_tenten_membership_limits_logs_not_entry(catalog):
+    """
+    10-10 rule 5.2.1: 'QSO Parties are open to all amateurs with operating
+    privileges on the 10 meter band, however, logs will be accepted only from
+    active members'. Anyone may operate; only members are scored. Filtering the
+    contest out for non-members would hide an event they can absolutely work.
+    """
+    e = eligibility_for(by_id(catalog, "tenten-winter-phone"), "K")
+    assert e["can_enter"] is True
+    assert "member" in e["practical"].lower()
+
+
+FISTS_SPRINT_IDS = [
+    "fists-sprint-winter-sat", "fists-sprint-winter-sun",
+    "fists-sprint-spring-sat", "fists-sprint-spring-sun",
+    "fists-sprint-summer-sat", "fists-sprint-summer-sun",
+    "fists-sprint-fall-sat", "fists-sprint-fall-sun",
+]
+
+
+def test_fists_sprints_ran_in_2025_on_their_stated_weekends(catalog):
+    """
+    fistsna.org: Saturday sprints are the second Saturday of Feb/May/Aug/Nov,
+    Sunday sprints the third Sunday of the same months, all 0000-2359 UTC.
+    """
+    for cid in FISTS_SPRINT_IDS:
+        occ = expand(by_id(catalog, cid), 2025)
+        assert len(occ) == 1, cid
+        o = occ[0]
+        assert o.start.month in (2, 5, 8, 11), cid
+        if cid.endswith("-sat"):
+            assert o.start.weekday() == 5 and 8 <= o.start.day <= 14, cid
+        else:
+            assert o.start.weekday() == 6 and 15 <= o.start.day <= 21, cid
+
+
+def test_fists_sprints_generate_nothing_from_2026(catalog):
+    """
+    fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of
+    sufficiant participation.' The records keep the verified rule but must not
+    put dates on a 2026 calendar that the club has said will not happen.
+    """
+    for cid in FISTS_SPRINT_IDS:
+        c = by_id(catalog, cid)
+        assert c.get("active_until") == 2025, cid
+        assert expand(c, 2026) == [], cid
+        assert expand(c, 2030) == [], cid
+
+
+def test_suspended_contests_explain_themselves(catalog):
+    """A record that silently generates nothing is indistinguishable from a
+    broken one. Anything with active_until must say why in its note."""
+    for c in catalog:
+        if c.get("active_until"):
+            assert c.get("note"), f"{c['id']} is time-limited with no note"
+
+
 def test_composite_rule_handles_mixed_subrules():
     """A composite may mix rule types -- last-weekday plus nth-full-weekend."""
     anchors = resolve_anchors(

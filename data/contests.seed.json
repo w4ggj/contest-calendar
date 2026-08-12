@@ -2978,6 +2978,815 @@
         "verified": true,
         "note": "agcw.de: 'Teilnehmen können alle Funkamateure und SWLs.'"
       }
+    },
+    {
+      "sponsor": "BARTG",
+      "country": "GB",
+      "sponsor_home": "https://bartg.org.uk/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "BARTG's rules documents define classes, bands and scoring but state no entrant restriction. Worldwide is the strong reading -- BARTG runs an international RTTY series and logs go to the RSGB robot -- but it is a reading, not a quote."
+      },
+      "id": "bartg-hf-rtty",
+      "name": "BARTG HF RTTY Contest",
+      "modes": [
+        "RTTY"
+      ],
+      "rules_url": "https://bartg.org.uk/bartg-hf-rtty-contest/",
+      "exchange": "RST + message number (3 or 4 figures from 001) + time in UTC",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0200"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0159"
+      },
+      "source_note": "bartg.org.uk HF RTTY rules PDF, PERIOD OF OPERATION: 'The contest runs on the third full weekend of March from 0200 UTC on Saturday until 0159 UTC on the Monday.' Cross-checked against BARTG's own published schedules for 2027-2032 (20 Mar 2027, 18 Mar 2028, 17 Mar 2029, 16 Mar 2030, 15 Mar 2031, 20 Mar 2032).",
+      "summary": "48-hour RTTY contest with the emphasis on accuracy -- the exchange includes the time of the QSO, which is checked. Round two of BARTG's four-contest Single Operator Championship."
+    },
+    {
+      "sponsor": "BARTG",
+      "country": "GB",
+      "sponsor_home": "https://bartg.org.uk/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "BARTG's rules documents define classes, bands and scoring but state no entrant restriction. Worldwide is the strong reading -- BARTG runs an international RTTY series and logs go to the RSGB robot -- but it is a reading, not a quote."
+      },
+      "id": "bartg-sprint",
+      "name": "BARTG January Sprint Contest",
+      "modes": [
+        "RTTY"
+      ],
+      "rules_url": "https://bartg.org.uk/bartg-sprint-contest/",
+      "exchange": "Message number only (3 or 4 figures from 001) -- no RST, to shorten the QSO",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "source_note": "bartg.org.uk Sprint rules PDF, PERIOD OF OPERATION: 'The contest runs on the fourth full weekend of January from 1200 UTC on the Saturday to 1159 UTC on the Sunday.' Cross-checked against BARTG's published schedules for 2027-2032 (23, 22, 27, 26, 25 and 24 January).",
+      "note": "January is the month where 'full weekend' bites hardest: 2032 has five January Saturdays but only four full weekends, and BARTG's own table gives 24 January 2032 -- the fourth full weekend, not the fourth Saturday.",
+      "summary": "24-hour RTTY sprint built for speed -- no RST is sent at all. Round one of the Single Operator Championship."
+    },
+    {
+      "sponsor": "BARTG",
+      "country": "GB",
+      "sponsor_home": "https://bartg.org.uk/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "BARTG's rules documents define classes, bands and scoring but state no entrant restriction. Worldwide is the strong reading -- BARTG runs an international RTTY series and logs go to the RSGB robot -- but it is a reading, not a quote."
+      },
+      "id": "bartg-sprint75",
+      "name": "BARTG Sprint75 Contest",
+      "modes": [
+        "RTTY75"
+      ],
+      "rules_url": "https://bartg.org.uk/bartg-sprint75-contests/",
+      "exchange": "Message number only (3 or 4 figures from 001)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 4,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2059"
+      },
+      "source_note": "bartg.org.uk Sprint75 rules PDF (2026 v1), PERIOD OF OPERATION: 'The contest runs on the fourth Sunday of April from 1700 UTC until 2059 UTC.' Cross-checked against BARTG's published schedules for 2027-2032 (25, 23, 22, 28, 27 and 25 April).",
+      "note": "'Fourth Sunday', not 'last Sunday': 2028 and 2029 both have five April Sundays and BARTG lists the fourth in each. Also note this is 75 baud RTTY, not the usual 45.45 baud.",
+      "summary": "Four-hour 75-baud RTTY sprint. The September running was replaced by the PSK63 Sprint, so only the April event remains."
+    },
+    {
+      "sponsor": "BARTG",
+      "country": "GB",
+      "sponsor_home": "https://bartg.org.uk/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "BARTG's rules documents define classes, bands and scoring but state no entrant restriction. Worldwide is the strong reading -- BARTG runs an international RTTY series and logs go to the RSGB robot -- but it is a reading, not a quote."
+      },
+      "id": "bartg-sprint-psk63",
+      "name": "BARTG Sprint PSK63 Contest",
+      "modes": [
+        "PSK63"
+      ],
+      "rules_url": "https://bartg.org.uk/bartg-sprint-psk63-contest/",
+      "exchange": "Message number only (3 or 4 figures from 001)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2059"
+      },
+      "source_note": "bartg.org.uk PSK63 rules PDF, PERIOD OF OPERATION: 'The contest runs on the third Sunday of September from 1700 UTC until 2059 UTC.' Cross-checked against BARTG's published schedules for 2026-2031 (20, 19, 17, 16, 15 and 21 September).",
+      "summary": "Four-hour PSK63 sprint, round four of BARTG's Single Operator Championship. Replaced the September Sprint75."
+    },
+    {
+      "sponsor": "SARTG (Scandinavian Amateur Radio Teleprinter Group)",
+      "country": "SE",
+      "sponsor_home": "https://www.sartg.com/",
+      "modes": [
+        "RTTY"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "SARTG's rules pages list classes (including SWL) but state no entrant restriction. Worldwide is the strong reading, not a quote."
+      },
+      "id": "sartg-ww-rtty",
+      "name": "SARTG WW RTTY Contest",
+      "rules_url": "https://www.sartg.com/contest/wwrules.htm",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + QSO number starting with 001",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 3
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0000"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0800"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "2400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "0800"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "1600"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "source_note": "sartg.com/contest/wwrules.htm: 'Third full weekend in August', '15 - 16 August 2026'. Contest Periods: 'Three (3) separate periods: 0000 - 0800 UTC Saturday / 1600 - 2400 UTC Saturday / 0800 - 1600 UTC Sunday'.",
+      "note": "Three separate eight-hour periods with gaps between them, not one continuous 48-hour run -- encoded as three sessions off the Saturday anchor. SARTG's own '15 - 16 August 2026' is the independent check on the third-full-weekend rule.",
+      "summary": "Scandinavia's flagship RTTY contest: three eight-hour periods split across a weekend, so operators get enforced rest."
+    },
+    {
+      "sponsor": "SARTG (Scandinavian Amateur Radio Teleprinter Group)",
+      "country": "SE",
+      "sponsor_home": "https://www.sartg.com/",
+      "modes": [
+        "RTTY"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "SARTG's rules pages list classes (including SWL) but state no entrant restriction. Worldwide is the strong reading, not a quote."
+      },
+      "id": "sartg-new-year-rtty",
+      "name": "SARTG New Year RTTY Contest",
+      "rules_url": "https://www.sartg.com/contest/nyrules.htm",
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RST + QSO number starting with 001 + name + 'Happy New Year' in your native language (abbreviations like 'HNY' are not allowed)",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 1,
+        "day": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "source_note": "sartg.com/contest/nyrules.htm: 'January 1st', Contest Period: '0800 - 1100 UTC'. Bands: '80 and 40 m.'",
+      "summary": "Three-hour New Year's Day RTTY contest. The exchange requires a full New Year greeting in the sender's own language -- abbreviating it is against the rules."
+    },
+    {
+      "sponsor": "10-10 International Net",
+      "country": "US",
+      "sponsor_home": "https://www.ten-ten.org/",
+      "bands": [
+        "10m"
+      ],
+      "exchange": "Call sign + name + 10-10 number + QTH (state, province or country). Record 0 if the other station has no 10-10 number.",
+      "rules_url": "https://www.ten-ten.org/index.php/activity/qso-party-rules",
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 10
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 150
+        },
+        {
+          "name": "High Power",
+          "max_watts": null
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Anyone may take part, but only members' logs are scored: 'logs will be accepted only from active members as of the date of the event ... Other logs received will be handled as check logs.'",
+        "note": "10-10 rule 5.2.1: 'QSO Parties are open to all amateurs with operating privileges on the 10 meter band'. The membership requirement bites at log submission, not at participation, so this is a practical constraint rather than an entry bar."
+      },
+      "id": "tenten-winter-phone",
+      "name": "10-10 International Winter QSO Party (Phone)",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0001"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "source_note": "ten-ten.org QSO Party Rules 5.2.2: 'Winter Phone - held on the first full weekend in February - 0001 UTC Saturday through 2359 UTC Sunday.' 10-10's schedule page independently gives 'February 7-8, 2026'.",
+      "note": "The rules give the close as 2359 UTC Sunday; the schedule page says 'close at 2400 UTC on the second listed date'. One minute apart. Encoded as 2359 from the rules document, which is the authoritative text.",
+      "summary": "Weekend phone party confined to 10 metres, scoring double for contacts with 10-10 members."
+    },
+    {
+      "sponsor": "10-10 International Net",
+      "country": "US",
+      "sponsor_home": "https://www.ten-ten.org/",
+      "bands": [
+        "10m"
+      ],
+      "exchange": "Call sign + name + 10-10 number + QTH (state, province or country). Record 0 if the other station has no 10-10 number.",
+      "rules_url": "https://www.ten-ten.org/index.php/activity/qso-party-rules",
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 10
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 150
+        },
+        {
+          "name": "High Power",
+          "max_watts": null
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Anyone may take part, but only members' logs are scored: 'logs will be accepted only from active members as of the date of the event ... Other logs received will be handled as check logs.'",
+        "note": "10-10 rule 5.2.1: 'QSO Parties are open to all amateurs with operating privileges on the 10 meter band'. The membership requirement bites at log submission, not at participation, so this is a practical constraint rather than an entry bar."
+      },
+      "id": "tenten-summer-phone",
+      "name": "10-10 International Summer QSO Party (Phone)",
+      "modes": [
+        "SSB"
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0001"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "source_note": "ten-ten.org QSO Party Rules 5.2.2: 'Summer Phone - held on the first full weekend in August - 0001 UTC Saturday through 2359 UTC Sunday.' 10-10's schedule page independently gives 'August 1-2 2026'.",
+      "summary": "The August running of the 10-metre phone party."
+    },
+    {
+      "sponsor": "10-10 International Net",
+      "country": "US",
+      "sponsor_home": "https://www.ten-ten.org/",
+      "bands": [
+        "10m"
+      ],
+      "exchange": "Call sign + name + 10-10 number + QTH (state, province or country). Record 0 if the other station has no 10-10 number.",
+      "rules_url": "https://www.ten-ten.org/index.php/activity/qso-party-rules",
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 10
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 150
+        },
+        {
+          "name": "High Power",
+          "max_watts": null
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Anyone may take part, but only members' logs are scored: 'logs will be accepted only from active members as of the date of the event ... Other logs received will be handled as check logs.'",
+        "note": "10-10 rule 5.2.1: 'QSO Parties are open to all amateurs with operating privileges on the 10 meter band'. The membership requirement bites at log submission, not at participation, so this is a practical constraint rather than an entry bar."
+      },
+      "id": "tenten-day-sprint",
+      "name": "10-10 International 10-10 Day Sprint",
+      "modes": [
+        "SSB",
+        "CW",
+        "DIGITAL",
+        "RTTY"
+      ],
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 10,
+        "day": 10
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0001"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "source_note": "ten-ten.org QSO Party Rules 5.2.2: 'Sprint - a 24 hour event held on October 10th (10-10) - 0001 UTC through 2359 UTC.' 10-10's schedule page independently gives 'October 10, 2026'.",
+      "note": "All modes, unlike the two phone-only QSO Parties. Chapter scores may not be assigned for the Sprint.",
+      "summary": "24-hour all-mode 10-metre sprint on 10 October, the club's namesake date."
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-winter-sat",
+      "name": "FISTS Winter Saturday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 2,
+        "weekday": 5
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Second Saturday in February'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-winter-sun",
+      "name": "FISTS Winter Sunday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 3,
+        "weekday": 6
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Third Sunday in February'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-spring-sat",
+      "name": "FISTS Spring Saturday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 2,
+        "weekday": 5
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Second Saturday in May'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-spring-sun",
+      "name": "FISTS Spring Sunday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 3,
+        "weekday": 6
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Third Sunday in May'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-summer-sat",
+      "name": "FISTS Summer Saturday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 2,
+        "weekday": 5
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Second Saturday in August'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-summer-sun",
+      "name": "FISTS Summer Sunday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 3,
+        "weekday": 6
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Third Sunday in August'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-fall-sat",
+      "name": "FISTS Fall Saturday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 11,
+        "n": 2,
+        "weekday": 5
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Second Saturday in November'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "sponsor": "FISTS CW Club (Americas Chapter)",
+      "country": "US",
+      "rules_url": "https://www.fistsna.org/operating.php",
+      "sponsor_home": "https://www.fistsna.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: RST + state/province/country + first name + FISTS number. Non-members: RST + state/province/country + first name + power output.",
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "active_until": 2025,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "note": "SUSPENDED FROM 2026. fistsna.org: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.' The recurrence rule below is verified and correct for 2025 and earlier; active_until keeps the record in the catalog without generating dates that will not happen. Remove active_until if FISTS restarts the series.",
+      "summary": "24-hour CW sprint for FISTS members and non-members alike. Speed-matching is encouraged rather than raw rate.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO needs a FISTS member on one end: 'At least one of the two stations in each QSO must be a FISTS member. This means FISTS members can work anyone and Non-FISTS can only work FISTS members.'",
+        "note": "fistsna.org: 'Any properly licensed amateur radio operator, FISTS member or non-member is invited to take part in the event.'"
+      },
+      "id": "fists-sprint-fall-sun",
+      "name": "FISTS Fall Sunday Sprint",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 11,
+        "n": 3,
+        "weekday": 6
+      },
+      "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Third Sunday in November'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
     }
   ]
 }
