@@ -1876,6 +1876,630 @@
         "verified": true,
         "note": "4SQRP rules: 'Anyone can participate'. Non-member QSOs count for one point provided the non-member is also running QRP power."
       }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-pskfest",
+      "name": "PODXS 070 Club PSKfest",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/pskfest",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 1,
+        "weekday": 5,
+        "exclude_dates": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com PSKfest rules, DATE: '0000-2359 UTC On the 1st Saturday following January 1st'. BANDS: '80 thru 10 meters, no WARC bands'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree. The club's table gives 8-Jan-28 and 8-Jan-33 -- both years in which January 1 is itself a Saturday -- confirming 'following January 1st' excludes January 1.",
+      "summary": "The club's flagship 24-hour PSK31 party and the first PSK contest of the year.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "PSKfest's own page states no entrant clause, unlike most other 070 contests. The club's general rules impose no membership requirement and the SPC exchange is open to anyone, so worldwide is the strong reading -- but it is a reading, not a quote."
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-valentine-sprint",
+      "name": "PODXS 070 Club Valentine Sprint",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/valentine-sprint",
+      "bands": [
+        "160m",
+        "80m",
+        "40m"
+      ],
+      "exchange": "'OM' or 'YL' + state/province/country (SPC). Signal reports and 070 numbers not required.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 2,
+        "day": 14
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com Valentine Sprint rules, Date: 'Valentines Day, Feb 14th'; Time: '6 hour block between 0000-2359 UTC'. Bands: '40, 80 and 160 meters only.' Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "note": "The 0000-2359 window is the sprint's outer bound, not its length: 'For scoring, your six hour block will begin with the hour that you select on the scorer page and continue for the next 6 hours.' Maximum operating time is six hours.",
+      "summary": "PSK31 sprint scoring YL contacts double. Operators enter an OM or YL category and pick any six-hour block in the UTC day.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com: 'This event is open to all amateur radio operators licensed to operate on the HF bands.'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-st-patricks",
+      "name": "PODXS 070 Club St. Patrick's Day Contest",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/saint-patrick-s-day-contest",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 3,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com St. Patrick's Day Contest rules, DATE: '3rd Saturday in March: 0000-2359 UTC'. BANDS: '160 thru 6 meters, no WARC bands'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "summary": "24-hour PSK31 party on the third Saturday of March -- not on St Patrick's Day itself.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com: 'the Ø7Ø Club brings you an international 24 hour St. Patrick's Day on-the-air party that is now open to all PSK-31 operators!'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-new-member-jamboree",
+      "name": "PODXS 070 Club New Member Jamboree",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/nmj",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Members: 070 Club number + year joined. Non-members: no required exchange.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com New Member Jamboree rules, Date/Time: 'First Saturday in April 0000 UTC- 2359 UTC'. Bands: '80 thru 10 meters, no WARC bands'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "summary": "24-hour PSK31 event where QSO value rises with how recently the other station joined the club -- newest members are worth the most.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules define a non-member exchange explicitly -- \"Non-members don't have a required exchange, so send anything. Just make the QSO!\" -- and score non-member QSOs, so non-members plainly may enter."
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-tdw",
+      "name": "PODXS 070 Club Three Day Weekend (TDW)",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/three-day-weekend",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "exchange": "Members: 070 Club number. Non-members: 0000 in place of a club number.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": -2,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com TDW rules, Dates: 'First Weekend ending in June'; Time: '0000 UTC Friday - 2359 UTC Sunday'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "note": "'First weekend ENDING in June' is why this anchors on the first SUNDAY of June and counts backwards to the Friday, rather than anchoring on a Friday in June. The club's own table proves the distinction matters: it lists 31-May-30 and 30-May-31, where the contest starts in May.",
+      "summary": "72-hour PSK31 event over the first weekend that ends in June, with bonus stations to hunt.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com: 'This event is open to all amateur radio operators licensed to operate on the HF bands.'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-40m-firecracker",
+      "name": "PODXS 070 Club 40M Firecracker Sprint",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/40m-firecracker-sprint",
+      "bands": [
+        "40m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 1,
+        "weekday": 5,
+        "exclude_dates": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1959"
+      },
+      "source_note": "podxs070.com 40m Firecracker Sprint rules, When: 'Choose any 6 hour block between: 2000 UTC 1st Saturday after July 1st - 1959 UTC 1st Sunday after July 1st'. Who: 'All licensed radio amateurs.' Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree. The table gives 8-Jul-28 and 8-Jul-34, both years where July 1 is a Saturday, confirming 'after July 1st' excludes July 1.",
+      "note": "The 24-hour window is the outer bound; maximum operating time is a six-hour block chosen by the entrant.",
+      "summary": "Single-band 40 m PSK31 sprint over the US Independence Day weekend.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com, Who: 'All licensed radio amateurs. Look for Ø7Ø Club members in the event.'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-jay-hudak-80m",
+      "name": "PODXS 070 Club Jay Hudak Memorial 80M Sprint",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/jay-hudak-memorial-80m-sprint",
+      "bands": [
+        "80m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1959"
+      },
+      "source_note": "podxs070.com Jay Hudak Memorial 80m Sprint rules, When: 'Choose any 6 hour block between: 2000 UTC 1st Saturday in September - 1959 UTC 1st Sunday in September'. Who: 'All licensed radio amateurs.' Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "note": "Six-hour operating limit inside a 24-hour window. Dedicated to Jay Hudak KA3X, 070 #001.",
+      "summary": "Single-band 80 m PSK31 sprint on the first weekend of September.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com, Who: 'All licensed radio amateurs.'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-160m-great-pumpkin",
+      "name": "PODXS 070 Club 160M Great Pumpkin Sprint",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/160m-great-pumpkin-sprint",
+      "bands": [
+        "160m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1959"
+      },
+      "source_note": "podxs070.com 160m Great Pumpkin Sprint rules, DATE: 'Choose any 6 hour block between: 2000 UTC 2nd Saturday in October - 2000 UTC 2nd Sunday in October'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "note": "The rules page writes the close as '2000 UTC' while the club's contest calendar gives 'Ends 1959 UTC 11-Oct-2026'. Encoded as 1959, matching the calendar and the identical wording used for the 40 m and 80 m sprints. One minute; flagged rather than silently reconciled.",
+      "summary": "Single-band 160 m PSK31 sprint on the second weekend of October.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com: 'This event is open to all amateur radio operators licensed to operate on the HF bands.'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-triple-play",
+      "name": "PODXS 070 Club Triple Play Low Band Sprint",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/triple-play-low-band-sprint",
+      "bands": [
+        "160m",
+        "80m",
+        "40m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 11,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com Triple Play rules, DATES: 'Triple Play Sprint: 2nd Saturday in November to the Following Monday'; 'Work a six hr block EACH UTC DATE'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "note": "Three UTC days, one six-hour block per day -- so 18 hours of operating inside a 72-hour window.",
+      "summary": "Three-day PSK31 sprint on 40/80/160 m, one six-hour block per UTC day.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com: 'This event is open to all amateur radio operators licensed to operate on the HF bands.'"
+      }
+    },
+    {
+      "sponsor": "PODXS 070 Club",
+      "country": "US",
+      "sponsor_home": "https://www.podxs070.com/",
+      "modes": [
+        "PSK31"
+      ],
+      "log_format": "ADIF",
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 25
+        },
+        {
+          "name": "Medium Power",
+          "max_watts": 50
+        },
+        {
+          "name": "High Power",
+          "max_watts": 100
+        }
+      ],
+      "id": "podxs-triple-play-doubleheader",
+      "name": "PODXS 070 Club Triple Play Low Band Sprint DOUBLEHEADER",
+      "rules_url": "https://www.podxs070.com/o7o-club-sponsored-contests/triple-play-low-band-sprint",
+      "bands": [
+        "160m",
+        "80m",
+        "40m"
+      ],
+      "exchange": "State/province/country (SPC)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 12,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "2359"
+      },
+      "source_note": "podxs070.com Triple Play rules, DATES: 'DOUBLEHEADER: 2nd Saturday in December to the Following Monday'. Cross-checked against the club's own 'Contest Calendar' page, which states each recurrence rule in words AND publishes a projected date table for 2026-2035. Both agree.",
+      "note": "Second running of the Triple Play format, shares a rules page with the November event.",
+      "summary": "December repeat of the Triple Play low-band PSK31 sprint.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "podxs070.com: 'This event is open to all amateur radio operators licensed to operate on the HF bands.'"
+      }
     }
   ]
 }

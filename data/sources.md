@@ -16,6 +16,7 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-11 | National Contest Journal | ncjweb.com/Sprint-Rules.pdf | 2 | "CW: 0000 until 0359 UTC, February 8, 2026"; "RTTY: 0000 until 0359 UTC, March 15, 2026"; September, "(NOTE CW DATE SHIFT)", CW Sep 13 and RTTY Sep 20. "These four contests are entirely separate 4-hour Sprints." Eligibility: "Any amateur radio licensee may enter." |
 | 2026-08-11 | Northern California Contest Club | ncccsprint.com/rules.html, /rttyns.html, /ft4ns.html | 3 | CW NS: "0230-0300 UTC Fridays (Thursday evening NA time, DST ignored)". RTTY NS: "RTTY NS time is always 0145-0215 UTC" and "practices are held each Thursday afternoon-evening". FT4 NS: "start time is 0100 UTC — 45 minutes BEFORE the regular RTTY NS begins" |
 | 2026-08-11 | 4 States QRP Group | 4sqrp.com/SSS/sss_rules_revised_02_2026.pdf | 1 | "The SSS is held the second Sunday night of every month (local time). It runs for two (2) hours from 7 PM until 9 PM central time (CST or CDT, whichever is in effect at the time)." Eligibility: "Anyone can participate" |
+| 2026-08-12 | PODXS 070 Club | podxs070.com/o7o-club-sponsored-contests + /contest-calendar | 10 | Rules pages state each recurrence in words — "1st Saturday following January 1st", "Valentines Day, Feb 14th", "3rd Saturday in March", "First Saturday in April", "First Weekend ending in June", "1st Saturday after July 1st", "1st Saturday in September", "2nd Saturday in October", "2nd Saturday in November to the Following Monday", "2nd Saturday in December to the Following Monday". The club's calendar page repeats each rule **and publishes a projected date table for 2026–2035** — 100 dates, all reproduced by the engine. |
 | 2026-08-11 | Adventure Radio Society | ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html | 1 | "Held on the first Monday of every month"; "EASTERN 8:00 p.m. to 10:00 p.m. Local"; "(Does not shift for DST — This event is always at these Local Times)"; "open to all QRP CW operators — there is no membership requirement" |
 
 ## Corrections found during verification
@@ -43,6 +44,15 @@ when you verify it, so the catalog stays auditable as it grows.
   2nd Sunday (CW) and 3rd Sunday (RTTY), but that is an observation, not NCJ's rule, so
   both records use the `manual` rule type and generate nothing for years NCJ has not
   published. A test asserts that silence.
+- **"After the 1st" is a third distinct rule.** PODXS PSKfest is the "1st Saturday
+  following January 1st" and the 40 m Firecracker is the "1st Saturday after July 1st" —
+  in years where the 1st is itself a Saturday, both skip a week. The club's own table
+  confirms it (Jan 8 in 2028 and 2033; Jul 8 in 2028 and 2034). This is the same shape as
+  ARRL's RTTY Roundup exclusion and uses the existing `exclude_dates` mechanism. Four of
+  ten years would be wrong under a plain "first Saturday" reading.
+- **"Weekend ending in June" anchors on Sunday, not Friday.** PODXS TDW runs Friday to
+  Sunday over the first weekend *ending* in June, so it opens in May in 2030 and 2031.
+  Encoded by anchoring on June's first Sunday with a −2 day start offset.
 - **Two more local-time contests found.** 4SQRP SSS and ARS Spartan Sprint both publish
   US local times only. 4SQRP says outright that the UTC time moves with CST/CDT; ARS says
   the event "does not shift for DST", which has the same consequence. Both are flagged

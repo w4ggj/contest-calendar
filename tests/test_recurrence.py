@@ -10,7 +10,7 @@ Run:  pytest -q
 """
 
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 import pytest
@@ -484,6 +484,155 @@ def test_local_time_contests_say_so_in_their_note(catalog):
         c = by_id(catalog, cid)
         assert c.get("local_time") is True
         assert "UTC" in c["note"]
+
+
+# ---------------------------------------------------------------------------
+# Sponsor validation -- PODXS 070 Club
+#
+# The 070 Club is the best-documented sponsor found so far: its contest
+# calendar page states each recurrence rule in words AND publishes a projected
+# date table running 2026-2035. The rules go in the catalog; the table is held
+# back as the independent check, which is exactly the shape of evidence this
+# project needs -- one sponsor, two statements, made without reference to us.
+# ---------------------------------------------------------------------------
+
+PODXS_PUBLISHED = {
+    # club's stated rule -> its own projected dates, 2026..2035
+    "podxs-pskfest": (
+        "1st Sat after 1 Jan",
+        ["3-Jan-26", "2-Jan-27", "8-Jan-28", "6-Jan-29", "5-Jan-30",
+         "4-Jan-31", "3-Jan-32", "8-Jan-33", "7-Jan-34", "6-Jan-35"],
+    ),
+    "podxs-valentine-sprint": (
+        "Valentine's Day",
+        ["14-Feb-26", "14-Feb-27", "14-Feb-28", "14-Feb-29", "14-Feb-30",
+         "14-Feb-31", "14-Feb-32", "14-Feb-33", "14-Feb-34", "14-Feb-35"],
+    ),
+    "podxs-st-patricks": (
+        "3rd Sat of March",
+        ["21-Mar-26", "20-Mar-27", "18-Mar-28", "17-Mar-29", "16-Mar-30",
+         "15-Mar-31", "20-Mar-32", "19-Mar-33", "18-Mar-34", "17-Mar-35"],
+    ),
+    "podxs-new-member-jamboree": (
+        "1st Sat in April",
+        ["4-Apr-26", "3-Apr-27", "1-Apr-28", "7-Apr-29", "6-Apr-30",
+         "5-Apr-31", "3-Apr-32", "2-Apr-33", "1-Apr-34", "7-Apr-35"],
+    ),
+    "podxs-tdw": (
+        "1st weekend ending in June",
+        ["5-Jun-26", "4-Jun-27", "2-Jun-28", "1-Jun-29", "31-May-30",
+         "30-May-31", "4-Jun-32", "3-Jun-33", "2-Jun-34", "1-Jun-35"],
+    ),
+    "podxs-40m-firecracker": (
+        "1st Sat after 1 July",
+        ["4-Jul-26", "3-Jul-27", "8-Jul-28", "7-Jul-29", "6-Jul-30",
+         "5-Jul-31", "3-Jul-32", "2-Jul-33", "8-Jul-34", "7-Jul-35"],
+    ),
+    "podxs-jay-hudak-80m": (
+        "1st Sat in Sept",
+        ["5-Sep-26", "4-Sep-27", "2-Sep-28", "1-Sep-29", "7-Sep-30",
+         "6-Sep-31", "4-Sep-32", "3-Sep-33", "2-Sep-34", "1-Sep-35"],
+    ),
+    "podxs-160m-great-pumpkin": (
+        "2nd Sat in Oct",
+        ["10-Oct-26", "9-Oct-27", "14-Oct-28", "13-Oct-29", "12-Oct-30",
+         "11-Oct-31", "9-Oct-32", "8-Oct-33", "14-Oct-34", "13-Oct-35"],
+    ),
+    "podxs-triple-play": (
+        "2nd Sat in Nov",
+        ["14-Nov-26", "13-Nov-27", "11-Nov-28", "10-Nov-29", "9-Nov-30",
+         "8-Nov-31", "13-Nov-32", "12-Nov-33", "11-Nov-34", "10-Nov-35"],
+    ),
+    "podxs-triple-play-doubleheader": (
+        "2nd Sat in Dec",
+        ["12-Dec-26", "11-Dec-27", "9-Dec-28", "8-Dec-29", "14-Dec-30",
+         "13-Dec-31", "11-Dec-32", "10-Dec-33", "9-Dec-34", "8-Dec-35"],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(PODXS_PUBLISHED.items())
+])
+def test_podxs_matches_clubs_own_ten_year_table(catalog, cid, rule, published):
+    """
+    Ten contests x ten years = 100 dates the club published itself. Every one
+    must fall out of the recurrence rule alone.
+    """
+    c = by_id(catalog, cid)
+    for offset, text in enumerate(published):
+        year = 2026 + offset
+        expected = datetime.strptime(text, "%d-%b-%y").date()
+        occ = expand(c, year)
+        assert occ, f"{cid} produced nothing for {year} (rule: {rule})"
+        assert occ[0].start.date() == expected, (
+            f"{cid} {year}: rule '{rule}' gave {occ[0].start.date()}, "
+            f"club published {expected}"
+        )
+
+
+def test_podxs_january_and_july_sprints_skip_the_first_of_the_month(catalog):
+    """
+    '1st Sat AFTER 1 Jan' and '1st Sat AFTER 1 July' exclude the 1st itself.
+    The club's table proves it: 2028 and 2033 open January 1 on a Saturday and
+    the club lists Jan 8 both times; 2028 and 2034 do the same for July.
+    A plain 'first Saturday' rule would be a week early in four of ten years.
+    """
+    for cid, month, years in (
+        ("podxs-pskfest", 1, (2028, 2033)),
+        ("podxs-40m-firecracker", 7, (2028, 2034)),
+    ):
+        c = by_id(catalog, cid)
+        for y in years:
+            assert date(y, month, 1).weekday() == 5, "test premise: 1st is a Saturday"
+            assert expand(c, y)[0].start.day == 8
+
+
+def test_podxs_tdw_can_start_in_may(catalog):
+    """
+    'First weekend ENDING in June' anchors on June's first Sunday and counts
+    back to Friday, so the contest itself can open in May -- the club lists
+    31-May-30 and 30-May-31. An anchor picked from Fridays *in June* would put
+    both a week late.
+    """
+    c = by_id(catalog, "podxs-tdw")
+    for y, expected in ((2030, date(2030, 5, 31)), (2031, date(2031, 5, 30))):
+        occ = expand(c, y)[0]
+        assert occ.start.date() == expected
+        assert occ.start.month == 5 and occ.end.month == 6
+        assert occ.start.weekday() == 4 and occ.end.weekday() == 6  # Fri -> Sun
+
+
+def test_podxs_sprints_have_the_right_window_length(catalog):
+    """
+    Three shapes: 24-hour parties, 24-hour windows opening 2000 UTC, and the
+    72-hour three-day sprints. All are outer windows -- most carry a six-hour
+    operating limit, which is recorded in `note`, not in the timestamps.
+    """
+    hours = {
+        "podxs-pskfest": 24,
+        "podxs-valentine-sprint": 24,
+        "podxs-st-patricks": 24,
+        "podxs-new-member-jamboree": 24,
+        "podxs-40m-firecracker": 24,
+        "podxs-jay-hudak-80m": 24,
+        "podxs-160m-great-pumpkin": 24,
+        "podxs-tdw": 72,
+        "podxs-triple-play": 72,
+        "podxs-triple-play-doubleheader": 72,
+    }
+    for cid, expected in hours.items():
+        occ = expand(by_id(catalog, cid), 2026)[0]
+        assert abs(occ.duration_hours - expected) < 0.02, cid
+
+
+def test_podxs_logs_are_due_seven_days_after(catalog):
+    """070 general rules: 'All contest submissions are due 7 (seven) calendar
+    days after the end of the contest.'"""
+    for cid in PODXS_PUBLISHED:
+        occ = expand(by_id(catalog, cid), 2026)[0]
+        assert occ.log_due is not None, cid
+        assert (occ.log_due - occ.end).days == 7, cid
 
 
 def test_composite_rule_handles_mixed_subrules():
