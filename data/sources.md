@@ -17,6 +17,7 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-11 | Northern California Contest Club | ncccsprint.com/rules.html, /rttyns.html, /ft4ns.html | 3 | CW NS: "0230-0300 UTC Fridays (Thursday evening NA time, DST ignored)". RTTY NS: "RTTY NS time is always 0145-0215 UTC" and "practices are held each Thursday afternoon-evening". FT4 NS: "start time is 0100 UTC — 45 minutes BEFORE the regular RTTY NS begins" |
 | 2026-08-11 | 4 States QRP Group | 4sqrp.com/SSS/sss_rules_revised_02_2026.pdf | 1 | "The SSS is held the second Sunday night of every month (local time). It runs for two (2) hours from 7 PM until 9 PM central time (CST or CDT, whichever is in effect at the time)." Eligibility: "Anyone can participate" |
 | 2026-08-12 | PODXS 070 Club | podxs070.com/o7o-club-sponsored-contests + /contest-calendar | 10 | Rules pages state each recurrence in words — "1st Saturday following January 1st", "Valentines Day, Feb 14th", "3rd Saturday in March", "First Saturday in April", "First Weekend ending in June", "1st Saturday after July 1st", "1st Saturday in September", "2nd Saturday in October", "2nd Saturday in November to the Following Monday", "2nd Saturday in December to the Following Monday". The club's calendar page repeats each rule **and publishes a projected date table for 2026–2035** — 100 dates, all reproduced by the engine. |
+| 2026-08-12 | AGCW-DL | agcw.de/contest/{hnyc,qrp,htp,dtc,qrp-qrp,sta,vhf-uhf,yl-cw-party,tzap} | 10 | "Immer am 1. Januar eines jeden Jahres von 09:00-12:00 UTC"; "Jährlich am 2. Samstag im März von 1400 bis 2000 UTC"; HTP "am ersten Samstag im Februar" / "am ersten Samstag im September"; DTC "stets am Tag der Deutschen Einheit (3. Oktober)"; "Jährlich am 1. Mai von 1300 bis 1900 UTC"; STA "Jeden dritten Mittwoch im Februar und jeden dritten Mittwoch im Oktober"; VHF/UHF "1. Januar, 3. Samstag im März, 2. Samstag im Juni, 4. Samstag im September"; YL "Am ersten Dienstag im März"; ZMC "jeden Montag". AGCW's own "nächster Termin" dates (7 Feb 2026, 5 Sep 2026, 21 Okt 2026, 3 Mär 2026) all reproduced by the engine. |
 | 2026-08-11 | Adventure Radio Society | ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html | 1 | "Held on the first Monday of every month"; "EASTERN 8:00 p.m. to 10:00 p.m. Local"; "(Does not shift for DST — This event is always at these Local Times)"; "open to all QRP CW operators — there is no membership requirement" |
 
 ## Corrections found during verification
@@ -53,6 +54,12 @@ when you verify it, so the catalog stays auditable as it grows.
 - **"Weekend ending in June" anchors on Sunday, not Friday.** PODXS TDW runs Friday to
   Sunday over the first weekend *ending* in June, so it opens in May in 2030 and 2031.
   Encoded by anchoring on June's first Sunday with a −2 day start offset.
+- **AGCW's "Goldene Taste" is an award, not a contest.** The registry counted it among
+  AGCW's ten contests. Its page gives "Zeitraum: Ein Kalenderjahr" and explains that
+  "Die Punkte aus beiden (40, 80) HTP Wettbewerben werden addiert" — it is a year-long
+  trophy for combined Handtastenparty scores. No record created. The tenth AGCW record
+  is instead the 40 m Handtastenparty, which shares a rules page with the 80 m running
+  but is a separate contest on a separate date.
 - **Two more local-time contests found.** 4SQRP SSS and ARS Spartan Sprint both publish
   US local times only. 4SQRP says outright that the UTC time moves with CST/CDT; ARS says
   the event "does not shift for DST", which has the same consequence. Both are flagged
@@ -71,5 +78,14 @@ when you verify it, so the catalog stays auditable as it grows.
 - **SARL HF Phone** — sarl.org.za returned 503 (may be transient). Confirm recurrence and
   whether DX entries are accepted.
 - **IRTS 80m Counties** — recurrence and entrant restrictions unconfirmed.
+- **AGCW ZAP Merit Contest (ZMC)** — recurrence verified ("jeden Montag", pre-logging from
+  1740 UTC, telegram transmission 1800 UTC) but AGCW publishes **no closing time**. The
+  stored 1830 end is a placeholder; the record is `verified: false` and says so. Confirm
+  the session length with the ZMC manager (zap-merit@agcw.de) before shipping.
+- **AGCW HNYC / Handtastenparty / Schlackertastenabend eligibility** — those three pages
+  carry no entrant clause at all, unlike AGCW's other contests. Tagged worldwide with
+  `eligibility.verified: false`.
+- **PODXS PSKfest eligibility** — the only 070 contest page without an entrant clause.
+  Same treatment.
 - **All eligibility tags except CWT / SST / SKCC / NAQP / IOTA** — inferred, not read.
   Confirm entrant clauses before shipping the eligibility filter.

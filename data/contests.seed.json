@@ -2500,6 +2500,484 @@
         "verified": true,
         "note": "podxs070.com: 'This event is open to all amateur radio operators licensed to operate on the HF bands.'"
       }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-hnyc",
+      "name": "AGCW Happy New Year Contest (HNY)",
+      "rules_url": "https://www.agcw.de/contest/hnyc/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "exchange": "RST + running 3-digit QSO number from 001 (AGCW members also send their membership number, e.g. 599 067/2583)",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 1,
+        "day": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "source_note": "agcw.de/contest/hnyc: 'Termin: Immer am 1. Januar eines jeden Jahres von 09:00-12:00 UTC (10:00-13:00 MEZ)'. Klassen und Bänder: '80 m (3.510-3.560 kHz), 40 m (7.010-7.040 kHz), 20 m (14.000-14.060 kHz). Es kann nur eine der drei Klassen gewählt werden.'",
+      "note": "Log deadline is a fixed calendar date -- '14. Januar 24:00 MEZ' -- not an interval after the contest, so log_deadline_days is deliberately unset.",
+      "summary": "Three-hour New Year's Day CW contest. Entrants pick ONE of the three bands as their class rather than working all of them.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "This contest's AGCW page states no entrant clause. AGCW's other contests say 'Teilnehmen können alle Funkamateure' and nothing here restricts entry, so worldwide is the strong reading -- but it is a reading, not a quote."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-qrp-contest",
+      "name": "AGCW QRP Contest",
+      "rules_url": "https://www.agcw.de/contest/qrp/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + running number + class",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 3,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "source_note": "agcw.de/contest/qrp: 'Termin: Jährlich am 2. Samstag im März von 1400 bis 2000 UTC.'",
+      "summary": "Six-hour low-power CW contest across five bands. QRO stations are welcome and are scored in their own class.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "agcw.de: 'Der AGCW-DL e. V. lädt alle Telegrafistinnen und Telegrafisten und SWL herzlich zur Teilnahme am alljährlichen QRP-Contest ein.' QRO stations are explicitly invited too and scored separately."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-htp-80m",
+      "name": "AGCW Handtastenparty 80m (HTP)",
+      "rules_url": "https://www.agcw.de/contest/htp/",
+      "bands": [
+        "80m"
+      ],
+      "exchange": "RST + running 3-digit QSO number from 001 + class + name + age",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "source_note": "agcw.de/contest/htp: 'Handtastenparty 80m: Jährlich am ersten Samstag im Februar von 16:00 bis 19:00 UTC, nächster Termin: 7. Februar 2026'. Straight key only: 'Nur CW (A1A) mit einer Handhubtaste, Einmann-Betrieb (Single-OP).'",
+      "summary": "Three-hour straight-key-only party on 80 m. Scored together with the September 40 m running for AGCW's year-long Goldene Taste award.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "This contest's AGCW page states no entrant clause. AGCW's other contests say 'Teilnehmen können alle Funkamateure' and nothing here restricts entry, so worldwide is the strong reading -- but it is a reading, not a quote."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-htp-40m",
+      "name": "AGCW Handtastenparty 40m (HTP)",
+      "rules_url": "https://www.agcw.de/contest/htp/",
+      "bands": [
+        "40m"
+      ],
+      "exchange": "RST + running 3-digit QSO number from 001 + class + name + age",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "source_note": "agcw.de/contest/htp: 'Handtastenparty 40m: Jährlich am ersten Samstag im September vom 13:00 bis 16:00 UTC, nächster Termin: 5. September 2026'.",
+      "summary": "The 40 m running of the straight-key party, three hours on the first Saturday of September.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "This contest's AGCW page states no entrant clause. AGCW's other contests say 'Teilnehmen können alle Funkamateure' and nothing here restricts entry, so worldwide is the strong reading -- but it is a reading, not a quote."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL / High Speed Club (HSC)",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-dtc",
+      "name": "Deutscher Telegrafie Contest (DTC)",
+      "rules_url": "https://www.agcw.de/contest/dtc/",
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "German stations: RST + LDK (district vehicle registration code). All others: RST only.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 10,
+        "day": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "LP",
+          "max_watts": 100
+        },
+        {
+          "name": "HP",
+          "max_watts": null
+        }
+      ],
+      "source_note": "agcw.de/contest/dtc: 'Seit einigen Jahren findet er stets am Tag der Deutschen Einheit (3. Oktober) von 07:00–10:00 UTC (09:00–12:00 Uhr MESZ) auf den Bändern 80m und 40m statt.' Run jointly with the High Speed Club since 1971.",
+      "note": "Anchored on German Unity Day, a fixed calendar date, so it moves through the week rather than sitting on a weekend. 'Seit einigen Jahren' -- for some years now -- is AGCW hedging its own history, not the current rule.",
+      "summary": "Three-hour hand-copy CW contest on German Unity Day. Electronic decoders are explicitly disqualifying.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "practical": "Every QSO must involve a German station: 'Mindestens eine der an einem QSO beteiligten Stationen muss sich in Deutschland befinden.' Non-DL entrants can therefore work only DL stations.",
+        "note": "agcw.de: 'Teilnehmen können alle Funkamateurinnen und Funamateure (nur Single-OP).' Entry is open worldwide; the DL requirement constrains who you can work, not who may enter."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-qrp-qrp-party",
+      "name": "AGCW QRP/QRP Party",
+      "rules_url": "https://www.agcw.de/contest/qrp-qrp/",
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + running number + class",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 5,
+        "day": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "source_note": "agcw.de/contest/qrp-qrp: 'Termin: Jährlich am 1. Mai von 1300 bis 1900 UTC.' Ziel: 'Förderung des Betriebs mit geringer Sendeleistung. Teilnehmen können alle Funkamateure und SWL.'",
+      "summary": "Six-hour QRP-to-QRP party on May 1st -- both ends of every QSO are meant to be running low power.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "agcw.de: 'Teilnehmen können alle Funkamateure und SWL.'"
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-sta",
+      "name": "AGCW Schlackertastenabend (STA)",
+      "rules_url": "https://www.agcw.de/contest/sta/",
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RST + running QSO number from 001 per year + type of bug used",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 2,
+            "n": 3,
+            "weekday": 2
+          },
+          {
+            "type": "nth_weekday",
+            "month": 10,
+            "n": 3,
+            "weekday": 2
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "source_note": "agcw.de/contest/sta: 'Termin: Jeden dritten Mittwoch im Februar und jeden dritten Mittwoch im Oktober von 1900 bis 2030 UTC. Nächster Termin: 21. Okt. 2026'.",
+      "note": "AGCW's own 'nächster Termin: 21. Okt. 2026' is the independent check on the October leg -- the third Wednesday of October 2026 is indeed the 21st.",
+      "summary": "Semi-automatic key ('bug') evening, 90 minutes twice a year. Entrants report which bug they used.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "This contest's AGCW page states no entrant clause. AGCW's other contests say 'Teilnehmen können alle Funkamateure' and nothing here restricts entry, so worldwide is the strong reading -- but it is a reading, not a quote."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-vhf-uhf",
+      "name": "AGCW VHF/UHF Contest",
+      "rules_url": "https://www.agcw.de/contest/vhf-uhf/",
+      "bands": [
+        "2m",
+        "70cm"
+      ],
+      "exchange": "RST + running number + locator",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "fixed_date",
+            "month": 1,
+            "day": 1
+          },
+          {
+            "type": "nth_weekday",
+            "month": 3,
+            "n": 3,
+            "weekday": 5
+          },
+          {
+            "type": "nth_weekday",
+            "month": 6,
+            "n": 2,
+            "weekday": 5
+          },
+          {
+            "type": "nth_weekday",
+            "month": 9,
+            "n": 4,
+            "weekday": 5
+          }
+        ]
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1700"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1700"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1800"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "power_categories": [
+        {
+          "name": "A",
+          "max_watts": 5
+        },
+        {
+          "name": "B",
+          "max_watts": 50
+        },
+        {
+          "name": "C",
+          "max_watts": null
+        }
+      ],
+      "source_note": "agcw.de/contest/vhf-uhf: 'Termine: Jährlich 1. Januar, 3. Samstag im März, 2. Samstag im Juni, 4. Samstag im September, jeweils auf den Bändern 2m/70cm: VHF von 14.00 bis 17.00 UTC auf 2m (144 MHz) und UHF von 17.00 bis 18.00 UTC auf 70cm (432 MHz).'",
+      "note": "Four dates a year, each with two back-to-back sessions on different bands: the first session is 2 m only, the second 70 cm only. Encoded as two sessions off one anchor, so eight occurrences a year. The per-session band split is not expressible in the current schema -- both bands are listed at contest level.",
+      "summary": "AGCW's CW-only VHF/UHF activity contest: three hours on 2 m followed immediately by one hour on 70 cm, four times a year.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "agcw.de: 'Teilnehmen können alle Funkamateure.'"
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-yl-cw-party",
+      "name": "AGCW YL-CW-Party",
+      "rules_url": "https://www.agcw.de/contest/yl-cw-party/",
+      "bands": [
+        "80m"
+      ],
+      "exchange": "RST + running QSO number from 001 + 'YL' or 'OM' + first name",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 3,
+        "n": 1,
+        "weekday": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "source_note": "agcw.de/contest/yl-cw-party: 'Am ersten Dienstag im März findet die YL-CW-Party statt, zu der auch alle OMs und SWLs herzlich eingeladen sind. Nächster Termin: 3. März 2026.' Zeiten: '19:00 - 21:00 UTC (20:00 - 22:00 MEZ)'.",
+      "note": "AGCW's own 'Nächster Termin: 3. März 2026' is the independent check -- the first Tuesday of March 2026 is the 3rd. OM-to-OM QSOs score zero, so the contest is built around working YLs.",
+      "summary": "Two-hour 80 m party centred on YL operators. OMs and SWLs are invited, but OM-to-OM contacts score nothing.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "agcw.de: the party is one 'zu der auch alle OMs und SWLs herzlich eingeladen sind' -- OMs and SWLs are expressly invited alongside YLs."
+      }
+    },
+    {
+      "sponsor": "AGCW-DL",
+      "country": "DE",
+      "sponsor_home": "https://www.agcw.de/",
+      "modes": [
+        "CW"
+      ],
+      "verified": false,
+      "rules_url_checked": "2026-08-12",
+      "id": "agcw-zap-merit",
+      "name": "AGCW ZAP Merit Contest (ZMC)",
+      "rules_url": "https://www.agcw.de/contest/tzap/",
+      "bands": [
+        "80m"
+      ],
+      "exchange": "Callsign + date + time + RST (SWLs log RST of both stations in a QSO)",
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 0
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1740"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1830"
+      },
+      "source_note": "agcw.de/contest/tzap: 'Termin: jeden Montag, Vorloggen ab 1740 UTC, Telegrammsendung 1800 UTC.' Ziel: 'Hören und Bestätigen von Telegrammsendungen auf 3.563 kHz (80m-Band). Teilnehmen können alle Funkamateure und SWLs.'",
+      "note": "PARTLY UNVERIFIED. The recurrence (every Monday), the 1740 UTC pre-logging opening and the 1800 UTC telegram transmission are all quoted from AGCW. AGCW publishes NO closing time. The 1830 end stored here is a PLACEHOLDER so the record expands -- it is not a sponsor fact and must not be presented as one. Confirm the session length with the ZMC manager before shipping. Points accumulate over a calendar year; logs are due 31 January of the following year.",
+      "summary": "Weekly Monday-evening telegram-copying activity on 3.563 kHz, scored as a year-long merit tally rather than a single contest.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "agcw.de: 'Teilnehmen können alle Funkamateure und SWLs.'"
+      }
     }
   ]
 }

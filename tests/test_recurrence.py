@@ -635,6 +635,110 @@ def test_podxs_logs_are_due_seven_days_after(catalog):
         assert (occ.log_due - occ.end).days == 7, cid
 
 
+# ---------------------------------------------------------------------------
+# Sponsor validation -- AGCW-DL (fourth continent-scale sponsor, German text)
+#
+# AGCW states each recurrence in words and then, on several pages, adds its own
+# "nächster Termin" -- the next date -- which is exactly the independent check
+# this project needs. Those four dates are asserted below.
+# ---------------------------------------------------------------------------
+
+AGCW_NEXT_TERMIN = {
+    # AGCW's stated rule -> the date AGCW itself gives as "nächster Termin"
+    "agcw-htp-80m": ("erster Samstag im Februar", date(2026, 2, 7)),
+    "agcw-htp-40m": ("erster Samstag im September", date(2026, 9, 5)),
+    "agcw-yl-cw-party": ("erster Dienstag im März", date(2026, 3, 3)),
+}
+
+
+@pytest.mark.parametrize("cid,rule,expected", [
+    (cid, rule, exp) for cid, (rule, exp) in sorted(AGCW_NEXT_TERMIN.items())
+])
+def test_agcw_matches_its_own_naechster_termin(catalog, cid, rule, expected):
+    occ = expand(by_id(catalog, cid), 2026)
+    assert len(occ) == 1
+    assert occ[0].start.date() == expected, f"{cid}: rule '{rule}'"
+
+
+def test_agcw_sta_runs_third_wednesday_twice_a_year(catalog):
+    """
+    agcw.de: 'Jeden dritten Mittwoch im Februar und jeden dritten Mittwoch im
+    Oktober von 1900 bis 2030 UTC. Nächster Termin: 21. Okt. 2026.' Two legs a
+    year off different months -- a composite of two nth_weekday rules.
+    """
+    occ = expand(by_id(catalog, "agcw-sta"), 2026)
+    assert [o.start.date() for o in occ] == [date(2026, 2, 18), date(2026, 10, 21)]
+    assert all(o.start.weekday() == 2 for o in occ)  # Wednesday
+    assert all(o.duration_hours == 1.5 for o in occ)
+
+
+def test_agcw_vhf_uhf_has_four_dates_with_two_sessions_each(catalog):
+    """
+    agcw.de: '1. Januar, 3. Samstag im März, 2. Samstag im Juni, 4. Samstag im
+    September ... VHF von 14.00 bis 17.00 UTC auf 2m und UHF von 17.00 bis
+    18.00 UTC auf 70cm'. Four anchors x two sessions = eight occurrences, and
+    the UHF leg must start exactly where the VHF leg ends.
+    """
+    occ = expand(by_id(catalog, "agcw-vhf-uhf"), 2026)
+    assert len(occ) == 8
+    anchors = sorted({o.start.date() for o in occ})
+    assert anchors == [
+        date(2026, 1, 1), date(2026, 3, 21), date(2026, 6, 13), date(2026, 9, 26)
+    ]
+    for anchor in anchors:
+        day = sorted((o for o in occ if o.start.date() == anchor), key=lambda o: o.start)
+        assert len(day) == 2
+        assert day[0].duration_hours == 3 and day[1].duration_hours == 1
+        assert day[0].end == day[1].start, "UHF leg must start as the VHF leg ends"
+
+
+def test_agcw_fixed_date_contests_track_the_calendar_not_the_week(catalog):
+    """
+    Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and
+    German Unity Day. They must land on the same date every year and drift
+    through the week, unlike everything anchored on an nth weekday.
+    """
+    for cid, (month, day) in (
+        ("agcw-hnyc", (1, 1)),
+        ("agcw-qrp-qrp-party", (5, 1)),
+        ("agcw-dtc", (10, 3)),
+    ):
+        weekdays = set()
+        for y in range(2026, 2036):
+            occ = expand(by_id(catalog, cid), y)[0]
+            assert (occ.start.month, occ.start.day) == (month, day)
+            weekdays.add(occ.start.weekday())
+        assert len(weekdays) > 1, f"{cid} should drift through the week"
+
+
+def test_agcw_dtc_entry_is_open_but_every_qso_needs_a_german_station(catalog):
+    """
+    AGCW: 'Teilnehmen können alle Funkamateurinnen und Funamateure' but
+    'Mindestens eine der an einem QSO beteiligten Stationen muss sich in
+    Deutschland befinden.' Those are different claims, and collapsing them into
+    a single can_enter boolean would wrongly hide the contest from DX -- who can
+    enter it perfectly well, just working DL only.
+    """
+    e = eligibility_for(by_id(catalog, "agcw-dtc"), "K")
+    assert e["can_enter"] is True
+    assert "Deutschland" in e["practical"] or "German" in e["practical"]
+
+
+def test_agcw_zap_merit_is_flagged_unverified_for_its_missing_end_time(catalog):
+    """
+    AGCW publishes 'jeden Montag, Vorloggen ab 1740 UTC, Telegrammsendung 1800
+    UTC' and no closing time. The stored end is a placeholder, so the record
+    must stay verified:false and say why -- a confident wrong duration is worse
+    than an admitted gap.
+    """
+    c = by_id(catalog, "agcw-zap-merit")
+    assert c["verified"] is False
+    assert "PLACEHOLDER" in c["note"]
+    occ = expand(c, 2026)
+    assert 51 <= len(occ) <= 53
+    assert {o.start.weekday() for o in occ} == {0}  # Monday
+
+
 def test_composite_rule_handles_mixed_subrules():
     """A composite may mix rule types -- last-weekday plus nth-full-weekend."""
     anchors = resolve_anchors(
