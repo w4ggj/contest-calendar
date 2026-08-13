@@ -151,8 +151,8 @@ phone is where someone checks "what's on this weekend" from the couch.
 
 ## Design direction
 
-Read `/mnt/skills/public/frontend-design/SKILL.md` before starting, and treat this as a
-real design brief rather than a component-assembly job.
+Use the `frontend-design` skill before starting, and treat this as a real design brief
+rather than a component-assembly job.
 
 The subject has its own visual world worth drawing on: waterfall displays, band plans,
 S-meters, propagation maps, Cabrillo logs, grid squares, the aesthetic of a rig's front

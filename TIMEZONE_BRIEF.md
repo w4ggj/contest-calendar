@@ -195,10 +195,14 @@ the runtime choose.
 
 ### Why not Temporal
 
-Native `Temporal` **is present** on the deployed fleet, and it is not sound: its clock is
-frozen at epoch 0 (workerd issue #6907). A `Temporal` that reports the Unix epoch as "now"
-is a partial implementation, and there is no way from inside the isolate to tell a partial
-one from a complete one.
+Cloudflare does not document `Temporal` as supported. There is no compat flag for it and no
+entry in the runtime API docs, so anything we built on it would rest on undocumented
+behaviour that can change under us without a compat date to pin it to.
+
+It is nonetheless **present**, and not sound. workerd issue #6907 reports the deployed
+fleet exposing a native `Temporal` global whose clock is frozen at epoch 0. A `Temporal`
+that reports the Unix epoch as "now" is a partial implementation, and there is no way from
+inside the isolate to tell a partial one from a complete one.
 
 That breaks the selection logic in `activeResolver()`, which is
 
@@ -231,6 +235,12 @@ So the objection is not "the frozen clock will corrupt our arithmetic." It is th
 `typeof`-based detection cannot distinguish a healthy implementation from a degraded one,
 and the fleet is proof that degraded ones ship. We avoid the API entirely rather than
 reason about how much of it is trustworthy.
+
+**None of this costs us anything.** `intlResolver` was built as a complete fallback, not a
+degraded one, and the parity suite already holds it to the same expectations as Temporal
+across seven zones and both DST edges plus the full catalog. The portable path was going to
+be tested to this standard regardless; pinning it just means the tested path is also the
+shipped one.
 
 ### What this means in code
 
