@@ -135,6 +135,22 @@ Weekly and monthly types matter most for coverage: **84 definitions currently pr
 hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
 
+## Two engines, held identical
+
+`contestcal/recurrence.py` is the reference implementation and built the catalog.
+`engine/src/recurrence.ts` is a direct port and serves the site. Both read the same JSON
+under `data/` — the catalog is never duplicated, because two copies drift.
+
+Keeping them honest takes two layers:
+
+- `engine/tests/recurrence.test.ts` mirrors `tests/test_recurrence.py` one-for-one — same
+  names, same assertions, same sponsor-published tables. Both suites are 116 tests.
+- `engine/tests/parity.test.ts` compares **every field of every occurrence** for four years
+  against output from the Python engine. Shared assertions prove both engines satisfy the
+  same rules; only a full diff proves they agree on the fields nobody asserted on.
+
+If Python cannot be run, the parity suite fails rather than skipping.
+
 ## Time handling
 
 Times are UTC unless a record says otherwise. Two kinds of contest say otherwise, and they

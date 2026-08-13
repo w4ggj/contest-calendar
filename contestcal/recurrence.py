@@ -53,6 +53,21 @@ from zoneinfo import ZoneInfo
 SATURDAY = 5
 
 
+class NoAnchorsThisYear(ValueError):
+    """
+    A rule that simply does not fire in the requested year.
+
+    Legitimate and common: a "fifth Saturday" rule in a month with four, or a
+    `manual` record for a year the sponsor has not published yet. `expand()`
+    treats it as "this contest does not run" and returns nothing.
+
+    Deliberately distinct from a malformed rule. An unknown rule type raises
+    plain ValueError and is allowed to surface, because a typo in the catalog
+    that silently produces an empty schedule is exactly the kind of quiet
+    wrongness this project refuses everywhere else.
+    """
+
+
 # --------------------------------------------------------------------------
 # Eligibility
 # --------------------------------------------------------------------------
@@ -182,11 +197,13 @@ def _full_weekends_in_month(year: int, month: int) -> list[date]:
 def _nth(items: list[date], n: int) -> date:
     """1-indexed selection; n=-1 selects the last item."""
     if not items:
-        raise ValueError("no candidate dates in month")
+        raise NoAnchorsThisYear("no candidate dates in month")
     if n == -1:
         return items[-1]
     if n < 1 or n > len(items):
-        raise ValueError(f"requested occurrence {n} but only {len(items)} exist")
+        raise NoAnchorsThisYear(
+            f"requested occurrence {n} but only {len(items)} exist"
+        )
     return items[n - 1]
 
 
@@ -260,7 +277,7 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
         raise ValueError(f"unknown rule type: {kind!r}")
 
     if not anchors:
-        raise ValueError("rule produced no anchors")
+        raise NoAnchorsThisYear("rule produced no anchors")
 
     # Exclusions push an anchor forward a week. Used by ARRL RTTY Roundup,
     # whose rules state it is the first full weekend of January but never
@@ -445,7 +462,9 @@ def expand(
 
     try:
         anchors = resolve_anchors(contest["recurrence"], year)
-    except ValueError:
+    except NoAnchorsThisYear:
+        # The contest does not run this year. A malformed rule is NOT caught
+        # here -- it raises, rather than yielding a silently empty schedule.
         return []
 
     # Some contests run several sessions off one anchor (e.g. CWops CWT runs

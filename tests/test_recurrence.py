@@ -1139,6 +1139,24 @@ def test_arrl_10ghz_is_utc_not_local_any_more(catalog):
         assert (occ.end.date() - occ.start.date()).days == 2, "Saturday to Monday"
 
 
+def test_unknown_rule_type_surfaces_instead_of_yielding_an_empty_schedule():
+    """
+    A rule that produces no anchors this year is fine and returns nothing -- a
+    fifth-Saturday rule in a four-Saturday month, or a `manual` record for an
+    unpublished year. A rule type that does not exist is a catalog typo, and
+    swallowing it would silently drop the contest from every calendar.
+    """
+    c = {
+        "id": "typo",
+        "name": "Typo",
+        "recurrence": {"type": "nth_fortnight", "month": 6, "n": 1},
+        "start": {"day_offset": 0, "time": "0000"},
+        "end": {"day_offset": 0, "time": "0100"},
+    }
+    with pytest.raises(ValueError, match="unknown rule type"):
+        expand(c, 2026)
+
+
 def test_composite_rule_handles_mixed_subrules():
     """A composite may mix rule types -- last-weekday plus nth-full-weekend."""
     anchors = resolve_anchors(
