@@ -17,8 +17,8 @@
 
 ```powershell
 python scripts\validate.py     # expect: 21/21 match
-python -m pytest -q            # expect: 52 passed
-python scripts\check_links.py  # expect: 38 live, 3 broken (all known, see sources.md)
+python -m pytest -q            # expect: 102 passed
+python scripts\check_links.py  # expect: 83 live, 1 broken (sarl-hf-phone, see sources.md)
 ```
 
 If those three pass, nothing is broken and you can start on the tasks below.
@@ -31,8 +31,8 @@ A world amateur radio contest calendar built as a **recurrence rules engine**. C
 are stored as scheduling rules sourced from each sponsor's own published rules; dates for
 any year are computed on demand.
 
-**Current state:** 41 contest definitions → **386 occurrences for 2026**. 26 verified at
-source. Validated against four independent sponsors on three continents.
+**Current state:** 84 contest definitions → **648 occurrences for 2026**. 69 verified at
+source. Validated against fourteen independent sponsors on three continents.
 
 ## The one rule that cannot be broken
 
@@ -56,24 +56,34 @@ a row to `data/sources.md`.
 
 ## Next tasks, in priority order
 
-### 1. Finish Tier 4 high-frequency clubs (highest coverage-per-hour)
+### 1. Tier 4 high-frequency clubs — DONE except QRP ARCI
 
-Already done and verified: CWops CWT, K1USN SST, SKCC WES, SKCC SKS, NAQP CW/SSB/RTTY.
+Verified against each sponsor's own rules page: CWops CWT, K1USN SST, SKCC WES, SKCC SKS,
+NAQP CW/SSB/RTTY, NCJ Sprint CW/RTTY, NCCC NS CW/RTTY/FT4, 4SQRP SSS, ARS Spartan Sprint,
+all ten PODXS 070 contests, all ten AGCW contests, all four BARTG contests, both SARTG
+contests, all three 10-10 QSO Parties, and the eight FISTS sprints.
 
-Still to do — all in `data/sources.registry.json` under `tier_4_specialty_clubs`:
+**Only QRP ARCI is left, and it is blocked at source.** qrparci.org publishes no rules
+pages at all — the contests page is prose, the event calendar renders nothing, and the
+site's page list has no per-contest pages. Their rules appear to live in the members'
+magazine *QRP Quarterly*. `qrpcontest.com` is a third-party logging service, **not** the
+sponsor, so it is not a valid source. Contact the club or find a QRP Quarterly issue they
+publish themselves. Details in `data/sources.md`.
 
-- **NCJ North American Sprint** (CW/SSB/RTTY) — ncjweb.com
-- **NCCC Sprint / NCCC FT4 Sprint** — weekly, nccc.cc
-- **4 States QRP Group Second Sunday Sprint** — 4sqrp.com
-- **ARS Spartan Sprint** — record exists but **unverified, no reachable URL found.**
-  Confirm the anchor: is it first Monday US local (= Tuesday UTC)?
-- **QRP ARCI** series — qrparci.org
-- **PODXS 070 Club** (~10 contests) — podxs070.com
-- **AGCW** (~10 contests) — agcw.de
-- **10-10 International**, **BARTG**, **SARTG**, **FISTS**
+Corrections found while doing this work are logged in `data/sources.md`; the ones that
+change what you should believe about the registry:
 
-Why first: these are weekly/monthly, so each definition fills 12–208 calendar slots. CWT
-alone is 208 of the current 386.
+- NCJ **no longer runs an SSB/Phone Sprint**. Only CW and RTTY.
+- 10-10 runs **three** QSO Parties, not four. There is no Fall party.
+- **FISTS sprints are suspended from 2026** by the club's own announcement, and are
+  recorded with `active_until: 2025`.
+- AGCW's **"Goldene Taste" is an award, not a contest.** Do not add it.
+- The NCCC Sprint is **NCCC's**, not NCJ's, and its rules live at ncccsprint.com.
+
+**Two engine gaps got much more important.** Local-time contests are no longer an edge
+case — 4SQRP SSS and ARS Spartan Sprint both publish local times only and their UTC
+instants are an hour wrong for part of the year. Both carry `local_time: true` and spell
+out the consequence in `note`. Closing that gap is now the highest-value engine work.
 
 ### 2. Resolve the CQ contests (8 records, currently unverified)
 
@@ -90,12 +100,12 @@ Everything except CWT, SST, SKCC, NAQP and IOTA is inferred. Read each sponsor's
 clause. Wrongly hiding a contest someone could have entered is this product's worst
 failure mode, so do not ship the eligibility filter on guessed data.
 
-### 4. Fix the three known broken links
+### 4. Fix the remaining broken link
 
-- `rsgb-afs-cw` — guessed filename 404s. Find the real AFS rules page under
-  `rsgbcc.org/hf/` and set `rules_url_pattern`.
-- `sarl-hf-phone` — sarl.org.za returned 503, possibly transient. Retry.
-- `ars-spartan-sprint` — no URL at all.
+- `sarl-hf-phone` — sarl.org.za still unreachable. Retry, or set `rules_url_archived`.
+
+`ars-spartan-sprint` is fixed (ars-qrp.com). `rsgb-afs-cw` now resolves in the link
+checker, but its *recurrence* is still unconfirmed — a live URL is not verification.
 
 ### 5. Then Tiers 1–3, then Tier 5
 

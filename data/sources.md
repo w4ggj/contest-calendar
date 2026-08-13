@@ -97,6 +97,14 @@ when you verify it, so the catalog stays auditable as it grows.
     2026, but the contest is commonly listed Feb 27–Mar 1. Given the NAQP RTTY precedent,
     CQ's rule is probably "last Saturday" rather than "last full weekend" — but **read
     CQ's actual rules text before changing it.**
+- **QRP ARCI** (8 contests) — **blocked at source, not skipped.** qrparci.org/contests carries
+  only prose ("We sponsor several contests each year with the emphasis on having fun!");
+  qrparci.org/qrp-event-calendar renders nothing without JavaScript and exposes no data
+  endpoint; the site's WordPress page list contains exactly one `contests` page and no
+  per-contest rules pages. The rules appear to be published in the members' magazine
+  *QRP Quarterly*. **qrpcontest.com is a third-party logging service, not the sponsor** —
+  it is not a valid source. No records created. Next step: contact QRP ARCI, or locate the
+  rules in a QRP Quarterly issue the club publishes itself.
 - **RSGB AFS CW** — guessed rules filename returned 404. Find the real page under
   rsgbcc.org/hf/ and set `rules_url_pattern`. Recurrence and eligibility unconfirmed.
 - **SARL HF Phone** — sarl.org.za returned 503 (may be transient). Confirm recurrence and
