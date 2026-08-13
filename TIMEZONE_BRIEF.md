@@ -150,6 +150,10 @@ ceremony. **Do not** use the `Date` constructor with local-time strings — it s
 applies the *runtime's* zone, which is the exact bug this brief exists to remove, except
 harder to spot because it works fine on the developer's machine.
 
+> Superseded in part: see **"Decision — the Worker uses the Intl path"** below. Both
+> resolvers were built and are held to each other, but the Worker pins `intlResolver` and
+> never touches `Temporal`.
+
 ## What changed against this brief
 
 **Case B has no instances.** The brief's Case B example — ARRL 10 GHz and Up — is no longer
@@ -182,6 +186,73 @@ Two additions beyond the brief, both closing silent-failure paths it implies:
 `start_date`, and a `duration_hours` that falls back to the wall-clock pair. `log_due`
 returns `None` when there is no UTC end, since a deadline counted from a fictional end is
 also fiction.
+
+## Decision — the Worker uses the Intl path
+
+**Decided 2026-08-13.** The Cloudflare Worker resolves wall-clock times with
+`intlResolver` from `engine/src/zones.ts`. It does not use `Temporal`, and it does not let
+the runtime choose.
+
+### Why not Temporal
+
+Native `Temporal` **is present** on the deployed fleet, and it is not sound: its clock is
+frozen at epoch 0 (workerd issue #6907). A `Temporal` that reports the Unix epoch as "now"
+is a partial implementation, and there is no way from inside the isolate to tell a partial
+one from a complete one.
+
+That breaks the selection logic in `activeResolver()`, which is
+
+```ts
+return override ?? temporalResolver ?? intlResolver;
+```
+
+and `temporalResolver` is non-null whenever `typeof Temporal !== "undefined"`. **That is a
+presence check being used as a correctness check.** On the fleet it answers "yes, use
+Temporal" for an implementation already known to be wrong about something as basic as the
+current instant.
+
+The narrow reading is that the frozen clock cannot hurt *this* code path:
+`Temporal.PlainDateTime.from(fields).toZonedDateTime(zone)` reads no clock, only the tz
+database, so today's dates would very likely come out right. That reading is not enough to
+build on:
+
+- The engine's whole warrant is that Python and TypeScript produce byte-identical
+  occurrences. A resolver selected by feature detection makes the answer a property of
+  *which runtime served the request*. Local vitest, `workerd` and the fleet can each pick
+  differently, and the failure — one contest an hour off, in one environment — is exactly
+  the class of bug this brief exists to remove.
+- Parity is verified where `temporalResolver` is the healthy V8 one. The fleet's is not the
+  one under test, so the guarantee does not extend to it.
+- Deciding it is safe requires knowing which internals `Temporal` reaches for on a path we
+  do not control, at each of Cloudflare's compat dates. Pinning one resolver costs nothing
+  and requires knowing none of that.
+
+So the objection is not "the frozen clock will corrupt our arithmetic." It is that
+`typeof`-based detection cannot distinguish a healthy implementation from a degraded one,
+and the fleet is proof that degraded ones ship. We avoid the API entirely rather than
+reason about how much of it is trustworthy.
+
+### What this means in code
+
+- The Worker calls `setZoneResolver(intlResolver)` **once at module scope**, before any
+  expansion. Not per request — a request that beats the override gets the other resolver.
+- `intlResolver` needs only `Intl.DateTimeFormat` with a `timeZone` option, which workerd
+  has always shipped with full ICU. No compat flag, no polyfill, no bundle cost.
+- `temporalResolver` stays in the tree. It is not dead weight: the parity suite holds the
+  two implementations to each other across seven zones and both DST edges, and that
+  cross-check is what proves `intlResolver`'s hand-rolled disambiguation is right. Keeping
+  it tested is the point; shipping it is not.
+- `activeResolver()`'s fallback chain still prefers Temporal for anyone embedding the
+  engine elsewhere. The Worker overrides rather than removes, so the pin is a deployment
+  decision and stays visible as one line in the Worker's entry point.
+
+### If this is ever revisited
+
+Reversing it needs more than "#6907 is fixed". It needs the parity suite passing on the
+same `workerd` build the fleet runs, pinned to the compat date in `wrangler.toml`, with the
+`Temporal` path taken. Until that exists, the Intl path is the one with evidence behind it.
+
+---
 
 ## Why this is worth doing before the front end
 
