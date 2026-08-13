@@ -10,10 +10,12 @@ Run:  pytest -q
 """
 
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta, timezone as _timezone
 from pathlib import Path
 
 import pytest
+
+UTC = _timezone.utc
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -474,16 +476,18 @@ def test_first_monday_plus_one_never_equals_first_tuesday_blindly(catalog):
             assert (anchor + timedelta(days=1)).weekday() == 1
 
 
-def test_local_time_contests_say_so_in_their_note(catalog):
+def test_sponsor_anchored_contests_declare_a_zone_and_explain_it(catalog):
     """
-    A contest whose sponsor publishes local times only must carry local_time
-    and explain the UTC consequence, or a reader will trust a UTC instant that
-    is an hour wrong for half the year.
+    A contest whose sponsor publishes local times only must name an IANA zone,
+    mark its time specs wall_clock, and explain the UTC consequence -- or a
+    reader will trust a UTC instant that is an hour wrong for half the year.
     """
     for cid in ("4sqrp-sss", "ars-spartan-sprint"):
         c = by_id(catalog, cid)
-        assert c.get("local_time") is True
-        assert "UTC" in c["note"]
+        assert c.get("timezone"), f"{cid} has no timezone"
+        assert c["start"].get("wall_clock") is True, cid
+        assert c["end"].get("wall_clock") is True, cid
+        assert "UTC" in c["note"], cid
 
 
 # ---------------------------------------------------------------------------
@@ -910,6 +914,229 @@ def test_suspended_contests_explain_themselves(catalog):
     for c in catalog:
         if c.get("active_until"):
             assert c.get("note"), f"{c['id']} is time-limited with no note"
+
+
+# ---------------------------------------------------------------------------
+# Time zones
+#
+# `local_time` used to mean two incompatible things: "the sponsor runs this at
+# a clock time in THEIR zone" and "this starts at a clock time wherever YOU
+# are". The first has exactly one correct UTC instant that moves with DST; the
+# second has none at all. These tests pin both halves of the split, and the two
+# DST edges, which zoneinfo resolves silently rather than raising.
+# ---------------------------------------------------------------------------
+
+def test_no_record_still_uses_legacy_local_time(catalog):
+    """The migration is only finished when nothing carries the old flag."""
+    stragglers = [c["id"] for c in catalog if "local_time" in c]
+    assert not stragglers, f"still using retired local_time: {stragglers}"
+
+
+def test_no_record_has_both_timezone_and_local_rolling(catalog):
+    """
+    A contest is anchored to the sponsor's clock or to the operator's. Both at
+    once is incoherent, and the engine refuses to expand such a record.
+    """
+    for c in catalog:
+        assert not (c.get("timezone") and c.get("local_rolling")), c["id"]
+
+
+def test_timezone_records_mark_every_spec_wall_clock(catalog):
+    """
+    A `timezone` with an unmarked time spec is the dangerous half-migration:
+    the zone looks handled but the spec is still read as UTC.
+    """
+    for c in catalog:
+        if not c.get("timezone"):
+            continue
+        specs = c.get("sessions") or [{"start": c["start"], "end": c["end"]}]
+        for s in specs:
+            assert s["start"].get("wall_clock") is True, c["id"]
+            assert s["end"].get("wall_clock") is True, c["id"]
+
+
+def test_wall_clock_without_a_timezone_is_refused():
+    """
+    Refusing beats defaulting. Silently treating an unzoned wall_clock spec as
+    UTC is exactly the bug this rework removes.
+    """
+    broken = {
+        "id": "broken",
+        "name": "Broken",
+        "recurrence": {"type": "fixed_date", "month": 6, "day": 1},
+        "start": {"day_offset": 0, "time": "1900", "wall_clock": True},
+        "end": {"day_offset": 0, "time": "2100", "wall_clock": True},
+    }
+    with pytest.raises(ValueError, match="wall_clock"):
+        expand(broken, 2026)
+
+
+def test_sponsor_anchored_shifts_with_dst(catalog):
+    """
+    The whole point. 4SQRP says it themselves: "7 PM until 9 PM central time
+    (CST or CDT, whichever is in effect at the time). If you use UTC, that time
+    changes when we switch from CST to CDT (or vice versa)."
+
+    Same wall clock in January and July; UTC instants exactly one hour apart.
+    """
+    occ = {o.start.month: o for o in expand(by_id(catalog, "4sqrp-sss"), 2026)}
+    jan, jul = occ[1], occ[7]
+
+    assert jan.start_wall.hour == 19 and jul.start_wall.hour == 19
+    assert jan.start.hour == 1, "19:00 CST is 0100Z"
+    assert jul.start.hour == 0, "19:00 CDT is 0000Z"
+
+    # Expressed as an offset from the same wall reading, the gap is one hour.
+    assert (jan.start - jan.start_wall.replace(tzinfo=jan.start.tzinfo)) - (
+        jul.start - jul.start_wall.replace(tzinfo=jul.start.tzinfo)
+    ) == timedelta(hours=1)
+
+
+def test_spartan_sprint_shifts_with_dst_too(catalog):
+    """
+    ARS publishes no UTC time at all and says the event "is always at these
+    Local Times", so the UTC instant is what moves. December and July differ.
+    """
+    occ = {o.start.month: o for o in expand(by_id(catalog, "ars-spartan-sprint"), 2026)}
+    assert occ[12].start.hour == 1, "20:00 EST is 0100Z"
+    assert occ[7].start.hour == 0, "20:00 EDT is 0000Z"
+    assert all(o.start_wall.hour == 20 for o in occ.values())
+
+
+def test_dst_spring_forward_hour():
+    """
+    02:30 on 2026-03-08 in America/Chicago DOES NOT EXIST -- the clocks jump
+    from 02:00 to 03:00. zoneinfo does not raise; it resolves using the
+    pre-transition offset, which lands at 0830Z. That is the conventional
+    "shift forward an hour" outcome, and it is pinned here so it stays a
+    decision rather than an accident.
+
+    No contest is anchored in this window today, but 0100-0300 local sprints
+    are common in this hobby and one will land here eventually.
+    """
+    c = {
+        "id": "spring-forward-probe",
+        "name": "Spring Forward Probe",
+        "timezone": "America/Chicago",
+        "recurrence": {"type": "fixed_date", "month": 3, "day": 8},
+        "start": {"day_offset": 0, "time": "0230", "wall_clock": True},
+        "end": {"day_offset": 0, "time": "0430", "wall_clock": True},
+    }
+    occ = expand(c, 2026)[0]
+    assert occ.start_wall == datetime(2026, 3, 8, 2, 30)
+    assert occ.start == datetime(2026, 3, 8, 8, 30, tzinfo=UTC)
+
+
+def test_dst_fall_back_hour():
+    """
+    01:30 on 2026-11-01 in America/Chicago happens TWICE. zoneinfo picks
+    between them with `fold`, defaulting to 0 -- the first, still-CDT pass,
+    which is 0630Z. The second pass would be 0730Z, a full hour later, and
+    both are "valid". Pinned so the default is a choice.
+    """
+    c = {
+        "id": "fall-back-probe",
+        "name": "Fall Back Probe",
+        "timezone": "America/Chicago",
+        "recurrence": {"type": "fixed_date", "month": 11, "day": 1},
+        "start": {"day_offset": 0, "time": "0130", "wall_clock": True},
+        "end": {"day_offset": 0, "time": "0330", "wall_clock": True},
+    }
+    occ = expand(c, 2026)[0]
+    assert occ.start == datetime(2026, 11, 1, 6, 30, tzinfo=UTC), "fold=0, first pass"
+
+
+def test_rolling_contest_exposes_no_utc_instant():
+    """
+    An operator-anchored contest starts at a clock time wherever you are, so no
+    single UTC instant exists. The engine must hand back None rather than a
+    plausible-looking timestamp that would be wrong for everyone not on UTC --
+    a hard failure beats a wrong value that propagates into an iCal feed.
+
+    Exercised against a synthetic definition: no contest in the catalog is
+    operator-anchored today (ARRL moved 10 GHz to fixed UTC), but the capability
+    is here so the next one found does not get a fake instant.
+    """
+    c = {
+        "id": "rolling-probe",
+        "name": "Rolling Probe",
+        "local_rolling": True,
+        "recurrence": {"type": "nth_full_weekend", "month": 8, "n": 3},
+        "start": {"day_offset": 0, "time": "0600"},
+        "end": {"day_offset": 1, "time": "2359"},
+    }
+    occ = expand(c, 2026)[0]
+
+    assert occ.start is None and occ.end is None
+    assert occ.local_rolling is True
+    assert occ.start_wall == datetime(2026, 8, 15, 6, 0)
+    assert occ.start_wall.tzinfo is None, "a wall reading must not claim a zone"
+    assert occ.start_date == date(2026, 8, 15)
+    assert occ.duration_hours == pytest.approx(41.98, abs=0.02)
+
+    payload = occ.to_dict()
+    assert payload["start"] is None and payload["end"] is None
+    assert payload["start_wall"] == "2026-08-15T06:00:00"
+
+
+def test_rolling_contest_claims_no_log_deadline():
+    """A deadline counted from an end that does not exist would be fiction."""
+    c = {
+        "id": "rolling-probe",
+        "name": "Rolling Probe",
+        "local_rolling": True,
+        "log_deadline_days": 30,
+        "recurrence": {"type": "fixed_date", "month": 6, "day": 1},
+        "start": {"day_offset": 0, "time": "0600"},
+        "end": {"day_offset": 0, "time": "1800"},
+    }
+    assert expand(c, 2026)[0].log_due is None
+
+
+def test_conflicting_time_anchors_are_refused():
+    c = {
+        "id": "conflicted",
+        "name": "Conflicted",
+        "timezone": "America/Chicago",
+        "local_rolling": True,
+        "recurrence": {"type": "fixed_date", "month": 6, "day": 1},
+        "start": {"day_offset": 0, "time": "1900", "wall_clock": True},
+        "end": {"day_offset": 0, "time": "2100", "wall_clock": True},
+    }
+    with pytest.raises(ValueError, match="local_rolling"):
+        expand(c, 2026)
+
+
+def test_mixed_schedule_sorts_without_comparing_apples_to_oranges(catalog):
+    """
+    Sorting a year that mixes UTC, zoned and rolling contests must not blow up
+    on naive-vs-aware comparison. `sort_key` exists for exactly this.
+    """
+    occ = expand_year(catalog, 2026)
+    keys = [o.sort_key for o in occ]
+    assert keys == sorted(keys)
+    assert all(k.tzinfo is not None for k in keys)
+
+
+def test_arrl_10ghz_is_utc_not_local_any_more(catalog):
+    """
+    ARRL moved this contest off local time and says so in the rules: "Each
+    weekend begins 0900 UTC Saturday and runs through 0759 UTC Monday. NOTE:
+    This is a change from the previous start and end times in local time."
+
+    It was stored here as 0600 local Saturday to 2359 local Sunday, which is
+    now wrong twice over -- wrong hours and wrong model.
+    """
+    for cid, expected in (
+        ("arrl-10ghz-leg1", date(2026, 8, 15)),
+        ("arrl-10ghz-leg2", date(2026, 9, 19)),
+    ):
+        c = by_id(catalog, cid)
+        assert not c.get("timezone") and not c.get("local_rolling")
+        occ = expand(c, 2026)[0]
+        assert occ.start == datetime(expected.year, expected.month, expected.day, 9, 0, tzinfo=UTC)
+        assert (occ.end.hour, occ.end.minute) == (7, 59)
+        assert (occ.end.date() - occ.start.date()).days == 2, "Saturday to Monday"
 
 
 def test_composite_rule_handles_mixed_subrules():

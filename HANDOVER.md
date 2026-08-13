@@ -3,119 +3,150 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Owner:** Joe Leone, W4GGJ (Gulf Coast Contest Club, EL87PT)
-**Date:** 2026-08-11
+**Updated:** 2026-08-12 — after Tier 4 completion
 
 ---
 
 ## Read first
 
 1. `README.md` — provenance rules and architecture
-2. `BUILD_BRIEF.md` — full phased plan
-3. `data/sources.md` — what's verified, what's pending, corrections found so far
+2. `data/sources.md` — what's verified, what's pending, corrections found so far
+3. `TIMEZONE_BRIEF.md` — the top-priority engine fix
+4. `BUILD_BRIEF.md` — full phased plan
 
 ## Verify the repo is healthy
 
+First `pip install -r requirements.txt`. On Windows that pulls in `tzdata`; without it
+`zoneinfo` raises `ZoneInfoNotFoundError` and the suite fails.
+
 ```powershell
 python scripts\validate.py     # expect: 21/21 match
-python -m pytest -q            # expect: 102 passed
-python scripts\check_links.py  # expect: 83 live, 1 broken (sarl-hf-phone, see sources.md)
+python -m pytest -q            # expect: 115 passed
+python scripts\check_links.py  # expect: 1 broken (known, see sources.md)
 ```
 
-If those three pass, nothing is broken and you can start on the tasks below.
+If those pass, start on the tasks below.
 
 ---
 
 ## What this project is
 
-A world amateur radio contest calendar built as a **recurrence rules engine**. Contests
-are stored as scheduling rules sourced from each sponsor's own published rules; dates for
-any year are computed on demand.
+A world amateur radio contest calendar built as a **recurrence rules engine**. Contests are
+stored as scheduling rules sourced from each sponsor's own published rules; dates for any
+year are computed on demand.
 
-**Current state:** 84 contest definitions → **648 occurrences for 2026**. 69 verified at
-source. Validated against fourteen independent sponsors on three continents.
+**Current state:** 84 contest definitions → **648 occurrences for 2026**. 115 tests.
+Validated against sponsors across North America, Europe and beyond.
 
 ## The one rule that cannot be broken
 
 > **Never populate a contest record from an aggregator.** Only from the sponsoring
 > organisation's own published rules page.
 
-This is not caution for its own sake. WA7BNM's Terms of Use prohibit automated access and
-republication, and — critically — **ARRL's Contest Corral PDF is generated from WA7BNM's
-data**, so it is downstream too. Same for SM3CER and DXZone. `data/sources.registry.json`
-lists these under `known_derived_sources`; a test asserts that list stays populated.
+WA7BNM's Terms of Use prohibit automated access and republication, and **ARRL's Contest
+Corral is generated from WA7BNM's data**, so it is downstream too. Same for SM3CER and
+DXZone. `data/sources.registry.json` lists these under `known_derived_sources`; a test
+asserts that list stays populated.
 
-Sponsors' rules *text* is copyrighted by the sponsors. Store **facts** (dates, times,
-bands, modes, exchange, power limits, log deadlines) plus **your own summary**, and link
-out via `rules_url` for the authoritative text.
+This rule has already cost real coverage and held anyway — see QRP ARCI below. That was the
+right call. A record nobody can defend is worse than a gap you documented.
 
-When you verify a contest, record the recurrence rule **in the sponsor's own wording** in
-`source_note`, set `verified: true`, and set `rules_url_checked` to today's date. Then add
-a row to `data/sources.md`.
+Sponsors' rules *text* is copyrighted by the sponsors. Store **facts** plus **your own
+summary**, and link out via `rules_url`.
+
+When you verify a contest: record the rule **in the sponsor's own wording** in
+`source_note`, set `verified: true`, set `rules_url_checked` to today, add a row to
+`data/sources.md`, and add a test asserting the generated dates match dates the sponsor
+published independently.
 
 ---
 
 ## Next tasks, in priority order
 
-### 1. Tier 4 high-frequency clubs — DONE except QRP ARCI
+### 1. Local-time handling — DONE, see `TIMEZONE_BRIEF.md`
 
-Verified against each sponsor's own rules page: CWops CWT, K1USN SST, SKCC WES, SKCC SKS,
-NAQP CW/SSB/RTTY, NCJ Sprint CW/RTTY, NCCC NS CW/RTTY/FT4, 4SQRP SSS, ARS Spartan Sprint,
-all ten PODXS 070 contests, all ten AGCW contests, all four BARTG contests, both SARTG
-contests, all three 10-10 QSO Parties, and the eight FISTS sprints.
+`local_time` is retired. Sponsor-anchored contests (4SQRP SSS, ARS Spartan Sprint) carry an
+IANA `timezone` plus `wall_clock` time specs resolved through stdlib `zoneinfo`, so the UTC
+instant moves correctly with DST. Operator-anchored contests carry `local_rolling` and
+expose no UTC instant at all. Both DST edges are pinned by test.
 
-**Only QRP ARCI is left, and it is blocked at source.** qrparci.org publishes no rules
-pages at all — the contests page is prose, the event calendar renders nothing, and the
-site's page list has no per-contest pages. Their rules appear to live in the members'
-magazine *QRP Quarterly*. `qrpcontest.com` is a third-party logging service, **not** the
-sponsor, so it is not a valid source. Contact the club or find a QRP Quarterly issue they
-publish themselves. Details in `data/sources.md`.
+**The brief's Case B example was out of date.** ARRL moved 10 GHz and Up off local time to
+fixed UTC — *"Each weekend begins 0900 UTC Saturday and runs through 0759 UTC Monday …
+This is a change from the previous start and end times in local time."* Both rounds are now
+plain UTC records, verified, and the old "obvious typo" flag on Round 2 is resolved: ARRL's
+rule is *"Third full weekend of August **and September**"*, one rule covering both.
 
-Corrections found while doing this work are logged in `data/sources.md`; the ones that
-change what you should believe about the registry:
+So **no catalog record is operator-anchored today.** `local_rolling` is implemented and
+tested against a synthetic definition rather than a fabricated record, so the capability is
+proven for the next one found.
 
-- NCJ **no longer runs an SSB/Phone Sprint**. Only CW and RTTY.
-- 10-10 runs **three** QSO Parties, not four. There is no Fall party.
-- **FISTS sprints are suspended from 2026** by the club's own announcement, and are
-  recorded with `active_until: 2025`.
-- AGCW's **"Goldene Taste" is an award, not a contest.** Do not add it.
-- The NCCC Sprint is **NCCC's**, not NCJ's, and its rules live at ncccsprint.com.
+`tzdata` is now in `requirements.txt`, Windows-only — install it or `zoneinfo` raises
+`ZoneInfoNotFoundError` and the suite fails.
 
-**Two engine gaps got much more important.** Local-time contests are no longer an edge
-case — 4SQRP SSS and ARS Spartan Sprint both publish local times only and their UTC
-instants are an hour wrong for part of the year. Both carry `local_time: true` and spell
-out the consequence in `note`. Closing that gap is now the highest-value engine work.
+### 2. Resolve the CQ contests (8 records, still unverified)
 
-### 2. Resolve the CQ contests (8 records, currently unverified)
+Read the actual rules at cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com.
 
-Read the actual rules text at cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com.
+**CQ 160 SSB remains the open question.** Strict "last full weekend of February" gives
+Feb 20–22 for 2026, but it's commonly listed Feb 27–Mar 1. The verified NAQP RTTY precedent
+shows sponsors do use "last Saturday" as genuinely distinct from "last full weekend," and
+CQ's rule is probably the former — but **read their text rather than inferring from the
+pattern.**
 
-**Pay attention to CQ 160 SSB.** Strict "last full weekend of February" gives Feb 20–22
-for 2026, but it's commonly listed Feb 27–Mar 1. The NAQP RTTY precedent — which *is*
-verified — shows sponsors do use "last Saturday" as distinct from "last full weekend."
-CQ's rule is probably the former. **Read their text; don't infer from the pattern.**
+These 8 are the largest remaining block of unverified records and they're the most-entered
+contests in the catalog. Highest credibility-per-hour available.
 
-### 3. Verify eligibility tags
+### 3. QRP ARCI — blocked at source, needs a human
 
-Everything except CWT, SST, SKCC, NAQP and IOTA is inferred. Read each sponsor's entrant
-clause. Wrongly hiding a contest someone could have entered is this product's worst
-failure mode, so do not ship the eligibility filter on guessed data.
+qrparci.org publishes no rules pages: the contests page is prose, the event calendar needs
+JS, and the WordPress page list has no per-contest pages. Rules appear to live in the
+members' magazine *QRP Quarterly*. qrpcontest.com is a third-party logging service, not the
+sponsor, so it's unusable under the sourcing rule.
 
-### 4. Fix the remaining broken link
+**Next step:** email the QRP ARCI contest manager and ask them to confirm recurrence rules.
+Clubs that publish only in a members' magazine will usually answer, and that reply is
+itself a citable primary source — record it in `data/sources.md` with the date and who
+replied.
 
-- `sarl-hf-phone` — sarl.org.za still unreachable. Retry, or set `rules_url_archived`.
+### 4. Verify remaining eligibility tags
 
-`ars-spartan-sprint` is fixed (ars-qrp.com). `rsgb-afs-cw` now resolves in the link
-checker, but its *recurrence* is still unconfirmed — a live URL is not verification.
+Confirm each sponsor's entrant clause. Wrongly hiding a contest someone could have entered
+is this product's worst failure mode, so don't ship the eligibility filter on inferred data.
 
-### 5. Then Tiers 1–3, then Tier 5
+### 5. Reconcile the registry against what was actually found
 
-Work `data/sources.registry.json` top-down. Scope estimate is ~310 contests, ~50 hours.
+`data/sources.registry.json` contains counts and assumptions that Tier 4 disproved:
+
+- NCJ Sprint is **CW/RTTY only** — no SSB Sprint exists as of 2026
+- 10-10 runs **three** QSO Parties, not four
+- AGCW's "Goldene Taste" is an **award**, not a contest
+- NCCC Sprint is **NCCC's**, not NCJ's
+- FISTS sprints are **suspended from 2026** (`active_until: 2025`)
+
+Fix these so the registry stops misleading the next pass, and treat its remaining counts as
+estimates rather than targets.
+
+### 6. Then Tiers 1–3, then Tier 5
+
+Work `data/sources.registry.json` top-down.
+
+---
+
+## Open flags — deliberately unresolved
+
+These were flagged rather than guessed. Leave them flagged until a sponsor settles them.
+
+- **AGCW ZAP Merit Contest** — `verified: false`; AGCW publishes no closing time. The stored
+  end is a labelled placeholder.
+- **PODXS Great Pumpkin** — close time differs by one minute between the rules page and the
+  club calendar. Recorded in `note`, not silently reconciled.
+- **CQ 160 SSB** — see task 2. This record is the model for how to write an honest flag.
 
 ---
 
 ## Engine reference
 
-`contestcal/recurrence.py`, seven rule types:
+`contestcal/recurrence.py`:
 
 | type | fields | example |
 |---|---|---|
@@ -129,37 +160,63 @@ Work `data/sources.registry.json` top-down. Scope estimate is ~310 contests, ~50
 
 `weekday`: 0 = Monday … 6 = Sunday. `n = -1` means last.
 
-**Sessions.** A contest with several runnings off one anchor uses `sessions`, each with
-its own `start`/`end` offsets. CWT anchors Wednesday and has four sessions (offsets 0, 0,
-+1, +1). SST anchors Monday with sessions at offset 0 and +4 (Friday).
+**Sessions.** Several runnings off one anchor use `sessions`, each with its own start/end
+offsets. CWT anchors Wednesday with four sessions (offsets 0, 0, +1, +1). SST anchors
+Monday with sessions at offset 0 and +4.
 
-**Offsets.** `start`/`end` are `{day_offset, time}` relative to the anchor, so a contest
+**Offsets.** `start`/`end` are `{day_offset, time}` relative to the anchor. A contest
 opening 2200 UTC Friday before a Saturday anchor is `day_offset: -1`.
 
-### The subtlety that breaks naive implementations
+**Time zones.** Times are UTC unless the record says otherwise:
 
-A **full weekend** is a Sat/Sun pair with *both days inside the month*. When a month ends
-on a Saturday, that Saturday does not begin a full weekend. This affects **17 months
-across 2026–2035**. Tests pin it — do not remove them.
+| field | meaning | `Occurrence.start` |
+|---|---|---|
+| *(none)* | sponsor states UTC | the UTC instant |
+| `timezone` + `wall_clock` on each spec | sponsor's own clock (4SQRP = `America/Chicago`) | DST-resolved UTC instant |
+| `local_rolling` | the operator's clock, sweeping the globe | **`None`** — no such instant exists |
+
+The two are mutually exclusive and `expand()` raises if a record sets both, or if a spec is
+marked `wall_clock` without a `timezone`. For rolling contests use `start_wall`/`end_wall`
+and never `start`. `sort_key` exists only so a mixed schedule can be ordered — it is not a
+claim about when anything happens.
+
+### Rule shapes worth knowing about
+
+- **Full weekend** = a Sat/Sun pair with *both days inside the month*. When a month ends on
+  a Saturday, that Saturday does not begin a full weekend. Affects **17 months across
+  2026–2035**. Tests pin it — don't remove them.
+- **"First Saturday after Jan 1"** skips a week when the 1st is itself a Saturday. Reuses
+  `exclude_dates`.
+- **"First weekend ending in June"** anchors on June's first Sunday and counts back, so it
+  **opens in May** in 2030 and 2031. This looks like a bug and isn't. It needs an explicit
+  test naming those two years so nobody "fixes" it later.
 
 ---
 
 ## Working agreements
 
-- **Every contest you add needs a test** asserting its generated dates match dates the
-  sponsor published independently. That's what proves this is an independent compilation.
-- **Run `pytest -q` before every commit.** 52 tests currently pass.
+- **Every contest needs a test** asserting its dates match dates the sponsor published
+  independently. That's what proves this is an independent compilation, not a copy.
+- **Run `pytest -q` before every commit.**
 - **Never delete non-US contests.** Eligibility is a display-time filter, not an ingest
   filter — a contest you can't enter is still worth working, and the open dataset's value
   depends on being global.
-- **When a rule looks ambiguous, flag it rather than guessing.** `verified: false` plus a
-  clear `note` is always better than a confident wrong date. The CQ 160 SSB record is the
-  model for how to write one.
+- **Flag ambiguity, don't resolve it silently.** `verified: false` plus a clear `note`
+  always beats a confident wrong date. A one-minute discrepancy between two sponsor pages
+  gets recorded, not averaged.
+- **When a source is unusable, say so and stop.** Document the blocker and the next step
+  rather than reaching for a third-party site.
 - Commit messages: state what was verified and against which sponsor source.
 
-## Phase 2+ (not yet started)
+---
 
-Port the engine to TypeScript (it's dependency-free stdlib date math — a direct
-translation), then Cloudflare Worker + D1 API with an iCal feed, then the Astro front end.
-`BUILD_BRIEF.md` has the detail, including the LogStats cross-link — "you worked 412 QSOs
-in this contest last year" — which is the feature nobody else can build.
+## Phase 2+ (not started)
+
+Port the engine to TypeScript — dependency-free stdlib date math, a direct translation.
+Use `Temporal.ZonedDateTime` if available; **never** the `Date` constructor with local-time
+strings, which silently applies the runtime's zone and works fine on the developer's machine
+while being wrong everywhere else.
+
+Then Cloudflare Worker + D1 API with an iCal feed, then the Astro front end. `BUILD_BRIEF.md`
+has the detail, including the LogStats cross-link — "you worked 412 QSOs in this contest last
+year" — which is the feature nobody else can build.

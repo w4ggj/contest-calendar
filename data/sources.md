@@ -8,6 +8,7 @@ when you verify it, so the catalog stays auditable as it grows.
 | Date | Sponsor | URL | Contests | Rule in sponsor's own words |
 |---|---|---|---|---|
 | 2026-08-11 | ARRL | arrl.org/contest-calendar | 21 | Generic calendar states each recurrence in plain language. All 21 validated against ARRL's own 2026 date table. |
+| 2026-08-12 | ARRL | arrl.org/10-ghz-up | 2 | "Third full weekend of August and September"; "Each weekend begins 0900 UTC Saturday and runs through 0759 UTC Monday. Participation is limited to 42 hours of operating time in each of the two contest weekends." Plus: "NOTE: This is a change from the previous start and end times in local time." |
 | 2026-08-11 | RSGB Contest Committee | rsgbcc.org/hf/rules/2026/riota.shtml | 1 | "the contest always takes place over the last FULL weekend of July" |
 | 2026-08-11 | CWops | cwops.org | 1 | "four one-hour QSO party-type tests on Wednesday 1300Z and 1900Z, Thursday 0300Z and 0700Z" |
 | 2026-08-11 | K1USN Radio Club | k1usn.com/sst.html | 1 | "held twice weekly at 0000Z Mondays and 2000Z Fridays" |
@@ -84,6 +85,27 @@ when you verify it, so the catalog stays auditable as it grows.
   plus the 10-10 Day Sprint. Rule 5.2.2 says "There are currently three QSO Parties held
   throughout the calendar year" and names Winter Phone, Summer Phone and the Sprint. No
   Fall party record was created.
+- **ARRL 10 GHz and Up is no longer a local-time contest.** It was stored as 0600 local
+  Saturday to 2359 local Sunday. ARRL's current rules read: *"Each weekend begins 0900 UTC
+  Saturday and runs through 0759 UTC Monday"*, with an explicit note — *"This is a change
+  from the previous start and end times in local time. Participants are reminded to log all
+  contacts in UTC time."* Re-recorded as plain UTC, 0900Z Saturday to 0759Z Monday, and now
+  `verified: true` against arrl.org's own 2026 dates (August 15–17, September 19–21).
+  **This also resolves the "obvious typo" flagged on Round 2:** ARRL's rule reads *"Third
+  full weekend of August and September"* — one rule covering both rounds, so the September
+  anchor was right all along. Round 2 also carries the log deadline, since ARRL states it
+  once for the whole contest ("thirty (30) days after the second weekend").
+- **Which sponsors state local times, and which mean whose clock.** Worth keeping as a
+  sourcing fact, because it decides how the record is modelled:
+  - **4 States QRP Group** — their own zone. *"7 PM until 9 PM central time (CST or CDT,
+    whichever is in effect at the time). If you use UTC, that time changes when we switch
+    from CST to CDT."* → `timezone: America/Chicago`.
+  - **Adventure Radio Society** — their own zone, stated per US zone with no UTC at all:
+    *"EASTERN 8:00 p.m. to 10:00 p.m. Local … (Does not shift for DST — This event is
+    always at these Local Times)"* → `timezone: America/New_York`. Their four-zone table is
+    self-consistent only for zones that observe DST; Arizona is the exception.
+  - **ARRL** — formerly the operator's own clock for 10 GHz, now UTC throughout.
+  - Every other verified sponsor states UTC directly.
 - **Two more local-time contests found.** 4SQRP SSS and ARS Spartan Sprint both publish
   US local times only. 4SQRP says outright that the UTC time moves with CST/CDT; ARS says
   the event "does not shift for DST", which has the same consequence. Both are flagged

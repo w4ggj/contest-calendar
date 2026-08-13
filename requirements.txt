@@ -1,6 +1,11 @@
-# Runtime has no third-party dependencies -- stdlib only, by design.
-# The engine is pure date math; keeping it dependency-free makes the
-# TypeScript port straightforward.
+# Runtime is stdlib-only by design -- the engine is pure date math, which keeps
+# the TypeScript port a direct translation.
+#
+# The one exception is the IANA timezone database, needed by `zoneinfo` to
+# resolve sponsor-anchored local times (see "Time handling" in README.md).
+# Linux and macOS ship that database with the OS; Windows does not, so there it
+# has to come from a package. `zoneinfo` itself is stdlib either way.
+tzdata; platform_system == "Windows"
 
 # Development only:
 pytest>=8.0

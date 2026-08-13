@@ -116,8 +116,9 @@
     },
     {
       "gap": "Local-time contests",
-      "detail": "ARRL 10 GHz runs on local time, not UTC. Flagged via local_time:true but not yet resolved per timezone.",
-      "fix": "Render local-time contests as a per-timezone offset at display time rather than storing a fixed UTC instant."
+      "status": "CLOSED 2026-08-12",
+      "detail": "The old `local_time` flag conflated two opposite problems. Sponsor-anchored contests (4SQRP SSS, ARS Spartan Sprint) have exactly one correct UTC instant that moves an hour with DST; operator-anchored contests have none at all. This entry's own example was also wrong: ARRL moved 10 GHz off local time to fixed UTC and says so in the rules.",
+      "fix": "DONE. `local_time` retired. Sponsor-anchored records carry an IANA `timezone` plus `wall_clock` time specs, resolved through stdlib `zoneinfo`. Operator-anchored records carry `local_rolling` and expose no UTC instant at all (start/end are None). Both DST edges pinned by test. Windows needs `tzdata`; see requirements.txt. NOTE: no catalog record is operator-anchored today -- the capability is tested against a synthetic definition so the next one found does not get a fabricated instant."
     }
   ],
 

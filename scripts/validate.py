@@ -58,7 +58,7 @@ def main() -> int:
             failures.append((cid, expected, None))
             continue
         # The 160m contest opens Friday; compare on its start date directly.
-        got = occ.start.date()
+        got = occ.start_date
         if cid == "arrl-160m":
             expected = date(2026, 12, 4)
         (passes if got == expected else failures).append((cid, expected, got))
@@ -73,13 +73,19 @@ def main() -> int:
     print("Full 2026 schedule generated from rules:\n")
     for occ in expand_year(catalog, 2026):
         flag = " " if occ.verified else "?"
-        tz = "L" if occ.local_time else "Z"
-        print(
-            f" {flag} {occ.start:%b %d %H%M}{tz} -> {occ.end:%b %d %H%M}{tz} "
-            f"({occ.duration_hours:5.1f}h)  {occ.name}"
-        )
+        if occ.local_rolling:
+            # No UTC instant exists -- print the wall clock and say so, rather
+            # than inventing an instant that is wrong for most operators.
+            window = (
+                f"{occ.start_wall:%b %d %H%M} -> {occ.end_wall:%b %d %H%M} local"
+            )
+        else:
+            window = f"{occ.start:%b %d %H%M}Z -> {occ.end:%b %d %H%M}Z"
+        zone = f"  [{occ.timezone_name}]" if occ.timezone_name else ""
+        print(f" {flag} {window} ({occ.duration_hours:5.1f}h)  {occ.name}{zone}")
 
     print("\n  ? = recurrence rule not yet verified at the sponsor's own source")
+    print("  [zone] = sponsor states a local clock time; UTC shown is DST-resolved")
     return 1 if failures else 0
 
 

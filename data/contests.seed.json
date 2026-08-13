@@ -433,22 +433,22 @@
       },
       "start": {
         "day_offset": 0,
-        "time": "0600"
+        "time": "0900"
       },
       "end": {
-        "day_offset": 1,
-        "time": "2359"
+        "day_offset": 2,
+        "time": "0759"
       },
-      "local_time": true,
       "verified": true,
-      "source_note": "ARRL: third full weekend of August, 6:00AM local Sat to 11:59pm local Sun",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "arrl.org/10-ghz-up: 'Third full weekend of August and September'; 'Each weekend begins 0900 UTC Saturday and runs through 0759 UTC Monday. Participation is limited to 42 hours of operating time in each of the two contest weekends.' ARRL adds: 'NOTE: This is a change from the previous start and end times in local time. Participants are reminded to log all contacts in UTC time.' Cross-checked against ARRL's published 2026 dates, August 15-17 and September 19-21.",
+      "rules_url_checked": "2026-08-12",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
         "verified": false,
         "practical": "10 GHz+ microwave, rover-oriented. Very small participant pool."
-      }
+      },
+      "note": "CORRECTION: this was stored as a local-time contest running 0600 local Saturday to 2359 local Sunday. ARRL has since moved it to fixed UTC and says so explicitly in the rules. It is now a plain UTC record -- 0900Z Saturday to 0759Z Monday -- and carries no timezone or local_rolling flag. Operating time is capped at 42 hours inside that 47-hour window. Log deadline is stated once for the whole contest -- 'no later than THIRTY (30) days after the second weekend' -- so it is recorded on Round 2 only; counting 30 days from Round 1's own end would be wrong."
     },
     {
       "id": "arrl-rookie-roundup-rtty",
@@ -538,23 +538,23 @@
       },
       "start": {
         "day_offset": 0,
-        "time": "0600"
+        "time": "0900"
       },
       "end": {
-        "day_offset": 1,
-        "time": "2359"
+        "day_offset": 2,
+        "time": "0759"
       },
-      "local_time": true,
-      "verified": false,
-      "note": "ARRL generic calendar says 'third full weekend of August' for Round 2 -- an obvious typo, since their own 2026 date table shows September. Encoded as September; confirm.",
-      "source_note": "ARRL generic calendar (contains typo)",
-      "rules_url_checked": "2026-08-11",
+      "verified": true,
+      "note": "CORRECTION: this was stored as a local-time contest running 0600 local Saturday to 2359 local Sunday. ARRL has since moved it to fixed UTC and says so explicitly in the rules. It is now a plain UTC record -- 0900Z Saturday to 0759Z Monday -- and carries no timezone or local_rolling flag. Operating time is capped at 42 hours inside that 47-hour window. Also resolves the suspected typo flagged earlier: ARRL's rule reads 'Third full weekend of August AND SEPTEMBER', so a single rule covers both rounds and the September anchor was right all along.",
+      "source_note": "arrl.org/10-ghz-up: 'Third full weekend of August and September'; 'Each weekend begins 0900 UTC Saturday and runs through 0759 UTC Monday. Participation is limited to 42 hours of operating time in each of the two contest weekends.' ARRL adds: 'NOTE: This is a change from the previous start and end times in local time. Participants are reminded to log all contacts in UTC time.' Cross-checked against ARRL's published 2026 dates, August 15-17 and September 19-21.",
+      "rules_url_checked": "2026-08-12",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
         "verified": false,
         "practical": "10 GHz+ microwave, rover-oriented. Very small participant pool."
-      }
+      },
+      "log_deadline_days": 30
     },
     {
       "id": "arrl-sweepstakes-cw",
@@ -1041,15 +1041,17 @@
         "weekday": 0
       },
       "start": {
-        "day_offset": 1,
-        "time": "0100"
+        "day_offset": 0,
+        "time": "2000",
+        "wall_clock": true
       },
       "end": {
-        "day_offset": 1,
-        "time": "0300"
+        "day_offset": 0,
+        "time": "2200",
+        "wall_clock": true
       },
       "verified": true,
-      "note": "CORRECTION: previously encoded as the first TUESDAY of the month. The sponsor's rule is the first MONDAY US local, which lands on Tuesday UTC -- and those are different dates whenever the 1st falls on a Tuesday (Sep and Dec 2026). Now anchored on the first Monday with a +1 day offset. LOCAL-TIME CONTEST: ARS gives no UTC time and states the event does not shift for DST, so the UTC time is what moves: 0100-0300 UTC Tuesday under US standard time, 0000-0200 UTC Tuesday under US daylight time. Stored value is the standard-time rendering; resolve per-season when the local-time engine gap is closed.",
+      "note": "CORRECTION (anchor): previously encoded as the first TUESDAY of the month. The sponsor's rule is the first MONDAY US local, which lands on Tuesday UTC -- and those are different dates whenever the 1st falls on a Tuesday (Sep and Dec 2026). SPONSOR-ANCHORED LOCAL TIME: ARS publishes no UTC time and states the event 'is always at these Local Times', so the UTC instant is what moves -- 0100Z Tuesday under EST, 0000Z Tuesday under EDT. Resolved through America/New_York rather than hardcoded, so DST is handled. ARS lists Eastern, Central, Mountain and Pacific times that are the same instant in every zone that observes DST; Arizona, which does not, is the one place the sponsor's own table is inconsistent.",
       "source_note": "ars-qrp.com Spartan Sprint page: 'Held on the first Monday of every month', 'EASTERN 8:00 p.m. to 10:00 p.m. Local. CENTRAL 7:00 p.m. to 9:00 p.m. Local MOUNTAIN 6:00 p.m. to 8:00 p.m. Local PACIFIC 5:00 p.m. to 7:00 p.m. Local', '(Does not shift for DST - This event is always at these Local Times)', 'a simple, casual 2 Hour QRP CW Event', 'open to all QRP CW operators - there is no membership requirement'.",
       "eligibility": {
         "scope": "worldwide",
@@ -1065,7 +1067,6 @@
         "15m",
         "10m"
       ],
-      "local_time": true,
       "power_categories": [
         {
           "name": "QRP",
@@ -1073,7 +1074,8 @@
         }
       ],
       "rules_url_checked": "2026-08-11",
-      "summary": "Monthly two-hour QRP CW sprint on the first Monday evening. Scoring rewards a low station weight as well as QSOs, which is what makes it distinctive."
+      "summary": "Monthly two-hour QRP CW sprint on the first Monday evening. Scoring rewards a low station weight as well as QSOs, which is what makes it distinctive.",
+      "timezone": "America/New_York"
     },
     {
       "id": "cwops-cwt",
@@ -1848,14 +1850,15 @@
         "weekday": 6
       },
       "start": {
-        "day_offset": 1,
-        "time": "0100"
+        "day_offset": 0,
+        "time": "1900",
+        "wall_clock": true
       },
       "end": {
-        "day_offset": 1,
-        "time": "0300"
+        "day_offset": 0,
+        "time": "2100",
+        "wall_clock": true
       },
-      "local_time": true,
       "power_categories": [
         {
           "name": "CW / Digital",
@@ -1869,13 +1872,14 @@
       "verified": true,
       "rules_url_checked": "2026-08-11",
       "source_note": "4sqrp.com SSS rules (revised 02/2026), TIME/DATE: 'The SSS is held the second Sunday night of every month (local time). It runs for two (2) hours from 7 PM until 9 PM central time (CST or CDT, whichever is in effect at the time). If you use UTC, that time changes when we switch from CST to CDT (or vice versa).' Power: 'CW & Digital: 5 Watts or less; SSB: 10 Watts PEP or less.'",
-      "note": "LOCAL-TIME CONTEST. The anchor is the second SUNDAY, but the sprint runs into Monday UTC. Stored UTC is the CST rendering, 0100-0300 UTC Monday. Under CDT the sponsor states the UTC time shifts an hour earlier, to 0000-0200 UTC Monday -- the sponsor says so explicitly. Resolve per-season when the local-time engine gap is closed.",
+      "note": "SPONSOR-ANCHORED LOCAL TIME. The anchor is the second SUNDAY and the sprint runs into Monday UTC. 4SQRP states the consequence itself: '7 PM until 9 PM central time (CST or CDT, whichever is in effect at the time). If you use UTC, that time changes when we switch from CST to CDT (or vice versa).' Resolved through America/Chicago, so it is 0100Z Monday in winter and 0000Z Monday in summer.",
       "summary": "Monthly two-hour QRP sprint on the second Sunday evening US Central time. CW, SSB and digital all count; the CW/SSB power limits differ, so operators switching modes must change power.",
       "eligibility": {
         "scope": "worldwide",
         "verified": true,
         "note": "4SQRP rules: 'Anyone can participate'. Non-member QSOs count for one point provided the non-member is also running QRP power."
-      }
+      },
+      "timezone": "America/Chicago"
     },
     {
       "sponsor": "PODXS 070 Club",

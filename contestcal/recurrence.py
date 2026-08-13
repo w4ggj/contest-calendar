@@ -21,6 +21,25 @@ contest that opens 2200 UTC Friday and closes 1559 UTC Sunday is:
 
     start: {day_offset: -1, time: "2200"}
     end:   {day_offset: +1, time: "1559"}
+
+Time handling
+-------------
+Times are UTC unless a record says otherwise. Two kinds of contest say otherwise,
+and they need OPPOSITE treatment -- conflating them was a real bug:
+
+**Sponsor-anchored local time.** The sponsor runs the contest at a clock time in
+*their* zone (4SQRP SSS: "7 PM until 9 PM central time (CST or CDT, whichever is
+in effect)"). Exactly one correct UTC instant exists per occurrence; it moves an
+hour with DST. Set `timezone` to an IANA zone and mark each time spec
+`wall_clock: true`. The engine resolves through `zoneinfo`, so DST is free.
+
+**Operator-anchored local time.** The contest starts at a clock time wherever the
+*operator* is, sweeping the globe as local dawn moves west. No single UTC instant
+exists and converting to one is a category error. Set `local_rolling: true`; the
+engine then leaves `Occurrence.start`/`end` as None and populates the wall-clock
+fields instead, so a wrong instant cannot leak into a feed.
+
+The two are mutually exclusive and `expand()` raises if a record sets both.
 """
 
 from __future__ import annotations
@@ -29,6 +48,7 @@ import calendar
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
 from typing import Any
+from zoneinfo import ZoneInfo
 
 SATURDAY = 5
 
@@ -268,13 +288,16 @@ def resolve_anchor(rule: dict[str, Any], year: int) -> date:
 class Occurrence:
     contest_id: str
     name: str
-    start: datetime
-    end: datetime
+    start: datetime | None
+    end: datetime | None
+    start_wall: datetime | None = None
+    end_wall: datetime | None = None
+    local_rolling: bool = False
+    timezone_name: str = ""
     modes: list[str] = field(default_factory=list)
     bands: list[str] = field(default_factory=list)
     sponsor: str = ""
     rules_url: str = ""
-    local_time: bool = False
     verified: bool = False
     note: str = ""
     exchange: str = ""
@@ -290,27 +313,63 @@ class Occurrence:
 
     @property
     def log_due(self) -> datetime | None:
-        """Log submission deadline, where the sponsor states one."""
-        if self.log_deadline_days is None:
+        """
+        Log submission deadline, where the sponsor states one.
+
+        None for operator-anchored contests: the contest has no single UTC end,
+        so a deadline counted from it would be as fictional as the end itself.
+        """
+        if self.log_deadline_days is None or self.end is None:
             return None
         return self.end + timedelta(days=self.log_deadline_days)
 
     @property
     def duration_hours(self) -> float:
-        return (self.end - self.start).total_seconds() / 3600
+        """
+        Length of the occurrence. Operator-anchored contests still have a well
+        defined duration -- 6am Saturday to midnight Sunday is the same span of
+        hours everywhere -- so fall back to the wall-clock pair.
+        """
+        if self.start is not None and self.end is not None:
+            delta = self.end - self.start
+        else:
+            delta = self.end_wall - self.start_wall
+        return delta.total_seconds() / 3600
+
+    @property
+    def start_date(self) -> date:
+        """
+        Calendar date the occurrence opens on. Well defined either way: a
+        rolling contest has no UTC instant but still starts on a known date.
+        """
+        return (self.start or self.start_wall).date()
+
+    @property
+    def sort_key(self) -> datetime:
+        """
+        Ordering only -- NOT a claim about when this happens. A rolling
+        contest's wall time is treated as if it were UTC purely so a mixed
+        schedule can be sorted; never surface this value to a user.
+        """
+        if self.start is not None:
+            return self.start
+        return self.start_wall.replace(tzinfo=timezone.utc)
 
     def to_dict(self) -> dict[str, Any]:
         return {
             "contest_id": self.contest_id,
             "name": self.name,
-            "start": self.start.isoformat().replace("+00:00", "Z"),
-            "end": self.end.isoformat().replace("+00:00", "Z"),
+            "start": self.start.isoformat().replace("+00:00", "Z") if self.start else None,
+            "end": self.end.isoformat().replace("+00:00", "Z") if self.end else None,
+            "start_wall": self.start_wall.isoformat() if self.start_wall else None,
+            "end_wall": self.end_wall.isoformat() if self.end_wall else None,
+            "local_rolling": self.local_rolling,
+            "timezone": self.timezone_name,
             "duration_hours": round(self.duration_hours, 2),
             "modes": self.modes,
             "bands": self.bands,
             "sponsor": self.sponsor,
             "rules_url": self.rules_url,
-            "local_time": self.local_time,
             "verified": self.verified,
             "note": self.note,
             "exchange": self.exchange,
@@ -326,7 +385,14 @@ class Occurrence:
         }
 
 
-def _apply_offset(anchor: date, spec: dict[str, Any]) -> datetime:
+def _wall_datetime(anchor: date, spec: dict[str, Any]) -> datetime:
+    """
+    Naive clock reading for a time spec -- a date and a time with no zone.
+
+    Deliberately zone-free: what this reading MEANS depends on the contest
+    (UTC, a sponsor's zone, or the operator's), and that decision belongs to
+    the caller rather than being baked in here.
+    """
     d = anchor + timedelta(days=spec.get("day_offset", 0))
     hhmm = spec["time"]
     hour, minute = int(hhmm[:2]), int(hhmm[2:])
@@ -334,7 +400,33 @@ def _apply_offset(anchor: date, spec: dict[str, Any]) -> datetime:
     if hour == 24:
         d += timedelta(days=1)
         hour = 0
-    return datetime(d.year, d.month, d.day, hour, minute, tzinfo=timezone.utc)
+    return datetime(d.year, d.month, d.day, hour, minute)
+
+
+def _apply_offset(
+    anchor: date, spec: dict[str, Any], tz_name: str | None = None
+) -> datetime:
+    """
+    Resolve a time spec to a real UTC instant.
+
+    A `wall_clock` spec is read in the contest's `timezone` and converted, so
+    the same rule yields 0100Z in January and 0000Z in July. Everything else is
+    already UTC.
+
+    On the two DST edges `zoneinfo` resolves silently rather than raising, so
+    the behaviour is pinned by test rather than left to chance: a nonexistent
+    spring-forward time resolves using the pre-transition offset, and an
+    ambiguous fall-back time takes the first (still-DST) pass via fold=0.
+    """
+    naive = _wall_datetime(anchor, spec)
+    if not spec.get("wall_clock"):
+        return naive.replace(tzinfo=timezone.utc)
+    if not tz_name:
+        raise ValueError(
+            "time spec is marked wall_clock but the contest sets no 'timezone'; "
+            "refusing to guess a zone"
+        )
+    return naive.replace(tzinfo=ZoneInfo(tz_name)).astimezone(timezone.utc)
 
 
 def expand(
@@ -364,15 +456,35 @@ def expand(
 
     elig = eligibility_for(contest, my_entity)
 
+    tz_name = contest.get("timezone")
+    rolling = bool(contest.get("local_rolling"))
+    if tz_name and rolling:
+        raise ValueError(
+            f"{contest['id']}: sets both 'timezone' and 'local_rolling'. A contest "
+            f"is anchored to the SPONSOR's clock or to the OPERATOR's, not both."
+        )
+
     out: list[Occurrence] = []
     for anchor in anchors:
         for sess in sessions:
-            start = _apply_offset(anchor, sess["start"])
-            end = _apply_offset(anchor, sess["end"])
-            if end <= start:
-                raise ValueError(f"{contest['id']}: end not after start in {year}")
+            start_wall = _wall_datetime(anchor, sess["start"])
+            end_wall = _wall_datetime(anchor, sess["end"])
+
+            if rolling:
+                # No UTC instant exists for this contest -- see module docstring.
+                start = end = None
+                reference = start_wall
+                if end_wall <= start_wall:
+                    raise ValueError(f"{contest['id']}: end not after start in {year}")
+            else:
+                start = _apply_offset(anchor, sess["start"], tz_name)
+                end = _apply_offset(anchor, sess["end"], tz_name)
+                reference = start
+                if end <= start:
+                    raise ValueError(f"{contest['id']}: end not after start in {year}")
+
             # Keep occurrences inside the requested year.
-            if start.year != year:
+            if reference.year != year:
                 continue
             out.append(
                 Occurrence(
@@ -380,11 +492,16 @@ def expand(
                     name=contest["name"],
                     start=start,
                     end=end,
+                    # Wall readings are only meaningful when a zone other than
+                    # UTC is in play; leave them unset for ordinary contests.
+                    start_wall=start_wall if (rolling or tz_name) else None,
+                    end_wall=end_wall if (rolling or tz_name) else None,
+                    local_rolling=rolling,
+                    timezone_name=tz_name or "",
                     modes=contest.get("modes", []),
                     bands=contest.get("bands", []),
                     sponsor=contest.get("sponsor", ""),
                     rules_url=resolve_rules_url(contest, year),
-                    local_time=contest.get("local_time", False),
                     verified=contest.get("verified", False),
                     note=contest.get("note", ""),
                     exchange=contest.get("exchange", ""),
@@ -409,5 +526,5 @@ def expand_year(
     out: list[Occurrence] = []
     for c in contests:
         out.extend(expand(c, year, my_entity))
-    out.sort(key=lambda o: (o.start, o.name))
+    out.sort(key=lambda o: (o.sort_key, o.name))
     return out

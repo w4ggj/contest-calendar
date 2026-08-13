@@ -130,10 +130,40 @@ HANDOVER.md                  start here if you're picking this up
 | `manual` | sponsor sets annually | ARRL EME (lunar conditions) |
 | `composite` | seasons with different rules | NAQP RTTY (last-Sat-Feb + 3rd-wknd-Jul) |
 
-Weekly and monthly types matter most for coverage: **41 definitions currently produce
-386 occurrences**, because CWT alone is 208. Encoding ~20 high-frequency club contests
-fills hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
+Weekly and monthly types matter most for coverage: **84 definitions currently produce
+648 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
+hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
+
+## Time handling
+
+Times are UTC unless a record says otherwise. Two kinds of contest say otherwise, and they
+need **opposite** treatment — one flag for both was a real bug.
+
+| field | meaning | resolution |
+|---|---|---|
+| *(none)* | sponsor states UTC | stored as given |
+| `timezone` + `wall_clock` | sponsor runs it at a clock time in **their** zone | resolved through `zoneinfo`, so the UTC instant moves with DST |
+| `local_rolling` | contest starts at a clock time wherever **you** are | not converted at all; `start`/`end` are `None` and the wall clock is emitted instead |
+
+A sponsor-anchored contest has exactly one correct UTC instant per occurrence, an hour
+apart across the DST boundary. 4SQRP spells the consequence out themselves: *"7 PM until
+9 PM central time (CST or CDT, whichever is in effect at the time). If you use UTC, that
+time changes when we switch from CST to CDT."* Hardcoding either value is wrong for half
+the year.
+
+An operator-anchored contest has **no** single UTC instant — it sweeps the globe as local
+dawn moves west. Converting it is a category error, so `Occurrence.start` is `None` rather
+than a plausible-looking timestamp that would leak into an iCal feed and be wrong for
+almost everyone. Sorting such a record into the right category means reading the sponsor's
+wording; some mean their own zone, some mean yours.
+
+Both DST edges are pinned by test, because `zoneinfo` resolves them silently rather than
+raising: a nonexistent spring-forward wall time uses the pre-transition offset, and an
+ambiguous fall-back time takes the first pass (`fold=0`).
+
+`zoneinfo` is stdlib, so the zero-dependency runtime promise holds. Windows alone lacks the
+IANA database and needs the `tzdata` package — see `requirements.txt`.
 
 ## Eligibility
 
