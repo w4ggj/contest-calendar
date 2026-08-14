@@ -3,7 +3,7 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Owner:** Joe Leone, W4GGJ
-**Updated:** 2026-08-12 — after timezone work
+**Updated:** 2026-08-13 — after the Worker, the API and the landing view
 
 ---
 
@@ -18,7 +18,9 @@ computed on demand. That means no year horizon, one-line fixes when a sponsor ch
 rule, and every date traceable to a source.
 
 **Current state:** 84 contest definitions → 648 occurrences for 2026. 116 Python tests,
-129 TypeScript tests. Engine complete in both languages — no known structural gaps.
+129 TypeScript tests, 31 Worker tests. Engine complete in both languages — no known
+structural gaps. The API and the Now / next-7-days landing view are built and serve
+locally; the UI's filters, search and detail view are not, and nothing is deployed.
 
 ## Read first
 
@@ -36,11 +38,17 @@ python -m pytest -q               # expect: 116 passed
 python scripts\check_links.py
 
 cd engine; npm install; npm test   # expect: 129 passed (116 mirrored + 13 parity)
+cd ..\worker; npm install; npm test # expect: 31 passed (parity inside workerd + the API)
 ```
 
-The TypeScript suite shells out to Python for its parity check, so run
-`pip install -r requirements.txt` before `npm test` or it fails loudly. That is
+Both TypeScript suites shell out to Python for their parity checks, so run
+`pip install -r requirements.txt` before `npm test` or they fail loudly. That is
 deliberate — a parity check that skips looks green while proving nothing.
+
+`engine` runs in Node. `worker` runs the same field-for-field comparison **inside workerd**,
+because that is what serves requests and its `Temporal`/`Intl` surface is not Node's. It
+also asserts the timezone resolver actually in use is the pinned one, and that
+`/api/health` says so. Green in Node alone proves nothing about production.
 
 `tzdata` is the single exception to the stdlib-only runtime. Linux and macOS ship the IANA
 database; Windows doesn't, and without it `zoneinfo` raises and the whole suite fails. The
@@ -84,6 +92,25 @@ The catalog already covers every contest a normal operator would enter in a year
 of it is visible to anyone. Build the UI against the data as it stands — remaining sourcing
 becomes background work that appears in a UI that already exists, and building will surface
 data model gaps faster than another 200 records would.
+
+**The Worker is up, locally.** `worker/` server-renders `/` and serves `/api/*` from the
+same catalog and the same engine — `npm run dev` in `worker/`, then <http://127.0.0.1:8787>.
+The landing view answers "what is on the air now" and "what is on this week"; the API
+already supports filters, search, per-contest lookup and the iCal feed. Still to build:
+filters and search **in the UI**, the contest detail view, and deployment.
+
+Two things worth knowing before you touch it:
+
+- The timezone resolver is **pinned** in `worker/src/runtime.ts`, and the probe that
+  settled it is `npm run probe`. `Temporal` turns out to be absent in local workerd at our
+  compatibility date and present-but-broken on the fleet, so an unpinned build would run
+  different code in production than in test. `/api/health` reports the active resolver and
+  the one that would have been chosen without the pin. See `TIMEZONE_BRIEF.md`,
+  "Measured, not assumed".
+- The catalog's `modes` field is not a controlled vocabulary — `Digital` and `DIGITAL` both
+  appear, alongside `PSK31`, `PSK63`, `RTTY75`, `FT4`. The Worker normalises
+  case-insensitively so filters work, but the records themselves are inconsistent. A
+  catalog fix, not an engine one.
 
 **The engine port is done.** `engine/` holds the TypeScript engine: 116 tests mirroring the
 Python suite one-for-one, plus a parity suite that compares every field of every occurrence

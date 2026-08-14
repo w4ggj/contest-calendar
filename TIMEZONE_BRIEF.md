@@ -256,6 +256,41 @@ shipped one.
   engine elsewhere. The Worker overrides rather than removes, so the pin is a deployment
   decision and stays visible as one line in the Worker's entry point.
 
+### Measured, not assumed — probe of 2026-08-13
+
+The paragraphs above were written from workerd issue #6907 and Cloudflare's docs. They have
+since been checked against a real runtime. `worker/scripts/probe-runtime.mjs` starts
+`wrangler dev` on `worker/probe/temporal-probe.js` and reports `typeof Temporal`,
+`Temporal.Now.instant()`, and four DST conversions, at several compatibility dates.
+Re-run it with `npm run probe` in `worker/`.
+
+Result, on workerd `1.20260814.1`:
+
+| Compatibility date | `Temporal` | `Intl` + `timeZone` |
+| --- | --- | --- |
+| 2024-01-01 | absent | present, correct |
+| 2025-01-01 | absent | present, correct |
+| 2026-01-01 | absent | present, correct |
+| **2026-08-13 (ours)** | **absent** | present, correct |
+| 2026-08-13 + `experimental` | absent | present, correct |
+| 2026-08-13 + `nodejs_compat` | absent | present, correct |
+
+**So "it is nonetheless present" is true of the deployed fleet, not of local workerd.** The
+answer to "is Temporal available at our compatibility date?" is *it depends which machine
+you ask*, and no compat flag changes that — which makes the situation worse than this brief
+originally described, and the pin correspondingly more load-bearing.
+
+Without the pin, `activeResolver()` would select `intlResolver` in `wrangler dev` and in the
+vitest-pool-workers suite, and `temporalResolver` on the fleet. Every test we run would
+exercise a code path production does not take. That is not a hypothetical: it is the exact
+shape of "a silent fallback moves contests by an hour", with the fallback silent precisely
+because the tests are green.
+
+`worker/src/runtime.ts` therefore reports `wouldSelectWithoutPin` alongside `resolver`, and
+`/api/health` surfaces both. When those two values differ, the pin is doing work; the
+Worker logs a warning at startup saying so. Today, locally, they agree — and the same
+endpoint on the fleet is how we will find out that they do not.
+
 ### If this is ever revisited
 
 Reversing it needs more than "#6907 is fixed". It needs the parity suite passing on the

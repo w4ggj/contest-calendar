@@ -1,0 +1,22 @@
+name = "contest-calendar"
+main = "src/index.ts"
+
+# Pinned deliberately, and the pin is load-bearing.
+#
+# The Workers runtime began exposing an undocumented `Temporal` global on the
+# deployed fleet on 2026-07-30 (workerd#6907) -- present in production, absent
+# in local workerd, and with a clock frozen at epoch 0. `activeResolver()` in
+# engine/src/zones.ts selects on `typeof Temporal !== "undefined"`, so an
+# unpinned build would resolve wall-clock contest times through DIFFERENT code
+# paths locally and in production.
+#
+# src/runtime.ts therefore pins `intlResolver` at module scope and /api/health
+# proves it resolved the DST edges correctly. Do not remove either.
+compatibility_date = "2026-08-13"
+
+# Observability so the startup line in src/runtime.ts is actually retrievable.
+[observability]
+enabled = true
+
+[observability.logs]
+enabled = true

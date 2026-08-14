@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 Activate the venv **before** running the TypeScript suite too — see below.
 
-## Both test suites
+## Three test suites
 
 ```powershell
 # Python -- the reference engine
@@ -30,11 +30,26 @@ npm test                       # expect: 129 passed (116 mirrored + 13 parity)
 npm run typecheck
 ```
 
-`engine/tests/parity.test.ts` shells out to `python scripts/dump_occurrences.py` and
-compares full serialised output. It uses whatever `python` is first on PATH, so **the venv
-must be active or `npm test` fails** on Windows — `zoneinfo` raises without `tzdata`. It
-fails rather than skipping, deliberately: a parity check that skips looks green while
-proving nothing.
+```powershell
+# Worker -- the API and the landing view, tested inside workerd
+cd worker
+npm install
+npm test                       # expect: 31 passed
+npm run typecheck              # two projects: workerd sources, then the Node-side setup
+npm run dev                    # wrangler dev on :8787
+npm run probe                  # re-measure Temporal/Intl across compatibility dates
+```
+
+Both parity suites shell out to `python scripts/dump_occurrences.py` and compare full
+serialised output, using whatever `python` is first on PATH — so **the venv must be active
+or they fail** on Windows, where `zoneinfo` raises without `tzdata`. They fail rather than
+skipping, deliberately: a parity check that skips looks green while proving nothing.
+
+The `engine` suite runs in Node; the `worker` suite runs the same comparison **inside
+workerd** via `@cloudflare/vitest-pool-workers`, because that is the runtime that serves
+requests and its `Temporal`/`Intl` surface is not Node's. Green in Node is not evidence
+about production. `worker/tests/global-setup.ts` runs Python on the Node side and writes a
+gitignored fixture, since workerd has no child processes.
 
 ## The engines change together
 
@@ -58,6 +73,24 @@ Practically:
 suite. The Worker pins `intlResolver` and does not touch `Temporal`; the reasoning is in
 `TIMEZONE_BRIEF.md` under "Decision — the Worker uses the Intl path". Never use
 `new Date("2026-03-08T02:30")` — a local-time string makes the runtime apply its own zone.
+
+The pin lives in `worker/src/runtime.ts`, at module scope, and self-checks against eight
+DST vectors before a request is served. **`worker/src/index.ts` imports it first, for its
+side effects** — do not reorder those imports, and do not import anything above it that
+touches the engine. `/api/health` reports both the active resolver and the one the runtime
+*would* have chosen; when they differ, the pin is what is keeping contests on the hour.
+
+## The Worker
+
+`worker/` is one deployable: it server-renders `/` and serves `/api/*`. It reads the same
+`data/contests.seed.json` as everything else, imported as a module so the bundler inlines
+it — `engine/src/catalog.ts` uses `node:fs` and is excluded from the Worker's tsconfig for
+exactly that reason. There is no D1, no KV, and no Astro; the reasoning is in
+`FRONTEND_BRIEF.md` under "Deviation: Worker-rendered HTML, not Astro + Pages".
+
+The page must stay correct with JavaScript off. Server-render every time as UTC with a
+machine-readable `datetime`; `render/client.ts` only converts to local and ticks
+countdowns. Anything that renders blank without JS is a regression.
 
 ## The four briefs
 

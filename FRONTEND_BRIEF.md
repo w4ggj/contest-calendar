@@ -29,14 +29,24 @@ model gaps faster than another 200 records would.
 Astro + Cloudflare Pages, matching the rest of the stack. Cloudflare Worker + D1 for the
 API, KV for caching generated years.
 
+> **Superseded.** One Worker server-renders the HTML and serves the API; no Astro, no
+> Pages, no D1, no KV. Reasoning in **"Deviation: Worker-rendered HTML, not Astro + Pages"**
+> below.
+
 The engine is currently Python. **Port `contestcal/recurrence.py` to TypeScript first** —
 it's dependency-free stdlib date math, so this is a direct translation, not a rewrite.
 Bring `tests/test_recurrence.py` across as a Vitest suite. All 115 tests must pass in TS
 before any UI work starts; that suite is the only thing guaranteeing dates stay correct.
 
 Timezone handling in TS: use `Temporal.ZonedDateTime` where available, otherwise
-`Intl.DateTimeFormat` with an explicit `timeZone`. **Never** the `Date` constructor with a
-local-time string — it silently applies the runtime's zone, which is the bug
+`Intl.DateTimeFormat` with an explicit `timeZone`.
+
+> **Amended.** "Where available" is the problem, not the solution: availability differs
+> between local workerd and the deployed fleet, so it decides the answer by environment.
+> The Worker pins `intlResolver` unconditionally. See `TIMEZONE_BRIEF.md`,
+> "Measured, not assumed".
+
+**Never** the `Date` constructor with a local-time string — it silently applies the runtime's zone, which is the bug
 `TIMEZONE_BRIEF.md` just removed, and it works fine on the developer's machine.
 
 ---
@@ -181,6 +191,90 @@ insults them.
 
 Empty states are directions, not apologies: "No CW contests in the next 7 days. Try widening
 the date range."
+
+---
+
+## Worker: what shipped
+
+**2026-08-13.** `worker/` — one Cloudflare Worker serving both the API and the landing
+view. Runs on the same `data/` catalog and the same `engine/src/recurrence.ts` as the
+Python reference; nothing is forked or copied.
+
+### Deviation: Worker-rendered HTML, not Astro + Pages
+
+The brief's stack line says Astro + Cloudflare Pages with a separate Worker for the API.
+**We shipped one Worker that server-renders the HTML instead.** Chosen deliberately:
+
+- The landing view's entire content is *what is true right now*. Astro would either
+  pre-render it (immediately stale) or defer to the client (a spinner, which the brief
+  rules out). Rendering at request time in the Worker is neither.
+- One deployable, one router, one place where `now` is read. The API and the page cannot
+  disagree about what is live, because they call the same `buildNowView`.
+- No framework, no hydration, no bundle. The page is correct and complete with JavaScript
+  off — every time carries a UTC `datetime` attribute — and the client script only
+  converts to local time and ticks countdowns. That is the brief's "local time by default,
+  progressive enhancement" requirement satisfied by construction rather than by care.
+
+D1 and KV are not used and are not needed yet: the catalog is 84 records inlined into the
+bundle at build time, and expansion is memoised per year in the isolate. Revisit if the
+catalog grows an order of magnitude or gains per-user state.
+
+### What exists
+
+| Route | What it serves |
+| --- | --- |
+| `/` | The Now / next-7-days landing view, server-rendered |
+| `/api/health` | Active zone resolver, its self-check, catalog version. **503** if the self-check fails |
+| `/api/meta` | Filter vocabularies and sponsor list |
+| `/api/contests` | `?year=` or `?from=&to=`, with filters |
+| `/api/contests/:id` | One contest: record, plain-language rule, next runnings |
+| `/api/search?q=` | Name / sponsor / mode search |
+| `/api/ics` | RFC 5545 feed, UTC instants only |
+
+Still to build from the list above: filters and search **in the UI** (the API supports
+both), the contest detail view, and deployment.
+
+### The rail has one axis, declared once
+
+The day ruler and the contest bars are separate boxes — a ruler, then a list of
+rows — so the only thing holding a label above the bar it names is that both read
+`--axis` in `theme.ts`. They did not, briefly: `.ruler` and `.row` each carried
+their own `grid-template-columns`, a later `.ruler` rule won over the media query
+at equal specificity, and the labels stretched across the whole card while the
+bars stayed in the middle column. A contest at 2000Z Friday rendered under
+Sunday's label — the chart was legible, confident and wrong by two days.
+
+Three things keep it fixed, and all three matter: the template is declared in one
+rule for both selectors; its lengths are fixed rather than content-sized, so two
+grids reading it cannot resolve differently; and a test walks the stylesheet and
+fails if `grid-template-columns` is ever set on `.ruler` or `.row` anywhere else.
+Positions come from one exported `railFraction()`, which is asserted against the
+percentages in the served markup — a chart drawn from a second copy of the
+arithmetic is the same bug wearing different clothes.
+
+**In Local mode the cells do not move; their names change.** The rail is sliced on
+UTC midnights, and bars are instants, so switching zones must not shift anything —
+but at 0304Z Friday a reader in New York is on Thursday, and a rail headed
+"Today 14" names a day they have not reached. `dayCellLabel()` relabels each cell
+with the local date it *begins* on; the client gets that exact function as source
+rather than a second copy. Known residual: a cell labelled "Thu 13" in New York
+actually spans 2000 Thursday to 2000 Friday local. Re-slicing the rail on local
+midnights would fix it and would mean recomputing every bar client-side; not done,
+and not obviously worth it.
+
+### Two things building surfaced
+
+- **The tests run inside workerd, not Node.** `worker/tests/parity.worker.test.ts` compares
+  every field of every occurrence for 2026, 2027, 2030 and 2032 against the Python engine's
+  output *in the runtime that serves requests*, and asserts the pinned resolver is the one
+  actually active. The Python side is dumped by a Node-side `globalSetup`, since workerd has
+  no child processes. It fails rather than skips when Python is unreachable, matching
+  `engine/tests/parity.test.ts`.
+- **`modes` in the catalog is not a controlled vocabulary.** Both `Digital` and `DIGITAL`
+  appear, alongside `PSK31`, `PSK63`, `RTTY75` and `FT4`. `modeFamilies()` normalises
+  case-insensitively so the UI and the API filters behave, but the underlying records are
+  inconsistent and a filter is only as good as the field it reads. Worth a pass over
+  `data/contests.seed.json` — a catalog edit, not an engine one.
 
 ---
 
