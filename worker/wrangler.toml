@@ -3,12 +3,18 @@ main = "src/index.ts"
 
 # Pinned deliberately, and the pin is load-bearing.
 #
-# The Workers runtime began exposing an undocumented `Temporal` global on the
-# deployed fleet on 2026-07-30 (workerd#6907) -- present in production, absent
-# in local workerd, and with a clock frozen at epoch 0. `activeResolver()` in
-# engine/src/zones.ts selects on `typeof Temporal !== "undefined"`, so an
-# unpinned build would resolve wall-clock contest times through DIFFERENT code
-# paths locally and in production.
+# workerd#6907 reported an undocumented `Temporal` global appearing on the
+# deployed fleet on 2026-07-30, with a clock frozen at epoch 0. `activeResolver()`
+# in engine/src/zones.ts selects on `typeof Temporal !== "undefined"` -- a
+# presence check standing in for a correctness check -- so an unpinned build
+# could resolve wall-clock contest times through DIFFERENT code paths locally
+# and in production, and neither we nor the compatibility date would decide it.
+#
+# Measured 2026-08-16 on the deployed Worker and via `wrangler dev --remote`:
+# `Temporal` is currently absent on the fleet too, at this date and at 2026-08-16.
+# So the divergence is not visible today. That is not a reason to unpin -- the
+# answer has already moved once, and the pin's value is that it stopped
+# mattering. See TIMEZONE_BRIEF.md, "Measured on the fleet".
 #
 # src/runtime.ts therefore pins `intlResolver` at module scope and /api/health
 # proves it resolved the DST edges correctly. Do not remove either.

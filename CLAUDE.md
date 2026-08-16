@@ -34,7 +34,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 86 passed
+npm test                       # expect: 87 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates

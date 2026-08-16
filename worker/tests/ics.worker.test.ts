@@ -332,6 +332,24 @@ describe("GET /api/ics — what the subscriber gets to read", () => {
     expect(text(arrl.events[0], "DESCRIPTION")).toContain("Exchange: not recorded yet");
   });
 
+  it("states the duration the way the page does, not as a raw float", async () => {
+    // Found by subscribing the deployed feed in Google Calendar and reading the
+    // event: `Duration: 47.983333333333334h`. Harmless, and exactly the kind of
+    // thing that only shows up once a human looks at the rendered result.
+    const cal = parse(await ics("/api/ics?range=365d"));
+    expect(cal.events.length).toBeGreaterThan(0);
+
+    const durations = cal.events.map(
+      (ev) => /^Duration: (.+)$/m.exec(text(ev, "DESCRIPTION"))?.[1] ?? "",
+    );
+    expect(durations.every((d) => /^(\d+h( \d+m)?|\d+m)$/.test(d))).toBe(true);
+
+    // The near-48h contests are the ones that produced the float, so pin one.
+    const cqww = parse(await ics("/api/ics?q=CQ WW&range=365d"));
+    expect(cqww.events.length).toBeGreaterThan(0);
+    expect(text(cqww.events[0], "DESCRIPTION")).toContain("Duration: 47h 59m");
+  });
+
   it("marks contests transparent so a subscriber does not look busy", async () => {
     const cal = parse(await ics("/api/ics"));
     expect(cal.events.every((ev) => get(ev, "TRANSP") === "TRANSPARENT")).toBe(true);

@@ -39,7 +39,7 @@ python -m pytest -q               # expect: 127 passed
 python scripts\check_links.py
 
 cd engine; npm install; npm test   # expect: 140 passed (127 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 86 passed (parity inside workerd, the API, filters, iCal)
+cd ..\worker; npm install; npm test # expect: 87 passed (parity inside workerd, the API, filters, iCal)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -94,22 +94,33 @@ of it is visible to anyone. Build the UI against the data as it stands — remai
 becomes background work that appears in a UI that already exists, and building will surface
 data model gaps faster than another 200 records would.
 
-**The Worker is up, locally.** `worker/` server-renders `/` and serves `/api/*` from the
-same catalog and the same engine — `npm run dev` in `worker/`, then <http://127.0.0.1:8787>.
-The landing view answers "what is on the air now" and "what is on this week", and filters
-and search are on it — a plain GET form that works with scripting off, with the state in
-the URL. **The iCal feed is on it too**, at `/api/ics` and `/contests.ics`, taking the same
-query params — so the address bar is the subscription URL and "Subscribe to this view" is
-that fact made visible. Still to build: the contest detail view, and deployment.
+**The Worker is deployed.** <https://contest-calendar.jleone0.workers.dev> — one Worker
+server-rendering `/` and serving `/api/*` from the same catalog and the same engine.
+Locally: `npm run dev` in `worker/`, then <http://127.0.0.1:8787>. The landing view answers
+"what is on the air now" and "what is on this week", and filters and search are on it — a
+plain GET form that works with scripting off, with the state in the URL. **The iCal feed is
+on it too**, at `/api/ics` and `/contests.ics`, taking the same query params — so the
+address bar is the subscription URL and "Subscribe to this view" is that fact made visible.
+Still to build: the contest detail view.
+
+Deploy with `npx wrangler deploy` in `worker/`. There is still no KV and no D1 — a year of
+occurrences costs **4.44 ms** to expand cold inside workerd and is already memoised per
+isolate in `schedule.ts`, while the same data is 533 KB serialised. A KV read would be a
+network round trip and a `JSON.parse` to avoid 4.44 ms of arithmetic, and it would put a
+serialise/deserialise boundary through `Date` values in a project whose entire warrant is
+that the times are exact. Measured, not assumed; revisit if the catalog grows an order of
+magnitude.
 
 Two things worth knowing before you touch it:
 
 - The timezone resolver is **pinned** in `worker/src/runtime.ts`, and the probe that
-  settled it is `npm run probe`. `Temporal` turns out to be absent in local workerd at our
-  compatibility date and present-but-broken on the fleet, so an unpinned build would run
-  different code in production than in test. `/api/health` reports the active resolver and
-  the one that would have been chosen without the pin. See `TIMEZONE_BRIEF.md`,
-  "Measured, not assumed".
+  settled it is `npm run probe`. `activeResolver()` picks on `typeof Temporal`, so without
+  the pin the runtime's own feature detection would decide how wall-clock contest times get
+  resolved. Measured 2026-08-16: `Temporal` is absent in local workerd **and** absent on the
+  deployed fleet, so today the pin and detection agree — which is not a reason to remove it,
+  since the fleet's answer already moved once (workerd#6907). Production `/api/health`
+  reports `resolver: intl`, `pinned: true`, `wouldSelectWithoutPin: intl`, and the DST
+  self-check passing 8/8. See `TIMEZONE_BRIEF.md`, "Measured on the fleet".
 - `modes` and `bands` **are** controlled vocabularies, declared in both engines and asserted
   by all three suites. `modes` is one or more of CW · SSB · RTTY · Digital · FT8/FT4 ·
   Mixed; `bands` is a per-contest list off the 160m…3cm ladder. Free-text `submodes` and
@@ -159,18 +170,33 @@ Flagged rather than guessed. Leave them until a sponsor settles them.
   club calendar. Recorded in `note`, not silently reconciled.
 - **CQ 160 SSB** — see above. This record is the model for an honest flag.
 
-## Open check — the iCal feed in a real client
+## Partly-closed check — the iCal feed in a real client
 
 The feed conforms to RFC 5545 clause by clause, proved by a parser that reads it back
 (`worker/tests/ics.worker.test.ts`), and it avoids the two constructs Google, Apple and
-Outlook genuinely implement differently — `VTIMEZONE` and `RRULE`. But **no live
-subscription has been tested**, because that needs a publicly reachable HTTPS URL and
-nothing is deployed; none of the three clients will poll `localhost`.
+Outlook genuinely implement differently — `VTIMEZONE` and `RRULE`.
 
-**Do this the day the Worker gets a public URL:** subscribe in Google Calendar, Apple
-Calendar and Outlook, then check the same event in all three for start time, duration and
-whether the description survived. Google caches subscriptions aggressively — allow up to a
-day before concluding a change did not take.
+**Google Calendar: verified 2026-08-16, end to end.** The deployed feed was subscribed in
+the browser and then read back through the Calendar API and compared against the bytes the
+Worker serves. `CQ Worldwide DX Contest, CW`, UID `cq-ww-cw-20261128T0000@contestcal`:
+`DTSTART:20261128T000000Z` / `DTEND:20261129T235900Z` arrived as exactly those instants;
+`STATUS:TENTATIVE` → `status: tentative`; `TRANSP:TRANSPARENT` → `transparency: transparent`
+and `AVAILABILITY_FREE`; the escaped `\,` in the summary was unescaped correctly; the
+multi-line description and its em-dash survived; `X-WR-CALNAME`, `X-WR-CALDESC` and
+`X-WR-TIMEZONE:UTC` were all honoured. 699 events.
+
+**Apple Calendar and Outlook: not verified.** Both require signing in to an account, which
+is not something to do on the owner's behalf. They need a human with the credentials — the
+feed URL is above and takes seconds to add.
+
+Two things that check turned up, and would not have been found any other way:
+
+- Durations rendered as raw floats (`Duration: 47.983333333333334h`). Fixed — the feed now
+  shares the page's `humanDuration`, so both surfaces say `47h 59m`, with a test pinning it.
+- **Google re-polls on its own schedule**, not on `REFRESH-INTERVAL`. Twenty minutes after
+  the fix deployed, Google still served the old text. Allow up to a day before concluding a
+  change did not take, and never diagnose the generator from what a client is showing —
+  fetch the feed and read the bytes.
 
 ---
 

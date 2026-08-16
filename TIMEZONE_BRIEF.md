@@ -291,6 +291,41 @@ because the tests are green.
 Worker logs a warning at startup saying so. Today, locally, they agree — and the same
 endpoint on the fleet is how we will find out that they do not.
 
+### Measured on the fleet — 2026-08-16
+
+The Worker is deployed, so the sentence above is no longer a plan. Both the deployed
+`/api/health` and the standalone probe run through `wrangler dev --remote` (a preview on
+real Cloudflare infrastructure, not local workerd) were asked directly:
+
+| Where | Compatibility date | `Temporal` | `Intl` + `timeZone` |
+| --- | --- | --- | --- |
+| Deployed Worker, `/api/health` | 2026-08-13 (ours) | **absent** | present, correct |
+| Remote probe | 2026-08-13 (ours) | **absent** | present, correct |
+| Remote probe | 2026-08-16 (newest) | **absent** | present, correct |
+
+**The fleet does not currently expose `Temporal` either.** `wouldSelectWithoutPin` comes
+back `"intl"` in production, so today the pin and feature detection agree, and the pin is
+not currently changing which code runs.
+
+Three things follow, and the third is the one that matters:
+
+- The claim above that `Temporal` "is nonetheless present … true of the deployed fleet" was
+  read out of workerd#6907 and never measured on the fleet. **It is not true of the fleet we
+  deploy to, on this date.** Either the issue was resolved, or the exposure was always
+  narrower than the report implied — this probe cannot tell which, and neither should we
+  guess. The paragraphs above are left as written, because they are the reasoning that
+  produced the pin and rewriting history would hide that the premise was inferred.
+- Every DST vector still passes: `zoneResolverSelfCheck` reports 8/8 in production. That is
+  the check that actually guarantees contest times, and it does not depend on this question.
+- **This does not weaken the case for the pin; it is the case for the pin.** A resolver
+  chosen by `typeof Temporal` is a resolver chosen by whatever the fleet shipped that week,
+  and the answer has now demonstrably moved at least once. The pin's value is that the
+  answer stopped mattering. Do not remove it on the strength of one green probe — that is
+  the same presence-check-as-correctness-check reasoning, run in the opposite direction.
+
+Re-check with `npm run probe`, or against a deployment with
+`curl https://<worker>/api/health`.
+
 ### If this is ever revisited
 
 Reversing it needs more than "#6907 is fixed". It needs the parity suite passing on the

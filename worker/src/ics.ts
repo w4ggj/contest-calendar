@@ -32,6 +32,7 @@
  */
 
 import type { Occurrence } from "../../engine/src/recurrence.js";
+import { humanDuration } from "./render/landing.js";
 import { occurrenceUid } from "./serialize.js";
 
 const PRODID = "-//contestcal//Amateur Radio Contest Calendar//EN";
@@ -114,7 +115,12 @@ function describe(o: Occurrence): string {
   }
   if (o.bands_note) parts.push(`Band note: ${o.bands_note}`);
 
-  parts.push(`Duration: ${o.duration_hours}h`);
+  // Shared with the page's formatter rather than interpolated raw: 47.98333333
+  // hours is `duration_hours` for a contest that ends a minute before midnight,
+  // and a subscriber reading "47.983333333333334h" learns nothing the page's
+  // "47h 59m" does not tell them better. Sharing it also keeps the two surfaces
+  // from disagreeing about the same contest.
+  parts.push(`Duration: ${humanDuration(o.duration_hours)}`);
   if (o.exchange) {
     parts.push(`Exchange: ${o.exchange}`);
   } else {

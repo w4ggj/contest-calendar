@@ -451,21 +451,38 @@ Each event's description carries sponsor, modes (with free-text `submodes`), ban
 `bands_note`), duration, exchange, log deadline, and the sponsor's rules URL — which is
 also a `URL` property, for clients that render a link button.
 
-#### Not yet done: a real subscription in Google, Apple and Outlook
+#### Subscribed for real: Google verified, Apple and Outlook still open
 
-Nothing here has been subscribed in a live client. That needs a publicly reachable HTTPS
-URL and the Worker is not deployed; none of the three will poll `localhost`. What is pinned
-instead is every requirement those clients place on the bytes, each traceable to a spec
-clause — folding and CRLF (§3.1), required properties (§3.6), TEXT escaping (§3.3.11),
-UTC-form DATE-TIME (§3.3.5) — so that a client disagreeing with this feed is that client's
-bug rather than ours. The live check stays open in `HANDOVER.md` until there is a URL.
+Every requirement those three clients place on the bytes is pinned by test and traceable to
+a spec clause — folding and CRLF (§3.1), required properties (§3.6), TEXT escaping (§3.3.11),
+UTC-form DATE-TIME (§3.3.5) — so a client disagreeing with this feed is that client's bug
+rather than ours. But conformance is an argument, and the point of the check was to stop
+arguing.
+
+Deployed 2026-08-16 and subscribed in **Google Calendar**, then read back through the
+Calendar API and compared with the bytes the Worker serves: instants, `STATUS`, `TRANSP`,
+the escaped comma, the multi-line description, the calendar name and `X-WR-TIMEZONE:UTC`
+all arrived intact across 699 events. **Apple Calendar and Outlook remain unchecked** —
+both want an account signed in, which needs the person who owns the account.
+
+It was worth doing, and the reason is the defect it found: durations were printing as
+`Duration: 47.983333333333334h`. Every test passed, because every test asserted the feed
+said what the generator computed, and it did. Nothing short of reading the rendered event
+was going to catch that the number was unreadable. The feed now shares the page's
+`humanDuration`, which also stops the two surfaces describing one contest two ways.
+
+Second finding, for whoever debugs this next: **Google re-polls on its own schedule and
+ignores `REFRESH-INTERVAL`.** Twenty minutes after the fix was deployed Google was still
+serving the old description. Diagnose the generator by fetching the feed, never by looking
+at a client.
 
 ---
 
 ## Definition of done
 
 Engine ported to TS with all tests green. Landing view, filters, search, contest detail and
-iCal feed working. Deployed to Cloudflare Pages. Usable one-handed on a phone. Catalog
+iCal feed working. Deployed to Cloudflare — one Worker, not Pages; see the deviation above.
+Usable one-handed on a phone. Catalog
 published under CC BY.
 
 ---
