@@ -18,8 +18,9 @@ import {
   handleMeta,
   handleSearch,
   parseFilters,
+  parsePageWindow,
 } from "./api.js";
-import { buildNowView } from "./schedule.js";
+import { allSponsors, buildNowView } from "./schedule.js";
 import { renderLanding } from "./render/landing.js";
 
 /**
@@ -41,7 +42,11 @@ function html(body: string, status = 200): Response {
       // rather than a nonce that would have to be threaded through the cache.
       "content-security-policy":
         "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; " +
-        "img-src 'self' data:; form-action 'none'; base-uri 'none'; frame-ancestors 'none'",
+        // `form-action 'self'`, not 'none': the filter panel is a real GET form
+        // and the page has to keep working with JavaScript off, which means the
+        // browser has to be allowed to submit it. 'self' is still the whole
+        // restriction -- it can post nowhere but back to this Worker.
+        "img-src 'self' data:; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
       "referrer-policy": "strict-origin-when-cross-origin",
       "x-content-type-options": "nosniff",
     },
@@ -86,8 +91,16 @@ export default {
       let response: Response;
 
       if (path === "/") {
-        const view = buildNowView(nowMs, parseFilters(url.searchParams));
-        response = html(renderLanding(view));
+        const filters = parseFilters(url.searchParams);
+        const window = parsePageWindow(url.searchParams, nowMs);
+        const view = buildNowView(nowMs, filters, filters.entity, window);
+        response = html(
+          renderLanding(view, {
+            filters,
+            params: url.searchParams,
+            sponsors: allSponsors(),
+          }),
+        );
       } else if (path === "/api/health") {
         response = handleHealth();
       } else if (path === "/api/meta") {

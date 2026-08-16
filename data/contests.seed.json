@@ -1,6 +1,6 @@
 {
   "$comment": "Independent contest compilation built from sponsor-published rules. Each entry carries source provenance. verified=true means the recurrence rule was read directly off the sponsor's own published generic calendar or rules page. verified=false means the rule is believed correct but MUST be confirmed against rules_url before publishing.",
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "generated_from": "sponsor primary sources",
   "weekday_key": "0=Mon 1=Tue 2=Wed 3=Thu 4=Fri 5=Sat 6=Sun",
   "contests": [
@@ -12,6 +12,27 @@
       "modes": [
         "CW"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "60m",
+        "40m",
+        "30m",
+        "20m",
+        "17m",
+        "15m",
+        "12m",
+        "10m",
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm",
+        "33cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "All authorized amateur frequencies; activity traditionally centres on HF",
       "recurrence": {
         "type": "fixed_date",
         "month": 1,
@@ -40,8 +61,14 @@
       "sponsor": "ARRL",
       "rules_url": "http://www.arrl.org/rtty-roundup",
       "modes": [
-        "RTTY",
-        "Digital"
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
       ],
       "recurrence": {
         "type": "nth_full_weekend",
@@ -80,8 +107,16 @@
         "Mixed"
       ],
       "bands": [
-        "VHF+"
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm",
+        "33cm",
+        "23cm",
+        "13cm",
+        "3cm"
       ],
+      "bands_note": "All authorized frequencies above 50 MHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 1,
@@ -113,6 +148,14 @@
       "rules_url": "http://www.arrl.org/arrl-dx",
       "modes": [
         "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
       ],
       "recurrence": {
         "type": "nth_full_weekend",
@@ -153,6 +196,14 @@
       "modes": [
         "SSB"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 3,
@@ -192,6 +243,13 @@
       "modes": [
         "SSB"
       ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
       "recurrence": {
         "type": "nth_weekday",
         "month": 4,
@@ -228,6 +286,16 @@
       "modes": [
         "Digital"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "bands_note": "Technicians are limited by FCC rules to 10 m and 6 m",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 6,
@@ -259,8 +327,16 @@
         "Mixed"
       ],
       "bands": [
-        "VHF+"
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm",
+        "33cm",
+        "23cm",
+        "13cm",
+        "3cm"
       ],
+      "bands_note": "All authorized frequencies above 50 MHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 6,
@@ -292,6 +368,16 @@
       "modes": [
         "SSB"
       ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "17m",
+        "15m",
+        "12m",
+        "10m"
+      ],
+      "bands_note": "Suggested frequencies; repeaters may also be used with the sponsor's permission",
       "recurrence": {
         "type": "nth_weekday",
         "month": 6,
@@ -323,6 +409,23 @@
       "modes": [
         "Mixed"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm",
+        "33cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "160-10 m excluding the 60, 30, 17 and 12 m bands, plus all bands 50 MHz and above",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 6,
@@ -358,6 +461,14 @@
         "CW",
         "SSB"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 7,
@@ -389,8 +500,14 @@
         "Mixed"
       ],
       "bands": [
-        "222MHz+"
+        "1.25m",
+        "70cm",
+        "33cm",
+        "23cm",
+        "13cm",
+        "3cm"
       ],
+      "bands_note": "222 MHz through 241 GHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 8,
@@ -424,8 +541,9 @@
         "Mixed"
       ],
       "bands": [
-        "10GHz+"
+        "3cm"
       ],
+      "bands_note": "10 GHz through light",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 8,
@@ -457,6 +575,13 @@
       "rules_url": "http://www.arrl.org/rookie-roundup",
       "modes": [
         "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
       ],
       "recurrence": {
         "type": "nth_weekday",
@@ -495,8 +620,16 @@
         "Mixed"
       ],
       "bands": [
-        "VHF+"
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm",
+        "33cm",
+        "23cm",
+        "13cm",
+        "3cm"
       ],
+      "bands_note": "All authorized frequencies above 50 MHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 9,
@@ -529,8 +662,9 @@
         "Mixed"
       ],
       "bands": [
-        "10GHz+"
+        "3cm"
       ],
+      "bands_note": "10 GHz through light",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 9,
@@ -563,6 +697,14 @@
       "rules_url": "http://www.arrl.org/sweepstakes",
       "modes": [
         "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
       ],
       "recurrence": {
         "type": "nth_full_weekend",
@@ -597,6 +739,14 @@
       "rules_url": "http://www.arrl.org/sweepstakes",
       "modes": [
         "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
       ],
       "recurrence": {
         "type": "nth_full_weekend",
@@ -699,6 +849,13 @@
       "modes": [
         "CW"
       ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
       "recurrence": {
         "type": "nth_weekday",
         "month": 12,
@@ -767,6 +924,14 @@
       "modes": [
         "RTTY"
       ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Only the 3.5, 7, 14, 21 and 28 MHz bands may be used",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 2,
@@ -828,6 +993,15 @@
       "modes": [
         "SSB"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Only the 1.8, 3.5, 7, 14, 21 and 28 MHz bands may be used",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 3,
@@ -857,6 +1031,15 @@
       "modes": [
         "CW"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Only the 1.8, 3.5, 7, 14, 21 and 28 MHz bands may be used",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 5,
@@ -886,6 +1069,14 @@
       "modes": [
         "RTTY"
       ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Five bands only: 3.5, 7, 14, 21 and 28 MHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 9,
@@ -915,6 +1106,15 @@
       "modes": [
         "SSB"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 10,
@@ -944,6 +1144,15 @@
       "modes": [
         "CW"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 11,
@@ -1210,6 +1419,7 @@
       "modes": [
         "SSB"
       ],
+      "bands": [],
       "rules_url": "https://www.sarl.org.za/",
       "recurrence": {
         "type": "nth_weekday",
@@ -1234,7 +1444,7 @@
         "verified": false,
         "note": "SARL contests are generally South African entrants only. Confirm."
       },
-      "note": "UNVERIFIED. sarl.org.za returned 503 during research (may be transient). Confirm recurrence and whether DX entries are accepted."
+      "note": "UNVERIFIED. sarl.org.za returned 503 during research; on 2026-08-16 its rules page served an expired TLS certificate. Bands are unrecorded for that reason, not because the contest has none. Confirm recurrence and whether DX entries are accepted."
     },
     {
       "id": "irts-80m-counties",
@@ -1390,6 +1600,16 @@
       "modes": [
         "CW"
       ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "bands_note": "Suggested frequencies, one per band",
       "exchange": "RST + QTH + name + SKCC number",
       "recurrence": {
         "type": "monthly_nth_weekday",
@@ -1790,6 +2010,9 @@
       "id": "nccc-ns-ft4",
       "name": "NCCC FT4 Sprint (FT4 NS)",
       "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
         "FT4"
       ],
       "bands": [
@@ -1833,7 +2056,7 @@
       "modes": [
         "CW",
         "SSB",
-        "DIGITAL"
+        "Digital"
       ],
       "bands": [
         "160m",
@@ -1886,6 +2109,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -1954,6 +2180,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2014,6 +2243,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2078,6 +2310,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2140,6 +2375,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2205,6 +2443,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2270,6 +2511,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2329,6 +2573,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2388,6 +2635,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -2449,6 +2699,9 @@
       "country": "US",
       "sponsor_home": "https://www.podxs070.com/",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK31"
       ],
       "log_format": "ADIF",
@@ -3093,7 +3346,10 @@
       "id": "bartg-sprint75",
       "name": "BARTG Sprint75 Contest",
       "modes": [
-        "RTTY75"
+        "RTTY"
+      ],
+      "submodes": [
+        "RTTY 75 baud"
       ],
       "rules_url": "https://bartg.org.uk/bartg-sprint75-contests/",
       "exchange": "Message number only (3 or 4 figures from 001)",
@@ -3138,6 +3394,9 @@
       "id": "bartg-sprint-psk63",
       "name": "BARTG Sprint PSK63 Contest",
       "modes": [
+        "Digital"
+      ],
+      "submodes": [
         "PSK63"
       ],
       "rules_url": "https://bartg.org.uk/bartg-sprint-psk63-contest/",
@@ -3412,7 +3671,7 @@
       "modes": [
         "SSB",
         "CW",
-        "DIGITAL",
+        "Digital",
         "RTTY"
       ],
       "recurrence": {

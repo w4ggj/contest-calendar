@@ -19,14 +19,14 @@ Activate the venv **before** running the TypeScript suite too — see below.
 
 ```powershell
 # Python -- the reference engine
-python -m pytest -q            # expect: 116 passed
+python -m pytest -q            # expect: 127 passed
 python scripts\validate.py     # expect: ARRL 2026 rule-engine validation: 21/21 match
 python scripts\check_links.py  # sponsor rules URLs still resolve
 
 # TypeScript -- what actually serves the site
 cd engine
 npm install                    # node_modules is gitignored; needed on a fresh clone
-npm test                       # expect: 129 passed (116 mirrored + 13 parity)
+npm test                       # expect: 140 passed (127 mirrored + 13 parity)
 npm run typecheck
 ```
 
@@ -34,7 +34,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 31 passed
+npm test                       # expect: 63 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -65,7 +65,34 @@ Practically:
 - Rule-logic edits go to both files, and to both `tests/test_recurrence.py` and
   `engine/tests/recurrence.test.ts` (mirrored one-for-one: same names, same assertions).
 - Catalog edits go to `data/` only. Both engines read the same JSON — never fork it.
+- `CATALOG_MODES` and `CATALOG_BANDS` are declared in **both** engines and are held equal by
+  a test that parses the Python source. Adding a token means editing both, same commit.
 - Run **both** suites before committing. Green Python alone proves nothing about what ships.
+
+## Modes and bands are controlled sets
+
+```
+modes       CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
+```
+
+Free text lives in `submodes` ("PSK31", "RTTY 75 baud") and `bands_note`, which are
+displayed and **never filtered on** — a free-text field cannot be a filter, which is the
+point of separating them. `modes` keeps the sponsor's own order (`CW/SSB`), not the
+vocabulary's.
+
+**Empty `bands` means unrecorded, not unbanded.** Every band filter therefore excludes such
+a record, so anything that filters has to say so: `filterWithNotes()` tallies them and the
+landing view prints a `.caveat` naming them. Dropping a contest silently because we could
+not read its source is the failure this project exists to avoid.
+
+The record says exactly what it is; **the filter is what widens.** `Digital` matches
+Digital, RTTY, FT8/FT4 and Mixed; `FT8/FT4` matches FT8/FT4 and Mixed; every specific mode
+also matches Mixed, and `Mixed` matches only Mixed. Never inflate the record — a row that
+prints "RTTY/Digital" for an RTTY-only contest overstates what the sponsor permits. The
+table is in `worker/src/schedule.ts` (`MODE_SUBSUMES`) and asserted in
+`worker/tests/filters.worker.test.ts`; the reasoning is in `FRONTEND_BRIEF.md` under
+"Vocabulary: modes and bands".
 
 ## Time zones
 

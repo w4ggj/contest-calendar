@@ -214,6 +214,35 @@ export const CLIENT_JS = String.raw`
     localEl.textContent = "";
   }
 
+  // ---- filters ---------------------------------------------------------
+  // The form already works: it is a GET form, so submitting writes the state
+  // into the URL and the browser handles sharing, reload and the back button.
+  // Two things are added here, and the page is correct without either.
+  var form = doc.querySelector("form.filters");
+  if (form) {
+    // 1. Drop empty controls before submitting, so the URL that gets shared is
+    //    the query someone actually made rather than every field on the form.
+    form.addEventListener("submit", function () {
+      var blanks = form.querySelectorAll("input[type=search], input[type=date], select");
+      for (var i = 0; i < blanks.length; i++) {
+        if (!blanks[i].value) blanks[i].disabled = true;
+      }
+      var range = form.querySelector('input[name="range"]:checked');
+      if (range && !range.value) range.disabled = true;
+    });
+
+    // 2. Apply on change, and hide the Apply button -- but only once we know
+    //    the browser can submit programmatically. Hiding a button we then
+    //    cannot replace would leave the filters unusable, which is worse than
+    //    an extra click.
+    if (typeof form.requestSubmit === "function") {
+      form.classList.add("enhanced");
+      form.addEventListener("change", function () {
+        form.requestSubmit();
+      });
+    }
+  }
+
   tickClock();
   setInterval(tickClock, 30000);
 

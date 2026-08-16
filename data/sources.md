@@ -24,6 +24,52 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-12 | 10-10 International Net | ten-ten.org QSO Party Rules 5.2 + QSO Party Schedule | 3 | "Winter Phone – held on the first full weekend in February – 0001 UTC Saturday through 2359 UTC Sunday"; "Summer Phone – held on the first full weekend in August"; "Sprint – a 24 hour event held on October 10th (10-10)". Schedule page independently gives Feb 7–8, Aug 1–2, Oct 10 for 2026. |
 | 2026-08-12 | FISTS CW Club (Americas) | fistsna.org/operating.php | 8 | "Winter SATURDAY SPRINT --- Second Saturday in February", "Winter SUNDAY SPRINT --- Third Sunday in February", and likewise for May, August and November. "All Sprint times are 0000 to 2359 UTC." **Suspended from 2026** — see corrections. |
 | 2026-08-11 | Adventure Radio Society | ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html | 1 | "Held on the first Monday of every month"; "EASTERN 8:00 p.m. to 10:00 p.m. Local"; "(Does not shift for DST — This event is always at these Local Times)"; "open to all QRP CW operators — there is no membership requirement" |
+| 2026-08-16 | ARRL | arrl.org/{sweepstakes, arrl-dx, rtty-roundup, rookie-roundup, iaru-hf-world-championship, field-day, arrl-digital-contest, january-vhf, june-vhf, september-vhf, kids-day, straight-key-night, 222-mhz-and-up-distance-contest, 10-ghz-up} | 19 (bands) | Sweepstakes: "160, 80, 40, 20, 15 and 10 meter bands". DX: "Use only the 160, 80, 40, 20, 15, and 10 meter bands." RTTY Roundup: "the 80, 40, 20, 15, and 10 meter bands"; **"Only contacts using Radioteletype (RTTY) mode are allowed."** Rookie Roundup: "on the 80, 40, 20, 15, and 10 meter HF bands". IARU HF: "using the 160, 80, 40, 20, 15 and 10 meter bands". Field Day: "160-, 80-, 40-, 20-, 15- and 10-Meter HF bands, as well as all bands 50 MHz and above" with "[No Field Day activity is permitted on the 60-, 30-, 17- or 12- Meter HF Bands.]" Digital: "on the 160, 80, 40, 20, 15, 10 and 6 meter bands (Technicians are limited per FCC Rules to the 10 and 6 meter bands)" and "any digital mode (excluding RTTY)". Jan/Jun/Sep VHF, each independently: "authorized frequencies above 50 MHz". Kids Day: a suggested-frequency table, 80 m through 10 m, plus repeaters. Straight Key Night: "All authorized Amateur frequencies, but activity has traditionally been centered on the HF bands." 222 And Up: "on the 222 MHz through 241 GHz bands". 10 GHz: "on bands from 10-GHz through Light". |
+| 2026-08-16 | CQ Magazine | cqww.com/rules.htm, cqwwrtty.com/rules.htm, cqwpx.com/rules/, cqwpxrtty.com/rules.htm | 6 (bands only) | WW: "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz." WW RTTY: "Five bands only: 3.5, 7, 14, 21 and 28 MHz." WPX (rule III): "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used." WPX RTTY (rule III): "Only the 3.5, 7, 14, 21, and 28 MHz bands may be used." **Bands only — the recurrence rules are still unverified and these six records stay `verified: false`.** cqwpx.com/rules.htm 302s to cqwpx.com/rules/. |
+| 2026-08-16 | Straight Key Century Club | skccgroup.com/operating_activities/weekday_sprint/ | 1 (bands) | Suggested Frequencies: "160M: 1813.5 kHz, 80M: 3550 kHz, 40M: 7055 / 7120 kHz, 20M: 14050 kHz, 15M: 21050 kHz, 10M: 28050 kHz, 6M: 50090 kHz" |
+
+## Modes and bands became controlled vocabularies — 2026-08-16
+
+Both fields were free text and therefore unfilterable. `Digital` and `DIGITAL` both appeared;
+bands were ranges like `160-10m` and tokens like `VHF+`. Both are now closed sets, declared in
+each engine as `CATALOG_MODES` / `CATALOG_BANDS` and asserted by all three suites:
+
+```
+modes   CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+bands   160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
+```
+
+**The modes pass was a re-labelling, not new sourcing.** Nothing was read off a sponsor page to
+make these changes, and no record's meaning changed — the specific mode each sponsor named moved
+into free-text `submodes`, which is displayed and never filtered on:
+
+| Was | Now | Records |
+|---|---|---|
+| `PSK31` | `Digital` + submode "PSK31" | 9 PODXS 070 contests |
+| `PSK63` | `Digital` + submode "PSK63" | BARTG Sprint PSK63 |
+| `RTTY75` | `RTTY` + submode "RTTY 75 baud" | BARTG Sprint 75 |
+| `FT4` | `FT8/FT4` + submode "FT4" | NCCC FT4 NS |
+| `DIGITAL` | `Digital` | 4SQRP SSS, 10-10 Day Sprint |
+
+The one exception is a genuine correction, listed below. Widening is the filter's job, not the
+record's: a query for `Digital` matches Digital, RTTY and FT8/FT4, so PSKfest and the RTTY
+Roundup both answer it without either record claiming a mode its sponsor does not permit.
+
+**The bands pass was sourced.** Every band list was read off the sponsor's own rules page — the
+three rows added to the table above — and the sponsor's wording is kept verbatim in `bands_note`
+wherever the ladder cannot carry it. Two limits are worth knowing:
+
+- **The ladder stops at 3cm (10 GHz).** ARRL 222 And Up runs "222 MHz through 241 GHz" and
+  10 GHz And Up runs "10-GHz through Light"; both are recorded up to 3cm with the sponsor's
+  full range in `bands_note`. Extending the ladder into the microwave bands is a vocabulary
+  change, not a data fix, so it was flagged rather than improvised.
+- **"All authorized frequencies" is recorded as the whole ladder.** ARRL Straight Key Night
+  therefore matches a 3cm filter as readily as an 80m one, which is what its rule says even
+  though its `bands_note` records that activity centres on HF.
+
+**Empty `bands` means unrecorded, not unbanded** — the same posture as `verified: false`. One
+record is in that state (SARL HF Phone, below). Every band filter necessarily excludes it, so
+anything that filters is expected to name it rather than let it disappear.
 
 ## Corrections found during verification
 
@@ -106,6 +152,14 @@ when you verify it, so the catalog stays auditable as it grows.
     self-consistent only for zones that observe DST; Arizona is the exception.
   - **ARRL** — formerly the operator's own clock for 10 GHz, now UTC throughout.
   - Every other verified sponsor states UTC directly.
+- **ARRL RTTY Roundup was recorded as RTTY *and* Digital; ARRL permits RTTY only.** The rules
+  page states it flatly: *"Only contacts using Radioteletype (RTTY) mode are allowed."* PSK, FT8
+  and FT4 are not permitted — ARRL runs a separate International Digital Contest for digital
+  modes *excluding* RTTY, which is why the two records must not carry the same mode list.
+  Narrowed to `["RTTY"]`. This is the correction the vocabulary pass was worth doing for: under
+  free-text modes the row read "RTTY/Digital" and overstated what the sponsor allows, and under
+  the new filter semantics a `Digital` query still finds the Roundup without the record ever
+  saying so.
 - **Two more local-time contests found.** 4SQRP SSS and ARS Spartan Sprint both publish
   US local times only. 4SQRP says outright that the UTC time moves with CST/CDT; ARS says
   the event "does not shift for DST", which has the same consequence. Both are flagged
@@ -115,6 +169,10 @@ when you verify it, so the catalog stays auditable as it grows.
 ## Pending verification
 
 - **CQ Magazine** (8 contests) — cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com
+  - **Bands are now read at source for six of the eight** (2026-08-16, above); the recurrence
+    rules are not, so all eight stay `verified: false`. cq160.com was not read; the two CQ 160
+    records carry `160m`, which predates this pass and follows from the contest's name rather
+    than from a rule anyone read at source. Verifying a field is not verifying a record.
   - **CQ 160 SSB edge case.** Strict "last full weekend of February" yields Feb 20–22 for
     2026, but the contest is commonly listed Feb 27–Mar 1. Given the NAQP RTTY precedent,
     CQ's rule is probably "last Saturday" rather than "last full weekend" — but **read
@@ -129,8 +187,14 @@ when you verify it, so the catalog stays auditable as it grows.
   rules in a QRP Quarterly issue the club publishes itself.
 - **RSGB AFS CW** — guessed rules filename returned 404. Find the real page under
   rsgbcc.org/hf/ and set `rules_url_pattern`. Recurrence and eligibility unconfirmed.
-- **SARL HF Phone** — sarl.org.za returned 503 (may be transient). Confirm recurrence and
-  whether DX entries are accepted.
+- **SARL HF Phone** — **blocked at source.** sarl.org.za returned 503 during the original
+  research; on 2026-08-16 the rules page (sarl.org.za/public/contests/contestrules.asp) failed
+  to fetch with an **expired TLS certificate**, which is a different and more durable blocker
+  than a transient 503. No third-party calendar was consulted, so this record is the catalog's
+  one contest with **no bands recorded at all** — `bands: []` means unrecorded, so every band
+  filter excludes it and the landing view names it in a caveat rather than dropping it
+  silently. Recurrence and whether DX entries are accepted are still unconfirmed. Next step:
+  retry once SARL renews the certificate, or ask SARL's contest committee directly.
 - **IRTS 80m Counties** — recurrence and entrant restrictions unconfirmed.
 - **AGCW ZAP Merit Contest (ZMC)** — recurrence verified ("jeden Montag", pre-logging from
   1740 UTC, telegram transmission 1800 UTC) but AGCW publishes **no closing time**. The

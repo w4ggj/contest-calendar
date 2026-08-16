@@ -48,58 +48,75 @@ export function occurrencesForYear(year: number, myEntity = "K"): Occurrence[] {
 // ---------------------------------------------------------------------------
 
 /**
- * Catalog mode strings are not a controlled vocabulary -- `Digital` and
- * `DIGITAL` both appear, alongside PSK31, PSK63, RTTY75 and FT4. Filtering on
- * raw strings would put "Digital" and "DIGITAL" in different buckets, so map
- * to the families the brief actually asks users to filter by.
+ * A record says exactly what it is; the FILTER is what widens.
  *
- * The inconsistent casing is a real data defect, not something to paper over
- * here permanently. Recorded in FRONTEND_BRIEF.md under "Data gaps found while
- * building"; this mapping stays either way, because PSK31 genuinely is Digital.
+ * Before 2026-08-16 this went the other way: `modeFamilies()` inflated each
+ * record, so an RTTY contest carried `["RTTY", "Digital"]` and rendered as
+ * "RTTY/Digital" -- a row claiming something the sponsor never said. Now
+ * `modes` is the controlled set from `CATALOG_MODES` and a record is displayed
+ * verbatim; only the query is widened, here.
+ *
+ * The relation below answers the question the brief asks: someone filtering
+ * "Digital" expects FT8 results. They get them, and RTTY too, because both are
+ * digital modes. Someone filtering "FT8/FT4" gets only FT8/FT4 -- the narrower
+ * ask is honoured as asked. See FRONTEND_BRIEF.md, "Modes: FT8/FT4 is its own
+ * mode AND a member of Digital".
+ *
+ * `Mixed` is on the right of every specific mode: a Mixed contest genuinely
+ * permits CW, and a CW operator wants to see it. It is on the LEFT of nothing
+ * but itself -- selecting "Mixed" means "contests where more than one mode
+ * counts", which a CW-only contest is not.
  */
 export const MODE_FAMILIES = ["CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed"] as const;
 export type ModeFamily = (typeof MODE_FAMILIES)[number];
 
+/** Filter token -> the record modes it accepts. */
+const MODE_SUBSUMES: Record<ModeFamily, readonly ModeFamily[]> = {
+  "CW": ["CW", "Mixed"],
+  "SSB": ["SSB", "Mixed"],
+  "RTTY": ["RTTY", "Mixed"],
+  "Digital": ["Digital", "RTTY", "FT8/FT4", "Mixed"],
+  "FT8/FT4": ["FT8/FT4", "Mixed"],
+  "Mixed": ["Mixed"],
+};
+
+/**
+ * The filter tokens a record answers to -- the relation above, transposed.
+ *
+ * Kept as a projection rather than as a second hand-written table, so the two
+ * directions cannot disagree. Published on the API as `mode_families`; the UI
+ * shows `o.modes`, not this.
+ */
 export function modeFamilies(modes: string[]): ModeFamily[] {
-  const out = new Set<ModeFamily>();
-  for (const raw of modes) {
-    const m = raw.trim().toUpperCase();
-    if (m === "CW") out.add("CW");
-    else if (m === "SSB" || m === "PHONE") out.add("SSB");
-    else if (m.startsWith("RTTY")) {
-      out.add("RTTY");
-      out.add("Digital");
-    } else if (m === "FT8" || m === "FT4" || m === "FT8/FT4") {
-      out.add("FT8/FT4");
-      out.add("Digital");
-    } else if (m === "MIXED") out.add("Mixed");
-    else if (m.startsWith("PSK") || m === "DIGITAL" || m === "DIGI") {
-      out.add("Digital");
-    } else {
-      // Unknown mode: file it under Digital only if it is clearly not phone or
-      // CW. Better to leave it unfamilied than to mis-file it -- an unfamilied
-      // contest still shows unfiltered, a mis-filed one shows under a filter it
-      // does not belong to.
-      continue;
-    }
-  }
-  return [...out];
+  const recorded = new Set(modes.map((m) => m.trim()));
+  return MODE_FAMILIES.filter((token) =>
+    MODE_SUBSUMES[token].some((m) => recorded.has(m)),
+  );
 }
 
-/** Band families, low to high. Everything above 6m collapses to VHF+. */
+/**
+ * Band families, low to high: the catalog's ladder with everything above 6m
+ * collapsed to VHF+.
+ *
+ * The catalog records 2m, 70cm and 3cm separately -- see `CATALOG_BANDS` -- but
+ * offering eighteen checkboxes to answer "what can I work this weekend" is
+ * worse than offering twelve. VHF+ is where the collapse costs least: a station
+ * equipped for 70cm is equipped for 2m, so the bands above 6m are one decision
+ * for almost everyone. HF is not: 40m and 10m are different contests entirely.
+ */
 export const BAND_FAMILIES = [
-  "160m", "80m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m", "VHF+",
+  "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m", "VHF+",
 ] as const;
 export type BandFamily = (typeof BAND_FAMILIES)[number];
 
-const HF_BANDS = new Set<string>(BAND_FAMILIES.slice(0, 10));
+const HF_BANDS = new Set<string>(BAND_FAMILIES.slice(0, 11));
 
 export function bandFamilies(bands: string[]): BandFamily[] {
   const out = new Set<BandFamily>();
   for (const raw of bands) {
     const b = raw.trim();
     if (HF_BANDS.has(b)) out.add(b as BandFamily);
-    else out.add("VHF+"); // VHF+, 2m, 70cm, 222MHz+, 10GHz+
+    else out.add("VHF+"); // 2m, 1.25m, 70cm, 33cm, 23cm, 13cm, 3cm
   }
   return BAND_FAMILIES.filter((b) => out.has(b));
 }
@@ -155,10 +172,31 @@ function matchesQuery(o: Occurrence, q: string): boolean {
   );
 }
 
-export function applyFilters(
+export interface FilterOutcome {
+  kept: Occurrence[];
+  /**
+   * Contests dropped by a band filter ONLY because their bands are unrecorded,
+   * by name, deduplicated.
+   *
+   * Empty `bands` means "we have not read this off the sponsor's page", not
+   * "this contest uses no bands" -- the invariant is stated in both engines. So
+   * every band filter necessarily hides such a record, and a calendar that
+   * hides something silently is the exact failure this project exists to avoid.
+   * The caller is expected to say so on the page.
+   */
+  unrecordedBands: string[];
+}
+
+/**
+ * Filter, and account for what the band filter could not judge.
+ *
+ * `applyFilters` is the same pass without the accounting, for callers -- the
+ * API, mostly -- that only want the rows.
+ */
+export function filterWithNotes(
   occurrences: Occurrence[],
   f: Filters,
-): Occurrence[] {
+): FilterOutcome {
   const wantModes = f.modes?.length
     ? new Set(f.modes.map((m) => m.toLowerCase()))
     : null;
@@ -170,22 +208,43 @@ export function applyFilters(
     ? new Set(f.sponsors.map((s) => s.toLowerCase()))
     : null;
 
-  return occurrences.filter((o) => {
+  const kept: Occurrence[] = [];
+  const unrecorded = new Set<string>();
+
+  for (const o of occurrences) {
     if (wantModes) {
       const fams = modeFamilies(o.modes).map((m) => m.toLowerCase());
-      if (!fams.some((m) => wantModes.has(m))) return false;
+      if (!fams.some((m) => wantModes.has(m))) continue;
     }
+    if (wantDur && !wantDur.has(durationBucketOf(o.duration_hours))) continue;
+    if (wantSponsors && !wantSponsors.has(o.sponsor.toLowerCase())) continue;
+    if (f.verifiedOnly && !o.verified) continue;
+    if (f.eligibleOnly && !o.can_enter) continue;
+    if (f.q && !matchesQuery(o, f.q)) continue;
+
+    // Bands are tested last so the tally counts only contests the reader would
+    // otherwise have seen. A CW contest excluded by a Digital filter is not
+    // "hidden by missing data", and saying so would be noise.
     if (wantBands) {
+      if (!o.bands.length) {
+        unrecorded.add(o.name);
+        continue;
+      }
       const fams = bandFamilies(o.bands).map((b) => b.toLowerCase());
-      if (!fams.some((b) => wantBands.has(b))) return false;
+      if (!fams.some((b) => wantBands.has(b))) continue;
     }
-    if (wantDur && !wantDur.has(durationBucketOf(o.duration_hours))) return false;
-    if (wantSponsors && !wantSponsors.has(o.sponsor.toLowerCase())) return false;
-    if (f.verifiedOnly && !o.verified) return false;
-    if (f.eligibleOnly && !o.can_enter) return false;
-    if (f.q && !matchesQuery(o, f.q)) return false;
-    return true;
-  });
+
+    kept.push(o);
+  }
+
+  return { kept, unrecordedBands: [...unrecorded].sort() };
+}
+
+export function applyFilters(
+  occurrences: Occurrence[],
+  f: Filters,
+): Occurrence[] {
+  return filterWithNotes(occurrences, f).kept;
 }
 
 // ---------------------------------------------------------------------------
@@ -245,52 +304,101 @@ function bySortKeyThenName(a: Occurrence, b: Occurrence): number {
 // The landing view
 // ---------------------------------------------------------------------------
 
+/**
+ * The span of time the page is showing.
+ *
+ * `id` is the URL token that produced it, so the page can render the date-range
+ * control as a set of links and the reader's choice survives a reload and the
+ * back button without any script. An absent window is the default view --
+ * "from now until the end of the month, or thirty days, whichever reaches
+ * further" -- which is not expressible as a preset because its end depends on
+ * what is in it.
+ */
+export interface RangeWindow {
+  from: number;
+  to: number;
+  id: string;
+  label: string;
+  /**
+   * The same span as a phrase that follows "No CW contests …".
+   *
+   * Kept beside the label rather than derived from it, because "Next 12 months"
+   * and "1 Dec 2026 to 31 Dec 2026" need different prepositions and an empty
+   * state that misnames the span the reader asked about is worse than none.
+   */
+  scope: string;
+}
+
 export interface NowView {
   now: number;
+  /** The window actually rendered, default one included. */
+  window: RangeWindow;
   live: Occurrence[];
+  /**
+   * The rail section. Empty AND not applicable when the window starts after
+   * the coming week -- a reader who asked for December should not be told
+   * nothing starts in the next seven days.
+   */
   next7: Occurrence[];
-  /** Rest of the current UTC month after the 7-day window, or the next 30 days
-   *  when the month is nearly over and that would be empty. */
+  weekApplies: boolean;
+  /** Rest of the window after the 7-day rail. On the default window: the rest
+   *  of the current UTC month, or the next 30 days when that would be empty. */
   later: Occurrence[];
   laterLabel: string;
   laterRangeEnd: number;
   totalConsidered: number;
+  /** Contests a band filter had to drop because their bands are unrecorded.
+   *  The page says so rather than letting them vanish. */
+  unrecordedBands: string[];
 }
 
 export function buildNowView(
   nowMs: number,
   filters: Filters = {},
   myEntity = "K",
+  window?: RangeWindow,
 ): NowView {
-  const weekEnd = nowMs + 7 * DAY_MS;
-
   const now = new Date(nowMs);
-  const monthEnd = Date.UTC(
-    now.getUTCFullYear(),
-    now.getUTCMonth() + 1,
-    1,
-    0,
-    0,
-    0,
-  );
+  const monthEnd = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1);
 
-  // Pull a generous window once, then partition -- cheaper than three passes
-  // and guarantees the three buckets cannot disagree about an edge case.
-  const horizon = Math.max(monthEnd, nowMs + 30 * DAY_MS);
-  const all = applyFilters(occurrencesInRange(nowMs - 7 * DAY_MS, horizon, myEntity), filters);
+  // The default window has no single end: it reaches to the end of the month,
+  // or thirty days, whichever is further, and then decides between them by
+  // what it found. Presets are simply a `from`/`to` the reader chose instead.
+  const isDefault = !window;
+  const from = window ? window.from : nowMs;
+  const to = window ? window.to : Math.max(monthEnd, nowMs + 30 * DAY_MS);
+
+  // The rail only covers the seven days from now, so it applies only when the
+  // window overlaps them. A window starting in December does not get a rail
+  // section reporting that nothing starts this week.
+  const weekEnd = Math.min(nowMs + 7 * DAY_MS, to);
+  const weekApplies = from <= nowMs + 7 * DAY_MS && to > nowMs;
+
+  // Pull the whole window once, then partition -- cheaper than three passes
+  // and guarantees the buckets cannot disagree about an edge case. Reaching a
+  // week back catches contests already running when the window opens.
+  const outcome = filterWithNotes(
+    occurrencesInRange(from - 7 * DAY_MS, to, myEntity),
+    filters,
+  );
+  const all = outcome.kept;
 
   const live: Occurrence[] = [];
   const next7: Occurrence[] = [];
   const monthRest: Occurrence[] = [];
   const thirtyDays: Occurrence[] = [];
+  const rest: Occurrence[] = [];
 
   for (const o of all) {
     const { start, end } = spanOf(o);
+    if (end < from || start > to) continue;
+
     if (start <= nowMs && end > nowMs) {
       live.push(o);
-    } else if (start > nowMs && start <= weekEnd) {
+    } else if (weekApplies && start > Math.max(nowMs, from) && start <= weekEnd) {
       next7.push(o);
-    } else if (start > weekEnd) {
+    } else if (start > weekEnd && start >= from) {
+      rest.push(o);
       if (start < monthEnd) monthRest.push(o);
       if (start <= nowMs + 30 * DAY_MS) thirtyDays.push(o);
     }
@@ -300,15 +408,63 @@ export function buildNowView(
   // "closes in 40 minutes" is more urgent than "closes tomorrow".
   live.sort((a, b) => spanOf(a).end - spanOf(b).end);
 
-  const useMonth = monthRest.length > 0;
+  const useMonth = isDefault && monthRest.length > 0;
+  const later = isDefault ? (useMonth ? monthRest : thirtyDays) : rest;
+  const laterLabel = isDefault
+    ? useMonth
+      ? "Later this month"
+      : "Next 30 days"
+    : weekApplies
+      ? `Rest of ${window!.label.toLowerCase()}`
+      : window!.label;
+
   return {
     now: nowMs,
+    window: window ?? {
+      from,
+      to: useMonth ? monthEnd : nowMs + 30 * DAY_MS,
+      id: "",
+      label: useMonth ? "This month" : "Next 30 days",
+      scope: useMonth ? "this month" : "in the next 30 days",
+    },
     live,
     next7,
-    later: useMonth ? monthRest : thirtyDays,
-    laterLabel: useMonth ? "Later this month" : "Next 30 days",
-    laterRangeEnd: useMonth ? monthEnd : nowMs + 30 * DAY_MS,
-    totalConsidered: all.length,
+    weekApplies,
+    later,
+    laterLabel,
+    laterRangeEnd: isDefault ? (useMonth ? monthEnd : nowMs + 30 * DAY_MS) : to,
+    totalConsidered: live.length + next7.length + later.length,
+    unrecordedBands: outcome.unrecordedBands,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Date-range presets
+// ---------------------------------------------------------------------------
+
+/**
+ * The ranges the page offers, as links rather than as a widget.
+ *
+ * Anchored on `now` rather than on calendar boundaries because the question is
+ * "what can I work", and "the next 30 days" answers it on the 29th in a way
+ * "this month" does not.
+ */
+export const RANGE_PRESETS: Record<string, { label: string; days: number }> = {
+  "7d": { label: "Next 7 days", days: 7 },
+  "30d": { label: "Next 30 days", days: 30 },
+  "90d": { label: "Next 90 days", days: 90 },
+  "365d": { label: "Next 12 months", days: 365 },
+};
+
+export function presetWindow(id: string, nowMs: number): RangeWindow | null {
+  const p = RANGE_PRESETS[id];
+  if (!p) return null;
+  return {
+    from: nowMs,
+    to: nowMs + p.days * DAY_MS,
+    id,
+    label: p.label,
+    scope: `in the ${p.label.toLowerCase()}`,
   };
 }
 

@@ -447,6 +447,148 @@ a:hover { color: var(--ink); }
    UTC and says so, rather than offering a toggle that does nothing. */
 .tzbar[hidden] { display: none; }
 
+/* -- the filter panel --------------------------------------------------
+
+   Colour discipline holds here too: AMBER IS TIME, CYAN IS CONTESTS. So the
+   date-range chips light amber when chosen and everything that selects
+   contests -- mode, band, duration, sponsor, the search box -- lights cyan.
+   The panel is not a third thing with a palette of its own; it is the same two
+   ideas, in control form. Unchosen chips carry no hue at all, which is what
+   makes a chosen one readable at a glance on a phone.
+
+   A <details> element rather than a scripted drawer: it opens, closes and
+   remembers
+   nothing, which is correct, because the URL is what remembers. It is rendered
+   open whenever a filter is active so a shared link explains itself.          */
+
+.panel {
+  border: 1px solid var(--rule);
+  background: var(--panel);
+  margin: 1.5rem 0 0;
+}
+.panel > summary {
+  display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap;
+  padding: .7rem .9rem;
+  cursor: pointer;
+  font: 600 .74rem/1 var(--font-mono);
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-dim);
+}
+/* A flex summary loses the native disclosure triangle, and a summary with no
+   marker reads as a heading rather than a control -- so it is drawn back. On the
+   one page whose whole UI is a form, "this opens" has to be visible. */
+.panel > summary { list-style: none; }
+.panel > summary::-webkit-details-marker { display: none; }
+.panel > summary::before { content: "\25B8"; color: var(--ink-faint); }
+.panel[open] > summary::before { content: "\25BE"; }
+.panel > summary:hover { color: var(--ink); }
+.panel > summary:hover::before { color: var(--ink-dim); }
+.panel > summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+.panel-state { color: var(--ink-faint); letter-spacing: .1em; }
+.panel-state .dot { color: var(--rule); }
+.panel[open] > summary { border-bottom: 1px solid var(--rule-soft); }
+
+.filters {
+  display: grid; gap: 1rem;
+  padding: 1rem .9rem 1.1rem;
+}
+.filters label { color: var(--ink-faint); }
+
+.f-search { display: grid; gap: .35rem; }
+.f-search label, .f-sponsor label, .f-dates-label, .fs legend {
+  font: 600 .68rem/1 var(--font-mono);
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-faint);
+  padding: 0;
+}
+.filters input[type="search"],
+.filters input[type="date"],
+.filters select {
+  font: 500 .9rem/1.3 var(--font-ui);
+  background: var(--bg); color: var(--ink);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: .5em .6em;
+  min-width: 0; max-width: 32rem;
+}
+.filters input:focus-visible, .filters select:focus-visible {
+  outline: 2px solid var(--cyan); outline-offset: 1px; border-color: var(--cyan-dim);
+}
+
+.fs { border: 0; margin: 0; padding: 0; display: grid; gap: .45rem; }
+.chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+/* The input is the control and stays reachable by keyboard; the label is what
+   is drawn. Never display:none on the input -- that removes it from the tab
+   order and from every screen reader, and this form is the whole UI for a
+   reader without JavaScript. */
+.chip { position: relative; display: inline-flex; }
+.chip input {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  margin: 0; opacity: 0; cursor: pointer;
+}
+.chip label {
+  display: inline-block;
+  font: 500 .82rem/1 var(--font-mono);
+  color: var(--ink-dim);
+  background: var(--panel-2);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: .5em .7em;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.chip:hover label { color: var(--ink); border-color: var(--ink-faint); }
+.chip.on label {
+  color: var(--cyan); border-color: var(--cyan-dim);
+  background: var(--cyan-deep);
+}
+.chip input:focus-visible + label { outline: 2px solid var(--cyan); outline-offset: 1px; }
+
+/* Dates are time, so they are amber. */
+.filters .fs:has(input[name="range"]) .chip.on label {
+  color: var(--amber); border-color: var(--amber-dim);
+  background: transparent;
+}
+
+.f-dates {
+  display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
+  color: var(--ink-faint);
+}
+.f-dates label {
+  font: 500 .78rem/1 var(--font-mono);
+  letter-spacing: .08em; text-transform: uppercase;
+}
+.f-sponsor { display: grid; gap: .35rem; }
+
+.f-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+.btn {
+  font: 600 .74rem/1 var(--font-mono);
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-dim); text-decoration: none;
+  background: var(--panel-2);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: .65em .95em; cursor: pointer;
+}
+.btn:hover { color: var(--ink); border-color: var(--ink-faint); }
+.btn.primary { color: var(--cyan); border-color: var(--cyan-dim); }
+.btn.ghost { background: transparent; border-color: var(--rule-soft); }
+.btn:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; }
+
+/* Hidden only once the script has taken over submission. Without JS it is the
+   only way to apply a filter, so it is visible by default and stays that way
+   if anything goes wrong. */
+.filters.enhanced .btn.primary { display: none; }
+
+/* -- what the data could not answer ------------------------------------ */
+
+.caveat {
+  margin: .9rem 0 0;
+  padding: .6rem .8rem;
+  border-left: 2px solid var(--rule);
+  font: 500 .8rem/1.55 var(--font-mono);
+  color: var(--ink-faint);
+  max-width: 78ch;
+}
+
 /* -- footer ------------------------------------------------------------ */
 
 .foot {

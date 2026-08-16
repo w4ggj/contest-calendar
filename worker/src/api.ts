@@ -33,7 +33,10 @@ import {
   nextOccurrences,
   occurrencesForYear,
   occurrencesInRange,
+  presetWindow,
+  RANGE_PRESETS,
   type Filters,
+  type RangeWindow,
 } from "./schedule.js";
 import { occurrenceToJson } from "./serialize.js";
 
@@ -227,6 +230,56 @@ export function resolveRange(
   }
 
   return { from: nowMs, to: nowMs + 30 * DAY_MS, kind: "default" };
+}
+
+/**
+ * The date range the PAGE is asking about, which is a narrower question than
+ * the API's: it has a default worth keeping, and it has to name itself.
+ *
+ * Returns `undefined` for the default view, whose end is decided by what it
+ * finds rather than by the query. `?from=`/`?to=` beat `?range=` when both are
+ * present -- an explicit pair of dates is the more specific instruction.
+ */
+export function parsePageWindow(
+  params: URLSearchParams,
+  nowMs: number,
+): RangeWindow | undefined {
+  const fromParam = params.get("from");
+  const toParam = params.get("to");
+
+  if (fromParam || toParam) {
+    const r = resolveRange(params, nowMs);
+    return {
+      from: r.from,
+      to: r.to,
+      id: "custom",
+      label: `${utcDay(r.from)} to ${utcDay(r.to)}`,
+      scope: `between ${utcDay(r.from)} and ${utcDay(r.to)}`,
+    };
+  }
+
+  const rangeParam = params.get("range");
+  if (!rangeParam) return undefined;
+
+  const win = presetWindow(rangeParam, nowMs);
+  if (!win) {
+    throw new ApiError(
+      400,
+      `unknown range: ${JSON.stringify(rangeParam)}`,
+      `known ranges: ${Object.keys(RANGE_PRESETS).join(", ")}`,
+    );
+  }
+  return win;
+}
+
+/** "15 Aug 2026" -- for naming a window, not for a row. */
+function utcDay(ms: number): string {
+  const d = new Date(ms);
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+  ];
+  return `${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
 // ---------------------------------------------------------------------------
@@ -435,6 +488,10 @@ export function handleMeta(): Response {
       durations: Object.entries(DURATION_BUCKETS).map(([id, d]) => ({
         id,
         label: d.label,
+      })),
+      ranges: Object.entries(RANGE_PRESETS).map(([id, r]) => ({
+        id,
+        label: r.label,
       })),
       sponsors: allSponsors(),
       license: "CC BY 4.0",

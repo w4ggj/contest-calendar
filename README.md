@@ -73,7 +73,7 @@ Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor
 published 2026 schedule.
 
 ```
-52 passed
+127 passed
 ```
 
 ---
@@ -112,7 +112,7 @@ data/contests.seed.json      the catalog
 data/sources.registry.json   global sponsor registry, 5 tiers, ~60 organisations
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
-tests/                       42 tests
+tests/                       127 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -144,7 +144,7 @@ under `data/` — the catalog is never duplicated, because two copies drift.
 Keeping them honest takes two layers:
 
 - `engine/tests/recurrence.test.ts` mirrors `tests/test_recurrence.py` one-for-one — same
-  names, same assertions, same sponsor-published tables. Both suites are 116 tests.
+  names, same assertions, same sponsor-published tables. Both suites are 127 tests.
 - `engine/tests/parity.test.ts` compares **every field of every occurrence** for four years
   against output from the Python engine. Shared assertions prove both engines satisfy the
   same rules; only a full diff proves they agree on the fields nobody asserted on.
@@ -196,11 +196,36 @@ depends on being global.
 Plus `practical` for contests that are open but unrewarding from a given location. That's
 advice, not a filter.
 
+## Modes and bands
+
+Both are controlled sets, so they can be filtered on. A field that is free text is a field
+nothing can query.
+
+```
+modes   CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+bands   160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
+```
+
+`modes` keeps the sponsor's own order — `CW/SSB`, not the vocabulary's. The specifics a
+small set deliberately drops are kept beside it as free text and displayed, never filtered
+on: `submodes` ("PSK31", "RTTY 75 baud") and `bands_note` ("10 GHz through light").
+
+Filtering widens, records do not. A record says exactly what the sponsor permits;
+**`Digital` as a *query* matches Digital, RTTY and FT8/FT4**, and every specific mode also
+matches `Mixed`. So someone filtering "Digital" gets FT8 results without the ARRL RTTY
+Roundup ever being described as anything but RTTY.
+
+**Empty `bands` means unrecorded, not unbanded** — one record is in that state today,
+because SARL's rules page has an expired certificate. Every band filter necessarily
+excludes it, and every consumer that filters is expected to say so rather than let the
+contest vanish. Same rule as `verified: false`: the gaps are published, not hidden.
+
 ---
 
 ## Status
 
-**41 contest definitions → 386 occurrences for 2026. 26 verified at source.**
+**84 contest definitions → 648 occurrences for 2026. 70 verified at source**, with the
+remaining 14 carrying a `note` that says what is unconfirmed and why.
 
 Two corrections surfaced during verification, both now pinned by tests:
 
@@ -209,7 +234,12 @@ Two corrections surfaced during verification, both now pinned by tests:
 - **"Last Saturday" ≠ "last full weekend".** NAQP RTTY starts the last Saturday in
   February — Feb 28 in 2026, whose Sunday falls in March. Required a `composite` rule type.
 
-Next: finish Tier 4 clubs, then resolve the 8 CQ records. See `HANDOVER.md`.
+A third correction came out of making `modes` a controlled set: **ARRL RTTY Roundup was
+recorded as RTTY and Digital, and ARRL permits RTTY only** — *"Only contacts using
+Radioteletype (RTTY) mode are allowed."* Free text hid it; a vocabulary surfaced it.
+
+Next: resolve the 8 CQ records (bands are read at source, the recurrence rules are not),
+then fill coverage outside North America. See `HANDOVER.md`.
 
 ## License
 

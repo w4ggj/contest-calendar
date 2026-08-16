@@ -4,8 +4,9 @@
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Prerequisite:** read `HANDOVER.md` first
 **Status:** **engine port DONE 2026-08-12.** `engine/` holds the TypeScript
-engine, 116 mirrored tests green plus a cross-engine parity suite. UI work is
-unblocked and not started — see "Port: what shipped" below.
+engine, 127 mirrored tests green plus a cross-engine parity suite. Landing view,
+filters and search shipped 2026-08-16 — see "Worker: what shipped" and "Section 3
+shipped: filters and search" below. Contest detail and the iCal feed are next.
 
 ---
 
@@ -53,7 +54,8 @@ Timezone handling in TS: use `Temporal.ZonedDateTime` where available, otherwise
 
 ## Port: what shipped
 
-`engine/` — `npm test` runs 116 mirrored tests and 13 parity tests.
+`engine/` — `npm test` runs 127 mirrored tests and 13 parity tests. (116 at the
+time of the port; 11 vocabulary tests were added on 2026-08-16.)
 
 - **116, not 115.** Porting surfaced a real bug in the Python engine: `expand()`
   caught every `ValueError` from anchor resolution, so a **typo'd rule type
@@ -270,11 +272,103 @@ and not obviously worth it.
   actually active. The Python side is dumped by a Node-side `globalSetup`, since workerd has
   no child processes. It fails rather than skips when Python is unreachable, matching
   `engine/tests/parity.test.ts`.
-- **`modes` in the catalog is not a controlled vocabulary.** Both `Digital` and `DIGITAL`
-  appear, alongside `PSK31`, `PSK63`, `RTTY75` and `FT4`. `modeFamilies()` normalises
-  case-insensitively so the UI and the API filters behave, but the underlying records are
-  inconsistent and a filter is only as good as the field it reads. Worth a pass over
-  `data/contests.seed.json` — a catalog edit, not an engine one.
+- **`modes` in the catalog was not a controlled vocabulary.** Both `Digital` and `DIGITAL`
+  appeared, alongside `PSK31`, `PSK63`, `RTTY75` and `FT4`; bands were free-text ranges
+  like `160-10m` and `VHF+`, which nothing can filter on. **Fixed 2026-08-16** — see
+  "Vocabulary: modes and bands" below.
+
+### Vocabulary: modes and bands
+
+Done 2026-08-16. Both fields are now controlled sets, declared once per engine and
+asserted against the catalog by all three suites.
+
+```
+modes       CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m
+            2m 1.25m 70cm 33cm 23cm 13cm 3cm
+```
+
+Two free-text companions carry what a controlled set deliberately cannot:
+
+- **`submodes`** — "PSK31", "RTTY 75 baud". Displayed on the contest, never filtered on.
+  A free-text field cannot be a filter; that is the whole reason it is separate.
+- **`bands_note`** — a sponsor's own range or suggestion wording that a token list will not
+  carry, e.g. "10 GHz through light".
+
+Every record's `modes` come from the set, in the order the *sponsor* writes them — `CW/SSB`,
+not the vocabulary's order — because a row should read the way the rules page reads.
+
+**Empty `bands` means unrecorded, not unbanded.** One record is in that state today
+(`sarl-hf-phone`; SARL's rules page has an expired certificate — see `data/sources.md`).
+Every band filter necessarily excludes it, so the landing view names it in a `.caveat`
+line with a link that clears the band filter. Silently dropping a record because we could
+not read its source is the exact failure this project exists to avoid.
+
+#### FT8/FT4 filters as its own mode *and* under Digital
+
+The question the brief asked: does someone filtering "Digital" expect FT8 results? Yes —
+and someone filtering "FT8/FT4" asked a narrower question and should get a narrower answer.
+Both are satisfiable at once, because **a record says exactly what it is and the *filter* is
+what widens.**
+
+| Filter token | Matches records whose mode is |
+| --- | --- |
+| `CW` | CW, Mixed |
+| `SSB` | SSB, Mixed |
+| `RTTY` | RTTY, Mixed |
+| `Digital` | Digital, RTTY, FT8/FT4, Mixed |
+| `FT8/FT4` | FT8/FT4, Mixed |
+| `Mixed` | Mixed |
+
+Mixed is subsumed by every specific mode and subsumes none: a Mixed contest genuinely
+permits CW, so a CW operator wants to see it; a CW-only contest is not what someone asking
+for Mixed meant. RTTY is under Digital because it is one — but Digital is not under RTTY.
+
+This replaced an earlier `modeFamilies()` that *inflated the record* rather than the query,
+so the ARRL RTTY Roundup rendered as "RTTY/Digital" when ARRL's own rules permit RTTY only.
+A row that overstates what a sponsor allows is worse than no row. `worker/tests/filters.worker.test.ts`
+asserts each direction of the table, and that the page never prints the widened view.
+
+### Section 3 shipped: filters and search
+
+`worker/src/render/filters.ts`. A plain `<form method="get" action="/">`, which satisfies
+four of section 3's requirements at once and satisfies them **with scripting off**:
+submitting writes the state into the URL, so the view is shareable; reloading re-reads it;
+the back button walks the history the browser already kept; and none of it needs a script.
+
+- Mode, band and duration are checkboxes styled as chips. The input stays in the DOM at
+  `opacity: 0` over its label — never `display: none`, which would take the whole form away
+  from the keyboard and from every screen reader on a page where this form *is* the UI.
+- Date range is a radio group plus a `from`/`to` pair; `?from=`/`?to=` beat `?range=`.
+  An unknown `range` is a 400, not a silent default — a typo'd param that behaves like no
+  filter is how someone believes they are looking at a filtered view and is not.
+- Every control's `name` is the API's own, so the address bar is already a valid
+  `/api/contests` query and a valid `/api/ics` subscription. "Subscribe to this view" is
+  that fact made visible.
+- `client.ts` adds exactly two things: it drops empty controls before submitting so the
+  shared URL is the query someone made rather than every field on the form, and it submits
+  on change — and only hides the Apply button once `form.requestSubmit` is proven to exist.
+- **CSP: `form-action 'self'`, not `'none'`.** That header is load-bearing for the no-JS
+  path, and a test says so.
+
+Colour discipline holds: **AMBER IS TIME, CYAN IS CONTESTS.** The date-range chips light
+amber; everything that selects contests — mode, band, duration, sponsor, search — lights cyan.
+
+#### Empty states
+
+Directions, not apologies. "No RTTY contests matching “zzzqx” in the next 12 months." then
+one link that is the cheapest change likely to help: widen the range first, else drop one
+facet in the order sponsor → search → duration → band → mode. Every such link is built by
+`relink()`, which keeps the rest of the reader's query — a suggestion that silently resets
+their other filters is not a direction.
+
+Two rules the tests hold:
+
+- The sentence names the **window the reader asked about**, not the seven-day rail it sits
+  in. Telling someone who asked about twelve months that there is nothing "in the next 7
+  days" answers a narrower question and implies results further down that do not exist.
+- When the week is empty but later is not, the page points **down the page** rather than
+  offering to widen a range that already contains what they want.
 
 ---
 

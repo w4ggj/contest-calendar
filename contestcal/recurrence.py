@@ -52,6 +52,37 @@ from zoneinfo import ZoneInfo
 
 SATURDAY = 5
 
+# --------------------------------------------------------------------------
+# Catalog vocabularies
+# --------------------------------------------------------------------------
+#
+# `modes` and `bands` are controlled sets, not free text. They were free text
+# once: `Digital` and `DIGITAL` were different values, PSK31 and RTTY75 sat
+# alongside them as if they were peers, and a band filter could not be written
+# at all. A filter is only ever as good as the field it reads.
+#
+# What each field may hold:
+#
+#   modes       one or more of CATALOG_MODES, in the order the sponsor writes
+#               them ("CW/SSB", not the vocabulary's order)
+#   submodes    free text, for the specifics `modes` deliberately drops --
+#               "PSK31", "RTTY 75 baud". Displayed, never filtered on: a
+#               free-text field cannot be a filter, which is the whole point
+#   bands       zero or more of CATALOG_BANDS, low to high
+#   bands_note  free text, for a sponsor's range or suggestion wording that a
+#               list of tokens cannot carry -- "10 GHz through light"
+#
+# EMPTY `bands` MEANS UNRECORDED, NOT UNBANDED. Every band filter therefore
+# excludes such a record, and callers that filter must say so rather than let
+# it vanish. Mirrored in engine/src/recurrence.ts.
+
+CATALOG_MODES = ("CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed")
+
+CATALOG_BANDS = (
+    "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",
+    "6m", "2m", "1.25m", "70cm", "33cm", "23cm", "13cm", "3cm",
+)
+
 
 class NoAnchorsThisYear(ValueError):
     """
@@ -312,7 +343,9 @@ class Occurrence:
     local_rolling: bool = False
     timezone_name: str = ""
     modes: list[str] = field(default_factory=list)
+    submodes: list[str] = field(default_factory=list)
     bands: list[str] = field(default_factory=list)
+    bands_note: str = ""
     sponsor: str = ""
     rules_url: str = ""
     verified: bool = False
@@ -384,7 +417,9 @@ class Occurrence:
             "timezone": self.timezone_name,
             "duration_hours": round(self.duration_hours, 2),
             "modes": self.modes,
+            "submodes": self.submodes,
             "bands": self.bands,
+            "bands_note": self.bands_note,
             "sponsor": self.sponsor,
             "rules_url": self.rules_url,
             "verified": self.verified,
@@ -518,7 +553,9 @@ def expand(
                     local_rolling=rolling,
                     timezone_name=tz_name or "",
                     modes=contest.get("modes", []),
+                    submodes=contest.get("submodes", []),
                     bands=contest.get("bands", []),
+                    bands_note=contest.get("bands_note", ""),
                     sponsor=contest.get("sponsor", ""),
                     rules_url=resolve_rules_url(contest, year),
                     verified=contest.get("verified", False),

@@ -14,9 +14,16 @@ import type { Occurrence } from "../../../engine/src/recurrence.js";
 import { CATALOG_SIZE } from "../catalog.js";
 import {
   bandFamilies,
-  modeFamilies,
+  type Filters,
   type NowView,
 } from "../schedule.js";
+import {
+  describeSelection,
+  emptyState,
+  renderFilters,
+  unrecordedNote,
+} from "./filters.js";
+import { esc } from "./html.js";
 import { CSS } from "./theme.js";
 import { CLIENT_JS } from "./client.js";
 import { dayCellLabel } from "./daylabel.js";
@@ -25,18 +32,7 @@ const DAY_MS = 86_400_000;
 
 export type RailWindow = { start: number; end: number; days: number };
 
-// ---------------------------------------------------------------------------
-// Escaping
-// ---------------------------------------------------------------------------
-
-export function esc(value: unknown): string {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+export { esc };
 
 // ---------------------------------------------------------------------------
 // Time formatting -- UTC, spoken the way operators speak it
@@ -115,9 +111,13 @@ function spanOf(o: Occurrence): { start: Date; end: Date } {
 function metaLine(o: Occurrence): string {
   const parts: string[] = [];
 
-  const modes = modeFamilies(o.modes);
-  if (modes.length) {
-    parts.push(`<span class="mode">${esc(modes.join("/"))}</span>`);
+  // The record's own modes, verbatim. `modeFamilies()` is the FILTER's view --
+  // it widens Digital to cover RTTY and FT8/FT4 -- and rendering it here made a
+  // row read "RTTY/Digital" for a contest whose sponsor allows only RTTY.
+  if (o.modes.length) {
+    const label =
+      o.modes.join("/") + (o.submodes.length ? ` (${o.submodes.join(", ")})` : "");
+    parts.push(`<span class="mode">${esc(label)}</span>`);
   }
 
   const bands = bandFamilies(o.bands);
@@ -345,7 +345,7 @@ function liveSection(live: Occurrence[], nowMs: number): string {
   );
 }
 
-function weekSection(next7: Occurrence[], nowMs: number): string {
+function weekSection(next7: Occurrence[], nowMs: number, empty: string): string {
   const win = railWindow(nowMs);
 
   const body = next7.length
@@ -368,12 +368,7 @@ function weekSection(next7: Occurrence[], nowMs: number): string {
         })
         .join("") +
       `</ol></div>`
-    : `<div class="empty">` +
-      `<p>Nothing starts in the next 7 days.</p>` +
-      `<p>The catalog runs on rules, not a list — look further out with ` +
-      `<a href="/api/contests?year=${new Date(nowMs).getUTCFullYear()}">the full year</a>, ` +
-      `or subscribe to <a href="/api/ics">the feed</a> and stop checking.</p>` +
-      `</div>`;
+    : empty;
 
   return (
     `<section aria-labelledby="lg-week">` +
@@ -384,8 +379,14 @@ function weekSection(next7: Occurrence[], nowMs: number): string {
   );
 }
 
-function laterSection(view: NowView): string {
-  if (!view.later.length) return "";
+function laterSection(view: NowView, empty: string): string {
+  if (!view.later.length) {
+    return empty
+      ? `<section aria-labelledby="lg-later">` +
+        `<h2 class="legend" id="lg-later">${esc(view.laterLabel)}` +
+        `<span class="count">0</span></h2>${empty}</section>`
+      : "";
+  }
 
   const rows = view.later
     .map((o) => {
@@ -415,7 +416,54 @@ function laterSection(view: NowView): string {
 // Page
 // ---------------------------------------------------------------------------
 
-export function renderLanding(view: NowView): string {
+export interface LandingInput {
+  filters: Filters;
+  params: URLSearchParams;
+  sponsors: string[];
+}
+
+/**
+ * The three sections, and the directions when a section is empty.
+ *
+ * Which section gets the full "here is what to change" empty state depends on
+ * whether anything at all matched: if the week is quiet but next month is not,
+ * the reader needs a pointer down the page, not an offer to widen a range that
+ * already contains what they want.
+ *
+ * When nothing matched, the sentence names the whole window the reader asked
+ * about rather than the seven-day rail it happens to sit in. Telling someone who
+ * asked about the next twelve months that there is nothing "in the next 7 days"
+ * answers a narrower question than the one they put in the URL, and implies
+ * there might be something later when there is not.
+ */
+function sections(view: NowView, input: LandingInput): string {
+  const { filters, params } = input;
+  const nothing = view.totalConsidered === 0;
+  const what = describeSelection(filters);
+
+  const weekEmpty = !view.weekApplies
+    ? ""
+    : nothing
+      ? emptyState(filters, params, view, view.window.scope)
+      : `<div class="empty">` +
+        `<p>No ${esc(what)} in the next 7 days.</p>` +
+        `<p>There ${view.later.length === 1 ? "is one" : `are ${view.later.length}`} ` +
+        `${esc(view.laterLabel.toLowerCase())} — <a href="#lg-later">further down</a>.</p>` +
+        `</div>`;
+
+  const laterEmpty =
+    nothing && !view.weekApplies
+      ? emptyState(filters, params, view, view.window.scope)
+      : "";
+
+  return (
+    liveSection(view.live, view.now) +
+    (view.weekApplies ? weekSection(view.next7, view.now, weekEmpty) : "") +
+    laterSection(view, laterEmpty)
+  );
+}
+
+export function renderLanding(view: NowView, input: LandingInput): string {
   const now = new Date(view.now);
 
   const title = view.live.length
@@ -476,9 +524,9 @@ export function renderLanding(view: NowView): string {
 </header>
 
 <main class="shell" id="main">
-  ${liveSection(view.live, view.now)}
-  ${weekSection(view.next7, view.now)}
-  ${laterSection(view)}
+  ${renderFilters({ view, filters: input.filters, params: input.params, sponsors: input.sponsors })}
+  ${unrecordedNote(view, input.params)}
+  ${sections(view, input)}
 
   <footer class="foot">
     <p>Dates are computed from recurrence rules taken from each sponsor's own

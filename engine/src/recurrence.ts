@@ -57,6 +57,42 @@ import { resolveWallClock, type WallFields } from "./zones.js";
 
 export const SATURDAY = 5;
 
+// ---------------------------------------------------------------------------
+// Catalog vocabularies
+// ---------------------------------------------------------------------------
+//
+// `modes` and `bands` are controlled sets, not free text. They were free text
+// once: `Digital` and `DIGITAL` were different values, PSK31 and RTTY75 sat
+// alongside them as if they were peers, and a band filter could not be written
+// at all. A filter is only ever as good as the field it reads.
+//
+// What each field may hold:
+//
+//   modes       one or more of CATALOG_MODES, in the order the sponsor writes
+//               them ("CW/SSB", not the vocabulary's order)
+//   submodes    free text, for the specifics `modes` deliberately drops --
+//               "PSK31", "RTTY 75 baud". Displayed, never filtered on: a
+//               free-text field cannot be a filter, which is the whole point
+//   bands       zero or more of CATALOG_BANDS, low to high
+//   bands_note  free text, for a sponsor's range or suggestion wording that a
+//               list of tokens cannot carry -- "10 GHz through light"
+//
+// EMPTY `bands` MEANS UNRECORDED, NOT UNBANDED. Every band filter therefore
+// excludes such a record, and callers that filter must say so rather than let
+// it vanish. Mirrored in contestcal/recurrence.py.
+
+export const CATALOG_MODES = [
+  "CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed",
+] as const;
+
+export const CATALOG_BANDS = [
+  "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",
+  "6m", "2m", "1.25m", "70cm", "33cm", "23cm", "13cm", "3cm",
+] as const;
+
+export type CatalogMode = (typeof CATALOG_MODES)[number];
+export type CatalogBand = (typeof CATALOG_BANDS)[number];
+
 /**
  * A rule that simply does not fire in the requested year.
  *
@@ -121,7 +157,11 @@ export interface Contest {
   timezone?: string;
   local_rolling?: boolean;
   modes?: string[];
+  /** Free text, e.g. "PSK31". The specifics `modes` deliberately drops. */
+  submodes?: string[];
   bands?: string[];
+  /** The sponsor's own wording where a band list is a range or a suggestion. */
+  bands_note?: string;
   sponsor?: string;
   country?: string;
   rules_url?: string;
@@ -423,7 +463,11 @@ export interface OccurrenceInit {
   local_rolling?: boolean;
   timezone_name?: string;
   modes?: string[];
+  /** Free text, e.g. "PSK31". The specifics `modes` deliberately drops. */
+  submodes?: string[];
   bands?: string[];
+  /** The sponsor's own wording where a band list is a range or a suggestion. */
+  bands_note?: string;
   sponsor?: string;
   rules_url?: string;
   verified?: boolean;
@@ -450,7 +494,9 @@ export class Occurrence {
   local_rolling: boolean;
   timezone_name: string;
   modes: string[];
+  submodes: string[];
   bands: string[];
+  bands_note: string;
   sponsor: string;
   rules_url: string;
   verified: boolean;
@@ -476,7 +522,9 @@ export class Occurrence {
     this.local_rolling = init.local_rolling ?? false;
     this.timezone_name = init.timezone_name ?? "";
     this.modes = init.modes ?? [];
+    this.submodes = init.submodes ?? [];
     this.bands = init.bands ?? [];
+    this.bands_note = init.bands_note ?? "";
     this.sponsor = init.sponsor ?? "";
     this.rules_url = init.rules_url ?? "";
     this.verified = init.verified ?? false;
@@ -547,7 +595,9 @@ export class Occurrence {
       timezone: this.timezone_name,
       duration_hours: roundHalfEven(this.duration_hours, 2),
       modes: this.modes,
+      submodes: this.submodes,
       bands: this.bands,
+      bands_note: this.bands_note,
       sponsor: this.sponsor,
       rules_url: this.rules_url,
       verified: this.verified,
@@ -738,7 +788,9 @@ export function expand(
           local_rolling: rolling,
           timezone_name: tzName ?? "",
           modes: contest.modes ?? [],
+          submodes: contest.submodes ?? [],
           bands: contest.bands ?? [],
+          bands_note: contest.bands_note ?? "",
           sponsor: contest.sponsor ?? "",
           rules_url: resolveRulesUrl(contest, year),
           verified: contest.verified ?? false,

@@ -21,6 +21,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from contestcal import load_catalog, load_registry  # noqa: E402
 from contestcal.recurrence import (  # noqa: E402
+    CATALOG_BANDS,
+    CATALOG_MODES,
     _full_weekends_in_month,
     _saturdays_in_month,
     eligibility_for,
@@ -1170,3 +1172,128 @@ def test_composite_rule_handles_mixed_subrules():
         2026,
     )
     assert anchors == [date(2026, 2, 28), date(2026, 7, 18)]
+
+
+# ---------------------------------------------------------------------------
+# Catalog vocabularies
+#
+# `modes` and `bands` were free text until 2026-08-16: `Digital` and `DIGITAL`
+# were different values, PSK31 sat alongside them as if it were a peer, and no
+# band filter could be written at all. These tests are what stops that
+# returning -- a controlled set that nothing enforces is a convention, and a
+# convention decays one hand-edited record at a time.
+#
+# Mirrored one-for-one in engine/tests/recurrence.test.ts.
+# ---------------------------------------------------------------------------
+
+
+def test_every_record_draws_its_modes_from_the_controlled_set(catalog):
+    offenders = [
+        (c["id"], m)
+        for c in catalog
+        for m in c.get("modes", [])
+        if m not in CATALOG_MODES
+    ]
+    assert offenders == [], f"modes outside the vocabulary: {offenders}"
+
+
+def test_every_record_declares_at_least_one_mode(catalog):
+    # A contest with no mode cannot be found by anyone filtering on mode, and
+    # every sponsor states one. Absence here is an editing slip, not a fact.
+    assert [c["id"] for c in catalog if not c.get("modes")] == []
+
+
+def test_every_record_draws_its_bands_from_the_ladder(catalog):
+    offenders = [
+        (c["id"], b)
+        for c in catalog
+        for b in c.get("bands", [])
+        if b not in CATALOG_BANDS
+    ]
+    assert offenders == [], f"bands outside the ladder: {offenders}"
+
+
+def test_bands_are_listed_low_to_high(catalog):
+    # Order is displayed as-is -- "160-10m" is collapsed from the ends of the
+    # list. An unsorted list renders as a wrong range rather than as a mess,
+    # which is the kind of wrong that gets believed.
+    for c in catalog:
+        bands = c.get("bands", [])
+        order = [CATALOG_BANDS.index(b) for b in bands]
+        assert order == sorted(order), f"{c['id']} lists bands out of order: {bands}"
+
+
+def test_no_record_carries_a_duplicate_mode_or_band(catalog):
+    for c in catalog:
+        for fieldname in ("modes", "bands"):
+            values = c.get(fieldname, [])
+            assert len(values) == len(set(values)), f"{c['id']}: duplicate {fieldname}"
+
+
+def test_retired_free_text_tokens_are_gone_everywhere(catalog):
+    # The exact values that were in the catalog before the migration. Named
+    # rather than inferred, so this fails loudly if one is reintroduced by a
+    # copy-paste from an old record.
+    retired = {"DIGITAL", "PSK31", "PSK63", "RTTY75", "FT4", "VHF+", "222MHz+", "10GHz+"}
+    stragglers = [
+        (c["id"], v)
+        for c in catalog
+        for v in c.get("modes", []) + c.get("bands", [])
+        if v in retired
+    ]
+    assert stragglers == [], f"pre-migration tokens still in the catalog: {stragglers}"
+
+
+def test_submodes_are_specifics_not_a_second_mode_list(catalog):
+    # `submodes` is free text on purpose. What it must never hold is a value
+    # from the controlled set -- that would be the mode recorded twice, in two
+    # fields, and the two would eventually disagree.
+    for c in catalog:
+        for s in c.get("submodes", []):
+            assert s not in CATALOG_MODES, f"{c['id']}: submode {s!r} belongs in modes"
+
+
+def test_a_record_with_submodes_declares_the_family_they_belong_to(catalog):
+    # PSK31 without Digital, or FT4 without FT8/FT4, is a record that shows up
+    # in no filter at all. The submode is the detail; the mode is the handle.
+    for c in catalog:
+        if c.get("submodes"):
+            assert c.get("modes"), f"{c['id']} has submodes but no mode"
+
+
+def test_unrecorded_bands_are_the_documented_exception(catalog):
+    """
+    Empty `bands` means unrecorded, and a band filter drops the record. That is
+    a real cost, so it is pinned to the records that have a documented reason.
+
+    sarl-hf-phone: sarl.org.za served an expired TLS certificate on 2026-08-16,
+    so its rules could not be read. The project's rule is to document a blocked
+    source and stop, never to reach for an aggregator.
+    """
+    unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
+    assert unrecorded == ["sarl-hf-phone"]
+
+
+def test_bands_note_never_stands_in_for_a_band_list(catalog):
+    # The note carries the sponsor's wording; it is not a place to record the
+    # bands themselves in prose and skip the machine-readable list.
+    for c in catalog:
+        if c.get("bands_note"):
+            assert c.get("bands"), f"{c['id']} has a bands_note but no bands"
+
+
+def test_the_two_engines_declare_the_same_vocabularies():
+    # The Python and TypeScript vocabularies are hand-maintained in two files.
+    # This asserts the Python side against the literal text of the TypeScript
+    # one, so a value added to one and not the other fails here rather than in
+    # a filter six months later.
+    ts = (Path(__file__).resolve().parent.parent / "engine" / "src" / "recurrence.ts").read_text(
+        encoding="utf-8"
+    )
+    for name, values in (
+        ("CATALOG_MODES", CATALOG_MODES),
+        ("CATALOG_BANDS", CATALOG_BANDS),
+    ):
+        block = ts.split(f"export const {name} = [")[1].split("]")[0]
+        declared = tuple(v.strip().strip('",') for v in block.split(",") if v.strip())
+        assert declared == values, f"{name} differs between the engines"

@@ -16,8 +16,13 @@
 
 import { describe, expect, test } from "vitest";
 
-import { loadCatalog, loadRegistry } from "../src/catalog.js";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+
+import { DATA_DIR, loadCatalog, loadRegistry } from "../src/catalog.js";
 import {
+  CATALOG_BANDS,
+  CATALOG_MODES,
   type Contest,
   eligibilityFor,
   expand,
@@ -32,6 +37,9 @@ import {
 } from "../src/recurrence.js";
 
 const catalog = loadCatalog();
+
+const MODES = new Set<string>(CATALOG_MODES);
+const BANDS = new Set<string>(CATALOG_BANDS);
 
 const byId = (cid: string): Contest => {
   const c = catalog.find((x) => x.id === cid);
@@ -1162,5 +1170,143 @@ describe("malformed rules", () => {
       end: { day_offset: 0, time: "0100" },
     } as unknown as Contest;
     expect(() => expand(c, 2026)).toThrow(/unknown rule type/);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Catalog vocabularies
+//
+// `modes` and `bands` were free text until 2026-08-16: `Digital` and `DIGITAL`
+// were different values, PSK31 sat alongside them as if it were a peer, and no
+// band filter could be written at all. These tests are what stops that
+// returning -- a controlled set that nothing enforces is a convention, and a
+// convention decays one hand-edited record at a time.
+//
+// Mirrored one-for-one from tests/test_recurrence.py.
+// ---------------------------------------------------------------------------
+
+describe("catalog vocabularies", () => {
+  test("every record draws its modes from the controlled set", () => {
+    const offenders = catalog.flatMap((c) =>
+      (c.modes ?? []).filter((m) => !MODES.has(m)).map((m) => [c.id, m]),
+    );
+    expect(offenders, `modes outside the vocabulary: ${JSON.stringify(offenders)}`).toEqual([]);
+  });
+
+  test("every record declares at least one mode", () => {
+    // A contest with no mode cannot be found by anyone filtering on mode, and
+    // every sponsor states one. Absence here is an editing slip, not a fact.
+    expect(catalog.filter((c) => !(c.modes ?? []).length).map((c) => c.id)).toEqual([]);
+  });
+
+  test("every record draws its bands from the ladder", () => {
+    const offenders = catalog.flatMap((c) =>
+      (c.bands ?? []).filter((b) => !BANDS.has(b)).map((b) => [c.id, b]),
+    );
+    expect(offenders, `bands outside the ladder: ${JSON.stringify(offenders)}`).toEqual([]);
+  });
+
+  test("bands are listed low to high", () => {
+    // Order is displayed as-is -- "160-10m" is collapsed from the ends of the
+    // list. An unsorted list renders as a wrong range rather than as a mess,
+    // which is the kind of wrong that gets believed.
+    for (const c of catalog) {
+      const order = (c.bands ?? []).map((b) => CATALOG_BANDS.indexOf(b as never));
+      expect(order, `${c.id} lists bands out of order: ${c.bands}`).toEqual(
+        [...order].sort((a, b) => a - b),
+      );
+    }
+  });
+
+  test("no record carries a duplicate mode or band", () => {
+    for (const c of catalog) {
+      for (const values of [c.modes ?? [], c.bands ?? []]) {
+        expect(new Set(values).size, c.id).toBe(values.length);
+      }
+    }
+  });
+
+  test("retired free-text tokens are gone everywhere", () => {
+    // The exact values that were in the catalog before the migration. Named
+    // rather than inferred, so this fails loudly if one is reintroduced by a
+    // copy-paste from an old record.
+    const retired = new Set([
+      "DIGITAL", "PSK31", "PSK63", "RTTY75", "FT4", "VHF+", "222MHz+", "10GHz+",
+    ]);
+    const stragglers = catalog.flatMap((c) =>
+      [...(c.modes ?? []), ...(c.bands ?? [])]
+        .filter((v) => retired.has(v))
+        .map((v) => [c.id, v]),
+    );
+    expect(stragglers, `pre-migration tokens still in the catalog: ${JSON.stringify(stragglers)}`)
+      .toEqual([]);
+  });
+
+  test("submodes are specifics, not a second mode list", () => {
+    // `submodes` is free text on purpose. What it must never hold is a value
+    // from the controlled set -- that would be the mode recorded twice, in two
+    // fields, and the two would eventually disagree.
+    for (const c of catalog) {
+      for (const s of c.submodes ?? []) {
+        expect(MODES.has(s), `${c.id}: submode ${JSON.stringify(s)} belongs in modes`).toBe(false);
+      }
+    }
+  });
+
+  test("a record with submodes declares the family they belong to", () => {
+    // PSK31 without Digital, or FT4 without FT8/FT4, is a record that shows up
+    // in no filter at all. The submode is the detail; the mode is the handle.
+    for (const c of catalog) {
+      if ((c.submodes ?? []).length) {
+        expect((c.modes ?? []).length, `${c.id} has submodes but no mode`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  test("unrecorded bands are the documented exception", () => {
+    // Empty `bands` means unrecorded, and a band filter drops the record. That
+    // is a real cost, so it is pinned to the records that have a documented
+    // reason.
+    //
+    // sarl-hf-phone: sarl.org.za served an expired TLS certificate on
+    // 2026-08-16, so its rules could not be read. The project's rule is to
+    // document a blocked source and stop, never to reach for an aggregator.
+    const unrecorded = catalog
+      .filter((c) => !(c.bands ?? []).length)
+      .map((c) => c.id)
+      .sort();
+    expect(unrecorded).toEqual(["sarl-hf-phone"]);
+  });
+
+  test("bands_note never stands in for a band list", () => {
+    // The note carries the sponsor's wording; it is not a place to record the
+    // bands themselves in prose and skip the machine-readable list.
+    for (const c of catalog) {
+      if (c.bands_note) {
+        expect((c.bands ?? []).length, `${c.id} has a bands_note but no bands`).toBeGreaterThan(0);
+      }
+    }
+  });
+
+  test("the two engines declare the same vocabularies", () => {
+    // The Python and TypeScript vocabularies are hand-maintained in two files.
+    // This asserts the TypeScript side against the literal text of the Python
+    // one, so a value added to one and not the other fails here rather than in
+    // a filter six months later.
+    const py = readFileSync(
+      join(DATA_DIR, "..", "contestcal", "recurrence.py"),
+      "utf-8",
+    );
+    for (const [name, values] of [
+      ["CATALOG_MODES", CATALOG_MODES],
+      ["CATALOG_BANDS", CATALOG_BANDS],
+    ] as const) {
+      const block = py.split(`${name} = (`)[1].split(")")[0];
+      const declared = block
+        .split(",")
+        .map((v) => v.trim().replace(/^"|"$/g, ""))
+        .filter(Boolean);
+      expect(declared, `${name} differs between the engines`).toEqual([...values]);
+    }
   });
 });

@@ -17,10 +17,11 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 84 contest definitions → 648 occurrences for 2026. 116 Python tests,
-129 TypeScript tests, 31 Worker tests. Engine complete in both languages — no known
-structural gaps. The API and the Now / next-7-days landing view are built and serve
-locally; the UI's filters, search and detail view are not, and nothing is deployed.
+**Current state:** 84 contest definitions → 648 occurrences for 2026. 127 Python tests,
+140 TypeScript tests, 63 Worker tests. Engine complete in both languages — no known
+structural gaps. The API, the Now / next-7-days landing view, and filters and search are
+built and serve locally. `modes` and `bands` are controlled vocabularies as of 2026-08-16.
+The contest detail view is not built, and nothing is deployed.
 
 ## Read first
 
@@ -34,11 +35,11 @@ locally; the UI's filters, search and detail view are not, and nothing is deploy
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 116 passed
+python -m pytest -q               # expect: 127 passed
 python scripts\check_links.py
 
-cd engine; npm install; npm test   # expect: 129 passed (116 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 31 passed (parity inside workerd + the API)
+cd engine; npm install; npm test   # expect: 140 passed (127 mirrored + 13 parity)
+cd ..\worker; npm install; npm test # expect: 63 passed (parity inside workerd, the API, the filters)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -95,9 +96,9 @@ data model gaps faster than another 200 records would.
 
 **The Worker is up, locally.** `worker/` server-renders `/` and serves `/api/*` from the
 same catalog and the same engine — `npm run dev` in `worker/`, then <http://127.0.0.1:8787>.
-The landing view answers "what is on the air now" and "what is on this week"; the API
-already supports filters, search, per-contest lookup and the iCal feed. Still to build:
-filters and search **in the UI**, the contest detail view, and deployment.
+The landing view answers "what is on the air now" and "what is on this week", and filters
+and search are on it — a plain GET form that works with scripting off, with the state in
+the URL. Still to build: the contest detail view, and deployment.
 
 Two things worth knowing before you touch it:
 
@@ -107,14 +108,17 @@ Two things worth knowing before you touch it:
   different code in production than in test. `/api/health` reports the active resolver and
   the one that would have been chosen without the pin. See `TIMEZONE_BRIEF.md`,
   "Measured, not assumed".
-- The catalog's `modes` field is not a controlled vocabulary — `Digital` and `DIGITAL` both
-  appear, alongside `PSK31`, `PSK63`, `RTTY75`, `FT4`. The Worker normalises
-  case-insensitively so filters work, but the records themselves are inconsistent. A
-  catalog fix, not an engine one.
+- `modes` and `bands` **are** controlled vocabularies, declared in both engines and asserted
+  by all three suites. `modes` is one or more of CW · SSB · RTTY · Digital · FT8/FT4 ·
+  Mixed; `bands` is a per-contest list off the 160m…3cm ladder. Free-text `submodes` and
+  `bands_note` carry the specifics — displayed, never filtered on. **Empty `bands` means
+  unrecorded, not unbanded**, so every band filter excludes such a record and the page says
+  so out loud rather than letting it vanish. Reasoning and the FT8/FT4-under-Digital
+  decision: `FRONTEND_BRIEF.md`, "Vocabulary: modes and bands".
 
-**The engine port is done.** `engine/` holds the TypeScript engine: 116 tests mirroring the
+**The engine port is done.** `engine/` holds the TypeScript engine: 127 tests mirroring the
 Python suite one-for-one, plus a parity suite that compares every field of every occurrence
-for four years against the Python reference. UI work is unblocked and not started.
+for four years against the Python reference.
 
 Porting found a real bug, which is why both suites are now 116 rather than 115: `expand()`
 swallowed every `ValueError` from anchor resolution, so **a typo'd rule type silently
