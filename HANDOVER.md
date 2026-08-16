@@ -39,7 +39,7 @@ python -m pytest -q               # expect: 127 passed
 python scripts\check_links.py
 
 cd engine; npm install; npm test   # expect: 140 passed (127 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 63 passed (parity inside workerd, the API, the filters)
+cd ..\worker; npm install; npm test # expect: 86 passed (parity inside workerd, the API, filters, iCal)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -98,7 +98,9 @@ data model gaps faster than another 200 records would.
 same catalog and the same engine — `npm run dev` in `worker/`, then <http://127.0.0.1:8787>.
 The landing view answers "what is on the air now" and "what is on this week", and filters
 and search are on it — a plain GET form that works with scripting off, with the state in
-the URL. Still to build: the contest detail view, and deployment.
+the URL. **The iCal feed is on it too**, at `/api/ics` and `/contests.ics`, taking the same
+query params — so the address bar is the subscription URL and "Subscribe to this view" is
+that fact made visible. Still to build: the contest detail view, and deployment.
 
 Two things worth knowing before you touch it:
 
@@ -156,6 +158,19 @@ Flagged rather than guessed. Leave them until a sponsor settles them.
 - **PODXS Great Pumpkin** — close time differs by one minute between the rules page and the
   club calendar. Recorded in `note`, not silently reconciled.
 - **CQ 160 SSB** — see above. This record is the model for an honest flag.
+
+## Open check — the iCal feed in a real client
+
+The feed conforms to RFC 5545 clause by clause, proved by a parser that reads it back
+(`worker/tests/ics.worker.test.ts`), and it avoids the two constructs Google, Apple and
+Outlook genuinely implement differently — `VTIMEZONE` and `RRULE`. But **no live
+subscription has been tested**, because that needs a publicly reachable HTTPS URL and
+nothing is deployed; none of the three clients will poll `localhost`.
+
+**Do this the day the Worker gets a public URL:** subscribe in Google Calendar, Apple
+Calendar and Outlook, then check the same event in all three for start time, duration and
+whether the description survived. Google caches subscriptions aggressively — allow up to a
+day before concluding a change did not take.
 
 ---
 

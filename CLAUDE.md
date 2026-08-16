@@ -34,7 +34,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 63 passed
+npm test                       # expect: 86 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -114,6 +114,15 @@ touches the engine. `/api/health` reports both the active resolver and the one t
 it — `engine/src/catalog.ts` uses `node:fs` and is excluded from the Worker's tsconfig for
 exactly that reason. There is no D1, no KV, and no Astro; the reasoning is in
 `FRONTEND_BRIEF.md` under "Deviation: Worker-rendered HTML, not Astro + Pages".
+
+The iCal feed (`worker/src/ics.ts`, served at `/api/ics` and `/contests.ics`) takes the same
+query params as the page. Three things there are not stylistic: it emits **expanded UTC
+instants, never `RRULE` and never `VTIMEZONE`** — the three big clients disagree about both;
+`occurrenceUid()` output must stay **stable across deploys**, because a changed UID turns
+every subscriber's calendar into duplicates; and `CATEGORIES` is multi-value, so its comma
+separators must not be escaped. `worker/tests/ics.worker.test.ts` parses the feed back with
+its own RFC 5545 reader rather than regexing it — keep it that way, or the generator ends up
+grading its own homework. The horizon decision is in `FRONTEND_BRIEF.md`, "Section 5 shipped".
 
 The page must stay correct with JavaScript off. Server-render every time as UTC with a
 machine-readable `datetime`; `render/client.ts` only converts to local and ticks

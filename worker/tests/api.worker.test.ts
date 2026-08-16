@@ -103,38 +103,27 @@ describe("GET /api/contests/:id", () => {
 });
 
 describe("GET /api/ics", () => {
-  it("emits a valid-looking calendar with CRLF endings and UTC instants", async () => {
-    const res = await get("/api/ics?year=2026");
+  // Conformance -- folding, escaping, UTC instants, filters, horizon -- lives in
+  // `ics.worker.test.ts`, which parses the feed back rather than pattern-matching
+  // it. What belongs here is the API surface: that the route is wired and that a
+  // dated query is honoured rather than ignored.
+  it("is routed and served as a calendar", async () => {
+    const res = await get("/api/ics");
     expect(res.status).toBe(200);
     expect(res.headers.get("content-type")).toContain("text/calendar");
-
-    const text = await res.text();
-    expect(text.startsWith("BEGIN:VCALENDAR\r\n")).toBe(true);
-    expect(text.endsWith("END:VCALENDAR\r\n")).toBe(true);
-    // Every line must be CRLF-terminated; a lone LF passes in most clients and
-    // fails in validators, which is the worst combination for a feed people
-    // subscribe to once and never look at again.
-    expect(text.split("\r\n").length - 1).toBe(text.split("\n").length - 1);
-
-    for (const line of text.split("\r\n")) {
-      if (line.startsWith("DTSTART:") || line.startsWith("DTEND:")) {
-        expect(line).toMatch(/^DT(START|END):\d{8}T\d{6}Z$/);
-      }
-      // RFC 5545 caps a content line at 75 octets before folding.
-      expect(new TextEncoder().encode(line).length).toBeLessThanOrEqual(75);
-    }
-
-    expect(text).toContain("BEGIN:VEVENT");
-    expect(text).not.toContain("VTIMEZONE");
+    expect((await res.text()).startsWith("BEGIN:VCALENDAR\r\n")).toBe(true);
   });
 
-  it("gives every event a stable UID", async () => {
-    const first = await (await get("/api/ics?year=2026")).text();
-    const second = await (await get("/api/ics?year=2026")).text();
-    const uids = (t: string) =>
-      t.split("\r\n").filter((l) => l.startsWith("UID:"));
-    expect(uids(first)).toEqual(uids(second));
-    expect(new Set(uids(first)).size).toBe(uids(first).length);
+  it("honours ?year= instead of quietly serving the default window", async () => {
+    // This is the regression that hid here for a release: `handleIcs` ignored
+    // every range parameter, and the old test only passed because the fixed
+    // window happened to contain the year it asked for. A query that is
+    // accepted and then discarded is worse than one that 400s.
+    const res = await get("/api/ics?year=2029");
+    expect(res.status).toBe(200);
+    for (const line of (await res.text()).split("\r\n")) {
+      if (line.startsWith("DTSTART:")) expect(line.slice(8, 12)).toBe("2029");
+    }
   });
 });
 

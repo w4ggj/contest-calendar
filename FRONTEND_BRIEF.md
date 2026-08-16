@@ -154,6 +154,9 @@ Filterable by the same params as the UI, so someone can subscribe to CW-only, or
 or everything. Include the sponsor rules URL in the event description. Test against Google
 Calendar, Apple Calendar, and Outlook — they disagree about recurrence and timezone fields.
 
+*Shipped — see "Section 5 shipped: the iCal feed" below, including the horizon decision and
+the one part of this that a local Worker cannot verify.*
+
 ### 6. Mobile
 
 Build mobile-first, not responsive-after. The competition is desktop tables from 2003 and a
@@ -369,6 +372,93 @@ Two rules the tests hold:
   days" answers a narrower question and implies results further down that do not exist.
 - When the week is empty but later is not, the page points **down the page** rather than
   offering to widen a range that already contains what they want.
+
+### Section 5 shipped: the iCal feed
+
+`worker/src/ics.ts` builds it, `handleIcs` in `worker/src/api.ts` chooses the window, and
+`worker/tests/ics.worker.test.ts` proves it by **parsing the feed back** with an
+RFC 5545 reader written from the spec rather than imported from the generator. A generator
+checked with regexes against its own output tests that it does what it does; unfolding and
+unescaping the stream into properties tests that a client can *read* it — which is the only
+property that matters for a file nobody opens again after subscribing.
+
+Served at `/api/ics` and at `/contests.ics`, same handler, and it accepts every parameter
+the landing view does — `mode`, `band`, `duration`, `sponsor`, `q`, `entity`, `range`,
+`from`/`to`, `year`. So the address bar is the subscription URL, which is what makes
+"Subscribe to this view" a link rather than a feature.
+
+#### The horizon: 30 days back, 365 days forward
+
+Measured, not guessed. The whole feed runs ~651 bytes per event; the old two-year window
+was **875 KB and 1,344 events**, and 395 days is ~700 events and ~455 KB.
+
+Twelve months is where the feed becomes complete and stops becoming *more* complete. Every
+contest in the catalog runs at least once a year, so a twelve-month horizon contains all 84
+of them; a thirteenth month adds only second runnings of contests already present, at
+roughly 100% of the size again. And the short windows fail the other way: a 90-day feed
+hides CQ WW for nine months of the year, which breaks the one thing a subscriber wanted it
+for. The 30 days of backfill exist so a contest you just worked is still there to look up.
+
+Two window kinds, deliberately distinct:
+
+- **Rolling** — no dated parameter, or a `?range=` preset. The subscription never expires;
+  it moves with the clock. Cached one hour. A preset gets **no** backfill, or a feed
+  labelled "Next 7 days" would carry five weeks of history and contradict its own name.
+- **Snapshot** — `?year=`, or `?from=`/`?to=`. A fixed span: a download, not a
+  subscription. Cached a day, since it only changes when the catalog does.
+
+`X-WR-CALDESC` states which one you got, so two subscriptions in the same client are still
+distinguishable six months later. `x-ics-window` and `x-ics-events` report it on the
+response for anyone debugging without parsing the body.
+
+#### What the three clients disagree about, and what we do instead
+
+- **Expanded UTC instants, never `RRULE`.** "Fourth full weekend of June" is not an RRULE,
+  and the nearest expressible thing (`BYDAY=SA;BYSETPOS=4`) is wrong in the 17 months
+  across 2026–2035 where a month ends on a Saturday. Even where a rule *does* map, clients
+  expand it themselves and disagree at the edges. Expanding here means the interpretation
+  happens in the implementation that has a parity suite behind it, not in three that don't.
+- **`Z` instants only — no `VTIMEZONE`, no floating times.** The clients disagree about
+  VTIMEZONE; they agree about `Z`. A `local_rolling` contest has no UTC instant and is
+  skipped rather than invented.
+- **No `METHOD`.** It is an iTIP property (RFC 5546) belonging to scheduling messages. A
+  subscription feed that declares one asks clients to treat contests as invitations from an
+  organiser. The first version sent `METHOD:PUBLISH`.
+- **`REFRESH-INTERVAL` *and* `X-PUBLISHED-TTL`**, both `PT12H` — the RFC 7986 spelling and
+  Microsoft's older one, because clients honour one or the other.
+- **`TRANSP:TRANSPARENT`.** A contest is not an appointment; opaque would make a subscriber
+  look busy to their colleagues for 48 hours every November.
+
+Three generator bugs fell out of writing the parser. `CATEGORIES` was being escaped as one
+value, so a CW/SSB contest arrived as a single category literally named `CW\,SSB` — the
+separator in a multi-value property is a **bare** comma. Folding counts octets, not
+characters, because AGCW's names carry umlauts. And `handleIcs` had been ignoring every
+range parameter: `?year=2026` was accepted and discarded, and the old test passed only
+because today's date happened to sit inside the fixed window. Same failure the brief
+already names for `?mode=` — a param that behaves like no filter.
+
+#### Provenance travels with the event
+
+The subscriber never sees the page, so an unverified date that looks identical to a
+verified one is a confident wrong answer. `STATUS:TENTATIVE` and an `(unverified)` suffix
+on the summary carry `verified: false` into the calendar's own vocabulary, and the
+description spells it out. Same rule for the two fields that are commonly unrecorded:
+`Bands: not yet read off the sponsor's own rules` and `Exchange: not recorded yet` — an
+absent line reads as "no bands" and "nothing to send", which are different claims from "we
+have not read it". 32 of 84 records carry no exchange today.
+
+Each event's description carries sponsor, modes (with free-text `submodes`), bands (with
+`bands_note`), duration, exchange, log deadline, and the sponsor's rules URL — which is
+also a `URL` property, for clients that render a link button.
+
+#### Not yet done: a real subscription in Google, Apple and Outlook
+
+Nothing here has been subscribed in a live client. That needs a publicly reachable HTTPS
+URL and the Worker is not deployed; none of the three will poll `localhost`. What is pinned
+instead is every requirement those clients place on the bytes, each traceable to a spec
+clause — folding and CRLF (§3.1), required properties (§3.6), TEXT escaping (§3.3.11),
+UTC-form DATE-TIME (§3.3.5) — so that a client disagreeing with this feed is that client's
+bug rather than ours. The live check stays open in `HANDOVER.md` until there is a URL.
 
 ---
 

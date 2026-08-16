@@ -5,11 +5,30 @@
  * the phone calendar forever. Which also means a wrong date here is worse than
  * a wrong date anywhere else -- the user has stopped checking by then.
  *
- * Deliberately emits UTC instants only (`DTSTART:...Z`), never floating times
- * and never a VTIMEZONE block. Google, Apple and Outlook disagree about
- * VTIMEZONE handling; they agree about UTC. The engine has already resolved
- * every sponsor-anchored wall clock to a real instant, so there is nothing left
- * for a calendar client to interpret.
+ * Three decisions shape the whole file, and all three are about the fact that
+ * Google Calendar, Apple Calendar and Outlook do not agree with each other.
+ *
+ * **Expanded UTC instants, never RRULE.** The engine's rule types do not map
+ * onto iCal's recurrence model: "fourth full weekend of June" is not an RRULE,
+ * and the nearest expressible approximation (`BYDAY=SA;BYSETPOS=4`) is wrong in
+ * the 17 months across 2026-2035 where a month ends on a Saturday. Even where a
+ * rule does map, clients expand RRULEs themselves and disagree at the edges.
+ * Expanding here means every client is handed the same instants the API and the
+ * web page show, and the interpretation happens in one implementation that has
+ * a parity suite behind it rather than in three that do not.
+ *
+ * **UTC instants only** (`DTSTART:...Z`) -- never a floating time, never a
+ * VTIMEZONE block. The three clients disagree about VTIMEZONE; they agree about
+ * `Z`. The engine has already resolved every sponsor-anchored wall clock
+ * through the pinned resolver, so there is nothing left for a client to get
+ * wrong. An operator-anchored (`local_rolling`) contest has no UTC instant at
+ * all and is skipped rather than invented.
+ *
+ * **No METHOD.** `METHOD` is an iTIP property (RFC 5546) and belongs to
+ * scheduling messages -- invitations, replies, cancellations. A subscription
+ * feed is not a scheduling message, and a stream that declares one invites a
+ * client to treat its events as invitations from an organiser. Omitted
+ * deliberately; the previous version sent `METHOD:PUBLISH`.
  */
 
 import type { Occurrence } from "../../engine/src/recurrence.js";
@@ -17,7 +36,13 @@ import { occurrenceUid } from "./serialize.js";
 
 const PRODID = "-//contestcal//Amateur Radio Contest Calendar//EN";
 
-/** RFC 5545 escaping: backslash, semicolon, comma, and newline. */
+/**
+ * RFC 5545 §3.3.11 TEXT escaping: backslash, semicolon, comma, newline.
+ *
+ * Applies to ONE text value. A multi-value property (CATEGORIES) escapes each
+ * value separately and joins with bare commas -- escaping the separator turns a
+ * list of categories into a single category whose name contains commas.
+ */
 function esc(value: string): string {
   return value
     .replace(/\\/g, "\\\\")
@@ -31,11 +56,11 @@ function stamp(d: Date): string {
 }
 
 /**
- * Fold to 75 octets per RFC 5545.
+ * Fold to 75 octets per RFC 5545 §3.1.
  *
- * Folds on octets rather than characters: a multi-byte character split across
- * a fold boundary is invalid, and contest names carry accents and umlauts
- * (AGCW, OK1WC, SARL). Counts UTF-8 length and never breaks mid-sequence.
+ * Folds on octets rather than characters: a multi-byte character split across a
+ * fold boundary is invalid, and contest names carry accents and umlauts (AGCW,
+ * OK1WC, SARL). Counts UTF-8 length and never breaks mid-sequence.
  */
 function fold(line: string): string {
   const enc = new TextEncoder();
@@ -62,21 +87,53 @@ function fold(line: string): string {
   return out.map((l, i) => (i === 0 ? l : ` ${l}`)).join("\r\n");
 }
 
+/**
+ * The event body.
+ *
+ * A subscriber never sees the web page, so everything they would need to decide
+ * "do I want to be at the radio for this" travels in the description: who runs
+ * it, what modes and bands, what you exchange, when logs are due, and a link to
+ * the sponsor's own rules. Free-text `submodes` and `bands_note` are included
+ * beside their controlled fields -- they are exactly the specifics the closed
+ * vocabularies drop, and in a calendar there is no filter for them to confuse.
+ */
 function describe(o: Occurrence): string {
   const parts: string[] = [];
   if (o.sponsor) parts.push(`Sponsor: ${o.sponsor}`);
-  if (o.modes.length) parts.push(`Modes: ${o.modes.join(", ")}`);
-  if (o.bands.length) parts.push(`Bands: ${o.bands.join(", ")}`);
+
+  const modes = o.modes.join(", ");
+  const submodes = o.submodes?.length ? ` (${o.submodes.join(", ")})` : "";
+  if (modes) parts.push(`Modes: ${modes}${submodes}`);
+
+  if (o.bands.length) {
+    parts.push(`Bands: ${o.bands.join(", ")}`);
+  } else {
+    // Empty bands means unrecorded, not unbanded. The web page says so in a
+    // caveat; the feed has to say it here or the omission reads as "no bands".
+    parts.push("Bands: not yet read off the sponsor's own rules");
+  }
+  if (o.bands_note) parts.push(`Band note: ${o.bands_note}`);
+
   parts.push(`Duration: ${o.duration_hours}h`);
-  if (o.exchange) parts.push(`Exchange: ${o.exchange}`);
+  if (o.exchange) {
+    parts.push(`Exchange: ${o.exchange}`);
+  } else {
+    // 32 of 84 records carry no exchange yet. Same reasoning as bands: the
+    // omission has to be visible, or a subscriber reads "no exchange line" as
+    // "nothing to send" rather than "we have not read it off the rules".
+    parts.push("Exchange: not recorded yet — see the sponsor's rules below");
+  }
+
   if (!o.can_enter && o.eligibility_reason) {
     parts.push(`Eligibility: ${o.eligibility_reason}`);
   } else if (o.works && o.works !== "everyone") {
     parts.push(`Works: ${o.works}`);
   }
+
   const logDue = o.log_due;
   if (logDue) parts.push(`Logs due: ${logDue.toISOString().slice(0, 10)}`);
   if (o.note) parts.push(`Note: ${o.note}`);
+
   if (!o.verified) {
     // Say so in the feed itself. A calendar that admits uncertainty is more
     // trustworthy than one that does not, and the subscriber never sees the UI.
@@ -93,8 +150,9 @@ export interface IcsOptions {
   /** Shown as X-WR-CALNAME; reflects the filters, so a CW-only subscription
    *  does not appear in the client as plain "Contests". */
   calendarName?: string;
-  /** Fingerprint of catalog + filters, so clients can tell feeds apart. */
-  version?: string;
+  /** X-WR-CALDESC -- the filters and the horizon, in words, so a subscriber
+   *  can tell two subscriptions apart six months later. */
+  calendarDescription?: string;
   now?: Date;
 }
 
@@ -108,12 +166,19 @@ export function buildIcs(
     "VERSION:2.0",
     `PRODID:${PRODID}`,
     "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    `X-WR-CALNAME:${esc(opts.calendarName ?? "Amateur Radio Contests")}`,
+    fold(`X-WR-CALNAME:${esc(opts.calendarName ?? "Amateur Radio Contests")}`),
     "X-WR-TIMEZONE:UTC",
-    "X-PUBLISHED-TTL:PT12H",
+    // Two spellings of the same request. REFRESH-INTERVAL is the standard one
+    // (RFC 7986); X-PUBLISHED-TTL is the older Microsoft property. Clients that
+    // honour a refresh hint at all honour one or the other, and clients that
+    // ignore both poll on their own schedule -- which the rolling horizon in
+    // `handleIcs` is sized for.
     "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+    "X-PUBLISHED-TTL:PT12H",
   ];
+  if (opts.calendarDescription) {
+    lines.push(fold(`X-WR-CALDESC:${esc(opts.calendarDescription)}`));
+  }
 
   for (const o of occurrences) {
     // An operator-anchored contest has no UTC instant. Writing one would put a
@@ -129,11 +194,29 @@ export function buildIcs(
     lines.push(`DTEND:${stamp(o.end)}`);
     lines.push(fold(`SUMMARY:${esc(o.verified ? o.name : `${o.name} (unverified)`)}`));
     lines.push(fold(`DESCRIPTION:${esc(describe(o))}`));
-    if (o.rules_url) lines.push(fold(`URL:${o.rules_url}`));
+    if (o.rules_url) {
+      // URI value type (RFC 5545 §3.3.13): not TEXT, so not escaped.
+      lines.push(fold(`URL:${o.rules_url}`));
+    }
     // No ORGANIZER: it requires a CAL-ADDRESS, and a synthetic mailto makes
     // some clients render the event as a meeting invitation from a stranger.
     // DESCRIPTION carries the sponsor instead.
-    lines.push(`CATEGORIES:${esc(o.modes.join(",") || "Contest")}`);
+
+    // CATEGORIES is multi-value: escape each mode, join with a BARE comma.
+    lines.push(
+      fold(
+        `CATEGORIES:${(o.modes.length ? o.modes : ["Contest"])
+          .map(esc)
+          .join(",")}`,
+      ),
+    );
+
+    // The calendar vocabulary already has a word for "we have not confirmed
+    // this", so provenance rides a standard property rather than only prose.
+    lines.push(`STATUS:${o.verified ? "CONFIRMED" : "TENTATIVE"}`);
+
+    // A contest is not an appointment. Marking it opaque would make a
+    // subscriber look busy to their colleagues for 48 hours every November.
     lines.push("TRANSP:TRANSPARENT");
     lines.push("END:VEVENT");
   }

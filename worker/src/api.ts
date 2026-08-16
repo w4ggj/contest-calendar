@@ -441,19 +441,107 @@ export function handleSearch(url: URL, nowMs: number): Response {
   );
 }
 
-/** GET /api/ics */
+/**
+ * How far back a subscription looks.
+ *
+ * A contest that ended yesterday should not vanish from the calendar you looked
+ * at this morning, and log deadlines run about a month past the contest, so the
+ * event stays visible for as long as the log is still due.
+ */
+export const ICS_BACKFILL_DAYS = 30;
+
+/**
+ * How far forward a subscription looks: one full annual cycle.
+ *
+ * This is the deliberate horizon, and the reasoning is that twelve months is
+ * the point where the feed becomes complete and stops becoming *more* complete.
+ * Every contest in the catalog runs at least once a year, so at twelve months
+ * every one of them is in the feed; a thirteenth month adds no contest that is
+ * not already there, only a second copy of it. Two years cost about 875 KB and
+ * 1,344 events against 455 KB and about 700 for one -- twice the bytes on every
+ * poll, from every subscriber, for a duplicate.
+ *
+ * The floor is set from the other side. A 90-day window would be a quarter of
+ * the size, but CQ WW would be absent from the feed for nine months of the
+ * year, and "when is the next big one" is the question a subscription exists to
+ * answer. Staleness is not the risk a short window trades against -- clients
+ * re-fetch, so a rolling window is never stale -- the risk is that the contest
+ * you are planning for is simply not in it yet.
+ *
+ * `?range=`, `?year=` and `?from=`/`?to=` override this; see `icsWindow`.
+ */
+export const ICS_HORIZON_DAYS = 365;
+
+interface IcsWindow {
+  from: number;
+  to: number;
+  /** For X-WR-CALDESC, so a subscriber can tell two subscriptions apart. */
+  horizon: string;
+  /** Rolling windows move with the clock; a snapshot does not. */
+  rolling: boolean;
+}
+
+/**
+ * The span one subscription covers.
+ *
+ * Defaults to the rolling window above. `?range=` narrows it to one of the
+ * landing view's presets -- still rolling, so a "next 7 days" subscription
+ * stays a next-7-days subscription forever rather than expiring. `?year=` and
+ * `?from=`/`?to=` pin a fixed span instead: that is a download, not a
+ * subscription, and it is bounded by the same five-year cap as the JSON API.
+ *
+ * A preset range gets no backfill. The 30 days of history are a property of an
+ * open-ended subscription; adding them to a window whose name is "Next 7 days"
+ * would make the feed's contents contradict its own label.
+ */
+function icsWindow(params: URLSearchParams, nowMs: number): IcsWindow {
+  if (params.get("year") !== null || params.get("from") !== null || params.get("to") !== null) {
+    const r = resolveRange(params, nowMs);
+    return {
+      from: r.from,
+      to: r.to,
+      horizon: r.year
+        ? `Fixed snapshot of ${r.year}`
+        : `Fixed snapshot, ${utcDay(r.from)} to ${utcDay(r.to)}`,
+      rolling: false,
+    };
+  }
+
+  const rangeParam = params.get("range");
+  if (rangeParam) {
+    const win = presetWindow(rangeParam, nowMs);
+    if (!win) {
+      throw new ApiError(
+        400,
+        `unknown range: ${JSON.stringify(rangeParam)}`,
+        `known ranges: ${Object.keys(RANGE_PRESETS).join(", ")}`,
+      );
+    }
+    return {
+      from: win.from,
+      to: win.to,
+      horizon: `Rolling window: ${win.label.toLowerCase()}`,
+      rolling: true,
+    };
+  }
+
+  return {
+    from: nowMs - ICS_BACKFILL_DAYS * DAY_MS,
+    to: nowMs + ICS_HORIZON_DAYS * DAY_MS,
+    horizon:
+      `Rolling window: the last ${ICS_BACKFILL_DAYS} days and the next ` +
+      `${ICS_HORIZON_DAYS} days`,
+    rolling: true,
+  };
+}
+
+/** GET /api/ics -- and /contests.ics, which is the same handler. */
 export function handleIcs(url: URL, nowMs: number): Response {
   const filters = parseFilters(url.searchParams);
-
-  // A subscription is not a range query. The client refetches forever, so the
-  // useful window is "recent past through a couple of years out" regardless of
-  // when it is fetched -- the recent past because a contest that ended
-  // yesterday should not vanish from the calendar you looked at this morning.
-  const from = nowMs - 30 * DAY_MS;
-  const to = nowMs + 730 * DAY_MS;
+  const window = icsWindow(url.searchParams, nowMs);
 
   const occurrences = applyFilters(
-    occurrencesInRange(from, to, filters.entity),
+    occurrencesInRange(window.from, window.to, filters.entity),
     filters,
   );
 
@@ -464,15 +552,27 @@ export function handleIcs(url: URL, nowMs: number): Response {
 
   const body = buildIcs(occurrences, {
     calendarName: name,
+    calendarDescription:
+      `${window.horizon}. ` +
+      (label.length ? `Filtered: ${label.join("; ")}. ` : "Every contest in the catalog. ") +
+      "Dates are computed from each sponsor's own published rules. " +
+      "Times are UTC instants; events marked TENTATIVE have not been verified " +
+      "against the sponsor's page yet.",
     now: new Date(nowMs),
   });
 
   return new Response(body, {
     headers: {
       "content-type": "text/calendar; charset=utf-8",
+      // `inline`, not `attachment`: a subscription URL opened in a browser
+      // should hand the body to the calendar client, not start a download.
       "content-disposition": 'inline; filename="contests.ics"',
       "access-control-allow-origin": "*",
-      ...cacheable(3600),
+      // A rolling feed goes stale on the clock; a pinned snapshot only changes
+      // when the catalog does.
+      ...cacheable(window.rolling ? 3600 : 86_400),
+      "x-ics-window": `${new Date(window.from).toISOString()}/${new Date(window.to).toISOString()}`,
+      "x-ics-events": String(occurrences.length),
     },
   });
 }
