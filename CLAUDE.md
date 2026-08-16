@@ -34,7 +34,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 87 passed
+npm test                       # expect: 100 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -93,6 +93,31 @@ prints "RTTY/Digital" for an RTTY-only contest overstates what the sponsor permi
 table is in `worker/src/schedule.ts` (`MODE_SUBSUMES`) and asserted in
 `worker/tests/filters.worker.test.ts`; the reasoning is in `FRONTEND_BRIEF.md` under
 "Vocabulary: modes and bands".
+
+## Colour carries data, so it is a controlled set too
+
+`worker/src/render/theme.ts` is the whole stylesheet as one `String.raw` template — **no
+backticks anywhere inside it**, not even in a comment, because they terminate the string.
+
+Three roles, and each one is a mapping rather than a decoration: **amber is time**, **cyan is
+interactive**, **`--d1`…`--d4` are the four `DURATION_BUCKETS`**. The ramp exists because
+width saturates — a two-hour sprint on a seven-day rail is the 3px floor and so is a
+four-hour one. Adding a bucket means adding its colour in the same commit; `theme.worker.test.ts`
+fails the build otherwise, on the same reasoning as `CATALOG_MODES`.
+
+A bar's `data-d` comes from `durationBucketOf(o.duration_hours)`, **never from the drawn
+geometry**, which is clamped to the seven-day window. Colour states the contest; width states
+the part of it you can see.
+
+Both palettes come from the one `LIGHT` constant interpolated twice, held byte-identical by
+test. The theme switch is three-state (auto/light/dark), the media query is
+`:root:not([data-theme])` so an explicit choice cannot be overridden by the system, and the
+stored choice is applied by `THEME_BOOT` — a synchronous script in `<head>`, which is why
+`landing.ts` puts it there and not in the deferred bundle.
+
+Touch sizing keys on `(pointer: coarse)`, never on width: a touchscreen laptop needs 44px and
+a narrow desktop window does not. Reasoning and the measured findings are in
+`FRONTEND_BRIEF.md` under "Design direction shipped" and "Section 6 shipped".
 
 ## Time zones
 

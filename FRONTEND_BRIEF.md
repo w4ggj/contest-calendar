@@ -162,6 +162,9 @@ the one part of this that a local Worker cannot verify.*
 Build mobile-first, not responsive-after. The competition is desktop tables from 2003 and a
 phone is where someone checks "what's on this weekend" from the couch.
 
+*Shipped — see "Section 6 shipped: the mobile pass" below, including what was measured, the
+five things it found, and what could not be tested without a phone in hand.*
+
 ---
 
 ## Design direction
@@ -475,6 +478,110 @@ Second finding, for whoever debugs this next: **Google re-polls on its own sched
 ignores `REFRESH-INTERVAL`.** Twenty minutes after the fix was deployed Google was still
 serving the old description. Diagnose the generator by fetching the feed, never by looking
 at a client.
+
+---
+
+### Design direction shipped: the panadapter
+
+The palette this replaced was a cream `#F2F0EA` with a warm-brown accent, which is the first
+of the three looks the `frontend-design` skill names as a default rather than a choice. It
+was not chosen for band charts; it was the house style, and it read that way.
+
+What replaced it takes one idea from the subject's own instruments and spends the whole
+design on it: **the seven-day rail is a waterfall**. In dark mode the page is a receiver's
+noise floor — `#050B12` blue-black, amber for time, cyan for anything you can operate — and
+contests are traces on it. In light mode it is the same chart printed on paper: a cool
+`#EDF1F6` band-plan white with a single-ink density ramp. Both are declared from one `LIGHT`
+constant, interpolated into the two selectors that need it, with a test that the two copies
+are byte-identical, because two hand-kept palettes drift on the first edit.
+
+Three colour roles, and each one carries data rather than decorating:
+
+- **Amber is time** — the UTC readout, the elapsed hatch, the countdowns.
+- **Cyan is interactive** — anything the reader can operate, and nothing else.
+- **The ramp is length** — `--d1`…`--d4` across the four duration buckets.
+
+The ramp is the one that earns its place. Width alone already encodes duration on the rail,
+but width *saturates*: a two-hour sprint across a seven-day rail is 1.2% wide, which is the
+3px floor, and indistinguishable from a four-hour one. Colour is a second channel that does
+not saturate, so a sprint and a weekend contest stay distinguishable at any zoom. The
+duration filter chips carry the same four colours, which makes the filter the rail's legend
+without a legend.
+
+Two things this is *not* allowed to become. **The colour states the contest, not the bar.**
+The rail's geometry is clamped to the seven-day window, so a 48-hour contest starting on the
+last day draws as a 12-hour sliver; `data-d` comes from `durationBucketOf(duration_hours)`
+and never from the drawn width, or the rail would tell the reader a 48-hour contest is a
+12-hour one — the same overstatement the catalog rules forbid in `modes`. And **every bucket
+must have a stop**: a fifth bucket added to `DURATION_BUCKETS` without a colour would inherit
+the `--d2` default and silently mislabel itself, so `theme.worker.test.ts` fails the build
+instead. That is the `CATALOG_MODES` lesson applied to colour.
+
+Type stays on the system stack. The CSS and JS are inlined and the page has no round trip to
+make; a webfont would add the one network dependency the design does not have, to a page
+whose whole argument is that it is correct before anything loads.
+
+#### Dark mode is three states, not a switch
+
+`prefers-color-scheme` is honoured with no stored choice; Light and Dark override it; **Auto
+gives control back**. A two-state toggle is a trap — flip it once and the page stops
+following the system forever with no way back — so Auto is stored by *removing* the key,
+because auto is the absence of a choice rather than a third value.
+
+The media query is `:root:not([data-theme])`, not a bare `:root`. With a bare `:root` the
+system's light preference and the reader's explicit dark choice sit at equal specificity and
+source order decides, so on a light phone the Dark button does nothing — the switch appears
+broken exactly where someone at 0300Z needs it. There is a test for this.
+
+The stored choice is applied by a 160-byte synchronous script in `<head>`, not by the
+deferred bundle at the end of `<body>`. A theme applied after first paint is a white flash at
+0300Z, which is the thing the reader picked dark to avoid. The switch itself ships `hidden`
+and is revealed by script, on the same rule as the UTC/local toggle: with no JavaScript
+`prefers-color-scheme` is already being honoured, and an inert control would be the only
+broken thing on a page that otherwise works completely.
+
+---
+
+### Section 6 shipped: the mobile pass
+
+Audited at 320, 360 and 390 CSS px with the filter panel open: no horizontal scroll at any
+width, no element crossing the viewport edge, and no control under 44×44 once touch sizing
+applies. Five things it found, none of which were visible at desktop width:
+
+1. **Every rail day label was clipped.** Eight labels across ~328px gives each 41px; "Today
+   16" needs 58. Every label was being cut off, including the one naming today. Fixed by
+   labelling alternate cells and letting each spill into its blank neighbour — the gridlines
+   still mark all eight days, so nothing is lost but ink.
+2. **The contest name was the smallest target on the page** — 25 per screenful at 21px tall,
+   each one the link to the sponsor's rules this project exists to point at. Padding inline
+   links out to 44px would space the schedule like a list of buttons and cost a row of
+   contests per screen, so the hit area grows and the box does not: a 44px `::after`, centred,
+   bounded horizontally by the link. Confirmed by hit-testing rather than by reading the CSS.
+3. **Targets were tall enough and still too small**, because a target is an area: "UTC" came
+   out 41.8px wide and the "CW" chip 35.7px. `min-height` alone was the wrong assertion.
+4. **The elapsed reading sat on the hatch.** The label is right-aligned over the whole meter,
+   so past ~75% elapsed the fill runs underneath it. A 730px desktop meter hides this; a
+   343px phone made "74% elapsed" unreadable.
+5. **The tally broke either way.** As a flex row the three counts measured 341px against
+   313px of room, so "13 later this month" dropped to a line of its own and read as a
+   separate fact; closing the gap until they fit ran the labels together into "ON THE AIR
+   NEXT 7 DAYS LATER THIS MONTH". Three columns fixes both.
+
+Touch sizing keys on `(pointer: coarse)`, not on width. A 13" laptop with a touchscreen needs
+44px and a desktop at a narrow window does not, and width cannot tell them apart.
+
+**What was not tested, and it matters.** No phone was available, so this was measured in the
+live page's own bytes rendered at exact phone widths, not on hardware. That settles layout,
+overflow and geometry. It does not settle: browser chrome and the dynamic viewport (`100vh`
+under a collapsing URL bar), real thumb reach as against a measured 44px, iOS Safari's own
+behaviours (rubber-band scroll, tap highlight, the ≥16px rule that stops it zooming on focus
+— the filter inputs are 1rem, so this should hold, but "should" is the word), and how the
+`(pointer: coarse)` rules actually feel under a thumb. Those need someone with a phone.
+
+One measured thing that is a judgement call rather than a defect: the first contest row sits
+about **555px** down a 780–820px screen, behind the masthead, the UTC readout and the
+controls. That is the hero doing what the brief asked for, and it costs a scroll to reach
+what the reader came for. Worth revisiting with a real user; not changed unilaterally here.
 
 ---
 

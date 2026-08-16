@@ -28,6 +28,24 @@
 
 import { dayCellLabel } from "./daylabel.js";
 
+/**
+ * The stored display choice, applied before the first paint.
+ *
+ * This is the one script on the page that has to be in `<head>` and has to be
+ * synchronous. Everything else here is enhancement that can arrive late; a
+ * theme that arrives late is a white page flashed at someone who chose dark,
+ * which on a phone at 0300Z in a dark shack is the exact thing they chose dark
+ * to avoid. Deliberately tiny, and deliberately does nothing when no choice has
+ * been stored -- then the stylesheet's `prefers-color-scheme` is left to answer,
+ * which is the right answer for everyone who has not touched the switch.
+ */
+export const THEME_BOOT = String.raw`
+try {
+  var t = localStorage.getItem("contestcal:theme");
+  if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+} catch (e) {}
+`;
+
 export const CLIENT_JS = String.raw`
 (function () {
   "use strict";
@@ -139,6 +157,43 @@ export const CLIENT_JS = String.raw`
       btns[i].setAttribute("aria-pressed", btns[i].getAttribute("data-tz") === next ? "true" : "false");
     }
     paintTimes();
+  }
+
+  // ---- display: auto / light / dark ------------------------------------
+  // Three states rather than two, because a two-state switch is a trap: flip it
+  // once and the page stops following the system forever, with no way back. The
+  // stored value is only ever "light" or "dark" -- auto is the ABSENCE of a
+  // choice, so it is stored by removing the key, and a reader who picks auto
+  // goes back to being someone the head script leaves alone.
+  var THEME_STORE = "contestcal:theme";
+  var themePref = "auto";
+  try {
+    var savedTheme = localStorage.getItem(THEME_STORE);
+    if (savedTheme === "light" || savedTheme === "dark") themePref = savedTheme;
+  } catch (e6) { /* private mode: auto, and the switch still works this visit */ }
+
+  function setTheme(next) {
+    themePref = next;
+    if (next === "auto") doc.documentElement.removeAttribute("data-theme");
+    else doc.documentElement.setAttribute("data-theme", next);
+    try {
+      if (next === "auto") localStorage.removeItem(THEME_STORE);
+      else localStorage.setItem(THEME_STORE, next);
+    } catch (e7) { /* ignore */ }
+    var tb = doc.querySelectorAll(".thbtn");
+    for (var i = 0; i < tb.length; i++) {
+      tb[i].setAttribute("aria-pressed", tb[i].getAttribute("data-theme-set") === next ? "true" : "false");
+    }
+  }
+
+  var themebar = doc.getElementById("themebar");
+  if (themebar) {
+    themebar.hidden = false;
+    themebar.addEventListener("click", function (ev) {
+      var b = ev.target.closest ? ev.target.closest(".thbtn") : null;
+      if (b) setTheme(b.getAttribute("data-theme-set"));
+    });
+    setTheme(themePref);
   }
 
   // ---- countdowns ------------------------------------------------------

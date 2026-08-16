@@ -3,7 +3,7 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Owner:** Joe Leone, W4GGJ
-**Updated:** 2026-08-13 — after the Worker, the API and the landing view
+**Updated:** 2026-08-16 — after the deploy, the palette, and the mobile pass
 
 ---
 
@@ -18,10 +18,11 @@ computed on demand. That means no year horizon, one-line fixes when a sponsor ch
 rule, and every date traceable to a source.
 
 **Current state:** 84 contest definitions → 648 occurrences for 2026. 127 Python tests,
-140 TypeScript tests, 63 Worker tests. Engine complete in both languages — no known
-structural gaps. The API, the Now / next-7-days landing view, and filters and search are
-built and serve locally. `modes` and `bands` are controlled vocabularies as of 2026-08-16.
-The contest detail view is not built, and nothing is deployed.
+140 TypeScript tests, 100 Worker tests. Engine complete in both languages — no known
+structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
+the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
+`bands` are controlled vocabularies. The page has a three-state theme switch and has been
+through a measured narrow-viewport pass. The contest detail view is not built.
 
 ## Read first
 
@@ -39,7 +40,7 @@ python -m pytest -q               # expect: 127 passed
 python scripts\check_links.py
 
 cd engine; npm install; npm test   # expect: 140 passed (127 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 87 passed (parity inside workerd, the API, filters, iCal)
+cd ..\worker; npm install; npm test # expect: 100 passed (parity inside workerd, the API, filters, iCal, theme)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -138,6 +139,57 @@ swallowed every `ValueError` from anchor resolution, so **a typo'd rule type sil
 produced an empty schedule** — the contest would disappear from every calendar with nothing
 logged. Both engines now separate `NoAnchorsThisYear` (legitimate) from a malformed rule
 (throws).
+
+## The look, and the phone
+
+Both closed 2026-08-16. Full reasoning in `FRONTEND_BRIEF.md` under "Design direction
+shipped: the panadapter" and "Section 6 shipped: the mobile pass"; the rules that must not
+be broken are summarised in `CLAUDE.md` under "Colour carries data".
+
+The palette was cream-and-warm-brown, which is the exact default the `frontend-design` skill
+warns about. It is now a panadapter: a near-black `#050B12` field with amber and cyan, read
+off waterfall displays and rig front panels. **Colour is a mapping, not a mood** — amber is
+time, cyan is interactive, and `--d1`…`--d4` are the four `DURATION_BUCKETS`. That last one
+exists because the rail's bar width saturates: on a seven-day window a two-hour sprint and a
+four-hour one are both the 3px floor, so length gets a second channel. A bar's `data-d` comes
+from `durationBucketOf(duration_hours)` and **never from the drawn geometry**, which is
+clamped to the window — the colour states the contest, the width states the part of it you
+can see. Add a bucket and you add a stop, same commit; `theme.worker.test.ts` fails otherwise.
+
+Dark mode is **three states, not a switch**: auto, light, dark, stored the same way the
+UTC/local toggle is, with auto stored by removing the key. Inside the media query the
+selector is `:root:not([data-theme])`, not bare `:root` — with bare `:root` an explicit
+choice loses to the system on specificity. A 160-byte synchronous script in `<head>`
+applies the stored choice before first paint, because a white flash at 0300Z is the whole
+problem the feature exists to solve. Both switches ship `hidden` and are revealed by script:
+never offer a control whose state cannot be remembered.
+
+The mobile pass was measured at 320 / 360 / 390 CSS px with the filter panel open: no
+horizontal overflow, no undersized control. It found five real things — a masthead wrapping
+to three lines with dangling separators, the tally's third count orphaned onto its own line,
+`74% elapsed` unreadable where the meter fill ran under it, `UTC` and `CW` tall enough to hit
+but only ~36–42px wide, and contest-name links one line tall. Touch sizing keys on
+`(pointer: coarse)`, **never on width** — a touchscreen laptop needs 44px and a narrow
+desktop window does not. Inline links get a 44px `::after` hit area rather than a 44px box,
+so the schedule does not space out like a list of buttons.
+
+## Partly-closed check — the phone
+
+**Not verified on hardware.** No phone was available, so the pass rendered the deployed
+page's own bytes in a same-origin iframe at exact phone widths. That is a real viewport —
+`(max-width: 599px)` genuinely applied — and the `(pointer: coarse)` rules were exercised by
+re-injecting the page's own `CSSMediaRule` text, not a hand-written approximation. It is
+still not a phone.
+
+What it cannot settle, and what a human with a handset should check in about two minutes:
+browser chrome and dynamic viewport units under a collapsing URL bar; whether a measured 44px
+is actually within thumb reach one-handed; iOS Safari's rubber-band scroll, tap highlight,
+and the ≥16px rule that stops it zooming on focus (the filter inputs are `1rem`, so it should
+hold — unconfirmed); and how the coarse sizing feels rather than measures.
+
+Note the live CSP is `default-src 'none'` with `frame-ancestors 'none'` and no `connect-src`.
+That blocks framing the live URL and blocks page-origin `fetch()`, which is why the harness
+served the fetched bytes locally. **Do not weaken the CSP to make testing easier.**
 
 ## Sourcing work, as background
 

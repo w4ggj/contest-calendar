@@ -14,6 +14,7 @@ import type { Occurrence } from "../../../engine/src/recurrence.js";
 import { CATALOG_SIZE } from "../catalog.js";
 import {
   bandFamilies,
+  durationBucketOf,
   type Filters,
   type NowView,
 } from "../schedule.js";
@@ -25,7 +26,7 @@ import {
 } from "./filters.js";
 import { esc } from "./html.js";
 import { CSS } from "./theme.js";
-import { CLIENT_JS } from "./client.js";
+import { CLIENT_JS, THEME_BOOT } from "./client.js";
 import { dayCellLabel } from "./daylabel.js";
 
 const DAY_MS = 86_400_000;
@@ -264,9 +265,18 @@ function railRow(o: Occurrence, win: RailWindow): string {
     .filter(Boolean)
     .join(" ");
   // Decorative: every fact it encodes is already in the text of the row.
+  //
+  // `data-d` is the row's own duration bucket and the stylesheet colours the
+  // bar from it -- the rail's spectral ramp. Taken from `durationBucketOf()`
+  // rather than recomputed from the geometry, because the geometry is CLAMPED
+  // to the window: a 48-hour contest that starts on the last day of the rail
+  // draws as a 12-hour sliver, and colouring it from what is drawn would tell
+  // the reader it is a 12-hour contest. Colour states the contest; width states
+  // the part of it you can see.
   return (
     `<div class="track" aria-hidden="true">` +
-    `<div class="${cls}" style="--s:${g.left.toFixed(3)}%;--w:${g.width.toFixed(3)}%"></div>` +
+    `<div class="${cls}" data-d="${durationBucketOf(o.duration_hours)}" ` +
+    `style="--s:${g.left.toFixed(3)}%;--w:${g.width.toFixed(3)}%"></div>` +
     `</div>`
   );
 }
@@ -480,6 +490,7 @@ export function renderLanding(view: NowView, input: LandingInput): string {
 <meta name="color-scheme" content="dark light">
 <link rel="alternate" type="text/calendar" href="/api/ics" title="Amateur radio contests">
 <style>${CSS}</style>
+<script>${THEME_BOOT}</script>
 </head>
 <body data-now="${isoAttr(now)}">
 <a class="skip" href="#main">Skip to contests</a>
@@ -514,10 +525,18 @@ export function renderLanding(view: NowView, input: LandingInput): string {
         <li><b>${view.next7.length}</b><span>next 7 days</span></li>
         <li><b>${view.later.length}</b><span>${esc(view.laterLabel.toLowerCase())}</span></li>
       </ul>
-      <div class="tzbar" id="tzbar" hidden>
-        <span>Show times in</span>
-        <button type="button" class="tzbtn" data-tz="local" aria-pressed="false">Local</button>
-        <button type="button" class="tzbtn" data-tz="utc" aria-pressed="true">UTC</button>
+      <div class="controls">
+        <div class="tzbar" id="tzbar" hidden>
+          <span>Show times in</span>
+          <button type="button" class="tzbtn" data-tz="local" aria-pressed="false">Local</button>
+          <button type="button" class="tzbtn" data-tz="utc" aria-pressed="true">UTC</button>
+        </div>
+        <div class="tzbar" id="themebar" hidden>
+          <span>Display</span>
+          <button type="button" class="thbtn" data-theme-set="auto" aria-pressed="true">Auto</button>
+          <button type="button" class="thbtn" data-theme-set="light" aria-pressed="false">Light</button>
+          <button type="button" class="thbtn" data-theme-set="dark" aria-pressed="false">Dark</button>
+        </div>
       </div>
     </div>
   </div>

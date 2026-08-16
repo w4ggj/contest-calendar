@@ -1,9 +1,9 @@
 /**
  * Styles for the landing view.
  *
- * DESIGN DIRECTION -- "backlit panel"
- * -----------------------------------
- * The page is read as an instrument, not a document. Two ideas carry it:
+ * DESIGN DIRECTION -- "panadapter"
+ * --------------------------------
+ * The page is read as an instrument, not a document. Three ideas carry it:
  *
  * 1. The hero is a UTC readout, set large in tabular mono like a rig's
  *    frequency display, with the operator's local time small beneath it. That
@@ -12,42 +12,114 @@
  *
  * 2. The signature is a shared 7-day time rail. Every contest bar is positioned
  *    against the SAME axis as the day ruler above it, so the page is a chart
- *    you read down rather than a list. A 2-hour sprint is a sliver and a 48-hour
- *    contest is a slab -- which answers "I have two hours free tonight" at a
- *    glance, the question the brief says no other calendar can answer. Only a
- *    calendar that stores durations can draw this; ours does.
+ *    you read down rather than a list. Only a calendar that stores durations can
+ *    draw this; ours does.
  *
- * Palette is an unlit LCD panel: cool dark slate, backlit cool white, one amber
- * and one cyan. The roles are strict and that is what keeps it from being
- * decoration -- AMBER IS TIME (now, live, countdowns, the now-line), CYAN IS
- * CONTESTS (spans, links). Nothing else is coloured.
+ * 3. That rail is a waterfall. A panadapter plots time against frequency and
+ *    encodes strength as colour, which is structurally what the rail already
+ *    is -- so the bars are coloured on a spectral ramp, cool for short and hot
+ *    for long, and the operator reading this at 0300Z has seen that ramp all
+ *    weekend.
  *
- * Light theme is not an afterthought: "legible at arm's length on a phone in a
- * park" is in the brief, and that is a daylight requirement. It reads as a
- * printed band-plan chart on paper rather than an inverted dark theme.
+ * The ramp is not decoration, and the test for that is what happens without it.
+ * Width alone encodes duration, but width SATURATES: a two-hour sprint across a
+ * seven-day rail is 1.2% wide, which is the 3px floor -- indistinguishable from
+ * a four-hour one. "I have two hours free tonight" is the question the brief
+ * says no other calendar can answer, and it is precisely the question the bar
+ * geometry cannot answer. Colour is a second channel for the case where the
+ * first one runs out. Its four stops ARE `DURATION_BUCKETS`, so the "I have"
+ * filter chips carry the same four colours and the legend is a control the
+ * reader already has.
+ *
+ * Colour roles are strict, which is what keeps three hues from becoming a
+ * palette:
+ *
+ *     AMBER IS TIME       now-line, live lamp, countdowns, date filters
+ *     CYAN IS INTERACTIVE links, focus, chosen filters
+ *     THE RAMP IS LENGTH  contest bars and the duration chips, nothing else
+ *
+ * Amber sits at orange rather than yellow specifically so it cannot be read as
+ * the ramp's hot end.
+ *
+ * The two themes are two different instruments, not one inverted:
+ *
+ *   dark  -- a waterfall's noise floor. Blue-black, not neutral charcoal,
+ *            because that is the colour a panadapter actually sits at, and
+ *            the bars are spectral traces over it.
+ *   light -- an IARU band chart printed on paper. Cool white stock, chart
+ *            annotation red, and a SINGLE-INK ramp running pale to dense,
+ *            because a printed chart has one ink and shows magnitude by
+ *            density. A spectral ramp on white is a screenshot of a screen,
+ *            not a chart. "Legible at arm's length on a phone in a park" is in
+ *            the brief and it is a daylight requirement, so light is a real
+ *            design rather than a courtesy.
+ *
+ * Type is the system stack on purpose. The page inlines its CSS and its script
+ * to save a round trip on a phone with two bars of signal, and a display face
+ * would cost either an external request or a base64 blob in every response.
+ * The personality is carried by mono almost everywhere -- every label, time,
+ * count and control is monospaced, and the proportional face appears only for
+ * contest names and prose. An instrument's silkscreen is monospaced too.
  */
+
+/**
+ * Light tokens, declared once and used twice: `prefers-color-scheme` for the
+ * reader who has never touched the switch, and `[data-theme="light"]` for the
+ * one who has. Two copies of a palette drift the first time one is edited.
+ */
+const LIGHT = String.raw`
+  color-scheme: light;
+
+  --bg:        #EDF1F6;
+  --panel:     #FFFFFF;
+  --panel-2:   #E3EAF2;
+  --rule:      #AEBECE;
+  --rule-soft: #D4DEE8;
+
+  --ink:       #0C1620;
+  --ink-dim:   #44566A;
+  --ink-faint: #55697E;
+
+  --amber:     #B03A00;
+  --amber-dim: #C98A5E;
+  --cyan:      #075E80;
+  --cyan-dim:  #7FAABE;
+  --cyan-deep: #D6E6EE;
+
+  /* One ink, four densities. Ordered by weight, not by hue. */
+  --d1: #4A7DBA;
+  --d2: #2C86AE;
+  --d3: #17608A;
+  --d4: #06304F;
+`;
 
 export const CSS = String.raw`
 :root {
-  color-scheme: dark light;
+  color-scheme: dark;
 
-  /* -- unlit LCD glass ------------------------------------------------- */
-  --bg:        #0B0F14;
-  --panel:     #121A23;
-  --panel-2:   #182230;
-  --rule:      #24303F;
-  --rule-soft: #1A242F;
+  /* -- the noise floor -------------------------------------------------- */
+  --bg:        #050B12;
+  --panel:     #0A1520;
+  --panel-2:   #11202E;
+  --rule:      #1E3145;
+  --rule-soft: #16232F;
 
-  --ink:       #DDE7F1;
-  --ink-dim:   #8397AC;
-  --ink-faint: #5A6B7D;
+  --ink:       #D5E3F0;
+  --ink-dim:   #869CB2;
+  --ink-faint: #6B8299;
 
-  /* AMBER IS TIME. CYAN IS CONTESTS. Nothing else gets colour. */
-  --amber:     #FFB000;
-  --amber-dim: #8A6212;
-  --cyan:      #56C7DC;
-  --cyan-dim:  #2A5F6B;
-  --cyan-deep: #1D4652;
+  /* AMBER IS TIME. CYAN IS INTERACTIVE. THE RAMP IS LENGTH. */
+  --amber:     #FF9E2C;
+  --amber-dim: #8A5A16;
+  --cyan:      #4FD3E8;
+  --cyan-dim:  #2A6B78;
+  --cyan-deep: #10323C;
+
+  /* Waterfall: cool trace to hot trace, one stop per duration bucket. */
+  --d1: #4C86E6;
+  --d2: #22B8CE;
+  --d3: #43CE72;
+  --d4: #F0DC4A;
 
   --font-ui: ui-sans-serif, system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", "JetBrains Mono", "Roboto Mono", Menlo, Consolas, monospace;
@@ -58,25 +130,13 @@ export const CSS = String.raw`
   --shell: 78rem;
 }
 
+/* The reader who has not chosen follows the system. ':not([data-theme])' is
+   what lets an explicit choice of dark survive a light system setting -- without
+   it the media query would win and the switch would only work one way. */
 @media (prefers-color-scheme: light) {
-  :root {
-    --bg:        #F2F0EA;
-    --panel:     #FBFAF7;
-    --panel-2:   #F0EDE5;
-    --rule:      #C9C4B6;
-    --rule-soft: #DFDACF;
-
-    --ink:       #1A1D21;
-    --ink-dim:   #55606C;
-    --ink-faint: #7B8794;
-
-    --amber:     #9A5B00;
-    --amber-dim: #D8A24A;
-    --cyan:      #0E6377;
-    --cyan-dim:  #8FC2CE;
-    --cyan-deep: #C3DEE5;
-  }
+  :root:not([data-theme]) { ${LIGHT} }
 }
+:root[data-theme="light"] { ${LIGHT} }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -89,14 +149,11 @@ body {
   font-family: var(--font-ui);
   font-size: 16px;
   line-height: 1.45;
-  /* Faint horizontal scan rule, like a panel's brushed face. One decoration,
-     kept below the threshold of noticing. */
-  background-image: repeating-linear-gradient(
-    to bottom, transparent 0 3px, rgba(255,255,255,0.012) 3px 4px
-  );
+  /* No page-wide texture. There was a faint scan rule here, left from the older
+     direction; with the rail carrying real spectral colour it was one accessory
+     too many, and it repainted the full page height for something nobody was
+     meant to notice. */
 }
-
-@media (prefers-color-scheme: light) { body { background-image: none; } }
 
 a { color: var(--cyan); text-decoration-thickness: 1px; text-underline-offset: 2px; }
 a:hover { color: var(--ink); }
@@ -363,19 +420,29 @@ a:hover { color: var(--ink); }
 }
 @media (min-width: 860px) { .track { margin: 0; } }
 
+/* A trace, coloured by how long the contest runs. 'data-d' is the row's own
+   duration bucket, straight off durationBucketOf() -- so the bar cannot claim
+   a length the row's text does not, and the four stops are the four the filter
+   offers. The bright edge is the leading edge: the moment it starts, which is
+   the thing you are actually scanning for. */
 .bar {
   position: absolute; top: .25rem; bottom: .25rem;
   left: var(--s); width: var(--w);
   min-width: 3px;
-  background: var(--cyan-deep);
-  border-left: 2px solid var(--cyan);
+  --trace: var(--d2);
+  background: color-mix(in srgb, var(--trace) 22%, transparent);
+  border-left: 2px solid var(--trace);
   border-radius: 0 1px 1px 0;
 }
+.bar[data-d="lt2"]   { --trace: var(--d1); }
+.bar[data-d="2-12"]  { --trace: var(--d2); }
+.bar[data-d="12-24"] { --trace: var(--d3); }
+.bar[data-d="gte24"] { --trace: var(--d4); }
 .bar.clip-l { border-left-style: dashed; }
 .bar.clip-r::after {
   content: ""; position: absolute; right: -1px; top: 0; bottom: 0; width: 4px;
   background: repeating-linear-gradient(
-    to bottom, var(--cyan) 0 2px, transparent 2px 4px
+    to bottom, var(--trace) 0 2px, transparent 2px 4px
   );
 }
 
@@ -414,6 +481,13 @@ a:hover { color: var(--ink); }
   font: 600 0.68rem/1 var(--font-mono);
   font-variant-numeric: tabular-nums;
   letter-spacing: .1em; color: var(--ink-dim);
+  /* The label is right-aligned over the whole meter, so once a contest passes
+     roughly three-quarters elapsed the fill runs underneath it and the reading
+     sits on the hatch. Wide meters hide this; a 343px phone does not -- "74%
+     elapsed" was unreadable on the second contest on screen. A halo in the
+     panel colour is what a chart does with a label it cannot move, and it
+     costs no markup and no geometry the server would have to compute. */
+  text-shadow: 0 0 3px var(--panel), 0 0 3px var(--panel), 0 0 6px var(--panel);
 }
 
 /* -- empty states are directions, not apologies ------------------------ */
@@ -429,22 +503,33 @@ a:hover { color: var(--ink); }
 
 /* -- controls ---------------------------------------------------------- */
 
+.controls {
+  display: flex; gap: .5rem 1.75rem; flex-wrap: wrap;
+  margin: 1.25rem 0 0;
+}
 .tzbar {
   display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
-  margin: 1.25rem 0 0;
   font: 500 0.72rem/1 var(--font-mono);
   letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
 }
-.tzbtn {
+.tzbtn, .thbtn {
   font: inherit; letter-spacing: inherit; text-transform: inherit;
   background: var(--panel-2); color: var(--ink-dim);
   border: 1px solid var(--rule); border-radius: var(--radius);
   padding: .4em .7em; cursor: pointer;
 }
+/* The times toggle is about time, so its chosen state is amber. The display
+   toggle is not about time -- it is a control, so it lights cyan. Two toggles
+   side by side that lit the same colour would make the roles decorative. */
 .tzbtn[aria-pressed="true"] { color: var(--amber); border-color: var(--amber-dim); background: transparent; }
-.tzbtn:hover { color: var(--ink); }
+.thbtn[aria-pressed="true"] { color: var(--cyan); border-color: var(--cyan-dim); background: var(--cyan-deep); }
+.tzbtn:hover, .thbtn:hover { color: var(--ink); }
 /* Hidden until the client script proves it can convert. Without JS the page is
-   UTC and says so, rather than offering a toggle that does nothing. */
+   UTC and says so, rather than offering a toggle that does nothing. The display
+   switch is hidden on the same principle but for its own reason: with no script
+   there is nothing to remember a choice, and 'prefers-color-scheme' is already
+   being honoured, so an inert switch would be the only broken thing on a page
+   that otherwise works completely without JavaScript. */
 .tzbar[hidden] { display: none; }
 
 /* -- the filter panel --------------------------------------------------
@@ -549,6 +634,23 @@ a:hover { color: var(--ink); }
   background: transparent;
 }
 
+/* The duration chips ARE the rail's legend. Same four stops, same order, so
+   choosing "under 2 hours" and then scanning the rail for that colour is one
+   idea rather than two. Declared after the generic '.chip.on' above, and more
+   specific than it, so the ramp wins for these four and nothing else. */
+.chip:has(input[name="duration"][value="lt2"])   { --trace: var(--d1); }
+.chip:has(input[name="duration"][value="2-12"])  { --trace: var(--d2); }
+.chip:has(input[name="duration"][value="12-24"]) { --trace: var(--d3); }
+.chip:has(input[name="duration"][value="gte24"]) { --trace: var(--d4); }
+
+.filters .fs:has(input[name="duration"]) .chip label {
+  border-left: 3px solid var(--trace);
+}
+.filters .fs:has(input[name="duration"]) .chip.on label {
+  color: var(--ink); border-color: var(--trace);
+  background: color-mix(in srgb, var(--trace) 18%, transparent);
+}
+
 .f-dates {
   display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
   color: var(--ink-faint);
@@ -600,6 +702,90 @@ a:hover { color: var(--ink); }
 }
 .foot p { margin: 0; max-width: 60ch; }
 .foot .links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* -- phone -------------------------------------------------------------
+
+   Build-mobile-first is the brief, and these are the three places it did not
+   actually hold once the page was opened on one.                          */
+
+@media (max-width: 599px) {
+  /* The readout is the hero, but on a 360x780 phone it was pushing the first
+     contest row to ~430px -- the page's whole job is below the fold on the
+     device the brief names. Tightened, not shrunk: the UTC clock stays the
+     largest thing on the page. */
+  .readout { padding: 1.1rem 0 1.1rem; }
+  .utc { font-size: clamp(2.9rem, 15vw, 5rem); }
+  /* Three counts, three columns. As a flex row at 360px they came to 341px
+     against 313px of room, so "13 later this month" dropped to a second line
+     on its own and read as a separate fact rather than the third of three.
+     Closing the gap until they fit was worse: the labels then butted together
+     into "ON THE AIR NEXT 7 DAYS LATER THIS MONTH", one run of words with
+     nothing saying where each ends. A column each fixes both -- the label
+     wraps inside its own column instead of stealing the next one's line, and
+     the column edge is what separates them. */
+  .tally { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
+  .tally span { font-size: .64rem; letter-spacing: .1em; }
+
+  /* Eight day labels across ~328px gives each one 41px, and "Today 15" needs
+     58px -- so every label was being clipped by the cell's own overflow rule,
+     including the one that says which day is today. Thin the ticks instead:
+     label every other cell and let it spill into the blank neighbour, which is
+     what a chart does when the axis runs out of room. The gridlines still mark
+     all eight days, so nothing is lost but ink. */
+  .ruler-day { font-size: .58rem; letter-spacing: .02em; padding-left: .2rem; overflow: visible; }
+  .ruler-day:nth-child(even) { font-size: 0; }
+
+  /* A bar is the only thing here that cannot be read by touching it, so give
+     it the height back that the ruler gave up. */
+  .track, .meter { height: 1.6rem; }
+
+  /* The masthead wrapped to three lines at 390px -- 95px of chrome above the
+     hero -- and each line ended on a dangling "/", because a separator that
+     means "these are on one line" is nonsense once they are not. Drop the
+     separators, let the gap do the separating, and pull the tracking in
+     enough that the name and the count share a line: two lines, 40px. The
+     55px that buys back is a third of a contest row, at the top of the page
+     where a phone can least afford it. */
+  .strip-in { gap: .35rem .9rem; font-size: .62rem; letter-spacing: .08em; }
+  .strip-in .sep { display: none; }
+}
+
+/* Touch, not screen width: a 13" laptop with a touchscreen needs these too, and
+   a desktop at a narrow window does not. 44px is the WCAG 2.5.5 target size. */
+@media (pointer: coarse) {
+  .tzbtn, .thbtn, .btn, .chip label, .filters input, .filters select {
+    min-height: 44px;
+  }
+  /* Both axes. Measured at 390px: "UTC" came out 41.8 wide and "CW" 35.7 --
+     tall enough and still too small to hit, because a target is an area. */
+  .tzbtn, .thbtn, .btn, .chip label {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 44px;
+  }
+  .panel > summary { padding: 1rem .9rem; }
+  /* The chip's input is absolutely positioned over its label and inherits the
+     new height, so the hit area is the whole chip rather than the text inside
+     it -- which is the difference between tapping "CW" and tapping near it. */
+  .chips { gap: .5rem; }
+  .f-actions { gap: .6rem; }
+
+  /* Inline links are one line tall by construction: 21px for a contest name,
+     16px in the masthead, 19px in the footer. Padding them out to 44 would
+     space the schedule like a list of buttons and cost a row of contests per
+     screenful. So grow the hit area and leave the box alone -- the ::after is
+     44px regardless of the text's own height, centred on it, and bounded
+     horizontally by the link so neighbours on a line keep their own edges.
+
+     The contest name is the page's primary target -- 25 per screenful, each
+     the link to the sponsor's rules this whole project exists to point at --
+     and it was the smallest thing on the page a thumb had to hit. */
+  .strip-in a, .foot .links a, .row-name a { position: relative; }
+  .strip-in a::after, .foot .links a::after, .row-name a::after {
+    content: ""; position: absolute;
+    left: 0; right: 0; top: 50%; height: 44px;
+    transform: translateY(-50%);
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
