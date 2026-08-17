@@ -17,6 +17,9 @@
  *                                          month.
  * nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. n=-1 = last.
  * fixed_date         {month, day}          Same calendar date every year.
+ * nearest_weekday    {month, day, weekday} The instance of `weekday` closest to
+ *                                          {month, day} -- WIA Remembrance Day's
+ *                                          "weekend in August closest to the 15th".
  *
  * Anchors
  * -------
@@ -382,6 +385,15 @@ export function resolveAnchors(rule: RecurrenceRule, year: number): Date[] {
     anchors = [nth(weekdaysInMonth(year, rule.month!, rule.weekday!), rule.n!)];
   } else if (kind === "fixed_date") {
     anchors = [makeDate(year, rule.month!, rule.day!)];
+  } else if (kind === "nearest_weekday") {
+    // e.g. WIA Remembrance Day: "Weekend in August closest to the 15th".
+    // Well defined in all seven cases and never ambiguous: the nearest
+    // instance of a weekday is at most three days away, and a tie would
+    // need a distance of 3.5, which does not exist because seven is odd.
+    const target = makeDate(year, rule.month!, rule.day!);
+    let shift = (((rule.weekday! - weekdayOf(target)) % 7) + 7) % 7; // 0..6, forwards
+    if (shift > 3) shift -= 7; // ...or backwards, when that is the shorter way round
+    anchors = [addDays(target, shift)];
   } else if (kind === "monthly_nth_weekday") {
     // e.g. ARS Spartan Sprint: first Monday of every month.
     anchors = [];
@@ -394,12 +406,18 @@ export function resolveAnchors(rule: RecurrenceRule, year: number): Date[] {
       }
     }
   } else if (kind === "weekly") {
-    // e.g. CWops CWT: every Wednesday.
+    // e.g. CWops CWT: every Wednesday. `months` narrows it to a season
+    // rather than the whole year -- NZART's sprints run "each Tuesday in
+    // April and August" and on no other Tuesday. Same key, same meaning as
+    // in monthly_nth_weekday.
+    const inMonths = new Set(
+      rule.months ?? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    );
     anchors = [];
     let d = makeDate(year, 1, 1);
     while (weekdayOf(d) !== rule.weekday!) d = addDays(d, 1);
     while (d.getUTCFullYear() === year) {
-      anchors.push(d);
+      if (inMonths.has(d.getUTCMonth() + 1)) anchors.push(d);
       d = addDays(d, 7);
     }
   } else if (kind === "multi_weekend") {

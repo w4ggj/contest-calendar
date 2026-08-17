@@ -68,12 +68,15 @@ The engine is proved against two unrelated sponsors on two continents:
   independently published 2026 date table
 - **RSGB** — "the contest always takes place over the last FULL weekend of July"
   generates IOTA at Jul 25–26 1200Z, matching RSGB's published 2026 dates
+- **ORARI** — the best-evidenced record in the catalog: the sponsor states the rule
+  ("Every June 2nd Weekend") *and* lists the next four years' dates, and the rule
+  reproduces all four
 
 Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor's own
 published 2026 schedule.
 
 ```
-153 passed
+186 passed
 ```
 
 ---
@@ -108,13 +111,13 @@ for o in mine[:5]:
 ## Layout
 
 ```
-contestcal/recurrence.py     rules engine -- 7 rule types, eligibility, link resolution
+contestcal/recurrence.py     rules engine -- 9 rule types, eligibility, link resolution
 data/contests.seed.json      the catalog
-data/sources.registry.json   global sponsor registry, 5 tiers, 53 organisations + tier 5
+data/sources.registry.json   global sponsor registry, 5 tiers, 54 organisations + tier 5
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
 scripts/coverage.py          regenerate the registry's coverage block from the catalog
-tests/                       153 tests
+tests/                       186 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -126,14 +129,15 @@ HANDOVER.md                  start here if you're picking this up
 | `nth_full_weekend` | most HF contests | Field Day = 4th full weekend of June |
 | `nth_weekday` | single-day events | Rookie Roundup = 3rd Sunday |
 | `fixed_date` | calendar-fixed | Straight Key Night = Jan 1 |
+| `nearest_weekday` | weekday nearest a fixed date | WIA Remembrance Day = Saturday nearest Aug 15 |
 | `monthly_nth_weekday` | monthly sprints | Spartan Sprint = 1st Monday |
-| `weekly` | weekly tests | CWops CWT = every Wednesday |
+| `weekly` | weekly tests, optionally in named months only | CWops CWT = every Wednesday; NZART sprints = Tuesdays in April and August |
 | `multi_weekend` | several sessions/yr | Stew Perry Topband |
 | `manual` | sponsor sets annually | ARRL EME (lunar conditions) |
 | `composite` | seasons with different rules | NAQP RTTY (last-Sat-Feb + 3rd-wknd-Jul) |
 
-Weekly and monthly types matter most for coverage: **84 definitions currently produce
-648 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
+Weekly and monthly types matter most for coverage: **105 definitions currently produce
+691 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
 hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
 
@@ -226,13 +230,16 @@ contest vanish. Same rule as `verified: false`: the gaps are published, not hidd
 
 ## Status
 
-**84 contest definitions → 648 occurrences for 2026. 78 verified at source**, with the
-remaining 6 carrying a `note` that says what is unconfirmed and why.
+**105 contest definitions → 691 occurrences for 2026. 98 verified at source**, with the
+remaining 7 carrying a `note` that says what is unconfirmed and why.
 
-**It is not a world calendar yet, and it says so out loud.** 60 of the 84 records are North
-American (71%), 19 European, 1 African; **Asia, Oceania and South America have nothing at
-all** — no JARL, no WIA, no LABRE. That is a worse gap than an unverified record, because a
-region with zero contests is simply invisible to every operator who lives there. The numbers
+**Every region has something now, and North America is no longer three-quarters of it.**
+62 of the 105 records are North American (59%, down from 71%), 19 European, 13 Oceanian,
+5 Asian, 4 international, 1 African and 1 South American. Asia, Oceania and South America
+came off zero on 2026-08-17 with JARL, RAC, WIA, the Oceania DX Contest Committee, NZART,
+LABRE and ORARI. The remaining imbalance is tier 2, the European national societies: one
+organisation worked out of twenty. A region with zero contests is a worse gap than an
+unverified record, because it is simply invisible to every operator who lives there. The numbers
 are generated from the catalog by `scripts/coverage.py` into
 `data/sources.registry.json`'s `coverage` block and re-derived by a test in both engines,
 so they cannot quietly go stale the way the registry's original hand-written estimates did.

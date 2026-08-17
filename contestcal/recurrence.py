@@ -12,6 +12,9 @@ nth_full_weekend   {month, n}            n=-1 means last. A "full weekend" is a
                                          Sat/Sun pair with BOTH days in the month.
 nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. n=-1 means last.
 fixed_date         {month, day}          Same calendar date every year.
+nearest_weekday    {month, day, weekday} The instance of `weekday` closest to
+                                         {month, day} -- WIA Remembrance Day's
+                                         "weekend in August closest to the 15th".
 
 Anchors
 -------
@@ -266,6 +269,16 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
         ]
     elif kind == "fixed_date":
         anchors = [date(year, rule["month"], rule["day"])]
+    elif kind == "nearest_weekday":
+        # e.g. WIA Remembrance Day: "Weekend in August closest to the 15th".
+        # Well defined in all seven cases and never ambiguous: the nearest
+        # instance of a weekday is at most three days away, and a tie would
+        # need a distance of 3.5, which does not exist because seven is odd.
+        target = date(year, rule["month"], rule["day"])
+        shift = (rule["weekday"] - target.weekday()) % 7  # 0..6, forwards
+        if shift > 3:
+            shift -= 7  # ...or backwards, when that is the shorter way round
+        anchors = [target + timedelta(days=shift)]
     elif kind == "monthly_nth_weekday":
         # e.g. ARS Spartan Sprint: first Monday of every month.
         anchors = []
@@ -277,13 +290,18 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
             except ValueError:
                 continue
     elif kind == "weekly":
-        # e.g. CWops CWT: every Wednesday.
+        # e.g. CWops CWT: every Wednesday. `months` narrows it to a season
+        # rather than the whole year -- NZART's sprints run "each Tuesday in
+        # April and August" and on no other Tuesday. Same key, same meaning as
+        # in monthly_nth_weekday.
+        months = set(rule.get("months", range(1, 13)))
         anchors = []
         d = date(year, 1, 1)
         while d.weekday() != rule["weekday"]:
             d += timedelta(days=1)
         while d.year == year:
-            anchors.append(d)
+            if d.month in months:
+                anchors.append(d)
             d += timedelta(days=7)
     elif kind == "multi_weekend":
         # e.g. Stew Perry Topband Challenge: several set weekends per year.

@@ -830,12 +830,18 @@ def test_sponsor_anchored_contests_declare_a_zone_and_explain_it(catalog):
     mark its time specs wall_clock, and explain the UTC consequence -- or a
     reader will trust a UTC instant that is an hour wrong for half the year.
     """
-    for cid in ("4sqrp-sss", "ars-spartan-sprint"):
+    for cid in ("4sqrp-sss", "ars-spartan-sprint", "nzart-jock-white-field-day"):
         c = by_id(catalog, cid)
         assert c.get("timezone"), f"{cid} has no timezone"
         assert c["start"].get("wall_clock") is True, cid
         assert c["end"].get("wall_clock") is True, cid
         assert "UTC" in c["note"], cid
+        # A sessioned contest is expanded from `sessions`, not from the
+        # top-level pair, so an unmarked session would silently be resolved as
+        # UTC no matter what the top-level specs say.
+        for s in c.get("sessions", []):
+            assert s["start"].get("wall_clock") is True, cid
+            assert s["end"].get("wall_clock") is True, cid
 
 
 # ---------------------------------------------------------------------------
@@ -1265,6 +1271,246 @@ def test_suspended_contests_explain_themselves(catalog):
 
 
 # ---------------------------------------------------------------------------
+# Sponsor validation -- JARL, RAC, WIA, Oceania DX, NZART, LABRE, ORARI
+#
+# The pass that opened Asia, Oceania and South America. Every rule below is
+# encoded from the sponsor's own wording; every date below was published by the
+# same sponsor separately from that wording, on the same page or in an earlier
+# year's rules. The rule goes in the catalog, the dates are the check, and
+# neither came from an aggregator.
+# ---------------------------------------------------------------------------
+
+WORLD_PUBLISHED = {
+    "jarl-aa-dx-cw": (
+        "third Saturday in June",
+        [(2026, 6, 20)],
+    ),
+    "jarl-aa-dx-phone": (
+        "first Saturday in September",
+        [(2026, 9, 5)],
+    ),
+    "jarl-ww-rtty": (
+        "third Saturday in October",
+        [(2026, 10, 17)],
+    ),
+    "rac-canada-day": (
+        "Canada Day, July 1",
+        [(2025, 7, 1), (2026, 7, 1)],
+    ),
+    "wia-remembrance-day": (
+        "weekend in August closest to the 15th",
+        [(2023, 8, 12), (2026, 8, 15)],
+    ),
+    "wia-john-moyle-field-day": (
+        "3rd full weekend in March",
+        [(2026, 3, 21)],
+    ),
+    "wia-vk-shires": (
+        "weekend prior to the second Monday of June",
+        [(2026, 6, 6), (2027, 6, 12)],
+    ),
+    "wia-harry-angel-sprint": (
+        "first Saturday in May",
+        [(2026, 5, 2)],
+    ),
+    "wia-trans-tasman": (
+        "Saturday night of the third full weekend of July",
+        [(2026, 7, 18)],
+    ),
+    "ocdx-phone": (
+        "first full weekend in October",
+        [(2024, 10, 5), (2026, 10, 3)],
+    ),
+    "ocdx-cw": (
+        "second full weekend in October",
+        [(2024, 10, 12), (2026, 10, 10)],
+    ),
+    "nzart-jock-white-field-day": (
+        "last full weekend in February, moved a week when February has only three",
+        [(2026, 2, 28), (2027, 2, 27)],
+    ),
+    "nzart-sangster-shield": (
+        "third Saturday of May",
+        [(2026, 5, 16)],
+    ),
+    "nzart-memorial-contest": (
+        "first Saturday in July",
+        [(2026, 7, 4)],
+    ),
+    "labre-dx": (
+        "3rd (third) weekend of July",
+        [(2026, 7, 18)],
+    ),
+    "orari-north-jakarta-dx": (
+        "every June 2nd weekend",
+        [(2026, 6, 13), (2027, 6, 12), (2028, 6, 10), (2029, 6, 9)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(WORLD_PUBLISHED.items())
+])
+def test_world_sponsors_match_their_own_published_dates(catalog, cid, rule, published):
+    c = by_id(catalog, cid)
+    for y, m, day in published:
+        occ = expand(c, y)
+        assert occ, f"{cid} produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
+
+
+# WIA: "Weekend in August closest to the 15th". Seven years, seven weekdays for
+# the 15th, so the whole table is covered -- 2019 is skipped only because it
+# would repeat a weekday. The rule can never be ambiguous: the nearest instance
+# of a weekday is at most three days away, and a tie would need a distance of
+# 3.5, which does not exist because seven is odd.
+REMEMBRANCE_DAY_SHIFTS = [
+    (2018, 2, 18),   # the 15th is a Wednesday -> forward 3
+    (2020, 5, 15),   # ...a Saturday           -> already there
+    (2021, 6, 14),   # ...a Sunday             -> back 1
+    (2022, 0, 13),   # ...a Monday             -> back 2
+    (2023, 1, 12),   # ...a Tuesday            -> back 3
+    (2024, 3, 17),   # ...a Thursday           -> forward 2
+    (2025, 4, 16),   # ...a Friday             -> forward 1
+]
+
+
+@pytest.mark.parametrize("year,weekday_of_15th,day", REMEMBRANCE_DAY_SHIFTS)
+def test_nearest_weekday_resolves_every_case_to_a_saturday(
+    catalog, year, weekday_of_15th, day
+):
+    assert date(year, 8, 15).weekday() == weekday_of_15th
+    anchors = resolve_anchors(
+        by_id(catalog, "wia-remembrance-day")["recurrence"], year
+    )
+    assert anchors == [date(year, 8, day)]
+    assert anchors[0].weekday() == 5
+    assert abs((anchors[0] - date(year, 8, 15)).days) <= 3
+
+
+# RAC's own rules PDFs, one per year. The December Saturday ordinal is 4th,
+# 3rd, 3rd, 3rd, 5th, 4th, 3rd -- and 2026 is not a Saturday at all.
+RAC_WINTER_PUBLISHED = [
+    (2019, 12, 28), (2020, 12, 19), (2021, 12, 18), (2022, 12, 17),
+    (2023, 12, 30), (2024, 12, 28), (2025, 12, 20), (2026, 12, 27),
+]
+
+
+def test_rac_canada_winter_reproduces_every_date_rac_published(catalog):
+    c = by_id(catalog, "rac-canada-winter")
+    for y, m, day in RAC_WINTER_PUBLISHED:
+        occ = expand(c, y)
+        assert occ, f"rac-canada-winter produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day)
+
+
+def test_rac_canada_winter_is_manual_because_no_rule_fits(catalog):
+    """
+    The point of `manual` is that it is used only where a rule would be a guess.
+    RAC announces this date each year: the eight dates it has published are not
+    a consistent ordinal Saturday, and 2026's is a Sunday. A record that fitted
+    an ordinal to them would print confident dates for years RAC has not set.
+    """
+    ordinals = set()
+    for y, m, day in RAC_WINTER_PUBLISHED:
+        d = date(y, m, day)
+        if d.weekday() == 5:
+            ordinals.add(sum(1 for s in _saturdays_in_month(y, m) if s <= d))
+    assert len(ordinals) > 1, "an ordinal Saturday would have fitted after all"
+    assert date(2026, 12, 27).weekday() == 6  # Sunday
+    # ...and the years RAC has not announced are simply absent, not guessed.
+    assert expand(by_id(catalog, "rac-canada-winter"), 2027) == []
+
+
+def test_nzart_field_day_moves_when_february_has_three_full_weekends(catalog):
+    """
+    NZART: 'when February only has three full weekends then field day will be
+    held on Saturday 28th February and Sunday 1st March ... This will occur in
+    2026.' The last-full-weekend Saturday is February 21 exactly when February
+    has 28 days and starts on a Sunday, which is precisely that case, so the
+    exclusion is the rule rather than a patch over one year.
+    """
+    c = by_id(catalog, "nzart-jock-white-field-day")
+    assert len(_full_weekends_in_month(2026, 2)) == 3
+    assert _full_weekends_in_month(2026, 2)[-1] == date(2026, 2, 21)
+    assert expand(c, 2026)[0].start.date() == date(2026, 2, 28)
+    # A four-full-weekend February is untouched by the exclusion.
+    assert len(_full_weekends_in_month(2027, 2)) == 4
+    assert expand(c, 2027)[0].start.date() == date(2027, 2, 27)
+
+
+def test_nzart_field_day_runs_two_sessions_on_new_zealand_time(catalog):
+    """
+    1500-2400 Saturday and 0600-1500 Sunday NZDT. New Zealand is UTC+13 in
+    February, so both sessions land on UTC dates that are not the local ones --
+    which is the whole reason the record is wall-clock rather than UTC.
+    """
+    occ = expand(by_id(catalog, "nzart-jock-white-field-day"), 2026)
+    assert len(occ) == 2
+    assert [o.duration_hours for o in occ] == [9.0, 9.0]
+    assert occ[0].start == datetime(2026, 2, 28, 2, 0, tzinfo=UTC)
+    assert occ[1].end == datetime(2026, 3, 1, 2, 0, tzinfo=UTC)
+
+
+NZART_SPRINT_IDS = ("nzart-sprint-cw", "nzart-sprint-ssb", "nzart-sprint-ft4")
+
+
+@pytest.mark.parametrize("cid", NZART_SPRINT_IDS)
+def test_nzart_sprints_run_every_tuesday_in_april_and_august_only(catalog, cid):
+    """
+    'Each Tuesday in April and August' -- a weekly rule narrowed to a season.
+    Encoded as `weekly` with `months` rather than as a composite of ordinal
+    Tuesdays: neither April nor August 2026 has a fifth Tuesday, and a composite
+    would have to name one, so the whole contest would vanish that year.
+    """
+    occ = expand(by_id(catalog, cid), 2026)
+    assert {o.start.weekday() for o in occ} == {1}  # Tuesday
+    assert {o.start.month for o in occ} == {4, 8}
+    assert len(occ) == 8  # four Tuesdays in each month, 2026
+    assert occ[0].start.date() == date(2026, 4, 7)
+    assert occ[-1].start.date() == date(2026, 8, 25)
+
+
+def test_nzart_sprints_are_three_back_to_back_windows(catalog):
+    """
+    Three modes, three 29-minute windows, one evening, scored separately -- so
+    three records. Each ends one minute before the next begins.
+    """
+    firsts = [expand(by_id(catalog, cid), 2026)[0] for cid in NZART_SPRINT_IDS]
+    assert [o.start.strftime("%H%M") for o in firsts] == ["0800", "0830", "0900"]
+    assert [o.end.strftime("%H%M") for o in firsts] == ["0829", "0859", "0929"]
+    assert len({o.start.date() for o in firsts}) == 1
+
+
+def test_jarl_rtty_log_deadline_is_the_tenth_day_after_the_end(catalog):
+    """
+    JARL: 'Logs must be submitted no later than 24:00 UTC on the 10th day after
+    the end of the contest.' The contest ends at 24:00 UTC on October 18 2026,
+    which this catalog stores as the instant 00:00 on the 19th, so ten days
+    later is 00:00 on the 29th -- 24:00 on the 28th, the tenth day after the
+    18th. The two All Asian legs deliberately carry no deadline field, because
+    the same arithmetic there lands a day past the date JARL prints.
+    """
+    o = expand(by_id(catalog, "jarl-ww-rtty"), 2026)[0]
+    assert o.end == datetime(2026, 10, 19, 0, 0, tzinfo=UTC)
+    assert o.log_due == datetime(2026, 10, 29, 0, 0, tzinfo=UTC)
+    for cid in ("jarl-aa-dx-cw", "jarl-aa-dx-phone"):
+        assert "log_deadline_days" not in by_id(catalog, cid)
+
+
+def test_oceania_dx_is_two_consecutive_full_weekends(catalog):
+    """
+    Phone on the first full weekend of October, CW on the second. The committee
+    publishes only the year's dates; the rule in words comes from co-sponsor WIA.
+    """
+    for y in (2024, 2026):
+        phone = expand(by_id(catalog, "ocdx-phone"), y)[0]
+        cw = expand(by_id(catalog, "ocdx-cw"), y)[0]
+        assert (cw.start - phone.start).days == 7
+        assert phone.start.weekday() == cw.start.weekday() == 5
+
+
+# ---------------------------------------------------------------------------
 # Time zones
 #
 # `local_time` used to mean two incompatible things: "the sponsor runs this at
@@ -1612,12 +1858,17 @@ def test_unrecorded_bands_are_the_documented_exception(catalog):
     Empty `bands` means unrecorded, and a band filter drops the record. That is
     a real cost, so it is pinned to the records that have a documented reason.
 
+    jarl-new-year-qso-party: JARL's rule is "All bands and Modes permitted for
+    JA amateur radio stations" and points at the Japanese band plan. There is no
+    band list on the page to record, and inferring one from the band plan would
+    be this catalog writing a rule JARL did not.
+
     sarl-hf-phone: sarl.org.za served an expired TLS certificate on 2026-08-16,
     so its rules could not be read. The project's rule is to document a blocked
     source and stop, never to reach for an aggregator.
     """
     unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
-    assert unrecorded == ["sarl-hf-phone"]
+    assert unrecorded == ["jarl-new-year-qso-party", "sarl-hf-phone"]
 
 
 def test_bands_note_never_stands_in_for_a_band_list(catalog):

@@ -18,16 +18,17 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 84 contest definitions → 648 occurrences for 2026. 153 Python tests,
-166 TypeScript tests, 100 Worker tests. Engine complete in both languages — no known
+**Current state:** 105 contest definitions → 691 occurrences for 2026. 186 Python tests,
+199 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
 `bands` are controlled vocabularies. The page has a three-state theme switch and has been
 through a measured narrow-viewport pass. The contest detail view is not built.
 
-**Where it is thin:** 71% of the catalog is North American and three regions have nothing at
-all. That is the biggest gap in the project, and it is now measured rather than assumed —
-run `python scripts\coverage.py --check`.
+**Where it is thin:** 59% of the catalog is North American. Every region now has something —
+Asia, Oceania and South America came off zero on 2026-08-17 — but tier 2, the European
+national societies, is 1 org worked out of 20. Measured rather than assumed: run
+`python scripts\coverage.py --check`.
 
 ## Read first
 
@@ -41,11 +42,11 @@ run `python scripts\coverage.py --check`.
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 153 passed
+python -m pytest -q               # expect: 186 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 166 passed (153 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 199 passed (186 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 110 passed (parity inside workerd, the API, filters, iCal, theme, pages)
 ```
 
@@ -219,12 +220,22 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    generated**: `estimated_total` is labelled a pre-research guess, and everything describing
    what the catalog holds comes from `python scripts/coverage.py`, re-derived by a test in
    both engines. Run it in the same commit as any catalog change.
-4. **Then Tiers 1–3, region by region** rather than sponsor by sponsor, so coverage fills
-   evenly. `coverage.thin` says where: **60 of 84 records are North American (71%)** and
-   **Asia, Oceania and South America have nothing at all** — JARL, WIA and RAC are the three
-   highest-value unstarted orgs, and DARC is the largest European gap after RSGB. Tier 5 is
-   50 more US QSO parties, so it comes last: working it now would deepen the imbalance a
-   world calendar can't keep.
+4. **Asia, Oceania and South America — done 2026-08-17, 21 records.** JARL, RAC, WIA, the
+   Oceania DX Contest Committee, NZART, LABRE and ORARI. Method and every judgement call are
+   in `data/sources.md`, "Asia, Oceania and South America stopped being empty". Two rule
+   types were added to both engines to state what sponsors actually wrote: `nearest_weekday`
+   (WIA Remembrance Day — "weekend in August closest to the 15th") and `weekly.months`
+   (NZART sprints — "each Tuesday in April and August"). **RAC's Canada Winter Contest is
+   `manual`**: eight annual PDFs give eight dates fitting no ordinal at all, so years RAC
+   has not announced are simply absent. **GACW is blocked** — its WWSA rules PDFs are scanned
+   imagery with no text layer; ask GACW for a text version, don't fill it from a calendar.
+   JARL's Japanese-language contests (ALL JA, Field Day, 6m And Down, ACAG) are deferred, not
+   missed.
+5. **Then Tier 2, the European societies** — 1 org worked out of 20, and now the thinnest
+   part of the catalog by a wide margin. DARC is the largest gap after RSGB. Work region by
+   region rather than sponsor by sponsor so coverage fills evenly; `coverage.thin` says
+   where. Tier 5 is 50 more US QSO parties, so it still comes last: at 59% North American,
+   working it now would deepen the imbalance a world calendar can't keep.
 
 ---
 
@@ -243,6 +254,17 @@ Flagged rather than guessed. Leave them until a sponsor settles them.
   published dates settled it: fourth Saturday of February, not "last" anything. The two
   documentation errors found in CQ's own material are recorded in the records' `note` fields
   rather than silently corrected.
+- **JARL All Asian DX log deadline** — JARL's "10 days after the event is over" and the date
+  JARL prints disagree by a day, because JARL counts from the last contest *day* and this
+  catalog stores a 24:00 UTC end *instant*. Both legs carry **no** `log_deadline_days` rather
+  than a 9 JARL never wrote. JARL's WW RTTY states it as an instant, so that one is encoded.
+- **RAC Canada Winter log deadline** — the 2026 PDF's parenthetical (January 11) is one day
+  later than its own 14-day rule for a December 27 contest. The rule is encoded.
+- **WIA Harry Angel 2027** — WIA's page states "the first Saturday in May" three times and
+  then names a date that is a Monday. The calendar follows the rule, not the sentence.
+- **JARL New Year QSO Party** — `verified: false` (JARL publishes the 79th party's dates, not
+  a recurrence) and the catalog's second `bands: []` record: JARL states only "All bands and
+  Modes permitted for JA amateur radio stations", so there is no band list to record.
 
 ## Partly-closed check — the iCal feed in a real client
 
@@ -287,8 +309,9 @@ duplicated.
 | `nth_full_weekend` | `month`, `n` (−1 = last) | Field Day = 4th full weekend of June |
 | `nth_weekday` | `month`, `n`, `weekday` | NAQP RTTY winter = last Saturday of Feb |
 | `fixed_date` | `month`, `day` | Straight Key Night = Jan 1 |
+| `nearest_weekday` | `month`, `day`, `weekday` | WIA Remembrance Day = Saturday nearest Aug 15 |
 | `monthly_nth_weekday` | `n`, `weekday`, optional `months` | SKCC WES = 2nd Saturday monthly |
-| `weekly` | `weekday` | CWT anchors on Wednesday |
+| `weekly` | `weekday`, optional `months` | CWT anchors on Wednesday; NZART sprints run Tuesdays in April and August only |
 | `multi_weekend` | `weekends: [{month, n}]` | NAQP CW = Jan #2 + Aug #1 |
 | `composite` | `rules: [...]` | NAQP RTTY = last-Sat-Feb + 3rd-full-wknd-Jul |
 | `manual` | `dates: {year: [...]}` | sponsor sets annually, no derivable rule |
@@ -330,6 +353,12 @@ synthetic definition — the distinction is real and will recur.
   `exclude_dates`.
 - **"First weekend ending in June"** anchors on June's first Sunday and counts back, so it
   **opens in May** in 2030 and 2031. Looks like a bug, isn't. A test names those years.
+- **NZART's field day exception is one `exclude_dates` entry, and that is exact.** NZART
+  moves it "when February only has three full weekends". The last-full-weekend Saturday
+  lands on February 21 *if and only if* February has 28 days and the 1st is a Sunday — which
+  is precisely that case — so `[[2, 21]]` expresses the condition rather than approximating
+  it. "Last Saturday in February" was tested as a simpler rule and rejected: it diverges in a
+  leap year beginning on a Saturday.
 
 ---
 

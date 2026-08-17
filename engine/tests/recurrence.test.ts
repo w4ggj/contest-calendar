@@ -880,12 +880,19 @@ test("sponsor-anchored contests declare a zone and explain it", () => {
   // A contest whose sponsor publishes local times only must name an IANA zone,
   // mark its time specs wall_clock, and explain the UTC consequence -- or a
   // reader will trust a UTC instant that is an hour wrong for half the year.
-  for (const cid of ["4sqrp-sss", "ars-spartan-sprint"]) {
+  for (const cid of ["4sqrp-sss", "ars-spartan-sprint", "nzart-jock-white-field-day"]) {
     const c = byId(cid);
     expect(c.timezone, `${cid} has no timezone`).toBeTruthy();
     expect(c.start.wall_clock).toBe(true);
     expect(c.end.wall_clock).toBe(true);
     expect(c.note).toContain("UTC");
+    // A sessioned contest is expanded from `sessions`, not from the top-level
+    // pair, so an unmarked session would silently be resolved as UTC no matter
+    // what the top-level specs say.
+    for (const s of c.sessions ?? []) {
+      expect(s.start.wall_clock, cid).toBe(true);
+      expect(s.end.wall_clock, cid).toBe(true);
+    }
   }
 });
 
@@ -1311,6 +1318,216 @@ test("suspended contests explain themselves", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Sponsor validation -- JARL, RAC, WIA, Oceania DX, NZART, LABRE, ORARI
+//
+// The pass that opened Asia, Oceania and South America. Every rule below is
+// encoded from the sponsor's own wording; every date below was published by the
+// same sponsor separately from that wording, on the same page or in an earlier
+// year's rules. The rule goes in the catalog, the dates are the check, and
+// neither came from an aggregator.
+// ---------------------------------------------------------------------------
+
+const WORLD_PUBLISHED: Record<string, [string, [number, number, number][]]> = {
+  "jarl-aa-dx-cw": ["third Saturday in June", [[2026, 6, 20]]],
+  "jarl-aa-dx-phone": ["first Saturday in September", [[2026, 9, 5]]],
+  "jarl-ww-rtty": ["third Saturday in October", [[2026, 10, 17]]],
+  "rac-canada-day": ["Canada Day, July 1", [[2025, 7, 1], [2026, 7, 1]]],
+  "wia-remembrance-day": [
+    "weekend in August closest to the 15th",
+    [[2023, 8, 12], [2026, 8, 15]],
+  ],
+  "wia-john-moyle-field-day": ["3rd full weekend in March", [[2026, 3, 21]]],
+  "wia-vk-shires": [
+    "weekend prior to the second Monday of June",
+    [[2026, 6, 6], [2027, 6, 12]],
+  ],
+  "wia-harry-angel-sprint": ["first Saturday in May", [[2026, 5, 2]]],
+  "wia-trans-tasman": [
+    "Saturday night of the third full weekend of July",
+    [[2026, 7, 18]],
+  ],
+  "ocdx-phone": [
+    "first full weekend in October",
+    [[2024, 10, 5], [2026, 10, 3]],
+  ],
+  "ocdx-cw": [
+    "second full weekend in October",
+    [[2024, 10, 12], [2026, 10, 10]],
+  ],
+  "nzart-jock-white-field-day": [
+    "last full weekend in February, moved a week when February has only three",
+    [[2026, 2, 28], [2027, 2, 27]],
+  ],
+  "nzart-sangster-shield": ["third Saturday of May", [[2026, 5, 16]]],
+  "nzart-memorial-contest": ["first Saturday in July", [[2026, 7, 4]]],
+  "labre-dx": ["3rd (third) weekend of July", [[2026, 7, 18]]],
+  "orari-north-jakarta-dx": [
+    "every June 2nd weekend",
+    [[2026, 6, 13], [2027, 6, 12], [2028, 6, 10], [2029, 6, 9]],
+  ],
+};
+
+test.each(
+  Object.entries(WORLD_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, dates]]) => [cid, rule, dates] as const),
+)("world sponsors match their own published dates: %s", (cid, rule, published) => {
+  const c = byId(cid);
+  for (const [y, m, day] of published) {
+    const occ = expand(c, y);
+    expect(occ.length, `${cid} produced nothing for ${y}`).toBeGreaterThan(0);
+    expect(isoDate(occ[0].start!), `${cid} ${y}: rule '${rule}'`).toBe(D(y, m, day));
+  }
+});
+
+// WIA: "Weekend in August closest to the 15th". Seven years, seven weekdays for
+// the 15th, so the whole table is covered -- 2019 is skipped only because it
+// would repeat a weekday. The rule can never be ambiguous: the nearest instance
+// of a weekday is at most three days away, and a tie would need a distance of
+// 3.5, which does not exist because seven is odd.
+const REMEMBRANCE_DAY_SHIFTS: [number, number, number][] = [
+  [2018, 2, 18], // the 15th is a Wednesday -> forward 3
+  [2020, 5, 15], // ...a Saturday           -> already there
+  [2021, 6, 14], // ...a Sunday             -> back 1
+  [2022, 0, 13], // ...a Monday             -> back 2
+  [2023, 1, 12], // ...a Tuesday            -> back 3
+  [2024, 3, 17], // ...a Thursday           -> forward 2
+  [2025, 4, 16], // ...a Friday             -> forward 1
+];
+
+test.each(REMEMBRANCE_DAY_SHIFTS)(
+  "nearest_weekday resolves every case to a Saturday: %i",
+  (year, weekdayOf15th, day) => {
+    expect(weekdayOf(new Date(at(year, 8, 15)))).toBe(weekdayOf15th);
+    const anchors = resolveAnchors(byId("wia-remembrance-day").recurrence, year);
+    expect(anchors.map(isoDate)).toEqual([D(year, 8, day)]);
+    expect(weekdayOf(anchors[0])).toBe(5);
+    expect(Math.abs(anchors[0].getTime() - at(year, 8, 15)) / DAY_MS).toBeLessThanOrEqual(3);
+  },
+);
+
+// RAC's own rules PDFs, one per year. The December Saturday ordinal is 4th,
+// 3rd, 3rd, 3rd, 5th, 4th, 3rd -- and 2026 is not a Saturday at all.
+const RAC_WINTER_PUBLISHED: [number, number, number][] = [
+  [2019, 12, 28], [2020, 12, 19], [2021, 12, 18], [2022, 12, 17],
+  [2023, 12, 30], [2024, 12, 28], [2025, 12, 20], [2026, 12, 27],
+];
+
+test("RAC Canada Winter reproduces every date RAC published", () => {
+  const c = byId("rac-canada-winter");
+  for (const [y, m, day] of RAC_WINTER_PUBLISHED) {
+    const occ = expand(c, y);
+    expect(occ.length, `rac-canada-winter produced nothing for ${y}`).toBeGreaterThan(0);
+    expect(isoDate(occ[0].start!)).toBe(D(y, m, day));
+  }
+});
+
+test("RAC Canada Winter is manual because no rule fits", () => {
+  // The point of `manual` is that it is used only where a rule would be a
+  // guess. RAC announces this date each year: the eight dates it has published
+  // are not a consistent ordinal Saturday, and 2026's is a Sunday. A record
+  // that fitted an ordinal to them would print confident dates for years RAC
+  // has not set.
+  const ordinals = new Set<number>();
+  for (const [y, m, day] of RAC_WINTER_PUBLISHED) {
+    const d = new Date(at(y, m, day));
+    if (weekdayOf(d) === 5) {
+      ordinals.add(
+        saturdaysInMonth(y, m).filter((s) => s.getTime() <= d.getTime()).length,
+      );
+    }
+  }
+  expect(ordinals.size, "an ordinal Saturday would have fitted after all").toBeGreaterThan(1);
+  expect(weekdayOf(new Date(at(2026, 12, 27)))).toBe(6); // Sunday
+  // ...and the years RAC has not announced are simply absent, not guessed.
+  expect(expand(byId("rac-canada-winter"), 2027)).toEqual([]);
+});
+
+test("NZART field day moves when February has three full weekends", () => {
+  // NZART: 'when February only has three full weekends then field day will be
+  // held on Saturday 28th February and Sunday 1st March ... This will occur in
+  // 2026.' The last-full-weekend Saturday is February 21 exactly when February
+  // has 28 days and starts on a Sunday, which is precisely that case, so the
+  // exclusion is the rule rather than a patch over one year.
+  const c = byId("nzart-jock-white-field-day");
+  expect(fullWeekendsInMonth(2026, 2)).toHaveLength(3);
+  expect(isoDate(fullWeekendsInMonth(2026, 2).at(-1)!)).toBe(D(2026, 2, 21));
+  expect(isoDate(expand(c, 2026)[0].start!)).toBe(D(2026, 2, 28));
+  // A four-full-weekend February is untouched by the exclusion.
+  expect(fullWeekendsInMonth(2027, 2)).toHaveLength(4);
+  expect(isoDate(expand(c, 2027)[0].start!)).toBe(D(2027, 2, 27));
+});
+
+test("NZART field day runs two sessions on New Zealand time", () => {
+  // 1500-2400 Saturday and 0600-1500 Sunday NZDT. New Zealand is UTC+13 in
+  // February, so both sessions land on UTC dates that are not the local ones --
+  // which is the whole reason the record is wall-clock rather than UTC.
+  const occ = expand(byId("nzart-jock-white-field-day"), 2026);
+  expect(occ).toHaveLength(2);
+  expect(occ.map((o) => o.duration_hours)).toEqual([9, 9]);
+  expect(occ[0].start!.getTime()).toBe(at(2026, 2, 28, 2, 0));
+  expect(occ[1].end!.getTime()).toBe(at(2026, 3, 1, 2, 0));
+});
+
+const NZART_SPRINT_IDS = ["nzart-sprint-cw", "nzart-sprint-ssb", "nzart-sprint-ft4"];
+
+test.each(NZART_SPRINT_IDS)(
+  "NZART sprints run every Tuesday in April and August only: %s",
+  (cid) => {
+    // 'Each Tuesday in April and August' -- a weekly rule narrowed to a season.
+    // Encoded as `weekly` with `months` rather than as a composite of ordinal
+    // Tuesdays: neither April nor August 2026 has a fifth Tuesday, and a
+    // composite would have to name one, so the whole contest would vanish that
+    // year.
+    const occ = expand(byId(cid), 2026);
+    expect(new Set(occ.map((o) => weekdayOf(o.start!)))).toEqual(new Set([1]));
+    expect(new Set(occ.map((o) => o.start!.getUTCMonth() + 1))).toEqual(new Set([4, 8]));
+    expect(occ).toHaveLength(8); // four Tuesdays in each month, 2026
+    expect(isoDate(occ[0].start!)).toBe(D(2026, 4, 7));
+    expect(isoDate(occ.at(-1)!.start!)).toBe(D(2026, 8, 25));
+  },
+);
+
+test("NZART sprints are three back-to-back windows", () => {
+  // Three modes, three 29-minute windows, one evening, scored separately -- so
+  // three records. Each ends one minute before the next begins.
+  const firsts = NZART_SPRINT_IDS.map((cid) => expand(byId(cid), 2026)[0]);
+  const hhmm = (d: Date): string =>
+    `${String(d.getUTCHours()).padStart(2, "0")}${String(d.getUTCMinutes()).padStart(2, "0")}`;
+  expect(firsts.map((o) => hhmm(o.start!))).toEqual(["0800", "0830", "0900"]);
+  expect(firsts.map((o) => hhmm(o.end!))).toEqual(["0829", "0859", "0929"]);
+  expect(new Set(firsts.map((o) => isoDate(o.start!))).size).toBe(1);
+});
+
+test("JARL RTTY log deadline is the tenth day after the end", () => {
+  // JARL: 'Logs must be submitted no later than 24:00 UTC on the 10th day after
+  // the end of the contest.' The contest ends at 24:00 UTC on October 18 2026,
+  // which this catalog stores as the instant 00:00 on the 19th, so ten days
+  // later is 00:00 on the 29th -- 24:00 on the 28th, the tenth day after the
+  // 18th. The two All Asian legs deliberately carry no deadline field, because
+  // the same arithmetic there lands a day past the date JARL prints.
+  const o = expand(byId("jarl-ww-rtty"), 2026)[0];
+  expect(o.end!.getTime()).toBe(at(2026, 10, 19, 0, 0));
+  expect(o.log_due!.getTime()).toBe(at(2026, 10, 29, 0, 0));
+  for (const cid of ["jarl-aa-dx-cw", "jarl-aa-dx-phone"]) {
+    expect(byId(cid).log_deadline_days).toBeUndefined();
+  }
+});
+
+test("Oceania DX is two consecutive full weekends", () => {
+  // Phone on the first full weekend of October, CW on the second. The committee
+  // publishes only the year's dates; the rule in words comes from co-sponsor
+  // WIA.
+  for (const y of [2024, 2026]) {
+    const phone = expand(byId("ocdx-phone"), y)[0];
+    const cw = expand(byId("ocdx-cw"), y)[0];
+    expect((cw.start!.getTime() - phone.start!.getTime()) / DAY_MS).toBe(7);
+    expect(weekdayOf(phone.start!)).toBe(5);
+    expect(weekdayOf(cw.start!)).toBe(5);
+  }
+});
+
+// ---------------------------------------------------------------------------
 // Time zones
 // ---------------------------------------------------------------------------
 
@@ -1643,6 +1860,11 @@ describe("catalog vocabularies", () => {
     // is a real cost, so it is pinned to the records that have a documented
     // reason.
     //
+    // jarl-new-year-qso-party: JARL's rule is "All bands and Modes permitted
+    // for JA amateur radio stations" and points at the Japanese band plan.
+    // There is no band list on the page to record, and inferring one from the
+    // band plan would be this catalog writing a rule JARL did not.
+    //
     // sarl-hf-phone: sarl.org.za served an expired TLS certificate on
     // 2026-08-16, so its rules could not be read. The project's rule is to
     // document a blocked source and stop, never to reach for an aggregator.
@@ -1650,7 +1872,7 @@ describe("catalog vocabularies", () => {
       .filter((c) => !(c.bands ?? []).length)
       .map((c) => c.id)
       .sort();
-    expect(unrecorded).toEqual(["sarl-hf-phone"]);
+    expect(unrecorded).toEqual(["jarl-new-year-qso-party", "sarl-hf-phone"]);
   });
 
   test("bands_note never stands in for a band list", () => {

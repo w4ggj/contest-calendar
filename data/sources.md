@@ -27,6 +27,13 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-16 | ARRL | arrl.org/{sweepstakes, arrl-dx, rtty-roundup, rookie-roundup, iaru-hf-world-championship, field-day, arrl-digital-contest, january-vhf, june-vhf, september-vhf, kids-day, straight-key-night, 222-mhz-and-up-distance-contest, 10-ghz-up} | 19 (bands) | Sweepstakes: "160, 80, 40, 20, 15 and 10 meter bands". DX: "Use only the 160, 80, 40, 20, 15, and 10 meter bands." RTTY Roundup: "the 80, 40, 20, 15, and 10 meter bands"; **"Only contacts using Radioteletype (RTTY) mode are allowed."** Rookie Roundup: "on the 80, 40, 20, 15, and 10 meter HF bands". IARU HF: "using the 160, 80, 40, 20, 15 and 10 meter bands". Field Day: "160-, 80-, 40-, 20-, 15- and 10-Meter HF bands, as well as all bands 50 MHz and above" with "[No Field Day activity is permitted on the 60-, 30-, 17- or 12- Meter HF Bands.]" Digital: "on the 160, 80, 40, 20, 15, 10 and 6 meter bands (Technicians are limited per FCC Rules to the 10 and 6 meter bands)" and "any digital mode (excluding RTTY)". Jan/Jun/Sep VHF, each independently: "authorized frequencies above 50 MHz". Kids Day: a suggested-frequency table, 80 m through 10 m, plus repeaters. Straight Key Night: "All authorized Amateur frequencies, but activity has traditionally been centered on the HF bands." 222 And Up: "on the 222 MHz through 241 GHz bands". 10 GHz: "on bands from 10-GHz through Light". |
 | 2026-08-16 | CQ Magazine | cqww.com/rules.htm, cqwwrtty.com/rules.htm, cqwpx.com/rules/, cqwpxrtty.com/rules.htm, cq160.com/rules/index.htm | 8 | **CQ publishes almost no recurrence wording — see the section below for how the eight rules were pinned instead.** The one exception is the 2016 WPX rules archived on cqwpx.com: "Each contest mode is a separate event running from 0000 UTC Saturday until 2359 UTC Sunday. SSB is the last full weekend of March and CW is the last full weekend of May." Periods: WW/WW RTTY/WPX/WPX RTTY all "Starts 00:00:00 UTC Saturday Ends 23:59:59 UTC Sunday"; CQ 160 "Each contest is 48 hours long and starts at 2200Z". Bands: WW "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz"; WW RTTY "Five bands only: 3.5, 7, 14, 21 and 28 MHz"; WPX (rule III) "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used"; WPX RTTY (rule III) "Only the 3.5, 7, 14, 21, and 28 MHz bands may be used"; CQ 160 "1810-2000 kHz in ITU Region 1; 1800-2000 kHz in ITU Regions 2 and 3". Exchange: WW SSB "RS report plus CQ Zone number of the station location" (CW: RST); WW RTTY adds "continental USA and Canada also send state or province"; WPX "RS(T) report plus a progressive contact serial number starting with 001"; CQ 160 "RS(T) and state for U.S., province for Canada, and CQ Zone for DX". Log deadline: "WITHIN FIVE (5) DAYS" for WW and CQ 160; **"WITHIN 48 HOURS" from 2026 for WPX, WPX RTTY and WW RTTY.** Redirects: cqwpx.com/rules.htm → cqwpx.com/rules/, cq160.com/rules.htm → cq160.com/rules/index.htm. |
 | 2026-08-16 | Straight Key Century Club | skccgroup.com/operating_activities/weekday_sprint/ | 1 (bands) | Suggested Frequencies: "160M: 1813.5 kHz, 80M: 3550 kHz, 40M: 7055 / 7120 kHz, 20M: 14050 kHz, 15M: 21050 kHz, 10M: 28050 kHz, 6M: 50090 kHz" |
+| 2026-08-17 | JARL | jarl.org/English/4_Library/A-4-3_Contests/{aadx_eng,rtty_rules_en,qsoparty_rule_eng}.html | 4 | All Asian DX: "CW: (June 20-21,2026) From 00:00 UTC on the third Saturday in June to 24:00 UTC on the following day"; "Phone: (September 5-6, 2026) From 00:00 UTC on the first Saturday in September to 24:00 UTC on the following day". WW RTTY: "From 00:00 UTC on the third Saturday in October to 24:00 UTC on the following day", mode "RTTY (Baudot only)", bands "3.5, 7, 14, 21 and 28MHz", logs "no later than 24:00 UTC on the 10th day after the end of the contest". New Year QSO Party: "January 2, 2026, 00:00 UTC to January 7, 12:00 (UTC)", "All bands and Modes permitted for JA amateur radio stations." |
+| 2026-08-17 | RAC | rac.ca/contesting-results/ → RAC_CanadaDayContestRules_2026.pdf | 2 | Canada Day: "Canada Day Wednesday, July 1, 2026 - 00:00:00 UTC to 23:59:59 UTC"; logs "by 23:59 UTC 14 days after the end of the contest (July 15, 2026)". Canada Winter: "RAC Canada Winter Contest: Sunday, December 27, 2026", and the 2019 PDF announcing "Next year the contest will be held on December 19, 2020." **RAC states no rule — see below.** |
+| 2026-08-17 | WIA | wia.org.au/members/contests/{rdcontest,johnmoyle,wavks,harryangel,transtasman}/ | 5 | Remembrance Day: "Weekend in August closest to the 15th, 0300 UTC Saturday to 0300 UTC Sunday." John Moyle: "held over the 3rd full weekend in March and run from UTC 0100 on the Saturday to 0100 on the Sunday." VK Shires: "Held the Saturday and Sunday of the weekend prior to the second Monday of June every year." Harry Angel: "For the last 27 years it has been held on the first Saturday in May each year", 106 minutes, "one minute for each year of Harry's life." Trans-Tasman: "held on the Saturday night of the third full weekend of July", "Modes: SSB, CW and Digital (Digital includes PSK or RTTY only)". |
+| 2026-08-17 | Oceania DX Contest Committee | oceaniadxcontest.com/rules (+ wia.org.au/members/contests/oceania/) | 2 | Recurrence from co-sponsor WIA: "PH - The first full weekend in October each year from 0600 UTC Saturday to 0600 UTC Sunday"; "CW - The second full weekend in October each year". Committee's own 2026 PDF: "Phone Section: 06:00 UTC Saturday 3 October to 06:00 UTC Sunday 4 October 2026"; "THE BANDS that can be used are 160M, 80M, 40M, 20M, 15M and 10M (no WARC bands)". |
+| 2026-08-17 | NZART | nzart.org.nz/activities/contests/{jwfd,sangster-shield,memorial-contest,sprints}/ | 6 | Jock White: "The last full weekend in February each year: on Saturday 1500-2400 NZDT and Sunday 0600-1500 NZDT. NOTE: when February only has three full weekends then field day will be held on Saturday 28th February and Sunday 1st March… This will occur in 2026." Sangster Shield: "Third Saturday of May each year, between the hours of 0800-1100 UTC". Memorial: "First Saturday in July each year 0800 - 1100 UTC". Sprints: "Each Tuesday in April and August: 0800-0829 UTC … CW only / 0830-0859 UTC … SSB only / 0900-0929 UTC … FT4 only", "Each mode will be scored separately." |
+| 2026-08-17 | LABRE | labre.org.br/contest/ → Regulamento-Contest-LABRE-DX-2026-Ingles-v3.pdf | 1 | "Date: 3rd (third) weekend of July. Start: 00:00 UTC on Saturday, July 18th. End: 23:59 UTC on Sunday, July 19st." Logs: "WITHIN FIVE (5) DAYS after the end of the contest." |
+| 2026-08-17 | ORARI | oraricontest.id/rules/ | 1 | "Time: Every June 2nd Weekend", "Contest will start: 13 June 2026 -> 00:00 UTC - 23:59 UTC ( 24 Hours )". Bands: "Contact should made on 3.5, 7, 14, 21 and 28 MHz. No WARC bands." ORARI's own four published dates (2026–2029) all reproduced. |
 
 ## Modes and bands became controlled vocabularies — 2026-08-16
 
@@ -253,8 +260,145 @@ have one worked org each out of 20 and 10. Tier 5 is 50 more US QSO parties, so 
 before tiers 2 and 3 would deepen the imbalance rather than grow the calendar — noted in the
 tier 5 entry so the sequencing decision is visible where someone would make it.
 
+## Asia, Oceania and South America stopped being empty — 2026-08-17
+
+The previous pass ended with three continents at zero, which is the failure a world calendar
+cannot ship with: a region nobody has sourced is invisible to every operator living in it.
+This pass worked JARL, RAC, WIA, the Oceania DX Contest Committee, NZART, LABRE, ORARI and
+GACW, and added **21 records** — 105 encoded, up from 84.
+
+| Sponsor | Encoded | Outcome |
+|---|---|---|
+| JARL | 4 | `partial` — the English pages only; see the deferred note below |
+| RAC | 2 | `complete` |
+| WIA | 5 | `complete` |
+| Oceania DX Contest Committee | 2 | `complete` — a new tier-3 registry entry |
+| NZART | 6 | `complete` |
+| LABRE | 1 | `complete` |
+| ORARI | 1 | `partial` — YB DX RTTY has no derivable recurrence |
+| GACW | 0 | **blocked at source** — see below |
+
+**Coverage after: North America 62 (59.0%, from 71.4%), Europe 19, Oceania 13, Asia 5,
+International 4, Africa 1, South America 1.** `coverage.thin.regions_with_nothing` is now
+empty. North America is still more than half the catalog, but it is no longer the only
+continent a reader can find themselves in.
+
+### Two rules the engine could not state, and now can
+
+Both were logged as `engine_gaps` before this pass and are closed by it. Each is implemented
+in `contestcal/recurrence.py` and `engine/src/recurrence.ts` in the same commit, with mirrored
+tests in both suites, and the parity suite compares every field of every occurrence for 2026,
+2027, 2030 and 2032.
+
+- **`nearest_weekday`** — WIA's Remembrance Day is the "Weekend in August closest to the 15th",
+  which is not any ordinal weekday of the month. Tested against every weekday August 15 can
+  fall on (2018, 2020–2025): the rule resolves to a Saturday in all seven cases, and matches
+  WIA's own published dates at both extremes — 2026, where the 15th *is* the Saturday, and
+  2023, where the contest ran on August 12, three days before a Tuesday 15th.
+- **`weekly.months`** — NZART's sprints run "Each Tuesday in April and August", so `weekly`
+  gained a month filter. Eight Tuesdays in each of the two months, three records deep, because
+  NZART scores the CW, SSB and FT4 legs separately.
+
+### RAC announces its winter date; there is no rule
+
+RAC's Canada Winter Contest is the clearest case yet for the `manual` rule type. Eight annual
+rules PDFs, read one at a time, give: 2019-12-28, 2020-12-19, 2021-12-18, 2022-12-17,
+2023-12-30, 2024-12-28, 2025-12-20, 2026-12-27. That is the fourth, third, third, third,
+fifth, fourth and third Saturday of December — **and in 2026, a Sunday.** No ordinal survives
+even two of those. The record is `manual` and a test asserts it reproduces all eight and
+yields *nothing* for 2027: a year RAC has not announced is absent from this calendar rather
+than guessed at.
+
+Canada Day is the opposite and needs no cleverness: the contest is Canada Day.
+
+### NZART's field day states its own exception, so it is encoded exactly
+
+> "The last full weekend in February each year… NOTE: when February only has three full
+> weekends then field day will be held on Saturday 28th February and Sunday 1st March."
+
+The exclusion is stored as `exclude_dates: [[2, 21]]`, and that is exact rather than
+approximate: the last-full-weekend Saturday lands on February 21 **if and only if** February
+has 28 days and February 1 is a Sunday, which is precisely the three-full-weekend case. So one
+excluded date expresses NZART's condition without restating it. "Last Saturday in February"
+was tested as a simpler alternative and rejected — it diverges in a leap year beginning on a
+Saturday.
+
+This is also the catalog's **third sponsor-anchored contest** (after 4SQRP SSS and ARS Spartan
+Sprint) and the first outside the US: NZART sets it by the New Zealand clock, 1500–2400 and
+0600–1500 NZDT, so both sessions carry `wall_clock: true` and the UTC instants move with New
+Zealand daylight saving.
+
+### Three sponsor documents contradict themselves; all three are recorded, none silently fixed
+
+- **JARL All Asian DX** says logs are due "no later than 10 days after the event is over" and
+  then prints July 1 for a June 20–21 CW running. July 1 is ten days after the last contest
+  *day*, not ten days after the 24:00 UTC end *instant* this catalog stores — `log_deadline_days`
+  would have to be 9 to reproduce JARL's own date. Both All Asian legs therefore carry **no**
+  `log_deadline_days`; the rule is quoted in `source_note` instead of a number JARL never wrote.
+  JARL's WW RTTY states the deadline as an instant ("24:00 UTC on the 10th day after the end of
+  the contest"), which is exactly `end + 10 days`, so that one *is* encoded.
+- **RAC's 2026 PDF** gives the winter log deadline as "14 days after the end of the contest
+  (January 11, 2027)" for a December 27 contest. December 27 plus 14 is January 10. The
+  14-day rule is encoded, because it is the rule; the Canada Day parenthetical in the same
+  document checks out exactly.
+- **WIA's Harry Angel page** states the recurrence three times ("the first Saturday in May")
+  and then adds "This would make the next Saturday May 3rd May 2027" — May 3 2027 is a Monday,
+  and the first Saturday in May 2027 is May 1. The calendar follows the rule stated three
+  times, and the record's `note` says so.
+
+### Decisions worth writing down
+
+- **QSO parties: JARL's is in, NZART's Portable Activity Day is out.** The line is what the
+  sponsor calls it. JARL lists the New Year QSO Party in its own English contest index
+  alongside All Asian DX and WW RTTY; NZART explicitly says the Portable Activity Day is not a
+  contest. Neither judgement is ours to make.
+- **`country: "OC"` for the Oceania DX Contest Committee.** The sponsor is a joint VK/ZL
+  committee, not a national society, so no ISO country code describes it, and `INTL` would be
+  wrong — the contest is Oceania's. `OC` is added to `region_map`, and a new `$region_map_note`
+  in the registry records that `OC` means a regional sponsor while `INTL` means a worldwide one.
+- **OCDX's recurrence is quoted from WIA, a co-sponsor, not from the committee.** The
+  committee's own 2026 PDF gives that year's dates and everything else — bands, exchange,
+  power — but never states the recurrence; WIA's Oceania page does, in words. Both legs' rules
+  reproduce the committee's dates in both directions (2024 and 2026), which is what makes the
+  co-sponsor's wording usable rather than a guess.
+- **WIA Trans-Tasman carries both `Digital` and `RTTY` in `modes`.** WIA runs one digital
+  section covering PSK and RTTY, scored together, and names both in the rules; a band-and-mode
+  filter for either should find it. PSK has no token in this catalog's vocabulary, so it sits
+  in `submodes`, which is displayed and never filtered on.
+- **JARL's New Year QSO Party is the catalog's second record with `bands: []`.** JARL states
+  only "All bands and Modes permitted for JA amateur radio stations" and points at the Japanese
+  band plan — there is no band list to record. Unrecorded is not unbanded: every band filter
+  excludes it and the landing view names it in a caveat. It is also `verified: false`, because
+  JARL publishes the 79th party's dates but no recurrence rule.
+
+### URL and estimate corrections
+
+- **NZART** — the registry's URL 404s; the contests hub is `nzart.org.nz/activities/contests/`.
+- **RAC** — corrected to `rac.ca/contesting-results/`, the stable rules-and-results hub. Each
+  year's PDF path embeds the month it was uploaded, so it is not a durable `rules_url`. Same
+  reasoning for LABRE.
+- **LABRE** publishes a log submission link, `labre.org.br/sendlog`, which **404s**. No
+  `log_submit_url` is recorded rather than one that does not resolve.
+- `estimated_total` moved for three orgs, in both directions and for the usual reason — it was
+  a guess written before anything was read. RAC 3 → 2, ORARI 8 → 2, LABRE 4 → 1: CVA DX and
+  the South America 10 Meter contest are other organisations' events, not LABRE's.
+
 ## Pending verification
 
+- **GACW WWSA** (1 contest) — **blocked at source: the rules are imagery.** GACW has moved to
+  gacw.ar, and its WWSA page carries only two PDFs, `WWSA_Reglas_Castellano.pdf` and
+  `WWSA_Reglas_Ingles.pdf`. Both were downloaded and their font encoding worked out — two-byte
+  codes with a uniform +29 subset offset — which recovers the cover line, "Revision: February
+  06, 2024. Word Wide South America CW Contest Rules. WWSA", **and nothing else**: the rules
+  body is scanned images with no text layer. There is no machine-readable rule to encode and no
+  second GACW page that states one. No records created. Next step: ask GACW for a text version.
+  Do not fill this in from a third-party calendar.
+- **JARL's Japanese-language contests** (ALL JA, Field Day, 6m And Down, ACAG) — **deferred,
+  not missed.** They appear on JARL's English index only inside HTML comments, and their rules
+  are published in Japanese. They are real contests; a future pass should read the Japanese
+  pages rather than guess from the English index.
+- **ORARI YB DX RTTY** — the page carries a 2022 date and no recurrence rule, so there is
+  nothing to derive one from. Not encoded.
 - **QRP ARCI** (8 contests) — **blocked at source, not skipped.** qrparci.org/contests carries
   only prose ("We sponsor several contests each year with the emphasis on having fun!");
   qrparci.org/qrp-event-calendar renders nothing without JavaScript and exposes no data
@@ -268,8 +412,9 @@ tier 5 entry so the sequencing decision is visible where someone would make it.
 - **SARL HF Phone** — **blocked at source.** sarl.org.za returned 503 during the original
   research; on 2026-08-16 the rules page (sarl.org.za/public/contests/contestrules.asp) failed
   to fetch with an **expired TLS certificate**, which is a different and more durable blocker
-  than a transient 503. No third-party calendar was consulted, so this record is the catalog's
-  one contest with **no bands recorded at all** — `bands: []` means unrecorded, so every band
+  than a transient 503. No third-party calendar was consulted, so this record has **no bands
+  recorded at all** — one of two such records, with JARL's New Year QSO Party, and the only one
+  where the cause is an unreachable page. `bands: []` means unrecorded, so every band
   filter excludes it and the landing view names it in a caveat rather than dropping it
   silently. Recurrence and whether DX entries are accepted are still unconfirmed. Next step:
   retry once SARL renews the certificate, or ask SARL's contest committee directly.

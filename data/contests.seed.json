@@ -4254,6 +4254,1202 @@
         "weekday": 6
       },
       "source_note": "fistsna.org Operating > Sprints, DATES AND TIMES: 'Third Sunday in November'. 'All Sprint times are 0000 to 2359 UTC.' BANDS: 'Operation is limited to the following amateur bands: 3.5, 7, 14, 21, and 28 MHz amateur bands.' Same page: 'Sprints will NOT continue in 2026 due to a lack of sufficiant participation.'"
+    },
+    {
+      "id": "jarl-aa-dx-cw",
+      "name": "All Asian DX Contest, CW",
+      "sponsor": "JARL",
+      "country": "JP",
+      "rules_url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/aadx_eng.html",
+      "log_submit_url": "https://contest.jarl.org/upload-aa/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS(T) and the operator's age. An operator who does not want to send an age sends 01. Multi-operator stations send the average age of the operators at the start of the contest.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2400"
+      },
+      "verified": true,
+      "source_note": "jarl.org (67th All Asian DX Contest rule): 'CW: (June 20-21,2026) From 00:00 UTC on the third Saturday in June to 24:00 UTC on the following day'. Bands: 'Amateur bands 160m, 80m, 40m, 20m, 15m, 10m'. Power: 'Low Power: Total output power must not exceed 100 watts. High Power: There is no limitation on total output power within the maximum allowable power level established by the national licensing authority'. The third Saturday in June 2026 is June 20, which is the date JARL prints. LOG DEADLINE DELIBERATELY NOT ENCODED: JARL states 'Logs must arrive at JARL no later than 10 days after the event is over. CW...July 1, 2026'. July 1 is 10 days after the last contest DAY (June 21), not 10 days after the 24:00 UTC end instant this record stores, so log_deadline_days would have to be 9 to reproduce JARL's own date. Rather than print a number JARL never wrote, the rule is quoted here and the field is omitted. Logs also go to aacw@jarl.org.",
+      "summary": "JARL's CW leg of the All Asian DX Contest: 24 hours over the third weekend in June, exchanging signal report and the operator's age.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.jarl.org/English/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Anyone may enter. Asian stations work everyone; non-Asian stations score only contacts with Asian stations -- JARL: 'The points of completed contacts with Asian stations ... are shown below.' Not encoded as two_sided because that would need every Asian DXCC entity enumerated on both engines."
+      }
+    },
+    {
+      "id": "jarl-aa-dx-phone",
+      "name": "All Asian DX Contest, Phone",
+      "sponsor": "JARL",
+      "country": "JP",
+      "rules_url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/aadx_eng.html",
+      "log_submit_url": "https://contest.jarl.org/upload-aa/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS(T) and the operator's age. An operator who does not want to send an age sends 01. Multi-operator stations send the average age of the operators at the start of the contest.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2400"
+      },
+      "verified": true,
+      "source_note": "jarl.org (67th All Asian DX Contest rule): 'Phone: (September 5-6, 2026) From 00:00 UTC on the first Saturday in September to 24:00 UTC on the following day'. The first Saturday in September 2026 is September 5, which is the date JARL prints. JARL's word is 'Phone'; recorded as SSB, the nearest term in this catalog's controlled mode set. Bands and power as for the CW leg. LOG DEADLINE DELIBERATELY NOT ENCODED, for the same reason as the CW leg: JARL's '10 days after the event is over' resolves to 'Phone...September 16, 2026', which is 9 days after the 24:00 UTC end instant stored here. Logs also go to aaph@jarl.org.",
+      "summary": "JARL's phone leg of the All Asian DX Contest: 24 hours over the first weekend in September, exchanging signal report and the operator's age.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.jarl.org/English/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Anyone may enter. Asian stations work everyone; non-Asian stations score only contacts with Asian stations."
+      }
+    },
+    {
+      "id": "jarl-ww-rtty",
+      "name": "JARL World Wide RTTY Contest",
+      "sponsor": "JARL",
+      "country": "JP",
+      "rules_url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/rtty_rules_en.html",
+      "log_submit_url": "https://contest.jarl.org/upload-aa/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 10,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "Baudot"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5, 7, 14, 21 and 28 MHz",
+      "exchange": "RST and the operator's age; 01 (or 00 or 99) may be sent instead. Multi-operator stations send the average age of the operators.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2400"
+      },
+      "verified": true,
+      "source_note": "jarl.org (JARL World Wide RTTY Contest): 'From 00:00 UTC on the third Saturday in October to 24:00 UTC on the following day'. Mode: 'RTTY (Baudot only)'. Bands: '3.5, 7, 14, 21 and 28MHz'. Power: 'QRP: Total output power must not exceed 5 watts. Low Power: Total output power must not exceed 100 watts. High Power: The total output power must not exceed the maximum output power authorized for the station'. Log deadline: 'Logs must be submitted no later than 24:00 UTC on the 10th day after the end of the contest' -- which is exactly the stored end instant plus 10 days, so the number is encoded. The third Saturday in October 2026 is October 17. Logs also go to rtty@jarl.org.",
+      "summary": "JARL's worldwide RTTY contest: 24 hours over the third weekend in October, Baudot only, exchanging RST and the operator's age.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.jarl.org/English/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'This contest will be held for amateurs worldwide.' Same-continent contacts score 2 points, different-continent 3."
+      }
+    },
+    {
+      "id": "jarl-new-year-qso-party",
+      "name": "New Year QSO Party",
+      "sponsor": "JARL",
+      "country": "JP",
+      "rules_url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/qsoparty_rule_eng.html",
+      "log_submit_url": "https://contest.jarl.org/upload-aa/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [],
+      "exchange": "RS(T) or a signal strength report plus the operator's name (a handle or initials is acceptable)",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 1,
+        "day": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 5,
+        "time": "1200"
+      },
+      "verified": false,
+      "note": "BANDS UNRECORDED, NOT UNBANDED. JARL states only 'All bands and Modes permitted for JA amateur radio stations' and points at the Japanese band plan, so there is no band list to record and every band filter on this site excludes this record. VERIFIED:FALSE because JARL publishes the 79th party's dates but no recurrence rule -- January 2 is what the 2026 page says, not a rule JARL has stated.",
+      "source_note": "jarl.org (79th New Year QSO Party Rule -- 2026): 'January 2, 2026, 00:00 UTC to January 7, 12:00 (UTC)'. Participation: 'All amateur radio stations and SWLs.' Bands and modes: 'All bands and Modes permitted for JA amateur radio stations.' Exchange: 'RS(T) or signal strength report of the other station + operator's name (including handle name, initials, etc.)'. Contacts: 'JA stations: JA stations may contact any other stations. DX stations: DX stations may only contact JA stations.' Log deadline is a fixed date, 'January 31, 2026', not an interval, so log_deadline_days is omitted; logs go to nyp@jarl.org. Listed in JARL's own English contest index alongside All Asian DX and WW RTTY, which is why a QSO party is in this catalog at all.",
+      "summary": "JARL's new-year greeting party: five and a half days from January 2, all bands and modes, exchanging a report and the operator's name.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.jarl.org/English/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'All amateur radio stations and SWLs.' DX stations may only contact JA stations."
+      }
+    },
+    {
+      "id": "rac-canada-day",
+      "name": "RAC Canada Day Contest",
+      "sponsor": "RAC",
+      "country": "CA",
+      "rules_url": "https://www.rac.ca/contesting-results/",
+      "log_submit_url": "https://www.contest.rac.ca/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "bands_note": "160, 80, 40, 20, 15, 10, 6 and 2 metres, CW and phone (SSB, FM, AM, etc.)",
+      "exchange": "Stations in Canada send RS(T) and province or territory; stations outside Canada, and Canadian maritime mobiles, send RS(T) and a serial number",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 7,
+        "day": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "RAC Contest Rules 2026 (https://www.rac.ca/mivahih/2026/06/RAC_CanadaDayContestRules_2026.pdf, linked from https://www.rac.ca/contesting-results/): 'Contest Periods: RAC Canada Day Contest: Canada Day Wednesday, July 1, 2026 - 00:00:00 UTC to 23:59:59 UTC'. The contest is Canada Day, so the rule is the fixed date; the 2025 rules PDF says the same for 'Canada Day Tuesday, July 1, 2025'. Log deadline: 'all entries must be electronically submitted by 23:59 UTC 14 days after the end of the contest (July 15, 2026)' -- July 1 plus 14 days is July 15, so RAC's own arithmetic checks out and the interval is encoded. rules_url is RAC's stable results-and-rules hub rather than the year's PDF, whose path embeds the month it was uploaded. Logs also go to canadaday@rac.ca.",
+      "summary": "RAC's Canada Day contest: 24 hours on July 1, CW and phone from 160 to 2 metres, with Canadian stations sending their province.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.rac.ca/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RAC: 'Amateurs all over the world are invited to join us in these celebrations.'"
+      }
+    },
+    {
+      "id": "rac-canada-winter",
+      "name": "RAC Canada Winter Contest",
+      "sponsor": "RAC",
+      "country": "CA",
+      "rules_url": "https://www.rac.ca/contesting-results/",
+      "log_submit_url": "https://www.contest.rac.ca/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "bands_note": "160, 80, 40, 20, 15, 10, 6 and 2 metres, CW and phone (SSB, FM, AM, etc.)",
+      "exchange": "Stations in Canada send RS(T) and province or territory; stations outside Canada, and Canadian maritime mobiles, send RS(T) and a serial number",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2019": [
+            "2019-12-28"
+          ],
+          "2020": [
+            "2020-12-19"
+          ],
+          "2021": [
+            "2021-12-18"
+          ],
+          "2022": [
+            "2022-12-17"
+          ],
+          "2023": [
+            "2023-12-30"
+          ],
+          "2024": [
+            "2024-12-28"
+          ],
+          "2025": [
+            "2025-12-20"
+          ],
+          "2026": [
+            "2026-12-27"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "note": "RAC ANNOUNCES THIS DATE EACH YEAR; THERE IS NO RULE. The eight dates encoded here were read from RAC's own annual rules PDFs: 2019-12-28, 2020-12-19, 2021-12-18, 2022-12-17, 2023-12-30, 2024-12-28, 2025-12-20, 2026-12-27. That is the fourth, third, third, third, fifth, fourth and third Saturday of December -- and in 2026 a Sunday. No ordinal fits, so nothing is guessed: years RAC has not yet published are simply absent from this calendar.",
+      "source_note": "RAC Contest Rules 2026 (linked from https://www.rac.ca/contesting-results/): 'RAC Canada Winter Contest: Sunday, December 27, 2026 - 00:00:00 UTC to 23:59:59 UTC'. Earlier dates from RAC's own PDFs for each year; the 2019 rules even announce the next one, 'Next year the contest will be held on December 19, 2020.' Log deadline: 'all entries must be electronically submitted by 23:59 UTC 14 days after the end of the contest (January 11, 2027)'. DISCREPANCY RECORDED, NOT SILENTLY FIXED: December 27 plus 14 days is January 10, so RAC's parenthetical is one day later than RAC's own rule. The 14-day rule is what is encoded, because it is the rule; the Canada Day parenthetical in the same document checks out exactly. Logs also go to canadawinter@rac.ca.",
+      "summary": "RAC's winter contest: 24 hours on a December date RAC announces each year, CW and phone from 160 to 2 metres.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.rac.ca/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RAC: 'Amateurs all over the world are invited to join us in these celebrations.'"
+      }
+    },
+    {
+      "id": "wia-remembrance-day",
+      "name": "Remembrance Day Contest",
+      "sponsor": "WIA",
+      "country": "AU",
+      "rules_url": "https://www.wia.org.au/members/contests/rdcontest/",
+      "log_submit_url": "https://www.vklogchecker.com/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "SSB",
+        "CW",
+        "RTTY"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "Contacts may be made on MF (160M), HF and VHF & above bands except for WARC bands (10, 18 & 24MHZ) which are excluded by IARU agreement from all contest operations",
+      "exchange": "RS(T) and a serial number",
+      "recurrence": {
+        "type": "nearest_weekday",
+        "month": 8,
+        "day": 15,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0300"
+      },
+      "verified": true,
+      "note": "QRP entrants are limited to 5 watts average (CW/RTTY) or PEP (SSB) at the transmitter output. The band list is this catalog's reading of WIA's prose: the six HF/MF bands come from WIA's own SSB frequency list, 23cm/13cm/3cm from 'On 23cm or higher bands two points per completed valid contact', and 6m/2m/70cm from 'VHF & above'. 1.25m and 33cm are omitted because they are not Australian allocations.",
+      "source_note": "wia.org.au (Remembrance Day Contest rules): 'Weekend in August closest to the 15th, 0300 UTC Saturday to 0300 UTC Sunday.' Modes: 'Modes allowed are PHONE, CW and RTTY as per the era remembered.' Bands: the sentence quoted in bands_note, with SSB frequencies given as '1843-1875, 3535-3570 and 3600-3700, 7080-7300, 14112-14300, 21150-21450, 28300-29100KHz.' Logs: 'Submit Log WITHIN 14 DAYS by 0300z' via vklogchecker.com, or rdlogs@wia.org.au. The nearest-Saturday rule reproduces WIA's own published dates: August 15 2026 is itself a Saturday, and in 2023 the contest ran on August 12, the Saturday three days before Tuesday August 15.",
+      "summary": "The WIA's memorial contest for Australian amateurs who died in war: 24 hours from 0300 UTC on the August weekend nearest the 15th.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.wia.org.au/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "WIA: 'Amateurs will endeavour to contact amateurs in VK call areas, ZL and P29 on all bands except WARC bands.' Contest teams may be formed from stations anywhere in VK, ZL or P2."
+      }
+    },
+    {
+      "id": "wia-john-moyle-field-day",
+      "name": "John Moyle Memorial Field Day",
+      "sponsor": "WIA",
+      "country": "AU",
+      "rules_url": "https://www.wia.org.au/members/contests/johnmoyle/",
+      "log_submit_url": "https://www.vklogchecker.com/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "160, 80, 40, 20, 15, and 10 meters on HF and 50MHz to 241Ghz on VHF/UHF/SHF",
+      "exchange": "Single-operator and multi-single stations send RS(T) and a serial number starting at 001, running consecutively across all bands; multi-operator stations start a new series at 001 on each band",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0100"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0100"
+      },
+      "verified": true,
+      "note": "A field day: WIA requires field stations to run from an independent power source, and 'Mains power operation of a portable station is expressly forbidden.' Power is not capped by the rules -- 'All entrants are to operate with power not to exceed their licence conditions for the mode and band of operation.'",
+      "source_note": "wia.org.au (John Moyle Memorial Field Day rules): 'The Field Day is held over the 3rd full weekend in March and run from UTC 0100 on the Saturday to 0100 on the Sunday.' Bands as quoted in bands_note. Modes: 'Phone (SSB AM FM)', 'CW', 'Mixed (both PH and CW modes)'. Exchange as quoted. Logs: 'within 14 days to vklogchecker dot com', or jmfd@wia.org.au. The third full weekend in March 2026 is March 21-22.",
+      "summary": "The WIA's portable-operation field day, honouring John Moyle: 24 hours from 0100 UTC on the third full weekend in March, HF through microwave.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.wia.org.au/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "WIA: 'All stations are welcome to participate, but DX stations can only claim points for contacts with VK, ZL and P2 stations.'"
+      }
+    },
+    {
+      "id": "wia-vk-shires",
+      "name": "VK Shires Contest",
+      "sponsor": "WIA",
+      "country": "AU",
+      "rules_url": "https://www.wia.org.au/members/contests/wavks/",
+      "log_submit_url": "https://www.vklogchecker.com/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160 Metres, 80 Metres, 40 Metres, 20 Metres 15 Metres, 10 Metres. Please note there is 75m DX window permitted for VK stations",
+      "exchange": "VK stations send RS(T) and their VK shire abbreviation; stations outside VK send RS(T) and their CQ zone",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 2,
+        "weekday": 0
+      },
+      "start": {
+        "day_offset": -2,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": -1,
+        "time": "0000"
+      },
+      "verified": true,
+      "note": "The recurrence is anchored to the second Monday of June -- a public holiday in most of Australia -- and the contest runs on the Saturday and Sunday before it, which is why the offsets are negative. Foundation and other QRP entrants have their own category at 10 watts.",
+      "source_note": "wia.org.au (VK Shires Contest rules): 'Held the Saturday and Sunday of the weekend prior to the second Monday of June every year.' and 'Starts: 00.00 UTC (10am EST)Saturday Ends: 00:00 UTC Sunday (10am EST)'. Bands and modes: 'B) Modes: SSB and CW only'. Exchange: 'All VK operators to exchange callsign, RS(T) followed by the VALID VK shire abbreviation as per the official list provided' and 'Stations outside VK to exchange callsign, RS(T) followed by CQ ZONE.' Logs: 'within 14 days of the end of the contest@ 0000 UTC' via vklogchecker.com. Checked against the dates WIA prints on the same page: the second Monday of June 2027 is June 14, so the weekend before is June 12-13, which is what WIA lists.",
+      "summary": "A hunt for Australian shires: 24 hours from 0000 UTC on the June weekend before the second Monday, with VK stations sending their shire.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.wia.org.au/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "WIA: 'VK amateurs are to work the world including VK, whilst the rest of the world can only work VK'. To enter you must have worked at least one VK shire."
+      }
+    },
+    {
+      "id": "wia-harry-angel-sprint",
+      "name": "Harry Angel Memorial Sprint",
+      "sponsor": "WIA",
+      "country": "AU",
+      "rules_url": "https://www.wia.org.au/members/contests/harryangel/",
+      "log_submit_url": "https://www.vklogchecker.com/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "CW 3500 - 3535 kHz. Phone 3535 - 3700 kHz",
+      "exchange": "Callsign, RS(T) and a serial number starting at 001",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1146"
+      },
+      "verified": true,
+      "note": "106 minutes, one for each year of Harry Angel's life. WIA's page also prints 'This would make the next Saturday May 3rd May 2027' -- May 3 2027 is a Monday, and the first Saturday in May 2027 is May 1. This calendar follows the rule WIA states three times on the same page, not that sentence.",
+      "source_note": "wia.org.au (Harry Angel Memorial Sprint rules), which states the rule three times: 'The \"HA\" has been held on or around the first Saturday in May each year', 'For the last 27 years it has been held on the first Saturday in May each year.', and 'For the last 27 years the HA has been held on the first Saturday in May.' Times: '10:00 UTC - 11:46 UTC' and 'The duration of the contest is 106 minutes one minute for each year of Harry's life.' Sections: 'There will be three sections, PHONE, CW, MIXED'. Frequencies as quoted in bands_note. Exchange: 'Callsign,RS(T) and serial number commencing at 001'. Logs: 'all log entries must be submitted within 14 days of the start of the event' via vklogchecker.com or harryangel@redclifferadioclub.org.au. log_deadline_days is omitted because WIA measures those 14 days from the START of the sprint, not the end, which is not what this field means.",
+      "summary": "A 106-minute 80-metre sprint on the first Saturday in May, one minute for each year of Harry Angel's life.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.wia.org.au/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "WIA: 'open to all amateurs in VK and ZL licensed to use 80m, including individual operators and stations representing radio clubs and societies'."
+      }
+    },
+    {
+      "id": "wia-trans-tasman",
+      "name": "Trans-Tasman Low-Band Contest",
+      "sponsor": "WIA",
+      "country": "AU",
+      "rules_url": "https://www.wia.org.au/members/contests/transtasman/",
+      "log_submit_url": "https://www.vklogchecker.com/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital",
+        "RTTY"
+      ],
+      "submodes": [
+        "PSK"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m"
+      ],
+      "bands_note": "SSB voice transmission should be within 1843-1875, 3535-3570 and 3600-3700, 7080-7300KHz. Do not use voice in the digital section 3570-3600KHz",
+      "exchange": "RS(T) and a serial number starting at 001",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "WIA runs one digital section covering PSK and RTTY, scored together. Both Digital and RTTY are recorded as modes because both are named in the rules, and a band-and-mode filter for either one should find this contest; PSK has no token in this catalog's vocabulary, so it sits in submodes.",
+      "source_note": "wia.org.au (Trans-Tasman Low-Band Contest rules): 'The contest is held on the Saturday night of the third full weekend of July.' and 'Start Time is 08:00 UTC and finish time is 14:00 UTC'. Bands: 'Bands: 160M 80M 40M'. Modes: 'Modes: SSB, CW and Digital (Digital includes PSK or RTTY only)' with 'PSK and RTTY are the only allowed digital modes and are combined, not counted separately.' Categories: 'Single Operator - High Power', 'Single Operator - Low Power (100 watts)', 'Single Operator - QRP*' with '* QRP stations are limited to 5 Watts average (CW/RTTY/PSK) or PEP (SSB) at the transmitter output.' Logs: 'LOGS ARE DUE WITHIN 8 DAYS OF CONTEST COMPLETION.' via vklogchecker.com or ttlogs@wia.org.au. The third full weekend of July 2026 is July 18-19, so the contest runs the evening of July 18.",
+      "summary": "Six hours across the Tasman on 160, 80 and 40 metres, on the Saturday night of the third full weekend in July.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.wia.org.au/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "WIA: 'Amateurs in VK and ZL will endeavour to contact other amateurs in VK and ZL.'"
+      }
+    },
+    {
+      "id": "ocdx-phone",
+      "name": "Oceania DX Contest, Phone",
+      "sponsor": "Oceania DX Contest Committee",
+      "country": "OC",
+      "rules_url": "https://www.oceaniadxcontest.com/rules",
+      "log_submit_url": "https://ocdx.contesting.com/submitlog.php",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160M, 80M, 40M, 20M, 15M and 10M (no WARC bands)",
+      "exchange": "RS(T) and a progressive serial number starting at 001",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0600"
+      },
+      "verified": true,
+      "note": "The log deadline is announced each year rather than set as an interval -- 25 October in 2026, 31 October in earlier years -- so this calendar does not compute one. country is 'OC' because the sponsor is a joint VK/ZL committee rather than a national society; see data/sources.md.",
+      "source_note": "The recurrence in words comes from the WIA, a co-sponsor, at https://www.wia.org.au/members/contests/oceania/: 'PH - The first full weekend in October each year from 0600 UTC Saturday to 0600 UTC Sunday' and 'CW - The second full weekend in October each year from 0600 UTC Saturday to 0600 UTC Sunday.' Everything else is from the committee's own 2026 rules (https://www.oceaniadxcontest.com/wp-content/uploads/2026/07/ocdx26-rules-0.pdf, embedded at /rules): 'Phone Section: 06:00 UTC Saturday 3 October to 06:00 UTC Sunday 4 October 2026'; 'THE BANDS that can be used are 160M, 80M, 40M, 20M, 15M and 10M (no WARC bands)'; 'EXCHANGE: RS(T) report plus a progressive contact serial number starting at 001'; 'High power entrants must not exceed a total output power of 1500 Watts peak envelope power (PEP) ... Low power entrants must not exceed a total output power of 100 Watts PEP and QRP entrants must not exceed a total output power of 5 Watts PEP.' The rule reproduces the committee's own dates in both directions: the first full weekend of October is October 3-4 in 2026 and was October 5-6 in 2024.",
+      "summary": "Oceania's own international contest, phone leg: 24 hours from 0600 UTC on the first full weekend in October, when VK, ZL and the Pacific are the DX.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.oceaniadxcontest.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Committee rules: 'There is no penalty for working non-Oceania stations but contacts between non-Oceania stations will score no points or multiplier credits.'"
+      }
+    },
+    {
+      "id": "ocdx-cw",
+      "name": "Oceania DX Contest, CW",
+      "sponsor": "Oceania DX Contest Committee",
+      "country": "OC",
+      "rules_url": "https://www.oceaniadxcontest.com/rules",
+      "log_submit_url": "https://ocdx.contesting.com/submitlog.php",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160M, 80M, 40M, 20M, 15M and 10M (no WARC bands)",
+      "exchange": "RS(T) and a progressive serial number starting at 001",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0600"
+      },
+      "verified": true,
+      "note": "The log deadline is announced each year rather than set as an interval -- 25 October in 2026, 31 October in earlier years -- so this calendar does not compute one. country is 'OC' because the sponsor is a joint VK/ZL committee rather than a national society; see data/sources.md.",
+      "source_note": "Recurrence in words from the WIA, a co-sponsor: 'CW - The second full weekend in October each year from 0600 UTC Saturday to 0600 UTC Sunday.' Detail from the committee's own 2026 rules: 'CW Section: 06:00 UTC Saturday 10 October to 06:00 UTC Sunday 11 October 2026', with bands, exchange and power as for the phone leg. The rule reproduces the committee's own dates in both directions: the second full weekend of October is October 10-11 in 2026 and was October 12-13 in 2024.",
+      "summary": "Oceania's own international contest, CW leg: 24 hours from 0600 UTC on the second full weekend in October.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.oceaniadxcontest.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Committee rules: 'There is no penalty for working non-Oceania stations but contacts between non-Oceania stations will score no points or multiplier credits.'"
+      }
+    },
+    {
+      "id": "nzart-jock-white-field-day",
+      "name": "Jock White Memorial Field Day",
+      "sponsor": "NZART",
+      "country": "NZ",
+      "rules_url": "https://nzart.org.nz/activities/contests/jwfd/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RS(T), a serial number starting at 001, and an NZART branch number (home stations use 00)",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": -1,
+        "exclude_dates": [
+          [
+            2,
+            21
+          ]
+        ]
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1500",
+            "wall_clock": true
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "2400",
+            "wall_clock": true
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "0600",
+            "wall_clock": true
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "1500",
+            "wall_clock": true
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "1500",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2400",
+        "wall_clock": true
+      },
+      "timezone": "Pacific/Auckland",
+      "verified": true,
+      "note": "NZART SETS THIS ONE BY THE NEW ZEALAND CLOCK, NOT BY UTC: 1500-2400 Saturday and 0600-1500 Sunday NZDT. The UTC instants shown here therefore move with New Zealand daylight saving, unlike almost every other contest in this calendar. The QRP category is '5 Watts CW/10 Watts SSB maximum'; the 100W figure is NZART's overall limit. The log deadline is 'the Saturday which is four weeks after the Field Day Saturday' -- anchored to the Saturday rather than to either session's end -- so no interval is computed.",
+      "source_note": "nzart.org.nz (Jock White Memorial Field Day rules): 'The last full weekend in February each year: on Saturday 1500-2400 NZDT and Sunday 0600-1500 NZDT. NOTE: when February only has three full weekends then field day will be held on Saturday 28th February and Sunday 1st March. This is to avoid a clash with the ARRL International CW contest. This will occur in 2026.' The exclusion is encoded exactly, not approximated: the last-full-weekend Saturday falls on February 21 if and only if February has 28 days and February 1 is a Sunday -- which is precisely the three-full-weekend case -- so exclude_dates [[2, 21]] pushes it to February 28 and reproduces NZART's own 2026 dates. 'Last Saturday in February' was tested and rejected: it diverges in a leap year beginning on a Saturday. Bands, modes and power: '40 and/or 80 metres, PHONE (SSB) and/or CW, 100 watts PEP maximum.' Exchange and log deadline as quoted in note.",
+      "summary": "NZART's branch field day: two evening-and-morning sessions on the last full weekend in February, 80 and 40 metres, run on New Zealand time.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://nzart.org.nz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "There is an entry category for 'Overseas stations in the Oceania Region', and contacts may be made 'with any other field, ZL home or overseas (Oceania) station'. In practice this is a New Zealand event with an Oceania fringe."
+      }
+    },
+    {
+      "id": "nzart-sangster-shield",
+      "name": "NZART Sangster Shield",
+      "sponsor": "NZART",
+      "country": "NZ",
+      "rules_url": "https://nzart.org.nz/activities/contests/sangster-shield/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 28,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "exchange": "New Zealand stations send RST, a serial number starting at 001 and their branch number; overseas stations send RST and a serial number",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "verified": true,
+      "note": "A low-power contest by design, running since 1927: 'The output of the transmitter must not exceed 5 Watts PEP. Overseas contestants may use any power up to the maximum permitted by their license.' Three hours, worked as six half-hour periods. NZART moved to this one-night format for 2026.",
+      "source_note": "nzart.org.nz (NZART Sangster Shield rules): 'Third Saturday of May each year, between the hours of 0800-1100 UTC (2000 NZST-2300 NZST) on Saturday evening. The maximum period of operation will be three hours (6 operating periods of 30 minutes each).' Times are stated in UTC, so unlike the Jock White Field Day this record is not wall-clock. Band: '80m'. Power as quoted in note. Exchange as quoted. Log deadline: 'on or before the fourth Saturday after the contest', which is exactly the stored end instant plus 28 days, so the interval is encoded; logs go to sangster@nzart.org.nz. Checked against the date NZART prints on the same page: 'The next Sangster Shield contest will be held on Saturday 16th May 2026', and the third Saturday of May 2026 is May 16.",
+      "summary": "NZART's oldest contest, a three-hour 5-watt CW event on 80 metres on the third Saturday evening in May.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://nzart.org.nz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "NZART: contacts count 'CW to CW between New Zealand stations and between New Zealand and overseas stations only' -- an overseas entrant can only work ZL."
+      }
+    },
+    {
+      "id": "nzart-memorial-contest",
+      "name": "NZART Memorial Contest",
+      "sponsor": "NZART",
+      "country": "NZ",
+      "rules_url": "https://nzart.org.nz/activities/contests/memorial-contest/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "Suggested frequencies CW 3520-3550 kHz, SSB 3610-3660 kHz",
+      "exchange": "RS(T) and a three-digit serial number starting at 001",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "verified": true,
+      "note": "Held every year since 1946 for the New Zealand amateurs who died in the Second World War. Three one-hour periods; a station may be worked once per period on each of SSB and CW. The QRP category is '5W CW/10W SSB maximum'. The log deadline is a fixed date, 'Logs must arrive no later than 31 July', not an interval, so none is computed; logs go to contests@nzart.org.nz.",
+      "source_note": "nzart.org.nz (NZART Memorial Contest rules): 'First Saturday in July each year 0800 - 1100 UTC (2000 - 2300 NZST) Three one-hour operating periods.' Band: '80m only - A station may be contacted twice during each operating period - once on SSB and once on CW'. Mode categories: 'Mixed mode - SSB and CW', 'CW only', 'SSB only'. Power: 'Open - 100W maximum CW/SSB' and 'QRP - 5W CW/10W SSB maximum'. Exchange as quoted. Checked against the date NZART prints on the same page: 'The next Memorial Contest date is Saturday 4th July 2026', and the first Saturday in July 2026 is July 4.",
+      "summary": "NZART's memorial contest for amateurs lost in the Second World War: three hours on 80 metres on the first Saturday evening in July.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://nzart.org.nz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Multipliers are ZL, VK and Oceania prefixes, so the scoring is built around New Zealand and its neighbours."
+      }
+    },
+    {
+      "id": "nzart-sprint-cw",
+      "name": "ZL Autumn and Winter Sprints, CW",
+      "sponsor": "NZART",
+      "country": "NZ",
+      "rules_url": "https://nzart.org.nz/activities/contests/sprints/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "Suggested frequencies CW 3520-3550 kHz",
+      "exchange": "RS(T) and the outside temperature to the nearest degree; on CW, 'm' denotes a minus sign",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 1,
+        "months": [
+          4,
+          8
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0829"
+      },
+      "verified": true,
+      "note": "One of three back-to-back 29-minute sprints on the same evening, each in a different mode and each scored separately, which is why they are three records here rather than one. Logs are due 'within 24 hours of the end of the sprint' -- shorter than a day, so no deadline interval is computed; they go to markzl3ab@gmail.com.",
+      "source_note": "nzart.org.nz (ZL Autumn and Winter Sprints rules): 'Each Tuesday in April and August: 0800-0829 UTC (2000-2029 NZST) CW only / 0830-0859 UTC (2030-2059 NZST) SSB only / 0900-0929 UTC (2100-2129 NZST) FT4 only'. Band: '80m'. Categories: 'Single Operator, one transmitted signal only, use of the DX cluster is allowed and one of: 100w maximum (by convention Low Power in your contest logger); or QRP - up to 5W CW, 10W SSB and 5W FT4'. Exchange: 'CW/SSB RS(T) report and Outside Temperature to the nearest degree.' Scoring: 'Each mode will be scored separately.'",
+      "summary": "A 29-minute CW sprint on 80 metres every Tuesday evening in April and August, exchanging a report and the outside temperature.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://nzart.org.nz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "NZART states no geographic restriction, but it is a New Zealand 80-metre evening sprint and the practical range says so."
+      }
+    },
+    {
+      "id": "nzart-sprint-ssb",
+      "name": "ZL Autumn and Winter Sprints, SSB",
+      "sponsor": "NZART",
+      "country": "NZ",
+      "rules_url": "https://nzart.org.nz/activities/contests/sprints/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "Suggested frequencies SSB 3620-3670 kHz",
+      "exchange": "RS(T) and the outside temperature to the nearest degree",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 1,
+        "months": [
+          4,
+          8
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0830"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0859"
+      },
+      "verified": true,
+      "note": "One of three back-to-back 29-minute sprints on the same evening, each in a different mode and each scored separately, which is why they are three records here rather than one. Logs are due 'within 24 hours of the end of the sprint' -- shorter than a day, so no deadline interval is computed; they go to markzl3ab@gmail.com.",
+      "source_note": "nzart.org.nz (ZL Autumn and Winter Sprints rules): 'Each Tuesday in April and August: ... 0830-0859 UTC (2030-2059 NZST) SSB only'. Band: '80m'. Power: '100w maximum ... or QRP - up to 5W CW, 10W SSB and 5W FT4'. Exchange: 'CW/SSB RS(T) report and Outside Temperature to the nearest degree.' Scoring: 'Each mode will be scored separately.'",
+      "summary": "A 29-minute SSB sprint on 80 metres every Tuesday evening in April and August, exchanging a report and the outside temperature.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://nzart.org.nz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "NZART states no geographic restriction, but it is a New Zealand 80-metre evening sprint and the practical range says so."
+      }
+    },
+    {
+      "id": "nzart-sprint-ft4",
+      "name": "ZL Autumn and Winter Sprints, FT4",
+      "sponsor": "NZART",
+      "country": "NZ",
+      "rules_url": "https://nzart.org.nz/activities/contests/sprints/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "Suggested frequency FT4 3575 kHz",
+      "exchange": "A four-digit Maidenhead grid-square locator",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 1,
+        "months": [
+          4,
+          8
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0929"
+      },
+      "verified": true,
+      "note": "One of three back-to-back 29-minute sprints on the same evening, each in a different mode and each scored separately, which is why they are three records here rather than one. Logs are due 'within 24 hours of the end of the sprint' -- shorter than a day, so no deadline interval is computed; they go to markzl3ab@gmail.com.",
+      "source_note": "nzart.org.nz (ZL Autumn and Winter Sprints rules): 'Each Tuesday in April and August: ... 0900-0929 UTC (2100-2129 NZST) FT4 only'. Band: '80m'. Power: '100w maximum ... or QRP - up to 5W CW, 10W SSB and 5W FT4'. Exchange: 'FT4 4-digit Maidenhead grid-square locator'. NZART's change log dates the FT4 leg to 7 June 2024.",
+      "summary": "A 29-minute FT4 sprint on 80 metres every Tuesday evening in April and August, exchanging grid squares.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://nzart.org.nz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "NZART states no geographic restriction, but it is a New Zealand 80-metre evening sprint and the practical range says so."
+      }
+    },
+    {
+      "id": "labre-dx",
+      "name": "LABRE DX Contest",
+      "sponsor": "LABRE",
+      "country": "BR",
+      "rules_url": "https://www.labre.org.br/contest/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used",
+      "exchange": "Brazilian stations send RS(T) and their two-letter state abbreviation; stations outside Brazil send RS(T) and a two-letter continent code",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "note": "LABRE prints a log submission link, https://www.labre.org.br/sendlog, which returned 404 when this record was checked; entries can also be raised with contest@labre.org.br. No log_submit_url is recorded rather than one that does not resolve.",
+      "source_note": "LABRE DX Contest 2026 rules (https://www.labre.org.br/contest/wp-content/uploads/2026/07/Regulamento-Contest-LABRE-DX-2026-Ingles-v3.pdf, linked from the contest page): 'Date: 3rd (third) weekend of July. Start: 00:00 UTC on Saturday, July 18th. End: 23:59 UTC on Sunday, July 19st.' Objective: 'For amateurs worldwide to contact as many amateurs from Brazil'. Bands as quoted in bands_note; modes SSB, CW and MIXED; power High up to 1500 W, Low up to 100 W, QRP up to 5 W. Log deadline: 'XIII. LOG DEADLINE: All entries must send their logs WITHIN FIVE (5) DAYS after the end of the contest.' The third full weekend of July 2026 is July 18-19, which is what LABRE prints. rules_url is the contest hub rather than the PDF, whose path embeds the month it was uploaded.",
+      "summary": "Brazil's international contest: 48 hours over the third weekend in July, with Brazilian stations sending their state.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://www.labre.org.br/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "LABRE: 'For amateurs worldwide to contact as many amateurs from Brazil' -- everyone enters, and Brazil is the target."
+      }
+    },
+    {
+      "id": "orari-north-jakarta-dx",
+      "name": "North Jakarta ORARI DX Contest",
+      "sponsor": "ORARI",
+      "country": "ID",
+      "rules_url": "https://www.oraricontest.id/rules/",
+      "log_submit_url": "https://www.oraricontest.id/log-submission/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Contact should made on 3.5, 7, 14, 21 and 28 MHz. No WARC bands.",
+      "exchange": "Indonesian stations send 5/9 and ORARI; stations outside Indonesia send 5/9 and DX",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "note": "Run by ORARI Lokal Jakarta Utara to mark ORARI's anniversary. There is one entry category, 'Single Operator All Band Any Power', with 'Power maximal depend on the regulations in each Country', so no power ladder is recorded.",
+      "source_note": "oraricontest.id (Rules for outside Indonesia -- North Jakarta ORARI DX CONTEST): 'Time: Every June 2nd Weekend', 'Contest will start: 13 June 2026 -> 00:00 UTC - 23:59 UTC ( 24 Hours )'. Bands: 'Contact should made on 3.5, 7, 14, 21 and 28 MHz. No WARC bands.' Exchange: 'All Indonesia Stations : 5/9 + ORARI' and 'DX Stations outside Indonesia : 5/9 DX'. Log deadline: 'All logs must be sent within 7 (seven) days after the end of contest'. The rule is checked against all four dates ORARI publishes on the same page -- June 13 2026, June 12 2027, June 10 2028 and June 9 2029 -- and the second full weekend of June matches every one.",
+      "summary": "Indonesia's anniversary DX contest: 24 hours of SSB on the second June weekend, with YB stations as the multiplier everyone wants.",
+      "rules_url_checked": "2026-08-17",
+      "sponsor_home": "https://orari.or.id/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "ORARI: 'For amateurs around the world to contact as many other amateurs in as many countries and Indonesia ( YB Land ) stations. Everyone Worked Everyone'."
+      }
     }
   ]
 }
