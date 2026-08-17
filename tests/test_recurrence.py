@@ -263,6 +263,114 @@ def test_registry_flags_derived_sources():
     assert any("SM3CER" in n for n in derived)
 
 
+REGISTRY_TIERS = [
+    "tier_1_major_international",
+    "tier_2_european_societies",
+    "tier_3_other_regions",
+    "tier_4_specialty_clubs",
+]
+
+
+def _registry_owner(reg):
+    """sponsor string -> (tier key, org name). The registry declares this join."""
+    owner = {}
+    for tier in REGISTRY_TIERS:
+        for org in reg[tier]:
+            for sponsor in org["catalog_sponsors"]:
+                assert sponsor not in owner, f"{sponsor} claimed by two orgs"
+                owner[sponsor] = (tier, org["org"])
+    return owner
+
+
+def _tally(rows):
+    return (
+        len(rows),
+        sum(1 for c in rows if c.get("verified")),
+        sum(1 for c in rows if "active_until" in c),
+    )
+
+
+def test_registry_coverage_is_current(catalog):
+    """
+    The `coverage` block and every per-org `encoded` count are generated from
+    the catalog by scripts/coverage.py. This recomputes them from scratch
+    rather than importing that script: a generator that checks its own output
+    is grading its own homework.
+
+    Stale counts are the specific failure being guarded. The registry's
+    hand-written `estimated_total` figures went stale silently -- 10-10 was
+    listed at four QSO Parties and runs three -- and a sourcing pass planned
+    against numbers that were never true wastes the pass. Anything stating how
+    much of the catalog exists therefore has to be derived from the catalog.
+    """
+    reg = load_registry()
+    owner = _registry_owner(reg)
+    regions = {k: v for k, v in reg["region_map"].items() if not k.startswith("$")}
+    cov = reg["coverage"]
+
+    for c in catalog:
+        assert c["sponsor"] in owner, f"{c['id']}: sponsor {c['sponsor']!r} unregistered"
+        assert c.get("country") in regions, f"{c['id']}: country not in region_map"
+
+    assert (cov["total_encoded"], cov["total_verified"], cov["total_retired"]) == _tally(
+        catalog
+    )
+    assert cov["sponsors_missing_from_registry"] == []
+    assert cov["unverified_ids"] == sorted(
+        c["id"] for c in catalog if not c.get("verified")
+    )
+
+    for tier in REGISTRY_TIERS:
+        for org in reg[tier]:
+            rows = [c for c in catalog if owner[c["sponsor"]] == (tier, org["org"])]
+            encoded, verified, _retired = _tally(rows)
+            assert org["encoded"] == encoded, f"{org['org']}: encoded"
+            assert org["encoded_verified"] == verified, f"{org['org']}: encoded_verified"
+
+        row = cov["by_tier"][tier]
+        rows = [c for c in catalog if owner[c["sponsor"]][0] == tier]
+        assert (row["encoded"], row["verified"], row["retired"]) == _tally(rows), tier
+        assert row["orgs"] == len(reg[tier]), tier
+        assert row["orgs_worked"] == sum(1 for o in reg[tier] if o["encoded"] > 0), tier
+
+    for country in set(regions):
+        rows = [c for c in catalog if c["country"] == country]
+        if rows:
+            row = cov["by_country"][country]
+            assert (row["encoded"], row["verified"], row["retired"]) == _tally(rows)
+        else:
+            assert country not in cov["by_country"], country
+
+    for region in set(regions.values()):
+        rows = [c for c in catalog if regions[c["country"]] == region]
+        if rows:
+            row = cov["by_region"][region]
+            assert (row["encoded"], row["verified"], row["retired"]) == _tally(rows)
+        else:
+            # A region with nothing in it is invisible to every operator who
+            # lives there, so it is named out loud rather than merely absent.
+            assert region not in cov["by_region"], region
+            assert region in cov["thin"]["regions_with_nothing"], region
+
+    thin = cov["thin"]
+    biggest = max(cov["by_region"].items(), key=lambda kv: kv[1]["encoded"])
+    assert thin["largest_region"] == biggest[0]
+    assert thin["largest_region_share_pct"] == round(
+        100.0 * biggest[1]["encoded"] / len(catalog), 1
+    )
+    assert thin["tiers_barely_started"] == sorted(
+        t
+        for t in REGISTRY_TIERS
+        if len(reg[t]) > 1 and sum(1 for o in reg[t] if o["encoded"] > 0) <= 1
+    )
+    assert thin["orgs_blocked_at_source"] == sorted(
+        o["org"]
+        for t in REGISTRY_TIERS
+        for o in reg[t]
+        if o.get("status") == "blocked"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Tier 4 sponsor validation -- high-frequency club contests
 # ---------------------------------------------------------------------------

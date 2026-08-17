@@ -8,6 +8,7 @@
       "id": "arrl-straight-key-night",
       "name": "ARRL Straight Key Night",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/straight-key-night",
       "modes": [
         "CW"
@@ -59,6 +60,7 @@
       "id": "arrl-rtty-roundup",
       "name": "ARRL RTTY Roundup",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/rtty-roundup",
       "modes": [
         "RTTY"
@@ -102,6 +104,7 @@
       "id": "arrl-january-vhf",
       "name": "ARRL January VHF Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/january-vhf",
       "modes": [
         "Mixed"
@@ -145,6 +148,7 @@
       "id": "arrl-dx-cw",
       "name": "ARRL International DX Contest, CW",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/arrl-dx",
       "modes": [
         "CW"
@@ -192,6 +196,7 @@
       "id": "arrl-dx-ssb",
       "name": "ARRL International DX Contest, Phone",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/arrl-dx",
       "modes": [
         "SSB"
@@ -239,6 +244,7 @@
       "id": "arrl-rookie-roundup-ssb",
       "name": "ARRL Rookie Roundup, SSB",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/rookie-roundup",
       "modes": [
         "SSB"
@@ -282,6 +288,7 @@
       "id": "arrl-digital",
       "name": "ARRL International Digital Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/arrl-digital-contest",
       "modes": [
         "Digital"
@@ -322,6 +329,7 @@
       "id": "arrl-june-vhf",
       "name": "ARRL June VHF Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/june-vhf",
       "modes": [
         "Mixed"
@@ -364,6 +372,7 @@
       "id": "arrl-kids-day-jun",
       "name": "ARRL Kids Day (June)",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/kids-day",
       "modes": [
         "SSB"
@@ -405,6 +414,7 @@
       "id": "arrl-field-day",
       "name": "ARRL Field Day",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/field-day",
       "modes": [
         "Mixed"
@@ -456,6 +466,7 @@
       "id": "arrl-iaru-hf",
       "name": "IARU HF World Championship",
       "sponsor": "ARRL / IARU",
+      "country": "INTL",
       "rules_url": "http://www.arrl.org/iaru-hf-world-championship",
       "modes": [
         "CW",
@@ -495,6 +506,7 @@
       "id": "arrl-222-and-up",
       "name": "ARRL 222 MHz and Up Distance Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/222-mhz-and-up-distance-contest",
       "modes": [
         "Mixed"
@@ -536,6 +548,7 @@
       "id": "arrl-10ghz-leg1",
       "name": "ARRL 10 GHz and Up Contest, Round 1",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/10-ghz-up",
       "modes": [
         "Mixed"
@@ -572,6 +585,7 @@
       "id": "arrl-rookie-roundup-rtty",
       "name": "ARRL Rookie Roundup, RTTY",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/rookie-roundup",
       "modes": [
         "RTTY"
@@ -615,6 +629,7 @@
       "id": "arrl-september-vhf",
       "name": "ARRL September VHF Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/september-vhf",
       "modes": [
         "Mixed"
@@ -657,6 +672,7 @@
       "id": "arrl-10ghz-leg2",
       "name": "ARRL 10 GHz and Up Contest, Round 2",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/10-ghz-up",
       "modes": [
         "Mixed"
@@ -694,6 +710,7 @@
       "id": "arrl-sweepstakes-cw",
       "name": "ARRL November Sweepstakes, CW",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/sweepstakes",
       "modes": [
         "CW"
@@ -736,6 +753,7 @@
       "id": "arrl-sweepstakes-ssb",
       "name": "ARRL November Sweepstakes, Phone",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/sweepstakes",
       "modes": [
         "SSB"
@@ -778,6 +796,7 @@
       "id": "arrl-160m",
       "name": "ARRL 160-Meter Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/160-meter",
       "modes": [
         "CW"
@@ -811,6 +830,7 @@
       "id": "arrl-10m",
       "name": "ARRL 10-Meter Contest",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/10-meter",
       "modes": [
         "CW",
@@ -845,6 +865,7 @@
       "id": "arrl-rookie-roundup-cw",
       "name": "ARRL Rookie Roundup, CW",
       "sponsor": "ARRL",
+      "country": "US",
       "rules_url": "http://www.arrl.org/rookie-roundup",
       "modes": [
         "CW"
@@ -1598,7 +1619,7 @@
       "id": "sarl-hf-phone",
       "name": "SARL HF Phone Contest",
       "sponsor": "SARL",
-      "country": "ZS",
+      "country": "ZA",
       "modes": [
         "SSB"
       ],
@@ -1633,7 +1654,7 @@
       "id": "irts-80m-counties",
       "name": "IRTS 80m Counties Contest",
       "sponsor": "IRTS",
-      "country": "EI",
+      "country": "IE",
       "modes": [
         "CW",
         "SSB"

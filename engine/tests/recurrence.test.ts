@@ -282,6 +282,135 @@ test("registry flags derived sources", () => {
   expect(derived.some((n) => n.includes("SM3CER"))).toBe(true);
 });
 
+const REGISTRY_TIERS = [
+  "tier_1_major_international",
+  "tier_2_european_societies",
+  "tier_3_other_regions",
+  "tier_4_specialty_clubs",
+];
+
+/** sponsor string -> "tier|org". The registry declares this join. */
+function registryOwner(reg: Record<string, any>): Map<string, string> {
+  const owner = new Map<string, string>();
+  for (const tier of REGISTRY_TIERS) {
+    for (const org of reg[tier]) {
+      for (const sponsor of org.catalog_sponsors) {
+        expect(owner.has(sponsor), `${sponsor} claimed by two orgs`).toBe(false);
+        owner.set(sponsor, `${tier}|${org.org}`);
+      }
+    }
+  }
+  return owner;
+}
+
+function tally(rows: Contest[]): [number, number, number] {
+  return [
+    rows.length,
+    rows.filter((c) => c.verified).length,
+    rows.filter((c) => c.active_until !== undefined).length,
+  ];
+}
+
+test("registry coverage is current", () => {
+  // The `coverage` block and every per-org `encoded` count are generated from
+  // the catalog by scripts/coverage.py. This recomputes them from scratch
+  // rather than importing that script: a generator that checks its own output
+  // is grading its own homework.
+  //
+  // Stale counts are the specific failure being guarded. The registry's
+  // hand-written `estimated_total` figures went stale silently -- 10-10 was
+  // listed at four QSO Parties and runs three -- and a sourcing pass planned
+  // against numbers that were never true wastes the pass. Anything stating how
+  // much of the catalog exists therefore has to be derived from the catalog.
+  const reg = loadRegistry() as Record<string, any>;
+  const owner = registryOwner(reg);
+  const regions: Record<string, string> = Object.fromEntries(
+    Object.entries(reg.region_map as Record<string, string>).filter(
+      ([k]) => !k.startsWith("$"),
+    ),
+  );
+  const cov = reg.coverage;
+
+  for (const c of catalog) {
+    expect(owner.has(c.sponsor ?? ""), `${c.id}: sponsor unregistered`).toBe(true);
+    expect(regions[c.country ?? ""], `${c.id}: country not in region_map`).toBeDefined();
+  }
+
+  expect([cov.total_encoded, cov.total_verified, cov.total_retired]).toEqual(
+    tally(catalog),
+  );
+  expect(cov.sponsors_missing_from_registry).toEqual([]);
+  expect(cov.unverified_ids).toEqual(
+    catalog
+      .filter((c) => !c.verified)
+      .map((c) => c.id)
+      .sort(),
+  );
+
+  for (const tier of REGISTRY_TIERS) {
+    for (const org of reg[tier]) {
+      const rows = catalog.filter(
+        (c) => owner.get(c.sponsor ?? "") === `${tier}|${org.org}`,
+      );
+      const [encoded, verified] = tally(rows);
+      expect(org.encoded, `${org.org}: encoded`).toBe(encoded);
+      expect(org.encoded_verified, `${org.org}: encoded_verified`).toBe(verified);
+    }
+
+    const row = cov.by_tier[tier];
+    const rows = catalog.filter((c) =>
+      owner.get(c.sponsor ?? "")!.startsWith(`${tier}|`),
+    );
+    expect([row.encoded, row.verified, row.retired], tier).toEqual(tally(rows));
+    expect(row.orgs, tier).toBe(reg[tier].length);
+    expect(row.orgs_worked, tier).toBe(
+      reg[tier].filter((o: any) => o.encoded > 0).length,
+    );
+  }
+
+  for (const country of Object.keys(regions)) {
+    const rows = catalog.filter((c) => c.country === country);
+    if (rows.length) {
+      const row = cov.by_country[country];
+      expect([row.encoded, row.verified, row.retired], country).toEqual(tally(rows));
+    } else {
+      expect(cov.by_country[country], country).toBeUndefined();
+    }
+  }
+
+  for (const region of new Set(Object.values(regions))) {
+    const rows = catalog.filter((c) => regions[c.country ?? ""] === region);
+    if (rows.length) {
+      const row = cov.by_region[region];
+      expect([row.encoded, row.verified, row.retired], region).toEqual(tally(rows));
+    } else {
+      // A region with nothing in it is invisible to every operator who lives
+      // there, so it is named out loud rather than merely absent.
+      expect(cov.by_region[region], region).toBeUndefined();
+      expect(cov.thin.regions_with_nothing, region).toContain(region);
+    }
+  }
+
+  const thin = cov.thin;
+  const biggest = (Object.entries(cov.by_region) as [string, any][]).reduce((a, b) =>
+    b[1].encoded > a[1].encoded ? b : a,
+  );
+  expect(thin.largest_region).toBe(biggest[0]);
+  expect(thin.largest_region_share_pct).toBe(
+    Math.round((1000.0 * biggest[1].encoded) / catalog.length) / 10,
+  );
+  expect(thin.tiers_barely_started).toEqual(
+    REGISTRY_TIERS.filter(
+      (t) => reg[t].length > 1 && reg[t].filter((o: any) => o.encoded > 0).length <= 1,
+    ).sort(),
+  );
+  expect(thin.orgs_blocked_at_source).toEqual(
+    REGISTRY_TIERS.flatMap((t) =>
+      reg[t].filter((o: any) => o.status === "blocked").map((o: any) => o.org as string),
+    ).sort(),
+  );
+});
+
 // ---------------------------------------------------------------------------
 // Tier 4 sponsor validation -- high-frequency club contests
 // ---------------------------------------------------------------------------

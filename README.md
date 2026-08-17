@@ -73,7 +73,7 @@ Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor
 published 2026 schedule.
 
 ```
-152 passed
+153 passed
 ```
 
 ---
@@ -87,6 +87,7 @@ pip install -r requirements.txt
 
 python scripts/validate.py          # regenerate + check against sponsor tables
 python scripts/check_links.py       # verify every sponsor rules link is live
+python scripts/coverage.py --check  # where the catalog is thin, by tier and region
 pytest -q                           # full suite
 ```
 
@@ -109,10 +110,11 @@ for o in mine[:5]:
 ```
 contestcal/recurrence.py     rules engine -- 7 rule types, eligibility, link resolution
 data/contests.seed.json      the catalog
-data/sources.registry.json   global sponsor registry, 5 tiers, ~60 organisations
+data/sources.registry.json   global sponsor registry, 5 tiers, 53 organisations + tier 5
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
-tests/                       152 tests
+scripts/coverage.py          regenerate the registry's coverage block from the catalog
+tests/                       153 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -226,6 +228,14 @@ contest vanish. Same rule as `verified: false`: the gaps are published, not hidd
 
 **84 contest definitions → 648 occurrences for 2026. 78 verified at source**, with the
 remaining 6 carrying a `note` that says what is unconfirmed and why.
+
+**It is not a world calendar yet, and it says so out loud.** 60 of the 84 records are North
+American (71%), 19 European, 1 African; **Asia, Oceania and South America have nothing at
+all** — no JARL, no WIA, no LABRE. That is a worse gap than an unverified record, because a
+region with zero contests is simply invisible to every operator who lives there. The numbers
+are generated from the catalog by `scripts/coverage.py` into
+`data/sources.registry.json`'s `coverage` block and re-derived by a test in both engines,
+so they cannot quietly go stale the way the registry's original hand-written estimates did.
 
 Two corrections surfaced during verification, both now pinned by tests:
 

@@ -19,14 +19,16 @@ Activate the venv **before** running the TypeScript suite too — see below.
 
 ```powershell
 # Python -- the reference engine
-python -m pytest -q            # expect: 152 passed
+python -m pytest -q            # expect: 153 passed
 python scripts\validate.py     # expect: ARRL 2026 rule-engine validation: 21/21 match
 python scripts\check_links.py  # sponsor rules URLs still resolve
+python scripts\coverage.py     # regenerate the registry's coverage block
+python scripts\coverage.py --check   # ...or just report where the catalog is thin
 
 # TypeScript -- what actually serves the site
 cd engine
 npm install                    # node_modules is gitignored; needed on a fresh clone
-npm test                       # expect: 165 passed (152 mirrored + 13 parity)
+npm test                       # expect: 166 passed (153 mirrored + 13 parity)
 npm run typecheck
 ```
 
@@ -68,6 +70,26 @@ Practically:
 - `CATALOG_MODES` and `CATALOG_BANDS` are declared in **both** engines and are held equal by
   a test that parses the Python source. Adding a token means editing both, same commit.
 - Run **both** suites before committing. Green Python alone proves nothing about what ships.
+
+## The registry counts itself
+
+`data/sources.registry.json` mixes two kinds of number and they must not be confused.
+`estimated_total` is a guess written **before** any of that sponsor's pages were read — not
+a target, not a denominator; verification has moved it in both directions. Everything that
+states how much of the catalog actually exists — each org's `encoded` / `encoded_verified`
+and the whole `coverage` block — is **generated** by `scripts/coverage.py` from
+`data/contests.seed.json`.
+
+`test_registry_coverage_is_current` recomputes all of it independently in both engines and
+fails on any drift; it deliberately does not import `coverage.py`, so the generator never
+grades its own homework. So: **add a contest and run `python scripts/coverage.py` in the
+same commit.** A new sponsor also needs its `catalog_sponsors` entry and its `country` in
+`region_map`, or the same test fails — that join is the only thing making an unregistered
+sponsor detectable.
+
+`coverage.thin` is the point of the exercise, not a footnote: it names the regions with
+**zero** contests. A region nobody has sourced is invisible to every operator living in it,
+which is a worse failure than an unverified record. Read it before planning a sourcing pass.
 
 ## Modes and bands are controlled sets
 

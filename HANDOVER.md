@@ -3,7 +3,8 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Owner:** Joe Leone, W4GGJ
-**Updated:** 2026-08-16 — after the deploy, the palette, the mobile pass, and CQ
+**Updated:** 2026-08-16 — after the deploy, the palette, the mobile pass, CQ, and the
+registry reconciliation
 
 ---
 
@@ -17,12 +18,16 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 84 contest definitions → 648 occurrences for 2026. 152 Python tests,
-165 TypeScript tests, 100 Worker tests. Engine complete in both languages — no known
+**Current state:** 84 contest definitions → 648 occurrences for 2026. 153 Python tests,
+166 TypeScript tests, 100 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
 `bands` are controlled vocabularies. The page has a three-state theme switch and has been
 through a measured narrow-viewport pass. The contest detail view is not built.
+
+**Where it is thin:** 71% of the catalog is North American and three regions have nothing at
+all. That is the biggest gap in the project, and it is now measured rather than assumed —
+run `python scripts\coverage.py --check`.
 
 ## Read first
 
@@ -36,10 +41,11 @@ through a measured narrow-viewport pass. The contest detail view is not built.
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 152 passed
+python -m pytest -q               # expect: 153 passed
 python scripts\check_links.py
+python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 165 passed (152 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 166 passed (153 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 100 passed (parity inside workerd, the API, filters, iCal, theme)
 ```
 
@@ -205,13 +211,20 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    rules appear to live in the members' magazine *QRP Quarterly*. qrpcontest.com is a
    third-party logging service, not the sponsor, so it's unusable. Email the contest
    manager; their reply is a citable primary source. Record it with date and name.
-3. **Reconcile `data/sources.registry.json`** — Tier 4 disproved several of its assumptions:
-   NCJ Sprint is CW/RTTY only, 10-10 runs three QSO Parties not four, AGCW's "Goldene Taste"
-   is an award not a contest, NCCC Sprint is NCCC's not NCJ's, FISTS sprints are suspended
-   from 2026. Fix these so the registry stops misleading the next pass; treat its remaining
-   counts as estimates, not targets.
+3. **Registry reconciled — done 2026-08-16.** Eight stale assumptions corrected (NCJ has no
+   SSB Sprint, 10-10 runs three QSO Parties, "Goldene Taste" is an award, NCCC Sprint is
+   NCCC's, FISTS is suspended, QRP ARCI and SARL are `blocked` not pending, Tier 4 and CQ
+   complete); the method and the two catalog errors it surfaced are in `data/sources.md`,
+   "The registry was reconciled against what verification found". **Counts are now
+   generated**: `estimated_total` is labelled a pre-research guess, and everything describing
+   what the catalog holds comes from `python scripts/coverage.py`, re-derived by a test in
+   both engines. Run it in the same commit as any catalog change.
 4. **Then Tiers 1–3, region by region** rather than sponsor by sponsor, so coverage fills
-   evenly. The catalog is currently North America–heavy, which a world calendar can't be.
+   evenly. `coverage.thin` says where: **60 of 84 records are North American (71%)** and
+   **Asia, Oceania and South America have nothing at all** — JARL, WIA and RAC are the three
+   highest-value unstarted orgs, and DARC is the largest European gap after RSGB. Tier 5 is
+   50 more US QSO parties, so it comes last: working it now would deepen the imbalance a
+   world calendar can't keep.
 
 ---
 
