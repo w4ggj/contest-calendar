@@ -364,6 +364,252 @@ test("NAQP is twelve hours", () => {
   }
 });
 
+// ---------------------------------------------------------------------------
+// CQ Magazine -- the eight CQ contests.
+//
+// CQ is the one sponsor in this catalog that publishes almost no recurrence
+// wording at all. Its five rules pages state the period ("Starts 00:00:00 UTC
+// Saturday Ends 23:59:59 UTC Sunday") and that year's dates, and stop there. A
+// sweep of every archived rules document on CQ's own five sites for 2016-2026
+// turned up exactly one recurrence sentence, in the 2016 WPX rules:
+//
+//     "Each contest mode is a separate event running from 0000 UTC Saturday
+//      until 2359 UTC Sunday. SSB is the last full weekend of March and CW is
+//      the last full weekend of May."
+//
+// So seven of the eight rules are held to CQ's own published dates rather than
+// to CQ's prose, and these tables are what makes that safe. Two independent
+// CQ-published fields are checked: the contest dates CQ prints in the header of
+// each year's rules, and the explicit log deadline CQ prints inside them.
+// ---------------------------------------------------------------------------
+
+// Dates CQ printed in the header of its own rules for that year. For CQ 160
+// that is the 2200Z Friday start ("CW: 2200Z January 23 to 2200Z January 25");
+// for the rest it is the 0000Z Saturday start.
+const CQ_PRINTED_DATES: Record<string, [number, string][]> = {
+  "cq-160-cw": [
+    [2016, D(2016, 1, 29)], [2017, D(2017, 1, 27)],
+    [2018, D(2018, 1, 26)], [2019, D(2019, 1, 25)],
+    [2020, D(2020, 1, 24)], [2021, D(2021, 1, 29)],
+    [2022, D(2022, 1, 28)], [2023, D(2023, 1, 27)],
+    [2024, D(2024, 1, 26)], [2025, D(2025, 1, 24)],
+    [2026, D(2026, 1, 23)],
+  ],
+  "cq-160-ssb": [
+    [2016, D(2016, 2, 26)], [2017, D(2017, 2, 24)],
+    [2018, D(2018, 2, 23)], [2019, D(2019, 2, 22)],
+    [2020, D(2020, 2, 21)], [2021, D(2021, 2, 26)],
+    [2022, D(2022, 2, 25)], [2023, D(2023, 2, 24)],
+    [2024, D(2024, 2, 23)], [2025, D(2025, 2, 21)],
+    [2026, D(2026, 2, 27)],
+  ],
+  "cq-wpx-ssb": [
+    [2021, D(2021, 3, 27)], [2023, D(2023, 3, 25)],
+    [2024, D(2024, 3, 30)], [2025, D(2025, 3, 29)],
+    [2026, D(2026, 3, 28)],
+  ],
+  "cq-wpx-cw": [
+    [2021, D(2021, 5, 29)], [2023, D(2023, 5, 27)],
+    [2024, D(2024, 5, 25)], [2025, D(2025, 5, 24)],
+    [2026, D(2026, 5, 30)],
+  ],
+  // 2025 is deliberately absent: CQ's own WPX_RTTY_Rules_2025_en.pdf is
+  // headed "February 10-11, 2024", which were the 2024 dates. The log
+  // deadline in that same PDF puts the 2025 running on February 8-9, and the
+  // deadline table below is what pins it.
+  "cq-wpx-rtty": [
+    [2022, D(2022, 2, 12)], [2024, D(2024, 2, 10)],
+    [2026, D(2026, 2, 14)],
+  ],
+  "cq-ww-rtty": [
+    [2016, D(2016, 9, 24)], [2017, D(2017, 9, 23)],
+    [2019, D(2019, 9, 28)], [2021, D(2021, 9, 25)],
+    [2022, D(2022, 9, 24)], [2023, D(2023, 9, 23)],
+    [2024, D(2024, 9, 28)], [2025, D(2025, 9, 27)],
+    [2026, D(2026, 9, 26)],
+  ],
+  // CQ has not published 2026 CQ WW rules; cqww.com still serves the 2025 set.
+  "cq-ww-ssb": [
+    [2016, D(2016, 10, 29)], [2019, D(2019, 10, 26)],
+    [2020, D(2020, 10, 24)], [2021, D(2021, 10, 30)],
+    [2022, D(2022, 10, 29)], [2023, D(2023, 10, 28)],
+    [2024, D(2024, 10, 26)], [2025, D(2025, 10, 25)],
+  ],
+  "cq-ww-cw": [
+    [2016, D(2016, 11, 26)], [2019, D(2019, 11, 23)],
+    [2020, D(2020, 11, 28)], [2021, D(2021, 11, 27)],
+    [2022, D(2022, 11, 26)], [2023, D(2023, 11, 25)],
+    [2024, D(2024, 11, 23)], [2025, D(2025, 11, 29)],
+  ],
+};
+
+test.each(Object.entries(CQ_PRINTED_DATES).sort())(
+  "CQ matches the dates CQ printed in its own rules: %s",
+  (cid, published) => {
+    const c = byId(cid);
+    for (const [year, expected] of published) {
+      const occ = expand(c, year);
+      expect(occ.length, `${cid} produced nothing for ${year}`).toBeGreaterThan(0);
+      expect(
+        isoDate(occ[0].start!),
+        `${cid} ${year}: engine disagrees with the date CQ printed`,
+      ).toBe(expected);
+    }
+  },
+);
+
+// The log deadline CQ printed inside each year's rules, as [year, window days,
+// deadline date]. The window is CQ's own: "All entries must be sent WITHIN FIVE
+// (5) DAYS after the end of the contest" through 2025, and "WITHIN 48 HOURS"
+// from 2026 for WPX, WPX RTTY and WW RTTY. Checking end + window against the
+// printed deadline reaches the years whose header text would not extract, and
+// is a second CQ-published field rather than a restatement of the first.
+const CQ_PRINTED_DEADLINES: Record<string, [number, number, string][]> = {
+  "cq-160-cw": [
+    [2016, 5, D(2016, 2, 5)], [2017, 5, D(2017, 2, 3)],
+    [2018, 5, D(2018, 2, 2)], [2021, 5, D(2021, 2, 5)],
+    [2022, 5, D(2022, 2, 4)], [2023, 5, D(2023, 2, 3)],
+    [2024, 5, D(2024, 2, 2)], [2025, 5, D(2025, 1, 31)],
+    [2026, 5, D(2026, 1, 30)],
+  ],
+  "cq-160-ssb": [
+    [2016, 5, D(2016, 3, 4)], [2017, 5, D(2017, 3, 3)],
+    [2018, 5, D(2018, 3, 2)], [2020, 5, D(2020, 2, 28)],
+    [2021, 5, D(2021, 3, 5)], [2022, 5, D(2022, 3, 4)],
+    [2023, 5, D(2023, 3, 3)], [2024, 5, D(2024, 3, 1)],
+    [2025, 5, D(2025, 2, 28)], [2026, 5, D(2026, 3, 6)],
+  ],
+  "cq-wpx-ssb": [
+    [2016, 5, D(2016, 4, 1)], [2017, 5, D(2017, 3, 31)],
+    [2018, 5, D(2018, 3, 30)], [2019, 5, D(2019, 4, 5)],
+    [2020, 5, D(2020, 4, 3)], [2021, 5, D(2021, 4, 2)],
+    [2022, 5, D(2022, 4, 1)], [2023, 5, D(2023, 3, 31)],
+    [2024, 5, D(2024, 4, 5)], [2025, 5, D(2025, 4, 4)],
+    [2026, 2, D(2026, 3, 31)],
+  ],
+  "cq-wpx-cw": [
+    [2016, 5, D(2016, 6, 3)], [2017, 5, D(2017, 6, 2)],
+    [2018, 5, D(2018, 6, 1)], [2019, 5, D(2019, 5, 31)],
+    [2020, 5, D(2020, 6, 5)], [2021, 5, D(2021, 6, 4)],
+    [2022, 5, D(2022, 6, 3)], [2023, 5, D(2023, 6, 2)],
+    [2024, 5, D(2024, 5, 31)], [2025, 5, D(2025, 5, 30)],
+    [2026, 2, D(2026, 6, 2)],
+  ],
+  "cq-wpx-rtty": [
+    [2016, 5, D(2016, 2, 19)], [2017, 5, D(2017, 2, 17)],
+    [2018, 5, D(2018, 2, 16)], [2019, 5, D(2019, 2, 15)],
+    [2020, 5, D(2020, 2, 14)], [2021, 5, D(2021, 2, 19)],
+    [2022, 5, D(2022, 2, 18)], [2023, 5, D(2023, 2, 17)],
+    [2024, 5, D(2024, 2, 16)], [2025, 5, D(2025, 2, 14)],
+    [2026, 2, D(2026, 2, 17)],
+  ],
+  "cq-ww-rtty": [
+    [2016, 5, D(2016, 9, 30)], [2017, 5, D(2017, 9, 29)],
+    [2018, 5, D(2018, 10, 5)], [2019, 5, D(2019, 10, 4)],
+    [2020, 5, D(2020, 10, 2)], [2021, 5, D(2021, 10, 1)],
+    [2022, 5, D(2022, 9, 30)], [2023, 5, D(2023, 9, 29)],
+    [2024, 5, D(2024, 10, 4)], [2025, 5, D(2025, 10, 3)],
+    [2026, 2, D(2026, 9, 29)],
+  ],
+  "cq-ww-ssb": [
+    [2016, 5, D(2016, 11, 4)], [2017, 5, D(2017, 11, 3)],
+    [2018, 5, D(2018, 11, 2)], [2019, 5, D(2019, 11, 1)],
+    [2020, 5, D(2020, 10, 30)], [2021, 5, D(2021, 11, 5)],
+    [2022, 5, D(2022, 11, 4)], [2023, 5, D(2023, 11, 3)],
+    [2024, 5, D(2024, 11, 1)], [2025, 5, D(2025, 10, 31)],
+  ],
+  "cq-ww-cw": [
+    [2016, 5, D(2016, 12, 2)], [2017, 5, D(2017, 12, 1)],
+    [2018, 5, D(2018, 11, 30)], [2019, 5, D(2019, 11, 29)],
+    [2020, 5, D(2020, 12, 4)], [2021, 5, D(2021, 12, 3)],
+    [2022, 5, D(2022, 12, 2)], [2023, 5, D(2023, 12, 1)],
+    [2024, 5, D(2024, 11, 29)], [2025, 5, D(2025, 12, 5)],
+  ],
+};
+
+test.each(Object.entries(CQ_PRINTED_DEADLINES).sort())(
+  "CQ end dates match the log deadlines CQ printed: %s",
+  (cid, published) => {
+    const c = byId(cid);
+    for (const [year, window, deadline] of published) {
+      const occ = expand(c, year);
+      expect(occ.length, `${cid} produced nothing for ${year}`).toBeGreaterThan(0);
+      const o = occ[0];
+      expect(
+        isoDate(new Date(o.end!.getTime() + window * DAY_MS)),
+        `${cid} ${year}: engine ends ${isoDate(o.end!)}, +${window}d misses CQ's printed deadline`,
+      ).toBe(deadline);
+      // Where the year's window is the one on the record, log_due -- the
+      // field the site actually shows -- must land on CQ's printed instant,
+      // time included. CQ prints "2359 UTC" for the weekend contests and
+      // "2200z" for CQ 160, which is exactly end + window.
+      if (window === c.log_deadline_days) {
+        expect(isoDate(o.log_due!)).toBe(deadline);
+        expect(o.log_due!.getUTCHours()).toBe(o.end!.getUTCHours());
+        expect(o.log_due!.getUTCMinutes()).toBe(o.end!.getUTCMinutes());
+      }
+    }
+  },
+);
+
+test("CQ 160 SSB is the fourth Saturday not the last anything", () => {
+  // The one CQ rule that neither "last full weekend" nor "last Saturday"
+  // explains. CQ settles it in both directions with its own dates: 2020 ran
+  // 2200Z Feb 21 (the last Saturday was Feb 29) and 2026 runs 2200Z Feb 27 to
+  // 2200Z Mar 1 (the last full weekend was Feb 21-22). Only the fourth Saturday
+  // of February fits both, and the CW running in January is a different rule
+  // again -- there, the last full weekend fits all eleven years.
+  const ssb = byId("cq-160-ssb");
+
+  const twenty = expand(ssb, 2020)[0];
+  expect(isoDate(twenty.start!)).toBe(D(2020, 2, 21)); // Friday before Sat Feb 22
+  expect(isoDate(twenty.start!)).not.toBe(D(2020, 2, 28)); // not the Sat Feb 29 weekend
+
+  const six = expand(ssb, 2026)[0];
+  expect(isoDate(six.start!)).toBe(D(2026, 2, 27));
+  expect(isoDate(six.start!)).not.toBe(D(2026, 2, 20)); // not the last full weekend
+  expect(isoDate(six.end!)).toBe(D(2026, 3, 1)); // spills into March
+
+  // January's CW running really is the last full weekend: in 2026 the last
+  // Saturday is Jan 31, whose Sunday falls in February, and CQ ran Jan 24-25.
+  const cw = expand(byId("cq-160-cw"), 2026)[0];
+  expect(isoDate(cw.start!)).toBe(D(2026, 1, 23));
+  expect(isoDate(cw.end!)).toBe(D(2026, 1, 25));
+});
+
+const CQ_WEEKEND_CONTESTS = [
+  "cq-wpx-ssb", "cq-wpx-cw", "cq-wpx-rtty",
+  "cq-ww-ssb", "cq-ww-cw", "cq-ww-rtty",
+];
+
+test.each(CQ_WEEKEND_CONTESTS)(
+  "CQ weekend contests run 0000 Saturday to 2359 Sunday: %s",
+  (cid) => {
+    // CQ states the period identically on all four weekend rules pages.
+    const o = expand(byId(cid), 2026)[0];
+    expect(weekdayOf(o.start!)).toBe(5);
+    expect([o.start!.getUTCHours(), o.start!.getUTCMinutes()]).toEqual([0, 0]);
+    expect(weekdayOf(o.end!)).toBe(6);
+    expect([o.end!.getUTCHours(), o.end!.getUTCMinutes()]).toEqual([23, 59]);
+    expect(o.duration_hours).toBeGreaterThan(47.9);
+    expect(o.duration_hours).toBeLessThan(48.1);
+  },
+);
+
+test.each(["cq-160-cw", "cq-160-ssb"])(
+  "CQ 160 is 48 hours from 2200Z Friday: %s",
+  (cid) => {
+    // cq160.com: "Each contest is 48 hours long and starts at 2200Z."
+    const o = expand(byId(cid), 2026)[0];
+    expect(weekdayOf(o.start!)).toBe(4); // Friday
+    expect([o.start!.getUTCHours(), o.start!.getUTCMinutes()]).toEqual([22, 0]);
+    expect(weekdayOf(o.end!)).toBe(6); // Sunday
+    expect([o.end!.getUTCHours(), o.end!.getUTCMinutes()]).toEqual([22, 0]);
+    expect(o.duration_hours).toBeGreaterThan(47.9);
+    expect(o.duration_hours).toBeLessThan(48.1);
+  },
+);
+
 const NCJ_SPRINT_2026: Record<string, string[]> = {
   "ncj-sprint-cw": [D(2026, 2, 8), D(2026, 9, 13)],
   "ncj-sprint-rtty": [D(2026, 3, 15), D(2026, 9, 20)],

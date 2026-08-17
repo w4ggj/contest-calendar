@@ -25,7 +25,7 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-12 | FISTS CW Club (Americas) | fistsna.org/operating.php | 8 | "Winter SATURDAY SPRINT --- Second Saturday in February", "Winter SUNDAY SPRINT --- Third Sunday in February", and likewise for May, August and November. "All Sprint times are 0000 to 2359 UTC." **Suspended from 2026** — see corrections. |
 | 2026-08-11 | Adventure Radio Society | ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html | 1 | "Held on the first Monday of every month"; "EASTERN 8:00 p.m. to 10:00 p.m. Local"; "(Does not shift for DST — This event is always at these Local Times)"; "open to all QRP CW operators — there is no membership requirement" |
 | 2026-08-16 | ARRL | arrl.org/{sweepstakes, arrl-dx, rtty-roundup, rookie-roundup, iaru-hf-world-championship, field-day, arrl-digital-contest, january-vhf, june-vhf, september-vhf, kids-day, straight-key-night, 222-mhz-and-up-distance-contest, 10-ghz-up} | 19 (bands) | Sweepstakes: "160, 80, 40, 20, 15 and 10 meter bands". DX: "Use only the 160, 80, 40, 20, 15, and 10 meter bands." RTTY Roundup: "the 80, 40, 20, 15, and 10 meter bands"; **"Only contacts using Radioteletype (RTTY) mode are allowed."** Rookie Roundup: "on the 80, 40, 20, 15, and 10 meter HF bands". IARU HF: "using the 160, 80, 40, 20, 15 and 10 meter bands". Field Day: "160-, 80-, 40-, 20-, 15- and 10-Meter HF bands, as well as all bands 50 MHz and above" with "[No Field Day activity is permitted on the 60-, 30-, 17- or 12- Meter HF Bands.]" Digital: "on the 160, 80, 40, 20, 15, 10 and 6 meter bands (Technicians are limited per FCC Rules to the 10 and 6 meter bands)" and "any digital mode (excluding RTTY)". Jan/Jun/Sep VHF, each independently: "authorized frequencies above 50 MHz". Kids Day: a suggested-frequency table, 80 m through 10 m, plus repeaters. Straight Key Night: "All authorized Amateur frequencies, but activity has traditionally been centered on the HF bands." 222 And Up: "on the 222 MHz through 241 GHz bands". 10 GHz: "on bands from 10-GHz through Light". |
-| 2026-08-16 | CQ Magazine | cqww.com/rules.htm, cqwwrtty.com/rules.htm, cqwpx.com/rules/, cqwpxrtty.com/rules.htm | 6 (bands only) | WW: "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz." WW RTTY: "Five bands only: 3.5, 7, 14, 21 and 28 MHz." WPX (rule III): "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used." WPX RTTY (rule III): "Only the 3.5, 7, 14, 21, and 28 MHz bands may be used." **Bands only — the recurrence rules are still unverified and these six records stay `verified: false`.** cqwpx.com/rules.htm 302s to cqwpx.com/rules/. |
+| 2026-08-16 | CQ Magazine | cqww.com/rules.htm, cqwwrtty.com/rules.htm, cqwpx.com/rules/, cqwpxrtty.com/rules.htm, cq160.com/rules/index.htm | 8 | **CQ publishes almost no recurrence wording — see the section below for how the eight rules were pinned instead.** The one exception is the 2016 WPX rules archived on cqwpx.com: "Each contest mode is a separate event running from 0000 UTC Saturday until 2359 UTC Sunday. SSB is the last full weekend of March and CW is the last full weekend of May." Periods: WW/WW RTTY/WPX/WPX RTTY all "Starts 00:00:00 UTC Saturday Ends 23:59:59 UTC Sunday"; CQ 160 "Each contest is 48 hours long and starts at 2200Z". Bands: WW "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz"; WW RTTY "Five bands only: 3.5, 7, 14, 21 and 28 MHz"; WPX (rule III) "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used"; WPX RTTY (rule III) "Only the 3.5, 7, 14, 21, and 28 MHz bands may be used"; CQ 160 "1810-2000 kHz in ITU Region 1; 1800-2000 kHz in ITU Regions 2 and 3". Exchange: WW SSB "RS report plus CQ Zone number of the station location" (CW: RST); WW RTTY adds "continental USA and Canada also send state or province"; WPX "RS(T) report plus a progressive contact serial number starting with 001"; CQ 160 "RS(T) and state for U.S., province for Canada, and CQ Zone for DX". Log deadline: "WITHIN FIVE (5) DAYS" for WW and CQ 160; **"WITHIN 48 HOURS" from 2026 for WPX, WPX RTTY and WW RTTY.** Redirects: cqwpx.com/rules.htm → cqwpx.com/rules/, cq160.com/rules.htm → cq160.com/rules/index.htm. |
 | 2026-08-16 | Straight Key Century Club | skccgroup.com/operating_activities/weekday_sprint/ | 1 (bands) | Suggested Frequencies: "160M: 1813.5 kHz, 80M: 3550 kHz, 40M: 7055 / 7120 kHz, 20M: 14050 kHz, 15M: 21050 kHz, 10M: 28050 kHz, 6M: 50090 kHz" |
 
 ## Modes and bands became controlled vocabularies — 2026-08-16
@@ -78,7 +78,8 @@ anything that filters is expected to name it rather than let it disappear.
 - **"Last Saturday" and "last full weekend" are different rules.** NAQP RTTY starts on
   the last Saturday in February — Feb 28 in 2026, whose Sunday falls in March, so it is
   explicitly *not* the last full weekend (Feb 21). Required a new `composite` rule type.
-  **This very likely resolves the CQ 160 SSB ambiguity below.**
+  **It did not resolve CQ 160 SSB, which needed a third rule again** — CQ's own published
+  dates fit neither, and that record is the fourth Saturday of February. See below.
 - **ARS Spartan Sprint was anchored on the wrong weekday.** It was encoded as the first
   *Tuesday* of the month. ARS's rule is the first *Monday* US local, which falls on
   Tuesday UTC — and those diverge by a full week whenever the 1st is a Tuesday. That is
@@ -166,17 +167,55 @@ anything that filters is expected to name it rather than let it disappear.
   `local_time: true` with the UTC shift spelled out in `note`. This makes the local-time
   engine gap the highest-value remaining engine work, not an edge case.
 
+## CQ publishes dates, not rules — 2026-08-16
+
+CQ Magazine is the one sponsor in this catalog whose rules pages state no recurrence at all.
+All five sites give the period and that year's dates and stop there. A sweep of every archived
+rules document on CQ's own five sites for 2016–2026 turned up exactly **one** recurrence
+sentence in the whole corpus, in the 2016 WPX rules (quoted in the table above). CQ dropped it
+after 2016.
+
+So seven of the eight rules are held to CQ's own **published dates** rather than to CQ's prose,
+which is a weaker source than a stated rule and is why the method is written down here.
+
+Every CQ rules document prints an explicit log-deadline date *and* the window it counts from
+("WITHIN FIVE (5) DAYS", "WITHIN 48 HOURS"). Backing the contest weekend out of the deadline
+reaches the years whose header text would not extract, and is a second CQ-published field
+rather than a restatement of the first. **All 43 anchors derived that way landed on a Saturday,
+and every one agreed with the header date wherever both existed.** Both tables are asserted in
+`tests/test_recurrence.py` and `engine/tests/recurrence.test.ts`.
+
+| Contest | Rule | CQ-published dates matched | What rules out the alternative |
+|---|---|---|---|
+| CQ 160 CW | last full weekend of January | 11/11, 2016–2026 | 2026: CQ ran Jan 24–25; the last Saturday was Jan 31 |
+| **CQ 160 SSB** | **fourth Saturday of February** | 11/11, 2016–2026 | 2020: CQ ran Feb 22, last Saturday was Feb 29. 2026: CQ runs Feb 27–Mar 1, last full weekend was Feb 21–22 |
+| CQ WPX SSB | last full weekend of March | 11/11 — and CQ's own 2016 wording | — |
+| CQ WPX CW | last full weekend of May | 11/11 — and CQ's own 2016 wording | — |
+| CQ WPX RTTY | second full weekend of February | 11/11 | Indistinguishable from "second Saturday": in February the second Saturday is always a full weekend |
+| CQ WW RTTY | last full weekend of September | 11/11 | 2018: Sep 29, a fifth Saturday, so not the fourth |
+| CQ WW SSB | last full weekend of October | 10/10 | 2020: CQ ran Oct 24, the last Saturday was Oct 31 |
+| CQ WW CW | last full weekend of November | 10/10 | 2019 and 2024 both ran a week before the last Saturday |
+
+**CQ 160 SSB is the interesting one, and neither candidate rule was right.** The NAQP RTTY
+precedent suggested "last Saturday"; CQ's own dates rule that out in 2020 exactly as they rule
+out "last full weekend" in 2026. Fourth Saturday of February is the only rule fitting all
+eleven runnings, and it is stored as `nth_weekday` rather than as a full-weekend rule.
+
+Two errors in CQ's own documents, recorded in the records' `note` fields rather than silently
+corrected:
+
+- **cqwpx.com/rules/** heads its 2026 section "SSB: March 28-29, **2025**". March 28–29 is a
+  Sat/Sun pair only in 2026, and the same page's 2026 log deadline confirms the 2026 weekend.
+- **WPX_RTTY_Rules_2025_en.pdf** is headed "February 10-11, **2024**" — those were the 2024
+  dates. That PDF's own log deadline puts the 2025 running on February 8–9.
+
+**CQ has not published 2026 CQ WW rules.** cqww.com/rules.htm still serves the 2025 rules and
+cqww.com/rules/2026_rules_cqww.pdf is a 404, so `log_deadline_days` for CQ WW SSB and CW is the
+5 days the 2025 rules state. The other three CQ contests moved to 48 hours for 2026, so recheck
+CQ WW when its 2026 rules appear.
+
 ## Pending verification
 
-- **CQ Magazine** (8 contests) — cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com
-  - **Bands are now read at source for six of the eight** (2026-08-16, above); the recurrence
-    rules are not, so all eight stay `verified: false`. cq160.com was not read; the two CQ 160
-    records carry `160m`, which predates this pass and follows from the contest's name rather
-    than from a rule anyone read at source. Verifying a field is not verifying a record.
-  - **CQ 160 SSB edge case.** Strict "last full weekend of February" yields Feb 20–22 for
-    2026, but the contest is commonly listed Feb 27–Mar 1. Given the NAQP RTTY precedent,
-    CQ's rule is probably "last Saturday" rather than "last full weekend" — but **read
-    CQ's actual rules text before changing it.**
 - **QRP ARCI** (8 contests) — **blocked at source, not skipped.** qrparci.org/contests carries
   only prose ("We sponsor several contests each year with the emphasis on having fun!");
   qrparci.org/qrp-event-calendar renders nothing without JavaScript and exposes no data

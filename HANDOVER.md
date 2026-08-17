@@ -3,7 +3,7 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Owner:** Joe Leone, W4GGJ
-**Updated:** 2026-08-16 — after the deploy, the palette, and the mobile pass
+**Updated:** 2026-08-16 — after the deploy, the palette, the mobile pass, and CQ
 
 ---
 
@@ -17,8 +17,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 84 contest definitions → 648 occurrences for 2026. 127 Python tests,
-140 TypeScript tests, 100 Worker tests. Engine complete in both languages — no known
+**Current state:** 84 contest definitions → 648 occurrences for 2026. 152 Python tests,
+165 TypeScript tests, 100 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
 `bands` are controlled vocabularies. The page has a three-state theme switch and has been
@@ -36,10 +36,10 @@ through a measured narrow-viewport pass. The contest detail view is not built.
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 127 passed
+python -m pytest -q               # expect: 152 passed
 python scripts\check_links.py
 
-cd engine; npm install; npm test   # expect: 140 passed (127 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 165 passed (152 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 100 passed (parity inside workerd, the API, filters, iCal, theme)
 ```
 
@@ -130,7 +130,7 @@ Two things worth knowing before you touch it:
   so out loud rather than letting it vanish. Reasoning and the FT8/FT4-under-Digital
   decision: `FRONTEND_BRIEF.md`, "Vocabulary: modes and bands".
 
-**The engine port is done.** `engine/` holds the TypeScript engine: 127 tests mirroring the
+**The engine port is done.** `engine/` holds the TypeScript engine: 152 tests mirroring the
 Python suite one-for-one, plus a parity suite that compares every field of every occurrence
 for four years against the Python reference.
 
@@ -193,11 +193,14 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
 
 ## Sourcing work, as background
 
-1. **CQ contests (8, unverified)** — largest remaining block, most-entered contests in the
-   catalog. CQ 160 SSB is the open question: strict "last full weekend of February" gives
-   Feb 20–22 for 2026 but it's commonly listed Feb 27–Mar 1. The verified NAQP RTTY
-   precedent shows "last Saturday" is a genuinely distinct rule. **Read CQ's text; don't
-   infer from the pattern.**
+1. **CQ contests — done 2026-08-16, all eight verified.** Read the method in
+   `data/sources.md`, "CQ publishes dates, not rules", before touching these records: CQ
+   states no recurrence anywhere except one 2016 WPX sentence, so seven of the eight rules
+   are held to CQ's own published dates and log deadlines rather than to CQ's prose. **CQ 160
+   SSB turned out to be the fourth Saturday of February** — CQ's dates rule out "last
+   Saturday" in 2020 exactly as they rule out "last full weekend" in 2026. One open item:
+   CQ has not published 2026 CQ WW rules, so CQ WW's `log_deadline_days` is still the 5 days
+   the 2025 rules state while the other three CQ contests moved to 48 hours for 2026.
 2. **QRP ARCI** — blocked at source, needs a human. qrparci.org publishes no rules pages;
    rules appear to live in the members' magazine *QRP Quarterly*. qrpcontest.com is a
    third-party logging service, not the sponsor, so it's unusable. Email the contest
@@ -220,7 +223,13 @@ Flagged rather than guessed. Leave them until a sponsor settles them.
   is a labelled placeholder.
 - **PODXS Great Pumpkin** — close time differs by one minute between the rules page and the
   club calendar. Recorded in `note`, not silently reconciled.
-- **CQ 160 SSB** — see above. This record is the model for an honest flag.
+- **CQ WW SSB and CW log deadline** — CQ has not published 2026 rules (cqww.com serves the
+  2025 set; the 2026 PDF is a 404). The record keeps the 5 days the 2025 rules state, while
+  CQ WPX, CQ WPX RTTY and CQ WW RTTY all moved to 48 hours for 2026. Recheck, don't guess.
+- **CQ 160 SSB is resolved** — it was the model for an honest flag, and reading CQ's own
+  published dates settled it: fourth Saturday of February, not "last" anything. The two
+  documentation errors found in CQ's own material are recorded in the records' `note` fields
+  rather than silently corrected.
 
 ## Partly-closed check — the iCal feed in a real client
 

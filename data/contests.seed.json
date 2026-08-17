@@ -888,12 +888,32 @@
       "id": "cq-160-cw",
       "name": "CQ 160-Meter Contest, CW",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cq160.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cq160.com/rules/index.htm",
+      "log_submit_url": "https://cq160.com/logcheck/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
       "modes": [
         "CW"
       ],
       "bands": [
         "160m"
+      ],
+      "bands_note": "1810-2000 kHz in ITU Region 1; 1800-2000 kHz in ITU Regions 2 and 3",
+      "exchange": "RS(T) and state for U.S., province for Canada, and CQ Zone for DX",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
       ],
       "recurrence": {
         "type": "nth_full_weekend",
@@ -908,19 +928,26 @@
         "day_offset": 1,
         "time": "2200"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "CQ 160 publishes dates, not a recurrence rule: cq160.com/rules/index.htm gives the period ('Each contest is 48 hours long and starts at 2200Z') and the year's dates ('CW: 2200Z January 23 to 2200Z January 25. SSB: 2200Z February 27 to 2200Z March 1'), and none of the eleven archived CQ 160 rules 2016-2026 contains any recurrence wording. Last full weekend of January reproduces all eleven CQ-published CW runnings 2016-2026, including 2026 (Jan 24-25, not the Jan 31 last Saturday, whose Sunday falls in February). Verified 2026-08-16.",
+      "summary": "48-hour single-band contest on 160 metres, worldwide, working U.S. states, Canadian provinces and DXCC countries as multipliers. Single operators may work 30 of the 48 hours and multi-operator stations 40.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cq160.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ 160 rules I: 'For amateurs around the world to contact other amateurs in as many U.S. states, Canadian provinces and countries as possible.'"
       }
     },
     {
       "id": "cq-wpx-rtty",
       "name": "CQ WW RTTY WPX Contest",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cqwpxrtty.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cqwpxrtty.com/rules.htm",
+      "log_submit_url": "https://cqwpxrtty.com/logcheck/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 2,
       "modes": [
         "RTTY"
       ],
@@ -931,7 +958,22 @@
         "15m",
         "10m"
       ],
-      "bands_note": "Only the 3.5, 7, 14, 21 and 28 MHz bands may be used",
+      "bands_note": "Only the 3.5, 7, 14, 21, and 28 MHz bands may be used",
+      "exchange": "RST report plus a progressive contact serial number starting with 001",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 2,
@@ -945,29 +987,54 @@
         "day_offset": 1,
         "time": "2359"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "cqwpxrtty.com states the period ('Starts: 0000 UTC Saturday Ends: 2359 UTC Sunday') and the year's dates ('February 14-15, 2026') but no recurrence rule. Second full weekend of February -- equivalently the second Saturday, which in February is always a full weekend -- reproduces all eleven CQ-published runnings 2016-2026, each read from that year's archived rules PDF on cqwpxrtty.com. Verified 2026-08-16.",
+      "note": "CQ's own WPX_RTTY_Rules_2025_en.pdf is headed 'February 10-11, 2024' -- those were the 2024 dates. The same PDF's log deadline (2359 UTC February 14, 2025) puts the 2025 running on February 8-9, which is what this record generates.",
+      "summary": "Worldwide RTTY contest scored on prefixes worked: every different callsign prefix counts once, on any band, so the multiplier grows all weekend rather than saturating.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cqwpxrtty.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ WPX RTTY rules I: 'For amateurs world wide to contact as many amateurs and prefixes as possible during the period of operation.'"
       }
     },
     {
       "id": "cq-160-ssb",
       "name": "CQ 160-Meter Contest, SSB",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cq160.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cq160.com/rules/index.htm",
+      "log_submit_url": "https://cq160.com/logcheck/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
       "modes": [
         "SSB"
       ],
       "bands": [
         "160m"
       ],
+      "bands_note": "1810-2000 kHz in ITU Region 1; 1800-2000 kHz in ITU Regions 2 and 3",
+      "exchange": "RS(T) and state for U.S., province for Canada, and CQ Zone for DX",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
-        "type": "nth_full_weekend",
+        "type": "nth_weekday",
         "month": 2,
-        "n": -1
+        "n": 4,
+        "weekday": 5
       },
       "start": {
         "day_offset": -1,
@@ -977,19 +1044,26 @@
         "day_offset": 1,
         "time": "2200"
       },
-      "verified": false,
-      "note": "KNOWN EDGE CASE. In 2026 the strict 'last full weekend' reading yields Feb 20-22, but the contest is commonly listed as Feb 27-Mar 1. February's length makes this rule ambiguous. MUST be resolved against CQ's actual rules text before publishing.",
-      "source_note": "unresolved -- see note",
+      "verified": true,
+      "source_note": "CQ 160 publishes dates, not a recurrence rule: cq160.com/rules/index.htm gives the period ('Each contest is 48 hours long and starts at 2200Z') and the year's dates ('CW: 2200Z January 23 to 2200Z January 25. SSB: 2200Z February 27 to 2200Z March 1'), and none of the eleven archived CQ 160 rules 2016-2026 contains any recurrence wording. The SSB running is the FOURTH SATURDAY of February -- neither the last full weekend nor the last Saturday. CQ's own announcements settle it in both directions: 2020 started 2200Z Feb 21 (last Saturday would be Feb 29) and 2026 runs 2200Z Feb 27 to 2200Z Mar 1 (last full weekend would be Feb 21-22). Fourth Saturday reproduces all eleven CQ-published runnings 2016-2026. Verified 2026-08-16.",
+      "summary": "48-hour single-band contest on 160 metres, worldwide, working U.S. states, Canadian provinces and DXCC countries as multipliers. Single operators may work 30 of the 48 hours and multi-operator stations 40.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cq160.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ 160 rules I: 'For amateurs around the world to contact other amateurs in as many U.S. states, Canadian provinces and countries as possible.'"
       }
     },
     {
       "id": "cq-wpx-ssb",
       "name": "CQ WW WPX Contest, SSB",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cqwpx.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cqwpx.com/rules/",
+      "log_submit_url": "https://cqwpx.com/logs.htm",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 2,
       "modes": [
         "SSB"
       ],
@@ -1001,7 +1075,22 @@
         "15m",
         "10m"
       ],
-      "bands_note": "Only the 1.8, 3.5, 7, 14, 21 and 28 MHz bands may be used",
+      "bands_note": "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used",
+      "exchange": "RS(T) report plus a progressive contact serial number starting with 001",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 3,
@@ -1015,19 +1104,27 @@
         "day_offset": 1,
         "time": "2359"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "CQ's own wording, from the 2016 WPX rules PDF archived on cqwpx.com: 'Each contest mode is a separate event running from 0000 UTC Saturday until 2359 UTC Sunday. SSB is the last full weekend of March and CW is the last full weekend of May.' CQ dropped that sentence after 2016 and now publishes only each year's dates, but the rule still reproduces all eleven CQ-published SSB runnings 2016-2026. Verified 2026-08-16.",
+      "note": "cqwpx.com's 2026 header reads 'SSB: March 28-29, 2025'; the year is a typo in CQ's own page. March 28-29 is a Saturday/Sunday pair only in 2026, and the same page's 2026 log deadline (2359 UTC 31 March 2026) confirms the 2026 weekend.",
+      "summary": "Worldwide phone contest scored on prefixes worked: every different callsign prefix counts once, on any band, so the multiplier grows all weekend rather than saturating.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cqwpx.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ WPX rules I: 'For amateurs worldwide to contact as many amateurs and prefixes as possible during the contest period.'"
       }
     },
     {
       "id": "cq-wpx-cw",
       "name": "CQ WW WPX Contest, CW",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cqwpx.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cqwpx.com/rules/",
+      "log_submit_url": "https://cqwpx.com/logs.htm",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 2,
       "modes": [
         "CW"
       ],
@@ -1039,7 +1136,22 @@
         "15m",
         "10m"
       ],
-      "bands_note": "Only the 1.8, 3.5, 7, 14, 21 and 28 MHz bands may be used",
+      "bands_note": "Only the 1.8, 3.5, 7, 14, 21, and 28 MHz bands may be used",
+      "exchange": "RS(T) report plus a progressive contact serial number starting with 001",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 5,
@@ -1053,19 +1165,26 @@
         "day_offset": 1,
         "time": "2359"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "CQ's own wording, from the 2016 WPX rules PDF archived on cqwpx.com: 'Each contest mode is a separate event running from 0000 UTC Saturday until 2359 UTC Sunday. SSB is the last full weekend of March and CW is the last full weekend of May.' CQ dropped that sentence after 2016 and now publishes only each year's dates, but the rule still reproduces all eleven CQ-published CW runnings 2016-2026, including 2025 (May 24-25, not the May 31 last Saturday). Verified 2026-08-16.",
+      "summary": "Worldwide CW contest scored on prefixes worked: every different callsign prefix counts once, on any band, so the multiplier grows all weekend rather than saturating.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cqwpx.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ WPX rules I: 'For amateurs worldwide to contact as many amateurs and prefixes as possible during the contest period.'"
       }
     },
     {
       "id": "cq-ww-rtty",
       "name": "CQ Worldwide DX Contest, RTTY",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cqwwrtty.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cqwwrtty.com/rules.htm",
+      "log_submit_url": "https://cqwwrtty.com/logs.htm",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 2,
       "modes": [
         "RTTY"
       ],
@@ -1077,6 +1196,21 @@
         "10m"
       ],
       "bands_note": "Five bands only: 3.5, 7, 14, 21 and 28 MHz",
+      "exchange": "RST report plus CQ zone number; continental USA and Canada also send state or province",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 9,
@@ -1090,19 +1224,26 @@
         "day_offset": 1,
         "time": "2359"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "cqwwrtty.com states the period ('Starts 00:00:00 UTC Saturday -- Ends 23:59:59 UTC Sunday') and the year's dates ('September 26-27') but no recurrence rule. Last full weekend of September reproduces all eleven CQ-published runnings 2016-2026, each read from that year's archived rules PDF on cqwwrtty.com, including 2018 (Sep 29-30, a fifth Saturday). Verified 2026-08-16.",
+      "summary": "Worldwide RTTY contest working CQ zones, DXCC countries and, uniquely among the CQ WW family, W/VE states and provinces as a third multiplier.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cqwwrtty.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ WW RTTY rules I: 'For amateurs around the world to contact as many other amateurs in as many CQ zones, countries and W/VE QTHs as possible.'"
       }
     },
     {
       "id": "cq-ww-ssb",
       "name": "CQ Worldwide DX Contest, SSB",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cqww.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cqww.com/rules.htm",
+      "log_submit_url": "https://cqww.com/logs.htm",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
       "modes": [
         "SSB"
       ],
@@ -1115,6 +1256,21 @@
         "10m"
       ],
       "bands_note": "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz",
+      "exchange": "RS report plus CQ Zone number of the station location",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 10,
@@ -1128,19 +1284,27 @@
         "day_offset": 1,
         "time": "2359"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "cqww.com states the period ('Starts 00:00:00 UTC Saturday Ends 23:59:59 UTC Sunday') and the year's dates but no recurrence rule. Last full weekend of October reproduces all ten CQ-published SSB runnings 2016-2025, each read from that year's archived rules PDF on cqww.com, including 2020 (Oct 24-25, not the Oct 31 last Saturday). Verified 2026-08-16.",
+      "note": "CQ has not published 2026 CQ WW rules: cqww.com/rules.htm still serves the 2025 rules and cqww.com/rules/2026_rules_cqww.pdf is a 404. log_deadline_days is the 5 days those 2025 rules state; CQ WPX, CQ WPX RTTY and CQ WW RTTY all moved to 48 hours for 2026, so recheck this when the 2026 rules appear.",
+      "summary": "The largest amateur radio contest in the world. 48 hours of phone on six HF bands, working the 40 CQ zones and DXCC countries as multipliers, counted once per band.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cqww.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ WW rules I: 'For amateurs around the world to contact as many other amateurs in as many CQ zones and countries as possible.'"
       }
     },
     {
       "id": "cq-ww-cw",
       "name": "CQ Worldwide DX Contest, CW",
       "sponsor": "CQ Magazine",
-      "rules_url": "https://www.cqww.com/rules.htm",
+      "country": "US",
+      "rules_url": "https://cqww.com/rules.htm",
+      "log_submit_url": "https://cqww.com/logs.htm",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
       "modes": [
         "CW"
       ],
@@ -1153,6 +1317,21 @@
         "10m"
       ],
       "bands_note": "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz",
+      "exchange": "RST report plus CQ Zone number of the station location",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 11,
@@ -1166,12 +1345,16 @@
         "day_offset": 1,
         "time": "2359"
       },
-      "verified": false,
-      "note": "CONFIRM against sponsor rules before publishing.",
-      "source_note": "widely-published rule, not yet verified at source",
+      "verified": true,
+      "source_note": "cqww.com states the period ('Starts 00:00:00 UTC Saturday Ends 23:59:59 UTC Sunday') and the year's dates but no recurrence rule. Last full weekend of November reproduces all ten CQ-published CW runnings 2016-2025, each read from that year's archived rules PDF on cqww.com, including 2019 and 2024 (Nov 23-24, not the Nov 30 last Saturday). Verified 2026-08-16.",
+      "note": "CQ has not published 2026 CQ WW rules: cqww.com/rules.htm still serves the 2025 rules and cqww.com/rules/2026_rules_cqww.pdf is a 404. log_deadline_days is the 5 days those 2025 rules state; CQ WPX, CQ WPX RTTY and CQ WW RTTY all moved to 48 hours for 2026, so recheck this when the 2026 rules appear.",
+      "summary": "The largest amateur radio contest in the world. 48 hours of CW on six HF bands, working the 40 CQ zones and DXCC countries as multipliers, counted once per band.",
+      "rules_url_checked": "2026-08-16",
+      "sponsor_home": "https://cqww.com/",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false
+        "verified": true,
+        "note": "CQ WW rules I: 'For amateurs around the world to contact as many other amateurs in as many CQ zones and countries as possible.'"
       }
     },
     {
@@ -1806,7 +1989,7 @@
         "time": "0559"
       },
       "source_note": "NCJ rules: winter running STARTS ON THE LAST SATURDAY IN FEBRUARY (not the last full weekend -- in 2026 that is Feb 28, whose Sunday falls in March); summer running is the third full weekend in July. Verified against NCJ's published Feb 28 2026 and Jul 18 2026.",
-      "note": "Demonstrates that 'last Saturday' and 'last full weekend' are distinct rules. Same distinction likely resolves the CQ 160 SSB ambiguity."
+      "note": "Demonstrates that 'last Saturday' and 'last full weekend' are distinct rules. CQ 160 SSB turned out to need a third one again -- CQ's published dates fit neither, and that record is the fourth Saturday of February."
     },
     {
       "sponsor": "National Contest Journal (NCJ)",

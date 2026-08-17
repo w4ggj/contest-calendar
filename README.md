@@ -73,7 +73,7 @@ Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor
 published 2026 schedule.
 
 ```
-127 passed
+152 passed
 ```
 
 ---
@@ -112,7 +112,7 @@ data/contests.seed.json      the catalog
 data/sources.registry.json   global sponsor registry, 5 tiers, ~60 organisations
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
-tests/                       127 tests
+tests/                       152 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -144,7 +144,7 @@ under `data/` — the catalog is never duplicated, because two copies drift.
 Keeping them honest takes two layers:
 
 - `engine/tests/recurrence.test.ts` mirrors `tests/test_recurrence.py` one-for-one — same
-  names, same assertions, same sponsor-published tables. Both suites are 127 tests.
+  names, same assertions, same sponsor-published tables. Both suites are 152 tests.
 - `engine/tests/parity.test.ts` compares **every field of every occurrence** for four years
   against output from the Python engine. Shared assertions prove both engines satisfy the
   same rules; only a full diff proves they agree on the fields nobody asserted on.
@@ -224,8 +224,8 @@ contest vanish. Same rule as `verified: false`: the gaps are published, not hidd
 
 ## Status
 
-**84 contest definitions → 648 occurrences for 2026. 70 verified at source**, with the
-remaining 14 carrying a `note` that says what is unconfirmed and why.
+**84 contest definitions → 648 occurrences for 2026. 78 verified at source**, with the
+remaining 6 carrying a `note` that says what is unconfirmed and why.
 
 Two corrections surfaced during verification, both now pinned by tests:
 

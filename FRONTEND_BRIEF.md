@@ -4,7 +4,7 @@
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Prerequisite:** read `HANDOVER.md` first
 **Status:** **engine port DONE 2026-08-12.** `engine/` holds the TypeScript
-engine, 127 mirrored tests green plus a cross-engine parity suite. Landing view,
+engine, 152 mirrored tests green plus a cross-engine parity suite. Landing view,
 filters and search shipped 2026-08-16 — see "Worker: what shipped" and "Section 3
 shipped: filters and search" below. Contest detail and the iCal feed are next.
 
@@ -54,8 +54,9 @@ Timezone handling in TS: use `Temporal.ZonedDateTime` where available, otherwise
 
 ## Port: what shipped
 
-`engine/` — `npm test` runs 127 mirrored tests and 13 parity tests. (116 at the
-time of the port; 11 vocabulary tests were added on 2026-08-16.)
+`engine/` — `npm test` runs 152 mirrored tests and 13 parity tests. (116 at the
+time of the port; 11 vocabulary tests were added on 2026-08-16, 25 CQ tests on
+2026-08-16.)
 
 - **116, not 115.** Porting surfaced a real bug in the Python engine: `expand()`
   caught every `ValueError` from anchor resolution, so a **typo'd rule type
@@ -448,7 +449,7 @@ on the summary carry `verified: false` into the calendar's own vocabulary, and t
 description spells it out. Same rule for the two fields that are commonly unrecorded:
 `Bands: not yet read off the sponsor's own rules` and `Exchange: not recorded yet` — an
 absent line reads as "no bands" and "nothing to send", which are different claims from "we
-have not read it". 32 of 84 records carry no exchange today.
+have not read it". 24 of 84 records carry no exchange today.
 
 Each event's description carries sponsor, modes (with free-text `submodes`), bands (with
 `bands_note`), duration, exchange, log deadline, and the sponsor's rules URL — which is

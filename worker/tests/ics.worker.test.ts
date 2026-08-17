@@ -301,8 +301,9 @@ describe("GET /api/ics — what the subscriber gets to read", () => {
   it("says out loud that a contest is unverified", async () => {
     // The feed is where provenance matters most: the subscriber never sees the
     // page, so an unverified date that looks identical to a verified one is a
-    // confident wrong answer.
-    const cal = parse(await ics("/api/ics?q=CQ WW"));
+    // confident wrong answer. The query has to name a record that is still
+    // unverified, so it moves as verification advances -- it used to be CQ WW.
+    const cal = parse(await ics("/api/ics?q=January VHF&range=365d"));
     const unverified = cal.events.filter((ev) => get(ev, "STATUS") === "TENTATIVE");
     expect(unverified.length).toBeGreaterThan(0);
     for (const ev of unverified) {
