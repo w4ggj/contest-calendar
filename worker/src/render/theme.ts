@@ -189,6 +189,24 @@ a:hover { color: var(--ink); }
 .strip-in strong { color: var(--ink-dim); font-weight: 600; }
 .strip-in .sep { color: var(--rule); }
 
+/* The name and what it is, stacked. The heading stays two words -- a heading
+   that has to explain itself is doing the tagline's job badly -- and the
+   subject line sits under it, smaller and in sentence case so it reads as
+   prose against the uppercase labels either side of it. */
+.ident { display: flex; flex-direction: column; gap: .3rem; margin-right: auto; }
+.ident h1 {
+  margin: 0;
+  font: 700 .84rem/1.2 var(--font-mono);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink);
+}
+.ident .tag {
+  margin: 0;
+  font: 400 .72rem/1.4 var(--font-ui);
+  letter-spacing: 0; text-transform: none;
+  color: var(--ink-faint);
+}
+
 /* -- hero: the readout ------------------------------------------------- */
 
 .readout {
@@ -691,6 +709,68 @@ a:hover { color: var(--ink); }
   max-width: 78ch;
 }
 
+/* -- the standing pages ------------------------------------------------
+
+   /about, /data and /contact are prose, and prose is the one thing on this
+   site that is not an instrument reading. So they drop the mono furniture and
+   set body copy in the system UI stack at a comfortable measure -- the mono
+   stays for headings, labels and code, which is where it carries meaning.
+
+   Deliberately no masthead: a nav bar across the top of the calendar would put
+   something in front of the schedule on every load, and the schedule is the
+   whole product. One back link, and the footer. */
+
+/* Narrower than the schedule's shell and centred on the page: the calendar
+   wants the width for its rail, prose wants a measure. Left-aligned inside the
+   full shell, the column sat against one edge with a third of the page empty
+   beside it. */
+.doc { padding-top: 2.5rem; max-width: 74ch; }
+
+.backlink {
+  margin: 0 0 2rem;
+  font: 500 .74rem/1 var(--font-mono);
+  letter-spacing: .1em; text-transform: uppercase;
+}
+
+.prose { max-width: 68ch; color: var(--ink-dim); }
+.prose h1 {
+  margin: 0 0 1.5rem;
+  font: 700 clamp(1.8rem, 6vw, 2.6rem)/1.1 var(--font-mono);
+  letter-spacing: -.02em; color: var(--ink);
+}
+.prose h2 {
+  margin: 2.5rem 0 .9rem;
+  font: 600 .78rem/1.3 var(--font-mono);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: .9rem; border-top: 1px solid var(--rule);
+}
+.prose p { margin: 0 0 1rem; font: 400 .95rem/1.7 var(--font-ui); }
+.prose .lede { font-size: 1.08rem; color: var(--ink); margin-bottom: 1.6rem; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose em { font-style: italic; }
+.prose code {
+  font: 500 .85em/1 var(--font-mono);
+  color: var(--amber);
+  background: var(--panel-2);
+  border-radius: var(--radius);
+  padding: .15em .4em;
+}
+.prose .flag { display: inline-block; vertical-align: baseline; }
+
+/* Term-and-answer rather than a bulleted list: every one of these is a name
+   followed by what it means, and a list would hide that shape. */
+.defs { margin: 0 0 1.2rem; display: grid; gap: .85rem; }
+.defs dt {
+  font: 600 .78rem/1.3 var(--font-mono);
+  letter-spacing: .06em; color: var(--ink);
+}
+.defs dd {
+  margin: .3rem 0 0; padding-left: .9rem;
+  border-left: 1px solid var(--rule);
+  font: 400 .92rem/1.65 var(--font-ui);
+}
+
 /* -- footer ------------------------------------------------------------ */
 
 .foot {
@@ -748,6 +828,20 @@ a:hover { color: var(--ink); }
      where a phone can least afford it. */
   .strip-in { gap: .35rem .9rem; font-size: .62rem; letter-spacing: .08em; }
   .strip-in .sep { display: none; }
+
+  /* The ident is two lines by construction, so it cannot give a line back; it
+     gives size instead, and the tagline wraps to two rather than pushing the
+     iCal and API links onto a row of their own. */
+  .ident { gap: .2rem; margin-right: 0; }
+  .ident h1 { font-size: .74rem; letter-spacing: .1em; }
+  .ident .tag { font-size: .68rem; line-height: 1.35; }
+
+  /* Measured: the full tagline wraps to two lines at 360 and at 320, which put
+     20px back on top of the hero the mobile pass had just taken off. The clause
+     that goes is the provenance one, because the footer states it again on every
+     page; what stays is the half that says who the site is for, which is the
+     whole reason the line exists. */
+  .tag-more { display: none; }
 }
 
 /* Touch, not screen width: a 13" laptop with a touchscreen needs these too, and

@@ -586,6 +586,57 @@ what the reader came for. Worth revisiting with a real user; not changed unilate
 
 ---
 
+### Shipped: outbound links and three standing pages
+
+**The contest name now opens in a new tab** (`target="_blank" rel="noopener external"`).
+The reasoning is not politeness about leaving the site — it is that the reader's filters
+live in the URL. Someone who narrowed to CW on 20m in October built that view by hand, and
+navigating away in place discards it; coming back means rebuilding it or trusting the back
+button to restore a form state it often does not. The `rel` is not optional either:
+`_blank` alone leaves the sponsor's page a live `window.opener` handle on ours, which is the
+best-known bug in the shape and invisible unless someone reads the markup — hence a test.
+
+**`/about`, `/data`, `/contact` — pages, not a site.** Three questions get asked of a
+calendar like this and none of them fit on a footer line: where do the dates come from, may
+I use the data, and how do I report one that is wrong. Answering them on the landing view
+would push the schedule below the fold, which is the one trade the design will not make.
+
+They are deliberately **not** a nav bar. Someone arriving to find out what is on the air
+right now should never land on prose, so `/` keeps the page to itself; the pages hang off
+the footer and off each other, and each one carries a link back to the schedule. On a page,
+its own entry stays in the list as plain text with `aria-current="page"` rather than
+vanishing — the set of pages should read the same wherever you are standing.
+
+They reuse the same `CSS` and the same synchronous `THEME_BOOT` (a reader who chose Light
+should not get a dark flash on the way to `/about`) and ship no client bundle at all: there
+is no clock to tick and no countdown to update. Cached an hour rather than a minute, because
+nothing on them is a function of `now`. Their live numbers — records, verified, sponsors —
+are read from the catalog at render time, so the prose cannot drift from the data.
+
+`pages.worker.test.ts` pins both halves: that the pages exist and carry their own titles and
+descriptions, and that they stay out of the way — the masthead links none of them, and none
+of them grows a masthead of its own.
+
+**The site now says what it is.** `<title>` was "… · Contest Calendar", which is the name of
+roughly a dozen unrelated things; a title has no page around it to supply the context, and
+it is what a search result, a bookmark and a pasted link all show. It is now
+`SITE_NAME = "Amateur Radio Contest Calendar"` on every route including the 404, with the
+live count still in front of it on the schedule, because a tab reading "3 contests on the
+air now" is the one useful thing this page can say from the tab strip.
+
+The masthead did **not** get the long name. The heading stayed two words and the subject
+moved to a line beneath it — a heading that has to explain itself is doing the tagline's job
+badly, and it is the element that wraps first on a phone. That line is also the page's only
+`<h1>`, which it had been missing entirely.
+
+Measured at 320 and 360: the full tagline wrapped to two lines and put 20px back on top of
+the hero that the mobile pass had just taken off. Below 600px the provenance clause is
+dropped and "Amateur radio contests" is what remains — the footer states the provenance again
+on every page, and the half that survives is the half that says who the site is for. The
+strip now sits at two lines on a phone, one fewer than before this change.
+
+---
+
 ## Definition of done
 
 Engine ported to TS with all tests green. Landing view, filters, search, contest detail and

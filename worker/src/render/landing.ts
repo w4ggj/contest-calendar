@@ -24,7 +24,8 @@ import {
   renderFilters,
   unrecordedNote,
 } from "./filters.js";
-import { esc } from "./html.js";
+import { SITE_NAME, esc } from "./html.js";
+import { pageLinks } from "./pages.js";
 import { CSS } from "./theme.js";
 import { CLIENT_JS, THEME_BOOT } from "./client.js";
 import { dayCellLabel } from "./daylabel.js";
@@ -186,11 +187,17 @@ function flags(o: Occurrence): string {
  * ours. We hold dates and facts; the sponsor holds the rules, and the rules are
  * theirs. Sending the reader straight there is both the correct attribution and
  * the answer to the question they are about to ask next.
+ *
+ * `target="_blank"` because that link leaves this site. Someone reading the
+ * schedule is mid-task -- comparing three contests, deciding which weekend to
+ * clear -- and opening a sponsor's rules in place costs them the filtered view
+ * they built, which lives in the URL. `rel="noopener"` goes with it: without it
+ * the opened page gets a handle on this one through `window.opener`.
  */
 function nameCell(o: Occurrence): string {
   const label = esc(o.name);
   const title = o.rules_url
-    ? `<a href="${esc(o.rules_url)}" rel="noopener external">${label}` +
+    ? `<a href="${esc(o.rules_url)}" target="_blank" rel="noopener external">${label}` +
       `<span class="ext" aria-hidden="true">↗</span></a>`
     : `${label} <span class="flag muted" title="No sponsor rules URL recorded.">no rules link</span>`;
   return (
@@ -476,16 +483,20 @@ function sections(view: NowView, input: LandingInput): string {
 export function renderLanding(view: NowView, input: LandingInput): string {
   const now = new Date(view.now);
 
+  // "Contest calendar" says nothing about who it is for, and the title is what
+  // a search result and a pasted link show. SITE_NAME carries the subject; the
+  // live count goes in front of it, because a tab that reads "3 contests on the
+  // air now" is the one useful thing this page can say from the tab strip.
   const title = view.live.length
-    ? `${view.live.length} contest${view.live.length === 1 ? "" : "s"} on the air now`
-    : "Amateur radio contest calendar";
+    ? `${view.live.length} contest${view.live.length === 1 ? "" : "s"} on the air now · ${SITE_NAME}`
+    : SITE_NAME;
 
   return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(title)} · Contest Calendar</title>
+<title>${esc(title)}</title>
 <meta name="description" content="Every amateur radio contest, computed from each sponsor's own published rules. What is on the air now and over the next seven days, in your local time.">
 <meta name="color-scheme" content="dark light">
 <link rel="alternate" type="text/calendar" href="/api/ics" title="Amateur radio contests">
@@ -497,10 +508,10 @@ export function renderLanding(view: NowView, input: LandingInput): string {
 
 <div class="strip">
   <div class="strip-in">
-    <strong>Contest Calendar</strong>
-    <span class="sep">/</span>
-    <span>${CATALOG_SIZE} contests from sponsor rules</span>
-    <span class="sep">/</span>
+    <div class="ident">
+      <h1>Contest Calendar</h1>
+      <p class="tag">Amateur radio contests<span class="tag-more"> &mdash; all ${CATALOG_SIZE} computed from sponsors&rsquo; own published rules</span></p>
+    </div>
     <a href="/api/ics">iCal feed</a>
     <span class="sep">/</span>
     <a href="/api/contests">API</a>
@@ -552,6 +563,7 @@ export function renderLanding(view: NowView, input: LandingInput): string {
     published rules — not copied from any third-party calendar. Anything marked
     <span class="flag">unverified</span> has not yet been checked against the
     sponsor's page; the contest link goes to the sponsor.</p>
+    <p class="links">${pageLinks()}</p>
     <p class="links">
       <a href="/api/ics">Subscribe (iCal)</a>
       <a href="/api/contests?year=${now.getUTCFullYear()}">This year as JSON</a>

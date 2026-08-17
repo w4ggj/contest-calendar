@@ -46,7 +46,7 @@ python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
 cd engine; npm install; npm test   # expect: 166 passed (153 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 100 passed (parity inside workerd, the API, filters, iCal, theme)
+cd ..\worker; npm install; npm test # expect: 110 passed (parity inside workerd, the API, filters, iCal, theme, pages)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run

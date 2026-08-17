@@ -21,7 +21,9 @@ import {
   parsePageWindow,
 } from "./api.js";
 import { allSponsors, buildNowView } from "./schedule.js";
+import { SITE_NAME } from "./render/html.js";
 import { renderLanding } from "./render/landing.js";
+import { findPage, renderPage } from "./render/pages.js";
 
 /**
  * The landing page is cached for a minute at the edge and revalidated in the
@@ -57,7 +59,7 @@ function notFound(path: string): Response {
   return html(
     `<!doctype html><html lang="en"><head><meta charset="utf-8">` +
       `<meta name="viewport" content="width=device-width,initial-scale=1">` +
-      `<title>Not here · Contest Calendar</title>` +
+      `<title>Not here · ${SITE_NAME}</title>` +
       `<style>body{background:#0B0E11;color:#C9D2D8;font:16px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;` +
       `margin:0;display:grid;place-items:center;min-height:100vh;padding:2rem;text-align:center}` +
       `a{color:#5FD3E8}code{color:#E8A33D}</style></head><body><div>` +
@@ -117,6 +119,14 @@ export default {
         response = handleSearch(url, nowMs);
       } else if (path === "/api/ics" || path === "/contests.ics") {
         response = handleIcs(url, nowMs);
+      } else if (findPage(path.slice(1))) {
+        // /about, /data, /contact. Static prose, so they can be cached harder
+        // than the landing view -- nothing in them is a function of `now`.
+        response = html(renderPage(findPage(path.slice(1))!));
+        response.headers.set(
+          "cache-control",
+          "public, max-age=3600, stale-while-revalidate=86400",
+        );
       } else if (path === "/robots.txt") {
         response = new Response("User-agent: *\nAllow: /\n", {
           headers: { "content-type": "text/plain; charset=utf-8" },

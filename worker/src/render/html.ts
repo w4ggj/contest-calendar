@@ -7,6 +7,19 @@
  * evaluation order, so the shared piece moved down here instead.
  */
 
+/**
+ * What the site is called in a <title>, and so in a search result, a bookmark
+ * and a pasted link preview.
+ *
+ * Spelled out rather than "Contest Calendar": the short name is fine in the
+ * masthead, where the page around it supplies the context, but a title has no
+ * page around it. "Contest Calendar" alone could be chess, or fishing.
+ *
+ * The masthead deliberately does NOT use this -- the heading there stays short
+ * and the subject moves to the line beneath it, which is a different job.
+ */
+export const SITE_NAME = "Amateur Radio Contest Calendar";
+
 export function esc(value: unknown): string {
   return String(value ?? "")
     .replace(/&/g, "&amp;")

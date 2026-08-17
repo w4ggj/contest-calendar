@@ -36,7 +36,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 100 passed
+npm test                       # expect: 110 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -170,6 +170,22 @@ every subscriber's calendar into duplicates; and `CATEGORIES` is multi-value, so
 separators must not be escaped. `worker/tests/ics.worker.test.ts` parses the feed back with
 its own RFC 5545 reader rather than regexing it — keep it that way, or the generator ends up
 grading its own homework. The horizon decision is in `FRONTEND_BRIEF.md`, "Section 5 shipped".
+
+`/about`, `/data` and `/contact` are three standing pages in `worker/src/render/pages.ts`
+— **deliberately not a nav bar.** The calendar keeps `/` with nothing in front of it; the
+pages are reachable from the footer and from each other, and each links back. They reuse
+`CSS` and `THEME_BOOT` and ship no client bundle. `pages.worker.test.ts` asserts both halves
+— that they exist, and that they stay out of the way.
+
+Contest names are the sponsor's `rules_url` and open in a new tab: `target="_blank"` with
+`rel="noopener external"`. The reader's filters live in the URL, so navigating away in place
+throws away the view they built to get there — and `_blank` without `noopener` hands the
+sponsor's page a handle on ours.
+
+`SITE_NAME` (`render/html.ts`) is what every `<title>` ends with, including the 404's. The
+masthead deliberately does **not** use it: the `<h1>` there stays two words and the subject
+lives in the `.tag` line beneath it, whose provenance clause is dropped below 600px. Keep the
+heading short — it is the first thing that wraps on a phone.
 
 The page must stay correct with JavaScript off. Server-render every time as UTC with a
 machine-readable `datetime`; `render/client.ts` only converts to local and ticks
