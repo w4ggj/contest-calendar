@@ -76,7 +76,7 @@ Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor
 published 2026 schedule.
 
 ```
-186 passed
+230 passed
 ```
 
 ---
@@ -113,11 +113,11 @@ for o in mine[:5]:
 ```
 contestcal/recurrence.py     rules engine -- 9 rule types, eligibility, link resolution
 data/contests.seed.json      the catalog
-data/sources.registry.json   global sponsor registry, 5 tiers, 54 organisations + tier 5
+data/sources.registry.json   global sponsor registry, 5 tiers, 55 organisations + tier 5
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
 scripts/coverage.py          regenerate the registry's coverage block from the catalog
-tests/                       186 tests
+tests/                       230 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -136,8 +136,8 @@ HANDOVER.md                  start here if you're picking this up
 | `manual` | sponsor sets annually | ARRL EME (lunar conditions) |
 | `composite` | seasons with different rules | NAQP RTTY (last-Sat-Feb + 3rd-wknd-Jul) |
 
-Weekly and monthly types matter most for coverage: **105 definitions currently produce
-691 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
+Weekly and monthly types matter most for coverage: **137 definitions currently produce
+725 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
 hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
 
@@ -230,16 +230,17 @@ contest vanish. Same rule as `verified: false`: the gaps are published, not hidd
 
 ## Status
 
-**105 contest definitions → 691 occurrences for 2026. 98 verified at source**, with the
+**137 contest definitions → 725 occurrences for 2026. 130 verified at source**, with the
 remaining 7 carrying a `note` that says what is unconfirmed and why.
 
-**Every region has something now, and North America is no longer three-quarters of it.**
-62 of the 105 records are North American (59%, down from 71%), 19 European, 13 Oceanian,
+**Every region has something now, and North America is no longer a majority of it.**
+62 of the 137 records are North American (45%, down from 71%), 51 European, 13 Oceanian,
 5 Asian, 4 international, 1 African and 1 South American. Asia, Oceania and South America
 came off zero on 2026-08-17 with JARL, RAC, WIA, the Oceania DX Contest Committee, NZART,
-LABRE and ORARI. The remaining imbalance is tier 2, the European national societies: one
-organisation worked out of twenty. A region with zero contests is a worse gap than an
-unverified record, because it is simply invisible to every operator who lives there. The numbers
+LABRE and ORARI; Europe went from 19 records to 51 on 2026-08-18 with REF, UBA, VERON,
+PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE. Africa and South America are now the thin
+ones — one record each. A region with zero contests is a worse gap than an unverified record,
+because it is simply invisible to every operator who lives there. The numbers
 are generated from the catalog by `scripts/coverage.py` into
 `data/sources.registry.json`'s `coverage` block and re-derived by a test in both engines,
 so they cannot quietly go stale the way the registry's original hand-written estimates did.

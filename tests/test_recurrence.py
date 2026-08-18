@@ -1511,6 +1511,311 @@ def test_oceania_dx_is_two_consecutive_full_weekends(catalog):
 
 
 # ---------------------------------------------------------------------------
+# Sponsor validation -- REF, UBA, VERON, PZK/SP DX Club, PK RVG, CRK/SARA,
+# ARI, URE
+#
+# The Tier 2 European pass. Most of these societies publish only in their own
+# language, so each record carries the rule in the sponsor's own words; the
+# dates below were published by the same sponsor separately from that wording,
+# in another year's rules or on the sponsor's own calendar page. Where a
+# sponsor's calendar is an aggregator of other people's contests -- REF's and
+# ARI's are, and UBA's is except for the rows it marks as its own -- it was not
+# used at all.
+# ---------------------------------------------------------------------------
+
+EUROPE_TIER2_PUBLISHED = {
+    "ref-coupe-du-ref-cw": (
+        "dernier week-end entier du mois de janvier",
+        [(2025, 1, 25), (2026, 1, 24)],
+    ),
+    "ref-coupe-du-ref-ssb": (
+        "dernier week-end entier du mois de fevrier",
+        [(2025, 2, 22), (2026, 2, 21)],
+    ),
+    "ref-160m": (
+        "troisieme week-end de novembre",
+        [(2025, 11, 15), (2026, 11, 21)],
+    ),
+    "ref-ddfm-50mhz": (
+        "le deuxieme samedi de juin",
+        [(2025, 6, 14), (2026, 6, 13)],
+    ),
+    "uba-dx-ssb": (
+        "starts every year on the last Saturday of January",
+        [(2026, 1, 31)],
+    ),
+    "uba-dx-cw": (
+        "starts every year on the last Saturday of February",
+        [(2026, 2, 28)],
+    ),
+    "uba-psk63-prefix": (
+        "every year the 2nd weekend of january",
+        [(2026, 1, 10), (2027, 1, 9)],
+    ),
+    "pacc": (
+        "het tweede volle weekend van februari",
+        [(2026, 2, 14), (2027, 2, 13), (2028, 2, 12), (2029, 2, 10)],
+    ),
+    "sp-dx-contest": (
+        "pierwszy pelny weekend kwietnia",
+        [(2025, 4, 5), (2026, 4, 4)],
+    ),
+    "sp-dx-rtty": (
+        "the 4th full weekend of April",
+        [(2026, 4, 25)],
+    ),
+    "ok-om-dx-ssb": (
+        "second weekend in April",
+        [(2026, 4, 11)],
+    ),
+    "ok-om-dx-cw": (
+        "second (full) weekend in November",
+        [(2026, 11, 14)],
+    ),
+    "ok-dx-rtty": (
+        "3rd full weekend in December",
+        [(2026, 12, 19)],
+    ),
+    "ari-international-dx": (
+        "il primo weekend completo di Maggio",
+        [(2026, 5, 2)],
+    ),
+    "ari-contest-sezioni-hf": (
+        "ogni secondo week-end completo di Giugno",
+        [(2026, 6, 13)],
+    ),
+    "ari-40-80": (
+        "il secondo weekend completo di Dicembre",
+        [(2025, 12, 13), (2026, 12, 12)],
+    ),
+    "ure-rey-de-espana-cw": (
+        "3rd full weekend of May",
+        [(2026, 5, 16)],
+    ),
+    "ure-rey-de-espana-ssb": (
+        "4rd full weekend of June",  # URE's typo, quoted as written
+        [(2026, 6, 27)],
+    ),
+    "ure-eapsk63": (
+        "segundo fin de semana del mes de marzo",
+        [(2026, 3, 14)],
+    ),
+    "ure-cncw": (
+        "3rd full weekend of July",
+        [(2026, 7, 18)],
+    ),
+    "ure-cme": (
+        "2nd full weekend of August",
+        [(2026, 8, 8)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(EUROPE_TIER2_PUBLISHED.items())
+])
+def test_tier2_european_societies_match_their_own_published_dates(
+    catalog, cid, rule, published
+):
+    c = by_id(catalog, cid)
+    for y, m, day in published:
+        occ = expand(c, y)
+        assert occ, f"{cid} produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
+
+
+def test_uba_dx_is_the_last_saturday_not_the_last_full_weekend(catalog):
+    """
+    UBA: 'starts every year on the last Saturday of January'. The two readings
+    diverge in 2026 and UBA's own dates settle it -- January 31 is a Saturday
+    and February 1 a Sunday, so the last FULL weekend of January 2026 is the
+    24th, but UBA published January 31 - February 1.
+    """
+    assert _full_weekends_in_month(2026, 1)[-1] == date(2026, 1, 24)
+    assert expand(by_id(catalog, "uba-dx-ssb"), 2026)[0].start.date() == date(
+        2026, 1, 31
+    )
+    # 2026 separates the two readings on both legs: February 28 is a Saturday
+    # whose Sunday falls in March, so the last full weekend of February is the
+    # 21st -- and UBA published February 28 - March 1.
+    assert _full_weekends_in_month(2026, 2)[-1] == date(2026, 2, 21)
+    assert expand(by_id(catalog, "uba-dx-cw"), 2026)[0].start.date() == date(
+        2026, 2, 28
+    )
+
+
+# UBA prints a log deadline beside each ON Contest leg. All four are the leg's
+# own date plus five days, which is what makes 'no later than 5 days after the
+# contest' encodable rather than a fixed date to be quoted.
+UBA_ON_LEGS = [
+    ("uba-on-6m", date(2026, 9, 27), date(2026, 10, 2)),
+    ("uba-on-80-40-ssb", date(2026, 10, 4), date(2026, 10, 9)),
+    ("uba-on-80-40-cw", date(2026, 10, 11), date(2026, 10, 16)),
+    ("uba-on-2m", date(2026, 10, 18), date(2026, 10, 23)),
+]
+
+
+@pytest.mark.parametrize("cid,day,deadline", UBA_ON_LEGS)
+def test_uba_on_contest_deadlines_are_the_dates_uba_printed(
+    catalog, cid, day, deadline
+):
+    o = expand(by_id(catalog, cid), 2026)[0]
+    assert o.start.date() == day
+    assert o.log_due.date() == deadline
+
+
+def test_ref_160m_deadline_is_the_second_monday_after_the_contest(catalog):
+    """
+    REF states no interval for this one -- 'A plus tard le deuxieme lundi apres
+    le concours' -- so the 8 in the record is derived, and only correct because
+    the contest always ends at 0000 UTC on a Sunday. Checked across a decade
+    rather than asserted once.
+    """
+    c = by_id(catalog, "ref-160m")
+    for y in range(2025, 2035):
+        o = expand(c, y)[0]
+        assert o.start.weekday() == 5 and o.end.weekday() == 6
+        mondays = [
+            o.start.date() + timedelta(days=n)
+            for n in range(1, 15)
+            if (o.start.date() + timedelta(days=n)).weekday() == 0
+        ]
+        assert o.log_due.date() == mondays[1], y
+
+
+def test_ure_night_break_contests_run_two_sessions(catalog):
+    """
+    URE's CNCW and CME both stop overnight: '1200 UTC Saturday till 2259 UTC
+    Saturday and from 0500UTC till 1159UTC Sunday'. Two sessions, not one long
+    window -- a single span would claim eighteen hours of operating time that
+    the rules do not permit.
+    """
+    for cid, first in (("ure-cncw", date(2026, 7, 18)), ("ure-cme", date(2026, 8, 8))):
+        occ = expand(by_id(catalog, cid), 2026)
+        assert len(occ) == 2, cid
+        assert occ[0].start.date() == first
+        assert [o.start.strftime("%H%M") for o in occ] == ["1200", "0500"]
+        assert [o.end.strftime("%H%M") for o in occ] == ["2259", "1159"]
+        # Six hours off air between them, which is the point of the split.
+        assert (occ[1].start - occ[0].end) == timedelta(hours=6, minutes=1)
+
+
+def test_ure_deadline_is_fifteen_days_from_the_end_of_the_second_session(catalog):
+    """
+    Every URE record states '(15 days)' and prints a date. For the two-session
+    contests the printed date is fifteen days after the SECOND session ends;
+    the engine applies the interval per session, so the first session's
+    computed deadline is a day early. Recorded in the records' notes rather
+    than papered over.
+    """
+    for cid, printed in (
+        ("ure-cncw", date(2026, 8, 3)),
+        ("ure-cme", date(2026, 8, 24)),
+    ):
+        occ = expand(by_id(catalog, cid), 2026)
+        assert occ[1].log_due.date() == printed, cid
+        assert occ[0].log_due.date() == printed - timedelta(days=1), cid
+
+
+def test_ok_dx_rtty_carries_no_deadline_because_the_sponsor_contradicts_itself(
+    catalog,
+):
+    """
+    The rules say 'not later than 7th day after the contest'; the announcement
+    of the same edition prints 26 December -- with the wrong year, 2025, for a
+    2026 contest. The stored end is 00:00 on the Sunday, so seven days from
+    there is the 27th. No number is invented: the field is absent and both
+    statements are quoted in the record. The two OK/OM legs, whose parenthetical
+    dates DO match their stated interval, encode it.
+    """
+    assert "log_deadline_days" not in by_id(catalog, "ok-dx-rtty")
+    o = expand(by_id(catalog, "ok-dx-rtty"), 2026)[0]
+    assert o.end == datetime(2026, 12, 20, 0, 0, tzinfo=UTC)
+    assert o.log_due is None
+    for cid, due in (
+        ("ok-om-dx-ssb", date(2026, 4, 19)),
+        ("ok-om-dx-cw", date(2026, 11, 22)),
+    ):
+        assert expand(by_id(catalog, cid), 2026)[0].log_due.date() == due
+
+
+# Records where the sponsor publishes dates and never states a rule. Each is
+# manual on purpose: an ordinal fitted to the dates would print confident
+# schedules for years the sponsor has not announced.
+TIER2_MANUAL = {
+    "uba-spring-2m": (2026, 2027),
+    "uba-spring-80m-cw": (2026, 2027),
+    "uba-spring-6m": (2026, 2027),
+    "uba-spring-80m-ssb": (2026, 2027),
+    "uba-on-6m": (2026, 2027),
+    "uba-on-80-40-ssb": (2026, 2027),
+    "uba-on-80-40-cw": (2026, 2027),
+    "uba-on-2m": (2026, 2027),
+    "uba-bma": (2026, 2027),
+    "paccdigi": (2027, 2028),
+    "ure-eartty": (2026, 2027),
+}
+
+
+@pytest.mark.parametrize("cid,last,after", [
+    (cid, last, after) for cid, (last, after) in sorted(TIER2_MANUAL.items())
+])
+def test_tier2_manual_records_stop_where_the_sponsor_stopped_publishing(
+    catalog, cid, last, after
+):
+    c = by_id(catalog, cid)
+    assert c["recurrence"]["type"] == "manual"
+    assert expand(c, last), f"{cid} produced nothing for its last published year"
+    assert expand(c, after) == [], f"{cid} guessed {after}, a year nobody published"
+
+
+def test_paccdigi_is_manual_even_though_both_dates_look_like_a_rule(catalog):
+    """
+    VERON's two published PACCdigi editions are both the third Saturday of
+    April, and the temptation is to encode that. VERON does not say it -- the
+    PACC page says 'het tweede volle weekend van februari' in so many words and
+    the PACCdigi page says nothing of the kind, so the difference is the
+    sponsor's, not ours.
+    """
+    c = by_id(catalog, "paccdigi")
+    published = [expand(c, y)[0].start.date() for y in (2026, 2027)]
+    assert published == [date(2026, 4, 18), date(2027, 4, 17)]
+    assert all(d.weekday() == 5 for d in published)
+    assert all(15 <= d.day <= 21 for d in published)  # third Saturday, both years
+    assert c["recurrence"]["type"] == "manual"
+
+
+def test_ure_rtty_is_manual_while_ure_states_a_rule_for_its_other_five(catalog):
+    """
+    Five of URE's six HF contests name an ordinal weekend in both language
+    versions of their page. EA RTTY names a date and nothing else, in both, so
+    it alone is manual -- the contrast is what makes that a reading of URE
+    rather than an inconsistency of ours.
+    """
+    assert by_id(catalog, "ure-eartty")["recurrence"]["type"] == "manual"
+    others = [
+        "ure-rey-de-espana-cw", "ure-rey-de-espana-ssb",
+        "ure-eapsk63", "ure-cncw", "ure-cme",
+    ]
+    for cid in others:
+        assert by_id(catalog, cid)["recurrence"]["type"] == "nth_full_weekend", cid
+
+
+def test_czech_contest_hosts_are_http_because_their_tls_is_broken(catalog):
+    """
+    okomdx.crk.cz and okrtty.crk.cz serve a certificate issued for
+    default.web4u.cz, so HTTPS fails validation. The http:// URLs are a
+    recorded blocker, not an oversight, and each record says so -- the same
+    treatment given to SARL's dead host.
+    """
+    for cid in ("ok-om-dx-ssb", "ok-om-dx-cw", "ok-dx-rtty"):
+        c = by_id(catalog, cid)
+        assert c["rules_url"].startswith("http://"), cid
+        assert "crk.cz" in c["rules_url"], cid
+        assert "TLS" in c["note"], cid
+
+
+# ---------------------------------------------------------------------------
 # Time zones
 #
 # `local_time` used to mean two incompatible things: "the sponsor runs this at

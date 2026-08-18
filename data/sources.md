@@ -34,6 +34,14 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-17 | NZART | nzart.org.nz/activities/contests/{jwfd,sangster-shield,memorial-contest,sprints}/ | 6 | Jock White: "The last full weekend in February each year: on Saturday 1500-2400 NZDT and Sunday 0600-1500 NZDT. NOTE: when February only has three full weekends then field day will be held on Saturday 28th February and Sunday 1st March… This will occur in 2026." Sangster Shield: "Third Saturday of May each year, between the hours of 0800-1100 UTC". Memorial: "First Saturday in July each year 0800 - 1100 UTC". Sprints: "Each Tuesday in April and August: 0800-0829 UTC … CW only / 0830-0859 UTC … SSB only / 0900-0929 UTC … FT4 only", "Each mode will be scored separately." |
 | 2026-08-17 | LABRE | labre.org.br/contest/ → Regulamento-Contest-LABRE-DX-2026-Ingles-v3.pdf | 1 | "Date: 3rd (third) weekend of July. Start: 00:00 UTC on Saturday, July 18th. End: 23:59 UTC on Sunday, July 19st." Logs: "WITHIN FIVE (5) DAYS after the end of the contest." |
 | 2026-08-17 | ORARI | oraricontest.id/rules/ | 1 | "Time: Every June 2nd Weekend", "Contest will start: 13 June 2026 -> 00:00 UTC - 23:59 UTC ( 24 Hours )". Bands: "Contact should made on 3.5, 7, 14, 21 and 28 MHz. No WARC bands." ORARI's own four published dates (2026–2029) all reproduced. |
+| 2026-08-18 | REF | concours.r-e-f.org/reglements/actuels/{reg_cdfhf_fr_20260513, reg_ref160_fr_20260421, reg_ddfm50_fr_20250312}.pdf | 4 | Coupe du REF, 1(b): "Bandes HF (80-10 m) — Dernier week-end entier du mois de janvier (télégraphie) ou février (téléphonie), du samedi à 0600 UTC au dimanche à 1800 UTC." English rules, 2: "CW: Last full weekend in January. SSB: Last full weekend in February." Logs, FR 9: "au plus tard huit jours après la partie du concours disputée" / EN 8: "no later than 8 days after the contest". REF 160 m, 1: "Troisième week-end de novembre, du samedi à 1700 UTC au dimanche à 0000 UTC"; 2: "160 mètres (1810 à 1850 KHz), CW uniquement"; 8: "À plus tard le deuxième lundi après le concours". DDFM 50 MHz, 2: "Le concours débute le deuxième samedi de juin 1400 UTC et s'achève le dimanche à 1400 UTC"; 8: "Au plus tard le premier mercredi qui suit le concours". Each tested against two years REF published separately. |
+| 2026-08-18 | UBA | uba.be/en/hf/contest-rules/{uba-dx-contest, uba-psk63-prefix-contest, spring-contest-dst, on-contest} + uba.be/en/node/2457 | 12 | UBA DX: "SSB — January 31 - February 1, 2026 (starts every year on the **last Saturday of January**)"; "CW — February 28 - March 1, 2026 (starts every year on the last Saturday of February)"; "From 13:00 UTC on Saturday to 13:00 UTC on Sunday." PSK63 Prefix: "9 january 2027, 12:00 UTC until 10 january 2027, 11:59 UTC. (every year the 2nd weekend of january)". Spring Contest: "VHF-2m Phone/CW: 1 March 2026 (07.00 -11.00 hour UTC). HF-80m CW: 8 March 2026. VHF-6m Phone/CW: 15 March 2026. HF-80m Phone: 22 March 2026." ON Contest: "6 meter Phone/CW 27 September, 2026 … deadline logs 2 October / 80/40 meters SSB 4 October … 9 October / 80/40 meters CW 11 October … 16 October / 2 meters Phone/CW 18 October … 23 October", "The logs must be sent no later than 5 days after the contest." BMA (Dutch page): "21/09/2025 van 08.00 tot 12.00 uur lokale tijd (06:00 tot 10:00 UTC)". Spring, ON and BMA state dates only and are **manual**. |
+| 2026-08-18 | VERON | veron.nl/…/traffic-bureau/hf-contesten/{pacc-contest, paccdigi-contest}/ | 2 | PACC (Dutch): "die plaatsvindt in het tweede volle weekend van februari"; English PDF: "This contest is always on the 2nd full weekend of February", "From 14 February 2026 1200 UTC until 15 February 2026 1200 UTC", "THE LOG SUBMISSION PERIOD IS 5 DAYS!" Reproduced against three further editions VERON published — 2027, 2028, 2029. PACCdigi: "18 april 2026 van 12:00 UTC tot 19 april 2026 11:59 UTC" and "17 april 2027 12:00 UTC tot 18 april 2027 11:59 UTC", with **no recurrence stated** — manual. |
+| 2026-08-18 | PZK / SP DX Club | spdxcontest.pzk.org.pl/2026/rules.php | 1 | "ORGANIZERS: PZK — Polish Amateur Radio Union (Polski Związek Krótkofalowców) and SP DX Club." "DATE: The first full weekend of April from 04.04.2026 15:00:00 UTC (Saturday) to 05.04.2026 14:59:59 (Sunday)." (PL: "TERMIN ZAWODÓW: Pierwszy pełny weekend kwietnia…") "BANDS: 160, 80, 40, 20, 15 and 10m"; "All entries must be submitted no later than 1 week after the contest (12.04.2026)". The 2025 rules page independently gives 05.04.2025 15:00 → 06.04.2025 14:59. |
+| 2026-08-18 | PK RVG | pkrvg.org/strona,spdxrttyen.html | 1 | "The SPDX RTTY Contest organized the Polish Radiovideography Club (PK RVG) is held on the 4th full weekend of April. (25/26 April 2026)." "1. Contest Period: 12.00 UTC Saturday, through 12.00 UTC Sunday." "2. Bands: 3,5 - 28 MHz without WARC bands." "14. Deadline: All entries must be sent WITHIN SEVEN (7) DAYS after the end of the contest." **Not PZK's contest** — see corrections. |
+| 2026-08-18 | CRK / SARA | okomdx.crk.cz (SSB and CW rules, English), okrtty.crk.cz | 3 | OK/OM SSB: "The Czech Radio Club, CRK in cooperation with Slovak radioclub SARA"; "2. Contest Period — second weekend in April, i.e. 1200 UTC 11 April - 1159 UTC 12 April 2026"; "11.1 Logs must be submitted … within 7 days after the end of the contest .. (APRIL 19, 2026, 2359 UTC)". OK/OM CW: "Second (full) weekend in November, i.e. 1200 UTC 14th November - 1159 UTC 15th November 2026". OK DX RTTY: "1) Date: 00:00 UTC to 24:00 UTC Saturday, 3rd full weekend in December", "2) Mode: RTTY - Baudot", logs "not later than 7th day after the contest" — **which its own announcement contradicts**; see below. Both hosts are **http:// deliberately**: their TLS certificate is issued for `default.web4u.cz`. |
+| 2026-08-18 | ARI | contest.ari.it/hf_web/rules/{aridxrule_dx, arisezionihf_it}.pdf + ari.it/contest-hf/contest-4080.html | 3 | International DX: "Il contest si svolge il primo weekend completo di Maggio con inizio alle ore 1200Z del sabato e termine alle ore 1159Z della domenica. L'edizione 2026 avrà luogo il 02 e 03 Maggio." (EN: "held on each first full week-end of May".) Contest delle Sezioni HF (Italian only): "ogni secondo week-end completo di Giugno … L'edizione 2026 avrà luogo in data 13 e 14 Giugno", logs "entro, e non oltre, 6 giorni dalla data di fine contest". 40/80: "il secondo weekend completo di Dicembre con inizio alle ore 1300Z del sabato … L'edizione 2025 avrà luogo il 13 e 14 Dicembre." |
+| 2026-08-18 | URE | concursos.ure.es/en/{s-m-el-rey-de-espana-cw, s-m-el-rey-de-espana-ssb, eartty, eapsk63, cncw, cme}/bases/ | 6 | King of Spain CW: "3rd full weekend of May, from 1200 UTC Saturday till 1159 UTC Sunday (May 16th and 17th, 2026)"; SSB: "**4rd** full weekend of June … (June 27th and 28th, 2026)" — URE's typo, quoted as written. EA PSK63 (Spanish): "Segundo fin de semana del mes de marzo (en el año 2026, días 14 y 15)". CNCW: "3rd full weekend of July (July 18th and 19th, 2026), from 1200 UTC Saturday till 2259 UTC Saturday **and from 0500UTC till 1159UTC Sunday**"; CME likewise for the "2nd full weekend of August" — both encoded as two sessions. EA RTTY states a date only — manual. Every record: "Logs must be received by … (15 days)". |
 
 ## Modes and bands became controlled vocabularies — 2026-08-16
 
@@ -383,8 +391,131 @@ Zealand daylight saving.
   a guess written before anything was read. RAC 3 → 2, ORARI 8 → 2, LABRE 4 → 1: CVA DX and
   the South America 10 Meter contest are other organisations' events, not LABRE's.
 
+## Europe stopped being a footnote — 2026-08-18
+
+Seven of the Tier 2 national societies were worked in one pass: REF, UBA, VERON,
+PZK / SP DX Club, CRK / SARA, ARI and URE. **32 records — 137 encoded, up from 105.**
+
+| Sponsor | Encoded | Outcome |
+|---|---|---|
+| REF | 4 | `partial` — the Championnat de France THF is deferred; see below |
+| UBA | 12 | `complete` |
+| VERON | 2 | `complete` |
+| PZK / SP DX Club | 1 | `complete` — one contest, not two; see the correction below |
+| PK RVG | 1 | `complete` — a new tier-2 registry entry |
+| CRK / SARA | 3 | `complete` — hosted on a **broken TLS certificate**; see below |
+| ARI | 3 | `partial` — the Marconi Memorial HF has no rules page |
+| URE | 6 | `complete` |
+
+**Coverage after: North America 62 (45.3%, from 59.0%), Europe 51 (from 19), Oceania 13,
+Asia 5, International 4, Africa 1, South America 1.** North America is no longer a plurality
+of the catalog by a wide margin, and Europe is within fourteen records of it.
+
+Five of these societies publish only in their own language, and three publish nothing in
+English at all — ARI's Contest delle Sezioni, VERON's PACCdigi rules and UBA's BMA page. Each
+record's `source_note` therefore carries **the original wording first and the translation
+after**, the same treatment given to AGCW's German pages, so a reader who speaks the language
+can check the rule against the sponsor rather than against our reading of it.
+
+### Aggregators declined, again
+
+Three of these sponsors publish a contest calendar that lists other organisations' events.
+None was used: `concours.r-e-f.org`'s worldwide list, `ari.it/contest-hf/calendario-contest.html`,
+and UBA's `/en/hf/contest-calendar` — **except** the rows UBA marks `(**)` and labels
+*"see: 'HF' > 'Contest Rules'"*, which are UBA's own events. Those rows are a second published
+source for UBA's dates, which is exactly what the sourcing rule wants and an aggregator is not.
+
+### Contradictions found, and left standing
+
+- **OK DX RTTY contradicts itself about its own deadline.** The rules say logs are due "not
+  later than 7th day after the contest"; the site's own announcement of the same edition
+  prints 26 December — **with the year 2025, for a 2026 contest**. Seven days from the stored
+  end (00:00 UTC Sunday) is the 27th, so no reading reconciles them. `log_deadline_days` is
+  **absent** and both statements are quoted in the record. The two OK/OM legs, whose
+  parenthetical dates *do* match their stated interval, encode it.
+- **URE's "Annual HF Championship Rules 2026" page disagrees with URE's six individual rules
+  pages.** It lists every one of the six a day later — and every one of its dates is a 2025
+  weekend. It was therefore **not** used as an independent date source. The individual pages
+  are self-consistent for 2026 and are what is encoded.
+- **URE's King of Spain SSB rule says "4rd full weekend of June".** Quoted as written. The
+  ordinal is four, which both the English and Spanish pages confirm by the date they print.
+- **UBA DX is the last *Saturday*, not the last full weekend**, and UBA's own dates settle it:
+  2026 separates the two readings on both legs (31 January and 28 February are Saturdays whose
+  Sundays fall in the next month), and UBA published the later date each time.
+
+### Judgement calls
+
+- **`ure-cncw` and `ure-cme` run two sessions** — "from 1200 UTC Saturday till 2259 UTC
+  Saturday and from 0500UTC till 1159UTC Sunday" — and use the `sessions` array. A single span
+  would claim eighteen hours of operating time the rules do not permit. URE states one deadline
+  for the whole contest and it is the *second* session's end plus fifteen days; the engine
+  applies the interval per session, so the first session's computed deadline lands a day early.
+  Keeping the interval preserves the arithmetic URE actually states, and the artefact is
+  recorded in both records' `note` rather than papered over by quoting a fixed date.
+- **REF's 160 m deadline is derived, not quoted.** REF says "à plus tard le deuxième lundi
+  après le concours" and states no interval. The stored 8 is only correct because the contest
+  always ends at 0000 UTC on a Sunday; it is checked against the second Monday for every year
+  2025–2034 rather than asserted once.
+- **Eleven records are `manual` on purpose.** UBA's Spring (4) and ON (4) legs, the BMA,
+  PACCdigi and EA RTTY: their sponsors publish dates and never state a recurrence. PACCdigi is
+  the temptation — both published editions are the third Saturday of April — but VERON says so
+  nowhere, while the PACC page next to it says "het tweede volle weekend van februari" in so
+  many words. The difference is VERON's, not ours. Fitting an ordinal to two dates would print
+  confident schedules for years nobody has announced.
+- **Coppa ARI was struck from the estimate**, not deferred: it is a trophy awarded on combined
+  placings in ARI's two contests, not a contest of its own. Same call as AGCW's Goldene Taste.
+- **The Russia/Belarus exclusion is UBA's, and only on two records.** The UBA DX Contest and
+  PSK63 Prefix rules carry it; Spring, ON and BMA do not, and it was not copied across.
+
+### Corrections to the registry's assumptions
+
+- **`spdxcontest.info` is no longer this contest's site.** The domain now serves an unrelated
+  adult-site directory. The sponsor's own site is `spdxcontest.pzk.org.pl`, with per-year rules
+  at `/<year>/rules.php`.
+- **The SP DX RTTY Contest is not PZK / SP DX Club's.** Its rules name the organiser: "The SPDX
+  RTTY Contest organized the Polish Radiovideography Club (PK RVG)", with PZK as co-sponsor.
+  PK RVG is now its own registry entry, and PZK / SP DX Club's estimate drops 2 → 1.
+- **VERON's registered URL 404s.** `commissies-werkgroepen/traffic-bureau/pacc-contest/` is
+  gone; the live tree is `commissies-en-werkgroepen/traffic-bureau/hf-contesten/`.
+- **REF's `reglements/actuels/` index redirects to `concours.ref-union.org`, whose DNS does not
+  resolve.** The working index is `reglements/`. The per-contest PDFs under `actuels/` still
+  serve, so the records' `rules_url` values point at them directly.
+- **ARI's `ari.it/contest-hf/ari-international.html` carries results, not rules.** The rules are
+  PDFs under `contest.ari.it/hf_web/rules/`, indexed at `regolamenti.php`.
+- **URE's EA-QRP CW, in the previous estimate, is not on `concursos.ure.es`.** URE's estimate
+  stays at 6, which is what the site publishes.
+- `estimated_total` moved in both directions for the usual reason — it was a guess written
+  before anything was read. UBA 10 → 12, ARI 6 → 5, PZK 2 → 1.
+- **Four `rules_url` values were wrong on first encoding and `check_links.py` caught all four
+  before the commit.** UBA's Spring Contest is at `/spring-contest-dst`, not `/spring-contest`;
+  VERON's two pages are `…/pacc-contest/` and `…/paccdigi-contest/`, without the `pacc-rules/`
+  and `paccdigi-regels/` sub-paths; ARI's 40/80 is `contest-4080.html`, not `contest-40-80.html`.
+  Each corrected URL was re-fetched and confirmed to carry the exact wording this file quotes.
+  This is what the link checker is for — run it before committing a sourcing pass, not after.
+
 ## Pending verification
 
+- **CRK's contest hosts have a broken TLS certificate** — **blocked, but not blocking.**
+  `okomdx.crk.cz` and `okrtty.crk.cz` both serve a certificate issued for `default.web4u.cz`,
+  so HTTPS fails validation on both. The three records' `rules_url` values are `http://`
+  **deliberately**, each record says why, and `check_links.py` will keep reporting them until
+  CRK fixes the hosts. The rules themselves were read and the contests are encoded — unlike
+  SARL, where the unreachable page meant no rule at all. Next step: ask CRK to fix the
+  certificate, then move all three to `https://`.
+- **OK DX RTTY's organiser is an inference.** Neither its English nor its Czech rules page
+  names an organising society. It is hosted on `crk.cz` and takes logs at `okrtty@crk.cz`, so
+  the record carries sponsor `CRK` and is registered under CRK / SARA — and says in its `note`
+  that this is inferred. Confirm with the Czech Radio Club.
+- **REF Championnat de France THF** — **deferred, not missed.** REF publishes it, but no REF
+  document consulted states its modes, and a record with no mode fails a catalog test. A future
+  pass should find the THF rules PDF rather than assume the VHF/UHF modes.
+- **ARI Marconi Memorial HF Contest** — on ARI's calendar for 4–5 July 2026, with **no rules
+  page anywhere on ari.it or contest.ari.it**. The calendar is an aggregator and is not a valid
+  source on its own. Marconi Club ARI Loano is a separate body, not ARI. Not encoded.
+- **UBA IARU Region 1 Fieldday** — appears on UBA's calendar but is IARU's event, and UBA
+  publishes no rules page for it. Deliberately not encoded.
+- **UBA Belgian Mills Award** — UBA's page points to `belgianmillaward.be` for the complete
+  rules. Only UBA's own page was used, so the record carries what UBA publishes and no more.
 - **GACW WWSA** (1 contest) — **blocked at source: the rules are imagery.** GACW has moved to
   gacw.ar, and its WWSA page carries only two PDFs, `WWSA_Reglas_Castellano.pdf` and
   `WWSA_Reglas_Ingles.pdf`. Both were downloaded and their font encoding worked out — two-byte

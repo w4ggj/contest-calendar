@@ -5450,6 +5450,1908 @@
         "verified": true,
         "note": "ORARI: 'For amateurs around the world to contact as many other amateurs in as many countries and Indonesia ( YB Land ) stations. Everyone Worked Everyone'."
       }
+    },
+    {
+      "id": "ref-coupe-du-ref-cw",
+      "name": "Coupe du REF, CW",
+      "sponsor": "REF",
+      "country": "FR",
+      "rules_url": "https://concours.r-e-f.org/reglements/actuels/reg_cdfhf_fr_20260513.pdf",
+      "log_submit_url": "https://concours.r-e-f.org/contest/logs/upload-form",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "French metropolitan stations send RS(T) + the number of the department where the antenna is located (e.g. 599 69); F6REF, the REF's official station, sends RS(T) + 00. DOM/TOM stations send RS(T) + the prefix of their entity (e.g. 599 FM). Foreign stations send RS(T) + a serial number starting at 001.",
+      "power_categories": [
+        {
+          "name": "Classe C (HP)",
+          "max_watts": null
+        },
+        {
+          "name": "Classe B (LP)",
+          "max_watts": 100
+        },
+        {
+          "name": "Classe A (QRP)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": true,
+      "source_note": "concours.r-e-f.org, 'Championnat de France - « Coupe du REF », Premiere et deuxieme parties HF - telegraphie et telephonie', 1(b): 'Bandes HF (80-10 m) -- Dernier week-end entier du mois de janvier (telegraphie) ou fevrier (telephonie), du samedi a 0600 UTC au dimanche a 1800 UTC.' English rules, 2: 'CW: Last full weekend in January. SSB: Last full weekend in February. Contest Period: 36 hours each mode (separate contests). Starts 0600 UTC Saturday; ends 1800 UTC Sunday'. Bands and modes, English rules (reg_cdfhfdx_en_20260420.docx, 'French HF Championship \"Coupe du REF\" rules'): '80, 40, 20, 15, 10 m, according to IARU band plan for each country, CW and Phone.' Power classes, FR 2(c): 'Classe A (QRP) : la puissance est inferieure ou egale a 5 W, Classe B (LP) : la puissance est superieure a 5 W et inferieure ou egale a 100 W, Classe C (HP) : la puissance est superieure a 100 W.' Log deadline, FR 9: 'Comptes rendus au format Cabrillo a deposer sur la page de la commission des concours au plus tard huit jours apres la partie du concours disputee' -- EN 8: 'All log entries must be postmarked no later than 8 days after the contest' -- so log_deadline_days is 8. REF published 24-25 January 2026 and 25-26 January 2025 for the CW part; the last-full-weekend rule reproduces both.",
+      "note": "CONTRADICTION IN REF'S OWN DOCUMENT, RECORDED RATHER THAN RECONCILED: section 1(b) scopes these two parts to 'Bandes HF (80-10 m)' and the English rules list '80, 40, 20, 15, 10 m', but section 3(c) of the same PDF says 'Segments concours IARU des bandes 160, 80, 40, 20, 15 et 10 metres'. The document also governs the 160 m sub-part (REF 160 Metres, a separate record here), which is the likely reason the band is listed in 3(c); the 80-10 m reading is encoded because it is the one that scopes these parts specifically and the one the English rules repeat. REF's common HF rules ('Regles communes a tous les concours HF', 6A) state the deadline as '8 (huit) jours apres la fin du concours a minuit heure legale francaise', so the computed instant here is the end plus 8 days rather than French legal midnight.",
+      "summary": "The CW half of France's national HF championship: 36 hours over the last full weekend in January, 80 through 10 metres, French stations sending their department number.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.r-e-f.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules define 'stations etrangeres' as 'Toute station ne repondant pas a la definition ci-dessus' and give them their own categories and rankings ('Classement par continent et par classe de puissance'), but 4(b) limits them to French contacts: 'Stations etrangeres -- Seules les liaisons avec des stations francaises sont valables.'"
+      }
+    },
+    {
+      "id": "ref-coupe-du-ref-ssb",
+      "name": "Coupe du REF, SSB",
+      "sponsor": "REF",
+      "country": "FR",
+      "rules_url": "https://concours.r-e-f.org/reglements/actuels/reg_cdfhf_fr_20260513.pdf",
+      "log_submit_url": "https://concours.r-e-f.org/contest/logs/upload-form",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "French metropolitan stations send RS(T) + the number of the department where the antenna is located (e.g. 599 69); F6REF, the REF's official station, sends RS(T) + 00. DOM/TOM stations send RS(T) + the prefix of their entity (e.g. 599 FM). Foreign stations send RS(T) + a serial number starting at 001.",
+      "power_categories": [
+        {
+          "name": "Classe C (HP)",
+          "max_watts": null
+        },
+        {
+          "name": "Classe B (LP)",
+          "max_watts": 100
+        },
+        {
+          "name": "Classe A (QRP)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": true,
+      "source_note": "concours.r-e-f.org, 'Championnat de France - « Coupe du REF »', 1(b): 'Bandes HF (80-10 m) -- Dernier week-end entier du mois de janvier (telegraphie) ou fevrier (telephonie), du samedi a 0600 UTC au dimanche a 1800 UTC.' English rules, 2: 'SSB: Last full weekend in February. ... Starts 0600 UTC Saturday; ends 1800 UTC Sunday'. Bands and modes, English rules (reg_cdfhfdx_en_20260420.docx, 'French HF Championship \"Coupe du REF\" rules'): '80, 40, 20, 15, 10 m, according to IARU band plan for each country, CW and Phone.' Power classes, FR 2(c): 'Classe A (QRP) : la puissance est inferieure ou egale a 5 W, Classe B (LP) : la puissance est superieure a 5 W et inferieure ou egale a 100 W, Classe C (HP) : la puissance est superieure a 100 W.' Log deadline, FR 9: 'Comptes rendus au format Cabrillo a deposer sur la page de la commission des concours au plus tard huit jours apres la partie du concours disputee' -- EN 8: 'All log entries must be postmarked no later than 8 days after the contest' -- so log_deadline_days is 8. REF published 21-22 February 2026 and 22-23 February 2025 for the SSB part; the last-full-weekend rule reproduces both.",
+      "note": "CONTRADICTION IN REF'S OWN DOCUMENT, RECORDED RATHER THAN RECONCILED: section 1(b) scopes these two parts to 'Bandes HF (80-10 m)' and the English rules list '80, 40, 20, 15, 10 m', but section 3(c) of the same PDF says 'Segments concours IARU des bandes 160, 80, 40, 20, 15 et 10 metres'. The document also governs the 160 m sub-part (REF 160 Metres, a separate record here), which is the likely reason the band is listed in 3(c); the 80-10 m reading is encoded because it is the one that scopes these parts specifically and the one the English rules repeat. REF's common HF rules ('Regles communes a tous les concours HF', 6A) state the deadline as '8 (huit) jours apres la fin du concours a minuit heure legale francaise', so the computed instant here is the end plus 8 days rather than French legal midnight.",
+      "summary": "The phone half of France's national HF championship: 36 hours over the last full weekend in February, 80 through 10 metres, French stations sending their department number.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.r-e-f.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "As for the CW part: foreign stations have their own categories and a per-continent ranking, but 4(b) says 'Seules les liaisons avec des stations francaises sont valables.'"
+      }
+    },
+    {
+      "id": "ref-160m",
+      "name": "REF 160 Metres",
+      "sponsor": "REF",
+      "country": "FR",
+      "rules_url": "https://concours.r-e-f.org/reglements/actuels/reg_ref160_fr_20260421.pdf",
+      "log_submit_url": "https://concours.r-e-f.org/contest/logs/upload-form",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "bands_note": "1810 to 1850 kHz",
+      "exchange": "RST + the French department number. French stations record only the serial number given by foreign stations.",
+      "power_categories": [
+        {
+          "name": "Classe C (HP)",
+          "max_watts": null
+        },
+        {
+          "name": "Classe B (LP)",
+          "max_watts": 100
+        },
+        {
+          "name": "Classe A (QRP)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0000"
+      },
+      "verified": true,
+      "source_note": "concours.r-e-f.org, 'REF 160 METRES -- REGLEMENT', 1: 'DATE ET HORAIRE -- Troisieme week-end de novembre, du samedi a 1700 UTC au dimanche a 0000 UTC.' 2: 'BANDE ET MODE -- 160 metres (1810 a 1850 KHz), CW uniquement.' 3: 'REPORTS -- RST + numero du departement. Les stations francais ne noteront que le numero de serie donne par les stations etrangeres, a l'exclusion de toute autre indication.' 7: 'COMPTES RENDUS -- Informatise, au format cabrillo.' 8: 'ENVOI -- A plus tard le deuxieme lundi apres le concours'. Power classes are 'selon definitions des regles communes HF', i.e. the same A/B/C classes as the Coupe du REF. REF published 21-22 November 2026 and 15 November 2025; the third-weekend rule reproduces both.",
+      "note": "log_deadline_days is derived, not quoted: REF words the deadline as 'le deuxieme lundi apres le concours' and states no hour. The contest ends at 0000 UTC on the Sunday, and that Sunday plus 8 days is the second Monday after the contest in every year, so 8 is exact for the date and silent about the time of day. WORDING DIFFERENCE, RECORDED RATHER THAN RECONCILED: this PDF says 'Troisieme week-end de novembre' while the Coupe du REF PDF, describing the same sub-part in section 1(a), says 'Troisieme week-end entier du mois de novembre'. The two readings cannot diverge -- the third Saturday of November is at most the 21st, so its Sunday is always in November -- so no choice between them was needed.",
+      "summary": "REF's top-band CW contest, Saturday evening into Sunday midnight UTC on the third weekend of November, French stations sending their department number.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.r-e-f.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Section 5 scores 'Station etrangere contactant une station francaise', and section 5 (multipliers) gives foreign stations '1 par departement', so foreign entry is provided for and scored -- against French stations."
+      }
+    },
+    {
+      "id": "ref-ddfm-50mhz",
+      "name": "DDFM 50 MHz",
+      "sponsor": "REF",
+      "country": "FR",
+      "rules_url": "https://concours.r-e-f.org/reglements/actuels/reg_ddfm50_fr_20250312.pdf",
+      "log_submit_url": "http://concours.r-e-f.org/tools/upload/thf.php",
+      "log_format": "IARU REG1TEST",
+      "log_deadline_days": 3,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "submodes": [
+        "FM"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "exchange": "French metropolitan stations send RS(T) + department + a six-character locator (e.g. 59 75 JN18DU); all other stations send RS(T) + serial number + locator (e.g. 59 001 KN04FG).",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "source_note": "concours.r-e-f.org, 'DDFM 50 MHz -- REGLEMENT', 2: 'DATE ET HORAIRE -- Le concours debute le deuxieme samedi de juin 1400 UTC et s'acheve le dimanche a 1400 UTC.' 3: 'FREQUENCES ET MODES -- SSB, CW, FM.' 4: 'ECHANGES -- Les stations francaises de metropole passent : RS(T) + Departement + QRA locator sur 6 caracteres ... Toutes les autres stations passent : RS(T) + numero de serie + QRA locator sur 6 caracteres'. 7: 'COMPTES RENDUS -- Informatise : compte-rendu au format IARU « reg1test ».' 8: 'ENVOI -- Au plus tard le premier mercredi qui suit le concours'. REF published 13-14 June 2026 and 14-15 June 2025; the second-Saturday rule reproduces both.",
+      "note": "FM is recorded as a submode because the catalog's mode vocabulary has no FM token; REF lists 'SSB, CW, FM' as the permitted modes and all three are worked on the same 6 m band. log_deadline_days is derived from 'le premier mercredi qui suit le concours': the contest ends 1400 UTC Sunday and the following Wednesday is exactly three days later, in every year. CONTRADICTION RECORDED RATHER THAN RECONCILED: REF's 2025 contest calendar listed this contest with a 15:00 start, while this rules PDF and REF's 2026 calendar both say 14:00. The rules are encoded. Separately, REF's 2026 calendar prints the 'Coupe du REF - OM complet' row with its end before its start (27/06/2026 06:00 to 07/06/2026 14:00); no record here depends on it.",
+      "summary": "REF's national 6-metre contest, 24 hours from the second Saturday of June, exchanging department or serial plus a six-character locator.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.r-e-f.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Section 6 establishes 'Un classement F (toutes categories confondues). Un classement etranger.' -- a French ranking and a foreign ranking -- and section 4 gives foreign stations their own exchange format."
+      }
+    },
+    {
+      "id": "uba-dx-ssb",
+      "name": "UBA DX Contest, SSB",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/uba-dx-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Stations on Belgian territory send RS(T) + serial number starting with 001 + the abbreviation of their UBA section (e.g. 59001 ACC); non-members send XXX and the national stations send UBA. Stations outside Belgium send RS(T) + serial number starting from 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": -1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1300"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/uba-dx-contest, 'UBA DX Contest 2026', 2 - Periods: 'SSB - January 31 - February 1, 2026 (starts every year on the last Saturday of January).' and 'From 13:00 UTC on Saturday to 13:00 UTC on Sunday.' 4 - Bands: 'Bands to be used: 80, 40, 20, 15 and 10 meters.' 5 - Contest call and exchange as quoted in the exchange field. Power: 'High Power more than 100 Watts output. Low Power maximum 100 Watts output. QRP SSB maximum 10 Watts output, CW maximum 5 Watts output.' Deadline: 'The deadline for submitting logs is 7 days. For SSB 8 February 23:59 UTC / For CW 8 March 23:59 UTC'.",
+      "note": "LAST SATURDAY, NOT LAST FULL WEEKEND, and UBA's own 2026 dates are what settle it: 31 January 2026 is a Saturday and 1 February is a Sunday, so the last full weekend of January 2026 would be 24-25 January. UBA published 31 January - 1 February, which only the last-Saturday reading produces. The QRP figure recorded here is the SSB one; UBA's rule is 'QRP SSB maximum 10 Watts output, CW maximum 5 Watts output.' The stated deadline instants (SSB 8 February 23:59 UTC, CW 8 March 23:59 UTC) are the right dates for a 7-day interval but 23:59 rather than the 13:00 that end-plus-7-days gives; the interval is what UBA states as the rule, so it is what is encoded.",
+      "summary": "Belgium's national DX contest, phone leg: 24 hours from 1300 UTC on the last Saturday of January, with UBA section abbreviations as multipliers.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Categories exist for 'Stations with QTH in Belgium' and 'Stations with QTH outside Belgium', and the 39th EUROPEAN UNION TROPHY goes to the highest-scoring EU member station. UBA adds a standing exclusion: 'until further notice, radio amateurs from the Russian Federation and Belarus will be excluded from participation.'"
+      }
+    },
+    {
+      "id": "uba-dx-cw",
+      "name": "UBA DX Contest, CW",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/uba-dx-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Stations on Belgian territory send RS(T) + serial number starting with 001 + the abbreviation of their UBA section (e.g. 59001 ACC); non-members send XXX and the national stations send UBA. Stations outside Belgium send RS(T) + serial number starting from 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": -1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1300"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/uba-dx-contest, 'UBA DX Contest 2026', 2 - Periods: 'CW - February 28 - March 1, 2026 (starts every year on the last Saturday of February).' and 'From 13:00 UTC on Saturday to 13:00 UTC on Sunday.' 4 - Bands: 'Bands to be used: 80, 40, 20, 15 and 10 meters.' Power: 'High Power more than 100 Watts output. Low Power maximum 100 Watts output. QRP SSB maximum 10 Watts output, CW maximum 5 Watts output.' Deadline: 'The deadline for submitting logs is 7 days. For SSB 8 February 23:59 UTC / For CW 8 March 23:59 UTC'.",
+      "note": "LAST SATURDAY, NOT LAST FULL WEEKEND, and UBA's own 2026 dates are what settle it: 31 January 2026 is a Saturday and 1 February is a Sunday, so the last full weekend of January 2026 would be 24-25 January. UBA published 31 January - 1 February, which only the last-Saturday reading produces. The QRP figure recorded here is the SSB one; UBA's rule is 'QRP SSB maximum 10 Watts output, CW maximum 5 Watts output.' The stated deadline instants (SSB 8 February 23:59 UTC, CW 8 March 23:59 UTC) are the right dates for a 7-day interval but 23:59 rather than the 13:00 that end-plus-7-days gives; the interval is what UBA states as the rule, so it is what is encoded.",
+      "summary": "Belgium's national DX contest, CW leg: 24 hours from 1300 UTC on the last Saturday of February, with UBA section abbreviations as multipliers.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Categories exist for 'Stations with QTH in Belgium' and 'Stations with QTH outside Belgium'. UBA adds a standing exclusion: 'until further notice, radio amateurs from the Russian Federation and Belarus will be excluded from participation.'"
+      }
+    },
+    {
+      "id": "uba-psk63-prefix",
+      "name": "UBA PSK63 Prefix Contest",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/uba-psk63-prefix-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "BPSK63"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Stations outside Belgium send RSQ + a serial number starting with 001; stations in Belgium send RSQ + the three-letter code of their UBA section (non-members send XXX, the national stations send UBA).",
+      "power_categories": [
+        {
+          "name": "Single/Multi Operator",
+          "max_watts": 50
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/uba-psk63-prefix-contest, 'UBA PSK63 Prefix Contest 2027', 1. Date: '9 january 2027, 12:00 UTC until 10 january 2027, 11:59 UTC. (every year the 2nd weekend of january)'. 2. Participants: 'Participation is open to all radio amateurs world wide in possession of a valid licence and to all SWL's.' 3. Mode and bands: 'BPSK63 only / 10, 15, 20, 40 and 80 meter, in the segments recommended by the IARU for this mode.' 4. Power: 'Maximum power output 50 W (5 W for QRP), in order not to cause interference or splatter to other participants.' 14. Logs: 'The logs must be sent no later than one week after the contest. The final submission deadline is January 17, 2027, 23:59 UTC.' UBA's own contest calendar independently gives the 2026 edition as 10/01/2026 12:00 to 11/01/2026 12:00; the second-weekend rule reproduces both years.",
+      "note": "The stated deadline instant (17 January 2027 23:59 UTC) is the right date for the seven-day interval UBA states but 23:59 rather than the 11:59 that end-plus-7-days gives. The interval is the rule, so the interval is encoded. Nothing distinguishes 'the 2nd weekend of january' from 'the second full weekend' in either published year, so the full-weekend form is used and no claim is made that UBA meant one rather than the other.",
+      "summary": "UBA's 24-hour BPSK63 contest on the second weekend of January, scored on WPX prefixes and UBA sections, with a 50-watt ceiling for everyone.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Participation is open to all radio amateurs world wide in possession of a valid licence and to all SWL's.' UBA adds a standing exclusion on this page: 'the UBA Governing Body has decided that the UBA will axe the measures taken by various IARU sister associations and regular sports organisations. This means that, until further notice, radio amateurs from the Russian Federation and Belarus will be excluded from participation.'"
+      }
+    },
+    {
+      "id": "uba-spring-2m",
+      "name": "UBA Spring Contest, 2m",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/spring-contest-dst",
+      "log_submit_url": "https://springcontest.on4dst.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "2m"
+      ],
+      "exchange": "Belgian stations send RS(T) + a serial number starting with 001 + their UBA section (XXX for non-members, UBA for the national stations); foreign stations send RS(T) + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (Phone)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-01"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/spring-contest-dst, 'Spring Contest 2026': 'The UBA section of DST (Diest) invites all radio amateurs to take part in the 43th edition of the UBA SPRING-CONTEST.' 1. Contest dates / Contest parts: 'VHF-2m Phone/CW: 1 March 2026 (07.00 -11.00 hour UTC). HF-80m CW: 8 March 2026 (07.00 -11.00 hour UTC). VHF-6m Phone/CW: 15 March 2026 (07.00 -11.00 hour UTC). HF-80m Phone: 22 March 2026 (07.00 -11.00 hour UTC).' 6. Reports: 'ON Stations: Report = RS(T) + QSO serial number starting with 001 + UBA section or XXX for ON stations NOT member of the UBA. ... Foreign stations: Report = RS(T) + QSO serial number starting with 001.' 7. Foreign stations: 'Only contacts with ON stations are valid.' QRP: 'Maximum output power: CW = 5 Watts, Phone = 10 Watts.' 12. Logs: 'The logs must arrive at latest 2 weeks after each contest date'. UBA's own contest calendar repeats each leg's date and 07:00-11:00 window.",
+      "note": "MANUAL, DELIBERATELY: UBA states four dated legs and no recurrence rule anywhere on the page. All four 2026 dates are Sundays a week apart, but UBA never says 'every Sunday in March' or names an ordinal, so no rule is asserted on its behalf and the record simply ends after 2026 rather than guessing. The page also notes 'The order of the various competitions has been changed compared to previous years', which is a reason not to extrapolate.",
+      "summary": "A four-hour leg of the UBA Spring Contest, a four-Sunday series run by the Diest section each March.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA section of DST (Diest) invites all radio amateurs to take part'. Foreign entry is a ranked category, but rule 7 limits it: 'Foreign stations -- Only contacts with ON stations are valid.'"
+      }
+    },
+    {
+      "id": "uba-spring-80m-cw",
+      "name": "UBA Spring Contest, 80m CW",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/spring-contest-dst",
+      "log_submit_url": "https://springcontest.on4dst.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "exchange": "Belgian stations send RS(T) + a serial number starting with 001 + their UBA section (XXX for non-members, UBA for the national stations); foreign stations send RS(T) + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (Phone)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-08"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/spring-contest-dst, 'Spring Contest 2026': 'The UBA section of DST (Diest) invites all radio amateurs to take part in the 43th edition of the UBA SPRING-CONTEST.' 1. Contest dates / Contest parts: 'VHF-2m Phone/CW: 1 March 2026 (07.00 -11.00 hour UTC). HF-80m CW: 8 March 2026 (07.00 -11.00 hour UTC). VHF-6m Phone/CW: 15 March 2026 (07.00 -11.00 hour UTC). HF-80m Phone: 22 March 2026 (07.00 -11.00 hour UTC).' 6. Reports: 'ON Stations: Report = RS(T) + QSO serial number starting with 001 + UBA section or XXX for ON stations NOT member of the UBA. ... Foreign stations: Report = RS(T) + QSO serial number starting with 001.' 7. Foreign stations: 'Only contacts with ON stations are valid.' QRP: 'Maximum output power: CW = 5 Watts, Phone = 10 Watts.' 12. Logs: 'The logs must arrive at latest 2 weeks after each contest date'. UBA's own contest calendar repeats each leg's date and 07:00-11:00 window.",
+      "note": "MANUAL, DELIBERATELY: UBA states four dated legs and no recurrence rule anywhere on the page. All four 2026 dates are Sundays a week apart, but UBA never says 'every Sunday in March' or names an ordinal, so no rule is asserted on its behalf and the record simply ends after 2026 rather than guessing. The page also notes 'The order of the various competitions has been changed compared to previous years', which is a reason not to extrapolate.",
+      "summary": "A four-hour leg of the UBA Spring Contest, a four-Sunday series run by the Diest section each March.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA section of DST (Diest) invites all radio amateurs to take part'. Foreign entry is a ranked category, but rule 7 limits it: 'Foreign stations -- Only contacts with ON stations are valid.'"
+      }
+    },
+    {
+      "id": "uba-spring-6m",
+      "name": "UBA Spring Contest, 6m",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/spring-contest-dst",
+      "log_submit_url": "https://springcontest.on4dst.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "exchange": "Belgian stations send RS(T) + a serial number starting with 001 + their UBA section (XXX for non-members, UBA for the national stations); foreign stations send RS(T) + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (Phone)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-15"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/spring-contest-dst, 'Spring Contest 2026': 'The UBA section of DST (Diest) invites all radio amateurs to take part in the 43th edition of the UBA SPRING-CONTEST.' 1. Contest dates / Contest parts: 'VHF-2m Phone/CW: 1 March 2026 (07.00 -11.00 hour UTC). HF-80m CW: 8 March 2026 (07.00 -11.00 hour UTC). VHF-6m Phone/CW: 15 March 2026 (07.00 -11.00 hour UTC). HF-80m Phone: 22 March 2026 (07.00 -11.00 hour UTC).' 6. Reports: 'ON Stations: Report = RS(T) + QSO serial number starting with 001 + UBA section or XXX for ON stations NOT member of the UBA. ... Foreign stations: Report = RS(T) + QSO serial number starting with 001.' 7. Foreign stations: 'Only contacts with ON stations are valid.' QRP: 'Maximum output power: CW = 5 Watts, Phone = 10 Watts.' 12. Logs: 'The logs must arrive at latest 2 weeks after each contest date'. UBA's own contest calendar repeats each leg's date and 07:00-11:00 window.",
+      "note": "MANUAL, DELIBERATELY: UBA states four dated legs and no recurrence rule anywhere on the page. All four 2026 dates are Sundays a week apart, but UBA never says 'every Sunday in March' or names an ordinal, so no rule is asserted on its behalf and the record simply ends after 2026 rather than guessing. The page also notes 'The order of the various competitions has been changed compared to previous years', which is a reason not to extrapolate.",
+      "summary": "A four-hour leg of the UBA Spring Contest, a four-Sunday series run by the Diest section each March.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA section of DST (Diest) invites all radio amateurs to take part'. Foreign entry is a ranked category, but rule 7 limits it: 'Foreign stations -- Only contacts with ON stations are valid.'"
+      }
+    },
+    {
+      "id": "uba-spring-80m-ssb",
+      "name": "UBA Spring Contest, 80m Phone",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/spring-contest-dst",
+      "log_submit_url": "https://springcontest.on4dst.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "exchange": "Belgian stations send RS(T) + a serial number starting with 001 + their UBA section (XXX for non-members, UBA for the national stations); foreign stations send RS(T) + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (Phone)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-22"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/spring-contest-dst, 'Spring Contest 2026': 'The UBA section of DST (Diest) invites all radio amateurs to take part in the 43th edition of the UBA SPRING-CONTEST.' 1. Contest dates / Contest parts: 'VHF-2m Phone/CW: 1 March 2026 (07.00 -11.00 hour UTC). HF-80m CW: 8 March 2026 (07.00 -11.00 hour UTC). VHF-6m Phone/CW: 15 March 2026 (07.00 -11.00 hour UTC). HF-80m Phone: 22 March 2026 (07.00 -11.00 hour UTC).' 6. Reports: 'ON Stations: Report = RS(T) + QSO serial number starting with 001 + UBA section or XXX for ON stations NOT member of the UBA. ... Foreign stations: Report = RS(T) + QSO serial number starting with 001.' 7. Foreign stations: 'Only contacts with ON stations are valid.' QRP: 'Maximum output power: CW = 5 Watts, Phone = 10 Watts.' 12. Logs: 'The logs must arrive at latest 2 weeks after each contest date'. UBA's own contest calendar repeats each leg's date and 07:00-11:00 window.",
+      "note": "MANUAL, DELIBERATELY: UBA states four dated legs and no recurrence rule anywhere on the page. All four 2026 dates are Sundays a week apart, but UBA never says 'every Sunday in March' or names an ordinal, so no rule is asserted on its behalf and the record simply ends after 2026 rather than guessing. The page also notes 'The order of the various competitions has been changed compared to previous years', which is a reason not to extrapolate.",
+      "summary": "A four-hour leg of the UBA Spring Contest, a four-Sunday series run by the Diest section each March.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA section of DST (Diest) invites all radio amateurs to take part'. Foreign entry is a ranked category, but rule 7 limits it: 'Foreign stations -- Only contacts with ON stations are valid.'"
+      }
+    },
+    {
+      "id": "uba-on-6m",
+      "name": "UBA ON Contest, 6m",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/on-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "exchange": "Stations in Belgium send RS(T) + a QSO number from 001 + their UBA section (non-members give XXX, the national club stations give UBA); stations outside Belgium send RS(T) + a QSO number from 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (SSB)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-27"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/on-contest, 'ON Contest 2026': 'The UBA Section MCL. Mechelen invites all radio amateurs to participate in the 46th edition of the ON Contest.' 1. Contestperiods: '6 meter Phone/CW 27 September, 2026 from 07:00 UTC to 10:00 UTC deadline logs 2 October / 80/40 meters SSB 4 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 9 October / 80/40 meters CW 11 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 16 October / 2 meters Phone/CW 18 October, 2026 from 07:00 UTC to 10:00 UTC deadline logs 23 October'. 4. Contest call and exchange: 'Stations in Belgium: RS(T) + QSO-number from 001 + UBA Section (stations not member of the UBA will give XXX) ... Stations outside Belgium: RS(T) + QSO-number from 001'. Remarks: 'QRP: ... they didn't use more power than 5W in CW or 10W in SSB.' and 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.' 9. Deadline: 'The logs must be sent no later than 5 days after the contest.' UBA's own contest calendar repeats each leg's date and window.",
+      "note": "MANUAL, DELIBERATELY: UBA gives four dated legs and no recurrence rule -- the page identifies the event only as 'the 46th edition'. The 2026 legs fall on consecutive Sundays from the last Sunday of September, but UBA states no ordinal, so none is asserted here. log_deadline_days is exact: UBA prints a deadline date beside each leg and all four are the leg's date plus five days.",
+      "summary": "A leg of the UBA ON Contest, a four-Sunday series run by the Mechelen section each autumn.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA Section MCL. Mechelen invites all radio amateurs to participate', and categories 'd Foreign stations' and 'e Foreign SWL' exist -- but 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.'"
+      }
+    },
+    {
+      "id": "uba-on-80-40-ssb",
+      "name": "UBA ON Contest, 80m/40m SSB",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/on-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "Stations in Belgium send RS(T) + a QSO number from 001 + their UBA section (non-members give XXX, the national club stations give UBA); stations outside Belgium send RS(T) + a QSO number from 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (SSB)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-10-04"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/on-contest, 'ON Contest 2026': 'The UBA Section MCL. Mechelen invites all radio amateurs to participate in the 46th edition of the ON Contest.' 1. Contestperiods: '6 meter Phone/CW 27 September, 2026 from 07:00 UTC to 10:00 UTC deadline logs 2 October / 80/40 meters SSB 4 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 9 October / 80/40 meters CW 11 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 16 October / 2 meters Phone/CW 18 October, 2026 from 07:00 UTC to 10:00 UTC deadline logs 23 October'. 4. Contest call and exchange: 'Stations in Belgium: RS(T) + QSO-number from 001 + UBA Section (stations not member of the UBA will give XXX) ... Stations outside Belgium: RS(T) + QSO-number from 001'. Remarks: 'QRP: ... they didn't use more power than 5W in CW or 10W in SSB.' and 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.' 9. Deadline: 'The logs must be sent no later than 5 days after the contest.' UBA's own contest calendar repeats each leg's date and window.",
+      "note": "MANUAL, DELIBERATELY: UBA gives four dated legs and no recurrence rule -- the page identifies the event only as 'the 46th edition'. The 2026 legs fall on consecutive Sundays from the last Sunday of September, but UBA states no ordinal, so none is asserted here. log_deadline_days is exact: UBA prints a deadline date beside each leg and all four are the leg's date plus five days.",
+      "summary": "A leg of the UBA ON Contest, a four-Sunday series run by the Mechelen section each autumn.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA Section MCL. Mechelen invites all radio amateurs to participate', and categories 'd Foreign stations' and 'e Foreign SWL' exist -- but 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.'"
+      }
+    },
+    {
+      "id": "uba-on-80-40-cw",
+      "name": "UBA ON Contest, 80m/40m CW",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/on-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "Stations in Belgium send RS(T) + a QSO number from 001 + their UBA section (non-members give XXX, the national club stations give UBA); stations outside Belgium send RS(T) + a QSO number from 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (SSB)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-10-11"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/on-contest, 'ON Contest 2026': 'The UBA Section MCL. Mechelen invites all radio amateurs to participate in the 46th edition of the ON Contest.' 1. Contestperiods: '6 meter Phone/CW 27 September, 2026 from 07:00 UTC to 10:00 UTC deadline logs 2 October / 80/40 meters SSB 4 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 9 October / 80/40 meters CW 11 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 16 October / 2 meters Phone/CW 18 October, 2026 from 07:00 UTC to 10:00 UTC deadline logs 23 October'. 4. Contest call and exchange: 'Stations in Belgium: RS(T) + QSO-number from 001 + UBA Section (stations not member of the UBA will give XXX) ... Stations outside Belgium: RS(T) + QSO-number from 001'. Remarks: 'QRP: ... they didn't use more power than 5W in CW or 10W in SSB.' and 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.' 9. Deadline: 'The logs must be sent no later than 5 days after the contest.' UBA's own contest calendar repeats each leg's date and window.",
+      "note": "MANUAL, DELIBERATELY: UBA gives four dated legs and no recurrence rule -- the page identifies the event only as 'the 46th edition'. The 2026 legs fall on consecutive Sundays from the last Sunday of September, but UBA states no ordinal, so none is asserted here. log_deadline_days is exact: UBA prints a deadline date beside each leg and all four are the leg's date plus five days.",
+      "summary": "A leg of the UBA ON Contest, a four-Sunday series run by the Mechelen section each autumn.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA Section MCL. Mechelen invites all radio amateurs to participate', and categories 'd Foreign stations' and 'e Foreign SWL' exist -- but 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.'"
+      }
+    },
+    {
+      "id": "uba-on-2m",
+      "name": "UBA ON Contest, 2m",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/hf/contest-rules/on-contest",
+      "log_submit_url": "https://contestupload.uba.be/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "2m"
+      ],
+      "exchange": "Stations in Belgium send RS(T) + a QSO number from 001 + their UBA section (non-members give XXX, the national club stations give UBA); stations outside Belgium send RS(T) + a QSO number from 001.",
+      "power_categories": [
+        {
+          "name": "Open",
+          "max_watts": null
+        },
+        {
+          "name": "QRP (SSB)",
+          "max_watts": 10
+        },
+        {
+          "name": "QRP (CW)",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-10-18"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/hf/contest-rules/on-contest, 'ON Contest 2026': 'The UBA Section MCL. Mechelen invites all radio amateurs to participate in the 46th edition of the ON Contest.' 1. Contestperiods: '6 meter Phone/CW 27 September, 2026 from 07:00 UTC to 10:00 UTC deadline logs 2 October / 80/40 meters SSB 4 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 9 October / 80/40 meters CW 11 October, 2026 from 06:00 UTC to 10:00 UTC deadline logs 16 October / 2 meters Phone/CW 18 October, 2026 from 07:00 UTC to 10:00 UTC deadline logs 23 October'. 4. Contest call and exchange: 'Stations in Belgium: RS(T) + QSO-number from 001 + UBA Section (stations not member of the UBA will give XXX) ... Stations outside Belgium: RS(T) + QSO-number from 001'. Remarks: 'QRP: ... they didn't use more power than 5W in CW or 10W in SSB.' and 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.' 9. Deadline: 'The logs must be sent no later than 5 days after the contest.' UBA's own contest calendar repeats each leg's date and window.",
+      "note": "MANUAL, DELIBERATELY: UBA gives four dated legs and no recurrence rule -- the page identifies the event only as 'the 46th edition'. The 2026 legs fall on consecutive Sundays from the last Sunday of September, but UBA states no ordinal, so none is asserted here. log_deadline_days is exact: UBA prints a deadline date beside each leg and all four are the leg's date plus five days.",
+      "summary": "A leg of the UBA ON Contest, a four-Sunday series run by the Mechelen section each autumn.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'The UBA Section MCL. Mechelen invites all radio amateurs to participate', and categories 'd Foreign stations' and 'e Foreign SWL' exist -- but 'For foreign stations, only QSOs with Belgian stations are valid. This also applies to ON stations participating from abroad.'"
+      }
+    },
+    {
+      "id": "uba-bma",
+      "name": "Belgian Mills Award (BMA) Contest",
+      "sponsor": "UBA",
+      "country": "BE",
+      "rules_url": "https://www.uba.be/en/node/2457",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB"
+      ],
+      "submodes": [
+        "FM"
+      ],
+      "bands": [
+        "80m",
+        "2m"
+      ],
+      "bands_note": "80m SSB 3600-3650 and 3700-3775 kHz; 2m SSB and FM",
+      "exchange": "RST + a QSO serial number starting with 001 + the Belgian province (AN, BW, HT, LB, LG, NM, LU, OV, VB, WV or BR for Brussels) + the mill reference if operating from one.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-09-21"
+          ],
+          "2026": [
+            "2026-09-20"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "verified": true,
+      "source_note": "uba.be/en/node/2457 (BMA Contest, page in Dutch on UBA's English site), 2. Datum en duur: '21/09/2025 van 08.00 tot 12.00 uur lokale tijd (06:00 tot 10:00 UTC)'. 1. Naam en doel: 'BMA (Belgian Mill Award) contest / Promoten van het Belgische wind-, water- en rosmolen patrimonium.' 5. Categorieen: 'HF band (80m SSB)' and 'VHF band (2m SSB en FM)'. 7. Deelname en vermogen: 'Alle radioamateurs uit binnen- en buitenland die beschikken over de nodige licentie voor bovenvermelde categorieen kunnen deelnemen. ... Voor buitenlandse deelnemers gelden enkel verbindingen met Belgische stations.' 8. Rapport as quoted in the exchange field. 12. Deadline: 'Alle logs dienen te worden ingediend tenlaatste op 5 oktober via de website.' UBA's own contest calendar gives the 2026 edition as 20/09/2026 06:00 to 10:00.",
+      "note": "MANUAL, DELIBERATELY, AND UBA'S PAGE IS STALE: the rules page still carries the 2025 date while UBA's contest calendar lists 20/09/2026. Both dates are the third Sunday of September, but 'the Sunday nearest 21 September' fits them equally and UBA states no rule at all, so neither ordinal is asserted and both published dates are recorded as given. The page also says 'Voor het volledig reglement consulteer de BMA website' -- the complete rules live at belgianmillaward.be, off UBA's site; everything encoded here comes from UBA's own page. log_deadline_days is unset: UBA gives a fixed calendar date ('tenlaatste op 5 oktober'), not an interval.",
+      "summary": "A four-hour Belgian activity contest for windmill, watermill and horse-mill sites, worked on 80 m SSB and 2 m SSB/FM with mill references as multipliers.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.uba.be/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Alle radioamateurs uit binnen- en buitenland die beschikken over de nodige licentie ... kunnen deelnemen' -- all licensed amateurs at home and abroad -- but 'Voor buitenlandse deelnemers gelden enkel verbindingen met Belgische stations.'"
+      }
+    },
+    {
+      "id": "pacc",
+      "name": "PACC Contest",
+      "sponsor": "VERON",
+      "country": "NL",
+      "rules_url": "https://veron.nl/vereniging/commissies-en-werkgroepen/traffic-bureau/hf-contesten/pacc-contest/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Dutch (PA) stations send a signal report + their two-letter province code; all other stations send RST + a serial number.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 2,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "source_note": "veron.nl (PACC contest page, Dutch): 'die plaatsvindt in het tweede volle weekend van februari'; the English rules PDF (PACC_2026_rules_eng.pdf) says 'This contest is always on the 2nd full weekend of February.' The PDF words the 2026 period as a date only: 'From 14 February 2026 1200 UTC until 15 February 2026 1200 UTC'. 3.1 Contest bands and segments: 'These are 160m, 80m, 40m, 20m, 15m, 10m'. 6.2: 'Dutch (PA) stations: signal report + province code (two letters)'. 12.1: 'Logs must be submitted to the contest sponsors before February 20 23:59 UTC 2026. ATTENTION: THE LOG SUBMISSION PERIOD IS 5 DAYS!' VERON independently published three further editions -- 13-14 February 2027, 12-13 February 2028 and 10-11 February 2029 -- and the second-full-weekend rule reproduces all three.",
+      "note": "The stated deadline instant (20 February 23:59 UTC) is the right date for the five-day period VERON states but 23:59 rather than the 12:00 that end-plus-5-days gives; the interval is what the rules call the rule, so the interval is encoded. As of 2026-08-18 veron.nl's rules link still served the 2026 edition while the site's front page advertised 2027.",
+      "summary": "The Netherlands' national contest: 24 hours over the second full weekend of February, 160 through 10 metres, Dutch stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://veron.nl/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules run separate PA and non-PA classifications and score contacts between them, so entry is open worldwide with Dutch stations as the target."
+      }
+    },
+    {
+      "id": "paccdigi",
+      "name": "PACCdigi Contest",
+      "sponsor": "VERON",
+      "country": "NL",
+      "rules_url": "https://veron.nl/vereniging/commissies-en-werkgroepen/traffic-bureau/hf-contesten/paccdigi-contest/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "RTTY",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Dutch stations send a signal report (RST) + their two-letter province abbreviation; the rest of the world sends RST + a serial number starting at 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 400
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-18"
+          ],
+          "2027": [
+            "2027-04-17"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "veron.nl (PACCdigi contest page, Dutch): '18 april 2026 van 12:00 UTC tot 19 april 2026 11:59 UTC' and, for the next edition, '17 april 2027 12:00 UTC tot 18 april 2027 11:59 UTC'. Rules PDF (regels-NL-2026.pdf, Dutch only), 2.1 Modes: 'Er wordt gewerkt in twee verschillende mode-categorieen: RTTY en FT4/FT8'. 3.1 Frequentiebanden en segmenten: 'De contest vindt plaats op 160M, 80M, 40M, 20M, 15M, 10M'. 6.1: 'Ned. stations: signaal rapport (RST) + Provincie (2 letter afkoring) GR,NB etc / Rest van de wereld: RST + serialnummer startend met 001'. Power: 'High Power: niet meer dan 400 watt / Low Power: 100 watt / QRP: 5 watt'. 12.1: 'Logs moeten voor 26 april 2026 23:59 UTC worden aangeleverd.'",
+      "note": "MANUAL, DELIBERATELY: VERON publishes two dated editions and no recurrence rule -- unlike the PACC, whose page says 'het tweede volle weekend van februari' in so many words. Both published dates happen to be the third Saturday of April, but VERON never says so, so no ordinal is asserted and the record ends after 2027 rather than guessing. log_deadline_days is unset for the same reason as agcw-hnyc: 'voor 26 april 2026 23:59 UTC' is a fixed calendar instant, not an interval. It happens to be seven days after the end date, but VERON does not say seven days.",
+      "summary": "VERON's digital-modes companion to the PACC: 24 hours in April, RTTY and FT4/FT8 scored as separate mode categories, Dutch stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://veron.nl/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules split scoring between 'Ned. stations' and 'Rest van de wereld', so entry is open worldwide with Dutch stations as the target."
+      }
+    },
+    {
+      "id": "sp-dx-contest",
+      "name": "SP DX Contest",
+      "sponsor": "PZK / SP DX Club",
+      "country": "PL",
+      "rules_url": "https://spdxcontest.pzk.org.pl/2026/rules.php",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "SP stations send RS(T) + one letter identifying their province (B, C, D, F, G, J, K, L, M, O, P, R, S, U, W or Z); all other stations send RS(T) + a serial number starting from 001.",
+      "power_categories": [
+        {
+          "name": "HP",
+          "max_watts": null
+        },
+        {
+          "name": "LP",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1459"
+      },
+      "verified": true,
+      "source_note": "spdxcontest.pzk.org.pl/2026/rules.php: 'ORGANIZERS: PZK - Polish Amateur Radio Union (Polski Zwiazek Krotkofalowcow) and SP DX Club.' (PL: 'ORGANIZATORZY: Polski Zwiazek Krotkofalowcow oraz SP DX Club.') 'DATE: The first full weekend of April from 04.04.2026 15:00:00 UTC (Saturday) to 05.04.2026 14:59:59 (Sunday).' (PL: 'TERMIN ZAWODOW: Pierwszy pelny weekend kwietnia...') 'BANDS: 160, 80, 40, 20, 15 and 10m'. 'MODES: SSB and CW'. 'HP: Max. output power allowed by your license class. LP: 100 watts. QRP: 5 watts.' 'All entries must be submitted no later than 1 week after the contest (12.04.2026)'. The 2025 rules page independently gives 05.04.2025 15:00 to 06.04.2025 14:59; the first-full-weekend rule reproduces both.",
+      "note": "The summary block on the same page prints the deadline as 12.04.2026 23:59 UTC, where the stated one-week interval from the 14:59 end gives 14:59 on the same day. The interval is the rule the organisers state, so the interval is encoded and the printed instant is recorded here.",
+      "summary": "Poland's national DX contest: 24 hours from 1500 UTC on the first full weekend of April, SP stations sending a single-letter province designator.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://pzk.org.pl/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The contest is scored between SP and non-SP stations, with separate classifications for each, so entry is open worldwide with Polish stations as the target."
+      }
+    },
+    {
+      "id": "sp-dx-rtty",
+      "name": "SP DX RTTY Contest",
+      "sponsor": "PK RVG",
+      "country": "PL",
+      "rules_url": "https://pkrvg.org/strona,spdxrttyen.html",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5-28 MHz, WARC bands excluded",
+      "exchange": "Foreign stations send RST + a QSO number (599001); Polish stations send RST + the two letters denoting their poviat.",
+      "power_categories": [
+        {
+          "name": "HP",
+          "max_watts": null
+        },
+        {
+          "name": "LP",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "source_note": "pkrvg.org/strona,spdxrttyen.html: 'Sponsored by PZK,PKRVG'. 'The SPDX RTTY Contest organized the Polish Radiovideography Club (PK RVG) is held on the 4th full weekend of April. (25/26 April 2026).' '1. Contest Period: 12.00 UTC Saturday , through 12.00 UTC Sunday.' '2. Bands: 3,5 - 28 MHz without WARC bands.' '3. Mode: RTTY'. 'Foreign station send : RST & QSO Number. (599001) / Polish station transmits : RST & two letters denoting the poviats'. '14. Deadline: All entries must be sent WITHIN SEVEN (7) DAYS after the end of the contest.'",
+      "note": "REGISTRY CORRECTION: this contest belongs to PK RVG (the Polish Radiovideography Club), not to the SP DX Club that runs the SP DX Contest. The sources registry previously grouped both under 'PZK / SP DX Club'. PZK is named as a co-sponsor ('Sponsored by PZK,PKRVG') but the organiser named in the rules is PK RVG.",
+      "summary": "Poland's RTTY contest: 24 hours from 1200 UTC on the fourth full weekend of April, Polish stations sending a two-letter poviat code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://pkrvg.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules give separate exchanges and classifications for 'Foreign station' and 'Polish station', so entry is open worldwide with Polish stations as the target."
+      }
+    },
+    {
+      "id": "ok-om-dx-ssb",
+      "name": "OK/OM DX Contest, SSB",
+      "sponsor": "CRK / SARA",
+      "country": "CZ",
+      "rules_url": "http://www.okomdx.crk.cz/index.php?page=SSB-rules-english",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "1.8 through 28 MHz, WARC bands excluded",
+      "exchange": "Non-Czech and Slovak stations send a signal report + a QSO number starting with 001; Czech and Slovak stations send a signal report + their three-letter county code.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "okomdx.crk.cz (OK/OM DX Contest SSB rules, English): 'The Czech Radio Club, CRK in cooperation with Slovak radioclub SARA'. '2. Contest Period -- second weekend in April, i.e. 1200 UTC 11 April - 1159 UTC 12 April 2026'. 'All bands, 1.8 through 28 MHz, WARC bands excluded'. '5.1 Non-Czech and Slovak stations: signal report + QSO number, starting with 001. / 5.2 Czech and Slovak stations: signal report + County code (three letters).' '11.1 Logs must be submitted to the contest sponsors within 7 days after the end of the contest .. (APRIL 19, 2026, 2359 UTC)'.",
+      "note": "The parenthetical deadline (19 April 2026, 2359 UTC) is the right date for the seven-day interval but 23:59 rather than the 11:59 that end-plus-7-days gives; the interval is the stated rule, so the interval is encoded. WORDING DIFFERENCE, RECORDED RATHER THAN RECONCILED: the SSB rules say 'second weekend in April' where the CW rules say 'Second (full) weekend in November'. The two readings cannot diverge at n = 2 -- the second Saturday of a month is at most the 14th, so its Sunday is always in the same month -- so no choice between them was needed. BLOCKER RECORDED, NOT WORKED AROUND: okomdx.crk.cz serves a TLS certificate issued for default.web4u.cz, so HTTPS fails validation and the rules are reachable only over plain HTTP. rules_url is therefore http:// deliberately; it is not an oversight, and the link checker will keep reporting it as such until the Czech Radio Club fixes the host.",
+      "summary": "The Czech and Slovak national DX contest, phone leg: 24 hours on the second weekend of April, OK and OM stations sending a three-letter county code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.crk.cz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rule 5.1 provides an exchange for 'Non-Czech and Slovak stations' and the categories are open to them, so entry is worldwide with OK/OM stations as the target."
+      }
+    },
+    {
+      "id": "ok-om-dx-cw",
+      "name": "OK/OM DX Contest, CW",
+      "sponsor": "CRK / SARA",
+      "country": "CZ",
+      "rules_url": "http://www.okomdx.crk.cz/index.php?page=CW-rules-english",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "1.8 through 28 MHz, WARC bands excluded",
+      "exchange": "Non-Czech and Slovak stations send a signal report + a QSO number starting with 001; Czech and Slovak stations send a signal report + their three-letter county code.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "okomdx.crk.cz (OK/OM DX Contest CW rules, English): 'The Czech Radio Club, CRK in cooperation with Slovak radioclub SARA'. '2. Contest Period -- Second (full) weekend in November, i.e. 1200 UTC 14th November - 1159 UTC 15th November 2026.' 'All bands, 1.8 through 28 MHz, WARC bands excluded'. '5.1 Non-Czech and Slovak stations: signal report + QSO number, starting with 001. / 5.2 Czech and Slovak stations: signal report + County code (three letters).' '11.1 Logs must be submitted to the contest sponsors within 7 days after the end of the contest - (November 22nd, 2026, 2359 UTC)'.",
+      "note": "The parenthetical deadline (22 November 2026, 2359 UTC) is the right date for the seven-day interval but 23:59 rather than the 11:59 that end-plus-7-days gives; the interval is the stated rule, so the interval is encoded. BLOCKER RECORDED, NOT WORKED AROUND: okomdx.crk.cz serves a TLS certificate issued for default.web4u.cz, so HTTPS fails validation and the rules are reachable only over plain HTTP. rules_url is therefore http:// deliberately; it is not an oversight, and the link checker will keep reporting it as such until the Czech Radio Club fixes the host.",
+      "summary": "The Czech and Slovak national DX contest, CW leg: 24 hours on the second full weekend of November, OK and OM stations sending a three-letter county code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.crk.cz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rule 5.1 provides an exchange for 'Non-Czech and Slovak stations' and the categories are open to them, so entry is worldwide with OK/OM stations as the target."
+      }
+    },
+    {
+      "id": "ok-dx-rtty",
+      "name": "OK DX RTTY Contest",
+      "sponsor": "CRK",
+      "country": "CZ",
+      "rules_url": "http://okrtty.crk.cz/index.php?page=english",
+      "log_format": "Cabrillo",
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "Baudot"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + CQ Zone.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2400"
+      },
+      "verified": true,
+      "source_note": "okrtty.crk.cz (OK DX RTTY Contest, English rules): '1) Date: 00:00 UTC to 24:00 UTC Saturday, 3rd full weekend in December.' '2) Mode: RTTY - Baudot'. '3) Bands: 10, 15, 20, 40 and 80 meters'. '6) Message: RST + CQ Zone'. Categories are High Power (over 100 W) and Low Power (under 100 W). Logs are due 'not later than 7th day after the contest'. The site's own news item independently gives the 2026 edition as '19. 12. 2026, 00:00-24:00 UTC'.",
+      "note": "TWO PROBLEMS IN THE SPONSOR'S OWN TEXT, BOTH RECORDED RATHER THAN RECONCILED. First, the news item announcing the 19 December 2026 edition prints 'Deadline for log upload: 26. 12. 2025 23:59:59' -- the wrong year for a 2026 contest. Second, that 26 December date is not what the rules' own seven-day interval produces here: this catalog stores the end as 24:00 on the Saturday, i.e. 00:00 on the Sunday, and seven days from there is 27 December. log_deadline_days is therefore left unset and both statements are quoted, the same treatment given to JARL's All Asian DX Contest. ATTRIBUTION CAVEAT: neither the English nor the Czech rules page names an organising society. The sponsor is recorded as the Czech Radio Club on the strength of the crk.cz hosting domain and the okrtty-at-crk.cz log address, and that inference is stated here rather than hidden. BLOCKER: okrtty.crk.cz serves a TLS certificate issued for default.web4u.cz, so rules_url is http:// deliberately.",
+      "summary": "A one-day Baudot RTTY contest on the third full weekend of December, Saturday 0000-2400 UTC, exchanging RST and CQ zone.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.crk.cz/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The rules state no entrant clause. The exchange is RST + CQ Zone with no home-country distinction and the categories are open, so worldwide is the strong reading -- but it is a reading, not a quote."
+      }
+    },
+    {
+      "id": "ari-international-dx",
+      "name": "ARI International DX Contest",
+      "sponsor": "ARI",
+      "country": "IT",
+      "rules_url": "https://contest.ari.it/hf_web/rules/aridxrule_dx.pdf",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 6,
+      "modes": [
+        "CW",
+        "SSB",
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "10 m through 80 m, WARC bands excluded",
+      "exchange": "Italian stations send RS(T) + their two-letter province code; all other stations send RS(T) + a serial number starting from 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "contest.ari.it/hf_web/rules/aridxrule_dx.pdf. Italian text, 3) Data ed orario: 'Il contest si svolge il primo weekend completo di Maggio con inizio alle ore 1200Z del sabato e termine alle ore 1159Z della domenica. L'edizione 2026 avra luogo il 02 e 03 Maggio.' English text: 'The contest will be held on each first full week-end of May starting at 1200Z Saturday and ending at 1159Z Sunday. In year 2026 the dates will be May 02-03.' Bands 'from 10m through 80m, except WARC'; modes CW, SSB and RTTY. Italian stations send RST + province, others RST + progressive number from 001, and 'no QSO/HRD between Italian station are permitted'. Logs are due 'no later than 6 days after the contest'.",
+      "note": "The rules PDF is the sponsor's own; ari.it/contest-hf/ari-international.html carries results rather than rules, and ARI's contest calendar page is an aggregator listing other sponsors' events, so neither was used as a source for anything beyond ARI's own contests.",
+      "summary": "Italy's international DX contest: 24 hours from 1200 UTC on the first full weekend of May, CW, SSB and RTTY together, Italian stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ari.it/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Open worldwide, but contacts between Italian stations do not count: 'no QSO/HRD between Italian station are permitted'."
+      }
+    },
+    {
+      "id": "ari-contest-sezioni-hf",
+      "name": "ARI Contest delle Sezioni HF",
+      "sponsor": "ARI",
+      "country": "IT",
+      "rules_url": "https://contest.ari.it/hf_web/rules/arisezionihf_it.pdf",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 6,
+      "modes": [
+        "CW",
+        "SSB",
+        "RTTY"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "10 to 160 m (10-80 m on RTTY), WARC bands excluded",
+      "exchange": "RS(T) + the ASC code of the entrant's ARI section.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "contest.ari.it/hf_web/rules/arisezionihf_it.pdf (Italian only): 'Il contest si svolge ogni secondo week-end completo di Giugno con inizio alle ore 12.00z del sabato e termine alle ore 11.59z della domenica. L'edizione 2026 avra luogo in data 13 e 14 Giugno.' Bands 'dai 10 ai 160m (10-80m in RTTY)' excluding WARC; modes CW, SSB and RTTY; exchange RS(T) plus the section's ASC code. Logs are due 'entro, e non oltre, 6 giorni dalla data di fine contest'.",
+      "note": "CONTRADICTION IN ARI'S OWN PDF, RECORDED RATHER THAN RECONCILED: the document still carries a 'Per il 2018' clause alongside its own '20 Giugno 2026' reference, so parts of it have not been revised. The recurrence and times quoted above are stated as standing rules, not as one edition's dates, and reproduce ARI's own 13-14 June 2026.",
+      "summary": "ARI's inter-section contest: 24 hours on the second full weekend of June, for Italian ARI members, exchanging the entrant's section code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ari.it/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "I"
+        ],
+        "verified": true,
+        "note": "Entry is limited to Italian ARI members -- the whole point of the contest is the ranking of ARI sections, and the exchange is the entrant's section code."
+      }
+    },
+    {
+      "id": "ari-40-80",
+      "name": "ARI 40/80 Contest",
+      "sponsor": "ARI",
+      "country": "IT",
+      "rules_url": "https://www.ari.it/contest-hf/contest-4080.html",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 6,
+      "modes": [
+        "CW",
+        "SSB",
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RS(T) + the two-letter vehicle registration code of the province.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1259"
+      },
+      "verified": true,
+      "source_note": "ari.it/contest-hf/contest-4080.html: '3) Data ed orario: il contest si svolge il secondo weekend completo di Dicembre con inizio alle ore 1300Z del sabato e termine alle ore 1259Z della domenica. L'edizione 2025 avra luogo il 13 e 14 Dicembre.' Bands are 40 and 80 metres; modes CW, SSB and RTTY; exchange 'RS(T) + la sigla automobilistica della provincia'. Sponsored by 'La Sezione ARI di Bologna, con il supporto dell'ARI Nazionale'. Logs are due within 6 days of the end of the contest.",
+      "note": "As of 2026-08-18 the page still described the 2025 edition; the recurrence and times are stated as standing rules and are what is encoded. SWL entrants have a longer operating window than transmitting entrants (59 hours), which this record does not model -- the stored window is the transmitting one.",
+      "summary": "A low-band Italian contest run by the ARI Bologna section: 24 hours from 1300 UTC on the second full weekend of December, 40 and 80 metres only.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ari.it/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "I"
+        ],
+        "verified": true,
+        "note": "The rules restrict entry to Italian OM and SWL stations; the exchange is the entrant's Italian province code."
+      }
+    },
+    {
+      "id": "ure-rey-de-espana-cw",
+      "name": "His Majesty the King of Spain Contest, CW",
+      "sponsor": "URE",
+      "country": "ES",
+      "rules_url": "https://concursos.ure.es/en/s-m-el-rey-de-espana-cw/bases/",
+      "log_submit_url": "https://concursos.ure.es/en/logs/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Spanish stations send RST + their province abbreviation (EF0F sends SMR); DX stations send RST + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "concursos.ure.es/en/s-m-el-rey-de-espana-cw/bases/: 'Sponsored by: Union de Radioaficionados Espanoles (URE).' 'Participants: Any licensed amateur station.' 'Dates: CW: 3rd full weekend of May, from 1200 UTC Saturday till 1159 UTC Sunday (May 16th and 17th, 2026).' 'Bands: 10, 15, 20, 40, 80 and 160 meters, in the segments recommended by the IARU for this mode.' 'High power ( Maximun legal limit in each country), Low power ( max. 100 watts ) and QRP (max. 5 watts).' 'Logs must be received by 1 June 2026 (15 days).' That is exactly the stored end instant plus 15 days, so the number is encoded.",
+      "summary": "Spain's premier CW contest: 24 hours from 1200 UTC on the third full weekend of May, 160 through 10 metres, EA stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ure.es/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Participants: Any licensed amateur station.' and 'Valid Contacts: Contacts may be made with any station anywhere in the world.'"
+      }
+    },
+    {
+      "id": "ure-rey-de-espana-ssb",
+      "name": "His Majesty the King of Spain Contest, SSB",
+      "sponsor": "URE",
+      "country": "ES",
+      "rules_url": "https://concursos.ure.es/en/s-m-el-rey-de-espana-ssb/bases/",
+      "log_submit_url": "https://concursos.ure.es/en/logs/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Spanish stations send RST + their province abbreviation (EF0F sends SMR); DX stations send RST + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "concursos.ure.es/en/s-m-el-rey-de-espana-ssb/bases/: 'Sponsored by: Union de Radioaficionados Espanoles (URE).' 'Dates: SSB: 4rd full weekend of June, from 1200 UTC Saturday till 1159 UTC Sunday (June 27th and 28th, 2026).' -- URE's own typo, quoted as written; the ordinal is four. 'Bands: 10, 15, 20, 40, 80 and 160 meters, in the segments recommended by the IARU for this mode.' 'Logs must be received by 13th July 2026 (15 days).' That is exactly the stored end instant plus 15 days, so the number is encoded.",
+      "note": "The fourth full weekend of June 2026 is 27-28 June, which is the date URE prints beside the rule, so the '4rd' typo does not leave the ordinal in doubt.",
+      "summary": "Spain's premier phone contest: 24 hours from 1200 UTC on the fourth full weekend of June, 160 through 10 metres, EA stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ure.es/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Participants: Any licensed amateur station.' and 'Valid Contacts: Contacts may be made with any station anywhere in the world.'"
+      }
+    },
+    {
+      "id": "ure-eartty",
+      "name": "EA RTTY Contest",
+      "sponsor": "URE",
+      "country": "ES",
+      "rules_url": "https://concursos.ure.es/en/eartty/bases/",
+      "log_submit_url": "https://concursos.ure.es/en/logs/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "Baudot"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Spanish stations send RSQ + their province abbreviation; DX stations send RSQ + a serial number starting with 001. EA4URE sends HQ.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-04"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "concursos.ure.es/en/eartty/bases/: 'Participants: Any radio amateur anywhere in the world with a valid licence.' 'Dates: From 12:00 utc on Saturday 4th to 11:59 utc on Sunday 5th April 2026.' (ES: 'Fechas: Desde las 12:00 utc del sabado dia 4 hasta las 11:59 utc del domingo 5 de abril de 2026.') 'Mode: RTTY Baudot (Teletype).' 'Bands: 10, 15, 20, 40 y 80 meters, in the segments recommended by the IARU for this mode.' 'Exchange: Spanish stations send RSQ and the Province abbreviation. DX stations send RSQ and serial number starting with 001.' 'Logs must be received by 20th April 2026 (15 days).' That is exactly the stored end instant plus 15 days.",
+      "note": "MANUAL, DELIBERATELY: URE states a date and no rule for this contest, in both the English and the Spanish version of the page -- unlike its five other HF contests, every one of which names an ordinal weekend. The 2026 dates happen to be the first full weekend of April, but no ordinal is asserted on URE's behalf, so the record ends after 2026 rather than guessing.",
+      "summary": "URE's national RTTY contest: 24 hours in early April, Baudot only, Spanish stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ure.es/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Any radio amateur anywhere in the world with a valid licence.'"
+      }
+    },
+    {
+      "id": "ure-eapsk63",
+      "name": "EA PSK63 Contest",
+      "sponsor": "URE",
+      "country": "ES",
+      "rules_url": "https://concursos.ure.es/en/eapsk63/bases/",
+      "log_submit_url": "https://concursos.ure.es/en/logs/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "BPSK63"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Spanish stations send RSQ + their province abbreviation; the rest of the world sends RSQ + a serial number starting with 001.",
+      "power_categories": [
+        {
+          "name": "Single/Multi Operator",
+          "max_watts": 50
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "source_note": "concursos.ure.es/en/eapsk63/bases/ (page in Spanish): 'Organizacion.- Union de Radioaficionados Espanoles (URE).' 'Participantes.- Todos los radioaficionados en posesion de licencia oficial que lo deseen.' 'Fechas: Segundo fin de semana del mes de marzo (en el ano 2026, dias 14 y 15), desde las 12:00 UTC del sabado hasta las 11:59 UTC del domingo.' 'Modo: BPSK63.' 'Bandas: 10, 15, 20, 40 y 80 metros.' 'Potencia: La potencia permitida en este concurso, es hasta 50 W. ... Categoria QRP hasta 5 W maximo.' 'Intercambio: Las estaciones espanolas pasaran RSQ mas la sigla provincial; las del resto del mundo pasaran RSQ mas numero de serie comenzando con el 001.' 'La fecha limite de recepcion de listas (15 dias) es el 30 de marzo de 2026.' That is exactly the stored end instant plus 15 days.",
+      "note": "URE says 'segundo fin de semana', not 'segundo fin de semana completo'. The two readings cannot diverge at n = 2 -- the second Saturday of a month is at most the 14th, so its Sunday is always in the same month -- so no choice between them was needed.",
+      "summary": "URE's BPSK63 contest: 24 hours on the second weekend of March, 50 watts maximum for everyone, Spanish stations sending a province code.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ure.es/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Todos los radioaficionados en posesion de licencia oficial que lo deseen' -- all licensed amateurs who wish to enter."
+      }
+    },
+    {
+      "id": "ure-cncw",
+      "name": "Concurso Nacional CW (CNCW)",
+      "sponsor": "URE",
+      "country": "ES",
+      "rules_url": "https://concursos.ure.es/en/cncw/bases/",
+      "log_submit_url": "https://concursos.ure.es/en/logs/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST + the provincial abbreviation. EA4URE sends RST and HQ; URE members operating from outside Spain send RST and SU.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1000
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 3
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "2259"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "0500"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "1159"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2259"
+      },
+      "verified": true,
+      "source_note": "concursos.ure.es/en/cncw/bases/: 'Sponsored by: Union de Radioaficionados Espanoles (URE).' 'Participants: Any EA and CEPT licensed station transmitting from EA (all districts, example EA1/W1XXX) and URE members, EA or foreigners, that are outside of Spain.' 'Dates: 3rd full weekend of July (July 18th and 19th, 2026), from 1200 UTC Saturday till 2259 UTC Saturday and from 0500UTC till 1159UTC Sunday).' 'Bands: 10, 15, 20, 40 and 80 meters'. 'High power ( Max. 1000 watts), Low power ( max. 100 watts ) and QRP (max. 5 watts).' 'Exchange: RST plus the provincial abbreviation. EA4URE will send RST and “HQ”, EA or foreigners, outside of Spain, will send RST and SU'. 'Logs must be received by 3 August 2026 (15 days).' That is exactly the second session's end instant plus 15 days.",
+      "note": "Two sessions with an overnight break, encoded in the sessions array; the top-level start/end repeat the first session, as elsewhere in this catalog. URE states one deadline for the contest as a whole and it is the second session's end plus 15 days exactly. The engine applies log_deadline_days to each session separately, so the first session's computed deadline falls a day before URE's printed one. Dropping the interval to quote a fixed date instead would lose the arithmetic URE actually states, so the interval is kept and the artefact recorded here.",
+      "summary": "Spain's national CW contest: two sessions over the third full weekend of July with an overnight break, for EA stations and URE members abroad.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ure.es/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "EA",
+          "EA6",
+          "EA8",
+          "EA9"
+        ],
+        "verified": true,
+        "note": "'Any EA and CEPT licensed station transmitting from EA (all districts, example EA1/W1XXX) and URE members, EA or foreigners, that are outside of Spain.' The second clause lets URE members enter from anywhere; the entity list records the transmitting-from-Spain requirement that applies to everyone else."
+      }
+    },
+    {
+      "id": "ure-cme",
+      "name": "Concurso Municipios Espanoles (CME)",
+      "sponsor": "URE",
+      "country": "ES",
+      "rules_url": "https://concursos.ure.es/en/cme/bases/",
+      "log_submit_url": "https://concursos.ure.es/en/logs/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Spanish stations send RS(T) + the number of their municipality (EA4URE sends HQ); DX stations send RS(T) + a serial number beginning with 001.",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": null
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 2
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "2259"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "0500"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "1159"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2259"
+      },
+      "verified": true,
+      "source_note": "concursos.ure.es/en/cme/bases/: 'Sponsored by: Union de Radioaficionados Espanoles (URE).' 'Participants: Any licensed amateur station.' 'Dates: 2nd full weekend of August, from 12:00 UTC Saturday until 22:59 UTC, and from 05:00 UTC until 11:59 UTC Sunday (August 8th and 9th 2026).' 'Mode: SSB.' 'Bands: 10, 15, 20, 40 and 80 meters'. 'Exchange: Spanish stations: RS (T) and number of the municipality. EA4URE will pass the abbreviation HQ. DX stations: RS (T) and serial number beginning with 001.' 'Logs must be received by 24th August 2026 (15 days).' That is exactly the second session's end instant plus 15 days.",
+      "note": "Two sessions with an overnight break, encoded in the sessions array; the top-level start/end repeat the first session, as elsewhere in this catalog. URE states one deadline for the contest as a whole and it is the second session's end plus 15 days exactly. The engine applies log_deadline_days to each session separately, so the first session's computed deadline falls a day before URE's printed one. Dropping the interval to quote a fixed date instead would lose the arithmetic URE actually states, so the interval is kept and the artefact recorded here.",
+      "summary": "URE's Spanish municipalities contest: two SSB sessions over the second full weekend of August, Spanish stations sending their municipality number.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.ure.es/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Participants: Any licensed amateur station.'"
+      }
     }
   ]
 }

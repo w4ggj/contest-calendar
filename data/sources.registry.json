@@ -159,86 +159,115 @@
     {
       "org": "REF",
       "country": "FR",
-      "url": "https://concours.r-e-f.org/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "https://concours.r-e-f.org/reglements/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "REF"
+      ],
+      "encoded": 4,
+      "encoded_verified": 4,
       "estimated_total": 5,
-      "status": "not-started",
-      "notes": "REF Contest CW/SSB, REF 160m, DDFM 6m."
+      "status": "partial",
+      "notes": "SOURCED 2026-08-18. Coupe du REF CW/SSB, REF 160 Metres, DDFM 50 MHz -- four records, all from REF's own French-language rules PDFs, each tested against two years REF published independently. URL corrected: the 'reglements/actuels/' index redirects to concours.ref-union.org, whose DNS does not resolve, so the working index is 'reglements/'. Still open: the Championnat de France THF, deferred because no REF document consulted states its modes and a record with no mode fails a catalog test. REF's worldwide contest list is an aggregator and was not used."
     },
     {
       "org": "UBA",
       "country": "BE",
       "url": "https://www.uba.be/en/hf/contest-rules",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 10,
-      "status": "not-started",
-      "notes": "UBA DX CW/SSB, PSK63 Prefix, Spring Contest series, ON Contest series."
+      "url_verified": true,
+      "catalog_sponsors": [
+        "UBA"
+      ],
+      "encoded": 12,
+      "encoded_verified": 12,
+      "estimated_total": 12,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. Twelve records: UBA DX SSB/CW, PSK63 Prefix, the four-leg Spring Contest and the four-leg ON Contest (both manual -- UBA states dates, never a recurrence), and the Belgian Mills Award. Estimate raised from 10. UBA's contest calendar is an aggregator except for rows marked (**), which UBA labels 'see: HF > Contest Rules' -- its own events -- and only those rows were used, as a second published source for dates. The 'UBA IARU Region 1 Fieldday' row is IARU's event with no UBA rules page and is deliberately not encoded. The BMA page points to belgianmillaward.be for the complete rules; only UBA's own page was used."
     },
     {
       "org": "VERON",
       "country": "NL",
-      "url": "https://www.veron.nl/vereniging/commissies-werkgroepen/traffic-bureau/pacc-contest/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "https://veron.nl/vereniging/commissies-en-werkgroepen/traffic-bureau/hf-contesten/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "VERON"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
       "estimated_total": 2,
-      "status": "not-started",
-      "notes": "Dutch PACC, PACCdigi."
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. PACC and PACCdigi. URL corrected -- the registry's 'commissies-werkgroepen/traffic-bureau/pacc-contest/' path 404s; the live tree is 'commissies-en-werkgroepen/traffic-bureau/hf-contesten/'. PACC is tested against three further editions VERON published (2027, 2028, 2029). PACCdigi is manual: VERON gives two dated editions and states no rule, unlike the PACC page which says 'het tweede volle weekend van februari'."
     },
     {
       "org": "PZK / SP DX Club",
       "country": "PL",
-      "url": "https://spdxcontest.info/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 2,
-      "status": "not-started",
-      "notes": "SP DX Contest, SP DX RTTY."
+      "url": "https://spdxcontest.pzk.org.pl/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "PZK / SP DX Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. SP DX Contest only. TWO CORRECTIONS. (1) The registry's spdxcontest.info is no longer this contest's site -- the domain now serves an unrelated adult-site directory. The sponsor's own site is spdxcontest.pzk.org.pl, with per-year rules at /<year>/rules.php. (2) The SP DX RTTY Contest is not this org's: its rules name PK RVG, the Polish Radiovideography Club, as organiser. It now has its own entry."
+    },
+    {
+      "org": "PK RVG",
+      "country": "PL",
+      "url": "https://pkrvg.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "PK RVG"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-08-18. The Polish Radiovideography Club (Polski Klub Radiowideografii). Its SP DX RTTY Contest was previously assumed in this registry to belong to PZK / SP DX Club; the rules name PK RVG as organiser ('The SPDX RTTY Contest organized the Polish Radiovideography Club (PK RVG)') with PZK as a co-sponsor, so the contest is recorded here instead."
     },
     {
       "org": "CRK / SARA",
       "country": "CZ",
-      "url": "https://okomdx.crk.cz/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "http://www.okomdx.crk.cz/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "CRK / SARA",
+        "CRK"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
       "estimated_total": 3,
-      "status": "not-started",
-      "notes": "OK/OM DX CW/SSB, OK DX RTTY. Czech and Slovak societies co-sponsor; country recorded as CZ for the registry's region rollup."
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. OK/OM DX SSB and CW (sponsor string 'CRK / SARA') and the OK DX RTTY Contest (sponsor string 'CRK'), which is registered here under the same org because it is hosted on crk.cz and takes logs at okrtty@crk.cz -- but neither its English nor its Czech rules page names an organising society, so the attribution is an inference and the record says so. BLOCKER, not transient: okomdx.crk.cz and okrtty.crk.cz both serve a TLS certificate issued for default.web4u.cz, so HTTPS fails validation. Both rules_url values are http:// deliberately and the link checker will keep reporting them until CRK fixes the hosts."
     },
     {
       "org": "ARI",
       "country": "IT",
-      "url": "https://www.ari.it/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 6,
-      "status": "not-started",
-      "notes": "ARI International DX, ARI 40/80, Marconi Memorial HF, Marconi Club ARI Loano."
+      "url": "https://contest.ari.it/hf_web/regolamenti.php",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ARI"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 5,
+      "status": "partial",
+      "notes": "SOURCED 2026-08-18. ARI International DX, Contest delle Sezioni HF, ARI 40/80 -- three records, from ARI's own Italian rules PDFs and its 40/80 rules page. URL corrected: ari.it/contest-hf/ari-international.html carries results, not rules; the rules live at contest.ari.it/hf_web/rules/*.pdf, indexed at regolamenti.php. Still open: the Marconi Memorial HF Contest, which is on ARI's calendar for 4-5 July 2026 but has no rules page on ari.it, and Marconi Club ARI Loano, a separate body. Coppa ARI was struck from the estimate: it is a trophy awarded on combined placings in the two contests above, not a contest of its own -- the same call made for AGCW's Goldene Taste. ari.it's contest calendar is an aggregator and was not used."
     },
     {
       "org": "URE",
       "country": "ES",
       "url": "https://concursos.ure.es/en/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url_verified": true,
+      "catalog_sponsors": [
+        "URE"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
       "estimated_total": 6,
-      "status": "not-started",
-      "notes": "His Maj. King of Spain CW/SSB, EA RTTY, EA PSK63, EA-QRP CW."
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. All six of URE's HF contests: King of Spain CW and SSB, EA RTTY, EA PSK63, CNCW and CME. The last two run two sessions with an overnight break and use the sessions array. CONTRADICTION IN URE'S OWN PAGES: the 'Annual HF Championship Rules 2026' page lists every one of the six a day later than the individual rules pages do, and each of its dates is a 2025 weekend -- so it was not used as an independent date source. The individual pages are self-consistent for 2026 and are what is encoded. EA-QRP CW, listed in the previous estimate, is not on concursos.ure.es."
     },
     {
       "org": "REP",
@@ -829,9 +858,9 @@
   "$region_map_note": "OC is not an ISO country code. It is the code for a contest whose sponsor is a multi-national body inside one region -- currently only the Oceania DX Contest Committee, a joint VK/ZL committee. INTL is the same idea a level up, for a sponsor with no region at all. Neither is a country, and neither should be used where a national society owns the contest.",
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
-    "as_of": "2026-08-17",
-    "total_encoded": 105,
-    "total_verified": 98,
+    "as_of": "2026-08-18",
+    "total_encoded": 137,
+    "total_verified": 130,
     "total_retired": 8,
     "by_tier": {
       "tier_1_major_international": {
@@ -842,10 +871,10 @@
         "retired": 0
       },
       "tier_2_european_societies": {
-        "orgs": 20,
-        "orgs_worked": 1,
-        "encoded": 1,
-        "verified": 0,
+        "orgs": 21,
+        "orgs_worked": 9,
+        "encoded": 33,
+        "verified": 32,
         "retired": 0
       },
       "tier_3_other_regions": {
@@ -870,8 +899,8 @@
         "retired": 8
       },
       "Europe": {
-        "encoded": 19,
-        "verified": 16,
+        "encoded": 51,
+        "verified": 48,
         "retired": 0
       },
       "Oceania": {
@@ -906,6 +935,11 @@
         "verified": 58,
         "retired": 8
       },
+      "BE": {
+        "encoded": 12,
+        "verified": 12,
+        "retired": 0
+      },
       "DE": {
         "encoded": 10,
         "verified": 9,
@@ -917,6 +951,11 @@
         "retired": 0
       },
       "NZ": {
+        "encoded": 6,
+        "verified": 6,
+        "retired": 0
+      },
+      "ES": {
         "encoded": 6,
         "verified": 6,
         "retired": 0
@@ -936,6 +975,21 @@
         "verified": 3,
         "retired": 0
       },
+      "FR": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
+      "CZ": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
+      "IT": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
       "SE": {
         "encoded": 2,
         "verified": 2,
@@ -947,6 +1001,16 @@
         "retired": 0
       },
       "OC": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "NL": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "PL": {
         "encoded": 2,
         "verified": 2,
         "retired": 0
@@ -976,10 +1040,8 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "North America",
-      "largest_region_share_pct": 59.0,
-      "tiers_barely_started": [
-        "tier_2_european_societies"
-      ],
+      "largest_region_share_pct": 45.3,
+      "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "GACW",
         "QRP ARCI",

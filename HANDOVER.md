@@ -18,17 +18,18 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 105 contest definitions → 691 occurrences for 2026. 186 Python tests,
-199 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
+**Current state:** 137 contest definitions → 725 occurrences for 2026. 230 Python tests,
+243 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
 `bands` are controlled vocabularies. The page has a three-state theme switch and has been
 through a measured narrow-viewport pass. The contest detail view is not built.
 
-**Where it is thin:** 59% of the catalog is North American. Every region now has something —
-Asia, Oceania and South America came off zero on 2026-08-17 — but tier 2, the European
-national societies, is 1 org worked out of 20. Measured rather than assumed: run
-`python scripts\coverage.py --check`.
+**Where it is thin:** 45% of the catalog is North American. Every region now has something —
+Asia, Oceania and South America came off zero on 2026-08-17, and Europe went 19 → 51 records
+on 2026-08-18 — but Africa and South America are one record each, and tier 2 still has
+9 orgs worked out of 21: **DARC is now the largest single gap.** Measured rather than
+assumed: run `python scripts\coverage.py --check`.
 
 ## Read first
 
@@ -42,11 +43,11 @@ national societies, is 1 org worked out of 20. Measured rather than assumed: run
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 186 passed
+python -m pytest -q               # expect: 230 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 199 passed (186 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 243 passed (230 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 110 passed (parity inside workerd, the API, filters, iCal, theme, pages)
 ```
 
@@ -231,11 +232,13 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    imagery with no text layer; ask GACW for a text version, don't fill it from a calendar.
    JARL's Japanese-language contests (ALL JA, Field Day, 6m And Down, ACAG) are deferred, not
    missed.
-5. **Then Tier 2, the European societies** — 1 org worked out of 20, and now the thinnest
-   part of the catalog by a wide margin. DARC is the largest gap after RSGB. Work region by
-   region rather than sponsor by sponsor so coverage fills evenly; `coverage.thin` says
-   where. Tier 5 is 50 more US QSO parties, so it still comes last: at 59% North American,
-   working it now would deepen the imbalance a world calendar can't keep.
+5. **Then the rest of Tier 2** — 9 orgs worked out of 21 after the 2026-08-18 pass, which
+   took REF, UBA, VERON, PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE. **DARC is the
+   largest remaining gap**, then the Nordic and Balkan societies. Work region by region
+   rather than sponsor by sponsor so coverage fills evenly; `coverage.thin` says where, and
+   Africa and South America are one record each. Tier 5 is 50 more US QSO parties, so it
+   still comes last: at 45% North American, working it now would deepen the imbalance a
+   world calendar can't keep.
 
 ---
 

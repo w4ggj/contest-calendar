@@ -1528,6 +1528,289 @@ test("Oceania DX is two consecutive full weekends", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Sponsor validation -- REF, UBA, VERON, PZK/SP DX Club, PK RVG, CRK/SARA,
+// ARI, URE
+//
+// The Tier 2 European pass. Most of these societies publish only in their own
+// language, so each record carries the rule in the sponsor's own words; the
+// dates below were published by the same sponsor separately from that wording,
+// in another year's rules or on the sponsor's own calendar page. Where a
+// sponsor's calendar is an aggregator of other people's contests -- REF's and
+// ARI's are, and UBA's is except for the rows it marks as its own -- it was not
+// used at all.
+// ---------------------------------------------------------------------------
+
+const EUROPE_TIER2_PUBLISHED: Record<string, [string, [number, number, number][]]> = {
+  "ref-coupe-du-ref-cw": [
+    "dernier week-end entier du mois de janvier",
+    [[2025, 1, 25], [2026, 1, 24]],
+  ],
+  "ref-coupe-du-ref-ssb": [
+    "dernier week-end entier du mois de fevrier",
+    [[2025, 2, 22], [2026, 2, 21]],
+  ],
+  "ref-160m": [
+    "troisieme week-end de novembre",
+    [[2025, 11, 15], [2026, 11, 21]],
+  ],
+  "ref-ddfm-50mhz": [
+    "le deuxieme samedi de juin",
+    [[2025, 6, 14], [2026, 6, 13]],
+  ],
+  "uba-dx-ssb": [
+    "starts every year on the last Saturday of January",
+    [[2026, 1, 31]],
+  ],
+  "uba-dx-cw": [
+    "starts every year on the last Saturday of February",
+    [[2026, 2, 28]],
+  ],
+  "uba-psk63-prefix": [
+    "every year the 2nd weekend of january",
+    [[2026, 1, 10], [2027, 1, 9]],
+  ],
+  "pacc": [
+    "het tweede volle weekend van februari",
+    [[2026, 2, 14], [2027, 2, 13], [2028, 2, 12], [2029, 2, 10]],
+  ],
+  "sp-dx-contest": [
+    "pierwszy pelny weekend kwietnia",
+    [[2025, 4, 5], [2026, 4, 4]],
+  ],
+  "sp-dx-rtty": ["the 4th full weekend of April", [[2026, 4, 25]]],
+  "ok-om-dx-ssb": ["second weekend in April", [[2026, 4, 11]]],
+  "ok-om-dx-cw": ["second (full) weekend in November", [[2026, 11, 14]]],
+  "ok-dx-rtty": ["3rd full weekend in December", [[2026, 12, 19]]],
+  "ari-international-dx": ["il primo weekend completo di Maggio", [[2026, 5, 2]]],
+  "ari-contest-sezioni-hf": [
+    "ogni secondo week-end completo di Giugno",
+    [[2026, 6, 13]],
+  ],
+  "ari-40-80": [
+    "il secondo weekend completo di Dicembre",
+    [[2025, 12, 13], [2026, 12, 12]],
+  ],
+  "ure-rey-de-espana-cw": ["3rd full weekend of May", [[2026, 5, 16]]],
+  // URE's typo, quoted as written.
+  "ure-rey-de-espana-ssb": ["4rd full weekend of June", [[2026, 6, 27]]],
+  "ure-eapsk63": ["segundo fin de semana del mes de marzo", [[2026, 3, 14]]],
+  "ure-cncw": ["3rd full weekend of July", [[2026, 7, 18]]],
+  "ure-cme": ["2nd full weekend of August", [[2026, 8, 8]]],
+};
+
+test.each(
+  Object.entries(EUROPE_TIER2_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, dates]]) => [cid, rule, dates] as const),
+)(
+  "tier 2 European societies match their own published dates: %s",
+  (cid, rule, published) => {
+    const c = byId(cid);
+    for (const [y, m, day] of published) {
+      const occ = expand(c, y);
+      expect(occ.length, `${cid} produced nothing for ${y}`).toBeGreaterThan(0);
+      expect(isoDate(occ[0].start!), `${cid} ${y}: rule '${rule}'`).toBe(D(y, m, day));
+    }
+  },
+);
+
+test("UBA DX is the last Saturday, not the last full weekend", () => {
+  // UBA: 'starts every year on the last Saturday of January'. The two readings
+  // diverge in 2026 and UBA's own dates settle it -- January 31 is a Saturday
+  // and February 1 a Sunday, so the last FULL weekend of January 2026 is the
+  // 24th, but UBA published January 31 - February 1.
+  expect(isoDate(fullWeekendsInMonth(2026, 1).at(-1)!)).toBe(D(2026, 1, 24));
+  expect(isoDate(expand(byId("uba-dx-ssb"), 2026)[0].start!)).toBe(D(2026, 1, 31));
+  // 2026 separates the two readings on both legs: February 28 is a Saturday
+  // whose Sunday falls in March, so the last full weekend of February is the
+  // 21st -- and UBA published February 28 - March 1.
+  expect(isoDate(fullWeekendsInMonth(2026, 2).at(-1)!)).toBe(D(2026, 2, 21));
+  expect(isoDate(expand(byId("uba-dx-cw"), 2026)[0].start!)).toBe(D(2026, 2, 28));
+});
+
+// UBA prints a log deadline beside each ON Contest leg. All four are the leg's
+// own date plus five days, which is what makes 'no later than 5 days after the
+// contest' encodable rather than a fixed date to be quoted.
+const UBA_ON_LEGS: [string, [number, number, number], [number, number, number]][] = [
+  ["uba-on-6m", [2026, 9, 27], [2026, 10, 2]],
+  ["uba-on-80-40-ssb", [2026, 10, 4], [2026, 10, 9]],
+  ["uba-on-80-40-cw", [2026, 10, 11], [2026, 10, 16]],
+  ["uba-on-2m", [2026, 10, 18], [2026, 10, 23]],
+];
+
+test.each(UBA_ON_LEGS)(
+  "UBA ON Contest deadlines are the dates UBA printed: %s",
+  (cid, day, deadline) => {
+    const o = expand(byId(cid), 2026)[0];
+    expect(isoDate(o.start!)).toBe(D(...day));
+    expect(isoDate(o.log_due!)).toBe(D(...deadline));
+  },
+);
+
+test("REF 160m deadline is the second Monday after the contest", () => {
+  // REF states no interval for this one -- 'A plus tard le deuxieme lundi apres
+  // le concours' -- so the 8 in the record is derived, and only correct because
+  // the contest always ends at 0000 UTC on a Sunday. Checked across a decade
+  // rather than asserted once.
+  const c = byId("ref-160m");
+  for (let y = 2025; y < 2035; y += 1) {
+    const o = expand(c, y)[0];
+    expect(weekdayOf(o.start!)).toBe(5);
+    expect(weekdayOf(o.end!)).toBe(6);
+    const mondays: Date[] = [];
+    for (let n = 1; n <= 14; n += 1) {
+      const d = new Date(o.start!.getTime() + n * DAY_MS);
+      if (weekdayOf(d) === 0) mondays.push(d);
+    }
+    expect(isoDate(o.log_due!), String(y)).toBe(isoDate(mondays[1]));
+  }
+});
+
+test("URE night-break contests run two sessions", () => {
+  // URE's CNCW and CME both stop overnight: '1200 UTC Saturday till 2259 UTC
+  // Saturday and from 0500UTC till 1159UTC Sunday'. Two sessions, not one long
+  // window -- a single span would claim eighteen hours of operating time that
+  // the rules do not permit.
+  const hhmm = (d: Date): string =>
+    `${String(d.getUTCHours()).padStart(2, "0")}${String(d.getUTCMinutes()).padStart(2, "0")}`;
+  for (const [cid, first] of [
+    ["ure-cncw", D(2026, 7, 18)],
+    ["ure-cme", D(2026, 8, 8)],
+  ] as const) {
+    const occ = expand(byId(cid), 2026);
+    expect(occ, cid).toHaveLength(2);
+    expect(isoDate(occ[0].start!)).toBe(first);
+    expect(occ.map((o) => hhmm(o.start!))).toEqual(["1200", "0500"]);
+    expect(occ.map((o) => hhmm(o.end!))).toEqual(["2259", "1159"]);
+    // Six hours off air between them, which is the point of the split.
+    expect(occ[1].start!.getTime() - occ[0].end!.getTime()).toBe(
+      6 * HOUR_MS + 60_000,
+    );
+  }
+});
+
+test("URE deadline is fifteen days from the end of the second session", () => {
+  // Every URE record states '(15 days)' and prints a date. For the two-session
+  // contests the printed date is fifteen days after the SECOND session ends;
+  // the engine applies the interval per session, so the first session's
+  // computed deadline is a day early. Recorded in the records' notes rather
+  // than papered over.
+  for (const [cid, printed] of [
+    ["ure-cncw", [2026, 8, 3]],
+    ["ure-cme", [2026, 8, 24]],
+  ] as const) {
+    const occ = expand(byId(cid), 2026);
+    const [py, pm, pd] = printed;
+    expect(isoDate(occ[1].log_due!), cid).toBe(D(py, pm, pd));
+    expect(
+      isoDate(new Date(occ[0].log_due!.getTime() + DAY_MS)),
+      cid,
+    ).toBe(D(py, pm, pd));
+  }
+});
+
+test("OK DX RTTY carries no deadline because the sponsor contradicts itself", () => {
+  // The rules say 'not later than 7th day after the contest'; the announcement
+  // of the same edition prints 26 December -- with the wrong year, 2025, for a
+  // 2026 contest. The stored end is 00:00 on the Sunday, so seven days from
+  // there is the 27th. No number is invented: the field is absent and both
+  // statements are quoted in the record. The two OK/OM legs, whose parenthetical
+  // dates DO match their stated interval, encode it.
+  expect(byId("ok-dx-rtty").log_deadline_days).toBeUndefined();
+  const o = expand(byId("ok-dx-rtty"), 2026)[0];
+  expect(o.end!.getTime()).toBe(at(2026, 12, 20, 0, 0));
+  expect(o.log_due ?? null).toBeNull();
+  for (const [cid, due] of [
+    ["ok-om-dx-ssb", D(2026, 4, 19)],
+    ["ok-om-dx-cw", D(2026, 11, 22)],
+  ] as const) {
+    expect(isoDate(expand(byId(cid), 2026)[0].log_due!)).toBe(due);
+  }
+});
+
+// Records where the sponsor publishes dates and never states a rule. Each is
+// manual on purpose: an ordinal fitted to the dates would print confident
+// schedules for years the sponsor has not announced.
+const TIER2_MANUAL: Record<string, [number, number]> = {
+  "uba-spring-2m": [2026, 2027],
+  "uba-spring-80m-cw": [2026, 2027],
+  "uba-spring-6m": [2026, 2027],
+  "uba-spring-80m-ssb": [2026, 2027],
+  "uba-on-6m": [2026, 2027],
+  "uba-on-80-40-ssb": [2026, 2027],
+  "uba-on-80-40-cw": [2026, 2027],
+  "uba-on-2m": [2026, 2027],
+  "uba-bma": [2026, 2027],
+  "paccdigi": [2027, 2028],
+  "ure-eartty": [2026, 2027],
+};
+
+test.each(
+  Object.entries(TIER2_MANUAL)
+    .sort()
+    .map(([cid, [last, after]]) => [cid, last, after] as const),
+)(
+  "tier 2 manual records stop where the sponsor stopped publishing: %s",
+  (cid, last, after) => {
+    const c = byId(cid);
+    expect(c.recurrence.type).toBe("manual");
+    expect(
+      expand(c, last).length,
+      `${cid} produced nothing for its last published year`,
+    ).toBeGreaterThan(0);
+    expect(expand(c, after), `${cid} guessed ${after}, a year nobody published`)
+      .toHaveLength(0);
+  },
+);
+
+test("PACCdigi is manual even though both dates look like a rule", () => {
+  // VERON's two published PACCdigi editions are both the third Saturday of
+  // April, and the temptation is to encode that. VERON does not say it -- the
+  // PACC page says 'het tweede volle weekend van februari' in so many words and
+  // the PACCdigi page says nothing of the kind, so the difference is the
+  // sponsor's, not ours.
+  const c = byId("paccdigi");
+  const published = [2026, 2027].map((y) => expand(c, y)[0].start!);
+  expect(published.map(isoDate)).toEqual([D(2026, 4, 18), D(2027, 4, 17)]);
+  for (const d of published) {
+    expect(weekdayOf(d)).toBe(5);
+    expect(d.getUTCDate()).toBeGreaterThanOrEqual(15); // third Saturday,
+    expect(d.getUTCDate()).toBeLessThanOrEqual(21); // ...both years
+  }
+  expect(c.recurrence.type).toBe("manual");
+});
+
+test("URE RTTY is manual while URE states a rule for its other five", () => {
+  // Five of URE's six HF contests name an ordinal weekend in both language
+  // versions of their page. EA RTTY names a date and nothing else, in both, so
+  // it alone is manual -- the contrast is what makes that a reading of URE
+  // rather than an inconsistency of ours.
+  expect(byId("ure-eartty").recurrence.type).toBe("manual");
+  for (const cid of [
+    "ure-rey-de-espana-cw",
+    "ure-rey-de-espana-ssb",
+    "ure-eapsk63",
+    "ure-cncw",
+    "ure-cme",
+  ]) {
+    expect(byId(cid).recurrence.type, cid).toBe("nth_full_weekend");
+  }
+});
+
+test("Czech contest hosts are http because their TLS is broken", () => {
+  // okomdx.crk.cz and okrtty.crk.cz serve a certificate issued for
+  // default.web4u.cz, so HTTPS fails validation. The http:// URLs are a
+  // recorded blocker, not an oversight, and each record says so -- the same
+  // treatment given to SARL's dead host.
+  for (const cid of ["ok-om-dx-ssb", "ok-om-dx-cw", "ok-dx-rtty"]) {
+    const c = byId(cid);
+    expect((c.rules_url ?? "").startsWith("http://"), cid).toBe(true);
+    expect(c.rules_url ?? "", cid).toContain("crk.cz");
+    expect(c.note ?? "", cid).toContain("TLS");
+  }
+});
+
+// ---------------------------------------------------------------------------
 // Time zones
 // ---------------------------------------------------------------------------
 
