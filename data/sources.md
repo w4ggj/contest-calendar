@@ -1189,6 +1189,66 @@ stays honest.
   `CATALOG_BANDS`. It is recorded in `bands_note` with JARL's own wording, the same treatment
   REP's 4m got.
 
+## ARSI, and Asia passes Oceania — 2026-08-19
+
+The registry's stub said **one** contest, "ARSI VU DX Contest". The Amateur Radio Society of
+India publishes **five**, each on its own page. All five encoded: **205 records**, and Asia
+goes 9 → 14, past Oceania.
+
+| Contest | What ARSI states | Encoded as |
+|---|---|---|
+| VU-DX Contest | "22 – 23 August 2026 … 12:00 UTC to 11:59:59 UTC" | manual, 24 h, **worldwide** |
+| QRP-Day Contest | "27th – 28th June 2026 … 5:30 UTC to 11:59:59 UTC" | manual, 30½ h, 5 W / 10 W SSB |
+| VU Rookie Contest | "25 – 26 April 2026 … 12:00 UTC" | manual, 24 h, SSB only |
+| 40M CQ VU SSB | "21 – 22 March 2026 … 7:30 PM IST" | manual, **Asia/Kolkata wall clock** |
+| 40M CQ VU CW | "5 – 6 Dec 2026 … 7:30 PM IST" | same |
+
+### All five are dated, none is ruled
+
+Every ARSI page opens with that year's dates and states **no recurrence anywhere** — no
+"annually on", no ordinal weekend. So all five are `manual` and hold exactly the 2026 editions;
+2027 produces nothing until ARSI publishes it. Asia is thin enough that fitting an ordinal to a
+single date would have been tempting, which is the reason to say plainly that it would have
+been inventing a rule ARSI has not written.
+
+### Three pages state UTC, two state only IST
+
+The VU-DX, QRP-Day and Rookie pages give UTC (and helpfully repeat it in IST). The two 40M
+pages give **only** Indian Standard Time — *"7:30 PM IST to 7:29:59 PM IST"* — so those records
+carry `Asia/Kolkata` wall clock rather than a UTC time converted by hand. India is a fixed
++05:30 with no daylight saving, so 1930 IST is 1400 UTC and always will be; the record still
+says what the page said, and the engine does the arithmetic. The three UTC-stated records carry
+no zone at all, and a test holds that split.
+
+### A contradiction, recorded rather than resolved
+
+Both 40M pages say:
+
+> "Any licensed ham can participate in the contest"
+
+and then, four lines later:
+
+> "Though this contest is only for VU, any DX contacts in the log will get 2 QSO multiplier
+> points"
+
+Those cannot both be taken at face value. The likely reading is that **entry** is for VU
+stations while DX stations may be **worked** and count for multipliers — which is what is
+encoded — but it is a reading, so `eligibility.verified` is `false` and the note quotes both
+sentences. The VU-DX contest is the opposite case and is stated plainly (*"Geographic Focus :
+India. Participation : Worldwide."*), so that one is verified.
+
+The Rookie contest sits between them: ARSI states the objective as encouraging newly-licensed
+operators *"in India"* and gives no participation clause at all, so it is `VU` with
+`verified: false` for the same reason.
+
+### Also checked, and empty
+
+- **IARC (Israel)** and **CRSA/CRAC (China)** — both sites are live and neither exposes a
+  contest or rules section from its front page. Nothing encoded, and nothing blocked: they need
+  a closer look or a letter, not a retry.
+- The **Commonwealth Contest** in ARSI's menu is RSGB's, not ARSI's, and the **BigCQ** entry is
+  an award rather than a contest. Neither is encoded.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

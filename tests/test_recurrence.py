@@ -2995,6 +2995,73 @@ def test_jarl_domestic_contests_are_japan_only_and_carry_no_deadline(catalog):
         assert "log_deadline_days" not in c, cid
 
 
+ARSI_PUBLISHED = {
+    "arsi-vu-dx": ("22 - 23 August 2026, 12:00 UTC to 11:59:59 UTC", (2026, 8, 22), 12),
+    "arsi-qrp-day": ("27th - 28th June 2026, 5:30 UTC to 11:59:59 UTC", (2026, 6, 27), 5),
+    "arsi-vu-rookie": ("25 - 26 April 2026, 12:00 UTC to 11:59:59 UTC", (2026, 4, 25), 12),
+    "arsi-40m-cq-vu-ssb": ("21 - 22 March 2026, 7:30 PM IST", (2026, 3, 21), 14),
+    "arsi-40m-cq-vu-cw": ("5 - 6 Dec 2026, 7:30 PM IST", (2026, 12, 5), 14),
+}
+
+
+@pytest.mark.parametrize("cid,rule,day,hour", [
+    (cid, r, d, h) for cid, (r, d, h) in sorted(ARSI_PUBLISHED.items())
+])
+def test_arsi_holds_the_editions_india_published(catalog, cid, rule, day, hour):
+    """
+    ARSI publishes dates and no recurrence -- every page opens with the year's
+    dates and states no rule anywhere. So all five are manual, hold exactly the
+    2026 edition, and produce nothing for a year ARSI has not announced.
+    """
+    c = by_id(catalog, cid)
+    assert c["recurrence"]["type"] == "manual", cid
+    (o,) = expand(c, 2026)
+    assert o.start.date() == date(*day), f"{cid}: {rule}"
+    assert o.start.hour == hour, f"{cid}: {rule}"
+    assert expand(c, 2027) == [], cid
+
+
+def test_arsi_40m_contests_are_stated_in_indian_time_only(catalog):
+    """
+    Three of ARSI's five pages give UTC. The two 40M ones give ONLY Indian
+    Standard Time -- "7:30 PM IST to 7:29:59 PM IST" -- so those records carry
+    Asia/Kolkata wall clock rather than a UTC time converted by hand. India is
+    a fixed +05:30 with no daylight saving, so 1930 IST is 1400 UTC and always
+    will be; the record still says what the page said.
+    """
+    for cid in ("arsi-40m-cq-vu-ssb", "arsi-40m-cq-vu-cw"):
+        c = by_id(catalog, cid)
+        assert c["timezone"] == "Asia/Kolkata", cid
+        (o,) = expand(c, 2026)
+        assert (o.start_wall.hour, o.start_wall.minute) == (19, 30), cid
+        assert (o.start.hour, o.start.minute) == (14, 0), cid
+
+    # ...and the three that state UTC carry no zone at all.
+    for cid in ("arsi-vu-dx", "arsi-qrp-day", "arsi-vu-rookie"):
+        assert "timezone" not in by_id(catalog, cid), cid
+
+
+def test_arsi_40m_eligibility_records_a_contradiction_rather_than_resolving_it(catalog):
+    """
+    Both 40M pages say "Any licensed ham can participate in the contest" and
+    then, four lines later, "Though this contest is only for VU, any DX contacts
+    in the log will get 2 QSO multiplier points". The two cannot both be taken
+    at face value. The likely reading -- entry is VU, DX may be worked -- is
+    what is encoded, with eligibility.verified false saying so.
+    """
+    for cid in ("arsi-40m-cq-vu-ssb", "arsi-40m-cq-vu-cw"):
+        e = by_id(catalog, cid)["eligibility"]
+        assert e["scope"] == "entity_list" and e["entities"] == ["VU"], cid
+        assert e["verified"] is False, cid
+        assert "CONTRADICTS" in e["note"], cid
+
+    # The VU-DX contest is the opposite case and is stated plainly, so it is
+    # verified: "Geographic Focus : India. Participation : Worldwide."
+    dx = by_id(catalog, "arsi-vu-dx")["eligibility"]
+    assert dx["scope"] == "worldwide" and dx["verified"] is True
+    assert eligibility_for(by_id(catalog, "arsi-vu-dx"), "K")["can_enter"]
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

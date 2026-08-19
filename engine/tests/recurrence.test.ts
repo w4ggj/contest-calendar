@@ -2981,6 +2981,67 @@ test("JARL domestic contests are Japan-only and carry no deadline", () => {
   }
 });
 
+const ARSI_PUBLISHED: Record<string, [string, [number, number, number], number]> = {
+  "arsi-vu-dx": ["22 - 23 August 2026, 12:00 UTC to 11:59:59 UTC", [2026, 8, 22], 12],
+  "arsi-qrp-day": ["27th - 28th June 2026, 5:30 UTC to 11:59:59 UTC", [2026, 6, 27], 5],
+  "arsi-vu-rookie": ["25 - 26 April 2026, 12:00 UTC to 11:59:59 UTC", [2026, 4, 25], 12],
+  "arsi-40m-cq-vu-ssb": ["21 - 22 March 2026, 7:30 PM IST", [2026, 3, 21], 14],
+  "arsi-40m-cq-vu-cw": ["5 - 6 Dec 2026, 7:30 PM IST", [2026, 12, 5], 14],
+};
+
+test.each(
+  Object.entries(ARSI_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, day, hour]]) => [cid, rule, day, hour] as const),
+)("ARSI holds the editions India published: %s", (cid, rule, day, hour) => {
+  // ARSI publishes dates and no recurrence -- every page opens with the year's
+  // dates and states no rule anywhere. So all five are manual, hold exactly the
+  // 2026 edition, and produce nothing for a year ARSI has not announced.
+  const c = byId(cid);
+  expect(c.recurrence.type, cid).toBe("manual");
+  const [o] = expand(c, 2026);
+  expect(isoDate(o.start!), `${cid}: ${rule}`).toBe(D(day[0], day[1], day[2]));
+  expect(o.start!.getUTCHours(), `${cid}: ${rule}`).toBe(hour);
+  expect(expand(c, 2027), cid).toEqual([]);
+});
+
+test("ARSI 40M contests are stated in Indian time only", () => {
+  // Three of ARSI's five pages give UTC. The two 40M ones give ONLY Indian
+  // Standard Time -- "7:30 PM IST to 7:29:59 PM IST" -- so those records carry
+  // Asia/Kolkata wall clock rather than a UTC time converted by hand. India is
+  // a fixed +05:30 with no daylight saving, so 1930 IST is 1400 UTC and always
+  // will be; the record still says what the page said.
+  for (const cid of ["arsi-40m-cq-vu-ssb", "arsi-40m-cq-vu-cw"]) {
+    const c = byId(cid);
+    expect(c.timezone, cid).toBe("Asia/Kolkata");
+    const [o] = expand(c, 2026);
+    expect([o.start_wall!.getUTCHours(), o.start_wall!.getUTCMinutes()], cid).toEqual([19, 30]);
+    expect([o.start!.getUTCHours(), o.start!.getUTCMinutes()], cid).toEqual([14, 0]);
+  }
+  for (const cid of ["arsi-vu-dx", "arsi-qrp-day", "arsi-vu-rookie"]) {
+    expect("timezone" in byId(cid), cid).toBe(false);
+  }
+});
+
+test("ARSI 40M eligibility records a contradiction rather than resolving it", () => {
+  // Both 40M pages say "Any licensed ham can participate in the contest" and
+  // then, four lines later, "Though this contest is only for VU, any DX
+  // contacts in the log will get 2 QSO multiplier points". The two cannot both
+  // be taken at face value. The likely reading -- entry is VU, DX may be worked
+  // -- is what is encoded, with eligibility.verified false saying so.
+  for (const cid of ["arsi-40m-cq-vu-ssb", "arsi-40m-cq-vu-cw"]) {
+    const e = byId(cid).eligibility!;
+    expect(e.scope, cid).toBe("entity_list");
+    expect(e.entities, cid).toEqual(["VU"]);
+    expect(e.verified, cid).toBe(false);
+    expect(e.note, cid).toContain("CONTRADICTS");
+  }
+  const dx = byId("arsi-vu-dx").eligibility!;
+  expect(dx.scope).toBe("worldwide");
+  expect(dx.verified).toBe(true);
+  expect(eligibilityFor(byId("arsi-vu-dx"), "K").can_enter).toBe(true);
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

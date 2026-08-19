@@ -10772,6 +10772,275 @@
       "source_note": "jarl.org, 第47回 全市全郡コンテスト規約: '1 開催日時 毎年10月第2月曜日の前々日の21時00分から前日の21時00分（JST）まで。' -- from 21:00 two days before the SECOND MONDAY of October until 21:00 the day before it. The 2026 running is stated separately as '2026年10月10日（土）21時00分（JST）から10月11日（日）21時00分（JST）まで', which the rule reproduces: the second Monday of October 2026 is the 12th.",
       "note": "THE ONLY RULE IN THE CATALOG ANCHORED ON A PUBLIC HOLIDAY AND COUNTED BACKWARDS. Japan's Sports Day is the second Monday of October, and JARL hangs the contest on the weekend before it -- 前々日 and 前日, two days before and one day before. It is encoded exactly that way, with negative day offsets from a Monday anchor, rather than as 'the second full weekend of October', which would be a different rule that happens to agree in some years. Encoded as wall_clock in Asia/Tokyo because that is how JARL states it -- 21時00分（JST） -- rather than converted to a fixed UTC time by hand. Japan has not observed daylight saving since 1952, so the two are identical in practice and will stay so; the record says what the sponsor said and lets the engine do the arithmetic. log_deadline_days is absent. JARL prints a dated deadline above the rules for the edition in hand -- ALL JA 2026 is '提出締切日 2026年5月6日（水）必着' -- and the numbered 規約 clauses that follow state the dates, eligibility, bands, categories and exchange but no submission span. All four of JARL's 2026 deadlines happen to fall exactly ten days after their contest ends, which is suggestive and is not a rule JARL wrote. The same reasoning already keeps a deadline off JARL's All Asian records.",
       "summary": "All Cities All Counties: 24 hours from 2100 JST on the Saturday of Japan's Sports Day weekend, with cities, counties and wards as the multiplier."
+    },
+    {
+      "sponsor": "ARSI",
+      "country": "IN",
+      "sponsor_home": "https://arsi.info/",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "arsi-vu-dx",
+      "name": "ARSI VU-DX Contest",
+      "rules_url": "https://arsi.info/dxcontest/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "VU stations send RS(T) and their two-letter State or Union Territory code; non-VU stations send RS(T) and a serial number.",
+      "power_categories": [
+        {
+          "name": "Low",
+          "max_watts": 100
+        },
+        {
+          "name": "High",
+          "max_watts": null
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-08-22"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "source_note": "arsi.info/dxcontest/, the Amateur Radio Society of India's own page: 'Dates : 22 - 23 August 2026. Duration : 22-Aug 12:00 UTC to 23-Aug 11:59:59 UTC. Geographic Focus : India. Participation : Worldwide. Mode : SSB, CW, Mixed. Power : Low: < 100W, High: > 100W. Bands : 40, 20, 15, 10 M. Exchange: VU: RS(T) + 2-letter State/UT code; Non-VU: RS(T) + Serial Number.' Scoring gives VU stations 1 point per VU QSO and 3 per DX QSO, and non-VU stations 3 points per VU QSO.",
+      "note": "Mixed is one of ARSI's entry categories rather than a third mode; the contest permits SSB and CW, which is what modes records. ARSI PUBLISHES DATES, NOT A RECURRENCE. Every one of its contest pages opens with the year's dates and states no rule anywhere -- no 'annually on', no ordinal weekend. So all five records are manual and hold exactly the 2026 editions ARSI published. Fitting an ordinal to one date would be inventing a rule ARSI has not written, and Asia is thin enough that the temptation is worth naming.",
+      "summary": "India's international DX contest: 24 hours from 1200 UTC on four HF bands, open worldwide, with Indian states and union territories as the multiplier.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Geographic Focus : India. Participation : Worldwide.'"
+      }
+    },
+    {
+      "sponsor": "ARSI",
+      "country": "IN",
+      "sponsor_home": "https://arsi.info/",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "arsi-qrp-day",
+      "name": "ARSI QRP-Day Contest",
+      "rules_url": "https://arsi.info/qrp-contest/",
+      "modes": [
+        "CW",
+        "SSB",
+        "Digital"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        },
+        {
+          "name": "QRP SSB",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-06-27"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0530"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "source_note": "arsi.info/qrp-contest/: 'Date : 27th - 28th June 2026. Duration : Sat 27th Jun 5:30 UTC to Sun 28th Jun 11:59:59 UTC (Sat 11:00 IST to Sun 17:29:59 IST).' 'Important : The operators have to strictly adhere to their emission mode in accordance to their category of license and power output should not exceed 5 Watts (10W in case of SSB).' 'HF Bands : 40, 20, 15, 10 M. Categories : CW, SSB, Digital or Mixed. In Digital; MSHV or FH (multi streaming software) is strictly not allowed.' 'This event is open to all Radio Amateurs in India possessing valid license.'",
+      "note": "Thirty and a half hours, which is unusual: it opens 05:30 UTC on the Saturday and closes 11:59 UTC on the Sunday. ARSI states both UTC and IST and they agree. The power ceiling differs by mode -- 5 W, or 10 W on SSB -- so both are recorded as categories. ARSI PUBLISHES DATES, NOT A RECURRENCE. Every one of its contest pages opens with the year's dates and states no rule anywhere -- no 'annually on', no ordinal weekend. So all five records are manual and hold exactly the 2026 editions ARSI published. Fitting an ordinal to one date would be inventing a rule ARSI has not written, and Asia is thin enough that the temptation is worth naming.",
+      "summary": "India's QRP day: five watts, or ten on SSB, across a weekend on four HF bands, with homebrew equipment encouraged.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "VU"
+        ],
+        "verified": true,
+        "note": "'This event is open to all Radio Amateurs in India possessing valid license.'"
+      }
+    },
+    {
+      "sponsor": "ARSI",
+      "country": "IN",
+      "sponsor_home": "https://arsi.info/",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "arsi-vu-rookie",
+      "name": "ARSI VU Rookie Contest",
+      "rules_url": "https://arsi.info/arsi-vu-rookie-contest/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-25"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "source_note": "arsi.info/arsi-vu-rookie-contest/: 'Date : 25 - 26 April 2026. Duration : Sat 25 Apr 12:00 UTC to Sun 26 Apr 11:59:59 UTC (Sat 17:30 IST to Sun 17:29:59 IST).' 'Bands - HF Bands: 40, 20, 15, 10 M. Mode - SSB only.' Objective: 'To encourage newly-licensed operators (\"Rookies\") in India to operate on the HF bands and experience competitive Amateur Radio operating. Experienced operators (\"Non-Rookies\") are strongly encouraged to participate and help new operators.' 'Rookie - Any Radio Amateur whose \"first\" license is less than 5 years old.'",
+      "note": "A rookie is defined by licence age rather than by operator age -- first licence less than five years old -- and non-rookies are invited to work them. ARSI PUBLISHES DATES, NOT A RECURRENCE. Every one of its contest pages opens with the year's dates and states no rule anywhere -- no 'annually on', no ordinal weekend. So all five records are manual and hold exactly the 2026 editions ARSI published. Fitting an ordinal to one date would be inventing a rule ARSI has not written, and Asia is thin enough that the temptation is worth naming.",
+      "summary": "India's contest for operators licensed under five years: 24 hours of SSB on four HF bands, with experienced operators encouraged to work them.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "VU"
+        ],
+        "verified": false,
+        "note": "ARSI states the objective as encouraging newly-licensed operators 'in India' and gives no explicit participation clause. VU is this catalog's reading of that, not ARSI's wording, so it is unverified. Ask ARSI."
+      }
+    },
+    {
+      "sponsor": "ARSI",
+      "country": "IN",
+      "sponsor_home": "https://arsi.info/",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "arsi-40m-cq-vu-ssb",
+      "name": "ARSI 40M CQ VU SSB Contest",
+      "rules_url": "https://arsi.info/cq-vu-ssb-40m-contest/",
+      "timezone": "Asia/Kolkata",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "exchange": "A serial number starting at 001, with the signal report.",
+      "power_categories": [
+        {
+          "name": "Low power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-21"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1930",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1929",
+        "wall_clock": true
+      },
+      "source_note": "https://arsi.info/cq-vu-ssb-40m-contest/: 'Objective: To promote 40M SSB activity. Date: 21 - 22 March 2026' Duration is given only in Indian Standard Time -- '7:30 PM IST to 7:29:59 PM IST' the following day. 'This is a low power (<=100W) SSB only contest.' 'Report exchange shall be serial number starting with 001.' 'Logs should be sent to contest manager within a week after the contest in Cabrillo format', and 'Log submission will be due in 7 days time from the date of contest'. 'Hams using home-brewed equipment will be considered as separate category and will be specially awarded.'",
+      "note": "STATED IN IST ONLY, unlike ARSI's other contests, which give UTC. So this record carries Asia/Kolkata wall clock rather than a UTC time converted by hand -- India is a fixed +05:30 with no daylight saving, so 19:30 IST is 14:00 UTC and always will be, but the record says what the page said. The log deadline is one of the few here stated as a SPAN rather than a date: 'within a week', 'due in 7 days time from the date of contest'. ARSI PUBLISHES DATES, NOT A RECURRENCE. Every one of its contest pages opens with the year's dates and states no rule anywhere -- no 'annually on', no ordinal weekend. So all five records are manual and hold exactly the 2026 editions ARSI published. Fitting an ordinal to one date would be inventing a rule ARSI has not written, and Asia is thin enough that the temptation is worth naming.",
+      "summary": "A 24-hour SSB contest on 40 m for Indian stations, at 100 watts or less, run from 1930 IST.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "VU"
+        ],
+        "verified": false,
+        "note": "ARSI'S OWN PAGE CONTRADICTS ITSELF. It says 'Any licensed ham can participate in the contest' and then, four lines later, 'Though this contest is only for VU, any DX contacts in the log will get 2 QSO multiplier points'. Read together the likely meaning is that entry is for VU stations while DX stations may be worked and count for multipliers -- which is what is encoded -- but the two sentences cannot both be taken at face value, so eligibility.verified is false. Ask ARSI."
+      }
+    },
+    {
+      "sponsor": "ARSI",
+      "country": "IN",
+      "sponsor_home": "https://arsi.info/",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "arsi-40m-cq-vu-cw",
+      "name": "ARSI 40M CQ VU CW Contest",
+      "rules_url": "https://arsi.info/40m-cqvu-contest/",
+      "timezone": "Asia/Kolkata",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "exchange": "A serial number starting at 001, with the signal report.",
+      "power_categories": [
+        {
+          "name": "Low power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-12-05"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1930",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1929",
+        "wall_clock": true
+      },
+      "source_note": "https://arsi.info/40m-cqvu-contest/: 'Objective: To promote 40M CW activity. Date: 5 - 6 Dec 2026' Duration is given only in Indian Standard Time -- '7:30 PM IST to 7:29:59 PM IST' the following day. 'This is a low power (<=100W) CW only contest.' 'Report exchange shall be serial number starting with 001.' 'Logs should be sent to contest manager within a week after the contest in Cabrillo format', and 'Log submission will be due in 7 days time from the date of contest'. 'Hams using home-brewed equipment will be considered as separate category and will be specially awarded.'",
+      "note": "STATED IN IST ONLY, unlike ARSI's other contests, which give UTC. So this record carries Asia/Kolkata wall clock rather than a UTC time converted by hand -- India is a fixed +05:30 with no daylight saving, so 19:30 IST is 14:00 UTC and always will be, but the record says what the page said. The log deadline is one of the few here stated as a SPAN rather than a date: 'within a week', 'due in 7 days time from the date of contest'. ARSI PUBLISHES DATES, NOT A RECURRENCE. Every one of its contest pages opens with the year's dates and states no rule anywhere -- no 'annually on', no ordinal weekend. So all five records are manual and hold exactly the 2026 editions ARSI published. Fitting an ordinal to one date would be inventing a rule ARSI has not written, and Asia is thin enough that the temptation is worth naming.",
+      "summary": "A 24-hour CW contest on 40 m for Indian stations, at 100 watts or less, run from 1930 IST.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "VU"
+        ],
+        "verified": false,
+        "note": "ARSI'S OWN PAGE CONTRADICTS ITSELF. It says 'Any licensed ham can participate in the contest' and then, four lines later, 'Though this contest is only for VU, any DX contacts in the log will get 2 QSO multiplier points'. Read together the likely meaning is that entry is for VU stations while DX stations may be worked and count for multipliers -- which is what is encoded -- but the two sentences cannot both be taken at face value, so eligibility.verified is false. Ask ARSI."
+      }
     }
   ]
 }
