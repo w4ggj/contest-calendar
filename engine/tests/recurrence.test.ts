@@ -2865,6 +2865,122 @@ test("RCA holds only the editions Argentina published", () => {
   expect(eligibilityFor(byId("rca-nacional-80m"), "LU").can_enter).toBe(true);
 });
 
+// ---------------------------------------------------------------------------
+// JARL's Japanese-language contests.
+//
+// These four were deferred on 2026-08-17 with the note "they are real contests
+// and a future pass should read the Japanese pages rather than guess". Read
+// 2026-08-19. JARL states each recurrence in its 規約 and then prints the
+// year's dates separately at the head of the same page, which is the check.
+// ---------------------------------------------------------------------------
+
+const JARL_JP_PUBLISHED: Record<string, [string, [number, number, number]]> = {
+  "jarl-all-ja": [
+    "毎年4月の最終日曜日の前日の21時00分から最終日曜日の21時00分（JST）まで",
+    [2026, 4, 25],
+  ],
+  "jarl-6m-and-down": [
+    "毎年7月の第1土曜日21時00分～翌日の15時00分（JST）",
+    [2026, 7, 4],
+  ],
+  "jarl-field-day": [
+    "毎年8月の第1土曜日の21時00分から翌日の15時00分（JST）まで",
+    [2026, 8, 1],
+  ],
+  "jarl-acag": [
+    "毎年10月第2月曜日の前々日の21時00分から前日の21時00分（JST）まで",
+    [2026, 10, 10],
+  ],
+};
+
+test.each(
+  Object.entries(JARL_JP_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, d]]) => [cid, rule, d] as const),
+)("JARL Japanese contests match JARL's published dates: %s", (cid, rule, published) => {
+  const [o] = expand(byId(cid), 2026);
+  expect(isoDate(o.start!), `${cid}: rule '${rule}'`).toBe(
+    D(published[0], published[1], published[2]),
+  );
+});
+
+test("JARL states its times in Tokyo and they never shift", () => {
+  // JARL writes 21時00分（JST）, so the records carry Asia/Tokyo wall clock
+  // rather than a UTC time converted by hand. Japan has not observed daylight
+  // saving since 1952, so the resolved instant is 1200Z every year -- worth
+  // pinning precisely BECAUSE it never moves: if it ever does, something has
+  // gone wrong in the zone layer rather than at JARL.
+  for (const year of [2026, 2027, 2030]) {
+    for (const cid of Object.keys(JARL_JP_PUBLISHED)) {
+      const [o] = expand(byId(cid), year);
+      expect(o.start_wall!.getUTCHours(), cid).toBe(21);
+      expect(o.start!.getUTCHours(), `${cid} ${year}: 2100 JST is 1200Z`).toBe(12);
+    }
+  }
+});
+
+test("ACAG hangs off Japan's Sports Day and counts backwards", () => {
+  // 全市全郡 is the only rule in the catalog anchored on a public holiday and
+  // counted backwards: from 21:00 two days before the second Monday of October
+  // until 21:00 the day before it. The second Monday is Japan's Sports Day.
+  //
+  // It is NOT "the second full weekend of October", and the difference is not
+  // academic: the two readings agree in 2026 and 2027 and then diverge by a
+  // whole week in 2028 and 2029. A calendar that guessed the weekend reading
+  // would send someone to the radio seven days late, twice.
+  const expected: [number, string][] = [
+    [2026, D(2026, 10, 10)],
+    [2027, D(2027, 10, 9)],
+    [2028, D(2028, 10, 7)],   // a full-weekend reading says the 14th
+    [2029, D(2029, 10, 6)],   // ...and the 13th
+    [2030, D(2030, 10, 12)],
+  ];
+  for (const [year, day] of expected) {
+    const [o] = expand(byId("jarl-acag"), year);
+    expect(isoDate(o.start!), String(year)).toBe(day);
+    expect(o.start!.getUTCDay(), String(year)).toBe(6); // Saturday
+    expect(o.end!.getUTCDay(), String(year)).toBe(0);   // Sunday
+  }
+
+  for (const year of [2028, 2029]) {
+    const weekend = resolveAnchors({ type: "nth_full_weekend", month: 10, n: 2 }, year)[0];
+    expect(isoDate(expand(byId("jarl-acag"), year)[0].start!), String(year))
+      .not.toBe(isoDate(weekend));
+  }
+});
+
+test("ALL JA follows JARL's wording though nothing turns on it", () => {
+  // The opposite case, recorded so the distinction above is not overclaimed.
+  // ALL JA is "the day before the last Sunday of April", which is the same date
+  // as "the last full weekend of April" in every year and always will be:
+  // April's last Sunday falls on the 24th at the earliest, so the Saturday
+  // before it is never outside the month. JARL's wording is encoded because it
+  // is JARL's, not because it changes an answer.
+  for (let year = 2026; year < 2036; year++) {
+    const [o] = expand(byId("jarl-all-ja"), year);
+    const weekend = resolveAnchors({ type: "nth_full_weekend", month: 4, n: -1 }, year)[0];
+    expect(isoDate(o.start!), String(year)).toBe(isoDate(weekend));
+  }
+});
+
+test("JARL domestic contests are Japan-only and carry no deadline", () => {
+  // "日本国内のアマチュア局およびSWL" -- amateur stations within Japan, and SWLs.
+  // A JA station can be WORKED from anywhere, which is why these records exist
+  // at all; entry is the restricted part, and that is a display-time filter.
+  //
+  // And no log deadline: JARL prints a dated one per edition above the rules
+  // rather than a span inside them. All four 2026 deadlines happen to fall ten
+  // days after their contest, which is suggestive and is not a rule JARL wrote.
+  for (const cid of Object.keys(JARL_JP_PUBLISHED)) {
+    const c = byId(cid);
+    expect(c.eligibility?.scope, cid).toBe("entity_list");
+    expect(c.eligibility?.entities, cid).toEqual(["JA"]);
+    expect(eligibilityFor(c, "K").can_enter, cid).toBe(false);
+    expect(eligibilityFor(c, "JA").can_enter, cid).toBe(true);
+    expect("log_deadline_days" in c, cid).toBe(false);
+  }
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

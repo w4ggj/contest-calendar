@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 196 contest definitions → 813 occurrences for 2026. 353 Python tests,
-366 TypeScript tests, 141 Worker tests. Engine complete in both languages — no known
+**Current state:** 200 contest definitions → 817 occurrences for 2026. 361 Python tests,
+374 TypeScript tests, 145 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -56,12 +56,12 @@ source. Measured rather than assumed: run
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 353 passed
+python -m pytest -q               # expect: 361 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 366 passed (353 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 141 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail)
+cd engine; npm install; npm test   # expect: 374 passed (361 mirrored + 13 parity)
+cd ..\worker; npm install; npm test # expect: 145 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -257,8 +257,8 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    `manual`**: eight annual PDFs give eight dates fitting no ordinal at all, so years RAC
    has not announced are simply absent. **GACW is blocked** — its WWSA rules PDFs are scanned
    imagery with no text layer; ask GACW for a text version, don't fill it from a calendar.
-   JARL's Japanese-language contests (ALL JA, Field Day, 6m And Down, ACAG) are deferred, not
-   missed.
+   JARL's Japanese-language contests were deferred there and were READ on 2026-08-19: ALL JA,
+   6m AND DOWN, Field Day and ACAG are encoded, and JARL is complete at 8 of 8.
 5. **DARC — done 2026-08-18, 8 records, and Tier 1 is finished.** WAE DX CW/SSB/RTTY, WAG,
    the 10m Contest, the Weihnachtswettbewerb and the quarterly FT4 and RTTY-Kurzcontest
    series. No engine change: every rule fits a type the engine already had. German pages,

@@ -1131,6 +1131,64 @@ It means the region will not be closed by more reading. It needs the same treatm
 ARCI: ask the societies directly, and cite the reply. That is now the recorded next step
 rather than an open-ended search.
 
+## JARL's Japanese contests, and Tier 1 is finished properly — 2026-08-19
+
+The four contests deferred on 2026-08-17 with the note *"they are real contests and a future
+pass should read the Japanese pages rather than guess"*. Read. **Four records — 200 encoded —
+and Asia goes 5 → 9.** JARL is now 8 of 8.
+
+| Contest | Rule, in JARL's own words | Encoded as |
+|---|---|---|
+| ALL JA | 毎年4月の最終日曜日の前日の21時00分から最終日曜日の21時00分（JST）まで | last Sunday of April, starting the day before |
+| 6m AND DOWN | 毎年7月の第1土曜日21時00分～翌日の15時00分（JST） | first Saturday of July, 18 hours |
+| Field Day | 毎年8月の第1土曜日の21時00分から翌日の15時00分（JST）まで | first Saturday of August, 18 hours |
+| 全市全郡 (ACAG) | 毎年10月第2月曜日の前々日の21時00分から前日の21時00分（JST）まで | **two days before Japan's Sports Day** |
+
+Each 規約 states its recurrence in a numbered clause and then prints that year's dates
+separately at the head of the same page — an independent check inside one document. All four
+rules reproduce JARL's 2026 dates exactly, and ALL JA's results page for the 68th running gives
+2026年4月25～26日 as a third statement.
+
+### ACAG is the catalog's first holiday-anchored rule, and it earns its place
+
+*"毎年10月第2月曜日の前々日の21時00分から前日の21時00分"* — from 21:00 **two days before** the
+second Monday of October until 21:00 **the day before** it. The second Monday of October is
+Japan's Sports Day, a public holiday, so the contest is the weekend in front of a long weekend.
+
+It is encoded exactly that way: an `nth_weekday` anchor on the Monday with `day_offset` −2 and
+−1. The obvious alternative — "the second full weekend of October" — is a *different rule that
+happens to agree sometimes*. It agrees in 2026 and 2027, then **diverges by a full week in
+2028 and 2029**. A calendar that guessed the weekend reading would send someone to the radio
+seven days late, twice, and look right in the two years anyone checked.
+
+### And the opposite case, so the point above is not overclaimed
+
+ALL JA is *"the day before the last Sunday of April"*, which sounds like the same kind of
+distinction and is not one. It gives the same date as "the last full weekend of April" in every
+year and always will: April's last Sunday falls on the 24th at the earliest, so the Saturday
+before it is never outside the month. JARL's wording is encoded because it is JARL's, not
+because it changes an answer — and a test asserts the equivalence for ten years so the claim
+stays honest.
+
+### Judgement calls
+
+- **Times are Asia/Tokyo wall clock, not hand-converted UTC.** JARL writes 21時00分（JST）, so
+  that is what the records say and the engine resolves it. Japan has had no daylight saving
+  since 1952, so the instant is 1200Z every year — which is worth pinning by test *because* it
+  never moves: if it ever does, the fault is in the zone layer rather than at JARL.
+- **No log deadline on any of the four.** JARL prints a dated deadline per edition above the
+  rules — ALL JA 2026 is 提出締切日 2026年5月6日（水）必着 — while the numbered 規約 clauses cover
+  dates, eligibility, bands, categories and exchange and state no span. All four 2026 deadlines
+  land exactly ten days after their contest, which is suggestive and is not a rule JARL wrote.
+  The same reasoning already keeps a deadline off JARL's All Asian records.
+- **Japan-only for entry**, all four: 日本国内のアマチュア局およびSWL. A JA station can be
+  *worked* from anywhere, which is why the records exist; entry is the restricted part, and in
+  this catalog that is a display-time filter rather than a reason to omit.
+- **6m AND DOWN reaches past the band vocabulary.** Its categories run to 5600 MHz and 10.1 GHz
+  and above; 2400 MHz is 13cm and 10.1 GHz is 3cm, but **5600 MHz has no token** in
+  `CATALOG_BANDS`. It is recorded in `bands_note` with JARL's own wording, the same treatment
+  REP's 4m got.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

@@ -2879,6 +2879,122 @@ def test_rca_holds_only_the_editions_argentina_published(catalog):
     assert eligibility_for(by_id(catalog, "rca-nacional-80m"), "LU")["can_enter"]
 
 
+# ---------------------------------------------------------------------------
+# JARL's Japanese-language contests.
+#
+# These four were deferred on 2026-08-17 with the note "they are real contests
+# and a future pass should read the Japanese pages rather than guess". Read
+# 2026-08-19. JARL states each recurrence in its 規約 and then prints the year's
+# dates separately at the head of the same page, which is the independent check.
+# ---------------------------------------------------------------------------
+
+JARL_JP_PUBLISHED = {
+    "jarl-all-ja": (
+        "毎年4月の最終日曜日の前日の21時00分から最終日曜日の21時00分（JST）まで",
+        (2026, 4, 25),
+    ),
+    "jarl-6m-and-down": (
+        "毎年7月の第1土曜日21時00分～翌日の15時00分（JST）",
+        (2026, 7, 4),
+    ),
+    "jarl-field-day": (
+        "毎年8月の第1土曜日の21時00分から翌日の15時00分（JST）まで",
+        (2026, 8, 1),
+    ),
+    "jarl-acag": (
+        "毎年10月第2月曜日の前々日の21時00分から前日の21時00分（JST）まで",
+        (2026, 10, 10),
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, d) for cid, (rule, d) in sorted(JARL_JP_PUBLISHED.items())
+])
+def test_jarl_japanese_contests_match_jarls_published_dates(catalog, cid, rule, published):
+    (o,) = expand(by_id(catalog, cid), 2026)
+    assert o.start.date() == date(*published), f"{cid}: rule '{rule}'"
+
+
+def test_jarl_states_its_times_in_tokyo_and_they_never_shift(catalog):
+    """
+    JARL writes 21時00分（JST）, so the records carry Asia/Tokyo wall clock
+    rather than a UTC time converted by hand. Japan has not observed daylight
+    saving since 1952, so the resolved instant is 1200Z every year -- which is
+    worth pinning precisely BECAUSE it never moves: if it ever does, something
+    has gone wrong in the zone layer rather than at JARL.
+    """
+    for year in (2026, 2027, 2030):
+        for cid in JARL_JP_PUBLISHED:
+            (o,) = expand(by_id(catalog, cid), year)
+            assert o.start_wall.hour == 21, cid
+            assert o.start.hour == 12, f"{cid} {year}: 2100 JST is 1200Z"
+
+
+def test_acag_hangs_off_japans_sports_day_and_counts_backwards(catalog):
+    """
+    全市全郡 is the only rule in the catalog anchored on a public holiday and
+    counted backwards: "毎年10月第2月曜日の前々日の21時00分から前日の21時00分" --
+    from 21:00 two days before the second Monday of October until 21:00 the day
+    before it. The second Monday of October is Japan's Sports Day.
+
+    It is NOT "the second full weekend of October", and the difference is not
+    academic: the two readings agree in 2026 and 2027 and then diverge by a
+    whole week in 2028 and 2029. A calendar that guessed the weekend reading
+    would send someone to the radio seven days late, twice.
+    """
+    expected = {
+        2026: date(2026, 10, 10),
+        2027: date(2027, 10, 9),
+        2028: date(2028, 10, 7),   # a full-weekend reading says the 14th
+        2029: date(2029, 10, 6),   # ...and the 13th
+        2030: date(2030, 10, 12),
+    }
+    for year, day in expected.items():
+        (o,) = expand(by_id(catalog, "jarl-acag"), year)
+        assert o.start.date() == day, year
+        # Always the Saturday, and always ending on the Sunday.
+        assert o.start.weekday() == 5 and o.end.weekday() == 6, year
+
+    for year in (2028, 2029):
+        weekend = resolve_anchors({"type": "nth_full_weekend", "month": 10, "n": 2}, year)[0]
+        assert expand(by_id(catalog, "jarl-acag"), year)[0].start.date() != weekend, year
+
+
+def test_all_ja_follows_jarls_wording_though_nothing_turns_on_it(catalog):
+    """
+    The opposite case, recorded so the distinction above is not overclaimed.
+    ALL JA is "the day before the last Sunday of April", which is the same date
+    as "the last full weekend of April" in every year and always will be:
+    April's last Sunday falls on the 24th at the earliest, so the Saturday
+    before it is never outside the month. JARL's wording is encoded because it
+    is JARL's, not because it changes an answer.
+    """
+    for year in range(2026, 2036):
+        (o,) = expand(by_id(catalog, "jarl-all-ja"), year)
+        weekend = resolve_anchors({"type": "nth_full_weekend", "month": 4, "n": -1}, year)[0]
+        assert o.start.date() == weekend, year
+
+
+def test_jarl_domestic_contests_are_japan_only_and_carry_no_deadline(catalog):
+    """
+    "日本国内のアマチュア局およびSWL" -- amateur stations within Japan, and SWLs.
+    A JA station can be WORKED from anywhere, which is why these records exist
+    at all; entry is the restricted part, and that is a display-time filter.
+
+    And no log deadline: JARL prints a dated one per edition above the rules
+    rather than a span inside them. All four 2026 deadlines happen to fall ten
+    days after their contest, which is suggestive and is not a rule JARL wrote.
+    """
+    for cid in JARL_JP_PUBLISHED:
+        c = by_id(catalog, cid)
+        assert c["eligibility"]["scope"] == "entity_list", cid
+        assert c["eligibility"]["entities"] == ["JA"], cid
+        assert not eligibility_for(c, "K")["can_enter"], cid
+        assert eligibility_for(c, "JA")["can_enter"], cid
+        assert "log_deadline_days" not in c, cid
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

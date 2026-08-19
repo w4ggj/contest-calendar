@@ -10540,6 +10540,238 @@
         "verified": true,
         "note": "'Estaciones fijas argentinas y de paises limitrofes. Radioclubes argentinos y de paises limitrofes.' -- Argentine fixed stations and radio clubs and those of bordering countries. The entity list is this catalog's expansion of 'bordering': Argentina, Chile, Bolivia, Paraguay, Brazil and Uruguay. RCA names the rule, not the prefixes."
       }
+    },
+    {
+      "sponsor": "JARL",
+      "country": "JP",
+      "sponsor_home": "https://www.jarl.org/",
+      "timezone": "Asia/Tokyo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "submodes": [
+        "AM",
+        "FM"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "JA"
+        ],
+        "verified": true,
+        "note": "'2 参加資格 日本国内のアマチュア局およびSWL（アマチュア局の電波を受信する個人をいう）' -- amateur stations within Japan, and SWLs. All four of JARL's domestic contests carry the same clause. A JA station can be WORKED from anywhere, which is why the record exists; entry is the part that is restricted."
+      },
+      "id": "jarl-all-ja",
+      "name": "ALL JA Contest",
+      "rules_url": "https://www.jarl.org/Japanese/1_Tanoshimo/1-1_Contest/allja_rules.html",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "bands_note": "1.9, 3.5, 7, 14, 21, 28 and 50 MHz. The phone all-band category excludes 14 MHz; CW may use it. JARL's 電話 covers AM, SSB and FM, and 電信 is CW.",
+      "exchange": "RST, the prefecture or region number for where you are operating, and one letter for power -- H above 100 W, M to 100 W, L to 10 W (20 W on 50 MHz), P at 5 W or less. Tokyo at 10 watts on phone sends 5910L.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": -1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": -1,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "source_note": "jarl.org, 第68回 ALL JAコンテスト規約: '1 開催日時 毎年4月の最終日曜日の前日の21時00分から最終日曜日の21時00分（JST）まで' -- from 21:00 on the day before the LAST SUNDAY of April each year until 21:00 on that Sunday. JARL states the 2026 running separately at the head of the same page: '2026年4月25日（土） 21時00分（JST）から4月26日（日）21時00分（JST）まで', and its results page for the 68th running gives '2026年4月25～26日'. The rule reproduces both.",
+      "note": "The rule is anchored on the LAST SUNDAY and counts backwards to the Saturday, which is how JARL writes it. Checked rather than assumed: that is the same date as 'the last full weekend of April' in every year, and always will be -- April's last Sunday falls on the 24th at the earliest, so the Saturday before it is never outside the month. JARL's wording is encoded because it is JARL's, not because it changes an answer. Contrast ACAG, where the equivalent choice moves the contest a full week in 2028 and 2029. Encoded as wall_clock in Asia/Tokyo because that is how JARL states it -- 21時00分（JST） -- rather than converted to a fixed UTC time by hand. Japan has not observed daylight saving since 1952, so the two are identical in practice and will stay so; the record says what the sponsor said and lets the engine do the arithmetic. log_deadline_days is absent. JARL prints a dated deadline above the rules for the edition in hand -- ALL JA 2026 is '提出締切日 2026年5月6日（水）必着' -- and the numbered 規約 clauses that follow state the dates, eligibility, bands, categories and exchange but no submission span. All four of JARL's 2026 deadlines happen to fall exactly ten days after their contest ends, which is suggestive and is not a rule JARL wrote. The same reasoning already keeps a deadline off JARL's All Asian records.",
+      "summary": "Japan's biggest domestic contest: 24 hours from 2100 JST on the Saturday before the last Sunday in April, on seven HF bands plus 6 m."
+    },
+    {
+      "sponsor": "JARL",
+      "country": "JP",
+      "sponsor_home": "https://www.jarl.org/",
+      "timezone": "Asia/Tokyo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "submodes": [
+        "AM",
+        "FM"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "JA"
+        ],
+        "verified": true,
+        "note": "'2 参加資格 日本国内のアマチュア局およびSWL（アマチュア局の電波を受信する個人をいう）' -- amateur stations within Japan, and SWLs. All four of JARL's domestic contests carry the same clause. A JA station can be WORKED from anywhere, which is why the record exists; entry is the part that is restricted."
+      },
+      "id": "jarl-6m-and-down",
+      "name": "6m AND DOWN Contest",
+      "rules_url": "https://www.jarl.org/Japanese/1_Tanoshimo/1-1_Contest/6d_rules.html",
+      "bands": [
+        "6m",
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "50, 144 and 430 MHz plus every amateur band at 1200 MHz and above -- JARL's categories run 1200, 2400 and 5600 MHz and 10.1 GHz and up. The 5600 MHz band has no token in this catalog's band vocabulary and is recorded only here.",
+      "exchange": "On 50 MHz to 1200 MHz: RST, the prefecture or region number, and the power letter. On 2400 MHz and above: RST, the city, county or ward number, and the power letter.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1500",
+        "wall_clock": true
+      },
+      "source_note": "jarl.org, 6m AND DOWNコンテスト規約 (第56回): '1 開催日時 毎年7月の第1土曜日21時00分～翌日の15時00分（JST）' -- the first Saturday of July, 21:00 to 15:00 the following day. The 2026 running is stated separately as '2026年7月4日（土）21時00分（JST）から7月5日（日）15時00分（JST）まで', which the rule reproduces. Bands: '3 使用周波数帯 下表のコンテスト使用周波数帯および1200MHz以上の各アマチュアバンドとする'.",
+      "note": "Eighteen hours, not a full day: it opens at 2100 and closes at 1500, so the overnight VHF opening is the point of it. Encoded as wall_clock in Asia/Tokyo because that is how JARL states it -- 21時00分（JST） -- rather than converted to a fixed UTC time by hand. Japan has not observed daylight saving since 1952, so the two are identical in practice and will stay so; the record says what the sponsor said and lets the engine do the arithmetic. log_deadline_days is absent. JARL prints a dated deadline above the rules for the edition in hand -- ALL JA 2026 is '提出締切日 2026年5月6日（水）必着' -- and the numbered 規約 clauses that follow state the dates, eligibility, bands, categories and exchange but no submission span. All four of JARL's 2026 deadlines happen to fall exactly ten days after their contest ends, which is suggestive and is not a rule JARL wrote. The same reasoning already keeps a deadline off JARL's All Asian records.",
+      "summary": "Japan's VHF and up contest: 2100 JST Saturday to 1500 Sunday on the first July weekend, 6 m through the microwave bands."
+    },
+    {
+      "sponsor": "JARL",
+      "country": "JP",
+      "sponsor_home": "https://www.jarl.org/",
+      "timezone": "Asia/Tokyo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "submodes": [
+        "AM",
+        "FM"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "JA"
+        ],
+        "verified": true,
+        "note": "'2 参加資格 日本国内のアマチュア局およびSWL（アマチュア局の電波を受信する個人をいう）' -- amateur stations within Japan, and SWLs. All four of JARL's domestic contests carry the same clause. A JA station can be WORKED from anywhere, which is why the record exists; entry is the part that is restricted."
+      },
+      "id": "jarl-field-day",
+      "name": "JARL Field Day Contest",
+      "rules_url": "https://www.jarl.org/Japanese/1_Tanoshimo/1-1_Contest/fd_rules.html",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "70cm",
+        "23cm"
+      ],
+      "bands_note": "1.9 through 430 MHz plus every amateur band at 1200 MHz and above. The phone all-band categories exclude 14 MHz.",
+      "exchange": "On 1.9 MHz to 1200 MHz: RST, the prefecture or region number, and the power letter. On 2400 MHz and above: RST, the city, county or ward number, and the power letter.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1500",
+        "wall_clock": true
+      },
+      "source_note": "jarl.org, フィールドデーコンテスト規約 (第69回): '1 開催日時 毎年8月の第1土曜日の21時00分から翌日の15時00分（JST）まで。' -- the first Saturday of August, 21:00 to 15:00 the following day. The 2026 running is stated separately as '2026年8月1日（土）21時00分（JST）から8月2日（日）15時00分（JST）まで'. Bands: '3 使用周波数帯 次の使用周波数帯および1200MHz帯以上の各アマチュアバンドとする'.",
+      "note": "Same eighteen-hour shape as 6m AND DOWN a month earlier, and on all bands rather than VHF up. Encoded as wall_clock in Asia/Tokyo because that is how JARL states it -- 21時00分（JST） -- rather than converted to a fixed UTC time by hand. Japan has not observed daylight saving since 1952, so the two are identical in practice and will stay so; the record says what the sponsor said and lets the engine do the arithmetic. log_deadline_days is absent. JARL prints a dated deadline above the rules for the edition in hand -- ALL JA 2026 is '提出締切日 2026年5月6日（水）必着' -- and the numbered 規約 clauses that follow state the dates, eligibility, bands, categories and exchange but no submission span. All four of JARL's 2026 deadlines happen to fall exactly ten days after their contest ends, which is suggestive and is not a rule JARL wrote. The same reasoning already keeps a deadline off JARL's All Asian records.",
+      "summary": "JARL's field day: 2100 JST Saturday to 1500 Sunday on the first August weekend, worked portable across HF, VHF and UHF."
+    },
+    {
+      "sponsor": "JARL",
+      "country": "JP",
+      "sponsor_home": "https://www.jarl.org/",
+      "timezone": "Asia/Tokyo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "submodes": [
+        "AM",
+        "FM"
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "JA"
+        ],
+        "verified": true,
+        "note": "'2 参加資格 日本国内のアマチュア局およびSWL（アマチュア局の電波を受信する個人をいう）' -- amateur stations within Japan, and SWLs. All four of JARL's domestic contests carry the same clause. A JA station can be WORKED from anywhere, which is why the record exists; entry is the part that is restricted."
+      },
+      "id": "jarl-acag",
+      "name": "All Cities All Counties Contest (ACAG)",
+      "rules_url": "https://www.jarl.org/Japanese/1_Tanoshimo/1-1_Contest/acag_rules.html",
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "70cm"
+      ],
+      "bands_note": "1.9 through 430 MHz. The phone all-band category excludes 14 MHz; CW may use it.",
+      "exchange": "RST, the city, county or ward number for where you are operating, and one letter for power. Tokyo's Toshima ward at high power sends 59 100116 H.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 2,
+        "weekday": 0
+      },
+      "start": {
+        "day_offset": -2,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": -1,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "source_note": "jarl.org, 第47回 全市全郡コンテスト規約: '1 開催日時 毎年10月第2月曜日の前々日の21時00分から前日の21時00分（JST）まで。' -- from 21:00 two days before the SECOND MONDAY of October until 21:00 the day before it. The 2026 running is stated separately as '2026年10月10日（土）21時00分（JST）から10月11日（日）21時00分（JST）まで', which the rule reproduces: the second Monday of October 2026 is the 12th.",
+      "note": "THE ONLY RULE IN THE CATALOG ANCHORED ON A PUBLIC HOLIDAY AND COUNTED BACKWARDS. Japan's Sports Day is the second Monday of October, and JARL hangs the contest on the weekend before it -- 前々日 and 前日, two days before and one day before. It is encoded exactly that way, with negative day offsets from a Monday anchor, rather than as 'the second full weekend of October', which would be a different rule that happens to agree in some years. Encoded as wall_clock in Asia/Tokyo because that is how JARL states it -- 21時00分（JST） -- rather than converted to a fixed UTC time by hand. Japan has not observed daylight saving since 1952, so the two are identical in practice and will stay so; the record says what the sponsor said and lets the engine do the arithmetic. log_deadline_days is absent. JARL prints a dated deadline above the rules for the edition in hand -- ALL JA 2026 is '提出締切日 2026年5月6日（水）必着' -- and the numbered 規約 clauses that follow state the dates, eligibility, bands, categories and exchange but no submission span. All four of JARL's 2026 deadlines happen to fall exactly ten days after their contest ends, which is suggestive and is not a rule JARL wrote. The same reasoning already keeps a deadline off JARL's All Asian records.",
+      "summary": "All Cities All Counties: 24 hours from 2100 JST on the Saturday of Japan's Sports Day weekend, with cities, counties and wards as the multiplier."
     }
   ]
 }
