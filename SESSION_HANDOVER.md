@@ -78,7 +78,7 @@ python scripts\coverage.py --check   # Registry coverage is current.
 python scripts\check_links.py        # 168 live, 3 broken -- see "In flight" below
 npm --prefix engine test             # 324 passed (311 mirrored + 13 parity)
 npm --prefix engine run typecheck    # silent
-npm --prefix worker test             # 110 passed
+npm --prefix worker test             # 141 passed
 npm --prefix worker run typecheck    # silent
 ```
 

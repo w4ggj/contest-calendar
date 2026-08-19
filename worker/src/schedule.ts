@@ -16,6 +16,8 @@ import {
   type Contest,
   type Occurrence,
   type RecurrenceRule,
+  type Session,
+  type TimeSpec,
 } from "../../engine/src/recurrence.js";
 import { CATALOG, contestById } from "./catalog.js";
 
@@ -154,6 +156,17 @@ export interface Filters {
   bands?: string[];
   durations?: string[];
   sponsors?: string[];
+  /**
+   * Exact contest ids.
+   *
+   * Not a convenience for `q=`: `q` is a substring match, and five records in
+   * the catalog have an id or a name that contains another one -- subscribing
+   * to `q=bartg-sprint` silently hands you BARTG Sprint 75 and BARTG Sprint
+   * PSK63 as well. A per-contest subscription that quietly carries a second
+   * contest is the failure this project exists to avoid, so the detail view's
+   * feed link names the record exactly.
+   */
+  ids?: string[];
   q?: string;
   /** Hide contests this entity cannot enter. Off by default: a contest you
    *  cannot ENTER is still one worth WORKING. */
@@ -207,11 +220,13 @@ export function filterWithNotes(
   const wantSponsors = f.sponsors?.length
     ? new Set(f.sponsors.map((s) => s.toLowerCase()))
     : null;
+  const wantIds = f.ids?.length ? new Set(f.ids) : null;
 
   const kept: Occurrence[] = [];
   const unrecorded = new Set<string>();
 
   for (const o of occurrences) {
+    if (wantIds && !wantIds.has(o.contest_id)) continue;
     if (wantModes) {
       const fams = modeFamilies(o.modes).map((m) => m.toLowerCase());
       if (!fams.some((m) => wantModes.has(m))) continue;
@@ -511,7 +526,35 @@ const MONTHS = [
 ];
 
 function ordinal(n: number): string {
-  return n === -1 ? "Last" : (ORDINALS[n] ?? `${n}th`);
+  if (n >= 1) return ORDINALS[n] ?? `${n}th`;
+  if (n === -1) return "Last";
+  // BFRA states LZ DX as "the weekend before the last full weekend of
+  // November" -- a rule with no forward ordinal, encoded as n = -2. Without
+  // this branch `ORDINALS[-2]` is undefined and the phrase read "-2th full
+  // weekend of November", which is worse than saying nothing.
+  return `${ORDINALS[-n] ?? `${-n}th`}-to-last`;
+}
+
+/** "January, February and August" -- a list as someone would read it aloud. */
+function joinList(parts: string[]): string {
+  if (parts.length <= 2) return parts.join(" and ");
+  return `${parts.slice(0, -1).join(", ")} and ${parts[parts.length - 1]}`;
+}
+
+/**
+ * The exception clause, where a rule has one.
+ *
+ * `exclude_dates` is not "this contest skips that date" -- the engine pushes
+ * the anchor a week forward instead, which is what ARRL's own rules say happens
+ * when the first full weekend of January would open on the 1st. Stating only
+ * the exclusion and not the shift would describe a rule the engine does not
+ * implement.
+ */
+function exceptClause(rule: RecurrenceRule): string {
+  const dates = rule.exclude_dates ?? [];
+  if (!dates.length) return "";
+  const when = joinList(dates.map(([m, d]) => `${d} ${MONTHS[m]}`));
+  return `, except when that falls on ${when} — then the weekend after`;
 }
 
 /**
@@ -522,6 +565,10 @@ function ordinal(n: number): string {
  * store dates. Worth keeping faithful.
  */
 export function describeRule(rule: RecurrenceRule): string {
+  return `${describeAnchor(rule)}${exceptClause(rule)}`;
+}
+
+function describeAnchor(rule: RecurrenceRule): string {
   switch (rule.type) {
     case "nth_full_weekend":
       return `${ordinal(rule.n!)} full weekend of ${MONTHS[rule.month!]}`;
@@ -529,13 +576,23 @@ export function describeRule(rule: RecurrenceRule): string {
       return `${ordinal(rule.n!)} ${WEEKDAYS[rule.weekday!]} of ${MONTHS[rule.month!]}`;
     case "fixed_date":
       return `${MONTHS[rule.month!]} ${rule.day}, every year`;
+    // WIA's "weekend in August closest to the 15th". Missing from this switch
+    // until the detail view put the rule on the page: it fell through to the
+    // default and both API and page said "nearest_weekday" out loud.
+    case "nearest_weekday":
+      return `${WEEKDAYS[rule.weekday!]} nearest ${MONTHS[rule.month!]} ${rule.day}`;
     case "monthly_nth_weekday": {
       const when = `${ordinal(rule.n!)} ${WEEKDAYS[rule.weekday!]}`;
       if (!rule.months || rule.months.length === 12) return `${when} of every month`;
-      return `${when} of ${rule.months.map((m) => MONTHS[m]).join(", ")}`;
+      return `${when} of ${joinList(rule.months.map((m) => MONTHS[m]))}`;
     }
+    // NZART's sprints run "each Tuesday in April and August" -- the months were
+    // being dropped here, so the phrase claimed a weekly contest that runs all
+    // year. The rule the engine holds is the narrower one.
     case "weekly":
-      return `Every ${WEEKDAYS[rule.weekday!]}`;
+      return rule.months?.length && rule.months.length < 12
+        ? `Every ${WEEKDAYS[rule.weekday!]} in ${joinList(rule.months.map((m) => MONTHS[m]))}`
+        : `Every ${WEEKDAYS[rule.weekday!]}`;
     case "multi_weekend":
       return rule.weekends!
         .map((w) => `${ordinal(w.n)} full weekend of ${MONTHS[w.month]}`)
@@ -547,6 +604,88 @@ export function describeRule(rule: RecurrenceRule): string {
     default:
       return rule.type;
   }
+}
+
+/**
+ * The weekday a rule anchors on, where it has one.
+ *
+ * Only so the clock line can name the days: "0000Z Saturday → 2359Z Sunday"
+ * rather than "0000Z → 2359Z the next day". `fixed_date` and `manual` anchor on
+ * a date and genuinely have no weekday, and saying so is the honest answer --
+ * guessing one from next year's occurrence would state a fact about the rule
+ * that the rule does not contain.
+ */
+export function anchorWeekday(rule: RecurrenceRule): number | null {
+  switch (rule.type) {
+    // A full weekend is a Sat/Sun pair and the engine anchors it on the
+    // Saturday; every offset in such a record is relative to that.
+    case "nth_full_weekend":
+    case "multi_weekend":
+      return 5;
+    case "nth_weekday":
+    case "weekly":
+    case "monthly_nth_weekday":
+    case "nearest_weekday":
+      return rule.weekday ?? null;
+    case "composite": {
+      const each = rule.rules!.map(anchorWeekday);
+      return each.every((w) => w !== null && w === each[0]) ? each[0] : null;
+    }
+    default:
+      return null;
+  }
+}
+
+/** "Saturday", "Sunday", or "the next day" when the anchor has no weekday. */
+function offsetDay(anchor: number | null, offset: number): string {
+  if (anchor !== null) return WEEKDAYS[(((anchor + offset) % 7) + 7) % 7];
+  if (offset === 0) return "";
+  if (offset === 1) return "the next day";
+  if (offset === -1) return "the day before";
+  return offset > 0 ? `${offset} days later` : `${-offset} days earlier`;
+}
+
+/**
+ * One running's clock, stated the way a rules page states it:
+ * "0000Z Saturday → 2359Z Sunday".
+ *
+ * Reads the offsets rather than an expanded occurrence, because this describes
+ * the RULE and must hold for every year. A `wall_clock` spec is rendered as a
+ * bare reading with no `Z`, because it is not one -- the zone is named beside
+ * it, and converting it here would be the category error the engine refuses.
+ */
+export function describeWindow(
+  start: TimeSpec,
+  end: TimeSpec,
+  rule: RecurrenceRule,
+): string {
+  const anchor = anchorWeekday(rule);
+  const clock = (s: TimeSpec) => `${s.time}${s.wall_clock ? "" : "Z"}`;
+  const sDay = offsetDay(anchor, start.day_offset ?? 0);
+  const eDay = offsetDay(anchor, end.day_offset ?? 0);
+
+  if (sDay === eDay) {
+    return sDay ? `${clock(start)} → ${clock(end)} ${sDay}` : `${clock(start)} → ${clock(end)}`;
+  }
+  const left = sDay ? `${clock(start)} ${sDay}` : clock(start);
+  const right = eDay ? `${clock(end)} ${eDay}` : clock(end);
+  return `${left} → ${right}`;
+}
+
+/**
+ * The clock lines for a contest: one, or one per session.
+ *
+ * Several runnings off one anchor are `sessions` -- CWT's four hours in a day,
+ * SST's Monday and Friday. A contest with sessions does not run from the first
+ * session's start to the last one's end, so collapsing them to a single window
+ * would overstate it by twenty hours.
+ */
+export function describeSchedule(contest: Contest): string[] {
+  const sessions: Session[] | undefined = contest.sessions;
+  if (sessions?.length) {
+    return sessions.map((s) => describeWindow(s.start, s.end, contest.recurrence));
+  }
+  return [describeWindow(contest.start, contest.end, contest.recurrence)];
 }
 
 /** Every distinct sponsor in the catalog, for the filter UI. */

@@ -771,6 +771,176 @@ a:hover { color: var(--ink); }
   font: 400 .92rem/1.65 var(--font-ui);
 }
 
+/* -- the contest detail view -------------------------------------------
+
+   One contest, and the page where this project's argument is actually visible:
+   the rule it stores, the clock the sponsor wrote, and the sentence the record
+   was read from.
+
+   Colour discipline holds and decides the one real choice here. AMBER IS TIME,
+   so the plain-language rule is amber -- it is a statement about when, and it
+   is the largest thing on the page after the name for the same reason the UTC
+   readout is on the schedule. CYAN IS INTERACTIVE, so the sponsor's rules link
+   is the only cyan button above the fold. The duration ramp does NOT appear
+   here: there is one contest, so there is nothing to compare a length against,
+   and spending --d1..--d4 on a page with a single duration would make the ramp
+   decorative -- which is the one thing it is not allowed to become. */
+
+.detail { max-width: 68ch; color: var(--ink-dim); }
+
+.dt-sponsor {
+  margin: 0 0 .5rem;
+  font: 500 .74rem/1.4 var(--font-mono);
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.dt-sponsor .dot { color: var(--rule); }
+
+.detail h1 {
+  margin: 0 0 1rem;
+  font: 700 clamp(1.6rem, 5.5vw, 2.3rem)/1.15 var(--font-mono);
+  letter-spacing: -.02em; color: var(--ink);
+}
+.detail h1 .flag { vertical-align: middle; font-size: .42em; }
+
+.detail .lede {
+  margin: 0 0 1.4rem;
+  font: 400 1.05rem/1.6 var(--font-ui); color: var(--ink);
+}
+
+.dt-cta { margin: 0 0 .5rem; display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
+.dt-cta-note {
+  font: 500 .72rem/1.4 var(--font-mono);
+  color: var(--ink-faint); max-width: 34ch;
+}
+
+.dt-sec { margin: 2.4rem 0 0; }
+.dt-sec h2 {
+  margin: 0 0 .9rem;
+  font: 600 .78rem/1.3 var(--font-mono);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: .9rem; border-top: 1px solid var(--rule);
+}
+
+/* The rule is the headline fact, and it is a fact about time. */
+.rule-plain {
+  margin: 0 0 .8rem;
+  font: 600 clamp(1.05rem, 3.6vw, 1.35rem)/1.35 var(--font-mono);
+  color: var(--amber);
+}
+
+.clocks { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: .35rem; }
+.clock {
+  font: 500 .92rem/1.5 var(--font-mono);
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.clock .sess {
+  margin-left: .7rem;
+  font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.detail .note {
+  margin: 0 0 .6rem;
+  font: 500 .8rem/1.6 var(--font-mono); color: var(--ink-faint);
+}
+.detail .note code { color: var(--amber); }
+.detail .note strong { color: var(--ink-dim); }
+
+/* One running per line: when it opens and closes, how long, and how far off.
+   Tabular numerals because these are read as a column even though each is a
+   sentence. */
+.runs { list-style: none; margin: 0; padding: 0; display: grid; gap: .1rem; }
+.run {
+  padding: .55rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+  display: grid; gap: .15rem;
+}
+@media (min-width: 640px) {
+  .run { grid-template-columns: minmax(0, 1fr) 8.5rem; align-items: baseline; }
+  .run .row-count { text-align: right; }
+  .run-due { grid-column: 1 / -1; }
+}
+.run-when {
+  margin: 0;
+  font: 500 .9rem/1.5 var(--font-mono); color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.run-when .dur { color: var(--ink-faint); }
+.run-when .arrow { color: var(--ink-faint); padding: 0 .15em; }
+.run-when .dot { color: var(--rule); }
+.run-when .rolling { color: var(--amber); }
+.run-when .yr {
+  margin-left: .6rem; color: var(--ink-faint);
+  font-size: .76rem; letter-spacing: .08em;
+}
+.run-due {
+  margin: 0;
+  font: 500 .76rem/1.5 var(--font-mono); color: var(--ink-faint);
+}
+.empty-line {
+  margin: 0; padding: .7rem .9rem;
+  border-left: 2px solid var(--rule);
+  font: 400 .92rem/1.65 var(--font-ui); color: var(--ink-dim);
+}
+.empty-line strong { color: var(--ink); font-weight: 600; }
+
+/* Term and answer, the same shape as the standing pages' definitions -- these
+   are all "field: what the sponsor says". */
+.spec { margin: 0; display: grid; gap: .9rem; }
+.spec dt {
+  font: 600 .72rem/1.3 var(--font-mono);
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.spec dd {
+  margin: .3rem 0 0; padding-left: .9rem;
+  border-left: 1px solid var(--rule);
+  font: 400 .93rem/1.65 var(--font-ui); color: var(--ink);
+}
+.spec dd .sub {
+  display: block; margin-top: .3rem;
+  font: 500 .8rem/1.55 var(--font-mono); color: var(--ink-faint);
+}
+.spec dd q {
+  display: block; quotes: none;
+  font: 400 .9rem/1.7 var(--font-ui); color: var(--ink-dim);
+}
+.spec dd strong { color: var(--ink); font-weight: 600; }
+
+/* Catalog prose is the only text on this site that is not ours to reflow, and
+   it carries bare URLs: the longest unbroken token in the catalog today is a
+   109-character LABRE rules PDF link inside a source note. At 320px that is a
+   horizontal scrollbar on a page whose mobile pass was measured specifically to
+   have none, so every block that renders catalog text breaks inside a word
+   rather than pushing the viewport. */
+.spec dd, .spec dd q, .detail .note, .empty-line, .dt-sponsor {
+  overflow-wrap: anywhere;
+}
+
+/* A field nobody has read off the sponsor's page yet. Set apart from data on
+   purpose: an empty field rendered like a value is a claim we cannot make. */
+.unrec { font-style: italic; color: var(--ink-faint); }
+
+.bandlist { display: flex; flex-wrap: wrap; gap: .3rem; }
+.band, .pw {
+  font: 500 .74rem/1 var(--font-mono);
+  color: var(--ink-dim);
+  border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: .4em .55em;
+}
+.pw { margin: 0 .3rem .3rem 0; display: inline-block; }
+.pw .w { color: var(--ink-faint); }
+
+.dt-take { margin: 0 0 .8rem; display: flex; gap: .6rem; flex-wrap: wrap; }
+
+/* The two switches sit at the foot of this page rather than in a masthead:
+   there is no readout here for them to belong to, and putting controls above
+   the contest would be a nav bar by another name. */
+.dt-controls { margin: 2.5rem 0 0; }
+
 /* -- footer ------------------------------------------------------------ */
 
 .foot {

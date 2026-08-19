@@ -179,7 +179,7 @@ describe("GET /", () => {
     const html = await (await get("/")).text();
     // Names sit inside the anchor; anything between the anchor's `>` and its
     // `</a>` is contest text and must contain no raw markup.
-    const names = [...html.matchAll(/class="row-name"><a [^>]*>(.*?)<span class="ext"/g)];
+    const names = [...html.matchAll(/class="row-name"><a href="[^"]*">(.*?)<\/a>/g)];
     expect(names.length).toBeGreaterThan(0);
     for (const [, name] of names) {
       expect(name, `unescaped markup in ${JSON.stringify(name)}`).not.toMatch(/[<>]/);

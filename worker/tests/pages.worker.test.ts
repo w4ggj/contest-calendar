@@ -23,18 +23,42 @@ const get = async (path: string) => await SELF.fetch(BASE + path);
 const page = async (path: string) => await (await get(path)).text();
 
 describe("links to the sponsor's rules", () => {
-  it("opens in a new tab, with noopener", async () => {
-    // The reader's filters live in the URL. Navigating away in place throws
-    // away the view they built to get here, which is the reason for _blank --
-    // and _blank without noopener hands the sponsor's page a handle on ours.
-    const html = await page("/");
-    const links = [...html.matchAll(/<a href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
-    const external = links.filter((a) => a.includes('rel="noopener external"'));
+  it("opens in a new tab, with noopener, wherever one appears", async () => {
+    // Every link that leaves this site does both or neither: _blank so the
+    // reader's filtered view is not thrown away, and noopener so the page we
+    // opened gets no `window.opener` handle back on ours.
+    //
+    // Checked across the routes that carry outbound links rather than on `/`
+    // alone. The schedule no longer has any -- the contest name goes to this
+    // site's own detail view now, and the sponsor's rules link went with it,
+    // to the top of that page -- so pinning this to `/` would have quietly
+    // stopped testing anything the day the link moved.
+    const routes = ["/", "/contest/cq-ww-cw", "/data", "/contact"];
+    let seen = 0;
 
-    expect(external.length, "no external rules links on the page").toBeGreaterThan(0);
-    for (const a of external) {
-      expect(a, "external link without target").toContain('target="_blank"');
-      expect(a, "target=_blank without noopener").toContain("noopener");
+    for (const route of routes) {
+      const html = await page(route);
+      const links = [...html.matchAll(/<a href="https?:\/\/[^"]+"[^>]*>/g)].map((m) => m[0]);
+      for (const a of links) {
+        seen++;
+        expect(a, `${route}: external link without target`).toContain('target="_blank"');
+        expect(a, `${route}: target=_blank without noopener`).toContain("noopener");
+      }
+    }
+
+    expect(seen, "no external links found on any route").toBeGreaterThan(0);
+  });
+
+  it("keeps the schedule's rows pointing at this site", async () => {
+    // One link per row, and it is ours. The mobile pass gave `.row-name a` a
+    // 44px hit area; a second inline link in the same row would put two of
+    // them within a few pixels of each other.
+    const html = await page("/");
+    const names = [...html.matchAll(/class="row-name">(.*?)<\/h3>/g)].map((m) => m[1]);
+    expect(names.length, "no contest rows on the page").toBeGreaterThan(0);
+    for (const cell of names) {
+      expect([...cell.matchAll(/<a /g)].length, `row has more than one link: ${cell}`).toBe(1);
+      expect(cell, "row name leaves the site").toMatch(/<a href="\/contest\//);
     }
   });
 

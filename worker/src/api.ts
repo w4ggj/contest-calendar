@@ -107,6 +107,7 @@ export function parseFilters(params: URLSearchParams): Filters {
   const bands = multi(params, "band", "bands");
   const durations = multi(params, "duration", "durations");
   const sponsors = multi(params, "sponsor", "sponsors");
+  const ids = multi(params, "id", "ids");
 
   // Reject unknown values rather than silently returning everything. A typo'd
   // `?mode=CQ` that quietly behaves like no filter at all is how someone
@@ -141,11 +142,25 @@ export function parseFilters(params: URLSearchParams): Filters {
     }
   }
 
+  // An id nobody has is a 404's worth of wrong, and the same reasoning as the
+  // mode and band checks applies: a subscription URL naming a contest that does
+  // not exist should say so rather than quietly serving the whole catalog.
+  for (const id of ids) {
+    if (!contestById(id)) {
+      throw new ApiError(
+        404,
+        `no contest with id ${JSON.stringify(id)}`,
+        "GET /api/search?q= to find one",
+      );
+    }
+  }
+
   return {
     modes,
     bands,
     durations,
     sponsors,
+    ids,
     q: params.get("q") ?? undefined,
     eligibleOnly: bool(params, "eligible"),
     verifiedOnly: bool(params, "verified"),
@@ -602,6 +617,11 @@ export function handleMeta(): Response {
 
 function describeFilters(f: Filters): string[] {
   const parts: string[] = [];
+  // The contest's NAME, not its id: this is what a calendar client shows as
+  // the subscription's name six months after someone added it.
+  if (f.ids?.length) {
+    parts.push(f.ids.map((id) => contestById(id)?.name ?? id).join("/"));
+  }
   if (f.modes?.length) parts.push(f.modes.join("/"));
   if (f.bands?.length) parts.push(f.bands.join("/"));
   if (f.durations?.length) {

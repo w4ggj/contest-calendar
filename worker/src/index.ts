@@ -20,8 +20,9 @@ import {
   parseFilters,
   parsePageWindow,
 } from "./api.js";
-import { allSponsors, buildNowView } from "./schedule.js";
+import { allSponsors, buildNowView, contestById } from "./schedule.js";
 import { SITE_NAME } from "./render/html.js";
+import { renderDetail } from "./render/detail.js";
 import { renderLanding } from "./render/landing.js";
 import { findPage, renderPage } from "./render/pages.js";
 
@@ -103,6 +104,36 @@ export default {
             sponsors: allSponsors(),
           }),
         );
+      } else if (path.startsWith("/contest/")) {
+        // The detail view. Singular, so it cannot be mistaken for the API's
+        // `/api/contests/:id` or for `/contests.ics`, both of which serve the
+        // same record in another format.
+        const id = decodeURIComponent(path.slice("/contest/".length));
+        const contest = contestById(id);
+        if (!contest) {
+          response = notFound(path);
+        } else {
+          // Parsed, not merely echoed: the filters on this URL are carried back
+          // to the schedule by every link on the page, and a value the schedule
+          // would reject with a 400 must not be handed back to the reader as a
+          // link that 400s.
+          parseFilters(url.searchParams);
+          response = html(
+            renderDetail({
+              contest,
+              nowMs,
+              params: url.searchParams,
+              entity: url.searchParams.get("entity") ?? "K",
+            }),
+          );
+          // Nothing here is a function of `now` except the countdowns, which
+          // the client ticks -- but "next runnings" does move, so this is
+          // cached harder than the schedule and softer than the prose pages.
+          response.headers.set(
+            "cache-control",
+            "public, max-age=600, stale-while-revalidate=86400",
+          );
+        }
       } else if (path === "/api/health") {
         response = handleHealth();
       } else if (path === "/api/meta") {

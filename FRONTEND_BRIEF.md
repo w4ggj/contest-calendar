@@ -3,10 +3,11 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Prerequisite:** read `HANDOVER.md` first
-**Status:** **engine port DONE 2026-08-12.** `engine/` holds the TypeScript
-engine, 152 mirrored tests green plus a cross-engine parity suite. Landing view,
-filters and search shipped 2026-08-16 — see "Worker: what shipped" and "Section 3
-shipped: filters and search" below. Contest detail and the iCal feed are next.
+**Status:** **the build list is closed.** `engine/` holds the TypeScript engine,
+311 mirrored tests green plus a cross-engine parity suite. Landing view, filters
+and search shipped 2026-08-16; the iCal feed the same day; the contest detail
+view on 2026-08-19. Every numbered section below is shipped and has its own
+"shipped" note recording what it cost.
 
 ---
 
@@ -146,6 +147,9 @@ genuinely useful and it's the thing no other calendar can show.
 Where `verified: false`, say so plainly and link the sponsor. Don't hide it; a calendar
 that admits uncertainty is more trustworthy than one that doesn't.
 
+*Shipped — see "Section 4 shipped: the contest detail view" below, including the four
+plain-language bugs that were live in the catalog and the row link this reversed.*
+
 ### 5. iCal feed
 
 The feature that makes people keep it. Subscribe once, contests appear in their phone
@@ -240,8 +244,11 @@ catalog grows an order of magnitude or gains per-user state.
 | `/api/search?q=` | Name / sponsor / mode search |
 | `/api/ics` | RFC 5545 feed, UTC instants only |
 
-Still to build from the list above: filters and search **in the UI** (the API supports
-both), the contest detail view, and deployment.
+Still to build from the list above: nothing. Filters and search shipped 2026-08-16, the
+detail view on 2026-08-19, and the Worker is deployed.
+
+`/contest/:id` was added to the table on 2026-08-19: the detail view, server-rendered from
+the same catalog and the same engine as everything else.
 
 ### The rail has one axis, declared once
 
@@ -637,12 +644,124 @@ strip now sits at two lines on a phone, one fewer than before this change.
 
 ---
 
+### Section 4 shipped: the contest detail view
+
+`worker/src/render/detail.ts`, served at `/contest/:id`. Everything the catalog holds about
+one record, and the only page on this site where provenance is the subject rather than a
+flag in the margin.
+
+The section headings are the questions in the order they get asked: **when it runs**, **next
+runnings**, **operating** (modes, bands, exchange, power categories, logs, who may enter),
+**where this comes from**, and **take it with you**. No rail — the rail compares contests
+against one shared axis and there is one contest here — and no filter panel, which would
+filter nothing. The duration ramp is deliberately absent for the same reason: with a single
+duration there is nothing to compare against, and spending `--d1`…`--d4` here would make the
+ramp decorative, which is the one thing it is not allowed to become.
+
+#### The rule was already wrong in four places, and nobody could see it
+
+`describeRule()` shipped in July and its output went into `/api/contests/:id` as
+`rule.plain`, where nothing read it. Putting it at the top of a page found all four at once:
+
+- **WIA Remembrance Day printed its rule type out loud.** `nearest_weekday` had no case in
+  the switch, so the field read `nearest_weekday`. It now reads "Saturday nearest August 15".
+- **NZART's sprints claimed to run every Tuesday of the year.** The `months` on a `weekly`
+  rule were dropped, turning six runnings into fifty-two. Now "Every Tuesday in April and
+  August" — which is what the engine has always expanded.
+- **BFRA's LZ DX read "-2th full weekend of November".** `ORDINALS[-2]` is undefined, and the
+  fallback was `${n}th`. `n = -2` is BFRA's own "the weekend before the last full weekend",
+  and it now says "Second-to-last full weekend of November".
+- **ARRL RTTY Roundup's New Year exception was not mentioned.** `exclude_dates` does not skip
+  a running — the engine pushes the anchor a week — so the phrase now carries "except when
+  that falls on 1 January — then the weekend after". Stating the exclusion without the shift
+  would have described a rule this calendar does not implement.
+
+The regression test is the general form rather than four specific ones: it walks the whole
+catalog and fails on any record whose rule renders as its own type. A fifth rule type added
+without a case fails the build instead of printing itself at a reader.
+
+Beside the phrase is a **clock line** — "0000Z Saturday → 2359Z Sunday" — read off the
+`start`/`end` offsets rather than off next year's dates, so it holds for every year. A
+contest with `sessions` gets one line each: CWT is four one-hour runnings off a Wednesday
+anchor, two of them landing on the Thursday, and collapsing them to a single window would
+claim a nineteen-hour contest. A `wall_clock` record's line carries **no `Z`** and names its
+zone instead, because ARS Spartan Sprint is 2000 in New York, which is 0000Z in winter and
+2300Z in summer — printing either one as "the" time is wrong for half the year. The resolved
+instants are directly beneath it, and the November row visibly moves an hour.
+
+#### An empty field is a claim, so it says which claim
+
+Same rule the iCal feed already followed, for the same reason. A missing Exchange row reads
+as "there is nothing to send"; a missing Bands row reads as "no bands". Both are statements
+about the contest, and what is actually true is a statement about our coverage. So the row is
+always rendered and says "not recorded yet" in a style that cannot be mistaken for data.
+
+Bands go further, because there the gap has a consequence the reader can act on: an empty
+band list means **every band filter on the schedule hides this contest**, and the page says
+exactly that while they are looking at it.
+
+When there are no runnings ahead the page says why, in the sponsor's terms rather than ours.
+FISTS suspended its sprints and the record is closed at 2025 — "closed, not missing". RAC
+announces a date a year at a time and no ordinal fits the eight published, so the page names
+the last published year and says the rest are absent rather than guessed.
+
+#### The row link now goes here, and that reverses a decision
+
+The contest name on the schedule used to open the sponsor's rules in a new tab. It now opens
+this page in place. Both halves of the original reasoning survive the change and are better
+served by it:
+
+- **Attribution.** The sponsor's rules link is the first thing on this page, as a button,
+  with the date the link was last confirmed beside it and the provenance section below. That
+  is more prominent than a row could ever make it, at the cost of one click.
+- **The reader's filters live in the URL.** That was the argument for `_blank`, and it only
+  ever applied to leaving the site. Every link here that goes back to the schedule carries
+  the reader's whole query — `/contest/cq-ww-cw?mode=CW&band=20m` comes back to
+  `/?mode=CW&band=20m` — so the round trip is lossless without depending on the back button
+  to repopulate form state it often does not.
+- **One link per row.** The mobile pass gave `.row-name a` a 44px `::after` hit area because
+  the contest name was the smallest target on the page. A second inline link in the same row
+  would have put two 44px areas within a few pixels of each other and quietly undone it.
+
+The test that pinned "external links carry `noopener`" moved with the link. It had been
+asserting against `/`, where there are now no external links at all, so it would have gone
+quietly vacuous the day this shipped; it now walks `/`, a detail page and the standing pages
+and asserts the rule wherever an outbound link appears. A second test pins the other half:
+every row on the schedule has exactly one link and it points at `/contest/`.
+
+#### Subscribing to one contest needed a new filter, not a clever query
+
+The obvious way to build "Subscribe to this contest" is `/api/ics?q=<name>`, since `q`
+already matches names and ids. It is wrong, and quietly: `q` is a substring match, and five
+records in the catalog contain another record's id or name. `q=bartg-sprint` hands the
+subscriber BARTG Sprint 75 and BARTG Sprint PSK63 as well, with nothing anywhere saying so.
+
+So `id` is a real filter now, on the same terms as every other one: it takes repeated or
+comma-separated values, it means the same thing on `/`, `/api/contests` and `/api/ics`, and
+an id nobody has is a **404 rather than a silent everything** — the same reasoning as
+`?mode=CQ`. The feed's calendar name uses the contest's name rather than its id, because that
+string is what a calendar client still shows six months after someone added it.
+
+---
+
 ## Definition of done
 
 Engine ported to TS with all tests green. Landing view, filters, search, contest detail and
 iCal feed working. Deployed to Cloudflare — one Worker, not Pages; see the deviation above.
 Usable one-handed on a phone. Catalog
 published under CC BY.
+
+**Met, with one thing measured rather than felt.** All six sections shipped and each carries
+its own note above. "Usable one-handed on a phone" was measured at 320/360/390 CSS px in the
+page's own bytes and not on a handset — see "Section 6 shipped" for the four things that
+still need someone holding a phone. The detail view has not been through that pass at all: it
+is built to the same rules — `(pointer: coarse)` sizing, no fixed widths, one column under
+640px — and the one narrow-width defect that could be found by reading rather than by
+measuring was found and fixed: catalog source notes carry bare URLs, the longest unbroken
+token in the catalog is 109 characters, and at 320px that is a horizontal scrollbar on a page
+whose whole mobile pass was measured to have none. Every block rendering catalog text now
+breaks inside a word. What is still unmeasured is everything measuring is for: real hit
+targets, thumb reach, and how the page feels scrolled on a handset.
 
 ---
 

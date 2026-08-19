@@ -20,6 +20,7 @@ import {
 } from "../schedule.js";
 import {
   describeSelection,
+  detailHref,
   emptyState,
   renderFilters,
   unrecordedNote,
@@ -51,16 +52,16 @@ function pad(n: number): string {
 }
 
 /** "1800Z" -- the way it is written in every set of contest rules. */
-function zTime(d: Date): string {
+export function zTime(d: Date): string {
   return `${pad(d.getUTCHours())}${pad(d.getUTCMinutes())}Z`;
 }
 
 /** "Sat 15 Aug" */
-function zDate(d: Date): string {
+export function zDate(d: Date): string {
   return `${DAYS[d.getUTCDay()]} ${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}`;
 }
 
-function isoAttr(d: Date): string {
+export function isoAttr(d: Date): string {
   return d.toISOString();
 }
 
@@ -183,26 +184,30 @@ function flags(o: Occurrence): string {
 }
 
 /**
- * The contest name links to the SPONSOR's own rules page, not to a page of
- * ours. We hold dates and facts; the sponsor holds the rules, and the rules are
- * theirs. Sending the reader straight there is both the correct attribution and
- * the answer to the question they are about to ask next.
+ * The contest name links to this site's own detail view.
  *
- * `target="_blank"` because that link leaves this site. Someone reading the
- * schedule is mid-task -- comparing three contests, deciding which weekend to
- * clear -- and opening a sponsor's rules in place costs them the filtered view
- * they built, which lives in the URL. `rel="noopener"` goes with it: without it
- * the opened page gets a handle on this one through `window.opener`.
+ * **Changed 2026-08-19, and it reverses an earlier decision.** The name used to
+ * link straight to the sponsor's rules in a new tab, on the reasoning that the
+ * sponsor holds the rules and that leaving this site in place would throw away
+ * the filtered view the reader built, which lives in the URL. Both halves of
+ * that still hold -- and the detail view satisfies them better. It carries the
+ * sponsor's rules link as the first thing on the page, so attribution is one
+ * click rather than zero and far more prominent than a row could make it; and
+ * because the destination is ours, the reader's query travels with them and
+ * every link back restores their view rather than trusting the back button to
+ * repopulate a form it often does not.
+ *
+ * The row keeps exactly ONE link, which is the other reason. The mobile pass
+ * gave `.row-name a` a 44px `::after` hit area to make the smallest target on
+ * the page thumb-sized; a second inline link in the same row would put two 44px
+ * areas within a few pixels of each other and quietly undo that.
  */
-function nameCell(o: Occurrence): string {
-  const label = esc(o.name);
-  const title = o.rules_url
-    ? `<a href="${esc(o.rules_url)}" target="_blank" rel="noopener external">${label}` +
-      `<span class="ext" aria-hidden="true">↗</span></a>`
-    : `${label} <span class="flag muted" title="No sponsor rules URL recorded.">no rules link</span>`;
+function nameCell(o: Occurrence, params: URLSearchParams): string {
   return (
     `<div class="row-main">` +
-    `<h3 class="row-name">${title}${flags(o)}</h3>` +
+    `<h3 class="row-name">` +
+    `<a href="${esc(detailHref(o.contest_id, params))}">${esc(o.name)}</a>` +
+    `${flags(o)}</h3>` +
     `<p class="row-meta">${metaLine(o)}</p>` +
     `<p class="row-when">${whenLine(o)}</p>` +
     `</div>`
@@ -325,7 +330,11 @@ function ruler(win: RailWindow, nowMs: number): string {
 // Sections
 // ---------------------------------------------------------------------------
 
-function liveSection(live: Occurrence[], nowMs: number): string {
+function liveSection(
+  live: Occurrence[],
+  nowMs: number,
+  params: URLSearchParams,
+): string {
   if (!live.length) return "";
 
   const rows = live
@@ -340,7 +349,7 @@ function liveSection(live: Occurrence[], nowMs: number): string {
 
       return (
         `<li class="row live">` +
-        nameCell(o) +
+        nameCell(o, params) +
         `<div class="meter" aria-hidden="true">` +
         `<div class="meter-fill" style="--pct:${pct.toFixed(2)}%"></div>` +
         `<div class="meter-text">${pct.toFixed(0)}% elapsed</div>` +
@@ -362,7 +371,12 @@ function liveSection(live: Occurrence[], nowMs: number): string {
   );
 }
 
-function weekSection(next7: Occurrence[], nowMs: number, empty: string): string {
+function weekSection(
+  next7: Occurrence[],
+  nowMs: number,
+  empty: string,
+  params: URLSearchParams,
+): string {
   const win = railWindow(nowMs);
 
   const body = next7.length
@@ -375,7 +389,7 @@ function weekSection(next7: Occurrence[], nowMs: number, empty: string): string 
           const rel = relative(start.getTime() - nowMs);
           return (
             `<li class="row">` +
-            nameCell(o) +
+            nameCell(o, params) +
             railRow(o, win) +
             `<div class="row-count${rel.soon ? " soon" : ""}" ` +
             `data-countdown="start" data-until="${isoAttr(start)}">` +
@@ -396,7 +410,11 @@ function weekSection(next7: Occurrence[], nowMs: number, empty: string): string 
   );
 }
 
-function laterSection(view: NowView, empty: string): string {
+function laterSection(
+  view: NowView,
+  empty: string,
+  params: URLSearchParams,
+): string {
   if (!view.later.length) {
     return empty
       ? `<section aria-labelledby="lg-later">` +
@@ -411,7 +429,7 @@ function laterSection(view: NowView, empty: string): string {
       const rel = relative(start.getTime() - view.now);
       return (
         `<li class="row">` +
-        nameCell(o) +
+        nameCell(o, params) +
         `<div class="track" aria-hidden="true"></div>` +
         `<div class="row-count" data-countdown="start" ` +
         `data-until="${isoAttr(start)}">${esc(rel.text)}</div>` +
@@ -474,9 +492,9 @@ function sections(view: NowView, input: LandingInput): string {
       : "";
 
   return (
-    liveSection(view.live, view.now) +
-    (view.weekApplies ? weekSection(view.next7, view.now, weekEmpty) : "") +
-    laterSection(view, laterEmpty)
+    liveSection(view.live, view.now, params) +
+    (view.weekApplies ? weekSection(view.next7, view.now, weekEmpty, params) : "") +
+    laterSection(view, laterEmpty, params)
   );
 }
 

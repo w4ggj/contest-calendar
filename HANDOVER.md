@@ -3,8 +3,8 @@
 **For:** Claude Code
 **Repo:** `C:\GitHub Repositories\contest-calendar`
 **Owner:** Joe Leone, W4GGJ
-**Updated:** 2026-08-16 — after the deploy, the palette, the mobile pass, CQ, and the
-registry reconciliation
+**Updated:** 2026-08-19 — after Tier 2 Europe, and after the contest detail view closed the
+front-end build list
 
 ---
 
@@ -19,11 +19,15 @@ computed on demand. That means no year horizon, one-line fixes when a sponsor ch
 rule, and every date traceable to a source.
 
 **Current state:** 171 contest definitions → 777 occurrences for 2026. 311 Python tests,
-324 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
+324 TypeScript tests, 141 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
-the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
-`bands` are controlled vocabularies. The page has a three-state theme switch and has been
-through a measured narrow-viewport pass. The contest detail view is not built.
+the Now / next-7-days landing view, filters and search, the iCal feed, and — since
+2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
+vocabularies. The page has a three-state theme switch and has been through a measured
+narrow-viewport pass. **The front-end build list is closed**; what remains is sourcing.
+
+The detail view is not deployed yet: it is green locally in all three suites and wants
+`npx wrangler deploy` from `worker/`.
 
 **Where it is thin:** Africa and South America — **one record each**, and now the largest
 gaps in the catalog. Every region has something: Asia, Oceania and South America came off
@@ -52,7 +56,7 @@ python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
 cd engine; npm install; npm test   # expect: 324 passed (311 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 110 passed (parity inside workerd, the API, filters, iCal, theme, pages)
+cd ..\worker; npm install; npm test # expect: 141 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -98,14 +102,16 @@ test asserting generated dates match dates the sponsor published independently.
 
 ---
 
-## Next: build the front end
+## Next: sourcing, and a deploy
 
-**See `FRONTEND_BRIEF.md`.** This is the current phase.
+**The front end is done.** `FRONTEND_BRIEF.md` records every section and what it cost; all
+six are shipped and the definition of done is met. What is left is **REP (Portugal)**, then
+**Africa and South America**, and one `npx wrangler deploy` to put the detail view live.
 
-The catalog already covers every contest a normal operator would enter in a year, and none
-of it is visible to anyone. Build the UI against the data as it stands — remaining sourcing
-becomes background work that appears in a UI that already exists, and building will surface
-data model gaps faster than another 200 records would.
+Building it against the catalog as it stood was the right call and it paid the way the brief
+predicted: the detail view surfaced four plain-language rule bugs that had been shipping in
+the API for a month, invisible because nothing displayed the field. See `FRONTEND_BRIEF.md`,
+"Section 4 shipped: the contest detail view".
 
 **The Worker is deployed.** <https://contest-calendar.jleone0.workers.dev> — one Worker
 server-rendering `/` and serving `/api/*` from the same catalog and the same engine.
@@ -114,7 +120,10 @@ Locally: `npm run dev` in `worker/`, then <http://127.0.0.1:8787>. The landing v
 plain GET form that works with scripting off, with the state in the URL. **The iCal feed is
 on it too**, at `/api/ics` and `/contests.ics`, taking the same query params — so the
 address bar is the subscription URL and "Subscribe to this view" is that fact made visible.
-Still to build: the contest detail view.
+**The contest detail view is at `/contest/:id`** — the rule in plain language, the clock the
+sponsor wrote, the next runnings, what you send, and the sentence each record was read from.
+Every contest name on the schedule links to it, carrying the reader's filters in the query.
+It is built and green locally; deploy it.
 
 Deploy with `npx wrangler deploy` in `worker/`. There is still no KV and no D1 — a year of
 occurrences costs **4.44 ms** to expand cold inside workerd and is already memoised per
@@ -387,6 +396,10 @@ synthetic definition — the distinction is real and will recur.
 
 ## Working agreements
 
+- **A rule the engine can expand but the page cannot say out loud is a half-built rule.**
+  Adding a rule type means adding a case to `describeRule()` in `worker/src/schedule.ts` in
+  the same commit. A catalog-wide test fails if any record's rule renders as its own type,
+  which is what four rules did for a month while the field was only in JSON.
 - **Every contest needs a test** asserting its dates match dates the sponsor published
   independently. That's what proves this is an independent compilation, not a copy.
 - **Run `pytest -q` before every commit.**

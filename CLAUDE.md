@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 110 passed
+npm test                       # expect: 141 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -173,16 +173,37 @@ separators must not be escaped. `worker/tests/ics.worker.test.ts` parses the fee
 its own RFC 5545 reader rather than regexing it — keep it that way, or the generator ends up
 grading its own homework. The horizon decision is in `FRONTEND_BRIEF.md`, "Section 5 shipped".
 
+`/contest/:id` is the detail view: the rule in plain language, the clock read off the
+`start`/`end` offsets rather than off next year's dates, the next runnings, what you send,
+and the sentence the record was read from. Two rules there. **A field the catalog has not
+recorded is rendered saying so, never omitted** — an absent Exchange row reads as "nothing to
+send", which is a claim about the contest rather than about our coverage; and **a rule the
+engine can expand but `describeRule()` cannot say out loud is a half-built rule**, so adding
+a rule type means adding its case in the same commit. `detail.worker.test.ts` walks the whole
+catalog and fails if any record's rule renders as its own type — which is what
+`nearest_weekday` did for a month, because the field only existed in JSON.
+
+Contest names on the schedule link **here**, in place, carrying the reader's query
+(`/contest/cq-ww-cw?mode=CW` comes back to `/?mode=CW`). The sponsor's rules link moved to
+the top of this page; the row keeps exactly one link, because `.row-name a` has a 44px hit
+area and a second inline link would overlap it. `id` is a real filter on all three surfaces —
+`?id=` on `/`, `/api/contests` and `/api/ics` — and it exists because `q=` is a substring
+match and five records contain another record's id or name, so a per-contest subscription
+built on `q` would quietly carry a second contest.
+
 `/about`, `/data` and `/contact` are three standing pages in `worker/src/render/pages.ts`
 — **deliberately not a nav bar.** The calendar keeps `/` with nothing in front of it; the
 pages are reachable from the footer and from each other, and each links back. They reuse
 `CSS` and `THEME_BOOT` and ship no client bundle. `pages.worker.test.ts` asserts both halves
 — that they exist, and that they stay out of the way.
 
-Contest names are the sponsor's `rules_url` and open in a new tab: `target="_blank"` with
-`rel="noopener external"`. The reader's filters live in the URL, so navigating away in place
-throws away the view they built to get there — and `_blank` without `noopener` hands the
-sponsor's page a handle on ours.
+**Every link that leaves this site carries `target="_blank"` with `rel="noopener external"`**
+— the sponsor's rules, sponsor home pages, log submission. `_blank` because the reader's
+filters live in the URL and leaving in place throws away the view they built; `noopener`
+because `_blank` alone hands the opened page a handle on ours through `window.opener`. The
+test walks `/`, a detail page and the standing pages, not just `/`: it used to check only the
+schedule, which now has no outbound links at all, so pinning it there would have gone
+vacuous the day the rules link moved to `/contest/:id`.
 
 `SITE_NAME` (`render/html.ts`) is what every `<title>` ends with, including the 404's. The
 masthead deliberately does **not** use it: the `<h1>` there stays two words and the subject

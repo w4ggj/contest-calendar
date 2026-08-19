@@ -17,6 +17,7 @@
 
 import {
   BAND_FAMILIES,
+  contestById,
   DURATION_BUCKETS,
   MODE_FAMILIES,
   RANGE_PRESETS,
@@ -55,6 +56,21 @@ export function relink(
   }
   for (const [k, v] of Object.entries(set)) if (v) out.append(k, v);
   return href(base, out);
+}
+
+/**
+ * A row's link to the contest detail view, carrying the reader's query.
+ *
+ * Lives here rather than in `detail.ts` because the landing view needs it and
+ * `detail.ts` needs the landing view's time formatting -- and a cycle between
+ * two renderers works until a bundler picks an evaluation order. `html.ts`
+ * exists for the same reason.
+ *
+ * The query travels so that arriving from a filtered schedule and going back to
+ * it is lossless without relying on the back button to restore form state.
+ */
+export function detailHref(id: string, params: URLSearchParams): string {
+  return relink(params, [], {}, `/contest/${encodeURIComponent(id)}`);
 }
 
 // ---------------------------------------------------------------------------
@@ -255,6 +271,9 @@ export function describeSelection(filters: Filters): string {
     );
   }
   if (filters.sponsors?.length) bits.push(filters.sponsors.join("/"));
+  if (filters.ids?.length) {
+    bits.push(filters.ids.map((id) => contestById(id)?.name ?? id).join("/"));
+  }
   const noun = bits.length ? `${bits.join(" ")} contests` : "contests";
   return filters.q?.trim() ? `${noun} matching “${filters.q.trim()}”` : noun;
 }
