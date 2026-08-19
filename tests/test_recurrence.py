@@ -1402,6 +1402,30 @@ SARL_PUBLISHED = {
         "From 00:01UTC on the 16th September to 23:59 UTC on 15th October",
         [(2026, 9, 16)],
     ),
+    "sarl-qrp-summer": (
+        "Summer Leg: 3rd Saturday of January - 17 January 2026 - from 07:00 to 09:00 UTC",
+        [(2026, 1, 17)],
+    ),
+    "sarl-qrp-autumn": (
+        "Autumn Leg: 1st Saturday of April - 4 April 2026 - from 13:30 to 15:30 UTC",
+        [(2026, 4, 4)],
+    ),
+    "sarl-qrp-winter": (
+        "Winter Leg: 3rd Saturday of July - 18 July 2026 - from 07:00 to 09:00 UTC",
+        [(2026, 7, 18)],
+    ),
+    "sarl-qrp-spring": (
+        "Spring Leg: 1st Saturday of November - 7 November 2026 - from 13:30 to 15:30 UTC",
+        [(2026, 11, 7)],
+    ),
+    "sarl-hamnet-40m-sec": (
+        "12:00 to 14:00 UTC on (the 1st Sunday) 1 March 2026",
+        [(2026, 3, 1)],
+    ),
+    "sarl-top-band-qso": (
+        "Wednesday 2026/06/03 22:01 UTC, per SARL's own Date Ordered List",
+        [(2026, 6, 3)],
+    ),
 }
 
 
@@ -1475,6 +1499,111 @@ def test_africa_all_mode_deadline_matches_the_date_sarl_prints(catalog):
     assert c["log_deadline_days"] == 15
     (o,) = expand(c, 2026)
     assert o.log_due.date() == date(2026, 4, 13)
+
+
+# The legs, which the first-occurrence table above cannot see. SARL runs most of
+# its programme two or four times a year off one rule, and a record that
+# produced only the first would look right in every date test and be missing
+# half the contest.
+SARL_LEGS = {
+    "sarl-club-40m": [(2026, 1, 24), (2026, 4, 25), (2026, 7, 25), (2026, 11, 28)],
+    "sarl-club-20m": [(2026, 3, 21), (2026, 6, 20)],
+    "sarl-club-80m": [(2026, 2, 18), (2026, 5, 20), (2026, 8, 19), (2026, 10, 21)],
+    "sarl-80m-qso-party": [(2026, 4, 2), (2026, 10, 1)],
+    "sarl-yl-qso-party": [(2026, 3, 7), (2026, 8, 9)],
+    "sarl-youth-qso-party": [(2026, 6, 16), (2026, 8, 15)],
+    "sarl-newbie-qso-party": [(2026, 7, 4), (2026, 11, 21)],
+}
+
+
+@pytest.mark.parametrize("cid,published", sorted(SARL_LEGS.items()))
+def test_sarl_multi_leg_records_produce_every_leg(catalog, cid, published):
+    got = [o.start.date() for o in expand(by_id(catalog, cid), 2026)]
+    assert got == [date(*d) for d in published], cid
+
+
+def test_sarl_club_contests_run_in_the_months_sarl_names(catalog):
+    """
+    The club contests are "the 4th Saturday of a month" and "the third
+    Wednesday of a month" -- but only in four months of the year, and only two
+    for the 20 m one. Dropping the month list would put eight extra contests a
+    year on the calendar that SARL does not run, which is the same class of
+    error as NZART's April-and-August sprints reading as weekly.
+    """
+    months = {
+        "sarl-club-40m": [1, 4, 7, 11],
+        "sarl-club-20m": [3, 6],
+        "sarl-club-80m": [2, 5, 8, 10],
+    }
+    for cid, expected in months.items():
+        assert by_id(catalog, cid)["recurrence"]["months"] == expected, cid
+        assert len(expand(by_id(catalog, cid), 2026)) == len(expected), cid
+
+
+def test_sarl_parties_mix_a_fixed_date_with_an_ordinal(catalog):
+    """
+    Two of these hang one leg on a national holiday and the other on an
+    ordinal weekday: the YL party runs on the first Saturday of March and then
+    on National Women's Day, 9 August, which is a fixed date; the Youth party
+    runs on National Youth Day, 16 June, and then the third Saturday of August.
+
+    One record each, because both legs share their hour -- and `composite` can
+    hold rules of different types, which is what makes that possible.
+    """
+    yl = expand(by_id(catalog, "sarl-yl-qso-party"), 2027)
+    assert [o.start.date() for o in yl] == [date(2027, 3, 6), date(2027, 8, 9)]
+
+    youth = expand(by_id(catalog, "sarl-youth-qso-party"), 2027)
+    assert [o.start.date() for o in youth] == [date(2027, 6, 16), date(2027, 8, 21)]
+
+
+def test_sarl_top_band_is_flagged_rather_than_guessed(catalog):
+    """
+    Two problems, either of which alone would justify the flag.
+
+    SARL's rules prose says the contest starts "22:01 UTC 4 June (00:01 CAT)
+    Thursday 4 June", but 22:01 UTC on Thursday the 4th is 00:01 CAT on FRIDAY
+    the 5th. SARL's own Date Ordered List says Wednesday 3 June 22:01 UTC,
+    which is 00:01 CAT Thursday -- self-consistent, so that is what is encoded.
+
+    And "the first full week of June" has two readings that agree in 2026 and
+    diverge in 2027: a Monday-to-Sunday week wholly inside June puts the
+    Thursday on the 10th, while the first week containing the whole
+    Thursday-to-Sunday block puts it on the 3rd. So no ordinal rule is encoded
+    at all -- only the date SARL published.
+    """
+    c = by_id(catalog, "sarl-top-band-qso")
+    assert c["recurrence"]["type"] == "manual"
+    assert c["verified"] is False
+    assert "first full week" in c["note"]
+
+    (o,) = expand(c, 2026)
+    assert o.start.date() == date(2026, 6, 3)
+    assert (o.start.hour, o.start.minute) == (22, 1)
+    assert o.end.date() == date(2026, 6, 7)
+    assert (o.end.hour, o.end.minute) == (21, 59)
+
+    # No year SARL has not published. Absent beats guessed.
+    assert expand(c, 2027) == []
+
+
+def test_sarl_club_eligibility_is_marked_as_our_inference(catalog):
+    """
+    The club contests require an "Abbreviated Club Callsign" derived from an
+    ICASA-issued callsign, and ICASA is the South African regulator -- so a
+    station elsewhere has no valid exchange to send. That is a reading, not
+    SARL's wording, so the eligibility carries verified: false and says so.
+    Every other SARL record's eligibility quotes a sentence and is verified.
+    """
+    for cid in ("sarl-club-40m", "sarl-club-20m", "sarl-club-80m"):
+        e = by_id(catalog, cid)["eligibility"]
+        assert e["scope"] == "entity_list" and e["entities"] == ["ZS"], cid
+        assert e["verified"] is False, cid
+        assert "READING" in e["note"], cid
+
+    for cid in ("sarl-hamnet-40m-sec", "sarl-top-band-qso"):
+        e = by_id(catalog, cid)["eligibility"]
+        assert e["scope"] == "entity_list" and e["verified"] is True, cid
 
 
 def test_sarl_entry_is_worldwide_which_corrects_an_earlier_guess(catalog):

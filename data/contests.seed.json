@@ -9773,6 +9773,655 @@
         "verified": true,
         "note": "'1.6. The Contest is open to all licensed Radio Amateurs worldwide.'"
       }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-qrp-summer",
+      "name": "SARL QRP Contest (Summer leg)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL QRP Contests': '1. Dates and times' gives four legs -- '1.1. Summer Leg: 3rd Saturday of January - 17 January 2026 - from 07:00 to 09:00 UTC 1.2. Autumn Leg: 1st Saturday of April - 4 April 2026 - from 13:30 to 15:30 UTC 1.3. Winter Leg: 3rd Saturday of July - 18 July 2026 - from 07:00 to 09:00 UTC 1.4. Spring Leg: 1st Saturday of November - 7 November 2026 - from 13:30 to 15:30 UTC'. Modes: '2.1. Any or all of two Modes: Phone SSB and/or CW'. Frequency: '3.1. 40m, 20m and 10m bands can be used at any time during the contest.' Exchange: '4.1. Realistic RS(T), 6-char Grid square and transmit power in watts (eg: 57, KG33uk, 10)'. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "The summer leg is the January one -- the seasons are southern hemisphere, so January is summer. One of SARL's four named QRP legs. They are four records rather than one because SARL names four legs by season and they do not share a clock: the Summer and Winter legs run 07:00-09:00 UTC and the Autumn and Spring legs 13:30-15:30, so no single start/end pair covers them. Grouping the two pairs by their times would have been this catalog inventing a structure SARL does not use. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "The summer leg of SARL's QRP series: two hours at five watts on 40, 20 and 10 m, scored with a power-and-distance bonus.",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "10m"
+      ],
+      "bands_note": "40m, 20m and 10m, any of them at any time during the contest. QRP calling frequencies 7.090, 14.285 and 28.360 MHz are suggested.",
+      "exchange": "Realistic RS(T), 6-character grid square and transmit power in watts (for example 57, KG33uk, 10).",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The manual states no entry restriction for this contest."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-qrp-autumn",
+      "name": "SARL QRP Contest (Autumn leg)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1330"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1530"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL QRP Contests': '1. Dates and times' gives four legs -- '1.1. Summer Leg: 3rd Saturday of January - 17 January 2026 - from 07:00 to 09:00 UTC 1.2. Autumn Leg: 1st Saturday of April - 4 April 2026 - from 13:30 to 15:30 UTC 1.3. Winter Leg: 3rd Saturday of July - 18 July 2026 - from 07:00 to 09:00 UTC 1.4. Spring Leg: 1st Saturday of November - 7 November 2026 - from 13:30 to 15:30 UTC'. Modes: '2.1. Any or all of two Modes: Phone SSB and/or CW'. Frequency: '3.1. 40m, 20m and 10m bands can be used at any time during the contest.' Exchange: '4.1. Realistic RS(T), 6-char Grid square and transmit power in watts (eg: 57, KG33uk, 10)'. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "The autumn leg is the April one -- the seasons are southern hemisphere, so January is summer. One of SARL's four named QRP legs. They are four records rather than one because SARL names four legs by season and they do not share a clock: the Summer and Winter legs run 07:00-09:00 UTC and the Autumn and Spring legs 13:30-15:30, so no single start/end pair covers them. Grouping the two pairs by their times would have been this catalog inventing a structure SARL does not use. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "The autumn leg of SARL's QRP series: two hours at five watts on 40, 20 and 10 m, scored with a power-and-distance bonus.",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "10m"
+      ],
+      "bands_note": "40m, 20m and 10m, any of them at any time during the contest. QRP calling frequencies 7.090, 14.285 and 28.360 MHz are suggested.",
+      "exchange": "Realistic RS(T), 6-character grid square and transmit power in watts (for example 57, KG33uk, 10).",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The manual states no entry restriction for this contest."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-qrp-winter",
+      "name": "SARL QRP Contest (Winter leg)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL QRP Contests': '1. Dates and times' gives four legs -- '1.1. Summer Leg: 3rd Saturday of January - 17 January 2026 - from 07:00 to 09:00 UTC 1.2. Autumn Leg: 1st Saturday of April - 4 April 2026 - from 13:30 to 15:30 UTC 1.3. Winter Leg: 3rd Saturday of July - 18 July 2026 - from 07:00 to 09:00 UTC 1.4. Spring Leg: 1st Saturday of November - 7 November 2026 - from 13:30 to 15:30 UTC'. Modes: '2.1. Any or all of two Modes: Phone SSB and/or CW'. Frequency: '3.1. 40m, 20m and 10m bands can be used at any time during the contest.' Exchange: '4.1. Realistic RS(T), 6-char Grid square and transmit power in watts (eg: 57, KG33uk, 10)'. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "The winter leg is the July one -- the seasons are southern hemisphere, so January is summer. One of SARL's four named QRP legs. They are four records rather than one because SARL names four legs by season and they do not share a clock: the Summer and Winter legs run 07:00-09:00 UTC and the Autumn and Spring legs 13:30-15:30, so no single start/end pair covers them. Grouping the two pairs by their times would have been this catalog inventing a structure SARL does not use. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "The winter leg of SARL's QRP series: two hours at five watts on 40, 20 and 10 m, scored with a power-and-distance bonus.",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "10m"
+      ],
+      "bands_note": "40m, 20m and 10m, any of them at any time during the contest. QRP calling frequencies 7.090, 14.285 and 28.360 MHz are suggested.",
+      "exchange": "Realistic RS(T), 6-character grid square and transmit power in watts (for example 57, KG33uk, 10).",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The manual states no entry restriction for this contest."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-qrp-spring",
+      "name": "SARL QRP Contest (Spring leg)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 11,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1330"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1530"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL QRP Contests': '1. Dates and times' gives four legs -- '1.1. Summer Leg: 3rd Saturday of January - 17 January 2026 - from 07:00 to 09:00 UTC 1.2. Autumn Leg: 1st Saturday of April - 4 April 2026 - from 13:30 to 15:30 UTC 1.3. Winter Leg: 3rd Saturday of July - 18 July 2026 - from 07:00 to 09:00 UTC 1.4. Spring Leg: 1st Saturday of November - 7 November 2026 - from 13:30 to 15:30 UTC'. Modes: '2.1. Any or all of two Modes: Phone SSB and/or CW'. Frequency: '3.1. 40m, 20m and 10m bands can be used at any time during the contest.' Exchange: '4.1. Realistic RS(T), 6-char Grid square and transmit power in watts (eg: 57, KG33uk, 10)'. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "The spring leg is the November one -- the seasons are southern hemisphere, so January is summer. One of SARL's four named QRP legs. They are four records rather than one because SARL names four legs by season and they do not share a clock: the Summer and Winter legs run 07:00-09:00 UTC and the Autumn and Spring legs 13:30-15:30, so no single start/end pair covers them. Grouping the two pairs by their times would have been this catalog inventing a structure SARL does not use. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "The spring leg of SARL's QRP series: two hours at five watts on 40, 20 and 10 m, scored with a power-and-distance bonus.",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "10m"
+      ],
+      "bands_note": "40m, 20m and 10m, any of them at any time during the contest. QRP calling frequencies 7.090, 14.285 and 28.360 MHz are suggested.",
+      "exchange": "Realistic RS(T), 6-character grid square and transmit power in watts (for example 57, KG33uk, 10).",
+      "power_categories": [
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The manual states no entry restriction for this contest."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-club-40m",
+      "name": "SARL Saturday 40 m Club Contest",
+      "modes": [
+        "SSB",
+        "CW",
+        "RTTY"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "Phone 7 063-7 100 and 7 130-7 200 kHz; CW 7 000-7 040 kHz; RTTY 7 040-7 060 kHz. The segment 7 101-7 129 kHz is contest free.",
+      "exchange": "Your name, your Abbreviated Club Callsign and your 4-character grid square (for example KG30).",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 4,
+        "weekday": 5,
+        "months": [
+          1,
+          4,
+          7,
+          11
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS"
+        ],
+        "verified": false,
+        "note": "THIS CATALOG'S READING, NOT SARL'S WORDING. The manual states no entry restriction, but the exchange requires an Abbreviated Club Callsign 'derived from the club's ICASA issued callsign', and ICASA is the South African regulator -- so a station outside South Africa has no valid exchange to send. Recorded as ZS with eligibility.verified false rather than as worldwide, and it should be confirmed with SARL."
+      },
+      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "An hour on 40 m for South African club teams, run in January, April, July and November; individual scores add up to a club total."
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-club-20m",
+      "name": "SARL Saturday 20 m Club Contest",
+      "modes": [
+        "SSB",
+        "CW",
+        "RTTY"
+      ],
+      "bands": [
+        "20m"
+      ],
+      "bands_note": "CW 14 000-14 060 kHz; SSB 14 125-14 300 kHz; RTTY 14 080-14 099 kHz.",
+      "exchange": "Your name, your Abbreviated Club Callsign and your 4-character grid square (for example KG30).",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 5,
+        "months": [
+          3,
+          6
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS"
+        ],
+        "verified": false,
+        "note": "THIS CATALOG'S READING, NOT SARL'S WORDING. The manual states no entry restriction, but the exchange requires an Abbreviated Club Callsign 'derived from the club's ICASA issued callsign', and ICASA is the South African regulator -- so a station outside South Africa has no valid exchange to send. Recorded as ZS with eligibility.verified false rather than as worldwide, and it should be confirmed with SARL."
+      },
+      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "An hour on 20 m for South African club teams, run in March and June; individual scores add up to a club total."
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-club-80m",
+      "name": "SARL Wednesday 80 m Club Contest",
+      "modes": [
+        "SSB",
+        "CW",
+        "RTTY"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "Phone 3 603-3 650 and 3 703-3 800 kHz; CW 3 510-3 560 kHz; RTTY 3 580-3 600 kHz. The segment 3 651-3 700 kHz is contest free.",
+      "exchange": "Your name, your Abbreviated Club Callsign and your 4-character grid square (for example KG30).",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 2,
+        "months": [
+          2,
+          5,
+          8,
+          10
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS"
+        ],
+        "verified": false,
+        "note": "THIS CATALOG'S READING, NOT SARL'S WORDING. The manual states no entry restriction, but the exchange requires an Abbreviated Club Callsign 'derived from the club's ICASA issued callsign', and ICASA is the South African regulator -- so a station outside South Africa has no valid exchange to send. Recorded as ZS with eligibility.verified false rather than as worldwide, and it should be confirmed with SARL."
+      },
+      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "An hour on 80 m for South African club teams, run in February, May, August and October; individual scores add up to a club total."
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-80m-qso-party",
+      "name": "SARL 80 m QSO Party",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "Only 3 603-3 650 and 3 703-3 800 kHz may be used; 3 651-3 699 kHz is contest free.",
+      "exchange": "Call sign, RS signal report and the operator's name.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 4,
+            "n": 1,
+            "weekday": 3
+          },
+          {
+            "type": "nth_weekday",
+            "month": 10,
+            "n": 1,
+            "weekday": 3
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL 80 m QSO Party': '2.1. 17:00 to 20:00 UTC on the 1st Thursday of April - 2 April 2026 2.2. 17:00 to 20:00 UTC on the 1st Thursday of October - 1 October 2026'. Aim: 'to create an interest in and activity on the 80-m band. It is a phone only contest.' Exchange: '4.1. Call sign, RS signal report and operator's name.' Scoring: '10 points for every contact with a South African station, 15 points for every contact with a station outside South Africa'. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "Two legs on one record: both run 17:00-20:00 UTC on a first Thursday. A Thursday evening rather than a weekend, which is unusual enough to be worth stating. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "Three hours of phone on 80 m on the first Thursday of April and of October, with DX contacts worth more than local ones.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "No entry restriction is stated, and the scoring explicitly rewards 'every contact with a station outside South Africa'."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-yl-qso-party",
+      "name": "SARL YL QSO Party",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "Phone 7 063-7 100 and 7 130-7 200 kHz; CW 7 000-7 040 kHz.",
+      "exchange": "An RS(T) report and YL or OM.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 3,
+            "n": 1,
+            "weekday": 5
+          },
+          {
+            "type": "fixed_date",
+            "month": 8,
+            "day": 9
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'SARL YL QSO Party': '14:00 to 15:00 UTC (1600 to 1700 CAT) on the first Saturday of March - 7 March 2026 - International Women's Day is on 8 March each year' and '14:00 to 15:00 UTC (1600 to 1700 CAT) on National Women's Day - Sunday 9 August 2026'. Aim: 'a fun activity to celebrate Women's Day between radio amateurs in South Africa. And to get as many YL's on the air as possible.' Exchange: '3.1. The exchange is a RS(T) report and YL or OM.' Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "The two legs anchor differently and that is the point: the March leg is the first Saturday nearest International Women's Day on 8 March, and the August leg is South Africa's National Women's Day, which is the FIXED DATE of 9 August. One record, two rule types, because both legs share the same hour. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "An hour on 40 m for Women's Day, run twice: the first Saturday of March and South Africa's National Women's Day on 9 August.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Aimed at South African amateurs, but the scoring counts 'Contacts between YL Stations and any DX stations (ie outside RSA borders)'."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-youth-qso-party",
+      "name": "SARL Youth QSO Party",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "Phone 7 063-7 100 and 7 130-7 200 kHz; CW 7 000-7 040 kHz.",
+      "exchange": "An RS(T) report and the operator's age.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "fixed_date",
+            "month": 6,
+            "day": 16
+          },
+          {
+            "type": "nth_weekday",
+            "month": 8,
+            "n": 3,
+            "weekday": 5
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'SARL Youth QSO Party': '12:00 to 13:00 UTC (1400 to 1500 CAT) on 16 June the National Youth Day - Tuesday 16 June 2026' and '12:00 to 13:00 UTC (1400 to 1500 CAT) on the 3rd Saturday of August - Saturday 15 August 2026 - International Youth Day is on 12 August each year.' Exchange: '3.1. The exchange is a RS(T) report and the operator's age.' Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "Like the YL party, two legs with two different rule shapes on one clock: 16 June is South Africa's National Youth Day and is fixed, while the August leg is the third Saturday. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "An hour on 40 m for young operators, on National Youth Day in June and the third Saturday of August; the exchange is your age.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The manual states no entry restriction for this contest."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-newbie-qso-party",
+      "name": "SARL Newbie QSO Party",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "40m",
+        "20m"
+      ],
+      "bands_note": "SSB only: 14 125-14 300 kHz from 11:00 to 13:00 UTC, then 7 063-7 100 and 7 130-7 200 kHz from 13:00 to 16:00 UTC.",
+      "exchange": "RS, a four-character grid square and the phonetic License Age Exchange from the manual's table -- Alpha for under six months, and so on.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 7,
+            "n": 1,
+            "weekday": 5
+          },
+          {
+            "type": "nth_weekday",
+            "month": 11,
+            "n": 3,
+            "weekday": 5
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'SARL Newbie QSO Party': '2.1. 11:00 to 16:00 UTC (13:00 CAT - 18:00 CAT) on the 1st Saturday of July - 4 July 2026 2.2. 11:00 to 16:00 UTC (13:00 CAT - 18:00 CAT) on the 3rd Saturday of November - 21 November 2026'. Frequency: '4.1. SSB only 4.2. 14 125 to 14 300 kHz from 11:00 to 13:00 UTC 4.3. 7 063 to 7 100 and 7 130 to 7 200 kHz from 13:00 to 16:00 UTC'. Exchange: '3.1. RS, Four character grid square eg JF95 and Phonetic License Age Exchange'. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "The band changes partway through: 20 m for the first two hours, then 40 m for the last three. Both are recorded, because a band filter should find this contest either way; the split itself is in bands_note, which is where a time-varying detail belongs when the field is a flat list. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "Five hours for new licensees, on the first Saturday of July and the third of November: 20 m first, then 40 m, with your licence age as the exchange.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The manual states no entry restriction for this contest."
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-hamnet-40m-sec",
+      "name": "SARL HAMNET 40 m Simulated Emergency Contest",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A 40 m phone contest in 7 063-7 100 kHz and 7 130-7 200 kHz.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 3,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL HAMNET 40 m Simulated Emergency Contest': '2. Date and Time 12:00 to 14:00 UTC on (the 1st Sunday) 1 March 2026'. Aim: 'This SSB Contest is open to all Radio Amateurs in South Africa, Namibia, Botswana, Zimbabwe, ESwatini, Mozambique, Lesotho, Marion Island and South African Antarctica. Only contacts with these areas will count.' Frequencies: '3.1. It is a 40m phone contest in the band segments 7 063 to 7 100 kHz and 7 130 to 7 200 kHz.' Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "An emergency-preparedness exercise scored as a contest, with field-station and mobile categories. The entity list is SARL's own sentence rather than an inference, which is why this record's eligibility is verified while the club contests' is not. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "Two hours of 40 m phone on the first Sunday of March, run as a simulated emergency exercise across southern Africa.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS",
+          "V5",
+          "A2",
+          "Z2",
+          "3DA",
+          "C9",
+          "7P",
+          "ZS8",
+          "ZS7"
+        ],
+        "verified": true,
+        "note": "'open to all Radio Amateurs in South Africa, Namibia, Botswana, Zimbabwe, ESwatini, Mozambique, Lesotho, Marion Island and South African Antarctica. Only contacts with these areas will count.'"
+      }
+    },
+    {
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "verified": false,
+      "rules_url_checked": "2026-08-19",
+      "id": "sarl-top-band-qso",
+      "name": "SARL Top Band QSO Contest",
+      "modes": [
+        "CW",
+        "Digital",
+        "SSB"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "bands_note": "CW 1 810-1 838 kHz; Digital 1 838-1 843 kHz; Phone 1 844-2 000 kHz.",
+      "exchange": "RS, RSQ or RST report and your 4-character grid square (for example KG30). In digital modes the counterparty's grid square is not mandatory.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-06-03"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2201"
+      },
+      "end": {
+        "day_offset": 4,
+        "time": "2159"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf, 'The SARL Top Band QSO Contest': '2. Date and Time 22:01 UTC 4 June (00:01 CAT) Thursday 4 June to 21:59 UTC on Sunday 7 June 2026. (Thursday to Sunday in the first full week of June).' Participation: '5.1. The event is open to all licensed amateurs in the SADC countries that have access to the 160-metre band.' SARL's own Date Ordered List gives the start as Wednesday 2026/06/03 22:01 UTC and the end as Sunday 2026/06/07 21:59 UTC. Every date is checked against SARL's own Date Ordered List of Contests in the same manual, which states UTC directly, and against SARL-Contests-2026-Calendar.ics.",
+      "note": "VERIFIED FALSE, AND ENCODED AS MANUAL, FOR TWO SEPARATE REASONS.\n\n(1) SARL'S OWN TWO PAGES DISAGREE. The rules section says the contest starts '22:01 UTC 4 June (00:01 CAT) Thursday 4 June', but 22:01 UTC on Thursday 4 June is 00:01 CAT on FRIDAY 5 June. SARL's Date Ordered List resolves it: the start is Wednesday 3 June at 22:01 UTC, which is 00:01 CAT on Thursday 4 June. The date table is self-consistent and the prose is not, so the table is what is encoded.\n\n(2) 'THE FIRST FULL WEEK OF JUNE' HAS TWO READINGS THAT DIVERGE NEXT YEAR. If a full week is a Monday-to-Sunday wholly inside June, then in 2027 -- when 1 June is a Tuesday -- the first full week is 7-13 June and the Thursday is the 10th. If it means the first week containing the whole Thursday-to-Sunday block, the Thursday is the 3rd. The two agree in 2026 and differ in 2027, so no ordinal rule is encoded: only the date SARL published. Years SARL has not announced are absent rather than guessed. Ask SARL which reading is intended and this becomes a rule.\n\nlog_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
+      "summary": "Four nights on 160 m across southern Africa, from 00:01 local on the Thursday to 23:59 local on the Sunday, for the SARL Top Band Award.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS",
+          "V5",
+          "A2",
+          "Z2",
+          "3DA",
+          "C9",
+          "7P"
+        ],
+        "verified": true,
+        "note": "'The event is open to all licensed amateurs in the SADC countries that have access to the 160-metre band.'"
+      }
     }
   ]
 }

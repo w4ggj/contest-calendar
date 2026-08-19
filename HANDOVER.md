@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 181 contest definitions → 789 occurrences for 2026. 335 Python tests,
-348 TypeScript tests, 141 Worker tests. Engine complete in both languages — no known
+**Current state:** 194 contest definitions → 813 occurrences for 2026. 352 Python tests,
+365 TypeScript tests, 141 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -31,7 +31,8 @@ Deployed 2026-08-19, version `239f81ce`, and verified on the fleet: `/api/health
 routes answer 200 / 404 / 400 as they do locally.
 
 **Where it is thin:** **South America — one record**, and now the largest gap in the
-catalog. Africa went 1 → 8 on 2026-08-19 when SARL turned out to have moved rather than died. Every region has something: Asia, Oceania and South America came off
+catalog. Africa went 1 → 21 on 2026-08-19 when SARL turned out to have moved rather than died, and
+is now 10.8% of the catalog. Every region has something: Asia, Oceania and South America came off
 zero on 2026-08-17, and Europe went 19 → 59 records on 2026-08-18 with the Tier 2 societies
 and DARC, then to 85 on 2026-08-19 with the last twelve. Europe is now 49.7% of the catalog
 and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done and **tier 2 is
@@ -53,11 +54,11 @@ source. Measured rather than assumed: run
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 335 passed
+python -m pytest -q               # expect: 352 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 348 passed (335 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 365 passed (352 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 141 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail)
 ```
 

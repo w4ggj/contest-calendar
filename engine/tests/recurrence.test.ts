@@ -1422,6 +1422,30 @@ const SARL_PUBLISHED: Record<string, [string, [number, number, number][]]> = {
     "From 00:01UTC on the 16th September to 23:59 UTC on 15th October",
     [[2026, 9, 16]],
   ],
+  "sarl-qrp-summer": [
+    "Summer Leg: 3rd Saturday of January - 17 January 2026 - from 07:00 to 09:00 UTC",
+    [[2026, 1, 17]],
+  ],
+  "sarl-qrp-autumn": [
+    "Autumn Leg: 1st Saturday of April - 4 April 2026 - from 13:30 to 15:30 UTC",
+    [[2026, 4, 4]],
+  ],
+  "sarl-qrp-winter": [
+    "Winter Leg: 3rd Saturday of July - 18 July 2026 - from 07:00 to 09:00 UTC",
+    [[2026, 7, 18]],
+  ],
+  "sarl-qrp-spring": [
+    "Spring Leg: 1st Saturday of November - 7 November 2026 - from 13:30 to 15:30 UTC",
+    [[2026, 11, 7]],
+  ],
+  "sarl-hamnet-40m-sec": [
+    "12:00 to 14:00 UTC on (the 1st Sunday) 1 March 2026",
+    [[2026, 3, 1]],
+  ],
+  "sarl-top-band-qso": [
+    "Wednesday 2026/06/03 22:01 UTC, per SARL's own Date Ordered List",
+    [[2026, 6, 3]],
+  ],
 };
 
 test.each(
@@ -1489,6 +1513,107 @@ test("the Africa All Mode deadline matches the date SARL prints", () => {
   expect(c.log_deadline_days).toBe(15);
   const [o] = expand(c, 2026);
   expect(isoDate(o.log_due!)).toBe(D(2026, 4, 13));
+});
+
+// The legs, which the first-occurrence table above cannot see. SARL runs most
+// of its programme two or four times a year off one rule, and a record that
+// produced only the first would look right in every date test and be missing
+// half the contest.
+const SARL_LEGS: Record<string, [number, number, number][]> = {
+  "sarl-club-40m": [[2026, 1, 24], [2026, 4, 25], [2026, 7, 25], [2026, 11, 28]],
+  "sarl-club-20m": [[2026, 3, 21], [2026, 6, 20]],
+  "sarl-club-80m": [[2026, 2, 18], [2026, 5, 20], [2026, 8, 19], [2026, 10, 21]],
+  "sarl-80m-qso-party": [[2026, 4, 2], [2026, 10, 1]],
+  "sarl-yl-qso-party": [[2026, 3, 7], [2026, 8, 9]],
+  "sarl-youth-qso-party": [[2026, 6, 16], [2026, 8, 15]],
+  "sarl-newbie-qso-party": [[2026, 7, 4], [2026, 11, 21]],
+};
+
+test.each(Object.entries(SARL_LEGS).sort())(
+  "SARL multi-leg records produce every leg: %s",
+  (cid, published) => {
+    const got = expand(byId(cid), 2026).map((o) => isoDate(o.start!));
+    expect(got).toEqual((published as [number, number, number][]).map(([y, m, d]) => D(y, m, d)));
+  },
+);
+
+test("SARL club contests run in the months SARL names", () => {
+  // The club contests are "the 4th Saturday of a month" and "the third
+  // Wednesday of a month" -- but only in four months of the year, and only two
+  // for the 20 m one. Dropping the month list would put eight extra contests a
+  // year on the calendar that SARL does not run, which is the same class of
+  // error as NZART's April-and-August sprints reading as weekly.
+  const months: Record<string, number[]> = {
+    "sarl-club-40m": [1, 4, 7, 11],
+    "sarl-club-20m": [3, 6],
+    "sarl-club-80m": [2, 5, 8, 10],
+  };
+  for (const [cid, expected] of Object.entries(months)) {
+    expect(byId(cid).recurrence.months, cid).toEqual(expected);
+    expect(expand(byId(cid), 2026).length, cid).toBe(expected.length);
+  }
+});
+
+test("SARL parties mix a fixed date with an ordinal", () => {
+  // Two of these hang one leg on a national holiday and the other on an
+  // ordinal weekday: the YL party runs on the first Saturday of March and then
+  // on National Women's Day, 9 August, which is a fixed date; the Youth party
+  // runs on National Youth Day, 16 June, and then the third Saturday of August.
+  //
+  // One record each, because both legs share their hour -- and `composite` can
+  // hold rules of different types, which is what makes that possible.
+  expect(expand(byId("sarl-yl-qso-party"), 2027).map((o) => isoDate(o.start!)))
+    .toEqual([D(2027, 3, 6), D(2027, 8, 9)]);
+  expect(expand(byId("sarl-youth-qso-party"), 2027).map((o) => isoDate(o.start!)))
+    .toEqual([D(2027, 6, 16), D(2027, 8, 21)]);
+});
+
+test("SARL Top Band is flagged rather than guessed", () => {
+  // Two problems, either of which alone would justify the flag.
+  //
+  // SARL's rules prose says the contest starts "22:01 UTC 4 June (00:01 CAT)
+  // Thursday 4 June", but 22:01 UTC on Thursday the 4th is 00:01 CAT on FRIDAY
+  // the 5th. SARL's own Date Ordered List says Wednesday 3 June 22:01 UTC,
+  // which is 00:01 CAT Thursday -- self-consistent, so that is what is encoded.
+  //
+  // And "the first full week of June" has two readings that agree in 2026 and
+  // diverge in 2027: a Monday-to-Sunday week wholly inside June puts the
+  // Thursday on the 10th, while the first week containing the whole
+  // Thursday-to-Sunday block puts it on the 3rd. So no ordinal rule is encoded
+  // at all -- only the date SARL published.
+  const c = byId("sarl-top-band-qso");
+  expect(c.recurrence.type).toBe("manual");
+  expect(c.verified).toBe(false);
+  expect(c.note).toContain("first full week");
+
+  const [o] = expand(c, 2026);
+  expect(isoDate(o.start!)).toBe(D(2026, 6, 3));
+  expect([o.start!.getUTCHours(), o.start!.getUTCMinutes()]).toEqual([22, 1]);
+  expect(isoDate(o.end!)).toBe(D(2026, 6, 7));
+  expect([o.end!.getUTCHours(), o.end!.getUTCMinutes()]).toEqual([21, 59]);
+
+  // No year SARL has not published. Absent beats guessed.
+  expect(expand(c, 2027)).toEqual([]);
+});
+
+test("SARL club eligibility is marked as our inference", () => {
+  // The club contests require an "Abbreviated Club Callsign" derived from an
+  // ICASA-issued callsign, and ICASA is the South African regulator -- so a
+  // station elsewhere has no valid exchange to send. That is a reading, not
+  // SARL's wording, so the eligibility carries verified: false and says so.
+  // Every other SARL record's eligibility quotes a sentence and is verified.
+  for (const cid of ["sarl-club-40m", "sarl-club-20m", "sarl-club-80m"]) {
+    const e = byId(cid).eligibility!;
+    expect(e.scope, cid).toBe("entity_list");
+    expect(e.entities, cid).toEqual(["ZS"]);
+    expect(e.verified, cid).toBe(false);
+    expect(e.note, cid).toContain("READING");
+  }
+  for (const cid of ["sarl-hamnet-40m-sec", "sarl-top-band-qso"]) {
+    const e = byId(cid).eligibility!;
+    expect(e.scope, cid).toBe("entity_list");
+    expect(e.verified, cid).toBe(true);
+  }
 });
 
 test("SARL entry is worldwide, which corrects an earlier guess", () => {

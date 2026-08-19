@@ -1006,14 +1006,83 @@ a fixture that is no longer in the state it is testing proves nothing.
   catalog at 744 and 720 hours. They are scored competitions with published rules, so they are
   contests; the rail will draw them as full-width bars, which is correct.
 
+### The rest of SARL's programme, the same day
+
+Thirteen more records once the manual decoded, taking SARL to **21** and Africa from one
+record this morning to 21 — **4.4% → 10.8% of the catalog**.
+
+| Contest | Rule as SARL states it | Encoded as |
+|---|---|---|
+| QRP Contest, four legs | "3rd Saturday of January", "1st Saturday of April", "3rd Saturday of July", "1st Saturday of November" | four records — the legs do not share a clock |
+| Saturday 40 m Club | "the 4th Saturday of a month" — January, April, July, November | `monthly_nth_weekday` with a month list |
+| Saturday 20 m Club | "the 3rd Saturday of a month" — March and June | same, two months |
+| Wednesday 80 m Club | "the third Wednesday of a month" — February, May, August, October | same, four months |
+| 80 m QSO Party | "1st Thursday of April" and "1st Thursday of October" | one record, two legs |
+| YL QSO Party | "the first Saturday of March" and "National Women's Day — Sunday 9 August" | one record, **ordinal + fixed date** |
+| Youth QSO Party | "16 June the National Youth Day" and "the 3rd Saturday of August" | one record, fixed date + ordinal |
+| Newbie QSO Party | "1st Saturday of July" and "3rd Saturday of November" | one record, two legs |
+| HAMNET 40 m Simulated Emergency | "12:00 to 14:00 UTC on (the 1st Sunday) 1 March 2026" | first Sunday of March |
+| Top Band QSO Contest | "Thursday to Sunday in the first full week of June" | **`manual`, `verified: false`** — see below |
+
+Every date was checked against SARL's own **Date Ordered List of Contests**, which states UTC
+directly, as well as against the `.ics`. All thirteen agree.
+
+#### Two rule shapes this used that little else in the catalog does
+
+**`monthly_nth_weekday` with a `months` list** is exactly right for the club contests. They
+read as "the 4th Saturday of a month", which sounds monthly and is not: SARL runs the 40 m one
+in four months and the 20 m one in two. Encoding them as monthly would have put eight contests
+a year on the calendar that SARL does not run — the same class of error as NZART's
+April-and-August sprints reading as weekly, and there is now a test for it.
+
+**A `composite` mixing rule types.** The YL party runs on the first Saturday of March *and* on
+National Women's Day, 9 August, which is a fixed date; the Youth party is the mirror image,
+fixed 16 June and then the third Saturday of August. Because both legs of each share the same
+hour, each is one record whose `composite` holds an `nth_weekday` and a `fixed_date` side by
+side. Worth noting that the engine supported this without a change.
+
+#### The one that is flagged, for two independent reasons
+
+**The SARL Top Band QSO Contest is `verified: false` and encoded as `manual` with SARL's 2026
+date only.**
+
+First, SARL's own two pages disagree. The rules say the contest starts *"22:01 UTC 4 June
+(00:01 CAT) Thursday 4 June"* — but 22:01 UTC on Thursday the 4th is 00:01 CAT on **Friday**
+the 5th. SARL's Date Ordered List says Wednesday 3 June at 22:01 UTC, which *is* 00:01 CAT on
+the Thursday. The table is self-consistent and the prose is not, so the table is what is
+encoded.
+
+Second, and worse for a rules engine: *"Thursday to Sunday in the first full week of June"*
+has two readings. If a full week is a Monday-to-Sunday wholly inside June, then in 2027 — when
+1 June is a Tuesday — the first full week is 7–13 June and the Thursday is the **10th**. If it
+means the first week containing the whole Thursday-to-Sunday block, the Thursday is the
+**3rd**. They agree in 2026 and diverge next year.
+
+So no ordinal rule is encoded at all. The record holds the one date SARL published, and 2027
+is simply absent — the RAC Canada Winter treatment. One question to SARL turns it into a rule.
+
+#### An inference, marked as one
+
+The three Club Contests require an *"Abbreviated Club Callsign"* derived from the club's
+**ICASA-issued** callsign, and ICASA is the South African regulator — so a station elsewhere
+has no valid exchange to send. SARL states no entry restriction in words. Those records carry
+`eligibility.scope: entity_list, entities: ["ZS"]` with **`eligibility.verified: false`** and a
+note saying in terms that this is this catalog's reading rather than SARL's wording. Every
+other SARL record's eligibility quotes a sentence and is verified; a test holds that line.
+
+#### Caught by the suite
+
+`sarl-newbie-qso-party` changes band partway through — 20 m for the first two hours, then 40 m
+— and was first encoded as `["20m", "40m"]`, the order the rules read in. The catalog requires
+bands low to high in frequency and an existing test said so, so it is `["40m", "20m"]`. Small,
+and exactly the sort of thing that is invisible until something checks.
+
 ### Scope, recorded
 
-- **About a dozen more SARL events are in the manual and not yet encoded**: the QRP Contest,
-  the Saturday 40 m / 20 m and Wednesday 80 m Club Contests, the 80 m QSO Party, the Top Band
-  QSO Contest, the VHF/UHF FM Contest, the YL, Youth and Newbie QSO Parties, and the HAMNET
-  40 m Simulated Emergency Contest. Each has rules in the Contest Manual. This pass was scoped
-  to the contests SARL publishes as standalone rules PDFs; the manual is the source for the
-  rest and the decoder now handles it.
+- **Two SARL events are still not encoded, and neither is blocked.** The VHF/UHF FM Mode
+  Contest is in the date list and the `.ics` but its rules section could not be located under
+  that heading in the decoded manual, and the Youth of the Air Contest's only PDF on the site
+  is the 2024 edition. Both are a second look at the manual rather than a source problem.
 - **The `.ics` also carries events run by other South African bodies** — the Antique Wireless
   Association, HamSat-SA, the ZS1–ZS5 provincial QSO parties, BACAR. Those are separate
   sponsors needing their own registry entries and their own sources, not SARL records.
