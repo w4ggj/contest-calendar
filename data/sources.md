@@ -979,7 +979,9 @@ test rather than a comment — reverting it means arguing with the evidence.
   queries there (read 2026-08-19). Ask for the recurrence in the club's own wording, not this
   year's dates, and for the last few years' dates as the independent check. A reply recorded
   with the name and the date is a citable primary source; so is a *QRP Quarterly* issue the
-  club publishes itself.
+  club publishes itself. **The email went out on 2026-08-19 — do not send a second one.** When
+  W2LJ replies, his answer *is* the source: record it in each `source_note` with his name and
+  the date of the reply, and test the generated dates against whichever past years he gives.
 - **RSGB AFS CW** — guessed rules filename returned 404. Find the real page under
   rsgbcc.org/hf/ and set `rules_url_pattern`. Recurrence and eligibility unconfirmed.
 - **SARL HF Phone** — **blocked at source.** sarl.org.za returned 503 during the original
