@@ -286,134 +286,156 @@
     {
       "org": "USKA",
       "country": "CH",
-      "url": "https://www.uska.ch/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 2,
-      "status": "not-started",
-      "notes": "Helvetia Contest."
+      "url": "https://uska.ch/kw-contest/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "USKA"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 6,
+      "status": "complete",
+      "notes": "Helvetia Contest, Field Day CW and SSB, National Mountain Day, Weihnachtswettbewerb SSB and CW. That is the whole KW-Contest programme, counted from USKA's own page rather than guessed. The Reglemente are PDFs linked from /kw-contest/, which also prints the year's dates independently and is what every record is tested against."
     },
     {
       "org": "OEVSV",
       "country": "AT",
       "url": "https://www.oevsv.at/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ÖVSV"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
       "estimated_total": 2,
-      "status": "not-started",
-      "notes": "All Austrian 160-Meter Contest."
+      "status": "complete",
+      "notes": "AOEE 80/40m and AOEC 160m, the HF-Referat's two HF events; the AOEE VHF/UHF legs belong to the UKW referat and are separate work. Catalog sponsor string is the umlaut form OeVSV writes itself. The AOEC 160m Ausschreibung on offer is still the 2025 edition -- pending."
     },
     {
       "org": "MRASZ",
       "country": "HU",
-      "url": "https://www.mrasz.hu/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 4,
-      "status": "not-started",
-      "notes": "Hungarian DX, Hungarian Straight Key, HA3NS Sprint Memorial, Tisza Cup."
+      "url": "https://mrasz.hu/radioforgalmi-versenyek",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "MRASZ"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 9,
+      "status": "partial",
+      "notes": "HA-DX, YL-OM and the World Amateur Radio Day HF leg encoded. Not yet read: RHOB, URHOB, the Junior contest, the Straight Key Memorial Contest, Tisza Kupa and the VHF leg of RF-WD. HA-DX has its own host at ha-dx.com, which MRASZ links as its own; the 2026 count is from MRASZ's own competition index, not a guess."
     },
     {
       "org": "BFRA",
       "country": "BG",
-      "url": "https://www.lzdx.org/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "https://lzdx.bfra.bg/rulesen.html",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "BFRA"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
       "estimated_total": 2,
-      "status": "not-started",
-      "notes": "LZ DX Contest, LZ International 6-Meter."
+      "status": "partial",
+      "notes": "LZ DX Contest encoded. CORRECTION: the registered host www.lzdx.org does not resolve, and neither does the lzdx.bfra.org that BFRA's own news items cite; the live rules are at lzdx.bfra.bg and the federation at bfra.bg. LZ Open 80m has not been read."
     },
     {
       "org": "FRR",
       "country": "RO",
-      "url": "https://www.hamradio.ro/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 4,
-      "status": "not-started",
-      "notes": "YO DX HF, YO International PSK31, Bucharest Digital, Romanian Diaspora."
+      "url": "https://www.yodx.ro/rules.php",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "FRR"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 3,
+      "status": "partial",
+      "notes": "YO DX HF Contest encoded. La Multi Ani YO is BLOCKED: the only rules document FRR publishes is a scan with no text layer. Cupa Romaniei QRP is an on-site event with no calendar rule and is out of scope. estimated_total 4 -> 3, counted from what FRR actually publishes. An older hamradio.ro PDF contradicts the current yodx.ro rules about which August weekend YO DX falls on -- see data/sources.md."
     },
     {
       "org": "SRS / YU",
       "country": "RS",
-      "url": "https://www.yudx.org/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 2,
-      "status": "not-started",
-      "notes": "YU DX Contest."
+      "url": "https://www.radiosport.yu1srs.org.rs/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "SRS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 3,
+      "status": "partial",
+      "notes": "Tesla Memorial HF CW encoded. CORRECTION: the registered host www.yudx.org no longer resolves; SRS's radiosport pages are at radiosport.yu1srs.org.rs. BLOCKED: the domestic schedule and rules pages render only a JavaScript placeholder and the old site at stari.yu1srs.org.rs returns HTTP 500, so KT Prvenstvo Srbije and KT Kup SRS could not be read."
     },
     {
       "org": "HRS",
       "country": "HR",
-      "url": "https://www.hamradio.hr/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "https://www.hamradio.hr/9a-dx-contest/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "HRS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
       "estimated_total": 1,
-      "status": "not-started",
-      "notes": "Croatian DX Contest."
+      "status": "complete",
+      "notes": "Croatian DX Contest encoded -- HRS's only HF contest. Its other calendar entries are VHF/UHF events run by the UKV referat and are separate work."
     },
     {
       "org": "NRAU",
       "country": "SE",
       "url": "https://nrau.net/",
-      "url_verified": false,
+      "url_verified": true,
       "catalog_sponsors": [],
       "encoded": 0,
       "encoded_verified": 0,
       "estimated_total": 3,
-      "status": "not-started",
-      "notes": "NRAU-Baltic CW/SSB, NRAU 10m Activity. Also SSA (SE), NRRL (NO), EDR (DK), SRAL (FI) run national contests. Country recorded as SE for the region rollup; the body is pan-Nordic."
+      "status": "blocked",
+      "notes": "BLOCKED at source. nrau.net says 'All NRAU Contest related information is under revision', and no NRAU-Baltic rules are published anywhere on the site. The NAC / Nordic Activity Contest pages give dates and times but state no modes and link no rules, so a record built from them could not declare a mode and would be dropped silently by every mode filter. Nothing encoded; the five NAC recurrence rules and the 19:00-23:00 local-time finding are recorded in data/sources.md for when NRAU republishes. The national societies SSA (SE), NRRL (NO), EDR (DK) and SRAL (FI) are separate work."
     },
     {
       "org": "LRAL / ERAU / LRMD",
       "country": "LV",
-      "url": "https://www.lral.lv/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 3,
-      "status": "not-started",
-      "notes": "Baltic Contest, ES Open HF Championship (Estonia). Country recorded as LV for the region rollup; the group is pan-Baltic."
+      "url": "https://lral.lv/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "LRAL",
+        "ERAU",
+        "LRMD"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 6,
+      "status": "partial",
+      "notes": "Six encoded across the three societies: LRAL's 18 November and 4 May 80m contests, ERAU's ES Open HF Championship and ES LL KV series, LRMD's Vytautas Magnus Contest and WAL Contest. Each society is its own catalog sponsor -- LV, EE and LT records are not interchangeable -- and each has its own site: lral.lv, erau.ee, lrmd.lt. The joint NRAU-Baltic Contest is blocked at NRAU, not here."
     },
     {
       "org": "SRR",
       "country": "RU",
-      "url": "https://www.rdxc.org/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "https://www.rdxc.org/rules",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "SRR"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
       "estimated_total": 8,
-      "status": "not-started",
-      "notes": "Russian DX Contest, RAEM, Russian 160m, Russian WW series, RCC Cup."
+      "status": "partial",
+      "notes": "Russian DX Contest encoded, and only for 2027: rdxc.org publishes a date rather than a recurrence rule, and the only edition currently announced is 20-21 March 2027. RAEM, Russian 160m, the Russian WW series and the RCC Cup are on separate hosts and have not been read."
     },
     {
       "org": "UARL",
       "country": "UA",
-      "url": "https://www.uarl.org.ua/",
-      "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
+      "url": "http://uarl.org.ua/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "UARL"
+      ],
+      "encoded": 4,
+      "encoded_verified": 4,
       "estimated_total": 4,
-      "status": "not-started",
-      "notes": "Ukrainian DX, Open Ukraine RTTY, UDXC Classic RTTY."
+      "status": "partial",
+      "notes": "The three 2026 HF championships (RTTY, CW, SSB) and the Low Power Cup encoded, all from UARL's own reglamenty. CORRECTION: https://uarl.org.ua/ fails TLS certificate validation; http:// serves the site, so the registry records the http URL. UARL publishes dates for the year rather than recurrence rules, so all four records are manual and cover 2026 only. Its monthly calendar posts link contestcalendar.com; that aggregator was not used."
     }
   ],
   "tier_3_other_regions": [
@@ -860,9 +882,9 @@
   "$region_map_note": "OC is not an ISO country code. It is the code for a contest whose sponsor is a multi-national body inside one region -- currently only the Oceania DX Contest Committee, a joint VK/ZL committee. INTL is the same idea a level up, for a sponsor with no region at all. Neither is a country, and neither should be used where a national society owns the contest.",
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
-    "as_of": "2026-08-18",
-    "total_encoded": 145,
-    "total_verified": 138,
+    "as_of": "2026-08-19",
+    "total_encoded": 171,
+    "total_verified": 164,
     "total_retired": 8,
     "by_tier": {
       "tier_1_major_international": {
@@ -874,9 +896,9 @@
       },
       "tier_2_european_societies": {
         "orgs": 21,
-        "orgs_worked": 9,
-        "encoded": 33,
-        "verified": 32,
+        "orgs_worked": 19,
+        "encoded": 59,
+        "verified": 58,
         "retired": 0
       },
       "tier_3_other_regions": {
@@ -895,15 +917,15 @@
       }
     },
     "by_region": {
+      "Europe": {
+        "encoded": 85,
+        "verified": 82,
+        "retired": 0
+      },
       "North America": {
         "encoded": 62,
         "verified": 60,
         "retired": 8
-      },
-      "Europe": {
-        "encoded": 59,
-        "verified": 56,
-        "retired": 0
       },
       "Oceania": {
         "encoded": 13,
@@ -962,6 +984,11 @@
         "verified": 6,
         "retired": 0
       },
+      "CH": {
+        "encoded": 6,
+        "verified": 6,
+        "retired": 0
+      },
       "AU": {
         "encoded": 5,
         "verified": 5,
@@ -982,12 +1009,22 @@
         "verified": 4,
         "retired": 0
       },
+      "UA": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
       "CZ": {
         "encoded": 3,
         "verified": 3,
         "retired": 0
       },
       "IT": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
+      "HU": {
         "encoded": 3,
         "verified": 3,
         "retired": 0
@@ -1017,6 +1054,26 @@
         "verified": 2,
         "retired": 0
       },
+      "AT": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "LV": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "EE": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "LT": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
       "ZA": {
         "encoded": 1,
         "verified": 0,
@@ -1036,16 +1093,42 @@
         "encoded": 1,
         "verified": 1,
         "retired": 0
+      },
+      "BG": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "RO": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "HR": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "RS": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "RU": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
       }
     },
     "thin": {
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
-      "largest_region": "North America",
-      "largest_region_share_pct": 42.8,
+      "largest_region": "Europe",
+      "largest_region_share_pct": 49.7,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "GACW",
+        "NRAU",
         "QRP ARCI",
         "SARL"
       ]

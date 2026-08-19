@@ -7801,6 +7801,1494 @@
         "verified": true,
         "note": "'Zu arbeitende Stationen: alle, jede Station einmal pro Band'; 'Getrennte Wertung für DL- und Non-DL-Stationen' -- everyone may be worked, once per band, and German and non-German entries are scored separately."
       }
+    },
+    {
+      "id": "uska-helvetia",
+      "name": "Helvetia Contest",
+      "sponsor": "USKA",
+      "country": "CH",
+      "rules_url": "https://uska.ch/download/reglement-fuer-den-helvetia-wettbewerb-maerz-2026-de/",
+      "sponsor_home": "https://uska.ch/",
+      "log_submit_url": "https://contestlog.uska.ch",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB",
+        "RTTY",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "PSK31",
+        "PSK63"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Swiss stations send RS(T) and their canton abbreviation (59 ZH, 599 ZH); stations outside Switzerland send RS(T) and a serial number of at least three digits.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1259"
+      },
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1000
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP CW / Digital",
+          "max_watts": 5
+        },
+        {
+          "name": "QRP SSB",
+          "max_watts": 10
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uska.ch Reglement fuer den Helvetia-Wettbewerb, Ausgabe Maerz 2026. 2.1 Datum und Zeit: 'Letztes volles Wochenende im April, Samstag 13:00 UTC bis Sonntag 12:59 UTC.' (Last full weekend in April, Saturday 13:00 UTC to Sunday 12:59 UTC.) 2.4 Baender: '160 m, 80 m, 40 m, 20 m, 15 m und 10 m'. 2.5.1 Schweizer Stationen: 'Rapport (RS oder RST) und dem Kanton (z.B. 59 ZH, 599 ZH)'; 2.5.2 auslaendische Stationen: 'Rapport (RS oder RST) und der laufenden, mindestens dreistelligen Verbindungsnummer'. 2.7 gives 10 points for a QSO with Switzerland, 1 within one's own continent and 3 to another continent; multipliers are cantons plus DXCC entities per band. 2.9 requires a six-hour rest taken in at most two periods. Power: 'High Power 1000 Watt, Low Power 100 Watt', QRP 'CW maximal 5 Watt / SSB maximal 10 Watt / Fuer digitale Betriebsarten maximal 5 Watt'. Digital is defined in the Reglement: 'Digital - Damit sind Modes wie RTTY, PSK31, PSK63, FT4 und FT8 gemeint. Cabrillo Tag fuer RTTY = RY, bzw. PSK31, PSK63, FT4 und FT8 = DG' (Digital means modes such as RTTY, PSK31, PSK63, FT4 and FT8; the Cabrillo tag for RTTY is RY, and DG for PSK31, PSK63, FT4 and FT8). 11 Log: 'Die Logs sind innert 8 Tagen zwingend ueber das webbasierte User-Interface auf der USKA-Website einzureichen: https://contestlog.uska.ch.' Entry is open beyond Switzerland: the Reglement says the contest is 'in der Schweiz und im Ausland ausgeschrieben' (announced in Switzerland and abroad). USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
+      "note": "The last full weekend of April, encoded as n=-1: April 2026 has full weekends on the 4th/5th, 11th/12th, 18th/19th and 25th/26th, so the rule gives 25-26 April, which is what USKA's own KW-Contest page prints. USKA also prints 24-25 April 2027 there, and the rule reproduces that too. Operators must take a six-hour rest in at most two periods; the record carries the full 24-hour window because that is when the contest is on air.",
+      "summary": "Switzerland's national DX contest over the last full weekend of April. Cantons are the multiplier, so Swiss stations are worth chasing on every band, and CW, SSB and digital each count separately.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The Reglement states the contest is 'in der Schweiz und im Ausland ausgeschrieben' -- announced in Switzerland and abroad -- and 2.5.2 gives foreign stations their own exchange, so anyone may enter."
+      }
+    },
+    {
+      "id": "uska-field-day-cw",
+      "name": "USKA Field Day (CW)",
+      "sponsor": "USKA",
+      "country": "CH",
+      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-02-Reglement-fuer-den-Field-Day-Ausgabe-Mai-2026-DE.pdf",
+      "sponsor_home": "https://uska.ch/",
+      "log_submit_url": "https://contestlog.uska.ch",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS(T) and a serial number of at least three digits. With fixed stations the report alone is enough.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1459"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uska.ch Reglement fuer den Field Day, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'CW: Erstes volles Wochenende im Juni, Samstag 15:00 UTC bis Sonntag 14:59 UTC. / SSB: Erstes volles Wochenende im September, Samstag 13:00 UTC bis Sonntag 12:59 UTC.' (CW: first full weekend in June, Saturday 15:00 UTC to Sunday 14:59 UTC; SSB: first full weekend in September, Saturday 13:00 UTC to Sunday 12:59 UTC.) 1.3 Standort: 'Der Standort muss sich in der Schweiz befinden.' (The location must be in Switzerland.) 2.5 Kontrollaustausch: RS(T) plus a serial of at least three digits -- 'Bei Verbindungen mit festen Stationen genuegt der RS/RST-Rapport (ohne Verbindungsnummer)'. Points: 2 for a fixed station in Europe, 3 outside, 4 for a portable station in Europe and 6 outside; portable means /p, /m, /mm or /am. 11 Log: 'Die Logs sind innert 8 Tagen zwingend ueber das webbasierte User-Interface auf der USKA-Website einzureichen: https://contestlog.uska.ch.' Entry notice is due by 12:00 UTC on the Friday before. USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
+      "note": "One of USKA's two Field Day legs; they share a Reglement and differ only in month, mode and start time, so they are two records. The first full weekend of June 2026 is 6-7 June and of September 2026 is 5-6 September, both of which USKA's KW-Contest page prints.",
+      "summary": "USKA's CW Field Day: 24 hours from a Swiss location, with portable stations worth double the points of fixed ones.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HB"
+        ],
+        "verified": true,
+        "note": "1.3 of the Reglement: 'Der Standort muss sich in der Schweiz befinden.' Stations elsewhere are worked and scored by the entrants but cannot enter themselves."
+      }
+    },
+    {
+      "id": "uska-field-day-ssb",
+      "name": "USKA Field Day (SSB)",
+      "sponsor": "USKA",
+      "country": "CH",
+      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-02-Reglement-fuer-den-Field-Day-Ausgabe-Mai-2026-DE.pdf",
+      "sponsor_home": "https://uska.ch/",
+      "log_submit_url": "https://contestlog.uska.ch",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS(T) and a serial number of at least three digits. With fixed stations the report alone is enough.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1259"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uska.ch Reglement fuer den Field Day, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'CW: Erstes volles Wochenende im Juni, Samstag 15:00 UTC bis Sonntag 14:59 UTC. / SSB: Erstes volles Wochenende im September, Samstag 13:00 UTC bis Sonntag 12:59 UTC.' (CW: first full weekend in June, Saturday 15:00 UTC to Sunday 14:59 UTC; SSB: first full weekend in September, Saturday 13:00 UTC to Sunday 12:59 UTC.) 1.3 Standort: 'Der Standort muss sich in der Schweiz befinden.' (The location must be in Switzerland.) 2.5 Kontrollaustausch: RS(T) plus a serial of at least three digits -- 'Bei Verbindungen mit festen Stationen genuegt der RS/RST-Rapport (ohne Verbindungsnummer)'. Points: 2 for a fixed station in Europe, 3 outside, 4 for a portable station in Europe and 6 outside; portable means /p, /m, /mm or /am. 11 Log: 'Die Logs sind innert 8 Tagen zwingend ueber das webbasierte User-Interface auf der USKA-Website einzureichen: https://contestlog.uska.ch.' Entry notice is due by 12:00 UTC on the Friday before. USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
+      "note": "One of USKA's two Field Day legs; they share a Reglement and differ only in month, mode and start time, so they are two records. The first full weekend of June 2026 is 6-7 June and of September 2026 is 5-6 September, both of which USKA's KW-Contest page prints.",
+      "summary": "USKA's SSB Field Day: 24 hours from a Swiss location, with portable stations worth double the points of fixed ones.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HB"
+        ],
+        "verified": true,
+        "note": "1.3 of the Reglement: 'Der Standort muss sich in der Schweiz befinden.' Stations elsewhere are worked and scored by the entrants but cannot enter themselves."
+      }
+    },
+    {
+      "id": "uska-nmd",
+      "name": "USKA National Mountain Day (NMD)",
+      "sponsor": "USKA",
+      "country": "CH",
+      "rules_url": "https://uska.ch/download/reglement-fuer-den-national-mountain-day-ausgabe-mai-2026-d/",
+      "sponsor_home": "https://uska.ch/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "CW in 3510-3560 kHz and SSB in 3600-3650 kHz.",
+      "exchange": "Between NMD stations, RS(T) and a text of at least 15 characters that may be used only once. With everyone else, the report alone.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0959"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uska.ch Reglement fuer den National Mountain Day, Ausgabe Mai 2026. 4 Datum und Zeit: 'Dritter Sonntag im Juli, 06:00 UTC bis 09:59 UTC.' (Third Sunday in July, 06:00 UTC to 09:59 UTC.) 2 Betriebsarten: 'Zulaessige Betriebsarten sind CW und SSB. CW-Verbindungen sind im Bandsegment 3510 - 3560 kHz abzuwickeln. SSB-Verbindungen sind im Bandsegment 3600 - 3650 kHz abzuwickeln. Dem Rufzeichen muss der Zusatz /P angehaengt werden. ... Remote-Betrieb ist nicht zulaessig.' 3 Standort: 'Der Standort muss sich in der Schweiz befinden und mindestens 800 m ueber Meer liegen.' 6b Gewicht: 'Die gesamte Stationseinrichtung darf hoechstens sechs Kilogramm wiegen' -- no mains power and no pre-existing antennas. 9 Bewertung: 4 points for a QSO with an NMD station, 1 for any other. Logs go to nmd@uska.ch within 8 days; entries must be registered by the Tuesday before at nmd.uska.ch/anmeldung. USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
+      "note": "USKA splits the four hours into halves (06:00-07:59 and 08:00-09:59) only to allow one repeat QSO per mode with each NMD station; it is one continuous contest and is encoded as one span. The third Sunday of July 2026 is the 19th, which is the date USKA's KW-Contest page prints.",
+      "summary": "Four hours of 80m from a Swiss summit above 800 m, carrying everything you need in six kilos. Non-NMD stations are worked for a point and need send only a report.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HB"
+        ],
+        "verified": true,
+        "note": "3 of the Reglement: 'Der Standort muss sich in der Schweiz befinden und mindestens 800 m ueber Meer liegen.' Anyone may be worked; only stations on a Swiss summit can enter."
+      }
+    },
+    {
+      "id": "uska-weihnachtswettbewerb-ssb",
+      "name": "USKA Weihnachtswettbewerb (SSB / Digital)",
+      "sponsor": "USKA",
+      "country": "CH",
+      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-04-Reglement-fuer-den-Weihnachtswettbewerb-Ausgabe-Mai-2026-DE.pdf",
+      "sponsor_home": "https://uska.ch/",
+      "log_submit_url": "https://contestlog.uska.ch",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB",
+        "RTTY",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "PSK31",
+        "PSK63"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RS(T) and the canton abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 12,
+        "n": 1,
+        "weekday": 5
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0700"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0959"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1000"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1059"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0959"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uska.ch Reglement fuer den Weihnachtswettbewerb, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC / CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC / Digital: Erster und zweiter Samstag im Dezember, 10:00 bis 10:59 UTC.' (SSB: first Saturday in December; CW: second Saturday in December, both 07:00-09:59 UTC; Digital: first and second Saturday in December, 10:00-10:59 UTC.) 2.4 Baender: '80 m und 40 m'. 2.5 Kontrollaustausch: RS(T) and the canton abbreviation. Eligibility: 'Der Weihnachtwettbewerb wird fuer Funkamateure sowie Empfangsamateure in der Schweiz ausgeschrieben' and 'Der Standort muss sich in der Schweiz befinden.' Digital is defined in the Reglement: 'Digital - Damit sind Modes wie RTTY, PSK31, PSK63, FT4 und FT8 gemeint. Cabrillo Tag fuer RTTY = RY, bzw. PSK31, PSK63, FT4 und FT8 = DG' (Digital means modes such as RTTY, PSK31, PSK63, FT4 and FT8; the Cabrillo tag for RTTY is RY, and DG for PSK31, PSK63, FT4 and FT8). USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
+      "note": "USKA runs the Weihnachtswettbewerb on two Saturdays, and each Saturday is a phone-or-CW morning followed by a separate digital hour. This record is the first Saturday: SSB 07:00-09:59 UTC and digital 10:00-10:59 UTC, encoded as two sessions because the hour between them is not part of the contest. The two Saturdays are two records because they are different modes, not two legs of one event. The first Saturday of December 2026 is the 5th and the second the 12th, the dates USKA's KW-Contest page prints. USKA states no log deadline in this Reglement -- the other three KW Reglemente all say 'innert 8 Tagen' and this one says nothing at all -- so no interval is encoded rather than one borrowed from its siblings.",
+      "summary": "USKA's Christmas contest on 80m and 40m: a SSB morning on the first Saturday of December, then a digital hour. Cantons are the exchange.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HB"
+        ],
+        "verified": true,
+        "note": "The Reglement announces the contest 'fuer Funkamateure sowie Empfangsamateure in der Schweiz' and requires 'Der Standort muss sich in der Schweiz befinden.'"
+      }
+    },
+    {
+      "id": "uska-weihnachtswettbewerb-cw",
+      "name": "USKA Weihnachtswettbewerb (CW / Digital)",
+      "sponsor": "USKA",
+      "country": "CH",
+      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-04-Reglement-fuer-den-Weihnachtswettbewerb-Ausgabe-Mai-2026-DE.pdf",
+      "sponsor_home": "https://uska.ch/",
+      "log_submit_url": "https://contestlog.uska.ch",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "RTTY",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "PSK31",
+        "PSK63"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RS(T) and the canton abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 12,
+        "n": 2,
+        "weekday": 5
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0700"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0959"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1000"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1059"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0959"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uska.ch Reglement fuer den Weihnachtswettbewerb, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC / CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC / Digital: Erster und zweiter Samstag im Dezember, 10:00 bis 10:59 UTC.' (SSB: first Saturday in December; CW: second Saturday in December, both 07:00-09:59 UTC; Digital: first and second Saturday in December, 10:00-10:59 UTC.) 2.4 Baender: '80 m und 40 m'. 2.5 Kontrollaustausch: RS(T) and the canton abbreviation. Eligibility: 'Der Weihnachtwettbewerb wird fuer Funkamateure sowie Empfangsamateure in der Schweiz ausgeschrieben' and 'Der Standort muss sich in der Schweiz befinden.' Digital is defined in the Reglement: 'Digital - Damit sind Modes wie RTTY, PSK31, PSK63, FT4 und FT8 gemeint. Cabrillo Tag fuer RTTY = RY, bzw. PSK31, PSK63, FT4 und FT8 = DG' (Digital means modes such as RTTY, PSK31, PSK63, FT4 and FT8; the Cabrillo tag for RTTY is RY, and DG for PSK31, PSK63, FT4 and FT8). USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
+      "note": "USKA runs the Weihnachtswettbewerb on two Saturdays, and each Saturday is a phone-or-CW morning followed by a separate digital hour. This record is the second Saturday: CW 07:00-09:59 UTC and digital 10:00-10:59 UTC, encoded as two sessions because the hour between them is not part of the contest. The two Saturdays are two records because they are different modes, not two legs of one event. The first Saturday of December 2026 is the 5th and the second the 12th, the dates USKA's KW-Contest page prints. USKA states no log deadline in this Reglement -- the other three KW Reglemente all say 'innert 8 Tagen' and this one says nothing at all -- so no interval is encoded rather than one borrowed from its siblings.",
+      "summary": "USKA's Christmas contest on 80m and 40m: a CW morning on the second Saturday of December, then a digital hour. Cantons are the exchange.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HB"
+        ],
+        "verified": true,
+        "note": "The Reglement announces the contest 'fuer Funkamateure sowie Empfangsamateure in der Schweiz' and requires 'Der Standort muss sich in der Schweiz befinden.'"
+      }
+    },
+    {
+      "id": "oevsv-aoee-80-40",
+      "name": "All Austrian Exercise AOEE 80/40m",
+      "sponsor": "ÖVSV",
+      "country": "AT",
+      "rules_url": "https://www.oevsv.at/export/shared/.content/.galleries/Downloads_Referate/HF-Referat-Downloads/Regeln_AOEE_8040_2026.pdf",
+      "sponsor_home": "https://www.oevsv.at/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "CW 3.510-3.560 and 7.000-7.040 MHz; SSB 3.600-3.650 and 3.700-3.800 MHz, 7.060-7.100 and 7.130-7.200 MHz.",
+      "exchange": "RS(T) and the Austrian Bezirkskenner (district identifier).",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 5,
+        "day": 1
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0500"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0800"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1700"
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0500"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "High Power"
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "oevsv.at Regeln AOEE 80/40m 2026 (PDF). '2. TERMIN: 1. Mai 2026'. '3. ZEIT: 1. Periode 0500 - 0800 UTC entspricht 0700 - 1000 MESZ / 2. Periode 1400 - 1700 UTC entspricht 1600 - 1900 MESZ' (1st period 0500-0800 UTC = 0700-1000 CEST; 2nd period 1400-1700 UTC = 1600-1900 CEST). 1 Teilnahmeberechtigt: stations transmitting from Austria, including guest and CEPT licences. 4 Frequenzen: CW 3.510-3.560 and 7.000-7.040 MHz; SSB 3.600-3.650, 3.700-3.800 and 7.060-7.100, 7.130-7.200 MHz. 5 Betriebsarten: CW und SSB. 7 Kontrollnummer: RS(T) plus Bezirkskenner. 9 Klassen: LP up to 100 W, HP over 100 W, plus MIX and Newcomer. 14 Einsendeschluss: '08. MAI 2026 23:59 Uhr MESZ'. Second source, published separately by OEVSV: the HF-Referat page says 'Unter anderem wird die Notfunk-Uebung All Austrian Exercise AOEE 80/40m am 1. Mai ... durchgefuehrt.'",
+      "note": "An emergency-communications exercise run as a contest, on a fixed calendar date rather than a weekend rule. Two periods with six hours between them, encoded as sessions. The log deadline is a stated instant -- 8 May 2026, 23:59 CEST -- and not an interval from the end of the contest (the second period ends 17:00 UTC, and seven days later is 19:00 CEST), so it is recorded here rather than as log_deadline_days.",
+      "summary": "Austria's May Day emergency-communications exercise on 80m and 40m, run in a morning and an afternoon period with districts as the exchange.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "OE"
+        ],
+        "verified": true,
+        "note": "Section 1 limits entry to stations transmitting from Austria, including holders of guest and CEPT licences operating there."
+      }
+    },
+    {
+      "id": "oevsv-aoec-160m",
+      "name": "All Austrian 160m Contest (AOEC 160m)",
+      "sponsor": "ÖVSV",
+      "country": "AT",
+      "rules_url": "https://www.oevsv.at/export/shared/.content/.galleries/Downloads_Referate/HF-Referat-Downloads/Regeln_Aoec_160m_2025.pdf",
+      "sponsor_home": "https://www.oevsv.at/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "bands_note": "1810-2000 kHz in the German rules; the English rules say 1810-1950 kHz. Both are OEVSV's own statements and neither has been withdrawn.",
+      "exchange": "RST and a serial number; Austrian stations add their OE district identifier.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "oevsv.at Regeln AOEC 160m (PDF, 2025 Ausschreibung). '3. TERMIN: Jeweils am dritten vollen Wochenende im NOVEMBER / Samstag 1600 UTC bis 2359 UTC / 15. November 2025' (Every year on the third full weekend in November, Saturday 1600 UTC to 2359 UTC). OEVSV's English edition of the same rules states the same rule independently: 'PERIOD: Third full weekend each November / Saturday 1600 - 2359 UTC'. Teilnahmeberechtigt: 'alle ... lizensierten Funkamateurinnen und -amateure sowie SWLs weltweit' (all licensed amateurs and SWLs worldwide). Betriebsart: CW only. Kontrollnummer: RST plus serial, with OE stations adding their district.",
+      "note": "The third full weekend of November is a rule OEVSV states twice, in German and in English, and it reproduces the date the German edition prints for itself: November 2025's full weekends are the 1st/2nd, 8th/9th and 15th/16th, so the third is Saturday 15 November 2025. For 2026 the 1st is a Sunday whose Saturday belongs to October, so the full weekends start on the 7th/8th and the rule gives Saturday 21 November 2026. CONTRADICTIONS, recorded not reconciled: the German rules say 1810-2000 kHz and the English 1810-1950 kHz; the German rules take logs at aoec-auswertung.oevsv.at and the English at contestrobot.aoec160m.oevsv.at, so neither is encoded as the log_submit_url. The deadline is a fixed date (30 November), not an interval. BLOCKER: OEVSV's HF-Referat page still offers only the 2025 Ausschreibung, so this is the current published document and it is on the pending list to re-read.",
+      "summary": "Austria's worldwide 160m CW contest: eight hours from 1600 UTC on the Saturday of the third full November weekend, with OE districts as the prize.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Teilnahmeberechtigt sind alle ... lizensierten Funkamateurinnen und -amateure sowie SWLs weltweit' -- all licensed amateurs and SWLs worldwide."
+      }
+    },
+    {
+      "id": "mrasz-ha-dx",
+      "name": "HA-DX Contest",
+      "sponsor": "MRASZ",
+      "country": "HU",
+      "rules_url": "https://ha-dx.com/en/contest-rules",
+      "sponsor_home": "https://www.mrasz.hu/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Hungarian stations send RS(T) and their county abbreviation; everyone else sends RS(T) and an incremental serial number.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 1,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "ha-dx.com/en/contest-rules, MRASZ's own rules page. '1. Organizer: Magyar Radioamator Szovetseg (www.mrasz.hu).' '3. Date and time: every year 3rd full weekend of January, from Saturday 12:00 UTC to Sunday 12:00 UTC. In 2026: 17-18 January.' '4. Participants: every amateur radio operator in the world'. '6. Modes: A1A morse code (CW) and A3J phone (SSB).' Bands 160, 80, 40, 20, 15 and 10 m. Exchange: HA stations send RS(T) and county, others RS(T) and a serial. Points: 10 for a Hungarian station, 2 within one's own continent, 5 to another; /AM and /MM are worth 2. Categories QRP up to 5 W, LP up to 100 W, HP above. 'Log submission deadline: Logs must be uploaded on the HA-DX website within 5 days of the end of the contest.'",
+      "note": "MRASZ states the rule and the year in the same sentence, which is its own check: January 2026's full weekends are the 3rd/4th, 10th/11th, 17th/18th and 24th/25th (31 January's Sunday falls in February), so the third is 17-18 January -- the date the rules print. The contest ends at 12:00 UTC, not 11:59, so the Sunday overlaps the Saturday start by a minute; that is what the rules say.",
+      "summary": "Hungary's international DX contest over the third full weekend of January. Hungarian counties are the multiplier and HA stations are worth ten points.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'4. Participants: every amateur radio operator in the world'."
+      }
+    },
+    {
+      "id": "mrasz-yl-om",
+      "name": "HA YL-OM Contest",
+      "sponsor": "MRASZ",
+      "country": "HU",
+      "rules_url": "https://ylom.mrasz.hu/yl-om-versenykiiras",
+      "sponsor_home": "https://www.mrasz.hu/",
+      "log_submit_url": "https://ylom.mrasz.hu/log-feltoltes",
+      "log_deadline_days": 15,
+      "modes": [
+        "SSB"
+      ],
+      "submodes": [
+        "FM"
+      ],
+      "bands": [
+        "80m",
+        "2m"
+      ],
+      "bands_note": "VHF first, 13:30-14:30 UTC: 2m SSB 144.150-144.390 MHz and FM 145.250-145.575 MHz except 145.500. HF second, 14:30-16:00 UTC: 80m SSB 3.600-3.720 MHz.",
+      "exchange": "RS, the age of the licence in years and the operator's first name -- for example '59 01 Kata'.",
+      "recurrence": {
+        "type": "nearest_weekday",
+        "month": 3,
+        "day": 8,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1330"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "ylom.mrasz.hu/yl-om-versenykiiras. 'Ideje: minden evben marcius 8-hoz legkozelebb eso hetvegen, 2026. marcius 08. vasarnap / URH 13.30-14.30 UTC / RH 14.30-16.00 UTC' (Held every year on the weekend nearest to 8 March; in 2026 Sunday 8 March, VHF 13:30-14:30 UTC and HF 14:30-16:00 UTC). Bands: 80 m SSB 3.600-3.720 MHz; 2 m SSB 144.150-144.390 and FM 145.250-145.575 MHz except 145.500. 'Kontrollszam: RS + az adoengedely kora ... + az operator keresztneve. Pl: 59 01 Kata' (RS + the age of the licence + the operator's first name). Points: 5 for a YL-OM or YL-YL QSO, 1 for OM-OM. 'Hatarido: a versenyt koveto 15. nap (hetfo)' (deadline: the 15th day after the contest, a Monday). 'Resztvevok: Hazai es magyarul beszelo kulfoldi radioamator' (participants: Hungarian and Hungarian-speaking foreign amateurs), and QSOs are conducted in Hungarian.",
+      "note": "MRASZ ties the date to International Women's Day: the weekend nearest 8 March, run on the Sunday. Encoded as the Sunday nearest 8 March, which gives 8 March 2026 -- the date MRASZ prints -- because 8 March 2026 is itself a Sunday. Only that one year is independently confirmed, so the rule is recorded as MRASZ's wording rather than as a tested multi-year pattern. The two halves are contiguous (VHF then HF with no gap), so they are one span rather than two sessions; the band split is in bands_note because a record cannot state bands per session. FM is in submodes because it is not in the catalog's mode vocabulary.",
+      "summary": "Hungary's YL-OM contest on the weekend nearest 8 March: an hour on 2m then ninety minutes on 80m, exchanging first names and how long you have been licensed.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Resztvevok: Hazai es magyarul beszelo kulfoldi radioamator' -- Hungarian amateurs and Hungarian-speaking amateurs abroad. There is no entity restriction; the practical limit is that contacts are made in Hungarian."
+      }
+    },
+    {
+      "id": "mrasz-rfwd-hf",
+      "name": "World Amateur Radio Day Contest HF (RF-WD RH)",
+      "sponsor": "MRASZ",
+      "country": "HU",
+      "rules_url": "https://mrasz.hu/radioforgalmi-versenyek/16-szakagak/radioforgalom-rh/321-amator-radiozas-vilagnapja-rf-wd-rh-versenykiiras",
+      "sponsor_home": "https://www.mrasz.hu/",
+      "log_submit_url": "https://log.mrasz.hu",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 3,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3510-3750 kHz.",
+      "exchange": "RS(T) and the operator's age.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 4,
+        "day": 18
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1659"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "mrasz.hu, 'Amator radiozas vilagnapja RF-WD RH versenykiiras'. 'Ideje: evente aprilis 18.-an 16.00 UT-tol 16.59 UT-ig. 6 darab 10 perces periodusbol all (00-09, 10-19... 50-59 perc).' (Held every year on 18 April from 16:00 to 16:59 UT, in six ten-minute periods.) 'Frekvencia: 3510-3750'. 'Adasmodok: tavirо (A1A), tavbeszelo (J3E).' (Modes: CW and SSB.) Exchange: RS(T) and age, scored 1 to 5 points by age band. 'Bekuldesi hatarido: a versenyt koveto 3. nap ejfel.' (Deadline: midnight on the third day after the contest.) 'Resztvevok: minden radioamator' (participants: every amateur).",
+      "note": "Held on World Amateur Radio Day itself, 18 April, whatever weekday that falls on -- a fixed date, not a weekend rule. The six ten-minute periods are a scoring device inside one continuous hour, so the record is one span.",
+      "summary": "One hour on 80m every 18 April for World Amateur Radio Day, exchanging your age; the older you are, the more your contacts are worth.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Resztvevok: minden radioamator' -- every amateur may take part."
+      }
+    },
+    {
+      "id": "bfra-lz-dx",
+      "name": "LZ DX Contest",
+      "sponsor": "BFRA",
+      "country": "BG",
+      "rules_url": "https://lzdx.bfra.bg/rulesen.html",
+      "sponsor_home": "https://www.bfra.bg/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Stations outside Bulgaria send RS(T) and their ITU zone; LZ stations send RS(T) and a two-letter district abbreviation.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": -2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lzdx.bfra.bg/rulesen.html, the Bulgarian Federation of Radio Amateurs' own rules. 'The weekend before the last full weekend of November (the weekend before CQWW CW contest weekend) from 12:00 UTC on Saturday till 11:59 UTC on Sunday (22-23 November 2025). Logs due 0000Z, Dec 7 2025'. Bands: '80, 40, 20, 15 and 10 meters ... on both CW and SSB modes.' Exchange: non-LZ stations send RS(T) and ITU zone, LZ stations RS(T) and their two-letter district. Points: 10 for an LZ station, 3 to another continent, 1 within one's own. Categories: HP up to 1500 W, LP up to 100 W, QRP up to 10 W.",
+      "note": "'The weekend before the last full weekend of November' is a rule, not an annual announcement -- BFRA anchors it to CQ WW CW, which sits on the last one -- so it is encoded as n=-2 and this is the record that made the engine count backwards past 'last'. November 2025's full weekends are the 1st/2nd, 8th/9th, 15th/16th, 22nd/23rd and 29th/30th, so n=-2 gives 22-23 November, the date BFRA prints. For 2026 it gives 21-22 November. The log deadline is a stated instant (0000Z on 7 December 2025) and not the contest end plus a whole number of days, so it is recorded here rather than as log_deadline_days. REGISTRY CORRECTION: BFRA is at bfra.bg; the lzdx.bfra.org host that the sponsor's own news page cites does not resolve.",
+      "summary": "Bulgaria's DX contest, deliberately placed the weekend before CQ WW CW. LZ stations are worth ten points and hand out districts.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules give an exchange for stations inside and outside Bulgaria and score QSOs by continent, with no entry restriction."
+      }
+    },
+    {
+      "id": "frr-yo-dx-hf",
+      "name": "YO DX HF Contest",
+      "sponsor": "FRR",
+      "country": "RO",
+      "rules_url": "https://www.yodx.ro/rules.php",
+      "sponsor_home": "https://www.hamradio.ro/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5-28 MHz, WARC bands excluded.",
+      "exchange": "Stations outside Romania send RS(T) and a serial from 001; YO stations send RS(T) and their county abbreviation.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "yodx.ro/rules.php, the Romanian Radio Amateur Federation's own rules. English edition, '3. Date and Time: The contest is held during the fourth full weekend of August: Saturday 12:00:00 UTC - Sunday 11:59:59 UTC (24 hours).' Romanian edition: 'Al patrulea weekend intreg al lunii August: / Sambata 12:00:00 UTC - Duminica 11:59:59 UTC (24 de ore in total).' 4.1 restricts operation to 3.5-28 MHz excluding the WARC bands. 5.1: non-YO stations send RS(T) and a serial from 001; 5.2.1: YO stations send RS(T) and their county. 6: 8 points for a YO station, 4 to another continent, 2 within one's own continent, 1 within one's own DXCC entity, and YO-YO contacts score 0. 12.1: 'All logs must be submitted to the contest organizers within 7 (seven) days from the end of the competition.' Cabrillo to logs@yodx.ro. Second source, published separately by the organisers on yodx.ro: '22-23 August 2026, de sambata de la 12:00:00 UTC pana duminica la 11:59:59 UTC.'",
+      "note": "August 2026 is the year that separates the readings: 1 August is a Saturday, so the month has five full weekends (1-2, 8-9, 15-16, 22-23, 29-30) and the fourth is 22-23 August while the last is 29-30. The organisers' own 2026 announcement says 22-23, which is the fourth. CONTRADICTION, recorded not reconciled: an older FRR rules PDF on hamradio.ro says 'Ultimul weekend intreg al lunii August' (the LAST full weekend of August), which would give 29-30. The current yodx.ro rules and FRR's own 2026 announcement agree on the fourth, so that is what is encoded. Observation: the Romanian page leaks '[cite: 9]' markers into its text, which suggests it was assembled by a tool; the wording still matches the English edition.",
+      "summary": "Romania's DX contest over the fourth full weekend of August. YO counties are the multiplier, and YO-to-YO contacts score nothing at all.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules give exchanges and point values for stations inside and outside Romania and set no entry restriction."
+      }
+    },
+    {
+      "id": "hrs-9a-dx",
+      "name": "Croatian DX Contest (9A DX)",
+      "sponsor": "HRS",
+      "country": "HR",
+      "rules_url": "https://www.hamradio.hr/9a-dx-contest/",
+      "sponsor_home": "https://www.hamradio.hr/",
+      "log_submit_url": "http://www.hamradio.hr/hfrobot",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "International stations send RS(T) and their ITU zone; Croatian stations send RS(T) and their county plate abbreviation.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1359"
+      },
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "hamradio.hr/9a-dx-contest/, the Croatian Amateur Radio Association's own rules. 'The contest is to be held 3rd full weekend in December from 1400 UTC on Saturday until 13:59 UTC on Sunday. In the year 2025 Croatian DX Contest will be held on the 20th and 21st of December.' 'it is a worldwide competition: everybody can work everybody'. Bands: '160, 80, 40, 20, 15 and 10 meters ... on both CW and SSB modes.' Exchange: international stations send RS(T) and ITU Zone, Croatian stations RS(T) and their county abbreviation. Points run on a distance-and-band table -- 9A stations score 1/4/2/10/8/6 and others 10/6/6/3/2/1 depending on band and correspondent -- with 2 extra points per QSO made between 23:00 and 04:59 UTC. Categories: QRP 5 W, LP 100 W, otherwise up to 1500 W. 'The log deadline time is 8 days after the contest end'.",
+      "note": "The rules state the rule and check it against a year in the same paragraph: December 2025's full weekends are the 6th/7th, 13th/14th, 20th/21st and 27th/28th, so the third is 20-21 December, which is what HRS prints. For 2026 the rule gives 19-20 December. HRS also runs a one-hour submission window for entrants who want to be eligible to win; the eight-day deadline is the one that applies to everyone and is what is encoded.",
+      "summary": "Croatia's DX contest over the third full weekend of December, with bonus points for working through the small hours and Croatian counties as the multiplier.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'it is a worldwide competition: everybody can work everybody' -- HRS's own wording."
+      }
+    },
+    {
+      "id": "srs-tesla-memorial-hf-cw",
+      "name": "Tesla Memorial HF CW Contest",
+      "sponsor": "SRS",
+      "country": "RS",
+      "rules_url": "https://www.radiosport.yu1srs.org.rs/HFTeslaMemorial/index.php/rules",
+      "sponsor_home": "https://www.radiosport.yu1srs.org.rs/",
+      "log_submit_url": "https://www.radiosport.yu1srs.org.rs/HFTeslaMemorial/index.php/log-submitting-service",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RST, a serial number from 001 and a four-character locator -- 599 023 KN03.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0559"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "radiosport.yu1srs.org.rs/HFTeslaMemorial, the Savez radio-amatera Srbije's own rules page. 'Contest rules 2026 / March 14/15, 2026 / Starts: 18:00 UTC Saturday March 14 / Ends: 05:59 UTC Sunday March 15'. The recurrence is SRS's own: the contest 'will be held every year, every second weekend in March' / 'odrzavace se svake godine drugog vikenda u martu'. Bands: '3.5 MHz (80m) and 7MHz (40m) bands may be used.' Mode: CW. Exchange: 'QSO NR: Starting from 001 and increases by 1 for each subsequent QSO regardless of the band' plus a four-character locator -- 'Exchange example: 599 023 KN03'. Points run on a distance table from 10 to 45; there are no multipliers and no penalties. 'XII. Deadline for sending a log: 19.03.2026. until 23.59 UTC.' Logs via the web service or tesla(at)yu1srs.org.rs; paper logs are not accepted.",
+      "note": "'Second weekend in March' is encoded as the second FULL weekend, and SRS's own published dates settle it: 2019 09/10, 2020 14/15, 2021 13/14, 2022 12/13, 2023 11/12, 2024 09/10, 2025 08/09 and 2026 14/15 -- eight years, all reproduced. 2020 is the year that discriminates: 1 March 2020 was a Sunday, so counting weekends by their Sunday gives 7/8, but SRS published 14/15. The log deadline is a stated instant (19 March 2026, 23:59 UTC) rather than an interval from the contest end, so it is recorded here. BLOCKERS: yudx.org, the host in the registry, no longer resolves; SRS's own domestic schedule and rules pages ('Raspored takmicenja i pravila', 'Takmicenja') render only a JavaScript placeholder, and stari.yu1srs.org.rs returns HTTP 500 -- so KT Prvenstvo Srbije and KT Kup SRS could not be read and are not encoded.",
+      "summary": "Serbia's overnight CW contest on 80m and 40m, scored purely by distance -- no multipliers, no penalties, just twelve hours from 1800 UTC.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The rules set no entry restriction and score every contact by distance; stations using a prefix not assigned by the ITU are placed in check logs."
+      }
+    },
+    {
+      "id": "lral-18-november-80m",
+      "name": "LRAL 18 November 80m Contest",
+      "sponsor": "LRAL",
+      "country": "LV",
+      "rules_url": "https://lral.lv/hf-80m-nolikums/",
+      "sponsor_home": "https://lral.lv/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW",
+        "SSB",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "CW 3515-3580 kHz; SSB 3605-3650 kHz; FT8 3577 kHz.",
+      "exchange": "A serial number and the two-letter Latvian or Riga district code (001 LM). RST may be sent but is not part of the number. The FT8 rounds use signal report and a four-character locator instead.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 11,
+        "day": 18
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0800",
+            "wall_clock": true
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0959",
+            "wall_clock": true
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1015",
+            "wall_clock": true
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1114",
+            "wall_clock": true
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0800",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0959",
+        "wall_clock": true
+      },
+      "power_categories": [
+        {
+          "name": "All entrants",
+          "max_watts": 100
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lral.lv/hf-80m-nolikums/, the Latvijas Radioamatieru liga's own nolikums, which covers both events. 'Sacensibas notiek 6 turos / 18. novembri no 08.00-11.14 pec vietejа laika' with rounds 08.00-08.29, 08.30-08.59, 09.00-09.29 and 09.30-09.59 CW/SSB and 10.15-10.44, 10.45-11.14 FT8; '4. maija no 07.00-10.14 pec vietejа laika' with rounds 07.00-07.29, 07.30-07.59, 08.00-08.29 and 08.30-08.59 CW/SSB and 09.15-09.44, 09.45-10.14 FT8. ('pec vieteja laika' = local time.) 'Frekvences un tehniskie noteikumi: CW - 3515-3580 kHz; SSB - 3605-3650 kHz; FT8 - 3577 kHz. Raiditaju izejas jauda: <=100 W.' 'Dalibnieki: Visi Latvijas radioamatieri.' (Participants: all Latvian radio amateurs.) Exchange: 'Kontroles numurs CW un SSB turos ir QSO kartas numurs un divi burti, kas apzime Latvijas vai Rigas pilsetas radioamatieru rajonu (piemeram, 001 LM). RST var raidit, bet tas kontroles numura neietilpst' -- the serial and district only; RST may be sent but is not part of the number. The FT8 rounds carry no serials. Each QSO is one point; the multiplier is districts per round, or locator squares in the FT8 rounds. Classes: A (CW+SSB), B (CW), B1 (CW with a straight key), C (SSB), D (FT8), E (multi-op). 'Atskaites iesniedz 14 dienu laika pec sacensibam, sutot uz adresi: yltest@lral.lv.'",
+      "note": "SPONSOR-ANCHORED LOCAL TIME. LRAL states the schedule 'pec vieteja laika' -- in local time -- and never in UTC, so the record carries timezone Europe/Riga and wall_clock times. The two blocks are encoded as sessions because LRAL puts a gap between them and says the FT8 rounds are a separate contest: 'FT8 tures ir atseviskas sacensibas, dalibnieki, kas starte FT8 darba veida, var startet ari kada no A, B, vai C klasem.' Both sessions carry the record's whole mode list, which the catalog cannot narrow per session; the split is stated here and in bands_note. One nolikums covers both dates, so both records cite the same URL.",
+      "summary": "Latvia's 80m contest on 18 November, its Proclamation Day: four half-hour CW/SSB rounds and then two FT8 rounds, with Latvian districts as the multiplier.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "YL"
+        ],
+        "verified": true,
+        "note": "'Dalibnieki: Visi Latvijas radioamatieri' -- all Latvian radio amateurs. The nolikums names no other entrants."
+      },
+      "timezone": "Europe/Riga"
+    },
+    {
+      "id": "lral-4-may-80m",
+      "name": "LRAL 4 May 80m Contest",
+      "sponsor": "LRAL",
+      "country": "LV",
+      "rules_url": "https://lral.lv/hf-80m-nolikums/",
+      "sponsor_home": "https://lral.lv/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW",
+        "SSB",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "CW 3515-3580 kHz; SSB 3605-3650 kHz; FT8 3577 kHz.",
+      "exchange": "A serial number and the two-letter Latvian or Riga district code (001 LM). RST may be sent but is not part of the number. The FT8 rounds use signal report and a four-character locator instead.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 5,
+        "day": 4
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0700",
+            "wall_clock": true
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0859",
+            "wall_clock": true
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0915",
+            "wall_clock": true
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1014",
+            "wall_clock": true
+          }
+        }
+      ],
+      "start": {
+        "day_offset": 0,
+        "time": "0700",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0859",
+        "wall_clock": true
+      },
+      "power_categories": [
+        {
+          "name": "All entrants",
+          "max_watts": 100
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lral.lv/hf-80m-nolikums/, the Latvijas Radioamatieru liga's own nolikums, which covers both events. 'Sacensibas notiek 6 turos / 18. novembri no 08.00-11.14 pec vietejа laika' with rounds 08.00-08.29, 08.30-08.59, 09.00-09.29 and 09.30-09.59 CW/SSB and 10.15-10.44, 10.45-11.14 FT8; '4. maija no 07.00-10.14 pec vietejа laika' with rounds 07.00-07.29, 07.30-07.59, 08.00-08.29 and 08.30-08.59 CW/SSB and 09.15-09.44, 09.45-10.14 FT8. ('pec vieteja laika' = local time.) 'Frekvences un tehniskie noteikumi: CW - 3515-3580 kHz; SSB - 3605-3650 kHz; FT8 - 3577 kHz. Raiditaju izejas jauda: <=100 W.' 'Dalibnieki: Visi Latvijas radioamatieri.' (Participants: all Latvian radio amateurs.) Exchange: 'Kontroles numurs CW un SSB turos ir QSO kartas numurs un divi burti, kas apzime Latvijas vai Rigas pilsetas radioamatieru rajonu (piemeram, 001 LM). RST var raidit, bet tas kontroles numura neietilpst' -- the serial and district only; RST may be sent but is not part of the number. The FT8 rounds carry no serials. Each QSO is one point; the multiplier is districts per round, or locator squares in the FT8 rounds. Classes: A (CW+SSB), B (CW), B1 (CW with a straight key), C (SSB), D (FT8), E (multi-op). 'Atskaites iesniedz 14 dienu laika pec sacensibam, sutot uz adresi: yltest@lral.lv.'",
+      "note": "SPONSOR-ANCHORED LOCAL TIME. LRAL states the schedule 'pec vieteja laika' -- in local time -- and never in UTC, so the record carries timezone Europe/Riga and wall_clock times. The two blocks are encoded as sessions because LRAL puts a gap between them and says the FT8 rounds are a separate contest: 'FT8 tures ir atseviskas sacensibas, dalibnieki, kas starte FT8 darba veida, var startet ari kada no A, B, vai C klasem.' Both sessions carry the record's whole mode list, which the catalog cannot narrow per session; the split is stated here and in bands_note. One nolikums covers both dates, so both records cite the same URL.",
+      "summary": "Latvia's 80m contest on 4 May: four half-hour CW/SSB rounds and then two FT8 rounds, with Latvian districts as the multiplier.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "YL"
+        ],
+        "verified": true,
+        "note": "'Dalibnieki: Visi Latvijas radioamatieri' -- all Latvian radio amateurs. The nolikums names no other entrants."
+      },
+      "timezone": "Europe/Riga"
+    },
+    {
+      "id": "erau-es-open",
+      "name": "ES Open HF Championship",
+      "sponsor": "ERAU",
+      "country": "EE",
+      "rules_url": "https://erau.ee/images/LL/ES-Open_rules.pdf",
+      "sponsor_home": "https://www.erau.ee/",
+      "log_submit_url": "http://esopen.erau.ee",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "CW 3510-3560 and 7010-7040 kHz; SSB 3600-3650, 3700-3750 and 7060-7100, 7130-7175 kHz.",
+      "exchange": "RS(T) and a continuous serial number from 001.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0500"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0859"
+      },
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "erau.ee ES Open HF Championship rules (PDF). 'TIME: 3rd SATURDAY in APRIL: 18. APRIL 2026 05.00 - 08.59 UTC'. 'BANDS: 80 M AND 40 M SIMULTANEOUSLY' -- CW 3510-3560 and 7010-7040, SSB 3600-3650, 3700-3750 and 7060-7100, 7130-7175 kHz. 'ESTONIAN STATIONS CAN WORK ALL THE STATIONS WHO PARTICIPATE ... NON-ES STATIONS CAN WORK ONLY ES STATIONS.' 'NB! Due to the ongoing war in the Ukraine QSO-s with stations from Russia and Byelorussia are not counted in this contest and will not give any points.' Exchange: RS(T) and a continuous serial from 001. CW contacts score 2 points and SSB 1. Categories: LP up to 100 W, QRP up to 10 W. 'DEADLINE: LOGS ... SHOULD BE SENT NOT LATER THAN 7 DAYS AFTER THE CONTEST'. Second source, published separately by ERAU: its 2026 calendar prints a row 'ES Open HF Championship / 05:00-08:59 / CW,SSB' on 18.04.",
+      "note": "The third Saturday of April 2026 is the 18th, which is the date the rules print and the date ERAU's own 2026 calendar carries. Everyone may enter, but only ES stations can work everyone; that asymmetry is recorded in the eligibility note rather than as two_sided, because two_sided would tell a station in an unlisted entity it cannot enter, which is false here.",
+      "summary": "Estonia's four-hour spring championship on 80m and 40m at once. Estonian stations work the world; everyone else works Estonia.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'ESTONIAN STATIONS CAN WORK ALL THE STATIONS WHO PARTICIPATE ... NON-ES STATIONS CAN WORK ONLY ES STATIONS.' Anyone may enter; what differs is who counts. ERAU also states that contacts with Russian and Belarusian stations score nothing, citing the war in Ukraine."
+      }
+    },
+    {
+      "id": "erau-es-ll-kv",
+      "name": "Estonian HF Cup (ES LL KV)",
+      "sponsor": "ERAU",
+      "country": "EE",
+      "rules_url": "https://www.erau.ee/images/LL/ES%20LL%20KV%20reeglid.pdf",
+      "sponsor_home": "https://www.erau.ee/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "CW below 3600 kHz and SSB above it; 3530-3560 kHz and 3600-3650 kHz are recommended.",
+      "exchange": "RS(T) and a continuous serial number from 001.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-01-03",
+            "2026-02-14",
+            "2026-03-07",
+            "2026-04-04",
+            "2026-05-02",
+            "2026-09-05",
+            "2026-10-03",
+            "2026-11-07",
+            "2026-12-05"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1000",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1059",
+        "wall_clock": true
+      },
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "erau.ee 'ES LL KV reeglid' (PDF). 4.2: 'Voistlused viiakse labi 9-s etapis laupaeva hommikuti vastavalt ERAU kalenderplaanile.' (The competition is held in 9 stages on Saturday mornings according to ERAU's calendar plan.) 4.3: 'Etappide algus on 10:00 Eesti aja (EA) jargi ja lopp 11:00 EA' with four periods, the last running 10:45-10:59 EA. 4.4: modes CW and SSB on 80 m, CW below 3600 kHz and SSB above, 3530-3560 and 3600-3650 kHz recommended. 4.5: up to 100 W, QRP 10 W. 4.6: exchange RS(T) and a continuous serial from 001; CW scores 2 points and SSB 1. 7: logs are due 'hiljemalt voistlusele jargneva nadala neljapaeval kella 09.59'ks (EA)' -- by 09:59 Estonian time on the Thursday of the following week. Second source, published separately by ERAU: its 2026 calendar lists all nine dates -- 03.01, 14.02, 07.03, 04.04, 02.05, 05.09, 03.10, 07.11 and 05.12 -- and prints their UTC windows as 08:00-08:59 for stages 1, 2, 3, 8 and 9 and 07:00-07:59 for stages 4, 5, 6 and 7.",
+      "note": "SPONSOR-ANCHORED LOCAL TIME, and ERAU's own calendar proves the reading: 10:00-10:59 Estonian time is 08:00-08:59 UTC in winter (EET) and 07:00-07:59 in summer (EEST), which is exactly the split ERAU prints across the nine stages. The rules give no date rule at all -- 4.2 defers to the calendar plan -- so the dates are manual and taken from ERAU's published 2026 calendar. Eight of the nine are the first Saturday of their month; February's is the second. The log deadline is 'the Thursday of the following week', which is not a fixed number of days from the end of each stage, so it is recorded here rather than as log_deadline_days. Stages 4.3 also splits each hour into four periods; that is a scoring device inside one continuous hour.",
+      "summary": "Nine Saturday-morning 80m sprints across the year, run to Estonian clock time so the UTC hour moves with the seasons.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ES"
+        ],
+        "verified": true,
+        "note": "Entry is for stations registered in and operating from Estonia, plus holders of ES callsigns abroad who use their ES call with the host country's prefix."
+      },
+      "timezone": "Europe/Tallinn"
+    },
+    {
+      "id": "lrmd-vytautas-magnus",
+      "name": "Vytautas Magnus Contest (VMC)",
+      "sponsor": "LRMD",
+      "country": "LT",
+      "rules_url": "https://lrmd.lt/vmc/",
+      "sponsor_home": "https://lrmd.lt/",
+      "log_format": "LYtest",
+      "log_deadline_days": 1,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "submodes": [
+        "FM"
+      ],
+      "bands": [
+        "80m",
+        "2m"
+      ],
+      "bands_note": "80m CW 3510-3600 kHz and SSB 3600-3700 kHz; 2m calling frequencies CW 144.050, SSB 144.300 and FM 145.500 MHz.",
+      "exchange": "RS(T), a serial number from 001 and a six-character WW locator.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0759"
+      },
+      "power_categories": [
+        {
+          "name": "All entrants",
+          "max_watts": 100
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lrmd.lt/vmc/, the Lietuvos radijo megeju draugija's own rules. 'Varzybos vyksta kiekvienais metais pirma sekmadieni po Nauju metu, 0700-0759 UTC. Artimiausia data: 2026-01-04, 0900-0959 LST.' The English text on the same page: 'The contest takes place annually on the first Sunday after New Year's Day, from 0700 to 0759 UTC.' Modes 'CW, SSB, FM'; bands 80 m (3510-3600 CW, 3600-3700 SSB) and 2 m (144.050 CW, 144.300 SSB, 145.500 FM). 'Dalyvauti gali visi licencijuoti Lietuvos ir uzsienio radijo megejai (isskyrus Rusija ir Baltarusija)' (all licensed Lithuanian and foreign amateurs may take part, except Russia and Belarus). 'Ne daugiau kaip 100 W.' Exchange: 'RS(T) + rysio eiles numeris nuo 001 + 6 zenklu WW lokatorius'. One point per QSO; the multiplier is distinct WW locators per band. 'Ataskaitas siusti per 24 valandas po varzybu pabaigos' (send logs within 24 hours of the end). Logs to VMC@QRZ.LT in LYtest format; paper logs are not accepted.",
+      "note": "Encoded as the first Sunday in January, which gives 4 January 2026 -- the date LRMD prints. CAVEAT: LRMD's two wordings diverge in the years when 1 January is itself a Sunday. 'The first Sunday AFTER New Year's Day' would then be the 8th, while the first Sunday IN January is the 1st. No such year has been published by LRMD, so neither reading can be tested against a sponsor date; the first-Sunday reading is encoded and the divergence recorded rather than resolved. FM is in submodes because it is not in the catalog's mode vocabulary.",
+      "summary": "Lithuania's New Year hour on 80m and 2m: locators are the multiplier, logs are due within 24 hours, and 100 W is the ceiling for everyone.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Dalyvauti gali visi licencijuoti Lietuvos ir uzsienio radijo megejai (isskyrus Rusija ir Baltarusija)' -- all licensed Lithuanian and foreign amateurs, except those from Russia and Belarus."
+      }
+    },
+    {
+      "id": "lrmd-wal",
+      "name": "Lithuanian Mobile and Portable Championship (WAL Contest)",
+      "sponsor": "LRMD",
+      "country": "LT",
+      "rules_url": "https://lrmd.lt/mobiliuju-portabiliuju/",
+      "sponsor_home": "https://lrmd.lt/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3530-3600 kHz CW and 3600-3700 kHz SSB/CW; 3600-3610 kHz is reserved as the mobile calling segment.",
+      "exchange": "Stations in Lithuania send RS(T) and their WAL square (599A18); stations elsewhere send RS(T) and the letters DX (599DX).",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-06-06"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0859"
+      },
+      "power_categories": [
+        {
+          "name": "All entrants",
+          "max_watts": 100
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lrmd.lt/mobiliuju-portabiliuju/, 'Lietuvos mobiliuju-portabiliuju radijo stociu cempionatas'. 'Laikas: 2026 m. birzelio 06 d. (sestadieni), 06:00-08:59 UTC (09.00-11.59 val. Lietuvos laiku).' (Time: Saturday 6 June 2026, 06:00-08:59 UTC, which is 09:00-11:59 Lithuanian time.) 'Daznai: 3530-3600 kHz CW ir 3600-3700 kHz SSB/CW', with 3600-3610 kHz reserved for mobile CQ calls. 'Spinduliuotes galia: ne daugiau 100 W.' 'Dalyviai: Lietuvoje ir kitose salyse licenzijuoti radijo megejai ir stebetojai, isskyrus dalyvius is saliu agresoriu, t.y. Rusijos Federacijos ir Baltarusijos Respublikos.' 'Eiga: varzybos vyksta trimis turais 06.00-06.59, 07.00-07.59 ir 08.00-08.59 UTC' -- one CW and one SSB QSO with each correspondent per round, and a mobile that changes WAL square becomes a new correspondent. 'Kontroliniai numeriai: RS(T) ir WAL kvadratas Lietuvoje dirbancioms radijo stotims (599A18). Kitose salyse dirbancios radijo stotys perduoda RS(T) ir raides DX (599DX).' Points: 1 for a fixed station, 3 for portable (/p), 5 for mobile (/m) and 1 for a foreign station. Classes M, P, S, K, SWL and KL, with at least ten correspondents needed to be classified. 'ataskaitos CABRILLO formatu turetu buti issiustos, ne veliau kaip per dvi savaites po varzybu, elektroniniu pastu walcontest@lrmd.lt'",
+      "note": "LRMD states this one as a date, not a rule -- 'Laikas: 2026 m. birzelio 06 d. (sestadieni)' -- so the record is manual and covers 2026 only. The times are given in UTC first with Lithuanian local time in brackets, so there is no wall-clock question here, unlike the neighbouring Baltic contests. The three hourly rounds are a scoring device inside one continuous span.",
+      "summary": "Three hourly rounds on 80m chasing mobile and portable stations across Lithuania's WAL squares, where a mobile crossing a square line counts as a new station.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Dalyviai: Lietuvoje ir kitose salyse licenzijuoti radijo megejai ir stebetojai, isskyrus dalyvius is saliu agresoriu, t.y. Rusijos Federacijos ir Baltarusijos Respublikos' -- licensed amateurs and SWLs in Lithuania and other countries, except entrants from Russia and Belarus. Foreign entrants have their own class and send DX as their exchange."
+      }
+    },
+    {
+      "id": "srr-russian-dx",
+      "name": "Russian DX Contest (RDXC)",
+      "sponsor": "SRR",
+      "country": "RU",
+      "rules_url": "https://www.rdxc.org/rules",
+      "sponsor_home": "https://www.rdxc.org/",
+      "log_submit_url": "https://ua9qcq.ru/submit_log.php",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 14,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "1.8-28 MHz, WARC bands excluded.",
+      "exchange": "Russian stations send RS(T) and their two-letter oblast identifier; everyone else sends RS(T) and a serial from 001, numbered continuously across bands.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2027": [
+            "2027-03-20"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "rdxc.org/rules, the Soyuz radiolyubitelei Rossii's own reglament. '2. VREMYA PROVEDENIYA SOREVNOVANIY, DIAPAZONY I VIDY MODULYATSII: «RUSSIAN DX CONTEST» provoditsya s 12:00 UTC 20 marta po 11:59 UTC 21 marta 2027 goda na diapazonakh 1,8 - 28 MHz (isklyuchaya WARC diapazony). Vidy modulyatsii: CW i SSB.' (Held from 12:00 UTC on 20 March to 11:59 UTC on 21 March 2027 on 1.8-28 MHz excluding the WARC bands; modes CW and SSB.) 6.1 and 6.3: Russian participants send RS(T) plus a two-letter oblast identifier, everyone else RS(T) plus a serial from 001 numbered continuously across bands. 7.2: 10 points for a Russian station regardless of continent, 2 within one's own country, 3 within one's own continent, 5 to another. Power: High Power is the licence limit, Low Power 100 W, QRP 5 W. 11.1: Cabrillo only; 11.5: logs are accepted only through ua9qcq.ru/submit_log.php. 12.1: 'Otchyoty ... prinimayutsya v techenii 14 dney posle okonchaniya sorevnovaniy (po 04.04.2027 goda vklyuchitelno).'",
+      "note": "SRR's rules page states a date and no recurrence rule, so the record is manual -- and the only year it states is 2027, which is why this contest produces no 2026 occurrence. Inferring 'the fourth full weekend of March' from one printed date would be this catalog writing a rule SRR did not. The 14-day deadline is checkable against SRR's own arithmetic: the contest ends 11:59 UTC on 21 March 2027 and SRR prints 4 April 2027 as the last day, which is exactly 14 days. CONTRADICTION, recorded not reconciled: the rules say the contest ends at 11:59 UTC while the site banner says '12:00-12:00 UTC'. The rules text is what is encoded.",
+      "summary": "Russia's international DX contest: 24 hours on five HF bands plus 160m, with Russian oblasts as multipliers on top of DXCC and WAE.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The reglament gives exchanges and point values for Russian and non-Russian entrants alike and scores results separately by continent, with no entry restriction."
+      }
+    },
+    {
+      "id": "uarl-champ-rtty",
+      "name": "Ukrainian HF Championship (RTTY)",
+      "sponsor": "UARL",
+      "country": "UA",
+      "rules_url": "http://uarl.org.ua/files/stories2026/Reglament_ChU-2026-or-040226.pdf",
+      "sponsor_home": "http://uarl.org.ua/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "The two-letter Ukrainian oblast code and a serial number from 001, numbered continuously across all four rounds -- ZP 001, KV 034.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-07"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2059",
+        "wall_clock": true
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uarl.org.ua, 'REGLAMENT CHEMPIONATIV UKRAYINY Z RADIOZV'YAZKU NA KKH 2026 ROKU' (PDF, approved 04.02.2026). II: '2.1. Teletaypnyy Chempionat Ukrayiny na KKH - 7 bereznya 2026 r. / 2.2. Telehrafnyy Chempionat Ukrayiny na KKH - 15 bereznya 2026 r. / 2.3. Telefonnyy Chempionat Ukrayiny na KKH - 22 bereznya 2026 r.' V: 'Telefonnyy (SSB), telehrafnyy (CW) i teletaypnyy (RTTY) Chempionaty Ukrayiny provodyatsya u chotyry tury, po 30 khvylyn kozhen. Pershyy tur: z 19:00 do 19:29 kyyivskoho chasu, druhyy tur: z 19:30 do 19:59, tretiy tur z 20:00 do 20:29, chetvertyy tur z 20:30 do 20:59 vklyuchno.' (Four 30-minute rounds from 19:00 to 20:59 Kyiv time.) Recommended frequencies: CW 7.010-7.040 and 3.510-3.560 MHz; SSB 7.050-7.100 and 3.600-3.650 MHz; RTTY 7.040-7.080 and 3.580-3.600 MHz. IV: entry is for operators of collective and individual stations representing the oblasts of Ukraine and the city of Kyiv. Exchange: 'Kontrolni nomery skladayutsya z umovnoho poznachennya oblasti ta nomera radiozv'yazku, pochynayuchy z 001. Napryklad: ZP 001, KV 034.' Scoring: 2 points per QSO and 5 points for each new oblast on each band in each round. Logs are Cabrillo, times in UTC, and the deadline is 'Krayniy termin podachi zvitu - 7 dib pislya zakinchennya zmahan, pochynayuchy z ponedilka' (7 days after the end of the contest, counting from the Monday).",
+      "note": "SPONSOR-ANCHORED LOCAL TIME: UARL states the schedule 'kyyivskoho chasu' -- Kyiv time -- so the record carries timezone Europe/Kyiv and wall_clock times. UARL publishes dates for the year, not a recurrence rule, so the record is manual and covers 2026 only. The four 30-minute rounds are contiguous and are encoded as one span. The deadline is stated as seven days from the end 'counting from the Monday', which is not a plain interval, so it is recorded here rather than as log_deadline_days. AGGREGATOR DECLINED: UARL republishes a monthly contest calendar that links contestcalendar.com; only UARL's own reglament was used.",
+      "summary": "Ukraine's national RTTY championship: two evening hours on 80m and 40m in four half-hour rounds, with oblasts scoring on every band in every round.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "UR"
+        ],
+        "verified": true,
+        "note": "Section IV admits operators of collective and individual amateur stations representing the oblasts of Ukraine and the city of Kyiv."
+      },
+      "timezone": "Europe/Kyiv"
+    },
+    {
+      "id": "uarl-champ-cw",
+      "name": "Ukrainian HF Championship (CW)",
+      "sponsor": "UARL",
+      "country": "UA",
+      "rules_url": "http://uarl.org.ua/files/stories2026/Reglament_ChU-2026-or-040226.pdf",
+      "sponsor_home": "http://uarl.org.ua/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "The two-letter Ukrainian oblast code and a serial number from 001, numbered continuously across all four rounds -- ZP 001, KV 034.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-15"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2059",
+        "wall_clock": true
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uarl.org.ua, 'REGLAMENT CHEMPIONATIV UKRAYINY Z RADIOZV'YAZKU NA KKH 2026 ROKU' (PDF, approved 04.02.2026). II: '2.1. Teletaypnyy Chempionat Ukrayiny na KKH - 7 bereznya 2026 r. / 2.2. Telehrafnyy Chempionat Ukrayiny na KKH - 15 bereznya 2026 r. / 2.3. Telefonnyy Chempionat Ukrayiny na KKH - 22 bereznya 2026 r.' V: 'Telefonnyy (SSB), telehrafnyy (CW) i teletaypnyy (RTTY) Chempionaty Ukrayiny provodyatsya u chotyry tury, po 30 khvylyn kozhen. Pershyy tur: z 19:00 do 19:29 kyyivskoho chasu, druhyy tur: z 19:30 do 19:59, tretiy tur z 20:00 do 20:29, chetvertyy tur z 20:30 do 20:59 vklyuchno.' (Four 30-minute rounds from 19:00 to 20:59 Kyiv time.) Recommended frequencies: CW 7.010-7.040 and 3.510-3.560 MHz; SSB 7.050-7.100 and 3.600-3.650 MHz; RTTY 7.040-7.080 and 3.580-3.600 MHz. IV: entry is for operators of collective and individual stations representing the oblasts of Ukraine and the city of Kyiv. Exchange: 'Kontrolni nomery skladayutsya z umovnoho poznachennya oblasti ta nomera radiozv'yazku, pochynayuchy z 001. Napryklad: ZP 001, KV 034.' Scoring: 2 points per QSO and 5 points for each new oblast on each band in each round. Logs are Cabrillo, times in UTC, and the deadline is 'Krayniy termin podachi zvitu - 7 dib pislya zakinchennya zmahan, pochynayuchy z ponedilka' (7 days after the end of the contest, counting from the Monday).",
+      "note": "SPONSOR-ANCHORED LOCAL TIME: UARL states the schedule 'kyyivskoho chasu' -- Kyiv time -- so the record carries timezone Europe/Kyiv and wall_clock times. UARL publishes dates for the year, not a recurrence rule, so the record is manual and covers 2026 only. The four 30-minute rounds are contiguous and are encoded as one span. The deadline is stated as seven days from the end 'counting from the Monday', which is not a plain interval, so it is recorded here rather than as log_deadline_days. AGGREGATOR DECLINED: UARL republishes a monthly contest calendar that links contestcalendar.com; only UARL's own reglament was used.",
+      "summary": "Ukraine's national CW championship: two evening hours on 80m and 40m in four half-hour rounds, with oblasts scoring on every band in every round.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "UR"
+        ],
+        "verified": true,
+        "note": "Section IV admits operators of collective and individual amateur stations representing the oblasts of Ukraine and the city of Kyiv."
+      },
+      "timezone": "Europe/Kyiv"
+    },
+    {
+      "id": "uarl-champ-ssb",
+      "name": "Ukrainian HF Championship (SSB)",
+      "sponsor": "UARL",
+      "country": "UA",
+      "rules_url": "http://uarl.org.ua/files/stories2026/Reglament_ChU-2026-or-040226.pdf",
+      "sponsor_home": "http://uarl.org.ua/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "The two-letter Ukrainian oblast code and a serial number from 001, numbered continuously across all four rounds -- ZP 001, KV 034.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-22"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2059",
+        "wall_clock": true
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uarl.org.ua, 'REGLAMENT CHEMPIONATIV UKRAYINY Z RADIOZV'YAZKU NA KKH 2026 ROKU' (PDF, approved 04.02.2026). II: '2.1. Teletaypnyy Chempionat Ukrayiny na KKH - 7 bereznya 2026 r. / 2.2. Telehrafnyy Chempionat Ukrayiny na KKH - 15 bereznya 2026 r. / 2.3. Telefonnyy Chempionat Ukrayiny na KKH - 22 bereznya 2026 r.' V: 'Telefonnyy (SSB), telehrafnyy (CW) i teletaypnyy (RTTY) Chempionaty Ukrayiny provodyatsya u chotyry tury, po 30 khvylyn kozhen. Pershyy tur: z 19:00 do 19:29 kyyivskoho chasu, druhyy tur: z 19:30 do 19:59, tretiy tur z 20:00 do 20:29, chetvertyy tur z 20:30 do 20:59 vklyuchno.' (Four 30-minute rounds from 19:00 to 20:59 Kyiv time.) Recommended frequencies: CW 7.010-7.040 and 3.510-3.560 MHz; SSB 7.050-7.100 and 3.600-3.650 MHz; RTTY 7.040-7.080 and 3.580-3.600 MHz. IV: entry is for operators of collective and individual stations representing the oblasts of Ukraine and the city of Kyiv. Exchange: 'Kontrolni nomery skladayutsya z umovnoho poznachennya oblasti ta nomera radiozv'yazku, pochynayuchy z 001. Napryklad: ZP 001, KV 034.' Scoring: 2 points per QSO and 5 points for each new oblast on each band in each round. Logs are Cabrillo, times in UTC, and the deadline is 'Krayniy termin podachi zvitu - 7 dib pislya zakinchennya zmahan, pochynayuchy z ponedilka' (7 days after the end of the contest, counting from the Monday).",
+      "note": "SPONSOR-ANCHORED LOCAL TIME: UARL states the schedule 'kyyivskoho chasu' -- Kyiv time -- so the record carries timezone Europe/Kyiv and wall_clock times. UARL publishes dates for the year, not a recurrence rule, so the record is manual and covers 2026 only. The four 30-minute rounds are contiguous and are encoded as one span. The deadline is stated as seven days from the end 'counting from the Monday', which is not a plain interval, so it is recorded here rather than as log_deadline_days. AGGREGATOR DECLINED: UARL republishes a monthly contest calendar that links contestcalendar.com; only UARL's own reglament was used.",
+      "summary": "Ukraine's national SSB championship: two evening hours on 80m and 40m in four half-hour rounds, with oblasts scoring on every band in every round.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "UR"
+        ],
+        "verified": true,
+        "note": "Section IV admits operators of collective and individual amateur stations representing the oblasts of Ukraine and the city of Kyiv."
+      },
+      "timezone": "Europe/Kyiv"
+    },
+    {
+      "id": "uarl-lp-cup-cw",
+      "name": "Ukrainian Low Power Cup (LP CUP CW)",
+      "sponsor": "UARL",
+      "country": "UA",
+      "rules_url": "http://uarl.org.ua/index.php/sport/1235-reglament-kubku-ukrajini-z-radiozv-yazku-na-kkh-maloyu-potuzhnistyu-lp-cup-cw-2026",
+      "sponsor_home": "http://uarl.org.ua/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "Recommended 3.510-3.560 and 7.010-7.040 MHz.",
+      "exchange": "The two-letter Ukrainian oblast code and a serial number from 001, numbered continuously across all four rounds.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-05-10"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1759"
+      },
+      "power_categories": [
+        {
+          "name": "All entrants",
+          "max_watts": 100
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "uarl.org.ua, 'REGLAMENT KUBKU UKRAYINY Z RADIOZV'YAZKU NA KKH MALOYU POTUZHNISTYU (LP CUP CW-2026)'. II: 'Kubok Ukrayiny na KKH (mala potuzhnist) telehrafom bude provedeno 10 travnya 2026r. z 16:00 do 17:59 UT (z 19:00 kyyivskoho chasu do 20:59 kyyivskoho chasu)' (10 May 2026, 16:00-17:59 UT, which is 19:00-20:59 Kyiv time). V: four 30-minute rounds; 'Vykhidna potuzhnist peredavacha dlya vsikh uchasnykiv ne bilshe 100 Vatt. Vyd vyprominyuvannya TELEHRAF (CW).' Recommended frequencies 3.510-3.560 and 7.010-7.040 MHz. IV: entry is for operators of collective and individual stations representing the oblasts of Ukraine and the city of Kyiv. Exchange and scoring are as in the championships: oblast plus serial, 2 points per QSO and 5 per new oblast per band per round. 'Krayniy termin podachi zvitu - 7 dib pislya zakinchennya zmahan. Tobto, 17 travnya 2026 roku ostanniy den.'",
+      "note": "Unlike UARL's championships, this reglament states the times in UT first and gives Kyiv time in brackets, so the record is plain UTC with no wall_clock. The deadline is checkable against UARL's own arithmetic: 10 May plus seven days is 17 May 2026, which is the date the reglament prints. Manual dates for 2026 only -- UARL publishes a year at a time, not a rule.",
+      "summary": "Ukraine's low-power CW cup: two evening hours at 100 W or less on 80m and 40m, in four half-hour rounds with oblasts as the multiplier.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "UR"
+        ],
+        "verified": true,
+        "note": "Section IV admits operators of collective and individual amateur stations representing the oblasts of Ukraine and the city of Kyiv."
+      }
     }
   ]
 }

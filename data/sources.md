@@ -43,6 +43,18 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-18 | ARI | contest.ari.it/hf_web/rules/{aridxrule_dx, arisezionihf_it}.pdf + ari.it/contest-hf/contest-4080.html | 3 | International DX: "Il contest si svolge il primo weekend completo di Maggio con inizio alle ore 1200Z del sabato e termine alle ore 1159Z della domenica. L'edizione 2026 avrà luogo il 02 e 03 Maggio." (EN: "held on each first full week-end of May".) Contest delle Sezioni HF (Italian only): "ogni secondo week-end completo di Giugno … L'edizione 2026 avrà luogo in data 13 e 14 Giugno", logs "entro, e non oltre, 6 giorni dalla data di fine contest". 40/80: "il secondo weekend completo di Dicembre con inizio alle ore 1300Z del sabato … L'edizione 2025 avrà luogo il 13 e 14 Dicembre." |
 | 2026-08-18 | URE | concursos.ure.es/en/{s-m-el-rey-de-espana-cw, s-m-el-rey-de-espana-ssb, eartty, eapsk63, cncw, cme}/bases/ | 6 | King of Spain CW: "3rd full weekend of May, from 1200 UTC Saturday till 1159 UTC Sunday (May 16th and 17th, 2026)"; SSB: "**4rd** full weekend of June … (June 27th and 28th, 2026)" — URE's typo, quoted as written. EA PSK63 (Spanish): "Segundo fin de semana del mes de marzo (en el año 2026, días 14 y 15)". CNCW: "3rd full weekend of July (July 18th and 19th, 2026), from 1200 UTC Saturday till 2259 UTC Saturday **and from 0500UTC till 1159UTC Sunday**"; CME likewise for the "2nd full weekend of August" — both encoded as two sessions. EA RTTY states a date only — manual. Every record: "Logs must be received by … (15 days)". |
 | 2026-08-18 | DARC | darc.de/der-club/referate/conteste/{wae-dx-contest/regeln, wag-contest/regeln, darc-10m-contest/regeln, weihnachtswettbewerb/regeln, ft4-contest/ft4-rules, rtty-kurz/rtty-rules} | 8 | WAE DX (Ausschreibung, Stand 2025-06-17): "CW: August, zweites Wochenende … SSB: September, zweites Wochenende … RTTY: November, zweites Wochenende", each with its instants; Punkt 13 "Der Einsendeschluß ist immer 7 Tage nach dem Contest"; Punkt 12 "Im RTTY-Teil des WAEDC entfällt die Kontinentbeschränkung; jeder kann jeden arbeiten. Nur der QTC-Austausch muss zwischen verschiedenen Kontinenten abgewickelt werden." WAG: "Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag. 2026: 17/18. Oktober"; "Einsendeschluss ist 7 Tage nach Contestende. 2026: 25.10.26, 23.59 ME(S)Z." 10m, in the "Ausschreibung bis 2023" DARC keeps on the same page: "1. Contest-Periode: Zweiter Sonntag im Januar, 0900-1059 UTC" — the current Ausschreibung states only "Termin - 11.01.26, 09:00 UTC - 10:59 UTC". Weihnachtswettbewerb: "1. Termin: 26. Dezember, 08.30-10.59 UTC"; "NEU: 7 Tage nach dem Wettbewerb (für den Contest 2026 der 2.01.2027)"; "Es sind maximal 20 Wechsel der Betriebsart oder des Bandes während der gesamten Contestzeit zugelassen." FT4: "Termin: Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat"; "Betrieb im Fox-Modus ist nicht erlaubt." RTTY-Kurzcontest: "Termin: jeweils im 1. Monat eines jeden Quartals am 2. Dienstag"; "Betriebsarten: RTTY (45,45 Baud)." Every date **and every log deadline** cross-checked against DARC's own "Termine DARC KW Conteste 2026" table. |
+| 2026-08-19 | USKA | uska.ch/kw-contest/ → the four KW Reglemente (Helvetia, Field Day, NMD, Weihnachtswettbewerb) | 6 | Helvetia 2.1: "Letztes volles Wochenende im April, Samstag 13:00 UTC bis Sonntag 12:59 UTC." Field Day 2.1: "CW: Erstes volles Wochenende im Juni, Samstag 15:00 UTC bis Sonntag 14:59 UTC. / SSB: Erstes volles Wochenende im September, Samstag 13:00 UTC bis Sonntag 12:59 UTC." NMD 2.1: "Dritter Sonntag im Juli, 06:00 UTC bis 09:59 UTC", 80 m only. Weihnachtswettbewerb 2.1: "SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC (SSB) und 10:00 bis 10:59 UTC (Digital) / CW: Zweiter Samstag im Dezember" on the same two clocks. Logs, in three of the four: "Die Logs sind innert 8 Tagen zwingend über das webbasierte User-Interface auf der USKA-Website einzureichen" — **the Weihnachtswettbewerb Reglement states no deadline at all.** USKA's KW-Contest page prints the year's dates separately: 25.–26. April, 6.–7. Juni, 5.–6. September, 19. Juli, 5. und 12. Dezember, plus 24.–25. April 2027 and 5.–6. Juni 2027 in prose. |
+| 2026-08-19 | ÖVSV | oevsv.at/…/HF-Referat-Downloads/{Regeln_AOEE_8040_2026, Regeln_Aoec_160m_2025}.pdf | 2 | AOEE 80/40 m: "2. TERMIN: 1. Mai 2026 / 1. Teil: 0500 - 0800 UTC / 2. Teil: 1400 - 1700 UTC", "Betriebsarten: CW und SSB", "Einsendeschluss: 31. Mai 2026". AOEC 160 m: "3. TERMIN: Jeweils am dritten vollen Wochenende im NOVEMBER / Samstag 1600 UTC bis 2359 UTC / 15. November 2025", stated again in ÖVSV's English edition as "PERIOD: Third full weekend each November / Saturday 1600 - 2359 UTC". CW only; "Teilnahmeberechtigt: alle … lizensierten Funkamateurinnen und -amateure sowie SWLs weltweit". |
+| 2026-08-19 | MRASZ | ha-dx.com/en/contest-rules, ylom.mrasz.hu/yl-om-versenykiiras, mrasz.hu/…/321-amator-radiozas-vilagnapja-rf-wd-rh-versenykiiras | 3 | HA-DX: "3. Date and time: every year 3rd full weekend of January, from Saturday 12:00 UTC to Sunday 12:00 UTC. In 2026: 17-18 January", logs "within 5 days of the end of the contest". YL-OM: "Ideje: minden évben március 8-hoz legközelebb eső hétvégén, 2026. március 08. vasárnap / URH 13.30-14.30 UTC / RH 14.30-16.00 UTC", deadline "a versenyt követő 15. nap (hétfő)". RF-WD HF: "évente április 18.-án 16.00 UT-tól 16.59 UT-ig", "a verseny utáni 3. nap éjfélig". |
+| 2026-08-19 | BFRA | lzdx.bfra.bg/rulesen.html | 1 | "1. Date: The weekend before the last full weekend of November (the weekend before CQWW CW contest weekend), from 12:00 UTC Saturday to 11:59 UTC Sunday." Bands "160, 80, 40, 20, 15 and 10 meters"; modes "CW, SSB and Digital (RTTY, PSK63, FT4, FT8)". BFRA's own results and news pages print 22–23 November 2025 for the same edition. |
+| 2026-08-19 | FRR | yodx.ro/rules.php | 1 | "PERIOADA DE DESFĂȘURARE: Al patrulea weekend întreg al lunii August, între orele 12:00 UTC sâmbătă și 11:59 UTC duminică" (fourth full weekend of August, 12:00 UTC Saturday to 11:59 UTC Sunday), and the page prints 22–23 August 2026 for itself. Bands "160, 80, 40, 20, 15, 10 m"; modes CW and SSB; logs "în maximum 7 zile de la terminarea concursului". **An older hamradio.ro PDF says "Ultimul weekend întreg" — see below.** |
+| 2026-08-19 | SRS | radiosport.yu1srs.org.rs/HFTeslaMemorial/index.php/rules | 1 | "Takmičenje se održavaće se svake godine drugog vikenda u martu" (held every year on the second weekend in March), "od 18:00 UTC subotom do 06:00 UTC nedeljom", CW only, bands 160–10 m. SRS's own results archive publishes eight editions — 2019 through 2026 — and the rule reproduces every one. |
+| 2026-08-19 | HRS | hamradio.hr/9a-dx-contest/ | 1 | "The contest takes place on the 3rd full weekend in December, from 1400 UTC Saturday to 1359 UTC Sunday." Bands "160, 80, 40, 20, 15 and 10 m"; modes CW and SSB, scored as one; "Logs must be received not later than 8 days after the contest." HRS prints 20–21 December 2025 and 19–20 December 2026 on the same page. |
+| 2026-08-19 | LRAL | lral.lv/hf-80m-nolikums/ | 2 | "18. novembrī no 08.00-11.14 pēc vietējā laika" and "4. maijā no 07.00-10.14 pēc vietējā laika" — both **in local time, never in UTC** — each run as two rounds with a 15-minute break. 80 m only, "CW un SSB". "Žurnāli jāiesniedz 14 dienu laikā." Entry is Latvian: "Sacensībās piedalās Latvijas radioamatieri." |
+| 2026-08-19 | ERAU | erau.ee/images/LL/{ES-Open_rules, ES LL KV reeglid}.pdf | 2 | ES Open: "TIME: 3rd SATURDAY in APRIL: 18. APRIL 2026 05.00 - 08.59 UTC", four 59-minute periods, "ESTONIAN STATIONS CAN WORK ALL THE STATIONS WHO PARTICIPATE IN THE CONTEST. NON-ES STATIONS CAN WORK ONLY ES STATIONS", logs "within 7 days". ES LL KV: "Etappide algus on 10:00 Eesti aja (EA) järgi", nine Saturday stages per ERAU's calendar; ERAU's own 2026 calendar prints the same nine in UTC — 08:00 for stages 1, 2, 3, 8 and 9 and 07:00 for 4, 5, 6 and 7. |
+| 2026-08-19 | LRMD | lrmd.lt/vmc/, lrmd.lt/mobiliuju-portabiliuju/ | 2 | VMC: "kiekvienais metais pirmą sekmadienį po Naujų metų" / "the first Sunday after New Year's Day", "0700-0759 UTC", 80 m and 2 m, "SSB, CW, FM". WAL: "2026 m. birželio 06 d. (šeštadienį), 06:00-08:59 UTC", "Žurnalai priimami 14 dienų". |
+| 2026-08-19 | SRR | rdxc.org/rules | 1 | "Соревнования проводятся с 12:00 UTC 20 марта по 11:59 UTC 21 марта 2027 года" (the contest runs from 12:00 UTC 20 March to 11:59 UTC 21 March 2027). Bands "1.8, 3.5, 7, 14, 21, 28 МГц"; modes CW and SSB. Logs "в течении 14 дней после окончания соревнований (по 04.04.2027 года включительно)". **SRR publishes a date, not a recurrence rule.** |
+| 2026-08-19 | UARL | uarl.org.ua/files/stories2026/Reglament_ChU-2026-or-040226.pdf, uarl.org.ua/index.php/sport/1235-… | 4 | Championships: "Телетайпний Чемпіонат України на КХ - 7 березня 2026 р. / Телеграфний … 15 березня 2026 р. / Телефонний … 22 березня 2026 р.", each "з 19:00 до 20:59 київського часу". LP Cup: "буде проведено 10 травня 2026р. з 16:00 до 17:59 UT (з 19:00 київського часу до 20:59)", logs "7 діб після закінчення змагань. Тобто, 17 травня 2026 року останній день". **UARL publishes dates for the year, not recurrence rules.** |
 
 ## Modes and bands became controlled vocabularies — 2026-08-16
 
@@ -586,6 +598,209 @@ encoded, for the same reason UBA's Fieldday row was not.
 - `estimated_total` moved 15 → 13 once the KW programme was actually counted: DARC runs
   thirteen HF contests of its own and the estimate had been written before any page was read.
 
+## Europe finishes ahead — the last twelve Tier 2 societies — 2026-08-19
+
+Eleven societies encoded and one recorded as blocked: USKA, ÖVSV, MRASZ, BFRA, FRR, SRS,
+HRS, LRAL, ERAU, LRMD, SRR and UARL, with **NRAU blocked at source**. **26 records — 171
+encoded, up from 145**, producing 777 occurrences for 2026. Tier 2 goes from 9 orgs worked
+of 21 to **19 of 21**; only REP (Portugal) and NRAU remain.
+
+| Contest | Rule as the sponsor states it | Encoded as |
+|---|---|---|
+| Helvetia | "Letztes volles Wochenende im April" | last full weekend, `n = -1` |
+| USKA Field Day CW / SSB | "Erstes volles Wochenende im Juni / im September" | first full weekend of each |
+| USKA NMD | "Dritter Sonntag im Juli" | third Sunday of July |
+| Weihnachtswettbewerb SSB / CW | "Erster / Zweiter Samstag im Dezember" | two sessions each, gap hour excluded |
+| AOEE 80/40 m | "2. TERMIN: 1. Mai 2026" | fixed 1 May, two sessions |
+| AOEC 160 m | "dritten vollen Wochenende im NOVEMBER" | third full weekend |
+| HA-DX | "3rd full weekend of January" | third full weekend |
+| HA YL-OM | "március 8-hoz legközelebb eső hétvégén" | Sunday nearest 8 March |
+| RF-WD HF | "évente április 18.-án" | fixed 18 April |
+| LZ DX | "the weekend before the last full weekend of November" | **`n = -2`** — see below |
+| YO DX HF | "Al patrulea weekend întreg al lunii August" | fourth full weekend |
+| Croatian DX | "3rd full weekend in December" | third full weekend |
+| Tesla Memorial HF CW | "svake godine drugog vikenda u martu" | second **full** weekend of March |
+| LRAL 18 November / 4 May | "18. novembrī / 4. maijā … pēc vietējā laika" | fixed date, Europe/Riga wall clock |
+| ES Open | "3rd SATURDAY in APRIL" | third Saturday of April |
+| ES LL KV | "10:00 Eesti aja järgi", nine stages | manual dates, Europe/Tallinn wall clock |
+| Vytautas Magnus | "pirmą sekmadienį po Naujų metų" | first Sunday of January — caveat below |
+| WAL | "2026 m. birželio 06 d." | a manual date |
+| Russian DX | "с 12:00 UTC 20 марта … 2027 года" | a manual date, **2027 only** |
+| Ukrainian HF Championships ×3 | "7 / 15 / 22 березня 2026 р." | manual dates, Europe/Kyiv wall clock |
+| LP Cup CW | "10 травня 2026р. з 16:00 … UT" | a manual date, plain UTC |
+
+**Coverage after: Europe 85 (49.7%, from 40.7%), North America 62 (36.3%), Oceania 13,
+Asia 5, International 4, Africa 1, South America 1.** 164 of 171 records are verified at
+source. **Europe is now the largest region in the catalog**, which is what the whole Tier 2
+programme was for: the sourcing rule makes a catalog grow wherever someone reads pages, and
+for most of this project's life that was North America.
+
+Eleven languages this pass — German, Hungarian, Bulgarian, Romanian, Serbian, Croatian,
+Latvian, Estonian, Lithuanian, Russian and Ukrainian. Every record quotes the sponsor in the
+sponsor's own language first and translates after, the treatment AGCW's, the Tier 2 societies'
+and DARC's pages got.
+
+### The engine learned to count backwards, because BFRA states a rule that needs it
+
+`n` used to mean "the nth from the front", with `-1` special-cased as the last. BFRA's LZ DX
+Contest is **"The weekend before the last full weekend of November (the weekend before CQWW CW
+contest weekend)"** — a rule, published as a rule, whose date is defined by *another sponsor's*
+contest sitting on the last weekend. That is `n = -2`, and encoding it as a manual date list
+would have thrown away a rule BFRA actually publishes.
+
+So `_nth` / `nth` now count back from the end for any `n <= -1`, in both engines and in the same
+commit. The risk that came with it is **`n = 0`**, which is a position in neither direction:
+read as "the first" it silently shifts a contest by a week, read as "no anchors this year" it
+silently empties one. It raises instead. `monthly_nth_weekday`'s catch — the one that lets a
+"fifth Monday" rule skip a four-Monday month — had to be narrowed from `ValueError` to
+`NoAnchorsThisYear` so it does not swallow that guard. Four mirrored tests in each engine cover
+the three behaviours.
+
+### The second source, per society
+
+There is no one calendar behind this pass; each society was checked against something it
+published separately from the rule.
+
+- **USKA** prints the year's dates on `uska.ch/kw-contest/`, apart from the Reglemente, and
+  states two **2027** dates in prose — "Der Helvetia Contest findet am 24. - 25. April 2027 …
+  statt" and the Field Day CW on 5.–6. Juni 2027. That tests the rule a year beyond every other
+  date USKA publishes.
+- **ÖVSV** states the AOEC rule twice, once in German and once in its own English edition, and
+  prints 15 November 2025 for itself.
+- **MRASZ**, **BFRA**, **FRR** and **HRS** each print the rule and the year's date in the same
+  document, so the sponsor checks its own arithmetic; HRS prints two years.
+- **SRS** publishes a results archive covering **eight editions**, 2019 through 2026, and the
+  rule reproduces all eight.
+- **ERAU** publishes the ES LL KV stages in **UTC** on its 2026 calendar while stating the hour
+  in Estonian time in the rules. That is the strongest second source in the pass — see below.
+- **SRR** and **UARL** state the interval and the deadline date in one sentence, so the
+  arithmetic is theirs: 21 March 2027 + 14 days = "по 04.04.2027 года включительно", and
+  10 May 2026 + 7 days = "17 травня 2026 року останній день".
+
+### Aggregators declined, again
+
+UARL republishes a monthly calendar whose entries link `contestcalendar.com`. It was not used;
+all four UARL records come from UARL's own reglamenty. MRASZ links `ha-dx.com` as its own
+contest's site and names itself the organiser on the page ("Organizer: Magyar Rádióamatőr
+Szövetség"), so that is a sponsor source and not a third party.
+
+### Contradictions found, and left standing
+
+- **ÖVSV's AOEC 160 m rules contradict themselves twice, in two languages.** The German edition
+  gives the band as **1810-2000 kHz** and the English as **1810-1950 kHz**; the German takes logs
+  at `aoec-auswertung.oevsv.at` and the English at `contestrobot.aoec160m.oevsv.at`. Both
+  statements are on the record and **neither log host is encoded as a submission URL** — there is
+  no basis for preferring one of a sponsor's own two answers.
+- **FRR contradicts itself about which August weekend YO DX falls on.** The current `yodx.ro`
+  rules say "Al patrulea weekend întreg" — the fourth — and print 22–23 August 2026. An older
+  PDF on `hamradio.ro` says "Ultimul weekend întreg", the last. August 2026 is a year where the
+  two differ: the month has five full weekends, so the fourth is the 22nd and the last is the
+  29th. The current rules win because they are current and because they print their own date;
+  the superseded wording stays in the record's `note`.
+- **SRR states two contest windows.** The rules say the contest runs to **11:59 UTC**; the site
+  banner says **12:00-12:00 UTC**. The rules document is encoded and the banner is recorded. The
+  minute matters here: 11:59 is what makes the printed 04.04.2027 deadline exactly fourteen days.
+- **MRASZ's RF-WD deadline is stated as "a verseny utáni 3. nap éjfélig"** — midnight on the
+  third day after. The three-day interval reproduces the date; it does not reproduce "midnight",
+  because a stored interval lands at the contest's own end time. Both are on the record.
+
+### Judgement calls
+
+- **"Second / third / fourth weekend" is read as the second / third / fourth *full* weekend**,
+  and each has a year that proves it. Tesla Memorial is the clearest: SRS says "drugog vikenda u
+  martu" without "punog", and **March 2020** separates the readings — 1 March 2020 was a Sunday
+  whose Saturday belonged to February, so counting weekends by their Sunday gives 7–8 March,
+  while SRS published 14–15. AOEC has the same shape in November 2026, where 1 November is an
+  orphan Sunday.
+- **Wall clock vs UTC is decided per document, not per country — and UARL proves why.** UARL
+  writes its three championships in Kyiv time ("з 19:00 до 20:59 київського часу") and its Low
+  Power Cup in **UT** with Kyiv time in brackets. Same local hour, and because March is EET and
+  May is EEST, two different UTC instants. Encoding all four the same way would move one of them
+  by an hour. LRAL is wall-clocked because it says "pēc vietējā laika" and never gives UTC; ERAU's
+  ES LL KV is wall-clocked because its rules give Estonian time — and its own calendar, printed
+  in UTC, then confirms the DST split stage by stage: 08:00 for stages 1, 2, 3, 8, 9 and 07:00
+  for 4, 5, 6, 7. Get the zone handling wrong in either direction and four of ERAU's own rows
+  stop matching.
+- **The Vytautas Magnus caveat is recorded rather than resolved.** LRMD writes the rule both
+  ways on the same page: "pirmą sekmadienį po Naujų metų" and "the first Sunday after New Year's
+  Day". The readings diverge only when 1 January is itself a Sunday — 2034 is the next such year,
+  giving 1 January against 8 January. LRMD has published no such year, so the first-Sunday-in-
+  January reading is encoded and the divergence is written on the record instead of being settled
+  by picking a winner nobody has confirmed.
+- **YL-OM is `nearest_weekday`, not a manual date.** MRASZ ties it to International Women's Day —
+  the weekend nearest 8 March, run on the Sunday — and only 2026 is independently confirmed,
+  a year in which 8 March is itself a Sunday and so proves nothing about the shift. The rule is
+  encoded as MRASZ's wording with the thinness of the confirmation on the record; a manual date
+  would have been more defensible-looking and less true.
+- **ES Open is `worldwide` with a note, not `two_sided`.** ERAU's rule is asymmetric — Estonian
+  stations work everyone, non-ES stations work only ES — but that is about who *counts*, not who
+  may *enter*. `two_sided` enumerates both sides and tells a station in neither that it cannot
+  enter, which is false here. Same call as DARC's WAE and WAG and JARL's All Asian.
+- **The USKA Weihnachtswettbewerb carries no log deadline, deliberately.** Three of USKA's four
+  KW Reglemente say "Die Logs sind innert 8 Tagen … einzureichen". That one says nothing at all.
+  Borrowing the interval from its siblings would be this catalog inventing a deadline USKA has
+  not published, so none is encoded and the silence is written on both records. This was caught
+  in review after all six USKA records had been given the interval — the sourcing rule is only
+  worth anything if it survives its own convenience.
+- **Fixed-date deadlines stay in `note`, not `log_deadline_days`.** ÖVSV ("Einsendeschluss:
+  31. Mai 2026"), the UARL championships and ES LL KV all state a calendar instant rather than
+  an interval. An interval is encoded only where the sponsor's own arithmetic reproduces it,
+  which is the case for SRR (14 days → 04.04.2027) and the LP Cup (7 days → 17.05.2026).
+- **The Weihnachtswettbewerb is two sessions, not one span.** Each Saturday is a phone-or-CW
+  morning and then a separate digital hour, with an hour between them that is not part of the
+  contest. One 07:00–10:59 span would claim an hour USKA does not run.
+- **LRAL, ERAU and LRMD are three catalog sponsors under one registry entry.** They share a row
+  because the Baltic societies were registered together, but an LV record is not an EE one and
+  the three sites are separate (`lral.lv`, `erau.ee`, `lrmd.lt`). A test asserts all 26 records'
+  sponsor strings join to the registry, since an unregistered sponsor is only detectable there.
+
+### Scope, recorded
+
+- **NRAU — blocked at source, nothing encoded.** `nrau.net` states that all NRAU contest-related
+  information is under revision, and **no NRAU-Baltic rules are published anywhere on the site**.
+  The NAC (Nordic Activity Contest) pages do give dates and times, and what they give is written
+  down here for whenever NRAU republishes: five monthly series on the **first Tuesday (144 MHz),
+  second Tuesday (432 MHz), third Tuesday (50 MHz), fourth Tuesday (1296 MHz) and fourth Thursday
+  (microwave)**, each **19:00–23:00 local time (CET/CEST)**. Three further findings that would
+  each have to be settled before a record could exist: the NAC 28 MHz page prints
+  **"17:00 - 22:00"**, inconsistent with the rest of the series; NAC's **70 MHz** band has no
+  token in this catalog's band ladder; and **NAC 2.3 GHz & Up** is unbounded at the top. None of
+  the pages state a mode or link a rules document — and a record that cannot declare a mode is
+  dropped silently by every mode filter, which is worse than not shipping it. So: 0 encoded,
+  `status: blocked`, and no `catalog_sponsors` entry. The Nordic national societies SSA, NRRL,
+  EDR and SRAL are separate work.
+- **SRS's domestic contests are blocked.** The schedule and rules pages under
+  `radiosport.yu1srs.org.rs` render only a JavaScript placeholder, and the old site at
+  `stari.yu1srs.org.rs` returns HTTP 500. KT Prvenstvo Srbije and KT Kup SRS could not be read.
+- **FRR's La Mulți Ani YO is blocked**: the only rules document FRR publishes is a scan with no
+  text layer — the same failure as GACW's WWSA. **Cupa României QRP** is an on-site event with no
+  calendar rule and is out of scope rather than blocked.
+- **ÖVSV's AOEC 160 m is encoded from the 2025 Ausschreibung**, because that is still the only
+  one the HF-Referat publishes. On the pending list to re-read.
+- **RDXC is encoded for 2027 only.** `rdxc.org` announces one edition at a time and the current
+  one is 20–21 March 2027, so **that record produces no 2026 occurrence at all** — correct, not
+  a gap. RAEM, Russian 160m, the Russian WW series and the RCC Cup are on separate hosts and were
+  not read.
+- **MRASZ's remaining events** — RHOB, URHOB, the Junior contest, the Straight Key Memorial
+  Contest, Tisza Kupa and the **VHF leg of RF-WD** — have pages and were not read this pass.
+- **ÖVSV's AOEE VHF/UHF legs** belong to the UKW referat, as do HRS's other calendar entries.
+  Different referat, separate work — the same line drawn at DARC.
+
+### Corrections to the registry's assumptions
+
+- **`www.lzdx.org` does not resolve**, and neither does the `lzdx.bfra.org` cited in BFRA's own
+  news items. The live rules are at **`lzdx.bfra.bg`** and the federation at `bfra.bg`.
+- **`www.yudx.org` does not resolve.** SRS's radiosport pages are at
+  **`radiosport.yu1srs.org.rs`**.
+- **`https://uarl.org.ua/` fails TLS certificate validation**; `http://` serves the site, so the
+  registry and all four UARL records record the **http** URL and say why. Same treatment as CRK's
+  Czech hosts.
+- **`ha-dx.com` returns 403 to a plain `curl`** but 200 under `check_links.py`'s user agent —
+  worth knowing before someone reports it as dead.
+- `estimated_total` moved in both directions once the pages were counted rather than guessed:
+  FRR 4 → 3, and USKA, ÖVSV, HRS and the Baltic entry set to what each society actually
+  publishes. USKA, ÖVSV and HRS are now `complete`.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the
@@ -667,3 +882,42 @@ encoded, for the same reason UBA's Fieldday row was not.
   Same treatment.
 - **All eligibility tags except CWT / SST / SKCC / NAQP / IOTA** — inferred, not read.
   Confirm entrant clauses before shipping the eligibility filter.
+- **NRAU** (3 contests) — **blocked at source, nothing encoded.** `nrau.net` states that all
+  NRAU contest-related information is under revision and publishes no NRAU-Baltic rules. The NAC
+  pages give dates and times but **no modes and no rules links**, and a record that cannot declare
+  a mode is dropped silently by every mode filter. What was found — the five monthly NAC series,
+  their 19:00–23:00 CET/CEST wall clock, the NAC 28 MHz page's inconsistent "17:00 - 22:00", 70 MHz
+  having no band token, and NAC 2.3 GHz & Up being unbounded at the top — is recorded in the
+  2026-08-19 section above so a future pass starts from evidence rather than from nothing. Next
+  step: watch for NRAU republishing, or read SSA, NRRL, EDR and SRAL directly.
+- **SRS's domestic contests** (KT Prvenstvo Srbije, KT Kup SRS) — **blocked.** The schedule and
+  rules pages under `radiosport.yu1srs.org.rs` render only a JavaScript placeholder, and the old
+  site at `stari.yu1srs.org.rs` returns HTTP 500. Only Tesla Memorial could be read.
+- **FRR La Mulți Ani YO** — **blocked: the rules are a scan with no text layer**, the same failure
+  as GACW's WWSA. Next step: ask FRR for a text version. **Cupa României QRP** is an on-site event
+  with no calendar rule and is out of scope rather than blocked.
+- **ÖVSV AOEC 160 m is encoded from the 2025 Ausschreibung**, because ÖVSV's HF-Referat page still
+  offers only that one. Re-read when the 2026 edition appears; the band contradiction (1810-2000 vs
+  1810-1950 kHz) and the two log hosts should be re-checked at the same time.
+- **RDXC is encoded for 2027 only.** `rdxc.org` announces one edition at a time, so this record
+  produces **no 2026 occurrence** — correct, not a gap. Add 2026 if SRR publishes it retroactively,
+  and add the next year as it is announced. RAEM, Russian 160m, the Russian WW series and the RCC
+  Cup are on separate hosts and have not been read.
+- **UARL's records are 2026-only manual dates.** UARL publishes dates for the year rather than
+  recurrence rules, so all four need re-reading each year. Its own monthly calendar links
+  `contestcalendar.com`; that aggregator is not a valid source for filling them in.
+- **MRASZ's remaining events** — RHOB, URHOB, the Junior contest, the Straight Key Memorial
+  Contest, Tisza Kupa and the **VHF leg of RF-WD** — all have pages on `mrasz.hu` and were simply
+  not read this pass.
+- **ÖVSV's AOEE VHF/UHF legs and HRS's VHF/UHF calendar entries** belong to those societies' UKW
+  referats. Different referat, separate work — the line drawn at DARC and REF.
+- **REP (Portugal)** is the one Tier 2 society never worked, and NRAU the other. Everything else
+  in tier 2 has been read at least once.
+- **`oceaniadxcontest.com` stopped answering on 2026-08-19** — `check_links.py` reports
+  **168 live, 3 broken**, and two of the three are the Oceania DX Contest's own rules page,
+  which was live when those records were verified on 2026-08-17. The failure is at the
+  connection level (no TLS handshake, not a 404), so it reads as a host outage rather than a
+  moved page. **The records are unchanged**: they were read at the sponsor's own source, and a
+  sponsor's server being down is not evidence that the rule changed. Re-check before altering
+  anything; the co-sponsor mirror at wia.org.au is already recorded in the row above. SARL is
+  the third and remains the long-standing expired-certificate blocker.

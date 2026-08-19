@@ -30,6 +30,7 @@ import {
   filterByEligibility,
   fullWeekendsInMonth,
   isoDate,
+  NoAnchorsThisYear,
   resolveAnchors,
   resolveRulesUrl,
   saturdaysInMonth,
@@ -1958,6 +1959,553 @@ test("DARC records all carry the sponsor string the registry joins on", () => {
   expect(darc).toHaveLength(8);
   expect(new Set(darc.map((c) => c.sponsor))).toEqual(new Set(["DARC"]));
   expect(new Set(darc.map((c) => c.country))).toEqual(new Set(["DE"]));
+});
+
+// ---------------------------------------------------------------------------
+// Counting backwards past "last"
+//
+// `n` used to mean "the nth from the front", with -1 special-cased to mean the
+// last. BFRA's LZ DX Contest is the rule that needed more: "the weekend before
+// the last full weekend of November", which BFRA states as a rule and not as an
+// annual announcement, because the weekend it names is defined by CQ WW CW
+// sitting on the last one. So n <= -1 now counts back from the end.
+//
+// The risk that comes with it is n=0, which is a position in neither direction.
+// Read as "the first" it silently shifts a contest; read as "no anchors this
+// year" it silently empties one. It raises instead, and because
+// NoAnchorsThisYear is an Error, `monthly_nth_weekday`'s skip-a-short-month
+// catch had to be narrowed so it does not swallow that.
+// ---------------------------------------------------------------------------
+
+/** A minimal record for exercising a rule with no catalog entry behind it. */
+const synthetic = (rule: Record<string, unknown>): Contest =>
+  ({
+    id: "synthetic",
+    name: "Synthetic",
+    recurrence: rule,
+    start: { day_offset: 0, time: "0000" },
+    end: { day_offset: 0, time: "0100" },
+  }) as unknown as Contest;
+
+test("nth counts backwards past last", () => {
+  // November 2025 has five full weekends: 1, 8, 15, 22 and 29 November. -1 is
+  // the last, -2 the one before it, -3 the one before that.
+  expect(fullWeekendsInMonth(2025, 11).map(isoDate)).toEqual([
+    D(2025, 11, 1),
+    D(2025, 11, 8),
+    D(2025, 11, 15),
+    D(2025, 11, 22),
+    D(2025, 11, 29),
+  ]);
+  for (const [n, expected] of [[-1, 29], [-2, 22], [-3, 15]] as const) {
+    const got = expand(synthetic({ type: "nth_full_weekend", month: 11, n }), 2025);
+    expect(isoDate(got[0].start!), String(n)).toBe(D(2025, 11, expected));
+  }
+});
+
+test("nth counting back past the start is an empty year not an error", () => {
+  // Asking for the sixth-from-last of five is the same kind of nothing as a
+  // fifth Monday in a four-Monday month: the year has no such date, and expand
+  // returns nothing rather than throwing.
+  const rule = { type: "nth_full_weekend", month: 11, n: -6 };
+  expect(expand(synthetic(rule), 2025)).toEqual([]);
+});
+
+test("nth rejects zero as a malformed rule", () => {
+  // n=0 is a catalog typo, not a date that does not exist. Read as "the first"
+  // it moves a contest a week; read as NoAnchorsThisYear it drops the contest
+  // from the calendar without a word. Neither is acceptable, so it throws --
+  // and the error must not be NoAnchorsThisYear, or callers that legitimately
+  // swallow that would swallow this too.
+  const rule = { type: "nth_weekday", month: 11, n: 0, weekday: 5 };
+  let caught: unknown;
+  try {
+    expand(synthetic(rule), 2025);
+  } catch (err) {
+    caught = err;
+  }
+  expect(caught).toBeInstanceOf(Error);
+  expect(caught).not.toBeInstanceOf(NoAnchorsThisYear);
+  expect(String((caught as Error).message)).toContain("n=0");
+});
+
+test("monthly_nth_weekday skips short months but not malformed rules", () => {
+  // A "fifth Monday" rule simply has no date in a month with four, and skipping
+  // those is the whole point of the catch inside monthly_nth_weekday. It is
+  // narrowed to NoAnchorsThisYear so a n=0 rule inside the same loop still
+  // throws instead of quietly producing an empty year.
+  const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const fifths = expand(
+    synthetic({ type: "monthly_nth_weekday", n: 5, weekday: 0, months }),
+    2026,
+  );
+  expect(fifths.length).toBeGreaterThan(0);
+  expect(fifths.length).toBeLessThan(12);
+  for (const o of fifths) {
+    expect(o.start!.getUTCDate()).toBeGreaterThan(28);
+    expect(weekdayOf(o.start!)).toBe(0);
+  }
+
+  let caught: unknown;
+  try {
+    expand(
+      synthetic({ type: "monthly_nth_weekday", n: 0, weekday: 0, months }),
+      2026,
+    );
+  } catch (err) {
+    caught = err;
+  }
+  expect(caught).toBeInstanceOf(Error);
+  expect(caught).not.toBeInstanceOf(NoAnchorsThisYear);
+});
+
+// ---------------------------------------------------------------------------
+// Sponsor validation -- the remaining Tier 2 European societies
+//
+// USKA, OeVSV, MRASZ, BFRA, FRR, SRS, HRS, LRAL, ERAU, LRMD, SRR and UARL. Each
+// rule is quoted in the sponsor's own language on the record; the dates below
+// are the sponsor's too, published separately from that wording -- a KW-Contest
+// date page, a year printed inside the rules themselves, an archive of past
+// editions, a society calendar. NRAU is absent on purpose: it is blocked at
+// source and encodes nothing. See data/sources.md.
+//
+// Session records emit one occurrence per session, so start dates are deduped.
+// ---------------------------------------------------------------------------
+
+const TIER2B_PUBLISHED: Record<
+  string,
+  [string, Record<number, [number, number, number][]>]
+> = {
+  "uska-helvetia": [
+    "Letztes volles Wochenende im April, Samstag 13:00 UTC bis Sonntag 12:59 UTC",
+    { 2026: [[2026, 4, 25]], 2027: [[2027, 4, 24]] },
+  ],
+  "uska-field-day-cw": [
+    "CW: Erstes volles Wochenende im Juni",
+    { 2026: [[2026, 6, 6]], 2027: [[2027, 6, 5]] },
+  ],
+  "uska-field-day-ssb": [
+    "SSB: Erstes volles Wochenende im September",
+    { 2026: [[2026, 9, 5]] },
+  ],
+  "uska-nmd": [
+    "Dritter Sonntag im Juli, 06:00 UTC bis 09:59 UTC",
+    { 2026: [[2026, 7, 19]] },
+  ],
+  "uska-weihnachtswettbewerb-ssb": [
+    "SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC",
+    { 2026: [[2026, 12, 5]] },
+  ],
+  "uska-weihnachtswettbewerb-cw": [
+    "CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC",
+    { 2026: [[2026, 12, 12]] },
+  ],
+  "oevsv-aoee-80-40": ["2. TERMIN: 1. Mai 2026", { 2026: [[2026, 5, 1]] }],
+  "oevsv-aoec-160m": [
+    "Jeweils am dritten vollen Wochenende im NOVEMBER",
+    { 2025: [[2025, 11, 15]], 2026: [[2026, 11, 21]] },
+  ],
+  "mrasz-ha-dx": ["every year 3rd full weekend of January", { 2026: [[2026, 1, 17]] }],
+  "mrasz-yl-om": [
+    "minden evben marcius 8-hoz legkozelebb eso hetvegen",
+    { 2026: [[2026, 3, 8]] },
+  ],
+  "mrasz-rfwd-hf": [
+    "evente aprilis 18.-an 16.00 UT-tol 16.59 UT-ig",
+    { 2026: [[2026, 4, 18]] },
+  ],
+  "bfra-lz-dx": [
+    "The weekend before the last full weekend of November",
+    { 2025: [[2025, 11, 22]], 2026: [[2026, 11, 21]] },
+  ],
+  "frr-yo-dx-hf": [
+    "Al patrulea weekend intreg al lunii August",
+    { 2026: [[2026, 8, 22]] },
+  ],
+  "hrs-9a-dx": [
+    "3rd full weekend in December",
+    { 2025: [[2025, 12, 20]], 2026: [[2026, 12, 19]] },
+  ],
+  "srs-tesla-memorial-hf-cw": [
+    "odrzavace se svake godine drugog vikenda u martu",
+    {
+      2019: [[2019, 3, 9]],
+      2020: [[2020, 3, 14]],
+      2021: [[2021, 3, 13]],
+      2022: [[2022, 3, 12]],
+      2023: [[2023, 3, 11]],
+      2024: [[2024, 3, 9]],
+      2025: [[2025, 3, 8]],
+      2026: [[2026, 3, 14]],
+    },
+  ],
+  "lral-18-november-80m": [
+    "18. novembri no 08.00-11.14 pec vieteja laika",
+    { 2026: [[2026, 11, 18]] },
+  ],
+  "lral-4-may-80m": [
+    "4. maija no 07.00-10.14 pec vieteja laika",
+    { 2026: [[2026, 5, 4]] },
+  ],
+  "erau-es-open": [
+    "3rd SATURDAY in APRIL: 18. APRIL 2026 05.00 - 08.59 UTC",
+    { 2026: [[2026, 4, 18]] },
+  ],
+  "erau-es-ll-kv": [
+    "9-s etapis laupaeva hommikuti vastavalt ERAU kalenderplaanile",
+    {
+      2026: [
+        [2026, 1, 3],
+        [2026, 2, 14],
+        [2026, 3, 7],
+        [2026, 4, 4],
+        [2026, 5, 2],
+        [2026, 9, 5],
+        [2026, 10, 3],
+        [2026, 11, 7],
+        [2026, 12, 5],
+      ],
+    },
+  ],
+  "lrmd-vytautas-magnus": [
+    "kiekvienais metais pirma sekmadieni po Nauju metu, 0700-0759 UTC",
+    { 2026: [[2026, 1, 4]] },
+  ],
+  "lrmd-wal": [
+    "2026 m. birzelio 06 d. (sestadieni), 06:00-08:59 UTC",
+    { 2026: [[2026, 6, 6]] },
+  ],
+  "srr-russian-dx": [
+    "s 12:00 UTC 20 marta po 11:59 UTC 21 marta 2027 goda",
+    { 2027: [[2027, 3, 20]] },
+  ],
+  "uarl-champ-rtty": [
+    "Teletaypnyy Chempionat Ukrayiny na KKH - 7 bereznya 2026 r.",
+    { 2026: [[2026, 3, 7]] },
+  ],
+  "uarl-champ-cw": [
+    "Telehrafnyy Chempionat Ukrayiny na KKH - 15 bereznya 2026 r.",
+    { 2026: [[2026, 3, 15]] },
+  ],
+  "uarl-champ-ssb": [
+    "Telefonnyy Chempionat Ukrayiny na KKH - 22 bereznya 2026 r.",
+    { 2026: [[2026, 3, 22]] },
+  ],
+  "uarl-lp-cup-cw": [
+    "bude provedeno 10 travnya 2026r. z 16:00 do 17:59 UT",
+    { 2026: [[2026, 5, 10]] },
+  ],
+};
+
+/** Unique start dates, in order. A sessions record yields one per session. */
+const startDates = (cid: string, year: number): string[] => {
+  const seen: string[] = [];
+  for (const o of expand(byId(cid), year)) {
+    const d = isoDate(o.start!);
+    if (!seen.includes(d)) seen.push(d);
+  }
+  return seen;
+};
+
+test.each(
+  Object.entries(TIER2B_PUBLISHED)
+    .sort()
+    .flatMap(([cid, [rule, years]]) =>
+      Object.entries(years)
+        .sort()
+        .map(([year, dates]) => [cid, rule, Number(year), dates] as const),
+    ),
+)(
+  "Tier 2 contests match their sponsors' published dates: %s %s %d",
+  (cid, rule, year, published) => {
+    expect(startDates(cid, year), `${cid} ${year}: rule '${rule}'`).toEqual(
+      published.map(([y, m, d]) => D(y, m, d)),
+    );
+  },
+);
+
+test("Tesla Memorial second weekend means second full weekend", () => {
+  // SRS says "odrzavace se svake godine drugog vikenda u martu" -- every year,
+  // the second weekend in March -- and publishes eight editions. 2020 is the
+  // year that separates the readings: 1 March 2020 was a Sunday whose Saturday
+  // belonged to February, so counting weekends by their Sunday gives 7-8 March.
+  // SRS published 14-15, which is the second FULL weekend.
+  expect(weekdayOf(new Date(at(2020, 3, 1)))).toBe(6); // an orphan Sunday
+  expect(isoDate(fullWeekendsInMonth(2020, 3)[1])).toBe(D(2020, 3, 14));
+  expect(startDates("srs-tesla-memorial-hf-cw", 2020)).toEqual([D(2020, 3, 14)]);
+  // ...and the eight published editions all reproduce, which is what makes it
+  // a rule rather than eight coincidences.
+  expect(Object.keys(TIER2B_PUBLISHED["srs-tesla-memorial-hf-cw"][1])).toHaveLength(8);
+});
+
+test("LZ DX counts back two weekends because CQ WW CW takes the last", () => {
+  // BFRA anchors its date to another sponsor's contest: "The weekend before the
+  // last full weekend of November (the weekend before CQWW CW contest weekend)".
+  // That is n=-2, and it is the record that made the engine count backwards past
+  // "last". November 2025 has five full weekends and BFRA published 22-23.
+  expect(fullWeekendsInMonth(2025, 11)).toHaveLength(5);
+  expect(byId("bfra-lz-dx").recurrence).toEqual({
+    type: "nth_full_weekend",
+    month: 11,
+    n: -2,
+  });
+  expect(startDates("bfra-lz-dx", 2025)).toEqual([D(2025, 11, 22)]);
+  expect(isoDate(fullWeekendsInMonth(2025, 11).at(-1)!)).toBe(D(2025, 11, 29)); // CQ WW CW
+});
+
+test("YO DX is the fourth full weekend not the last", () => {
+  // August 2026 separates the readings: 1 August is a Saturday, so the month has
+  // five full weekends and the fourth (22-23) is not the last (29-30). The
+  // current yodx.ro rules and FRR's own 2026 announcement both say the fourth.
+  // An older hamradio.ro PDF says "Ultimul weekend intreg" -- the last -- and
+  // that statement stays on the record rather than being reconciled away.
+  const weekends = fullWeekendsInMonth(2026, 8);
+  expect(weekends).toHaveLength(5);
+  expect(isoDate(weekends[3])).toBe(D(2026, 8, 22));
+  expect(isoDate(weekends.at(-1)!)).toBe(D(2026, 8, 29));
+  expect(startDates("frr-yo-dx-hf", 2026)).toEqual([D(2026, 8, 22)]);
+  expect(byId("frr-yo-dx-hf").note ?? "").toContain("Ultimul weekend intreg");
+});
+
+test("AOEC third full weekend survives an orphan Sunday", () => {
+  // OeVSV states the rule twice, in German and in English, and prints 15
+  // November 2025 for itself. 2026 is the harder year: 1 November is a Sunday
+  // whose Saturday belongs to October, so the full weekends start on the 7th and
+  // the third is the 21st.
+  expect(weekdayOf(new Date(at(2026, 11, 1)))).toBe(6); // an orphan Sunday
+  expect(isoDate(fullWeekendsInMonth(2026, 11)[0])).toBe(D(2026, 11, 7));
+  expect(startDates("oevsv-aoec-160m", 2025)).toEqual([D(2025, 11, 15)]);
+  expect(startDates("oevsv-aoec-160m", 2026)).toEqual([D(2026, 11, 21)]);
+});
+
+test("USKA forward dates come from USKA's own KW-Contest page", () => {
+  // USKA's KW-Contest page prints the year's dates separately from the
+  // Reglemente, and states two 2027 dates in prose: "Der Helvetia Contest findet
+  // am 24. - 25. April 2027 ... statt" and "Der Field Day in CW findet am 5. -
+  // 6. Juni 2027 ... statt". Those are forward statements rather than calendar
+  // rows, so they test the rule a year past every other date USKA publishes.
+  expect(startDates("uska-helvetia", 2027)).toEqual([D(2027, 4, 24)]);
+  expect(startDates("uska-field-day-cw", 2027)).toEqual([D(2027, 6, 5)]);
+});
+
+test("Weihnachtswettbewerb sessions leave the gap hour out", () => {
+  // Each Saturday is a phone-or-CW morning and then a separate digital hour, and
+  // the hour between them is not part of the contest. Two sessions rather than
+  // one 07:00-10:59 span, or the calendar would claim an hour USKA does not run.
+  for (const cid of [
+    "uska-weihnachtswettbewerb-ssb",
+    "uska-weihnachtswettbewerb-cw",
+  ]) {
+    const occs = expand(byId(cid), 2026);
+    expect(occs, cid).toHaveLength(2);
+    expect(
+      occs.map((o) => [o.start!.getUTCHours(), o.start!.getUTCMinutes()]),
+      cid,
+    ).toEqual([[7, 0], [10, 0]]);
+    expect(
+      occs.map((o) => [o.end!.getUTCHours(), o.end!.getUTCMinutes()]),
+      cid,
+    ).toEqual([[9, 59], [10, 59]]);
+  }
+});
+
+test("Weihnachtswettbewerb carries no deadline because USKA states none", () => {
+  // Three of USKA's four KW Reglemente say "Die Logs sind innert 8 Tagen ...
+  // einzureichen". The Weihnachtswettbewerb's says nothing at all. Borrowing the
+  // interval from its siblings would be this catalog inventing a deadline, so
+  // none is encoded and the silence is recorded on the record.
+  for (const cid of [
+    "uska-weihnachtswettbewerb-ssb",
+    "uska-weihnachtswettbewerb-cw",
+  ]) {
+    const c = byId(cid);
+    expect("log_deadline_days" in c, cid).toBe(false);
+    expect(c.note ?? "", cid).toContain("no log deadline");
+  }
+  for (const cid of [
+    "uska-helvetia",
+    "uska-field-day-cw",
+    "uska-field-day-ssb",
+    "uska-nmd",
+  ]) {
+    expect(byId(cid).log_deadline_days, cid).toBe(8);
+  }
+});
+
+test("YL-OM falls on the Sunday nearest 8 March", () => {
+  // MRASZ ties the date to International Women's Day: "minden evben marcius
+  // 8-hoz legkozelebb eso hetvegen", run on the Sunday. 2026 is the only year
+  // MRASZ confirms independently, and in it 8 March is itself a Sunday, so the
+  // rule and the date agree trivially. The caveat is on the record; what is
+  // asserted here is that the rule is nearest-Sunday and not a hard 8 March.
+  const c = byId("mrasz-yl-om");
+  expect(c.recurrence).toEqual({
+    type: "nearest_weekday",
+    month: 3,
+    day: 8,
+    weekday: 6,
+  });
+  expect(weekdayOf(new Date(at(2026, 3, 8)))).toBe(6);
+  expect(startDates("mrasz-yl-om", 2026)).toEqual([D(2026, 3, 8)]);
+  // 8 March 2027 is a Monday, so the nearest Sunday is behind it, not ahead.
+  expect(weekdayOf(new Date(at(2027, 3, 8)))).toBe(0);
+  expect(startDates("mrasz-yl-om", 2027)).toEqual([D(2027, 3, 7)]);
+  expect(c.note ?? "").toContain("Only that one year is independently confirmed");
+});
+
+test("VMC first Sunday reading is recorded as a caveat", () => {
+  // LRMD writes it both ways on the same page: "pirma sekmadieni po Nauju metu"
+  // and "the first Sunday after New Year's Day". The readings diverge only when
+  // 1 January is itself a Sunday, and LRMD has published no such year, so the
+  // first-Sunday-in-January reading is encoded and the divergence is recorded
+  // rather than resolved by picking a winner nobody has confirmed.
+  const c = byId("lrmd-vytautas-magnus");
+  expect(c.recurrence).toEqual({ type: "nth_weekday", month: 1, n: 1, weekday: 6 });
+  expect(startDates("lrmd-vytautas-magnus", 2026)).toEqual([D(2026, 1, 4)]);
+  expect(c.note ?? "").toContain("CAVEAT");
+  expect(c.note ?? "").toContain("1 January is itself a Sunday");
+  // 2034 is such a year: the two readings give 1 January and 8 January.
+  expect(weekdayOf(new Date(at(2034, 1, 1)))).toBe(6);
+  expect(startDates("lrmd-vytautas-magnus", 2034)).toEqual([D(2034, 1, 1)]);
+});
+
+test("ES LL KV Tallinn wall clock reproduces ERAU's own UTC calendar", () => {
+  // ERAU's rules give the hour in Estonian time -- "Etappide algus on 10:00 Eesti
+  // aja (EA) jargi" -- and its 2026 calendar prints the same nine stages in UTC:
+  // 08:00-08:59 for stages 1, 2, 3, 8 and 9, and 07:00-07:59 for 4, 5, 6 and 7.
+  // That split IS the DST boundary, and it is the second source: get the zone
+  // handling wrong in either direction and four rows stop matching.
+  const c = byId("erau-es-ll-kv");
+  expect(c.timezone).toBe("Europe/Tallinn");
+  const occs = expand(c, 2026);
+  expect(occs).toHaveLength(9);
+  expect(occs.map((o) => o.start!.getUTCHours())).toEqual([8, 8, 8, 7, 7, 7, 7, 8, 8]);
+  expect(
+    new Set(occs.map((o) => `${o.end!.getUTCHours()}:${o.end!.getUTCMinutes()}`)),
+  ).toEqual(new Set(["8:59", "7:59"]));
+});
+
+test("LRAL rounds are Riga wall clock", () => {
+  // LRAL states the rounds "pec vieteja laika" -- in local time -- and never in
+  // UTC, so the same 08.00 start is a different instant in November than the
+  // 07.00 start is in May. 18 November 2026 is EET (UTC+2) and 4 May 2026 is
+  // EEST (UTC+3).
+  expect(byId("lral-18-november-80m").timezone).toBe("Europe/Riga");
+  const nov = expand(byId("lral-18-november-80m"), 2026);
+  expect(nov.map((o) => o.start!.getUTCHours())).toEqual([6, 8]); // 08.00 and 10.15 local
+  expect(nov[1].start!.getUTCMinutes()).toBe(15);
+
+  const may = expand(byId("lral-4-may-80m"), 2026);
+  expect(may.map((o) => o.start!.getUTCHours())).toEqual([4, 6]); // 07.00 and 09.15 local
+  expect(may[1].start!.getUTCMinutes()).toBe(15);
+});
+
+test("UARL championships are Kyiv wall clock and the LP Cup is not", () => {
+  // UARL writes its championships in Kyiv time ("z 19:00 do 19:29 kyyivskoho
+  // chasu") and its Low Power Cup in UT with Kyiv time in brackets ("z 16:00 do
+  // 17:59 UT (z 19:00 kyyivskoho chasu do 20:59)"). Same local hour, two
+  // different UTC instants, because March is EET and May is EEST -- and only one
+  // of the two records is wall-clocked. Encoding both the same way would move
+  // one of them by an hour.
+  for (const cid of ["uarl-champ-rtty", "uarl-champ-cw", "uarl-champ-ssb"]) {
+    const c = byId(cid);
+    expect(c.timezone, cid).toBe("Europe/Kyiv");
+    const o = expand(c, 2026)[0];
+    expect([o.start!.getUTCHours(), o.end!.getUTCHours()], cid).toEqual([17, 18]);
+    expect(o.end!.getUTCMinutes(), cid).toBe(59);
+  }
+
+  const cup = byId("uarl-lp-cup-cw");
+  expect("timezone" in cup).toBe(false);
+  const o = expand(cup, 2026)[0];
+  expect([
+    o.start!.getUTCHours(),
+    o.end!.getUTCHours(),
+    o.end!.getUTCMinutes(),
+  ]).toEqual([16, 17, 59]);
+});
+
+test("RDXC deadline lands on the date SRR prints", () => {
+  // SRR states the interval and the instant in one sentence: reports are taken
+  // "v techenii 14 dney posle okonchaniya sorevnovaniy (po 04.04.2027 goda
+  // vklyuchitelno)". The contest ends 11:59 UTC on 21 March 2027, and fourteen
+  // days is 4 April -- so the sponsor's own arithmetic is what checks ours.
+  const c = byId("srr-russian-dx");
+  expect(c.log_deadline_days).toBe(14);
+  const o = expand(c, 2027)[0];
+  expect(isoDate(o.end!)).toBe(D(2027, 3, 21));
+  expect(isoDate(o.log_due!)).toBe(D(2027, 4, 4));
+});
+
+test("LP Cup deadline lands on the date UARL prints", () => {
+  // Same shape, from UARL: "7 dib pislya zakinchennya zmahan. Tobto, 17 travnya
+  // 2026 roku ostanniy den." Seven days from 10 May is 17 May.
+  const c = byId("uarl-lp-cup-cw");
+  expect(c.log_deadline_days).toBe(7);
+  expect(isoDate(expand(c, 2026)[0].log_due!)).toBe(D(2026, 5, 17));
+});
+
+test("ES Open is worldwide with a note not two_sided", () => {
+  // ERAU's rule is asymmetric -- "ESTONIAN STATIONS CAN WORK ALL THE STATIONS WHO
+  // PARTICIPATE ... NON-ES STATIONS CAN WORK ONLY ES STATIONS" -- but that is
+  // about who counts, not about who may enter. two_sided needs both sides
+  // enumerated and tells a station in neither that it cannot enter, which is
+  // false here. Same call as DARC's WAE and WAG and JARL's All Asian.
+  const elig = byId("erau-es-open").eligibility!;
+  expect(elig.scope).toBe("worldwide");
+  expect(String(elig.note)).toContain("NON-ES STATIONS CAN WORK ONLY ES STATIONS");
+  for (const entity of ["ES", "K", "JA", "VK"]) {
+    expect(eligibilityFor(byId("erau-es-open"), entity).can_enter, entity).toBe(true);
+  }
+});
+
+test("Tier 2 records carry the sponsor strings the registry joins on", () => {
+  // Three Baltic societies share one registry entry but are three separate
+  // sponsors in the catalog, because an LV record is not an EE one. The join is
+  // the only thing that makes an unregistered sponsor detectable, so it is
+  // asserted here rather than left to the coverage test to discover.
+  const records = catalog.filter((c) => c.id in TIER2B_PUBLISHED);
+  expect(records).toHaveLength(26);
+  expect(new Set(records.map((c) => c.sponsor))).toEqual(
+    new Set([
+      "USKA",
+      "ÖVSV",
+      "MRASZ",
+      "BFRA",
+      "FRR",
+      "SRS",
+      "HRS",
+      "LRAL",
+      "ERAU",
+      "LRMD",
+      "SRR",
+      "UARL",
+    ]),
+  );
+  expect(new Set(records.map((c) => c.country))).toEqual(
+    new Set(["CH", "AT", "HU", "BG", "RO", "RS", "HR", "LV", "EE", "LT", "RU", "UA"]),
+  );
+  const owner = registryOwner(loadRegistry() as Record<string, any>);
+  for (const c of records) {
+    expect(owner.get(c.sponsor ?? "")?.split("|")[0], c.id).toBe(
+      "tier_2_european_societies",
+    );
+  }
+});
+
+test("NRAU is blocked at source and encodes nothing", () => {
+  // nrau.net says all NRAU contest information is under revision, and the NAC
+  // pages state no modes and link no rules. A record built from them could not
+  // declare a mode, and a mode-less record is dropped silently by every mode
+  // filter -- worse than not shipping it. So NRAU is recorded as blocked with
+  // nothing encoded, and what was found is written down in data/sources.md.
+  expect(catalog.filter((c) => c.sponsor === "NRAU")).toEqual([]);
+  const reg = loadRegistry() as Record<string, any>;
+  const nrau = reg.tier_2_european_societies.find((o: any) => o.org === "NRAU");
+  expect(nrau.status).toBe("blocked");
+  expect(nrau.encoded).toBe(0);
+  expect(nrau.catalog_sponsors).toEqual([]);
+  expect(reg.coverage.thin.orgs_blocked_at_source).toContain("NRAU");
 });
 
 // ---------------------------------------------------------------------------

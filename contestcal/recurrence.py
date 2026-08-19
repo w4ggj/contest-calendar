@@ -8,9 +8,11 @@ third-party calendar.
 
 Rule types
 ----------
-nth_full_weekend   {month, n}            n=-1 means last. A "full weekend" is a
-                                         Sat/Sun pair with BOTH days in the month.
-nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. n=-1 means last.
+nth_full_weekend   {month, n}            n=-1 means last, n=-2 the one before it.
+                                         A "full weekend" is a Sat/Sun pair with
+                                         BOTH days in the month.
+nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. Negative n counts
+                                         back from the last.
 fixed_date         {month, day}          Same calendar date every year.
 nearest_weekday    {month, day, weekday} The instance of `weekday` closest to
                                          {month, day} -- WIA Remembrance Day's
@@ -229,16 +231,27 @@ def _full_weekends_in_month(year: int, month: int) -> list[date]:
 
 
 def _nth(items: list[date], n: int) -> date:
-    """1-indexed selection; n=-1 selects the last item."""
+    """
+    1-indexed selection, counted from the front for n >= 1 and from the back for
+    n <= -1: n=-1 is the last item, n=-2 the one before it, and so on.
+
+    Sponsors do write rules that count backwards past "last". BFRA's LZ DX
+    Contest is "the weekend before the last full weekend of November", which is
+    n=-2 -- and it is a *rule*, not an annual announcement, because the weekend
+    it names is defined by CQ WW CW sitting on the last one.
+
+    n=0 is not a position in either direction and is rejected as a malformed
+    rule rather than silently read as the first or the last.
+    """
     if not items:
         raise NoAnchorsThisYear("no candidate dates in month")
-    if n == -1:
-        return items[-1]
-    if n < 1 or n > len(items):
+    if n == 0:
+        raise ValueError("n=0 is not a valid occurrence index")
+    if abs(n) > len(items):
         raise NoAnchorsThisYear(
             f"requested occurrence {n} but only {len(items)} exist"
         )
-    return items[n - 1]
+    return items[n if n < 0 else n - 1]
 
 
 def _weekdays_in_month(year: int, month: int, weekday: int) -> list[date]:
@@ -287,7 +300,10 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
                 anchors.append(
                     _nth(_weekdays_in_month(year, m, rule["weekday"]), rule["n"])
                 )
-            except ValueError:
+            except NoAnchorsThisYear:
+                # A "fifth Monday" rule simply skips months that have four.
+                # Narrower than `except ValueError` so a malformed n=0 rule
+                # still raises instead of quietly producing an empty year.
                 continue
     elif kind == "weekly":
         # e.g. CWops CWT: every Wednesday. `months` narrows it to a season

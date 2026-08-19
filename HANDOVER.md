@@ -18,18 +18,19 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 145 contest definitions → 739 occurrences for 2026. 252 Python tests,
-265 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
+**Current state:** 171 contest definitions → 777 occurrences for 2026. 311 Python tests,
+324 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
 `bands` are controlled vocabularies. The page has a three-state theme switch and has been
 through a measured narrow-viewport pass. The contest detail view is not built.
 
-**Where it is thin:** 43% of the catalog is North American. Every region now has something —
-Asia, Oceania and South America came off zero on 2026-08-17, and Europe went 19 → 59 records
-on 2026-08-18 with the Tier 2 societies and then DARC — but Africa and South America are one
-record each, and **tier 2 is 9 orgs worked out of 21, which is now the largest gap**: all
-eight tier-1 orgs are done. Measured rather than assumed: run
+**Where it is thin:** Africa and South America — **one record each**, and now the largest
+gaps in the catalog. Every region has something: Asia, Oceania and South America came off
+zero on 2026-08-17, and Europe went 19 → 59 records on 2026-08-18 with the Tier 2 societies
+and DARC, then to 85 on 2026-08-19 with the last twelve. Europe is now 49.7% of the catalog
+and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done and tier 2 is
+19 of 21 — only REP is unworked, and NRAU is blocked at source. Measured rather than assumed: run
 `python scripts\coverage.py --check`.
 
 ## Read first
@@ -44,11 +45,11 @@ eight tier-1 orgs are done. Measured rather than assumed: run
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 252 passed
+python -m pytest -q               # expect: 311 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 265 passed (252 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 324 passed (311 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 110 passed (parity inside workerd, the API, filters, iCal, theme, pages)
 ```
 
@@ -139,7 +140,7 @@ Two things worth knowing before you touch it:
   so out loud rather than letting it vanish. Reasoning and the FT8/FT4-under-Digital
   decision: `FRONTEND_BRIEF.md`, "Vocabulary: modes and bands".
 
-**The engine port is done.** `engine/` holds the TypeScript engine: 152 tests mirroring the
+**The engine port is done.** `engine/` holds the TypeScript engine: 311 tests mirroring the
 Python suite one-for-one, plus a parity suite that compares every field of every occurrence
 for four years against the Python reference.
 
@@ -242,13 +243,20 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    are in `data/sources.md`, "DARC, and Tier 1 is finished". Five more DARC HF contests
    (Ostercontest, Hell, HELL-Kurzcontest, and the two Ausbildungsconteste) have rules pages
    and were out of that pass's scope; DARC's UKW contests are a separate referat.
-6. **Then the rest of Tier 2** — 9 orgs worked out of 21 after the 2026-08-18 pass, which
-   took REF, UBA, VERON, PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE. That tier is now
-   the largest gap in the registry: the Nordic and Balkan societies next. Work region by region rather than sponsor
-   by sponsor so coverage fills evenly; `coverage.thin` says where, and Africa and South
-   America are one record each. Tier 5 is 50 more US QSO parties, so it still comes last:
-   at 43% North American, working it now would deepen the imbalance a world calendar can't
-   keep.
+6. **Tier 2 Europe finished — done 2026-08-19, 26 records from twelve societies.** USKA,
+   ÖVSV, MRASZ, BFRA, FRR, SRS, HRS, LRAL, ERAU, LRMD, SRR and UARL, in eleven languages,
+   each quoted in the sponsor's own wording with the translation after. One engine change:
+   `nth` now counts backwards past "last", because BFRA states LZ DX as *"the weekend before
+   the last full weekend of November"* — a rule with no forward ordinal. **NRAU is blocked
+   at source** (nrau.net says its contest information is under revision, and the NAC pages
+   state no modes), as are SRS's domestic contests and FRR's La Mulți Ani YO; what was read
+   before each blocker is recorded in `data/sources.md`, "Europe finishes ahead".
+   **REP (Portugal) is the one Tier 2 society never worked.**
+7. **Then Africa and South America** — one record each, and the thinnest part of the
+   catalog. Work region by region rather than sponsor by sponsor so coverage fills evenly;
+   `coverage.thin` names the regions at zero. Tier 5 is 50 more US QSO parties, so it still
+   comes last: adding 50 North American records now would undo the balance this year's
+   sourcing bought.
 
 ---
 

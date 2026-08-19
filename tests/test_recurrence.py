@@ -23,6 +23,7 @@ from contestcal import load_catalog, load_registry  # noqa: E402
 from contestcal.recurrence import (  # noqa: E402
     CATALOG_BANDS,
     CATALOG_MODES,
+    NoAnchorsThisYear,
     _full_weekends_in_month,
     _saturdays_in_month,
     eligibility_for,
@@ -1977,6 +1978,536 @@ def test_darc_records_all_carry_the_sponsor_string_the_registry_joins_on(catalog
     assert len(darc) == 8
     assert {c["sponsor"] for c in darc} == {"DARC"}
     assert {c["country"] for c in darc} == {"DE"}
+
+
+# ---------------------------------------------------------------------------
+# Counting backwards past "last"
+#
+# `n` used to mean "the nth from the front", with -1 special-cased to mean the
+# last. BFRA's LZ DX Contest is the rule that needed more: "the weekend before
+# the last full weekend of November", which BFRA states as a rule and not as an
+# annual announcement, because the weekend it names is defined by CQ WW CW
+# sitting on the last one. So n <= -1 now counts back from the end.
+#
+# The risk that comes with it is n=0, which is a position in neither direction.
+# Read as "the first" it silently shifts a contest; read as "no anchors this
+# year" it silently empties one. It raises instead, and because
+# NoAnchorsThisYear is a ValueError, `monthly_nth_weekday`'s skip-a-short-month
+# catch had to be narrowed so it does not swallow that.
+# ---------------------------------------------------------------------------
+
+def _synthetic(rule):
+    """A minimal record for exercising a rule with no catalog entry behind it."""
+    return {
+        "id": "synthetic",
+        "name": "Synthetic",
+        "recurrence": rule,
+        "start": {"day_offset": 0, "time": "0000"},
+        "end": {"day_offset": 0, "time": "0100"},
+    }
+
+
+def test_nth_counts_backwards_past_last():
+    """
+    November 2025 has five full weekends: 1, 8, 15, 22 and 29 November. -1 is
+    the last, -2 the one before it, -3 the one before that.
+    """
+    assert _full_weekends_in_month(2025, 11) == [
+        date(2025, 11, 1),
+        date(2025, 11, 8),
+        date(2025, 11, 15),
+        date(2025, 11, 22),
+        date(2025, 11, 29),
+    ]
+    for n, expected in ((-1, 29), (-2, 22), (-3, 15)):
+        got = expand(_synthetic({"type": "nth_full_weekend", "month": 11, "n": n}), 2025)
+        assert got[0].start.date() == date(2025, 11, expected), n
+
+
+def test_nth_counting_back_past_the_start_is_an_empty_year_not_an_error():
+    """
+    Asking for the sixth-from-last of five is the same kind of nothing as a
+    fifth Monday in a four-Monday month: the year has no such date, and expand
+    returns nothing rather than raising.
+    """
+    rule = {"type": "nth_full_weekend", "month": 11, "n": -6}
+    assert expand(_synthetic(rule), 2025) == []
+
+
+def test_nth_rejects_zero_as_a_malformed_rule():
+    """
+    n=0 is a catalog typo, not a date that does not exist. Read as "the first"
+    it moves a contest a week; read as NoAnchorsThisYear it drops the contest
+    from the calendar without a word. Neither is acceptable, so it raises -- and
+    the exception must not be NoAnchorsThisYear, or callers that legitimately
+    swallow that would swallow this too.
+    """
+    rule = {"type": "nth_weekday", "month": 11, "n": 0, "weekday": 5}
+    with pytest.raises(ValueError) as exc:
+        expand(_synthetic(rule), 2025)
+    assert not isinstance(exc.value, NoAnchorsThisYear)
+    assert "n=0" in str(exc.value)
+
+
+def test_monthly_nth_weekday_skips_short_months_but_not_malformed_rules():
+    """
+    A "fifth Monday" rule simply has no date in a month with four, and skipping
+    those is the whole point of the catch inside monthly_nth_weekday. It is
+    narrowed to NoAnchorsThisYear so a n=0 rule inside the same loop still
+    raises instead of quietly producing an empty year.
+    """
+    months = list(range(1, 13))
+    fifths = expand(
+        _synthetic(
+            {"type": "monthly_nth_weekday", "n": 5, "weekday": 0, "months": months}
+        ),
+        2026,
+    )
+    assert 0 < len(fifths) < 12
+    assert all(o.start.day > 28 for o in fifths)
+    assert all(o.start.weekday() == 0 for o in fifths)
+
+    with pytest.raises(ValueError) as exc:
+        expand(
+            _synthetic(
+                {"type": "monthly_nth_weekday", "n": 0, "weekday": 0, "months": months}
+            ),
+            2026,
+        )
+    assert not isinstance(exc.value, NoAnchorsThisYear)
+
+
+# ---------------------------------------------------------------------------
+# Sponsor validation -- the remaining Tier 2 European societies
+#
+# USKA, OeVSV, MRASZ, BFRA, FRR, SRS, HRS, LRAL, ERAU, LRMD, SRR and UARL. Each
+# rule is quoted in the sponsor's own language on the record; the dates below
+# are the sponsor's too, published separately from that wording -- a KW-Contest
+# date page, a year printed inside the rules themselves, an archive of past
+# editions, a society calendar. NRAU is absent on purpose: it is blocked at
+# source and encodes nothing. See data/sources.md.
+#
+# Session records emit one occurrence per session, so start dates are deduped.
+# ---------------------------------------------------------------------------
+
+TIER2B_PUBLISHED = {
+    "uska-helvetia": (
+        "Letztes volles Wochenende im April, Samstag 13:00 UTC bis Sonntag 12:59 UTC",
+        {2026: [(2026, 4, 25)], 2027: [(2027, 4, 24)]},
+    ),
+    "uska-field-day-cw": (
+        "CW: Erstes volles Wochenende im Juni",
+        {2026: [(2026, 6, 6)], 2027: [(2027, 6, 5)]},
+    ),
+    "uska-field-day-ssb": (
+        "SSB: Erstes volles Wochenende im September",
+        {2026: [(2026, 9, 5)]},
+    ),
+    "uska-nmd": (
+        "Dritter Sonntag im Juli, 06:00 UTC bis 09:59 UTC",
+        {2026: [(2026, 7, 19)]},
+    ),
+    "uska-weihnachtswettbewerb-ssb": (
+        "SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC",
+        {2026: [(2026, 12, 5)]},
+    ),
+    "uska-weihnachtswettbewerb-cw": (
+        "CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC",
+        {2026: [(2026, 12, 12)]},
+    ),
+    "oevsv-aoee-80-40": (
+        "2. TERMIN: 1. Mai 2026",
+        {2026: [(2026, 5, 1)]},
+    ),
+    "oevsv-aoec-160m": (
+        "Jeweils am dritten vollen Wochenende im NOVEMBER",
+        {2025: [(2025, 11, 15)], 2026: [(2026, 11, 21)]},
+    ),
+    "mrasz-ha-dx": (
+        "every year 3rd full weekend of January",
+        {2026: [(2026, 1, 17)]},
+    ),
+    "mrasz-yl-om": (
+        "minden evben marcius 8-hoz legkozelebb eso hetvegen",
+        {2026: [(2026, 3, 8)]},
+    ),
+    "mrasz-rfwd-hf": (
+        "evente aprilis 18.-an 16.00 UT-tol 16.59 UT-ig",
+        {2026: [(2026, 4, 18)]},
+    ),
+    "bfra-lz-dx": (
+        "The weekend before the last full weekend of November",
+        {2025: [(2025, 11, 22)], 2026: [(2026, 11, 21)]},
+    ),
+    "frr-yo-dx-hf": (
+        "Al patrulea weekend intreg al lunii August",
+        {2026: [(2026, 8, 22)]},
+    ),
+    "hrs-9a-dx": (
+        "3rd full weekend in December",
+        {2025: [(2025, 12, 20)], 2026: [(2026, 12, 19)]},
+    ),
+    "srs-tesla-memorial-hf-cw": (
+        "odrzavace se svake godine drugog vikenda u martu",
+        {
+            2019: [(2019, 3, 9)],
+            2020: [(2020, 3, 14)],
+            2021: [(2021, 3, 13)],
+            2022: [(2022, 3, 12)],
+            2023: [(2023, 3, 11)],
+            2024: [(2024, 3, 9)],
+            2025: [(2025, 3, 8)],
+            2026: [(2026, 3, 14)],
+        },
+    ),
+    "lral-18-november-80m": (
+        "18. novembri no 08.00-11.14 pec vieteja laika",
+        {2026: [(2026, 11, 18)]},
+    ),
+    "lral-4-may-80m": (
+        "4. maija no 07.00-10.14 pec vieteja laika",
+        {2026: [(2026, 5, 4)]},
+    ),
+    "erau-es-open": (
+        "3rd SATURDAY in APRIL: 18. APRIL 2026 05.00 - 08.59 UTC",
+        {2026: [(2026, 4, 18)]},
+    ),
+    "erau-es-ll-kv": (
+        "9-s etapis laupaeva hommikuti vastavalt ERAU kalenderplaanile",
+        {
+            2026: [
+                (2026, 1, 3),
+                (2026, 2, 14),
+                (2026, 3, 7),
+                (2026, 4, 4),
+                (2026, 5, 2),
+                (2026, 9, 5),
+                (2026, 10, 3),
+                (2026, 11, 7),
+                (2026, 12, 5),
+            ]
+        },
+    ),
+    "lrmd-vytautas-magnus": (
+        "kiekvienais metais pirma sekmadieni po Nauju metu, 0700-0759 UTC",
+        {2026: [(2026, 1, 4)]},
+    ),
+    "lrmd-wal": (
+        "2026 m. birzelio 06 d. (sestadieni), 06:00-08:59 UTC",
+        {2026: [(2026, 6, 6)]},
+    ),
+    "srr-russian-dx": (
+        "s 12:00 UTC 20 marta po 11:59 UTC 21 marta 2027 goda",
+        {2027: [(2027, 3, 20)]},
+    ),
+    "uarl-champ-rtty": (
+        "Teletaypnyy Chempionat Ukrayiny na KKH - 7 bereznya 2026 r.",
+        {2026: [(2026, 3, 7)]},
+    ),
+    "uarl-champ-cw": (
+        "Telehrafnyy Chempionat Ukrayiny na KKH - 15 bereznya 2026 r.",
+        {2026: [(2026, 3, 15)]},
+    ),
+    "uarl-champ-ssb": (
+        "Telefonnyy Chempionat Ukrayiny na KKH - 22 bereznya 2026 r.",
+        {2026: [(2026, 3, 22)]},
+    ),
+    "uarl-lp-cup-cw": (
+        "bude provedeno 10 travnya 2026r. z 16:00 do 17:59 UT",
+        {2026: [(2026, 5, 10)]},
+    ),
+}
+
+
+def _start_dates(catalog, cid, year):
+    """Unique start dates, in order. A sessions record yields one per session."""
+    seen = []
+    for o in expand(by_id(catalog, cid), year):
+        if o.start.date() not in seen:
+            seen.append(o.start.date())
+    return seen
+
+
+@pytest.mark.parametrize("cid,rule,year,published", [
+    (cid, rule, year, dates)
+    for cid, (rule, years) in sorted(TIER2B_PUBLISHED.items())
+    for year, dates in sorted(years.items())
+])
+def test_tier2b_contests_match_their_sponsors_published_dates(
+    catalog, cid, rule, year, published
+):
+    got = _start_dates(catalog, cid, year)
+    assert got == [date(*d) for d in published], f"{cid} {year}: rule '{rule}'"
+
+
+def test_tesla_memorial_second_weekend_means_second_full_weekend(catalog):
+    """
+    SRS says "odrzavace se svake godine drugog vikenda u martu" -- every year,
+    the second weekend in March -- and publishes eight editions. 2020 is the
+    year that separates the readings: 1 March 2020 was a Sunday whose Saturday
+    belonged to February, so counting weekends by their Sunday gives 7-8 March.
+    SRS published 14-15, which is the second FULL weekend.
+    """
+    assert date(2020, 3, 1).weekday() == 6  # an orphan Sunday
+    assert _full_weekends_in_month(2020, 3)[1] == date(2020, 3, 14)
+    assert _start_dates(catalog, "srs-tesla-memorial-hf-cw", 2020) == [date(2020, 3, 14)]
+    # ...and the eight published editions all reproduce, which is what makes it
+    # a rule rather than eight coincidences.
+    assert len(TIER2B_PUBLISHED["srs-tesla-memorial-hf-cw"][1]) == 8
+
+
+def test_lz_dx_counts_back_two_weekends_because_cq_ww_cw_takes_the_last(catalog):
+    """
+    BFRA anchors its date to another sponsor's contest: "The weekend before the
+    last full weekend of November (the weekend before CQWW CW contest weekend)".
+    That is n=-2, and it is the record that made the engine count backwards past
+    "last". November 2025 has five full weekends and BFRA published 22-23.
+    """
+    assert len(_full_weekends_in_month(2025, 11)) == 5
+    c = by_id(catalog, "bfra-lz-dx")
+    assert c["recurrence"] == {"type": "nth_full_weekend", "month": 11, "n": -2}
+    assert _start_dates(catalog, "bfra-lz-dx", 2025) == [date(2025, 11, 22)]
+    assert _full_weekends_in_month(2025, 11)[-1] == date(2025, 11, 29)  # CQ WW CW
+
+
+def test_yo_dx_is_the_fourth_full_weekend_not_the_last(catalog):
+    """
+    August 2026 separates the readings: 1 August is a Saturday, so the month has
+    five full weekends and the fourth (22-23) is not the last (29-30). The
+    current yodx.ro rules and FRR's own 2026 announcement both say the fourth.
+    An older hamradio.ro PDF says "Ultimul weekend intreg" -- the last -- and
+    that statement stays on the record rather than being reconciled away.
+    """
+    weekends = _full_weekends_in_month(2026, 8)
+    assert len(weekends) == 5
+    assert weekends[3] == date(2026, 8, 22) and weekends[-1] == date(2026, 8, 29)
+    assert _start_dates(catalog, "frr-yo-dx-hf", 2026) == [date(2026, 8, 22)]
+    assert "Ultimul weekend intreg" in by_id(catalog, "frr-yo-dx-hf")["note"]
+
+
+def test_aoec_third_full_weekend_survives_an_orphan_sunday(catalog):
+    """
+    OeVSV states the rule twice, in German and in English, and prints 15
+    November 2025 for itself. 2026 is the harder year: 1 November is a Sunday
+    whose Saturday belongs to October, so the full weekends start on the 7th and
+    the third is the 21st.
+    """
+    assert date(2026, 11, 1).weekday() == 6  # an orphan Sunday
+    assert _full_weekends_in_month(2026, 11)[0] == date(2026, 11, 7)
+    assert _start_dates(catalog, "oevsv-aoec-160m", 2025) == [date(2025, 11, 15)]
+    assert _start_dates(catalog, "oevsv-aoec-160m", 2026) == [date(2026, 11, 21)]
+
+
+def test_uska_forward_dates_come_from_uskas_own_kw_contest_page(catalog):
+    """
+    USKA's KW-Contest page prints the year's dates separately from the
+    Reglemente, and states two 2027 dates in prose: "Der Helvetia Contest findet
+    am 24. - 25. April 2027 ... statt" and "Der Field Day in CW findet am 5. -
+    6. Juni 2027 ... statt". Those are forward statements rather than calendar
+    rows, so they test the rule a year past every other date USKA publishes.
+    """
+    assert _start_dates(catalog, "uska-helvetia", 2027) == [date(2027, 4, 24)]
+    assert _start_dates(catalog, "uska-field-day-cw", 2027) == [date(2027, 6, 5)]
+
+
+def test_weihnachtswettbewerb_sessions_leave_the_gap_hour_out(catalog):
+    """
+    Each Saturday is a phone-or-CW morning and then a separate digital hour, and
+    the hour between them is not part of the contest. Two sessions rather than
+    one 07:00-10:59 span, or the calendar would claim an hour USKA does not run.
+    """
+    for cid in ("uska-weihnachtswettbewerb-ssb", "uska-weihnachtswettbewerb-cw"):
+        occs = expand(by_id(catalog, cid), 2026)
+        assert len(occs) == 2, cid
+        assert [(o.start.hour, o.start.minute) for o in occs] == [(7, 0), (10, 0)], cid
+        assert [(o.end.hour, o.end.minute) for o in occs] == [(9, 59), (10, 59)], cid
+
+
+def test_weihnachtswettbewerb_carries_no_deadline_because_uska_states_none(catalog):
+    """
+    Three of USKA's four KW Reglemente say "Die Logs sind innert 8 Tagen ...
+    einzureichen". The Weihnachtswettbewerb's says nothing at all. Borrowing the
+    interval from its siblings would be this catalog inventing a deadline, so
+    none is encoded and the silence is recorded on the record.
+    """
+    for cid in ("uska-weihnachtswettbewerb-ssb", "uska-weihnachtswettbewerb-cw"):
+        c = by_id(catalog, cid)
+        assert "log_deadline_days" not in c, cid
+        assert "no log deadline" in c["note"], cid
+    for cid in ("uska-helvetia", "uska-field-day-cw", "uska-field-day-ssb", "uska-nmd"):
+        assert by_id(catalog, cid)["log_deadline_days"] == 8, cid
+
+
+def test_yl_om_falls_on_the_sunday_nearest_8_march(catalog):
+    """
+    MRASZ ties the date to International Women's Day: "minden evben marcius
+    8-hoz legkozelebb eso hetvegen", run on the Sunday. 2026 is the only year
+    MRASZ confirms independently, and in it 8 March is itself a Sunday, so the
+    rule and the date agree trivially. The caveat is on the record; what is
+    asserted here is that the rule is nearest-Sunday and not a hard 8 March.
+    """
+    c = by_id(catalog, "mrasz-yl-om")
+    assert c["recurrence"] == {
+        "type": "nearest_weekday", "month": 3, "day": 8, "weekday": 6
+    }
+    assert date(2026, 3, 8).weekday() == 6
+    assert _start_dates(catalog, "mrasz-yl-om", 2026) == [date(2026, 3, 8)]
+    # 8 March 2027 is a Monday, so the nearest Sunday is behind it, not ahead.
+    assert date(2027, 3, 8).weekday() == 0
+    assert _start_dates(catalog, "mrasz-yl-om", 2027) == [date(2027, 3, 7)]
+    assert "Only that one year is independently confirmed" in c["note"]
+
+
+def test_vmc_first_sunday_reading_is_recorded_as_a_caveat(catalog):
+    """
+    LRMD writes it both ways on the same page: "pirma sekmadieni po Nauju metu"
+    and "the first Sunday after New Year's Day". The readings diverge only when
+    1 January is itself a Sunday, and LRMD has published no such year, so the
+    first-Sunday-in-January reading is encoded and the divergence is recorded
+    rather than resolved by picking a winner nobody has confirmed.
+    """
+    c = by_id(catalog, "lrmd-vytautas-magnus")
+    assert c["recurrence"] == {"type": "nth_weekday", "month": 1, "n": 1, "weekday": 6}
+    assert _start_dates(catalog, "lrmd-vytautas-magnus", 2026) == [date(2026, 1, 4)]
+    assert "CAVEAT" in c["note"] and "1 January is itself a Sunday" in c["note"]
+    # 2034 is such a year: the two readings give 1 January and 8 January.
+    assert date(2034, 1, 1).weekday() == 6
+    assert _start_dates(catalog, "lrmd-vytautas-magnus", 2034) == [date(2034, 1, 1)]
+
+
+def test_es_ll_kv_tallinn_wall_clock_reproduces_eraus_own_utc_calendar(catalog):
+    """
+    ERAU's rules give the hour in Estonian time -- "Etappide algus on 10:00 Eesti
+    aja (EA) jargi" -- and its 2026 calendar prints the same nine stages in UTC:
+    08:00-08:59 for stages 1, 2, 3, 8 and 9, and 07:00-07:59 for 4, 5, 6 and 7.
+    That split IS the DST boundary, and it is the second source: get the zone
+    handling wrong in either direction and four rows stop matching.
+    """
+    c = by_id(catalog, "erau-es-ll-kv")
+    assert c["timezone"] == "Europe/Tallinn"
+    occs = expand(c, 2026)
+    assert len(occs) == 9
+    assert [o.start.hour for o in occs] == [8, 8, 8, 7, 7, 7, 7, 8, 8]
+    assert {(o.end.hour, o.end.minute) for o in occs} == {(8, 59), (7, 59)}
+
+
+def test_lral_rounds_are_riga_wall_clock(catalog):
+    """
+    LRAL states the rounds "pec vieteja laika" -- in local time -- and never in
+    UTC, so the same 08.00 start is a different instant in November than the
+    07.00 start is in May. 18 November 2026 is EET (UTC+2) and 4 May 2026 is
+    EEST (UTC+3).
+    """
+    nov = expand(by_id(catalog, "lral-18-november-80m"), 2026)
+    assert by_id(catalog, "lral-18-november-80m")["timezone"] == "Europe/Riga"
+    assert [o.start.hour for o in nov] == [6, 8]  # 08.00 and 10.15 local
+    assert (nov[1].start.hour, nov[1].start.minute) == (8, 15)
+
+    may = expand(by_id(catalog, "lral-4-may-80m"), 2026)
+    assert [o.start.hour for o in may] == [4, 6]  # 07.00 and 09.15 local
+    assert (may[1].start.hour, may[1].start.minute) == (6, 15)
+
+
+def test_uarl_championships_are_kyiv_wall_clock_and_the_lp_cup_is_not(catalog):
+    """
+    UARL writes its championships in Kyiv time ("z 19:00 do 19:29 kyyivskoho
+    chasu") and its Low Power Cup in UT with Kyiv time in brackets ("z 16:00 do
+    17:59 UT (z 19:00 kyyivskoho chasu do 20:59)"). Same local hour, two
+    different UTC instants, because March is EET and May is EEST -- and only one
+    of the two records is wall-clocked. Encoding both the same way would move
+    one of them by an hour.
+    """
+    for cid in ("uarl-champ-rtty", "uarl-champ-cw", "uarl-champ-ssb"):
+        c = by_id(catalog, cid)
+        assert c["timezone"] == "Europe/Kyiv", cid
+        o = expand(c, 2026)[0]
+        assert (o.start.hour, o.end.hour) == (17, 18), cid  # 19:00-20:59 Kyiv, EET
+        assert o.end.minute == 59, cid
+
+    cup = by_id(catalog, "uarl-lp-cup-cw")
+    assert "timezone" not in cup
+    o = expand(cup, 2026)[0]
+    assert (o.start.hour, o.end.hour, o.end.minute) == (16, 17, 59)
+
+
+def test_rdxc_deadline_lands_on_the_date_srr_prints(catalog):
+    """
+    SRR states the interval and the instant in one sentence: reports are taken
+    "v techenii 14 dney posle okonchaniya sorevnovaniy (po 04.04.2027 goda
+    vklyuchitelno)". The contest ends 11:59 UTC on 21 March 2027, and fourteen
+    days is 4 April -- so the sponsor's own arithmetic is what checks ours.
+    """
+    c = by_id(catalog, "srr-russian-dx")
+    assert c["log_deadline_days"] == 14
+    o = expand(c, 2027)[0]
+    assert o.end.date() == date(2027, 3, 21)
+    assert o.log_due.date() == date(2027, 4, 4)
+
+
+def test_lp_cup_deadline_lands_on_the_date_uarl_prints(catalog):
+    """
+    Same shape, from UARL: "7 dib pislya zakinchennya zmahan. Tobto, 17 travnya
+    2026 roku ostanniy den." Seven days from 10 May is 17 May.
+    """
+    c = by_id(catalog, "uarl-lp-cup-cw")
+    assert c["log_deadline_days"] == 7
+    o = expand(c, 2026)[0]
+    assert o.log_due.date() == date(2026, 5, 17)
+
+
+def test_es_open_is_worldwide_with_a_note_not_two_sided(catalog):
+    """
+    ERAU's rule is asymmetric -- "ESTONIAN STATIONS CAN WORK ALL THE STATIONS WHO
+    PARTICIPATE ... NON-ES STATIONS CAN WORK ONLY ES STATIONS" -- but that is
+    about who counts, not about who may enter. two_sided needs both sides
+    enumerated and tells a station in neither that it cannot enter, which is
+    false here. Same call as DARC's WAE and WAG and JARL's All Asian.
+    """
+    elig = by_id(catalog, "erau-es-open")["eligibility"]
+    assert elig["scope"] == "worldwide"
+    assert "NON-ES STATIONS CAN WORK ONLY ES STATIONS" in elig["note"]
+    for entity in ("ES", "K", "JA", "VK"):
+        assert eligibility_for(by_id(catalog, "erau-es-open"), entity)["can_enter"]
+
+
+def test_tier2b_records_carry_the_sponsor_strings_the_registry_joins_on(catalog):
+    """
+    Three Baltic societies share one registry entry but are three separate
+    sponsors in the catalog, because an LV record is not an EE one. The join is
+    the only thing that makes an unregistered sponsor detectable, so it is
+    asserted here rather than left to the coverage test to discover.
+    """
+    records = [c for c in catalog if c["id"] in TIER2B_PUBLISHED]
+    assert len(records) == 26
+    assert {c["sponsor"] for c in records} == {
+        "USKA", "ÖVSV", "MRASZ", "BFRA", "FRR", "SRS", "HRS",
+        "LRAL", "ERAU", "LRMD", "SRR", "UARL",
+    }
+    assert {c["country"] for c in records} == {
+        "CH", "AT", "HU", "BG", "RO", "RS", "HR", "LV", "EE", "LT", "RU", "UA",
+    }
+    reg = load_registry()
+    owner = _registry_owner(reg)
+    for c in records:
+        assert owner[c["sponsor"]][0] == "tier_2_european_societies", c["id"]
+
+
+def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
+    """
+    nrau.net says all NRAU contest information is under revision, and the NAC
+    pages state no modes and link no rules. A record built from them could not
+    declare a mode, and a mode-less record is dropped silently by every mode
+    filter -- worse than not shipping it. So NRAU is recorded as blocked with
+    nothing encoded, and what was found is written down in data/sources.md.
+    """
+    assert not [c for c in catalog if c["sponsor"] == "NRAU"]
+    reg = load_registry()
+    nrau = next(
+        o for o in reg["tier_2_european_societies"] if o["org"] == "NRAU"
+    )
+    assert nrau["status"] == "blocked"
+    assert nrau["encoded"] == 0 and nrau["catalog_sponsors"] == []
+    assert "NRAU" in reg["coverage"]["thin"]["orgs_blocked_at_source"]
 
 
 # ---------------------------------------------------------------------------

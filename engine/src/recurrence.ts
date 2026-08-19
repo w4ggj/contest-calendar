@@ -12,10 +12,11 @@
  *
  * Rule types
  * ----------
- * nth_full_weekend   {month, n}            n=-1 means last. A "full weekend" is
- *                                          a Sat/Sun pair with BOTH days in the
- *                                          month.
- * nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. n=-1 = last.
+ * nth_full_weekend   {month, n}            n=-1 means last, n=-2 the one before
+ *                                          it. A "full weekend" is a Sat/Sun
+ *                                          pair with BOTH days in the month.
+ * nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. Negative n
+ *                                          counts back from the last.
  * fixed_date         {month, day}          Same calendar date every year.
  * nearest_weekday    {month, day, weekday} The instance of `weekday` closest to
  *                                          {month, day} -- WIA Remembrance Day's
@@ -349,18 +350,29 @@ export function weekdaysInMonth(
   return out;
 }
 
-/** 1-indexed selection; n=-1 selects the last item. */
+/**
+ * 1-indexed selection, counted from the front for n >= 1 and from the back for
+ * n <= -1: n=-1 is the last item, n=-2 the one before it, and so on.
+ *
+ * Sponsors do write rules that count backwards past "last". BFRA's LZ DX
+ * Contest is "the weekend before the last full weekend of November", which is
+ * n=-2 -- and it is a *rule*, not an annual announcement, because the weekend
+ * it names is defined by CQ WW CW sitting on the last one.
+ *
+ * n=0 is not a position in either direction and is rejected as a malformed
+ * rule rather than silently read as the first or the last.
+ */
 function nth(items: Date[], n: number): Date {
   if (items.length === 0) {
     throw new NoAnchorsThisYear("no candidate dates in month");
   }
-  if (n === -1) return items[items.length - 1];
-  if (n < 1 || n > items.length) {
+  if (n === 0) throw new RangeError("n=0 is not a valid occurrence index");
+  if (Math.abs(n) > items.length) {
     throw new NoAnchorsThisYear(
       `requested occurrence ${n} but only ${items.length} exist`,
     );
   }
-  return items[n - 1];
+  return items[n < 0 ? items.length + n : n - 1];
 }
 
 // --------------------------------------------------------------------------
@@ -401,8 +413,12 @@ export function resolveAnchors(rule: RecurrenceRule, year: number): Date[] {
     for (const m of months) {
       try {
         anchors.push(nth(weekdaysInMonth(year, m, rule.weekday!), rule.n!));
-      } catch {
-        continue;
+      } catch (err) {
+        // A "fifth Monday" rule simply skips months that have four. Narrower
+        // than a bare catch so a malformed n=0 rule still throws instead of
+        // quietly producing an empty year.
+        if (err instanceof NoAnchorsThisYear) continue;
+        throw err;
       }
     }
   } else if (kind === "weekly") {
