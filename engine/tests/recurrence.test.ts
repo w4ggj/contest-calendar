@@ -1811,6 +1811,156 @@ test("Czech contest hosts are http because their TLS is broken", () => {
 });
 
 // ---------------------------------------------------------------------------
+// Sponsor validation -- DARC
+//
+// The rules are German and each record quotes them in German. The dates and
+// deadlines below are DARC's, published separately from that wording in its own
+// "Termine DARC KW Conteste 2026" table at /darc-kw-conteste/kw-conteste/. That
+// table lists only DARC's own contests, so it is a sponsor source and not an
+// aggregator -- the one IARU event on it is not encoded, for that reason.
+// ---------------------------------------------------------------------------
+
+const DARC_PUBLISHED: Record<string, [string, [number, number, number][]]> = {
+  "wae-dx-cw": ["CW: August, zweites Wochenende", [[2026, 8, 8]]],
+  "wae-dx-ssb": ["SSB: September, zweites Wochenende", [[2026, 9, 12]]],
+  "wae-dx-rtty": ["RTTY: November, zweites Wochenende", [[2026, 11, 14]]],
+  "darc-wag": [
+    "Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag",
+    [[2026, 10, 17]],
+  ],
+  "darc-10m": ["Zweiter Sonntag im Januar, 0900-1059 UTC", [[2026, 1, 11]]],
+  "darc-xmas": ["26. Dezember, 08.30-10.59 UTC", [[2026, 12, 26]]],
+  "darc-ft4": [
+    "Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat",
+    [[2026, 2, 10], [2026, 5, 12], [2026, 8, 11], [2026, 11, 10]],
+  ],
+  "darc-rtty-kurzcontest": [
+    "jeweils im 1. Monat eines jeden Quartals am 2. Dienstag",
+    [[2026, 1, 13], [2026, 4, 14], [2026, 7, 14], [2026, 10, 13]],
+  ],
+};
+
+test.each(
+  Object.entries(DARC_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, dates]]) => [cid, rule, dates] as const),
+)("DARC contests match DARC's own published dates: %s", (cid, rule, published) => {
+  const got = expand(byId(cid), 2026).map((o) => isoDate(o.start!));
+  expect(got, `${cid}: rule '${rule}'`).toEqual(
+    published.map(([y, m, d]) => D(y, m, d)),
+  );
+});
+
+// The deadline column of the same table. DARC states the interval once in the
+// general contest rules and again in most of the individual Ausschreibungen, so
+// these are a second statement of it rather than a restatement of ours.
+const DARC_PUBLISHED_DEADLINES: Record<string, [number, number, number][]> = {
+  "wae-dx-cw": [[2026, 8, 16]],
+  "wae-dx-ssb": [[2026, 9, 20]],
+  "wae-dx-rtty": [[2026, 11, 22]],
+  "darc-wag": [[2026, 10, 25]],
+  "darc-10m": [[2026, 1, 18]],
+  "darc-xmas": [[2027, 1, 2]],
+  "darc-ft4": [[2026, 2, 17], [2026, 5, 19], [2026, 8, 18], [2026, 11, 17]],
+  "darc-rtty-kurzcontest": [
+    [2026, 1, 20], [2026, 4, 21], [2026, 7, 21], [2026, 10, 20],
+  ],
+};
+
+test.each(
+  Object.entries(DARC_PUBLISHED_DEADLINES)
+    .sort()
+    .map(([cid, dates]) => [cid, dates] as const),
+)("DARC log deadlines match DARC's own published dates: %s", (cid, published) => {
+  const c = byId(cid);
+  expect(c.log_deadline_days, cid).toBe(7);
+  const got = expand(c, 2026).map((o) => isoDate(o.log_due!));
+  expect(got, cid).toEqual(published.map(([y, m, d]) => D(y, m, d)));
+});
+
+test("DARC WAE RTTY is the second full weekend, not the second weekend", () => {
+  // DARC writes 'zweites Wochenende', without 'volles'. November 2026 is the
+  // year that separates the readings: 1 November is a Sunday whose Saturday
+  // belongs to October, so counting weekends from it gives 7-8 November. DARC
+  // publishes 14-15, which is the second FULL weekend.
+  expect(weekdayOf(new Date(at(2026, 11, 1)))).toBe(6); // an orphan Sunday
+  expect(isoDate(fullWeekendsInMonth(2026, 11)[1])).toBe(D(2026, 11, 14));
+  expect(isoDate(expand(byId("wae-dx-rtty"), 2026)[0].start!)).toBe(D(2026, 11, 14));
+});
+
+test("WAE CW deadline follows the interval DARC states twice", () => {
+  // DARC contradicts itself on this one leg. Rule 13 of the WAE rules and the
+  // general contest rules both say seven days; seven days is 16 August 2026,
+  // which is what DARC's own contest calendar prints. The per-leg line on the
+  // rules page says 17.08.2026. The interval wins because it is stated twice
+  // and because it reproduces the SSB and RTTY legs' printed instants exactly.
+  const c = byId("wae-dx-cw");
+  expect(isoDate(expand(c, 2026)[0].log_due!)).toBe(D(2026, 8, 16));
+  expect(c.note ?? "").toContain("17.08.2026"); // the losing statement stays recorded
+});
+
+test("DARC quarterly series interleave on the same weekday", () => {
+  // RTTY takes the first month of each quarter and FT4 the second, both on the
+  // second Tuesday. Encoded as one record each, so the two months lists must
+  // stay disjoint or a leg would be claimed twice.
+  const rtty = byId("darc-rtty-kurzcontest").recurrence;
+  const ft4 = byId("darc-ft4").recurrence;
+  expect(rtty.months).toEqual([1, 4, 7, 10]);
+  expect(ft4.months).toEqual([2, 5, 8, 11]);
+  expect(rtty.months!.filter((m) => ft4.months!.includes(m))).toEqual([]);
+  expect(rtty.weekday).toBe(1); // Tuesday
+  expect(ft4.weekday).toBe(1);
+  expect(rtty.n).toBe(2);
+  expect(ft4.n).toBe(2);
+  for (const cid of ["darc-rtty-kurzcontest", "darc-ft4"]) {
+    for (const o of expand(byId(cid), 2026)) {
+      expect(weekdayOf(o.start!), cid).toBe(1);
+      expect(o.start!.getUTCDate(), cid).toBeGreaterThanOrEqual(8); // the second
+      expect(o.start!.getUTCDate(), cid).toBeLessThanOrEqual(14); // ...Tuesday
+    }
+  }
+});
+
+test("DARC Xmas is a calendar date and ignores the weekday", () => {
+  // 26 December whatever day it falls on -- 2026 is a Saturday, 2027 a Sunday,
+  // 2028 a Tuesday. A weekday rule fitted to any one of them would be wrong the
+  // next year.
+  const c = byId("darc-xmas");
+  expect(c.recurrence).toEqual({ type: "fixed_date", month: 12, day: 26 });
+  for (const [y, weekday] of [[2026, 5], [2027, 6], [2028, 1]] as const) {
+    const o = expand(c, y)[0];
+    expect(isoDate(o.start!)).toBe(D(y, 12, 26));
+    expect(weekdayOf(o.start!)).toBe(weekday);
+  }
+});
+
+test("DARC 10m rule comes from DARC's superseded Ausschreibung", () => {
+  // The current Ausschreibung prints '11.01.26' and no rule; the pre-2023 one
+  // DARC keeps below it on the same page says 'Zweiter Sonntag im Januar'. That
+  // is where the recurrence comes from, and the record says so rather than
+  // letting a rule appear to have been fitted to a single date.
+  const c = byId("darc-10m");
+  expect(c.recurrence).toEqual({
+    type: "nth_weekday",
+    month: 1,
+    n: 2,
+    weekday: 6,
+  });
+  expect(String(c.source_note)).toContain("bis 2023");
+  expect(isoDate(expand(c, 2026)[0].start!)).toBe(D(2026, 1, 11));
+});
+
+test("DARC records all carry the sponsor string the registry joins on", () => {
+  // DARC runs these under one contest department; the registry's DARC entry
+  // lists exactly one catalog_sponsors string, and an unregistered sponsor is
+  // only detectable through that join.
+  const darc = catalog.filter((c) => c.id in DARC_PUBLISHED);
+  expect(darc).toHaveLength(8);
+  expect(new Set(darc.map((c) => c.sponsor))).toEqual(new Set(["DARC"]));
+  expect(new Set(darc.map((c) => c.country))).toEqual(new Set(["DE"]));
+});
+
+// ---------------------------------------------------------------------------
 // Time zones
 // ---------------------------------------------------------------------------
 

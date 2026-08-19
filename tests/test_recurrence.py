@@ -1816,6 +1816,170 @@ def test_czech_contest_hosts_are_http_because_their_tls_is_broken(catalog):
 
 
 # ---------------------------------------------------------------------------
+# Sponsor validation -- DARC
+#
+# The rules are German and each record quotes them in German. The dates and
+# deadlines below are DARC's, published separately from that wording in its own
+# "Termine DARC KW Conteste 2026" table at /darc-kw-conteste/kw-conteste/. That
+# table lists only DARC's own contests, so it is a sponsor source and not an
+# aggregator -- the one IARU event on it is not encoded, for that reason.
+# ---------------------------------------------------------------------------
+
+DARC_PUBLISHED = {
+    "wae-dx-cw": (
+        "CW: August, zweites Wochenende",
+        [(2026, 8, 8)],
+    ),
+    "wae-dx-ssb": (
+        "SSB: September, zweites Wochenende",
+        [(2026, 9, 12)],
+    ),
+    "wae-dx-rtty": (
+        "RTTY: November, zweites Wochenende",
+        [(2026, 11, 14)],
+    ),
+    "darc-wag": (
+        "Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag",
+        [(2026, 10, 17)],
+    ),
+    "darc-10m": (
+        "Zweiter Sonntag im Januar, 0900-1059 UTC",
+        [(2026, 1, 11)],
+    ),
+    "darc-xmas": (
+        "26. Dezember, 08.30-10.59 UTC",
+        [(2026, 12, 26)],
+    ),
+    "darc-ft4": (
+        "Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat",
+        [(2026, 2, 10), (2026, 5, 12), (2026, 8, 11), (2026, 11, 10)],
+    ),
+    "darc-rtty-kurzcontest": (
+        "jeweils im 1. Monat eines jeden Quartals am 2. Dienstag",
+        [(2026, 1, 13), (2026, 4, 14), (2026, 7, 14), (2026, 10, 13)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(DARC_PUBLISHED.items())
+])
+def test_darc_contests_match_darcs_own_published_dates(catalog, cid, rule, published):
+    got = [o.start.date() for o in expand(by_id(catalog, cid), 2026)]
+    assert got == [date(*d) for d in published], f"{cid}: rule '{rule}'"
+
+
+# The deadline column of the same table. DARC states the interval once in the
+# general contest rules and again in most of the individual Ausschreibungen, so
+# these are a second statement of it rather than a restatement of ours.
+DARC_PUBLISHED_DEADLINES = {
+    "wae-dx-cw": [(2026, 8, 16)],
+    "wae-dx-ssb": [(2026, 9, 20)],
+    "wae-dx-rtty": [(2026, 11, 22)],
+    "darc-wag": [(2026, 10, 25)],
+    "darc-10m": [(2026, 1, 18)],
+    "darc-xmas": [(2027, 1, 2)],
+    "darc-ft4": [(2026, 2, 17), (2026, 5, 19), (2026, 8, 18), (2026, 11, 17)],
+    "darc-rtty-kurzcontest": [
+        (2026, 1, 20), (2026, 4, 21), (2026, 7, 21), (2026, 10, 20),
+    ],
+}
+
+
+@pytest.mark.parametrize("cid,published", sorted(DARC_PUBLISHED_DEADLINES.items()))
+def test_darc_log_deadlines_match_darcs_own_published_dates(catalog, cid, published):
+    c = by_id(catalog, cid)
+    assert c["log_deadline_days"] == 7, cid
+    got = [o.log_due.date() for o in expand(c, 2026)]
+    assert got == [date(*d) for d in published], cid
+
+
+def test_darc_wae_rtty_is_the_second_full_weekend_not_the_second_weekend(catalog):
+    """
+    DARC writes 'zweites Wochenende', without 'volles'. November 2026 is the
+    year that separates the readings: 1 November is a Sunday whose Saturday
+    belongs to October, so counting weekends from it gives 7-8 November. DARC
+    publishes 14-15, which is the second FULL weekend.
+    """
+    assert date(2026, 11, 1).weekday() == 6  # an orphan Sunday
+    assert _full_weekends_in_month(2026, 11)[1] == date(2026, 11, 14)
+    assert expand(by_id(catalog, "wae-dx-rtty"), 2026)[0].start.date() == date(
+        2026, 11, 14
+    )
+
+
+def test_wae_cw_deadline_follows_the_interval_darc_states_twice(catalog):
+    """
+    DARC contradicts itself on this one leg. Rule 13 of the WAE rules and the
+    general contest rules both say seven days; seven days is 16 August 2026,
+    which is what DARC's own contest calendar prints. The per-leg line on the
+    rules page says 17.08.2026. The interval wins because it is stated twice
+    and because it reproduces the SSB and RTTY legs' printed instants exactly.
+    """
+    c = by_id(catalog, "wae-dx-cw")
+    assert expand(c, 2026)[0].log_due.date() == date(2026, 8, 16)
+    assert "17.08.2026" in c["note"]  # the losing statement stays recorded
+
+
+def test_darc_quarterly_series_interleave_on_the_same_weekday(catalog):
+    """
+    RTTY takes the first month of each quarter and FT4 the second, both on the
+    second Tuesday. Encoded as one record each, so the two months lists must
+    stay disjoint or a leg would be claimed twice.
+    """
+    rtty = by_id(catalog, "darc-rtty-kurzcontest")["recurrence"]
+    ft4 = by_id(catalog, "darc-ft4")["recurrence"]
+    assert rtty["months"] == [1, 4, 7, 10]
+    assert ft4["months"] == [2, 5, 8, 11]
+    assert not set(rtty["months"]) & set(ft4["months"])
+    assert rtty["weekday"] == ft4["weekday"] == 1  # Tuesday
+    assert rtty["n"] == ft4["n"] == 2
+    for cid in ("darc-rtty-kurzcontest", "darc-ft4"):
+        for o in expand(by_id(catalog, cid), 2026):
+            assert o.start.weekday() == 1, cid
+            assert 8 <= o.start.day <= 14, cid  # the second Tuesday, always
+
+
+def test_darc_xmas_is_a_calendar_date_and_ignores_the_weekday(catalog):
+    """
+    26 December whatever day it falls on -- 2026 is a Saturday, 2027 a Sunday,
+    2028 a Tuesday. A weekday rule fitted to any one of them would be wrong the
+    next year.
+    """
+    c = by_id(catalog, "darc-xmas")
+    assert c["recurrence"] == {"type": "fixed_date", "month": 12, "day": 26}
+    for y, weekday in ((2026, 5), (2027, 6), (2028, 1)):
+        occ = expand(c, y)[0]
+        assert occ.start.date() == date(y, 12, 26)
+        assert occ.start.weekday() == weekday
+
+
+def test_darc_10m_rule_comes_from_darcs_superseded_ausschreibung(catalog):
+    """
+    The current Ausschreibung prints '11.01.26' and no rule; the pre-2023 one
+    DARC keeps below it on the same page says 'Zweiter Sonntag im Januar'. That
+    is where the recurrence comes from, and the record says so rather than
+    letting a rule appear to have been fitted to a single date.
+    """
+    c = by_id(catalog, "darc-10m")
+    assert c["recurrence"] == {"type": "nth_weekday", "month": 1, "n": 2, "weekday": 6}
+    assert "bis 2023" in c["source_note"]
+    assert expand(c, 2026)[0].start.date() == date(2026, 1, 11)
+
+
+def test_darc_records_all_carry_the_sponsor_string_the_registry_joins_on(catalog):
+    """
+    DARC runs these under one contest department; the registry's DARC entry
+    lists exactly one catalog_sponsors string, and an unregistered sponsor is
+    only detectable through that join.
+    """
+    darc = [c for c in catalog if c["id"] in DARC_PUBLISHED]
+    assert len(darc) == 8
+    assert {c["sponsor"] for c in darc} == {"DARC"}
+    assert {c["country"] for c in darc} == {"DE"}
+
+
+# ---------------------------------------------------------------------------
 # Time zones
 #
 # `local_time` used to mean two incompatible things: "the sponsor runs this at

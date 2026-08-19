@@ -42,6 +42,7 @@ when you verify it, so the catalog stays auditable as it grows.
 | 2026-08-18 | CRK / SARA | okomdx.crk.cz (SSB and CW rules, English), okrtty.crk.cz | 3 | OK/OM SSB: "The Czech Radio Club, CRK in cooperation with Slovak radioclub SARA"; "2. Contest Period — second weekend in April, i.e. 1200 UTC 11 April - 1159 UTC 12 April 2026"; "11.1 Logs must be submitted … within 7 days after the end of the contest .. (APRIL 19, 2026, 2359 UTC)". OK/OM CW: "Second (full) weekend in November, i.e. 1200 UTC 14th November - 1159 UTC 15th November 2026". OK DX RTTY: "1) Date: 00:00 UTC to 24:00 UTC Saturday, 3rd full weekend in December", "2) Mode: RTTY - Baudot", logs "not later than 7th day after the contest" — **which its own announcement contradicts**; see below. Both hosts are **http:// deliberately**: their TLS certificate is issued for `default.web4u.cz`. |
 | 2026-08-18 | ARI | contest.ari.it/hf_web/rules/{aridxrule_dx, arisezionihf_it}.pdf + ari.it/contest-hf/contest-4080.html | 3 | International DX: "Il contest si svolge il primo weekend completo di Maggio con inizio alle ore 1200Z del sabato e termine alle ore 1159Z della domenica. L'edizione 2026 avrà luogo il 02 e 03 Maggio." (EN: "held on each first full week-end of May".) Contest delle Sezioni HF (Italian only): "ogni secondo week-end completo di Giugno … L'edizione 2026 avrà luogo in data 13 e 14 Giugno", logs "entro, e non oltre, 6 giorni dalla data di fine contest". 40/80: "il secondo weekend completo di Dicembre con inizio alle ore 1300Z del sabato … L'edizione 2025 avrà luogo il 13 e 14 Dicembre." |
 | 2026-08-18 | URE | concursos.ure.es/en/{s-m-el-rey-de-espana-cw, s-m-el-rey-de-espana-ssb, eartty, eapsk63, cncw, cme}/bases/ | 6 | King of Spain CW: "3rd full weekend of May, from 1200 UTC Saturday till 1159 UTC Sunday (May 16th and 17th, 2026)"; SSB: "**4rd** full weekend of June … (June 27th and 28th, 2026)" — URE's typo, quoted as written. EA PSK63 (Spanish): "Segundo fin de semana del mes de marzo (en el año 2026, días 14 y 15)". CNCW: "3rd full weekend of July (July 18th and 19th, 2026), from 1200 UTC Saturday till 2259 UTC Saturday **and from 0500UTC till 1159UTC Sunday**"; CME likewise for the "2nd full weekend of August" — both encoded as two sessions. EA RTTY states a date only — manual. Every record: "Logs must be received by … (15 days)". |
+| 2026-08-18 | DARC | darc.de/der-club/referate/conteste/{wae-dx-contest/regeln, wag-contest/regeln, darc-10m-contest/regeln, weihnachtswettbewerb/regeln, ft4-contest/ft4-rules, rtty-kurz/rtty-rules} | 8 | WAE DX (Ausschreibung, Stand 2025-06-17): "CW: August, zweites Wochenende … SSB: September, zweites Wochenende … RTTY: November, zweites Wochenende", each with its instants; Punkt 13 "Der Einsendeschluß ist immer 7 Tage nach dem Contest"; Punkt 12 "Im RTTY-Teil des WAEDC entfällt die Kontinentbeschränkung; jeder kann jeden arbeiten. Nur der QTC-Austausch muss zwischen verschiedenen Kontinenten abgewickelt werden." WAG: "Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag. 2026: 17/18. Oktober"; "Einsendeschluss ist 7 Tage nach Contestende. 2026: 25.10.26, 23.59 ME(S)Z." 10m, in the "Ausschreibung bis 2023" DARC keeps on the same page: "1. Contest-Periode: Zweiter Sonntag im Januar, 0900-1059 UTC" — the current Ausschreibung states only "Termin - 11.01.26, 09:00 UTC - 10:59 UTC". Weihnachtswettbewerb: "1. Termin: 26. Dezember, 08.30-10.59 UTC"; "NEU: 7 Tage nach dem Wettbewerb (für den Contest 2026 der 2.01.2027)"; "Es sind maximal 20 Wechsel der Betriebsart oder des Bandes während der gesamten Contestzeit zugelassen." FT4: "Termin: Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat"; "Betrieb im Fox-Modus ist nicht erlaubt." RTTY-Kurzcontest: "Termin: jeweils im 1. Monat eines jeden Quartals am 2. Dienstag"; "Betriebsarten: RTTY (45,45 Baud)." Every date **and every log deadline** cross-checked against DARC's own "Termine DARC KW Conteste 2026" table. |
 
 ## Modes and bands became controlled vocabularies — 2026-08-16
 
@@ -493,8 +494,113 @@ source for UBA's dates, which is exactly what the sourcing rule wants and an agg
   Each corrected URL was re-fetched and confirmed to carry the exact wording this file quotes.
   This is what the link checker is for — run it before committing a sourcing pass, not after.
 
+## DARC, and Tier 1 is finished — 2026-08-18
+
+DARC was the largest single gap left in the catalog and the last Tier 1 organisation nobody
+had worked. **8 records — 145 encoded, up from 137**, and every Tier 1 org is now worked.
+
+| Contest | Rule as DARC states it | Encoded as |
+|---|---|---|
+| WAE DX CW / SSB / RTTY | "August / September / November, zweites Wochenende" | second **full** weekend of each — see below |
+| Worked All Germany | "Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag" | third full weekend, 24 hours |
+| DARC 10m | "Zweiter Sonntag im Januar, 0900-1059 UTC" | second Sunday of January |
+| Weihnachtswettbewerb | "26. Dezember, 08.30-10.59 UTC" | a fixed calendar date |
+| DARC FT4 | "Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat" | second Tuesday of Feb / May / Aug / Nov |
+| DARC RTTY-Kurzcontest | "jeweils im 1. Monat eines jeden Quartals am 2. Dienstag" | second Tuesday of Jan / Apr / Jul / Oct |
+
+**Coverage after: North America 62 (42.8%, from 45.3%), Europe 59 (from 51), Oceania 13,
+Asia 5, International 4, Africa 1, South America 1.** 138 of 145 records are verified at
+source. Europe is now within three records of North America.
+
+Every rule fits a recurrence type the engine already had, so neither engine changed. The
+mirrored suites gain 22 tests each.
+
+The pages are German and the records quote them in German first, translation after — the
+treatment AGCW's and the Tier 2 societies' pages got. DARC also publishes English pages for
+WAE, WAG, the 10m and the XMAS contest; they are shorter, and where they differ they are
+recorded rather than preferred (see WAG below).
+
+### The second published source is DARC's own, and it is not an aggregator
+
+DARC's contest department publishes **"Termine DARC KW Conteste 2026"** at
+`/darc-kw-conteste/kw-conteste/` — a table of dates *and log deadlines*, separate from the
+per-contest Ausschreibungen. It lists only DARC's own events, which makes it a sponsor source
+and exactly the independent second statement the sourcing rule wants. Every one of the eight
+records' 2026 dates and all sixteen computed deadlines reproduce it, and both engines assert
+that row for row. The one foreign event on the table — the IARU Region 1 Fieldday — is not
+encoded, for the same reason UBA's Fieldday row was not.
+
+### Contradictions found, and left standing
+
+- **DARC contradicts itself about the WAE CW deadline.** Rule 13 says "Der Einsendeschluß ist
+  immer 7 Tage nach dem Contest" and DARC's Allgemeine Contestregeln say the same. Seven days
+  from the CW leg's end is **16 August 2026**, which is what DARC's own KW contest calendar
+  prints. The per-leg line on the same rules page reads **"Einsendeschluss CW: 17.08.2026,
+  23:59 UTC"**, a day later. The interval is encoded: it is stated twice, and it reproduces
+  the SSB (20.09) and RTTY (22.11) printed instants exactly. Both statements are in the
+  record's `note` and a test in both engines asserts the encoded one.
+- **DARC's FT4 page heads its 2026 dates "Termine 2025:".** The dates under that heading are
+  2026 and match the KW calendar. The typo is in the heading only, and it is recorded rather
+  than quietly corrected.
+- **The KW calendar's HELL-Kurzcontest row prints a log deadline equal to the contest date**
+  (17.11.2026 for both). That contest is not encoded, so this is an observation about the
+  table's reliability and nothing more — the eight rows that *are* used were each checked
+  against the contest's own Ausschreibung as well.
+- **DARC's English WAG page says "third weekend of October"; the German Ausschreibung says
+  "drittes volles Wochenende".** The full-weekend reading is encoded, because it is the one
+  the rules document states.
+
+### Judgement calls
+
+- **"Zweites Wochenende" is encoded as the second *full* weekend**, and WAE RTTY is the leg
+  that proves it. DARC omits "volles" for all three WAE legs; November 2026 separates the
+  readings, because 1 November is a Sunday whose Saturday belongs to October. Counting that
+  orphan Sunday gives 7–8 November; DARC publishes 14–15. The full-weekend reading is the one
+  that matches what DARC prints, in the year where the two disagree.
+- **The 10m recurrence comes from a rules document DARC has superseded.** The current
+  Ausschreibung prints "11.01.26" and states no rule; the "Ausschreibung bis 2023" DARC keeps
+  below it on the same page says "Zweiter Sonntag im Januar". Both are DARC's, they agree for
+  2026, and the record says which one the rule came from. A rule taken from a single date
+  would have been a guess; this is a quotation with a caveat.
+- **The two quarterly series are one record each, offset by a month.** RTTY takes the first
+  month of each quarter and FT4 the second, both on the second Tuesday, so `monthly_nth_weekday`
+  with a `months` list states each exactly. A test asserts the two lists stay disjoint — a
+  slip there would claim the same evening twice.
+- **WAE and WAG are `worldwide` with an explanatory note, not `two_sided`.** WAE CW and SSB
+  are Europe against DX and WAG only counts QSOs with German stations, but `two_sided`
+  requires enumerating the entities on both sides in both engines, and a station in neither
+  list would be told it cannot enter — which is false. Same call as JARL's All Asian DX.
+- **DARC's printed deadlines are German local-time instants** ("25.10.26, 23.59 ME(S)Z" for
+  WAG). The stored interval lands on the same date at the contest's own end time. The
+  difference is recorded in the WAG record rather than resolved by storing a fixed instant.
+- **DARC's UKW (VHF/UHF) contests are a different referat** and are outside this pass. They
+  are not counted in DARC's `estimated_total`, which covers the KW programme only.
+
+### Corrections to the registry's assumptions
+
+- DARC's registered URL was the referat's landing page. The rules index is
+  `/der-club/referate/conteste/darc-kw-conteste/kw-conteste/`, and the individual
+  Ausschreibungen are one level below each contest's own landing page — `…/wag-contest/regeln/`,
+  not `…/wag-contest/`. Five of the six pages were first fetched at the landing level and
+  yielded no rule at all; the sub-path is where DARC keeps them.
+- `estimated_total` moved 15 → 13 once the KW programme was actually counted: DARC runs
+  thirteen HF contests of its own and the estimate had been written before any page was read.
+
 ## Pending verification
 
+- **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the
+  Hell Contest, the HELL-Kurzcontest, the Ausbildungscontest and the CW-Ausbildungscontest all
+  appear on DARC's own KW calendar with Ausschreibungen of their own. They were not encoded
+  because the pass was scoped to the six named programmes; each has a rules page, so a future
+  pass has a source to read. DARC's UKW/VHF contests belong to a different referat and are a
+  separate piece of work again.
+- **DARC IARU Region 1 Fieldday** — on DARC's KW calendar, but it is IARU's event and DARC
+  publishes no rules of its own for it. Deliberately not encoded, same as UBA's Fieldday row.
+- **The DARC 10m recurrence is quoted from a superseded document.** DARC's current
+  Ausschreibung prints a date and no rule; the "Ausschreibung bis 2023" on the same page is
+  where "Zweiter Sonntag im Januar" comes from. It is DARC's own wording and the two agree for
+  2026, but a future edition could change the rule without changing that retained text. Watch
+  the current Ausschreibung each January.
 - **CRK's contest hosts have a broken TLS certificate** — **blocked, but not blocking.**
   `okomdx.crk.cz` and `okrtty.crk.cz` both serve a certificate issued for `default.web4u.cz`,
   so HTTPS fails validation on both. The three records' `rules_url` values are `http://`

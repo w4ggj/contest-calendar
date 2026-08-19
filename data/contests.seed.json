@@ -7352,6 +7352,455 @@
         "verified": true,
         "note": "'Participants: Any licensed amateur station.'"
       }
+    },
+    {
+      "id": "wae-dx-cw",
+      "name": "WAE DX Contest CW",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/wae-dx-contest/regeln/",
+      "log_submit_url": "https://dxhf2.darc.de/~waecwlog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS/RST + serial from 001. QTC traffic scores additional points: a QSO already logged is reported back to a European station as time, callsign and serial, at most 10 between any two stations, and each correctly passed QTC counts a point to both ends.",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/wae-dx-contest/regeln/ (Ausschreibung, Stand 2025-06-17): 'Der Deutsche Amateur Radio Club (DARC) lädt alle Funkamateure weltweit zum jährlich stattfindenden WAEDC-Contest ein.' -- 'DARC invites all radio amateurs worldwide to the annual WAEDC contest.' Bänder: '3,5 - 7 - 14 - 21 - 28 MHz.' Kontrollziffernaustausch: 'Ausgetauscht werden RS/RST und eine Seriennummer ab 001.' -- 'RS/RST and a serial number from 001 are exchanged.' Einsendeschluss, Punkt 13: 'Der Einsendeschluß ist immer 7 Tage nach dem Contest.' -- 'the deadline is always 7 days after the contest.' Wettbewerbszeiten: 'CW: August, zweites Wochenende. Samstag, 8. August 2026, 0000 UTC bis Sonntag, 9. August 2026, 2359 UTC' -- 'CW: August, second weekend. Saturday 8 August 2026, 0000 UTC to Sunday 9 August 2026, 2359 UTC.' Ruhepausen: 'Während des 48 Stunden dauernden Contests dürfen Einmannstationen nur 36 Stunden arbeiten.' -- single operators may work only 36 of the 48 hours. Verified 2026-08-18.",
+      "note": "DARC states the deadline twice as an interval and once as an instant, and for the CW leg the instant disagrees. Rule 13 says 'immer 7 Tage nach dem Contest' and the general contest rules say the same; seven days from this leg's end is 16 August 2026, which is the date DARC's own KW contest calendar prints. The per-leg line on the same rules page reads 'Einsendeschluss CW: 17.08.2026, 23:59 UTC', a day later. The interval is what is encoded -- it is stated twice, and it reproduces the printed instants of the SSB and RTTY legs exactly. Both statements are recorded here rather than reconciled.",
+      "summary": "The DX half of the WAE trio: only Europe-to-DX contacts count, and QTC traffic lets a DX station double its score by passing logged QSOs back to Europe.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Der Deutsche Amateur Radio Club (DARC) lädt alle Funkamateure weltweit ... ein.' Scoring is one-sided: 'Ein Wettbewerbs-QSO kann nur zwischen einer europäischen und einer außereuropäischen Station geführt werden' -- a contest QSO can only be made between a European and a non-European station. Not encoded as two_sided, which would need DARC's whole WAE country list enumerated in both engines; same call as JARL All Asian."
+      }
+    },
+    {
+      "id": "wae-dx-ssb",
+      "name": "WAE DX Contest SSB",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/wae-dx-contest/regeln/",
+      "log_submit_url": "https://dxhf2.darc.de/~waessblog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS/RST + serial from 001. QTC traffic scores additional points: a QSO already logged is reported back to a European station as time, callsign and serial, at most 10 between any two stations, and each correctly passed QTC counts a point to both ends.",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/wae-dx-contest/regeln/ (Ausschreibung, Stand 2025-06-17): 'Der Deutsche Amateur Radio Club (DARC) lädt alle Funkamateure weltweit zum jährlich stattfindenden WAEDC-Contest ein.' -- 'DARC invites all radio amateurs worldwide to the annual WAEDC contest.' Bänder: '3,5 - 7 - 14 - 21 - 28 MHz.' Kontrollziffernaustausch: 'Ausgetauscht werden RS/RST und eine Seriennummer ab 001.' -- 'RS/RST and a serial number from 001 are exchanged.' Einsendeschluss, Punkt 13: 'Der Einsendeschluß ist immer 7 Tage nach dem Contest.' -- 'the deadline is always 7 days after the contest.' Wettbewerbszeiten: 'SSB: September, zweites Wochenende. Samstag, 12. September 2026, 0000 UTC bis Sonntag, 13. September 2026, 2359 UTC' -- 'SSB: September, second weekend.' DARC prints 'Einsendeschluss SSB: 20.09.2026, 23:59 UTC', which is exactly the stated seven days. Verified 2026-08-18.",
+      "summary": "The September phone running of the Worked All Europe DX Contest, with the same Europe-to-DX scoring and QTC traffic as the CW leg.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'... lädt alle Funkamateure weltweit ... ein.' Scoring is one-sided: 'Ein Wettbewerbs-QSO kann nur zwischen einer europäischen und einer außereuropäischen Station geführt werden.' Not encoded as two_sided; see wae-dx-cw."
+      }
+    },
+    {
+      "id": "wae-dx-rtty",
+      "name": "WAE DX Contest RTTY",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/wae-dx-contest/regeln/",
+      "log_submit_url": "https://dxhf2.darc.de/~waerttylog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RS/RST + serial from 001. QTC traffic scores additional points; in the RTTY leg every station may send and receive QTCs, at most 10 between any two stations, but the QTC exchange itself must cross continents.",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/wae-dx-contest/regeln/ (Ausschreibung, Stand 2025-06-17): 'Der Deutsche Amateur Radio Club (DARC) lädt alle Funkamateure weltweit zum jährlich stattfindenden WAEDC-Contest ein.' -- 'DARC invites all radio amateurs worldwide to the annual WAEDC contest.' Bänder: '3,5 - 7 - 14 - 21 - 28 MHz.' Kontrollziffernaustausch: 'Ausgetauscht werden RS/RST und eine Seriennummer ab 001.' -- 'RS/RST and a serial number from 001 are exchanged.' Einsendeschluss, Punkt 13: 'Der Einsendeschluß ist immer 7 Tage nach dem Contest.' -- 'the deadline is always 7 days after the contest.' Wettbewerbszeiten: 'RTTY: November, zweites Wochenende. Samstag, 14. November 2026, 0000 UTC bis Sonntag, 15. November 2026, 2359 UTC' -- 'RTTY: November, second weekend.' Punkt 12, Spezielle Regelungen für RTTY: 'Im RTTY-Teil des WAEDC entfällt die Kontinentbeschränkung; jeder kann jeden arbeiten. Nur der QTC-Austausch muss zwischen verschiedenen Kontinenten abgewickelt werden.' -- 'in the RTTY part the continent restriction does not apply; everyone can work everyone. Only the QTC exchange has to be settled between different continents.' DARC prints 'Einsendeschluss RTTY: 22.11.2026, 23:59 UTC', exactly the stated seven days. Verified 2026-08-18.",
+      "note": "DARC writes 'zweites Wochenende', not 'zweites volles Wochenende', and November 2026 is the year that separates the two readings: 1 November is a Sunday whose Saturday belongs to October. Counting that orphan Sunday would put the contest on 7-8 November; DARC publishes 14-15 November, so the rule is encoded as the second full weekend.",
+      "summary": "The November RTTY running of WAE. Alone among the three legs it drops the continent restriction -- anyone may work anyone, and only QTCs must cross oceans.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Im RTTY-Teil des WAEDC entfällt die Kontinentbeschränkung; jeder kann jeden arbeiten.' -- unlike the CW and SSB legs, every QSO counts regardless of continent; only QTC traffic must be intercontinental."
+      }
+    },
+    {
+      "id": "darc-wag",
+      "name": "Worked All Germany Contest (WAG)",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/wag-contest/regeln/",
+      "log_submit_url": "https://www.dxhf2.darc.de/~waglog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "German stations send RS(T) + their DOK, or 'NM' if they are not a DARC or VFDB member. Stations outside Germany send RS(T) + serial number.",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1459"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/wag-contest/regeln/ (Regeln, Version ab 2025): 'Der Deutsche Amateur-Radio-Club (DARC) lädt alle Funkamateure der Welt zur Teilnahme am jährlichen Worked All Germany Contest (WAG) ein.' -- 'DARC invites all radio amateurs of the world to take part in the annual WAG.' Contest Periode: 'Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag. 2026: 17/18. Oktober' -- 'October, third full weekend, 1500 UTC Saturday to 1459 UTC Sunday.' Betriebsarten und Bänder: 'SSB, CW: 3,5 - 7 - 14 - 21 - 28 MHz.' Kontrollziffernaustausch: 'Deutsche Stationen senden RS(T) und ihren DOK ... Nichtmitglieder des DARC und VFDB sowie ausländische Stationen in Deutschland senden statt eines DOK den Kenner \"NM\" (no member)'; 'Stationen außerhalb Deutschlands senden die üblichen Kontrollnummern bestehend aus RS(T) und der laufenden QSO-Nummer.' Logeinsendeschluss: 'Einsendeschluss ist 7 Tage nach Contestende. 2026: 25.10.26, 23.59 ME(S)Z.' Verified 2026-08-18.",
+      "note": "DARC's English-language pages call this 'this contest on the third weekend of October'; the Ausschreibung says 'drittes volles Wochenende', and the full-weekend reading is what is encoded. DARC's printed deadline is a German local-time instant -- 25.10.26, 23.59 ME(S)Z -- while the stored interval lands on the same date at the contest's own end time.",
+      "summary": "Germany's own DX weekend: the rest of the world chases DL stations for their DOK, and 2000-plus logs a year make it one of Europe's busiest single-country contests.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'... lädt alle Funkamateure der Welt zur Teilnahme ... ein.' Scoring is one-sided: 'Stationen außerhalb Deutschlands dürfen nur QSOs mit deutschen Stationen werten. Deutsche Stationen können mit allen Stationen arbeiten.' -- stations outside Germany may only count QSOs with German stations; German stations may work everyone."
+      }
+    },
+    {
+      "id": "darc-10m",
+      "name": "DARC 10m Contest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/darc-10m-contest/regeln/",
+      "log_submit_url": "https://dxhf2.darc.de/~d10mlog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "10m"
+      ],
+      "bands_note": "CW 28.000-28.190 kHz, SSB 28.300-28.700 kHz",
+      "exchange": "RS(T) + serial from 001; German stations additionally send the DOK of the callsign used, or 'NM' if it has no DOK.",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 2,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1059"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/darc-10m-contest/regeln/. The rule is stated in the superseded Ausschreibung DARC keeps on the same page, 'Ausschreibung bis 2023': '1. Contest-Periode: Zweiter Sonntag im Januar, 0900-1059 UTC.' -- 'second Sunday in January.' The current Ausschreibung 2026 states only the instance: 'Termin - 11.01.26, 09:00 UTC - 10:59 UTC', which is that second Sunday. Betriebsarten und Bänder: 'CW: 28.000 - 28.190 kHz, SSB: 28.300 - 28.700 kHz'; 'Betriebsarten - SSB und CW'. Austausch: 'Rapport (RS bzw. RST), eine laufende Seriennummer startend mit 001, zusätzlich für DL-Stationen: DOK des verwendeten Rufzeichens oder \"NM\"'. Logs: 'Einsendeschluss: 18.01.26, 23:59 UTC', the seven days the general rules state. Verified 2026-08-18.",
+      "note": "The recurrence wording comes from DARC's own superseded pre-2023 Ausschreibung, retained below the current one on the same page; the current Ausschreibung prints a date and no rule. The two agree for 2026, and DARC's KW contest calendar prints the same 11 January.",
+      "summary": "A two-hour Sunday-morning sprint on ten metres alone, run whatever the solar cycle is doing, with DOKs as multipliers.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Der DARC lädt alle Funkamateure der Welt zur Teilnahme am jährlichen DARC 10m Contest ein.' 'Zu arbeitende Stationen: jede, einmal pro in der Teilnahmeklasse erlaubte Betriebsart.' -- every station may be worked, once per mode the entered class allows."
+      }
+    },
+    {
+      "id": "darc-xmas",
+      "name": "DARC Weihnachtswettbewerb (XMAS Contest)",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/weihnachtswettbewerb/regeln/",
+      "log_submit_url": "https://dxhf2.darc.de/~xmaslog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "CW 3510-3560 and 7010-7040 kHz; SSB 3610-3650, 3700-3775, 7060-7100 and 7130-7200 kHz",
+      "exchange": "German stations send RS(T) + their DOK, or 'NM' if they are not a DARC or VFDB member. All stations outside Germany send RS(T) + serial number.",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 12,
+        "day": 26
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0830"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1059"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/weihnachtswettbewerb/regeln/: 'Der Deutsche Amateur-Radio-Club (DARC) lädt alle Funkamateure zur Teilnahme am jährlichen Weihnachtswettbewerb (XMAS-Contest) ein.' '1. Termin: 26. Dezember, 08.30-10.59 UTC.' -- '26 December, 0830-1059 UTC.' DARC's own English page states the same: 'XMAS, 26. December 2026, 8.30-10.59 UT.' Betriebsarten und Bänder: 80m and 40m, 'CW 3510-3560 khz 7010-7040 khz, SSB 3610-3650 3700-3775 khz 7060-7100 7130-7200 khz'; 'Es sind maximal 20 Wechsel der Betriebsart oder des Bandes während der gesamten Contestzeit zugelassen.' -- at most 20 band or mode changes in the whole contest. Logeinsendeschluß: 'NEU: 7 Tage nach dem Wettbewerb (für den Contest 2026 der 2.01.2027)' -- 'NEW: 7 days after the contest.' Verified 2026-08-18.",
+      "note": "A calendar-fixed date, not a weekday rule: 26 December whatever day it falls on. DARC shortened the log deadline to seven days and flags the change itself ('NEU: verkürzte Logabgabefrist auf 7 Tage').",
+      "summary": "Boxing-morning sprint on 80 and 40 metres, two and a half hours long, with a twenty-change cap that makes band planning part of the game.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Der Deutsche Amateur-Radio-Club (DARC) lädt alle Funkamateure zur Teilnahme ... ein' -- DARC's own English page renders it 'has the honor to invite all radio amateurs to participate in the annual XMAS Sprint-Contest.'"
+      }
+    },
+    {
+      "id": "darc-ft4",
+      "name": "DARC FT4 Contest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/ft4-contest/ft4-rules/",
+      "log_submit_url": "https://dxhf2.darc.de/~ft4log/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "80m 3576, 3579 and 3582 kHz USB; 40m 7047.5 kHz USB",
+      "exchange": "Signal report + four-character grid square (for example JN49, JO61).",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 1,
+        "months": [
+          2,
+          5,
+          8,
+          11
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2029"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/ft4-contest/ft4-rules/: 'Veranstalter: DARC Referat Conteste. Termin: Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat' -- 'organiser: DARC contest department. Date: the second month of each quarter, on the second Tuesday of the month.' The dates DARC lists beside it are 10.02.2026, 12.05.2026, 11.08.2026 and 10.11.2026, all 19:00-20:29 UTC. 'Bänder: 80m (3576, 3579 und 3582 kHz USB), 40m (7047.5 kHz USB). Betriebsarten: FT4.' 'Austausch: Signal Report und Locator-Großfeld (z. Bsp.: JN49, JO61).' 'Betrieb im Fox-Modus ist nicht erlaubt.' -- fox mode operation is not permitted. 'Einsendeschluss: jeweils 7 Tage.' Verified 2026-08-18.",
+      "note": "Four legs a year, one record. DARC heads its 2026 date list 'Termine 2025:' -- the heading is a year out, the dates under it are 2026 and match DARC's KW contest calendar, so the typo is in the heading only.",
+      "summary": "Quarterly ninety-minute FT4 sprint on 80 and 40 metres, with an annual standing split between low power and QRP. Fox mode is barred.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'zu arbeitende Stationen: alle, jede Station einmal pro Band'; 'Getrennte Wertung für DL- und Non-DL-Stationen' -- everyone may be worked, once per band, and German and non-German entries are scored separately."
+      }
+    },
+    {
+      "id": "darc-rtty-kurzcontest",
+      "name": "DARC RTTY-Kurzcontest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/rtty-kurz/rtty-rules/",
+      "log_submit_url": "https://dxhf2.darc.de/~shortrylog/upload.cgi",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "RTTY 45.45 baud"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RST + DOK; German non-members send 'NM'. Stations outside Germany send RST + serial from 001.",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 1,
+        "months": [
+          1,
+          4,
+          7,
+          10
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1929"
+      },
+      "verified": true,
+      "source_note": "darc.de/der-club/referate/conteste/rtty-kurz/rtty-rules/: 'Veranstalter: DARC Referat Conteste. Termin: jeweils im 1. Monat eines jeden Quartals am 2. Dienstag' -- 'date: in the first month of each quarter, on the second Tuesday.' The dates DARC lists beside it are 13.01.2026, 14.04.2026, 14.07.2026 and 13.10.2026, all 18:00-19:29 UTC. 'Bänder: 80m, 40m. Betriebsarten: RTTY (45,45 Baud).' 'Austausch: RST und DOK. Nichtmitglieder geben statt eines DOK \"NM\". Alle Stationen außerhalb DL: RST und eine laufende Nummer, beginnend mit 001.' 'Einsendeschluss: jeweils 7 Tage nach Contestende.' The landing page states the purpose: 'Zur Pflege und Erhaltung der Betriebsart RTTY im Amateurfunkdienst schreibt der Deutsche Amateur Radio Club e.V. einen Jahreswettbewerb über insgesamt vier Kurzconteste in der Betriebsart RTTY aus.' -- to maintain and preserve RTTY, DARC runs an annual competition over four short contests. Verified 2026-08-18.",
+      "note": "Four legs a year, one record, offset one month from the FT4 contest: RTTY takes the first month of each quarter and FT4 the second, both on the second Tuesday.",
+      "summary": "Ninety minutes of RTTY on 80 and 40 metres, four times a year, scored into an annual standing so a single missed leg costs little.",
+      "rules_url_checked": "2026-08-18",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Zu arbeitende Stationen: alle, jede Station einmal pro Band'; 'Getrennte Wertung für DL- und Non-DL-Stationen' -- everyone may be worked, once per band, and German and non-German entries are scored separately."
+      }
     }
   ]
 }

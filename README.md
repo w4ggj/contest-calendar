@@ -76,7 +76,7 @@ Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor
 published 2026 schedule.
 
 ```
-230 passed
+252 passed
 ```
 
 ---
@@ -117,7 +117,7 @@ data/sources.registry.json   global sponsor registry, 5 tiers, 55 organisations 
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
 scripts/coverage.py          regenerate the registry's coverage block from the catalog
-tests/                       230 tests
+tests/                       252 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -136,8 +136,8 @@ HANDOVER.md                  start here if you're picking this up
 | `manual` | sponsor sets annually | ARRL EME (lunar conditions) |
 | `composite` | seasons with different rules | NAQP RTTY (last-Sat-Feb + 3rd-wknd-Jul) |
 
-Weekly and monthly types matter most for coverage: **137 definitions currently produce
-725 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
+Weekly and monthly types matter most for coverage: **145 definitions currently produce
+739 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
 hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
 
@@ -230,15 +230,16 @@ contest vanish. Same rule as `verified: false`: the gaps are published, not hidd
 
 ## Status
 
-**137 contest definitions → 725 occurrences for 2026. 130 verified at source**, with the
+**145 contest definitions → 739 occurrences for 2026. 138 verified at source**, with the
 remaining 7 carrying a `note` that says what is unconfirmed and why.
 
 **Every region has something now, and North America is no longer a majority of it.**
-62 of the 137 records are North American (45%, down from 71%), 51 European, 13 Oceanian,
+62 of the 145 records are North American (43%, down from 71%), 59 European, 13 Oceanian,
 5 Asian, 4 international, 1 African and 1 South American. Asia, Oceania and South America
 came off zero on 2026-08-17 with JARL, RAC, WIA, the Oceania DX Contest Committee, NZART,
 LABRE and ORARI; Europe went from 19 records to 51 on 2026-08-18 with REF, UBA, VERON,
-PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE. Africa and South America are now the thin
+PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE, and to 59 with DARC — which also finished
+the Tier 1 organisations, all eight now worked. Africa and South America are now the thin
 ones — one record each. A region with zero contests is a worse gap than an unverified record,
 because it is simply invisible to every operator who lives there. The numbers
 are generated from the catalog by `scripts/coverage.py` into

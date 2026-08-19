@@ -18,18 +18,19 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 137 contest definitions → 725 occurrences for 2026. 230 Python tests,
-243 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
+**Current state:** 145 contest definitions → 739 occurrences for 2026. 252 Python tests,
+265 TypeScript tests, 110 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, and the iCal feed. `modes` and
 `bands` are controlled vocabularies. The page has a three-state theme switch and has been
 through a measured narrow-viewport pass. The contest detail view is not built.
 
-**Where it is thin:** 45% of the catalog is North American. Every region now has something —
-Asia, Oceania and South America came off zero on 2026-08-17, and Europe went 19 → 51 records
-on 2026-08-18 — but Africa and South America are one record each, and tier 2 still has
-9 orgs worked out of 21: **DARC is now the largest single gap.** Measured rather than
-assumed: run `python scripts\coverage.py --check`.
+**Where it is thin:** 43% of the catalog is North American. Every region now has something —
+Asia, Oceania and South America came off zero on 2026-08-17, and Europe went 19 → 59 records
+on 2026-08-18 with the Tier 2 societies and then DARC — but Africa and South America are one
+record each, and **tier 2 is 9 orgs worked out of 21, which is now the largest gap**: all
+eight tier-1 orgs are done. Measured rather than assumed: run
+`python scripts\coverage.py --check`.
 
 ## Read first
 
@@ -43,11 +44,11 @@ assumed: run `python scripts\coverage.py --check`.
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 230 passed
+python -m pytest -q               # expect: 252 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 243 passed (230 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 265 passed (252 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 110 passed (parity inside workerd, the API, filters, iCal, theme, pages)
 ```
 
@@ -232,13 +233,22 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    imagery with no text layer; ask GACW for a text version, don't fill it from a calendar.
    JARL's Japanese-language contests (ALL JA, Field Day, 6m And Down, ACAG) are deferred, not
    missed.
-5. **Then the rest of Tier 2** — 9 orgs worked out of 21 after the 2026-08-18 pass, which
-   took REF, UBA, VERON, PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE. **DARC is the
-   largest remaining gap**, then the Nordic and Balkan societies. Work region by region
-   rather than sponsor by sponsor so coverage fills evenly; `coverage.thin` says where, and
-   Africa and South America are one record each. Tier 5 is 50 more US QSO parties, so it
-   still comes last: at 45% North American, working it now would deepen the imbalance a
-   world calendar can't keep.
+5. **DARC — done 2026-08-18, 8 records, and Tier 1 is finished.** WAE DX CW/SSB/RTTY, WAG,
+   the 10m Contest, the Weihnachtswettbewerb and the quarterly FT4 and RTTY-Kurzcontest
+   series. No engine change: every rule fits a type the engine already had. German pages,
+   quoted in German with the translation after. The judgement calls — "zweites Wochenende"
+   read as the second *full* weekend, the 10m rule taken from an Ausschreibung DARC has
+   superseded but still publishes, and DARC's own contradiction about the WAE CW deadline —
+   are in `data/sources.md`, "DARC, and Tier 1 is finished". Five more DARC HF contests
+   (Ostercontest, Hell, HELL-Kurzcontest, and the two Ausbildungsconteste) have rules pages
+   and were out of that pass's scope; DARC's UKW contests are a separate referat.
+6. **Then the rest of Tier 2** — 9 orgs worked out of 21 after the 2026-08-18 pass, which
+   took REF, UBA, VERON, PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE. That tier is now
+   the largest gap in the registry: the Nordic and Balkan societies next. Work region by region rather than sponsor
+   by sponsor so coverage fills evenly; `coverage.thin` says where, and Africa and South
+   America are one record each. Tier 5 is 50 more US QSO parties, so it still comes last:
+   at 43% North American, working it now would deepen the imbalance a world calendar can't
+   keep.
 
 ---
 
