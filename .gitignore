@@ -15,3 +15,6 @@ dist/
 # Regenerated on every `npm test`; committing it would let a stale copy pass
 # parity against an engine that has since changed.
 worker/tests/fixtures/
+
+# Per-machine Claude Code tool permissions -- local, not project state.
+.claude/

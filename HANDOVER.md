@@ -35,6 +35,8 @@ and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done a
 
 ## Read first
 
+0. `SESSION_HANDOVER.md` — **only if you are setting up a new machine**: what is not in
+   git, how to verify you arrived, and the one link check that is expected to fail today
 1. `README.md` — provenance and architecture
 2. `data/sources.md` — verified, pending, and corrections found
 3. `FRONTEND_BRIEF.md` — **the current phase**
