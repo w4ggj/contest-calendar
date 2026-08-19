@@ -75,7 +75,7 @@ asserted somewhere, so a mismatch means the machine is wrong, not that the numbe
 python -m pytest -q                  # 311 passed
 python scripts\validate.py           # ARRL 2026 rule-engine validation: 21/21 match
 python scripts\coverage.py --check   # Registry coverage is current.
-python scripts\check_links.py        # 168 live, 3 broken -- see "In flight" below
+python scripts\check_links.py        # ~172 live, 1-3 broken -- see "In flight" below
 npm --prefix engine test             # 324 passed (311 mirrored + 13 parity)
 npm --prefix engine run typecheck    # silent
 npm --prefix worker test             # 141 passed
@@ -113,19 +113,19 @@ Everything here is either gitignored or local, and all of it regenerates:
 
 ## In flight, and deliberately not fixed
 
-**`oceaniadxcontest.com` stopped answering on 2026-08-19.** `check_links.py` reports
-**168 live, 3 broken**; two of the three are the Oceania DX Contest's own rules page, which
-was live when those records were verified on 2026-08-17. The failure is at the connection
-level — no TLS handshake, not a 404 — so it reads as a host outage rather than a moved page.
+**`oceaniadxcontest.com` came back.** It stopped answering on 2026-08-19 and was live again
+later the same day, so the two Oceania DX Contest records need nothing. They were left
+unchanged throughout, which was right: a sponsor's server being down is not evidence its rule
+changed.
 
-**The records were left unchanged, and should stay that way until someone re-checks.** They
-were read at the sponsor's own source; a sponsor's server being down is not evidence its rule
-changed. If it is still dark, the co-sponsor mirror at `wia.org.au/members/contests/oceania/`
-is already recorded in the `data/sources.md` row. The third broken link is SARL, a long-
-standing expired-certificate blocker with its own entry under "Pending verification".
+**Only SARL fails consistently** — a long-standing expired-certificate blocker with its own
+entry under "Pending verification". Everything else that `check_links.py` reports comes and
+goes between runs: two consecutive runs on 2026-08-19 reported ARI's 40/80 page and then
+ARRL's 10 GHz page, and `curl` got 200 from ARI seconds after the checker called it broken.
 
-So: **on a fresh machine, 3 broken is the expected result today**, and if you see 1 broken
-the Oceania host has come back.
+So: **1 broken is the expected result, and 2-3 is normal noise.** Before chasing a broken link,
+run the checker twice and fetch the URL by hand — the checker's timeouts are short enough that
+a slow sponsor host reads as an outage.
 
 ---
 

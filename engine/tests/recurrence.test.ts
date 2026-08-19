@@ -2195,6 +2195,27 @@ const TIER2B_PUBLISHED: Record<
     "bude provedeno 10 travnya 2026r. z 16:00 do 17:59 UT",
     { 2026: [[2026, 5, 10]] },
   ],
+  // REP prints six years of dates beside the rule -- the longest independent
+  // table any sponsor in this catalog publishes -- so all six are checked.
+  "rep-portugal-day-hf": [
+    "each year on the second weekend of June",
+    {
+      2025: [[2025, 6, 14]],
+      2026: [[2026, 6, 13]],
+      2027: [[2027, 6, 12]],
+      2028: [[2028, 6, 10]],
+      2029: [[2029, 6, 9]],
+      2030: [[2030, 6, 8]],
+    },
+  ],
+  "rep-portugal-day-vhf-uhf": [
+    "organiza no 10 de junho (feriado) de cada ano",
+    { 2025: [[2025, 6, 10]], 2026: [[2026, 6, 10]] },
+  ],
+  "rep-50mhz": [
+    "Primeiro fim de semana completo de agosto",
+    { 2025: [[2025, 8, 2]] },
+  ],
 };
 
 /** Unique start dates, in order. A sessions record yields one per session. */
@@ -2465,7 +2486,7 @@ test("Tier 2 records carry the sponsor strings the registry joins on", () => {
   // the only thing that makes an unregistered sponsor detectable, so it is
   // asserted here rather than left to the coverage test to discover.
   const records = catalog.filter((c) => c.id in TIER2B_PUBLISHED);
-  expect(records).toHaveLength(26);
+  expect(records).toHaveLength(29);
   expect(new Set(records.map((c) => c.sponsor))).toEqual(
     new Set([
       "USKA",
@@ -2480,16 +2501,84 @@ test("Tier 2 records carry the sponsor strings the registry joins on", () => {
       "LRMD",
       "SRR",
       "UARL",
+      "REP",
     ]),
   );
   expect(new Set(records.map((c) => c.country))).toEqual(
-    new Set(["CH", "AT", "HU", "BG", "RO", "RS", "HR", "LV", "EE", "LT", "RU", "UA"]),
+    new Set([
+      "CH", "AT", "HU", "BG", "RO", "RS", "HR", "LV", "EE", "LT", "RU", "UA", "PT",
+    ]),
   );
   const owner = registryOwner(loadRegistry() as Record<string, any>);
   for (const c of records) {
     expect(owner.get(c.sponsor ?? "")?.split("|")[0], c.id).toBe(
       "tier_2_european_societies",
     );
+  }
+});
+
+test("Portugal Day HF runs noon to noon", () => {
+  // The date table above checks six years of REP's own published dates. This
+  // checks the clock, which a table of dates cannot: "Time: 12:00 UTC to 11:59
+  // UTC", a minute short of 24 hours.
+  const [o] = expand(byId("rep-portugal-day-hf"), 2026);
+  expect([o.start!.getUTCHours(), o.start!.getUTCMinutes()]).toEqual([12, 0]);
+  expect([o.end!.getUTCHours(), o.end!.getUTCMinutes()]).toEqual([11, 59]);
+  expect(isoDate(o.start!)).toBe(D(2026, 6, 13));
+  expect(isoDate(o.end!)).toBe(D(2026, 6, 14));
+});
+
+test("REP VHF/UHF follows the holiday and not the second Saturday", () => {
+  // REP publishes two live and contradictory rules for this one contest.
+  // concursos.rep.pt -- the portal rep.pt's own front page links to -- says
+  // "no 10 de junho (feriado) de cada ano". portugaldaycontest.rep.pt still
+  // says "no 2 Sabado do mes de junho de cada ano, (8 de Junho de 2024)". They
+  // give different days in every year where 10 June is not the second Saturday.
+  //
+  // The fixed date is encoded because it is the one REP ran: its own "Logs
+  // recebidos - VHF-UHF 2025" post is dated 10 June 2025, a TUESDAY, while the
+  // second Saturday of June 2025 was the 14th. This test is the decision, so
+  // that reverting it means arguing with the evidence rather than editing JSON.
+  const [o] = expand(byId("rep-portugal-day-vhf-uhf"), 2025);
+  expect(isoDate(o.start!)).toBe(D(2025, 6, 10));
+  expect(o.start!.getUTCDay()).toBe(2); // Tuesday
+  expect(isoDate(o.start!)).not.toBe(D(2025, 6, 14)); // the superseded page
+
+  for (const year of [2026, 2027, 2028]) {
+    const [p] = expand(byId("rep-portugal-day-vhf-uhf"), year);
+    expect(isoDate(p.start!)).toBe(D(year, 6, 10));
+    expect([p.start!.getUTCHours(), p.end!.getUTCHours()]).toEqual([12, 18]);
+  }
+});
+
+test("REP 50 MHz takes the first complete weekend of August", () => {
+  // "Primeiro fim de semana completo de agosto, desde as 14:00 UTC de sabado
+  // as 14:00 UTC de domingo. 2025: o concurso ocorre nos dias 2 e 3 de agosto."
+  //
+  // Note what this does NOT prove. For the FIRST weekend of a 31-day month the
+  // full-weekend reading and "first Saturday" agree in every year, because the
+  // only Saturday that cannot open a full weekend is one falling on the last
+  // day of the month. The type is REP's own wording, not a date-changing
+  // choice, and the note on the record says so.
+  const [o] = expand(byId("rep-50mhz"), 2025);
+  expect(isoDate(o.start!)).toBe(D(2025, 8, 2));
+  expect(isoDate(o.end!)).toBe(D(2025, 8, 3));
+  expect([o.start!.getUTCHours(), o.end!.getUTCHours()]).toEqual([14, 14]);
+  expect(o.duration_hours).toBe(24);
+});
+
+test("REP deadlines are encoded only where the sponsor states a span", () => {
+  // All three REP contests state a log deadline and only one of them is a span.
+  //
+  // The VHF/UHF contest runs on a fixed date (10 June) and its logs are due on
+  // a fixed date (20 June), so ten days is exact in every year. The other two
+  // state a calendar deadline against a moving contest -- "no later than June
+  // 30th of the same year", "ate as 23:59 (UTC) do dia 8 de Agosto de 2025" --
+  // which is a different number of days every year, so they carry none rather
+  // than a number REP never wrote. Same rule as JARL All Asian.
+  expect(byId("rep-portugal-day-vhf-uhf").log_deadline_days).toBe(10);
+  for (const cid of ["rep-portugal-day-hf", "rep-50mhz"]) {
+    expect("log_deadline_days" in byId(cid), cid).toBe(false);
   }
 });
 

@@ -801,6 +801,110 @@ Szövetség"), so that is a sponsor source and not a third party.
   FRR 4 → 3, and USKA, ÖVSV, HRS and the Baltic entry set to what each society actually
   publishes. USKA, ÖVSV and HRS are now `complete`.
 
+## REP, and Tier 2 is finished — 2026-08-19
+
+The last Tier 2 society. **Three records — 174 encoded, up from 171** — and Tier 2 goes to
+**21 of 21 orgs worked**, with NRAU the only one that encodes nothing, and it is blocked at
+source rather than unworked.
+
+| Contest | Rule as REP states it | Encoded as |
+|---|---|---|
+| Portugal Day Contest (HF) | "each year on the second weekend of June", 1200 UTC to 1159 UTC | second full weekend of June |
+| Concurso Dia de Portugal VHF/UHF | "organiza no 10 de junho (feriado) de cada ano", 12H00 às 18H00 UTC | fixed 10 June — **see the contradiction below** |
+| Concurso REP 50 MHz | "Primeiro fim de semana completo de agosto, desde as 14:00 UTC de sábado às 14:00 UTC de domingo" | first full weekend of August |
+
+### Where the rules came from
+
+`rep.pt` itself carries no rules. Its front page links **`concursos.rep.pt`**, which is REP's
+own contest portal, and the HF rules are mirrored at `portugaldaycontest.rep.pt`. The
+registry's URL was `https://www.rep.pt/` and is corrected to the portal.
+
+### The second published source
+
+REP prints **six years of Portugal Day HF dates** beside the rule — Jun 14-15 2025, Jun 13-14
+2026, Jun 12-13 2027, Jun 10-11 2028, Jun 9-10 2029, Jun 8-9 2030 — which is the longest
+independent date table any sponsor in this catalog publishes. The rule reproduces all six, and
+every one of them is in the test.
+
+The 2030 row is the one that earns its place. 1 June 2030 is itself a Saturday, so a reader
+who did not count a weekend opening on the 1st would make 8-9 June the *first* weekend and
+15-16 the second. REP publishes 8-9 June, which settles it.
+
+For the 50 MHz contest REP states 2025 inside the rule itself — "2025: o concurso ocorre nos
+dias 2 e 3 de agosto" — and 1 August 2025 was a Friday, so the first full weekend is 2-3.
+
+For VHF/UHF the second source is REP's own **"Logs recebidos – VHF-UHF 2025"** post, dated
+10 June 2025 and opening "10 de junho de 2025". That is what settles the contradiction below.
+
+### Contradiction found, and resolved by what REP actually ran
+
+**REP publishes two live and contradictory rules for its VHF/UHF contest**, on two of its own
+sites:
+
+| | `concursos.rep.pt` | `portugaldaycontest.rep.pt/regras_vhf_uhf.php` |
+|---|---|---|
+| When | "no 10 de junho (feriado) de cada ano" | "no 2º Sábado do mês de junho de cada ano, (8 de Junho de 2024)" |
+| Bands | 2m, 4m, 70cm, 23cm, 13cm | 2m, 70cm, 23cm |
+| Logs due | 20 June | 30 June |
+
+These disagree about the date in every year where 10 June is not the second Saturday, which is
+most years. It was **not** resolved by picking the newer-looking page: REP's own logs-received
+post for the 2025 running is dated **Tuesday 10 June 2025**, while the second Saturday of June
+2025 was the 14th. So the fixed date is the one REP ran, and it is what is encoded. The
+superseded page is recorded in the record's `note` rather than ignored, and the decision is a
+test rather than a comment — reverting it means arguing with the evidence.
+
+### Judgement calls
+
+- **Log deadlines are encoded only where the sponsor states a span.** All three contests state
+  a deadline and only one of them is a span. VHF/UHF runs on a fixed date and its logs are due
+  on a fixed date, so `log_deadline_days: 10` is exact in every year. The HF contest says "no
+  later than June 30th of the same year" against a contest that moves — 15 days after the 2025
+  running, 16 after the 2026 one — and the 50 MHz contest states a dated deadline for one
+  edition, "até às 23:59 (UTC) do dia 8 de Agosto de 2025". Both carry **no**
+  `log_deadline_days` rather than a number REP never wrote. Same rule as JARL All Asian.
+- **"Mixed" is a category, not a fourth mode.** REP's HF page says "Mode: SSB, CW or Mixed",
+  which are its three entry categories. The record's `modes` are `SSB` and `CW` — what the
+  contest permits — which is also how the catalog's other both-modes records read.
+- **"Fonia" is phone, and SSB is the catalog's only phone token.** REP's VHF/UHF rules say
+  "Modos: Fonia e CW" and the 50 MHz rules say "Fonia (AM, SSB, FM) e/ou telegrafia (CW)". The
+  50 MHz record carries `submodes: ["AM", "FM"]`, which is exactly what that free-text field is
+  for; the VHF/UHF record says so in its note.
+- **The full-weekend wording is REP's, not a date-changing choice, and the notes say so.** Both
+  weekend records use `nth_full_weekend` because REP writes "fim de semana" and "fim de semana
+  **completo**". Checked rather than assumed: for a *first* or *second* weekend the
+  full-weekend and nth-Saturday readings give the same date in every year from 2025 to 2060,
+  because the only Saturday that can fail to open a full weekend is one falling on the month's
+  last day. The distinction bites on "last weekend" rules. Encoding REP's own wording is still
+  right; claiming it changed an answer would not have been.
+- **4m (70 MHz) is in REP's band list and not in this catalog's vocabulary.** The VHF/UHF rules
+  list "2m=144MHz; 4m=70 MHz; 70cm=432MHz; 23cm=1200MHz e 13cm=2300 MHz". `bands` holds the
+  four the vocabulary has and `bands_note` carries REP's full sentence including 4m. If another
+  record ever needs it, adding `4m` to `CATALOG_BANDS` in **both** engines is the fix.
+
+### Scope, recorded
+
+- **The REP FT4 contest was read and deliberately not encoded.** REP publishes it as three
+  dated editions with two different clock windows — 22 Feb 2025 2000-2100 UTC, 18 Apr 2025 and
+  18 Aug 2025 both 2100-2200 UTC — and states no recurrence. A `manual` record carries one
+  `start`/`end` pair for all of its dates, so this series cannot be stated exactly without
+  either splitting one contest into three records, which misrepresents REP's own framing, or
+  adding per-date times to the schema. No 2026 edition has been published. Recorded here rather
+  than approximated; it is the driver if per-date times are ever wanted.
+- **REP has published no 2026 edition of the 50 MHz contest** as of 2026-08-19, and the first
+  full weekend of August 2026 has passed. The rule is encoded as REP states it, and **no
+  suspension is inferred from a missing post** — unlike FISTS, where the sponsor said so.
+- REP's IARU HQ station pages (CQ3HQ, CR5HQ, CS5HQ, CS7HQ, CS8HQ, CT1REP) are REP's entry into
+  the IARU HF Championship, which is already in the catalog as IARU's own contest.
+
+### Corrections to the registry's assumptions
+
+- The estimate said **3, "Portugal Day Contest, Navy Day"**. There is **no Navy Day contest
+  anywhere on REP's site**; the programme is the three encoded here plus FT4, so the estimate
+  is corrected to 4 and the status to `partial`.
+- The registry URL `https://www.rep.pt/` carries no rules and is corrected to
+  `https://concursos.rep.pt/`.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the
@@ -827,6 +931,10 @@ Szövetség"), so that is a sponsor source and not a third party.
   names an organising society. It is hosted on `crk.cz` and takes logs at `okrtty@crk.cz`, so
   the record carries sponsor `CRK` and is registered under CRK / SARA — and says in its `note`
   that this is inferred. Confirm with the Czech Radio Club.
+- **REP FT4** — **deferred, not missed.** REP publishes three dated editions with two
+  different clock windows and no recurrence, and a `manual` record carries one
+  `start`/`end` pair for all of its dates. Encoding it exactly needs either three records
+  for one contest or per-date times in the schema. See "REP, and Tier 2 is finished".
 - **REF Championnat de France THF** — **deferred, not missed.** REF publishes it, but no REF
   document consulted states its modes, and a record with no mode fails a catalog test. A future
   pass should find the THF rules PDF rather than assume the VHF/UHF modes.

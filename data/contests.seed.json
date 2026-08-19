@@ -9289,6 +9289,141 @@
         "verified": true,
         "note": "Section IV admits operators of collective and individual amateur stations representing the oblasts of Ukraine and the city of Kyiv."
       }
+    },
+    {
+      "id": "rep-portugal-day-hf",
+      "name": "Portugal Day Contest (HF)",
+      "sponsor": "REP",
+      "country": "PT",
+      "rules_url": "https://concursos.rep.pt/portugal-day-contest-hf/",
+      "sponsor_home": "https://www.rep.pt/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "10, 15, 20, 40 and 80 meter bands, fully respecting licensing rules of each country. Observance of established band plans is strongly encouraged.",
+      "exchange": "DX stations send RST and a sequential number beginning 001; Portuguese stations, including the Azores and Madeira, send RST and the letters identifying their district (or county in the Azores and Madeira).",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "concursos.rep.pt/portugal-day-contest-hf/ and portugaldaycontest.rep.pt/rules.php, REP's own rules in English: 'REP – Rede dos Emissores Portugueses, sponsors ‘PORTUGAL DAY CONTEST’ each year on the second weekend of June, being part of IARU Contest Calendar. All radio amateurs of the world are welcome to participate!' Time: '12:00 UTC to 11:59 UTC'. Bands: '10, 15, 20, 40 and 80 meter bands'. Mode: 'SSB, CW or Mixed'. Exchange: 'DX Stations send RST followed by one sequential number beginning 001. Portuguese Stations (including Autonomous Regions of Azores and Madeira Islands) send RST followed by letters identifying their respective District (or County if Azores and Madeira Islands)'. Logs: 'Logs should be organized following Cabrillo file format.' 'All entries must be emailed or postmarked no later than June 30th of the same year to: e-mail to rep-concursos@rep.pt'. The Portuguese page regras_hf.php states the same rule: 'A REP Rede dos Emissores Portugueses, organiza no 2º fim de semana de junho de cada ano, o Concurso Dia de Portugal' -- the 2nd full weekend of June each year. REP publishes six years of dates independently of the rule, and the second full weekend of June reproduces all six: Jun 14-15 2025, Jun 13-14 2026, Jun 12-13 2027, Jun 10-11 2028, Jun 9-10 2029, Jun 8-9 2030.",
+      "note": "log_deadline_days is deliberately absent. REP states a fixed calendar deadline -- 'no later than June 30th of the same year' -- not a span, and June 30 is 15 days after the 2025 running but 16 after the 2026 one, so any single number would be wrong in most years. REP's 2030 date is what pins the recurrence, and it rules out the reading that would otherwise be tempting: 1 June 2030 is itself a Saturday, so a reader who did not count a weekend opening on the 1st would make 8-9 June the first and 15-16 the second. REP publishes 8-9 June, so the weekend opening on the 1st counts. Nothing turns on full weekend versus second Saturday here -- the two readings give the same date in every year from 2025 to 2060, because only a Saturday falling on a month's LAST day fails to open a full weekend, which a second Saturday never is. The full-weekend type is encoded because 'fim de semana' is REP's own wording, not because it changes an answer. 'Mixed' is one of REP's three entry categories rather than a fourth mode -- the contest permits SSB and CW, which is what modes records. Logs go to rep-concursos@rep.pt by e-mail; there is no submission website, so log_submit_url is absent.",
+      "summary": "Portugal's national DX contest: 24 hours from 1200 UTC on the second June weekend, with Portuguese districts and Azores and Madeira counties as multipliers alongside DXCC entities.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'All radio amateurs of the world are welcome to participate!' -- REP's own wording."
+      }
+    },
+    {
+      "id": "rep-portugal-day-vhf-uhf",
+      "name": "Concurso Dia de Portugal VHF/UHF",
+      "sponsor": "REP",
+      "country": "PT",
+      "rules_url": "https://concursos.rep.pt/concurso-dia-de-portugal-vhf-uhf/",
+      "sponsor_home": "https://www.rep.pt/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 10,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm"
+      ],
+      "bands_note": "As recomendadas nos planos de banda da IARU, Região 1, (2m=144MHz; 4m=70 MHz; 70cm=432MHz; 23cm=1200MHz e 13cm=2300 MHz) -- the IARU Region 1 band plans. REP's list includes 4m (70 MHz), which is not in this catalog's band vocabulary and so is recorded here rather than in bands.",
+      "exchange": "Callsign, RS(T), a number beginning 001 and the full QTH locator (for example IM58is). The log must also carry the UTC time and the date of each contact.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 6,
+        "day": 10
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "concursos.rep.pt/concurso-dia-de-portugal-vhf-uhf/, REP's own rules: 'A Rede dos Emissores Portugueses, organiza no 10 de junho (feriado) de cada ano o Concurso “Dia de Portugal de VHF-UHF”' -- organised on 10 June, the public holiday, each year. '3 - Período do Concurso: 10 de junho das 12H00 às 18H00 UTC.' Participants: 'Podem participar todos os radioamadores devidamente licenciados' (all properly licensed radio amateurs may take part). Modes: '5 - Modos: Fonia e CW.' Exchange: 'Cada operador em Fonia ou CW passará o Indicativo, controle de sinal RS(T), número a começar por 001 e QTH Locator completo (exemplo-IM58is). No log é obrigatório reportar QTR (Hora/UTC) e a data correspondente ao contacto.' Logs: '9 - Formato dos LOGs: Preferencialmente em formato “Cabrillo”, uma folha log por banda.' '10 - Envio de LOGs: Devem ser enviados até 20 de junho.' REP ran it on 10 June 2025, a Tuesday: its own 'Logs recebidos - VHF-UHF 2025' post is dated 10 June 2025 and opens '10 de junho de 2025'.",
+      "note": "REP PUBLISHES TWO CONTRADICTORY RULES FOR THIS CONTEST AND BOTH ARE LIVE. concursos.rep.pt, the portal linked from rep.pt's own front page, says 10 June every year, lists 2m/4m/70cm/23cm/13cm, weights points per band and sets the log deadline at 20 June. portugaldaycontest.rep.pt/regras_vhf_uhf.php still says 'no 2º Sábado do mês de junho de cada ano, (8 de Junho de 2024)', lists only 2m/70cm/23cm, and sets the deadline at 30 June. The two disagree about the date in every year where 10 June is not the second Saturday. The fixed date is encoded because it is the one REP actually ran: 10 June 2025 was a Tuesday and REP's logs-received post for the 2025 running is dated that day, whereas the second Saturday of June 2025 was the 14th. The superseded page is recorded here rather than silently ignored. Because both the contest and the deadline are fixed dates, log_deadline_days is exactly 10 in every year -- unlike REP's two other contests, whose deadlines are calendar dates that do not sit a constant span after the contest. Modes: REP writes 'Fonia' (phone) rather than SSB specifically; SSB is the catalog's only phone token.",
+      "summary": "REP's VHF and UHF contest, run on Portugal Day itself: six hours from 1200 UTC on 10 June, scored on distance between QTH locators with grid squares as the multiplier.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Podem participar todos os radioamadores devidamente licenciados' -- all properly licensed radio amateurs may take part."
+      }
+    },
+    {
+      "id": "rep-50mhz",
+      "name": "Concurso REP 50 MHz",
+      "sponsor": "REP",
+      "country": "PT",
+      "rules_url": "https://concursos.rep.pt/concurso-rep-50-mhz/",
+      "sponsor_home": "https://www.rep.pt/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "submodes": [
+        "AM",
+        "FM"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "bands_note": "6 m (50 MHz), de acordo com os planos de frequência recomendados pela IARU para cada região -- 6m per the IARU band plans for each region.",
+      "exchange": "RS(T), a sequential QSO number beginning 001 and the QTH locator of both stations (for example IM58is). The contact time need not be exchanged but must be logged in UTC.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "concursos.rep.pt/concurso-rep-50-mhz/, REP's own rules: '2. Período: Primeiro fim de semana completo de agosto, desde as 14:00 UTC de sábado às 14:00 UTC de domingo. 2025: o concurso ocorre nos dias 2 e 3 de agosto.' -- the first COMPLETE weekend of August, 1400 UTC Saturday to 1400 UTC Sunday. Scope: '3. Âmbito Internacional. São válidos os contactos efetuados por estações devidamente licenciadas', and 'Este concurso está aberto a todos os radioamadores devidamente licenciados.' Band: '5. Banda: 6 m (50 MHz)'. Modes: '6. Modos de emissão: Fonia (AM, SSB, FM) e/ou telegrafia (CW).' Exchange: 'o controle de sinal RS(T); Número sequencial de QSO, começando em 001; QTH Locator (exemplo: IM58is), de ambas as estações.' Logs: 'Os ficheiros de log a enviar no só formato Cabrillo', sent to rep-concursos@rep.pt. REP's own 2025 date confirms the rule: 1 August 2025 was a Friday, so the first full weekend of August 2025 is 2-3 August, which is what REP prints.",
+      "note": "REP writes 'fim de semana completo' -- complete weekend -- which is exactly the distinction this engine models: a Saturday/Sunday pair with both days inside the month. It is encoded because it is REP's wording, NOT because it changes a date: checked rather than assumed, the full-weekend and first-Saturday readings agree for the first weekend of August in every year from 2025 to 2060, because the only Saturday that can fail to open a full weekend is one falling on the month's last day. The distinction bites on 'last weekend' rules, not on this one. log_deadline_days is absent because REP states a dated deadline for the edition ('até às 23:59 (UTC) do dia 8 de Agosto de 2025') rather than a span, and 8 August is 5 days after the 2025 running but would be 6 after the 2026 one. Modes: REP allows phone as AM, SSB or FM; SSB is the catalog's only phone token, so AM and FM are recorded in submodes. REP has published no 2026 edition on concursos.rep.pt as of 2026-08-19, and the first full weekend of August 2026 has passed; the rule is encoded as REP states it and no suspension is inferred from a missing post.",
+      "summary": "REP's six-metre contest over the first full weekend of August, 1400 UTC Saturday to 1400 UTC Sunday, scored a point per kilometre with grid squares as the multiplier.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Âmbito Internacional' -- international in scope; 'Este concurso está aberto a todos os radioamadores devidamente licenciados.'"
+      }
     }
   ]
 }

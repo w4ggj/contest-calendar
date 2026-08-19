@@ -2216,6 +2216,27 @@ TIER2B_PUBLISHED = {
         "bude provedeno 10 travnya 2026r. z 16:00 do 17:59 UT",
         {2026: [(2026, 5, 10)]},
     ),
+    # REP prints six years of dates beside the rule -- the longest independent
+    # table any sponsor in this catalog publishes -- so all six are checked.
+    "rep-portugal-day-hf": (
+        "each year on the second weekend of June",
+        {
+            2025: [(2025, 6, 14)],
+            2026: [(2026, 6, 13)],
+            2027: [(2027, 6, 12)],
+            2028: [(2028, 6, 10)],
+            2029: [(2029, 6, 9)],
+            2030: [(2030, 6, 8)],
+        },
+    ),
+    "rep-portugal-day-vhf-uhf": (
+        "organiza no 10 de junho (feriado) de cada ano",
+        {2025: [(2025, 6, 10)], 2026: [(2026, 6, 10)]},
+    ),
+    "rep-50mhz": (
+        "Primeiro fim de semana completo de agosto",
+        {2025: [(2025, 8, 2)]},
+    ),
 }
 
 
@@ -2478,18 +2499,90 @@ def test_tier2b_records_carry_the_sponsor_strings_the_registry_joins_on(catalog)
     asserted here rather than left to the coverage test to discover.
     """
     records = [c for c in catalog if c["id"] in TIER2B_PUBLISHED]
-    assert len(records) == 26
+    assert len(records) == 29
     assert {c["sponsor"] for c in records} == {
         "USKA", "ÖVSV", "MRASZ", "BFRA", "FRR", "SRS", "HRS",
-        "LRAL", "ERAU", "LRMD", "SRR", "UARL",
+        "LRAL", "ERAU", "LRMD", "SRR", "UARL", "REP",
     }
     assert {c["country"] for c in records} == {
         "CH", "AT", "HU", "BG", "RO", "RS", "HR", "LV", "EE", "LT", "RU", "UA",
+        "PT",
     }
     reg = load_registry()
     owner = _registry_owner(reg)
     for c in records:
         assert owner[c["sponsor"]][0] == "tier_2_european_societies", c["id"]
+
+
+def test_rep_portugal_day_hf_runs_noon_to_noon(catalog):
+    """
+    The date table above checks six years of REP's own published dates. This
+    checks the clock, which a table of dates cannot: 'Time: 12:00 UTC to 11:59
+    UTC', a minute short of 24 hours.
+    """
+    (o,) = expand(by_id(catalog, "rep-portugal-day-hf"), 2026)
+    assert (o.start.hour, o.start.minute) == (12, 0)
+    assert (o.end.hour, o.end.minute) == (11, 59)
+    assert o.start.date() == date(2026, 6, 13)
+    assert o.end.date() == date(2026, 6, 14)
+
+
+def test_rep_vhf_uhf_follows_the_holiday_and_not_the_second_saturday(catalog):
+    """
+    REP publishes two live and contradictory rules for this one contest.
+    concursos.rep.pt -- the portal rep.pt's own front page links to -- says
+    'no 10 de junho (feriado) de cada ano'. portugaldaycontest.rep.pt still
+    says 'no 2 Sabado do mes de junho de cada ano, (8 de Junho de 2024)'. They
+    give different days in every year where 10 June is not the second Saturday.
+
+    The fixed date is encoded because it is the one REP ran: its own 'Logs
+    recebidos - VHF-UHF 2025' post is dated 10 June 2025, a TUESDAY, while the
+    second Saturday of June 2025 was the 14th. This test is the decision, so
+    that reverting it means arguing with the evidence rather than editing JSON.
+    """
+    (o,) = expand(by_id(catalog, "rep-portugal-day-vhf-uhf"), 2025)
+    assert o.start.date() == date(2025, 6, 10)
+    assert o.start.weekday() == 1  # Tuesday
+    assert o.start.date() != date(2025, 6, 14)  # the superseded page's answer
+
+    for year in (2026, 2027, 2028):
+        (o,) = expand(by_id(catalog, "rep-portugal-day-vhf-uhf"), year)
+        assert o.start.date() == date(year, 6, 10)
+        assert (o.start.hour, o.end.hour) == (12, 18)
+
+
+def test_rep_50mhz_takes_the_first_complete_weekend_of_august(catalog):
+    """
+    'Primeiro fim de semana completo de agosto, desde as 14:00 UTC de sabado
+    as 14:00 UTC de domingo. 2025: o concurso ocorre nos dias 2 e 3 de agosto.'
+
+    Note what this does NOT prove. For the FIRST weekend of a 31-day month the
+    full-weekend reading and 'first Saturday' agree in every year, because the
+    only Saturday that cannot open a full weekend is one falling on the last
+    day of the month. The type is REP's own wording, not a date-changing
+    choice, and the note on the record says so.
+    """
+    (o,) = expand(by_id(catalog, "rep-50mhz"), 2025)
+    assert o.start.date() == date(2025, 8, 2)
+    assert o.end.date() == date(2025, 8, 3)
+    assert (o.start.hour, o.end.hour) == (14, 14)
+    assert o.duration_hours == 24
+
+
+def test_rep_deadlines_are_encoded_only_where_the_sponsor_states_a_span(catalog):
+    """
+    All three REP contests state a log deadline and only one of them is a span.
+
+    The VHF/UHF contest runs on a fixed date (10 June) and its logs are due on
+    a fixed date (20 June), so ten days is exact in every year. The other two
+    state a calendar deadline against a moving contest -- 'no later than June
+    30th of the same year', 'ate as 23:59 (UTC) do dia 8 de Agosto de 2025' --
+    which is a different number of days every year, so they carry none rather
+    than a number REP never wrote. Same rule as JARL All Asian.
+    """
+    assert by_id(catalog, "rep-portugal-day-vhf-uhf")["log_deadline_days"] == 10
+    for cid in ("rep-portugal-day-hf", "rep-50mhz"):
+        assert "log_deadline_days" not in by_id(catalog, cid), cid
 
 
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):

@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 171 contest definitions → 777 occurrences for 2026. 311 Python tests,
-324 TypeScript tests, 141 Worker tests. Engine complete in both languages — no known
+**Current state:** 174 contest definitions → 780 occurrences for 2026. 324 Python tests,
+337 TypeScript tests, 141 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -34,8 +34,9 @@ routes answer 200 / 404 / 400 as they do locally.
 gaps in the catalog. Every region has something: Asia, Oceania and South America came off
 zero on 2026-08-17, and Europe went 19 → 59 records on 2026-08-18 with the Tier 2 societies
 and DARC, then to 85 on 2026-08-19 with the last twelve. Europe is now 49.7% of the catalog
-and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done and tier 2 is
-19 of 21 — only REP is unworked, and NRAU is blocked at source. Measured rather than assumed: run
+and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done and **tier 2 is
+21 of 21** — REP closed it on 2026-08-19, and NRAU encodes nothing because it is blocked at
+source. Measured rather than assumed: run
 `python scripts\coverage.py --check`.
 
 ## Read first
@@ -52,11 +53,11 @@ and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done a
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 311 passed
+python -m pytest -q               # expect: 324 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 324 passed (311 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 337 passed (324 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 141 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail)
 ```
 
@@ -107,7 +108,7 @@ test asserting generated dates match dates the sponsor published independently.
 
 **The front end is done and deployed.** `FRONTEND_BRIEF.md` records every section and what
 it cost; all six are shipped and the definition of done is met. What is left is sourcing:
-**REP (Portugal)**, then **Africa and South America**.
+**Africa and South America** — REP closed Tier 2 on 2026-08-19.
 
 Building it against the catalog as it stood was the right call and it paid the way the brief
 predicted: the detail view surfaced four plain-language rule bugs that had been shipping in
@@ -259,7 +260,16 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    are in `data/sources.md`, "DARC, and Tier 1 is finished". Five more DARC HF contests
    (Ostercontest, Hell, HELL-Kurzcontest, and the two Ausbildungsconteste) have rules pages
    and were out of that pass's scope; DARC's UKW contests are a separate referat.
-6. **Tier 2 Europe finished — done 2026-08-19, 26 records from twelve societies.** USKA,
+6b. **REP — done 2026-08-19, 3 records, and Tier 2 is finished 21 of 21.** Portugal Day HF
+   (second full weekend of June), Portugal Day VHF/UHF and the REP 50 MHz contest. Two things
+   to know before touching these. **REP publishes two live and contradictory VHF/UHF rules** —
+   `concursos.rep.pt` says 10 June every year, `portugaldaycontest.rep.pt` still says the
+   second Saturday — and the fixed date is encoded because REP's own logs-received post shows
+   it ran on Tuesday 10 June 2025, not Saturday the 14th. **The REP FT4 contest is deferred,
+   not missed**: three dated editions with two different clock windows and no recurrence,
+   which a `manual` record's single `start`/`end` pair cannot state exactly. Both are in
+   `data/sources.md`, "REP, and Tier 2 is finished".
+7. **Tier 2 Europe — done 2026-08-19, 26 records from twelve societies.** USKA,
    ÖVSV, MRASZ, BFRA, FRR, SRS, HRS, LRAL, ERAU, LRMD, SRR and UARL, in eleven languages,
    each quoted in the sponsor's own wording with the translation after. One engine change:
    `nth` now counts backwards past "last", because BFRA states LZ DX as *"the weekend before
@@ -268,7 +278,7 @@ served the fetched bytes locally. **Do not weaken the CSP to make testing easier
    state no modes), as are SRS's domestic contests and FRR's La Mulți Ani YO; what was read
    before each blocker is recorded in `data/sources.md`, "Europe finishes ahead".
    **REP (Portugal) is the one Tier 2 society never worked.**
-7. **Then Africa and South America** — one record each, and the thinnest part of the
+8. **Then Africa and South America** — one record each, and the thinnest part of the
    catalog. Work region by region rather than sponsor by sponsor so coverage fills evenly;
    `coverage.thin` names the regions at zero. Tier 5 is 50 more US QSO parties, so it still
    comes last: adding 50 North American records now would undo the balance this year's
