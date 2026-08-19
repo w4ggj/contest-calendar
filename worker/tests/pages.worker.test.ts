@@ -93,20 +93,38 @@ describe("the site's icon", () => {
     expect(svg).toContain("</svg>");
   });
 
-  it("carries its own colour for a dark tab strip", async () => {
-    // A browser's tab strip follows the OS, not the reader's stored choice on
-    // this site, so the icon cannot be told which theme it is in -- it has to
-    // ask. That is the whole reason this is an SVG rather than a PNG.
+  it("does not ask the OS what colour to be", async () => {
+    // The first version keyed the icon on prefers-color-scheme so it could
+    // lighten on a dark tab strip. Wrong signal: that reports the OS, and the
+    // tab strip need not agree with it -- Chrome can be dark on a light
+    // Windows, and a reader can set THIS SITE dark while the OS stays light.
+    // Then the icon picks the variant for a strip it is not sitting in, which
+    // is how an icon ends up dark on dark: the failure it existed to fix.
     const svg = await (await get("/favicon.svg")).text();
-    expect(svg).toContain("prefers-color-scheme: dark");
-    // AMBER IS TIME, and the icon names a clock. Same rule as the stylesheet.
-    expect(svg.toUpperCase()).toContain("#FF9E2C");
+    expect(svg).not.toContain("prefers-color-scheme");
+    // AMBER IS TIME, and the icon names a clock. One amber, legible on a white
+    // strip and a near-black one, because that is the only property that
+    // matters at 16px.
+    expect(svg.toUpperCase()).toContain("#E8862B");
   });
 
-  it("colours the browser chrome to match the page", async () => {
+  it("lets the theme script own the browser chrome colour", async () => {
+    // A media-query theme-color cannot follow a STORED three-state choice, so
+    // a reader on a light PC who chose dark got light chrome around a dark
+    // page. One meta, resolved by the same head script that sets data-theme.
     const html = await page("/");
+    expect((html.match(/<meta name="theme-color"/g) ?? []).length, "one meta, not two").toBe(1);
+    expect(html).not.toContain('theme-color" content="#050B12" media=');
     expect(html).toContain('name="theme-color" content="#050B12"');
-    expect(html).toContain('name="theme-color" content="#EDF1F6"');
+
+    // And the head script writes it, before first paint, on the same
+    // resolution order the stylesheet uses.
+    const head = html.slice(0, html.indexOf("</head>"));
+    expect(head, "the boot script does not touch the chrome colour")
+      .toContain("meta[name=theme-color]");
+    // ...and the meta comes first, or the script has nothing to write to.
+    expect(head.indexOf("<meta name=\"theme-color\""))
+      .toBeLessThan(head.indexOf("meta[name=theme-color]"));
   });
 });
 

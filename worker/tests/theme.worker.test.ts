@@ -191,7 +191,20 @@ describe("the display switch", () => {
     const boot = html.indexOf(THEME_BOOT);
     expect(boot, "theme boot script is not on the page").toBeGreaterThan(-1);
     expect(boot).toBeLessThan(html.indexOf("</head>"));
-    expect(THEME_BOOT.length, "the boot script is big enough to be blocking").toBeLessThan(300);
+
+    // And it stays small, because it blocks. The cap was 300 while this script
+    // did one job; on 2026-08-19 it took on a second that also has to happen
+    // before first paint -- resolving the browser chrome's theme-color, which a
+    // media query cannot do for a STORED three-state choice. The number is a
+    // proxy for "does nothing but resolve the theme", so it moved once, with a
+    // reason, rather than being raised whenever it is hit. Anything that pushes
+    // this toward a kilobyte belongs in the deferred bundle instead.
+    expect(THEME_BOOT.length, "the boot script is big enough to be blocking").toBeLessThan(450);
+
+    // Both jobs, and nothing else: no fetch, no engine, no catalog.
+    expect(THEME_BOOT).toContain("data-theme");
+    expect(THEME_BOOT).toContain("theme-color");
+    expect(THEME_BOOT).not.toContain("fetch");
   });
 
   it("is not offered when there is nothing to remember it", async () => {

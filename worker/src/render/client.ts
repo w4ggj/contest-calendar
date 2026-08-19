@@ -39,10 +39,26 @@ import { dayCellLabel } from "./daylabel.js";
  * been stored -- then the stylesheet's `prefers-color-scheme` is left to answer,
  * which is the right answer for everyone who has not touched the switch.
  */
+/*
+ * It also sets the browser chrome's colour, and the comments for that live out
+ * here rather than in the string below: everything inside `String.raw` is
+ * shipped to the browser and blocks the first paint, and a test caps this
+ * script's length for exactly that reason.
+ *
+ * A `<meta name="theme-color">` keyed on `prefers-color-scheme` cannot follow
+ * this site, because that media query reports the OS and this site's theme is
+ * a STORED three-state choice. A reader on a light PC who picked dark got light
+ * chrome around a dark page. So the resolution happens here, in the same order
+ * the stylesheet uses: an explicit stored choice wins, and the system is
+ * consulted only in its absence.
+ */
 export const THEME_BOOT = String.raw`
 try {
   var t = localStorage.getItem("contestcal:theme");
   if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t);
+  var q = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  var m = document.querySelector('meta[name=theme-color]');
+  if (m) m.content = (t === "dark" || (!t && q)) ? "#050B12" : "#EDF1F6";
 } catch (e) {}
 `;
 
@@ -176,6 +192,14 @@ export const CLIENT_JS = String.raw`
     themePref = next;
     if (next === "auto") doc.documentElement.removeAttribute("data-theme");
     else doc.documentElement.setAttribute("data-theme", next);
+    // Keep the browser chrome with the page, on the same resolution order the
+    // head script uses: an explicit choice wins, the system answers otherwise.
+    try {
+      var isDark = next === "dark" || (next === "auto" && window.matchMedia
+        && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      var meta = doc.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", isDark ? "#050B12" : "#EDF1F6");
+    } catch (eTC) { /* chrome colour is cosmetic; never break the switch */ }
     try {
       if (next === "auto") localStorage.removeItem(THEME_STORE);
       else localStorage.setItem(THEME_STORE, next);
