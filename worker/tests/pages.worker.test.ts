@@ -72,6 +72,44 @@ describe("links to the sponsor's rules", () => {
   });
 });
 
+describe("the site's icon", () => {
+  it("is declared on every page, so no browser falls back to its own", async () => {
+    // There was none: no rel="icon" anywhere and /favicon.ico a 404, so every
+    // browser drew its placeholder -- which on a dark tab strip is a dark blob
+    // on a dark background.
+    for (const route of ["/", "/contest/cq-ww-cw", "/about", "/data", "/contact", "/nope"]) {
+      const html = await page(route);
+      expect(html, `${route} declares no icon`).toContain('rel="icon" href="/favicon.svg"');
+    }
+  });
+
+  it("serves the icon as SVG, cached hard", async () => {
+    const res = await get("/favicon.svg");
+    expect(res.status).toBe(200);
+    expect(res.headers.get("content-type")).toContain("image/svg+xml");
+    expect(res.headers.get("cache-control")).toContain("immutable");
+    const svg = await res.text();
+    expect(svg).toContain("<svg");
+    expect(svg).toContain("</svg>");
+  });
+
+  it("carries its own colour for a dark tab strip", async () => {
+    // A browser's tab strip follows the OS, not the reader's stored choice on
+    // this site, so the icon cannot be told which theme it is in -- it has to
+    // ask. That is the whole reason this is an SVG rather than a PNG.
+    const svg = await (await get("/favicon.svg")).text();
+    expect(svg).toContain("prefers-color-scheme: dark");
+    // AMBER IS TIME, and the icon names a clock. Same rule as the stylesheet.
+    expect(svg.toUpperCase()).toContain("#FF9E2C");
+  });
+
+  it("colours the browser chrome to match the page", async () => {
+    const html = await page("/");
+    expect(html).toContain('name="theme-color" content="#050B12"');
+    expect(html).toContain('name="theme-color" content="#EDF1F6"');
+  });
+});
+
 describe("what the page calls itself", () => {
   it("names the subject in the title, on every route", async () => {
     // A <title> has no page around it to supply context: it is what a search

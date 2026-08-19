@@ -24,6 +24,7 @@ import { allSponsors, buildNowView, contestById } from "./schedule.js";
 import { SITE_NAME } from "./render/html.js";
 import { renderDetail } from "./render/detail.js";
 import { renderLanding } from "./render/landing.js";
+import { FAVICON_SVG, ICON_LINKS } from "./render/icon.js";
 import { findPage, renderPage } from "./render/pages.js";
 
 /**
@@ -60,6 +61,7 @@ function notFound(path: string): Response {
   return html(
     `<!doctype html><html lang="en"><head><meta charset="utf-8">` +
       `<meta name="viewport" content="width=device-width,initial-scale=1">` +
+      ICON_LINKS +
       `<title>Not here · ${SITE_NAME}</title>` +
       `<style>body{background:#0B0E11;color:#C9D2D8;font:16px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;` +
       `margin:0;display:grid;place-items:center;min-height:100vh;padding:2rem;text-align:center}` +
@@ -158,6 +160,15 @@ export default {
           "cache-control",
           "public, max-age=3600, stale-while-revalidate=86400",
         );
+      } else if (path === "/favicon.svg") {
+        // Immutable: the mark does not change, and a tab icon re-fetched on
+        // every navigation is the cheapest possible waste.
+        response = new Response(FAVICON_SVG, {
+          headers: {
+            "content-type": "image/svg+xml; charset=utf-8",
+            "cache-control": "public, max-age=604800, immutable",
+          },
+        });
       } else if (path === "/robots.txt") {
         response = new Response("User-agent: *\nAllow: /\n", {
           headers: { "content-type": "text/plain; charset=utf-8" },

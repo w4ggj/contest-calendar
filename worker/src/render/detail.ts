@@ -41,6 +41,7 @@ import { relink } from "./filters.js";
 import { SITE_NAME, esc } from "./html.js";
 import { humanDuration, isoAttr, relative, zDate, zTime } from "./landing.js";
 import { pageLinks } from "./pages.js";
+import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
 import { CLIENT_JS, THEME_BOOT } from "./client.js";
 
@@ -448,6 +449,7 @@ export function renderDetail(input: DetailInput): string {
 <title>${esc(contest.name)} · ${esc(SITE_NAME)}</title>
 <meta name="description" content="${esc(description)}">
 <meta name="color-scheme" content="dark light">
+${ICON_LINKS}
 <link rel="alternate" type="text/calendar" href="/api/ics?id=${encodeURIComponent(contest.id)}" title="${esc(contest.name)}">
 <style>${CSS}</style>
 <script>${THEME_BOOT}</script>

@@ -21,6 +21,7 @@
 
 import { CATALOG, CATALOG_SIZE } from "../catalog.js";
 import { SITE_NAME, esc } from "./html.js";
+import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
 import { THEME_BOOT } from "./client.js";
 
@@ -279,6 +280,7 @@ export function renderPage(page: StaticPage): string {
 <title>${esc(page.title)} · ${esc(SITE_NAME)}</title>
 <meta name="description" content="${esc(page.description)}">
 <meta name="color-scheme" content="dark light">
+${ICON_LINKS}
 <link rel="alternate" type="text/calendar" href="/api/ics" title="Amateur radio contests">
 <style>${CSS}</style>
 <script>${THEME_BOOT}</script>

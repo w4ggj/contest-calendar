@@ -27,6 +27,7 @@ import {
 } from "./filters.js";
 import { SITE_NAME, esc } from "./html.js";
 import { pageLinks } from "./pages.js";
+import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
 import { CLIENT_JS, THEME_BOOT } from "./client.js";
 import { dayCellLabel } from "./daylabel.js";
@@ -517,6 +518,7 @@ export function renderLanding(view: NowView, input: LandingInput): string {
 <title>${esc(title)}</title>
 <meta name="description" content="Every amateur radio contest, computed from each sponsor's own published rules. What is on the air now and over the next seven days, in your local time.">
 <meta name="color-scheme" content="dark light">
+${ICON_LINKS}
 <link rel="alternate" type="text/calendar" href="/api/ics" title="Amateur radio contests">
 <style>${CSS}</style>
 <script>${THEME_BOOT}</script>
