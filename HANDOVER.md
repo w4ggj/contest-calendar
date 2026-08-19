@@ -200,19 +200,24 @@ but only ~36–42px wide, and contest-name links one line tall. Touch sizing key
 desktop window does not. Inline links get a 44px `::after` hit area rather than a 44px box,
 so the schedule does not space out like a list of buttons.
 
-## Partly-closed check — the phone
+## Partly-closed check — the phone: closed on Android, open on iOS
 
-**Not verified on hardware.** No phone was available, so the pass rendered the deployed
-page's own bytes in a same-origin iframe at exact phone widths. That is a real viewport —
-`(max-width: 599px)` genuinely applied — and the `(pointer: coarse)` rules were exercised by
-re-injecting the page's own `CSSMediaRule` text, not a hand-written approximation. It is
-still not a phone.
+**Verified on hardware 2026-08-19, on Android.** The owner read the schedule and a contest
+detail page (`/contest/cq-ww-cw`) on an Android handset and found nothing wrong. Before that
+the pass had rendered the deployed page's own bytes in a same-origin iframe at exact phone
+widths — a real viewport, with `(max-width: 599px)` genuinely applying and the
+`(pointer: coarse)` rules exercised by re-injecting the page's own `CSSMediaRule` text — but
+not a phone.
 
-What it cannot settle, and what a human with a handset should check in about two minutes:
-browser chrome and dynamic viewport units under a collapsing URL bar; whether a measured 44px
-is actually within thumb reach one-handed; iOS Safari's rubber-band scroll, tap highlight,
-and the ≥16px rule that stops it zooming on focus (the filter inputs are `1rem`, so it should
-hold — unconfirmed); and how the coarse sizing feels rather than measures.
+That closes browser chrome and dynamic viewport units under a collapsing URL bar, whether a
+measured 44px is within thumb reach one-handed, and how the coarse sizing feels rather than
+measures. It also covers the contest detail view, which shipped after the original pass and
+had never been on a phone.
+
+**Still open, and only an iPhone can close it:** iOS Safari's rubber-band scroll, its tap
+highlight, and the ≥16px rule that stops it zooming when an input takes focus. The filter
+inputs are `1rem`, so that last one should hold — check it first, because a page that zooms
+on focus has thrown away the reader's place in the schedule.
 
 Note the live CSP is `default-src 'none'` with `frame-ancestors 'none'` and no `connect-src`.
 That blocks framing the live URL and blocks page-origin `fetch()`, which is why the harness

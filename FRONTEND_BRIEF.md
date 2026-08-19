@@ -578,13 +578,22 @@ applies. Five things it found, none of which were visible at desktop width:
 Touch sizing keys on `(pointer: coarse)`, not on width. A 13" laptop with a touchscreen needs
 44px and a desktop at a narrow window does not, and width cannot tell them apart.
 
-**What was not tested, and it matters.** No phone was available, so this was measured in the
-live page's own bytes rendered at exact phone widths, not on hardware. That settles layout,
-overflow and geometry. It does not settle: browser chrome and the dynamic viewport (`100vh`
-under a collapsing URL bar), real thumb reach as against a measured 44px, iOS Safari's own
-behaviours (rubber-band scroll, tap highlight, the ≥16px rule that stops it zooming on focus
-— the filter inputs are 1rem, so this should hold, but "should" is the word), and how the
-`(pointer: coarse)` rules actually feel under a thumb. Those need someone with a phone.
+**Checked on hardware 2026-08-19 — on Android, which closes most of it and not all.** The
+original pass had no phone available and was measured in the live page's own bytes rendered at
+exact phone widths, which settles layout, overflow and geometry but not feel. The owner has now
+read both the schedule and a contest detail page (`/contest/cq-ww-cw`) on an Android handset
+and found nothing wrong.
+
+That closes the three items that are not browser-specific: **browser chrome and the dynamic
+viewport** under a collapsing URL bar, **real thumb reach** as against a measured 44px, and
+**how the `(pointer: coarse)` rules feel** rather than measure. It also covers the detail view,
+which had never been on a phone at all — it shipped after this pass.
+
+**Three iOS Safari behaviours stay open, and an Android pass cannot close them**: rubber-band
+scroll, tap highlight, and the ≥16px rule that stops Safari zooming when an input takes focus.
+The filter inputs are `1rem`, so the last one should hold — "should" is still the word, and it
+is the one worth checking first because a page that zooms on focus is a page that has thrown
+away the reader's place in the schedule.
 
 One measured thing that is a judgement call rather than a defect: the first contest row sits
 about **555px** down a 780–820px screen, behind the masthead, the UTC readout and the
@@ -751,17 +760,16 @@ iCal feed working. Deployed to Cloudflare — one Worker, not Pages; see the dev
 Usable one-handed on a phone. Catalog
 published under CC BY.
 
-**Met, with one thing measured rather than felt.** All six sections shipped and each carries
-its own note above. "Usable one-handed on a phone" was measured at 320/360/390 CSS px in the
-page's own bytes and not on a handset — see "Section 6 shipped" for the four things that
-still need someone holding a phone. The detail view has not been through that pass at all: it
-is built to the same rules — `(pointer: coarse)` sizing, no fixed widths, one column under
+**Met.** All six sections shipped and each carries its own note above. "Usable one-handed on a
+phone" was measured at 320/360/390 CSS px in the page's own bytes and then **confirmed on an
+Android handset on 2026-08-19**, schedule and contest detail both — see "Section 6 shipped",
+including the three iOS Safari behaviours an Android pass cannot close. The detail view was
+built to the same rules — `(pointer: coarse)` sizing, no fixed widths, one column under
 640px — and the one narrow-width defect that could be found by reading rather than by
-measuring was found and fixed: catalog source notes carry bare URLs, the longest unbroken
-token in the catalog is 109 characters, and at 320px that is a horizontal scrollbar on a page
-whose whole mobile pass was measured to have none. Every block rendering catalog text now
-breaks inside a word. What is still unmeasured is everything measuring is for: real hit
-targets, thumb reach, and how the page feels scrolled on a handset.
+measuring was found and fixed before it shipped: catalog source notes carry bare URLs, the
+longest unbroken token in the catalog is 109 characters, and at 320px that is a horizontal
+scrollbar on a page whose whole mobile pass was measured to have none. Every block rendering
+catalog text now breaks inside a word.
 
 ---
 

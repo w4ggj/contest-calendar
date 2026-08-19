@@ -965,8 +965,12 @@ test rather than a comment — reverting it means arguing with the evidence.
   endpoint; the site's WordPress page list contains exactly one `contests` page and no
   per-contest rules pages. The rules appear to be published in the members' magazine
   *QRP Quarterly*. **qrpcontest.com is a third-party logging service, not the sponsor** —
-  it is not a valid source. No records created. Next step: contact QRP ARCI, or locate the
-  rules in a QRP Quarterly issue the club publishes itself.
+  it is not a valid source. No records created. **Next step: QRP ARCI's own Contact Us page
+  names Larry Makowski W2LJ as Contest Manager at `contest@qrparci.org`** and directs contest
+  queries there (read 2026-08-19). Ask for the recurrence in the club's own wording, not this
+  year's dates, and for the last few years' dates as the independent check. A reply recorded
+  with the name and the date is a citable primary source; so is a *QRP Quarterly* issue the
+  club publishes itself.
 - **RSGB AFS CW** — guessed rules filename returned 404. Find the real page under
   rsgbcc.org/hf/ and set `rules_url_pattern`. Recurrence and eligibility unconfirmed.
 - **SARL HF Phone** — **blocked at source.** sarl.org.za returned 503 during the original
