@@ -103,7 +103,7 @@ test asserting generated dates match dates the sponsor published independently.
 
 ---
 
-## Next: sourcing, and a deploy
+## Next: sourcing
 
 **The front end is done and deployed.** `FRONTEND_BRIEF.md` records every section and what
 it cost; all six are shipped and the definition of done is met. What is left is sourcing:
