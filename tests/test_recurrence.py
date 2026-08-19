@@ -3062,6 +3062,49 @@ def test_arsi_40m_eligibility_records_a_contradiction_rather_than_resolving_it(c
     assert eligibility_for(by_id(catalog, "arsi-vu-dx"), "K")["can_enter"]
 
 
+# TRAC publishes a page per year, so its own dates check its own rule -- and
+# in one year out of four they disagree. See data/sources.md.
+TRAC_PUBLISHED = {2023: (7, 8), 2024: (7, 6), 2025: (7, 5), 2026: (7, 4)}
+
+
+@pytest.mark.parametrize("year,md", sorted(TRAC_PUBLISHED.items()))
+def test_trac_reproduces_every_date_turkey_published(catalog, year, md):
+    (o,) = expand(by_id(catalog, "trac-ta-vhf-uhf"), year)
+    assert o.start.date() == date(year, *md)
+    assert (o.start.hour, o.end.hour) == (12, 12)
+
+
+def test_trac_exception_is_flagged_as_an_inference(catalog):
+    """
+    TRAC states "Temmuz ayının ilk hafta sonu" -- the first weekend of July --
+    and that reproduces its 2024, 2025 and 2026 dates. It does NOT reproduce
+    2023: 1 July 2023 was itself a Saturday, the rule gives 1-2 July, and TRAC
+    ran the contest on 8-9 July.
+
+    exclude_dates [[7, 1]] is what makes all four come out right. It is the
+    same shape as ARRL RTTY Roundup's "never 1 January" -- except ARRL STATES
+    its exception and TRAC does not, so this is one year's evidence fitted into
+    a rule. Hence verified: false, and hence this test, which exists to keep
+    the inference visible rather than to bless it.
+    """
+    c = by_id(catalog, "trac-ta-vhf-uhf")
+    assert c["verified"] is False
+    assert c["recurrence"]["exclude_dates"] == [[7, 1]]
+    assert "INFERENCE" in c["note"]
+
+    # Inert in most years, and the years it is not are named.
+    for year in (2028, 2034, 2045):
+        assert date(year, 7, 1).weekday() == 5, year
+        (o,) = expand(c, year)
+        assert o.start.date() == date(year, 7, 8), year
+
+    # Without the exception the 2023 running would be wrong by a week, which is
+    # the whole reason it is there.
+    naive = resolve_anchors({"type": "nth_full_weekend", "month": 7, "n": 1}, 2023)[0]
+    assert naive == date(2023, 7, 1)
+    assert expand(c, 2023)[0].start.date() == date(2023, 7, 8)
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

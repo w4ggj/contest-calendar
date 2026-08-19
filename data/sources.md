@@ -1241,11 +1241,50 @@ The Rookie contest sits between them: ARSI states the objective as encouraging n
 operators *"in India"* and gives no participation clause at all, so it is `VU` with
 `verified: false` for the same reason.
 
+### TRAC, and a rule that its own dates contradict once
+
+Turkey's TA VHF-UHF Contest, and the reason it is the only record in this pass carrying
+`verified: false`.
+
+TRAC states the recurrence plainly — *"Tarih: Temmuz ayının ilk hafta sonu"*, the first weekend
+of July, Saturday 1200 UTC to Sunday 1200 UTC. It also keeps **a page per year**, which hands
+over four dates published independently of that sentence:
+
+| Year | TRAC published | "First weekend of July" gives |
+|---|---|---|
+| 2023 | **8–9 July** | 1–2 July — **wrong by a week** |
+| 2024 | 6–7 July | 6–7 July |
+| 2025 | 5–6 July | 5–6 July |
+| 2026 | 4–5 July | 4–5 July |
+
+1 July 2023 was itself a Saturday. The rule says that weekend; TRAC ran the contest the
+following one.
+
+`exclude_dates: [[7, 1]]` makes all four come out right, and it is exactly the shape ARRL RTTY
+Roundup already uses for *"the first full weekend of January but never 1 January"*. **The
+difference is that ARRL states its exception and TRAC does not.** So this is one year's evidence
+fitted into a rule rather than a rule read off a page, the record says so in its `note`, and it
+is `verified: false` until TRAC confirms what happens when the month opens on a Saturday.
+
+It is inert in most years. The next times it decides anything are **2028, 2034 and 2045**.
+
+### What TRAC actually runs
+
+The registry's stub guessed four contests — "TRC DX, TRC Digi, TA VHF/UHF, Turkey HF". **TRAC
+publishes one.** There is no TRC DX, TRC Digi or Turkey HF contest anywhere on trac.org.tr; the
+estimate is corrected from 3 to 1. The site's other contest-shaped link, `ta-vhf-cqww`, is a
+how-to for exporting a TA contest log into CQ WW VHF rather than a TRAC contest.
+
+Modes are SSB, CW and FM, and digital is banned outright — *"Dijital modlar (ör. FT8, JT65) ve
+dijital telsizler (ör. DMR, C4FM) yasaktır. Tüm QSO'lar analog olmalıdır."* SSB is this
+catalog's only phone token, so FM sits in `submodes` and the ban is in `bands_note`.
+
 ### Also checked, and empty
 
 - **IARC (Israel)** and **CRSA/CRAC (China)** — both sites are live and neither exposes a
   contest or rules section from its front page. Nothing encoded, and nothing blocked: they need
-  a closer look or a letter, not a retry.
+  a closer look or a letter, not a retry. That leaves Asia's tier-3 list at two societies
+  worked (ARSI, TRAC) and two unread.
 - The **Commonwealth Contest** in ARSI's menu is RSGB's, not ARSI's, and the **BigCQ** entry is
   an award rather than a contest. Neither is encoded.
 

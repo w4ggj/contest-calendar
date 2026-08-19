@@ -3042,6 +3042,48 @@ test("ARSI 40M eligibility records a contradiction rather than resolving it", ()
   expect(eligibilityFor(byId("arsi-vu-dx"), "K").can_enter).toBe(true);
 });
 
+// TRAC publishes a page per year, so its own dates check its own rule -- and
+// in one year out of four they disagree. See data/sources.md.
+const TRAC_PUBLISHED: [number, number, number][] = [
+  [2023, 7, 8], [2024, 7, 6], [2025, 7, 5], [2026, 7, 4],
+];
+
+test.each(TRAC_PUBLISHED)(
+  "TRAC reproduces every date Turkey published: %i",
+  (year, month, day) => {
+    const [o] = expand(byId("trac-ta-vhf-uhf"), year);
+    expect(isoDate(o.start!)).toBe(D(year, month, day));
+    expect([o.start!.getUTCHours(), o.end!.getUTCHours()]).toEqual([12, 12]);
+  },
+);
+
+test("the TRAC exception is flagged as an inference", () => {
+  // TRAC states "Temmuz ayının ilk hafta sonu" -- the first weekend of July --
+  // and that reproduces its 2024, 2025 and 2026 dates. It does NOT reproduce
+  // 2023: 1 July 2023 was itself a Saturday, the rule gives 1-2 July, and TRAC
+  // ran the contest on 8-9 July.
+  //
+  // exclude_dates [[7, 1]] is what makes all four come out right. It is the
+  // same shape as ARRL RTTY Roundup's "never 1 January" -- except ARRL STATES
+  // its exception and TRAC does not, so this is one year's evidence fitted
+  // into a rule. Hence verified: false, and hence this test, which exists to
+  // keep the inference visible rather than to bless it.
+  const c = byId("trac-ta-vhf-uhf");
+  expect(c.verified).toBe(false);
+  expect(c.recurrence.exclude_dates).toEqual([[7, 1]]);
+  expect(c.note).toContain("INFERENCE");
+
+  for (const year of [2028, 2034, 2045]) {
+    const [o] = expand(c, year);
+    expect(isoDate(o.start!), String(year)).toBe(D(year, 7, 8));
+  }
+
+  // Without the exception the 2023 running would be wrong by a week.
+  const naive = resolveAnchors({ type: "nth_full_weekend", month: 7, n: 1 }, 2023)[0];
+  expect(isoDate(naive)).toBe(D(2023, 7, 1));
+  expect(isoDate(expand(c, 2023)[0].start!)).toBe(D(2023, 7, 8));
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

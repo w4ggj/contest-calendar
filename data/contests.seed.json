@@ -11041,6 +11041,57 @@
         "verified": false,
         "note": "ARSI'S OWN PAGE CONTRADICTS ITSELF. It says 'Any licensed ham can participate in the contest' and then, four lines later, 'Though this contest is only for VU, any DX contacts in the log will get 2 QSO multiplier points'. Read together the likely meaning is that entry is for VU stations while DX stations may be worked and count for multipliers -- which is what is encoded -- but the two sentences cannot both be taken at face value, so eligibility.verified is false. Ask ARSI."
       }
+    },
+    {
+      "id": "trac-ta-vhf-uhf",
+      "name": "TA VHF-UHF Contest",
+      "sponsor": "TRAC",
+      "country": "TR",
+      "rules_url": "https://trac.org.tr/tr/ta-vhf-uhf-contest-2026",
+      "sponsor_home": "https://trac.org.tr/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "submodes": [
+        "FM"
+      ],
+      "bands": [
+        "6m",
+        "2m",
+        "70cm"
+      ],
+      "bands_note": "6m: 50-52 MHz, 2m: 144-146 MHz, 70cm: 430-440 MHz, per the IARU Region 1 band plan. Phone is SSB or FM. Digital modes such as FT8 and JT65 and digital radios such as DMR and C4FM are forbidden -- 'Tüm QSO'lar analog olmalıdır', all QSOs must be analogue.",
+      "exchange": "RST, a serial number starting at 001, and a six-character Maidenhead locator -- for example '59 123 KN90UX'.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 1,
+        "exclude_dates": [
+          [
+            7,
+            1
+          ]
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "trac.org.tr/tr/ta-vhf-uhf-contest-2026, the Türkiye Radyo Amatörleri Cemiyeti's own page: 'Tarih ve Saat -- Tarih: Temmuz ayının ilk hafta sonu (4-5 Temmuz 2026). Süre: 24 saat. Başlangıç: Cumartesi, 12:00 UTC. Bitiş: Pazar, 12:00 UTC.' -- the first weekend of July, 24 hours, Saturday 1200 UTC to Sunday 1200 UTC. Aim: 'TA VHF-UHF Yarışması, VHF ve UHF haberleşme becerilerini geliştirmeyi ve Türkiye ile komşu ülkelerdeki istasyonlarla 6m, 2m ve 70cm bantlarında QSO imkânı sağlamayı amaçlar.' Participants: 'Türkiye ve yurtdışındaki tüm lisanslı amatör telsiz operatörleri' -- all licensed amateurs in Turkey and abroad. Bands and modes: '6m: 50-52 MHz, 2m: 144-146 MHz, 70cm: 430-440 MHz. Modlar: SSB, CW, FM.' Exchange: 'RST (ör. 59 veya 599), 001'den başlayan sıra numarası, 6 karakterli WW QTH Locator (ör. \"59 123 KN90UX\").' TRAC keeps a page per year, which gives four published dates independently of the rule: 08-09 July 2023, 06-07 July 2024, 05-06 July 2025 and 04-05 July 2026.",
+      "note": "VERIFIED FALSE, AND THE EXCEPTION IS THIS CATALOG'S INFERENCE RATHER THAN TRAC'S WORDING.\n\nTRAC states 'Temmuz ayının ilk hafta sonu' -- the first weekend of July -- and that reproduces its own published dates for 2024, 2025 and 2026. It does NOT reproduce 2023: 1 July 2023 was itself a Saturday, so the rule gives 1-2 July, and TRAC ran the contest on 8-9 July, a week later.\n\n`exclude_dates: [[7, 1]]` is what makes all FOUR published dates come out right, and it is the same shape as ARRL RTTY Roundup's 'first full weekend of January but never 1 January'. The difference is that ARRL states its exception and TRAC does not, so this is one year's evidence fitted into a rule rather than a rule read off a page.\n\nIt only matters when 1 July is a Saturday, which next happens in 2028, then 2034 and 2045. In every other year the exception is inert and the record is simply TRAC's own sentence. Ask TRAC what happens when the month opens on a Saturday and this becomes verified either way.\n\nModes: TRAC permits SSB, CW and FM. SSB is this catalog's only phone token, so FM is recorded in submodes and the ban on digital modes is in bands_note.",
+      "summary": "Turkey's VHF and UHF contest: 24 hours from 1200 UTC on the first July weekend, analogue only on 6 m, 2 m and 70 cm, with grid squares exchanged.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Türkiye ve yurtdışındaki tüm lisanslı amatör telsiz operatörleri' -- all licensed amateur operators in Turkey and abroad. TRAC adds that entrants must obey their own country's regulations, and that in Turkey only class A and B amateurs may use 50 MHz."
+      }
     }
   ]
 }
