@@ -1309,6 +1309,79 @@ catalog's only phone token, so FM sits in `submodes` and the ban is in `bands_no
 - The **Commonwealth Contest** in ARSI's menu is RSGB's, not ARSI's, and the **BigCQ** entry is
   an award rather than a contest. Neither is encoded.
 
+## Nine South African clubs, one manual — 2026-08-19
+
+The contests in SARL's calendar that **SARL does not run**. Nine contests, nine clubs, one
+each: **216 records**, and Africa reaches 31.
+
+| Contest | Club | Rule |
+|---|---|---|
+| ZS1 QSO Party | Cape Town ARC | last Sunday of July, **1600–1700 UTC** |
+| ZS2 QSO Party | PEARS | 3rd Sunday of July, 1400–1500 |
+| ZS3 QSO Party | Northern Cape ARC | 3rd Sunday of May |
+| ZS4 QSO Party | Sasolburg ARC | 2nd Sunday of April |
+| ZS5 QSO Party | Highway ARC | 1st Sunday of July |
+| Hammies QSO Party | Hammies ARC | 2nd Sunday of June, phone only |
+| Early Morning Coffee QSO Party | Bo Karoo ARC | 2nd Wednesday of May and October, **0400 UTC** |
+| AWASA CW Activity Day | AWASA | 1st Sunday of February, CW |
+| HamSat-SA ZS QO-100 QSO Party | HamSat-SA | 2nd Sunday of February, **via satellite** |
+
+Every date checked against SARL's own Date Ordered List. All nine agree.
+
+### Why the manual is a primary source here, and not an aggregator
+
+This is the provenance question the pass turned on, so it is worth stating plainly.
+
+The SARL Contest Manual carries each of these contests' **full rules** — aim, dates, exchange,
+frequencies, scoring, log sheets — and names its organising club, in AWASA's case with a link
+to `awasa.org.za`. It is the venue in which South African clubs publish their contest rules, in
+the same way DARC's Ausschreibungen and UBA's rules pages are for theirs.
+
+**An aggregator republishes rules it found elsewhere. This is where the rules appear.** That is
+the distinction, and it is why WA7BNM is refused while this is not: WA7BNM compiles other
+people's published schedules, whereas a club submitting its rules to the SARL manual is
+publishing them there.
+
+The records are credited to the **clubs**, never to SARL. Crediting them to SARL would
+misattribute nine contests and collapse nine clubs into one sponsor filter, and there is a test
+for it.
+
+### Two details that a regularised copy would have smoothed away
+
+**ZS1 starts at 1600 UTC** while the other four provincial parties start at 1400. Five contests
+with near-identical rules and one of them an hour later; it has its own assertion.
+
+**Early Morning Coffee starts at 0400 UTC** — 0600 local, the earliest start in the catalog,
+and the entire point of the contest. It runs the 2nd Wednesday of **May and October only**,
+which is `monthly_nth_weekday` with a two-month list rather than a monthly rule.
+
+### Eligibility is unverified on eight of the nine, deliberately
+
+The manual names entity lists for SARL's *own* HAMNET and Top Band contests, and says **nothing
+at all** about who may enter the club parties — nor is there a blanket clause in the general
+rules. Their scoring contemplates stations outside the region, so they are recorded as
+worldwide with `verified: false`. That is an absence of words rather than a statement, and the
+flag says so. HamSat-SA is the exception: its aim names *"radio amateurs from South Africa and
+the world"*, so that one is verified.
+
+### The catalog's first satellite contest
+
+Every QO-100 contact goes through a geostationary transponder, so the band recorded is **3 cm**
+— the 10 489 MHz downlink — and a band filter finds it there. That is the honest token for the
+frequency in use, and the record's note says what it does not convey: no terrestrial path is
+involved, and the equipment is a dish rather than a microwave rig, so it has little in common
+with the catalog's other 3 cm entries.
+
+### Still open
+
+- **PEARS National VHF/UHF Contest** — a 44-hour dual analogue/digital contest in multiple
+  sessions, 9–11 January 2026. It needs its own careful read rather than a hurried one.
+- **Antique Wireless Association SSB Valve QSO Party** — in the date list for 3 May and 4
+  October; its rules section was not located under that heading in the decoded manual.
+- **ZS SOTA Activity Weekend** — may not be a contest at all: it has activator and chaser
+  categories and is scored through the SOTA database rather than a submitted log.
+- **BACAR** appears in SARL's news categories and has no rules in the manual.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

@@ -3084,6 +3084,69 @@ test("the TRAC exception is flagged as an inference", () => {
   expect(isoDate(expand(c, 2023)[0].start!)).toBe(D(2023, 7, 8));
 });
 
+// Nine contests run by eight South African clubs, all from the SARL Contest
+// Manual -- which carries their full rules and names each organiser, so it is
+// where these rules are published rather than a listing of them.
+const ZA_CLUB_PUBLISHED: Record<string, [string, [number, number, number][], number]> = {
+  "zs1-qso-party": ["last Sunday of July", [[2026, 7, 26]], 16],
+  "zs2-qso-party": ["3rd Sunday of July", [[2026, 7, 19]], 14],
+  "zs3-qso-party": ["3rd Sunday of May", [[2026, 5, 17]], 14],
+  "zs4-qso-party": ["2nd Sunday of April", [[2026, 4, 12]], 14],
+  "zs5-qso-party": ["1st Sunday of July", [[2026, 7, 5]], 14],
+  "hammies-qso-party": ["2nd Sunday of June", [[2026, 6, 14]], 14],
+  "early-morning-coffee-qso-party": [
+    "2nd Wednesday of May and October", [[2026, 5, 13], [2026, 10, 14]], 4],
+  "awasa-cw-activity-day": ["1st Sunday of February", [[2026, 2, 1]], 13],
+  "hamsat-sa-qo100-qso-party": ["2nd Sunday February", [[2026, 2, 8]], 13],
+};
+
+test.each(
+  Object.entries(ZA_CLUB_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, days, hour]]) => [cid, rule, days, hour] as const),
+)("South African club contests match the manual's own dates: %s", (cid, rule, days, hour) => {
+  const occ = expand(byId(cid), 2026);
+  expect(occ.map((o) => isoDate(o.start!)), `${cid}: ${rule}`)
+    .toEqual(days.map(([y, m, d]) => D(y, m, d)));
+  expect(occ[0].start!.getUTCHours(), `${cid}: ${rule}`).toBe(hour);
+});
+
+test("South African club contests are credited to their clubs, not to SARL", () => {
+  // The SARL Contest Manual publishes these, but SARL does not run them -- it
+  // names a Sponsor Club for each. Crediting them to SARL would misattribute
+  // the contest AND hide nine clubs behind one sponsor filter -- nine
+  // contests, nine clubs, one each.
+  const sponsors = new Set(Object.keys(ZA_CLUB_PUBLISHED).map((cid) => byId(cid).sponsor));
+  expect(sponsors.has("SARL")).toBe(false);
+  expect(sponsors.size).toBe(9);
+  expect(sponsors.has("Cape Town Amateur Radio Club")).toBe(true);
+});
+
+test("ZS1 runs an hour later than the other provincial parties", () => {
+  // Five provincial parties with near-identical rules, and one starts at 16:00
+  // rather than 14:00 -- the detail a regularised copy would smooth away.
+  expect(expand(byId("zs1-qso-party"), 2026)[0].start!.getUTCHours()).toBe(16);
+  for (const cid of ["zs2-qso-party", "zs3-qso-party", "zs4-qso-party", "zs5-qso-party"]) {
+    expect(expand(byId(cid), 2026)[0].start!.getUTCHours(), cid).toBe(14);
+  }
+});
+
+test("South African club eligibility is unverified where the manual is silent", () => {
+  // The manual names entity lists for SARL's own HAMNET and Top Band contests
+  // and says nothing about who may enter the club parties. Silence is not a
+  // statement, so those records are worldwide with verified false.
+  for (const cid of ["zs1-qso-party", "zs2-qso-party", "zs3-qso-party", "zs4-qso-party",
+                     "zs5-qso-party", "hammies-qso-party",
+                     "early-morning-coffee-qso-party", "awasa-cw-activity-day"]) {
+    const e = byId(cid).eligibility!;
+    expect(e.scope, cid).toBe("worldwide");
+    expect(e.verified, cid).toBe(false);
+  }
+  const hs = byId("hamsat-sa-qo100-qso-party").eligibility!;
+  expect(hs.scope).toBe("worldwide");
+  expect(hs.verified).toBe(true);
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

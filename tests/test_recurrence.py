@@ -3105,6 +3105,73 @@ def test_trac_exception_is_flagged_as_an_inference(catalog):
     assert expand(c, 2023)[0].start.date() == date(2023, 7, 8)
 
 
+# Nine contests run by eight South African clubs, all from the SARL Contest
+# Manual -- which carries their full rules and names each organiser, so it is
+# where these rules are published rather than a listing of them.
+ZA_CLUB_PUBLISHED = {
+    "zs1-qso-party": ("last Sunday of July", [(2026, 7, 26)], 16),
+    "zs2-qso-party": ("3rd Sunday of July", [(2026, 7, 19)], 14),
+    "zs3-qso-party": ("3rd Sunday of May", [(2026, 5, 17)], 14),
+    "zs4-qso-party": ("2nd Sunday of April", [(2026, 4, 12)], 14),
+    "zs5-qso-party": ("1st Sunday of July", [(2026, 7, 5)], 14),
+    "hammies-qso-party": ("2nd Sunday of June", [(2026, 6, 14)], 14),
+    "early-morning-coffee-qso-party":
+        ("2nd Wednesday of May and October", [(2026, 5, 13), (2026, 10, 14)], 4),
+    "awasa-cw-activity-day": ("1st Sunday of February", [(2026, 2, 1)], 13),
+    "hamsat-sa-qo100-qso-party": ("2nd Sunday February", [(2026, 2, 8)], 13),
+}
+
+
+@pytest.mark.parametrize("cid,rule,days,hour", [
+    (cid, r, d, h) for cid, (r, d, h) in sorted(ZA_CLUB_PUBLISHED.items())
+])
+def test_za_club_contests_match_the_manuals_own_dates(catalog, cid, rule, days, hour):
+    occ = expand(by_id(catalog, cid), 2026)
+    assert [o.start.date() for o in occ] == [date(*d) for d in days], f"{cid}: {rule}"
+    assert occ[0].start.hour == hour, f"{cid}: {rule}"
+
+
+def test_za_club_contests_are_credited_to_their_clubs_not_to_sarl(catalog):
+    """
+    The SARL Contest Manual publishes these, but SARL does not run them -- it
+    names a Sponsor Club for each. Crediting them to SARL would be wrong twice
+    over: it would misattribute the contest, and it would hide eight clubs
+    behind one sponsor filter. Nine contests, nine clubs -- one each.
+    """
+    sponsors = {by_id(catalog, cid)["sponsor"] for cid in ZA_CLUB_PUBLISHED}
+    assert "SARL" not in sponsors
+    assert len(sponsors) == 9, sponsors
+    assert "Cape Town Amateur Radio Club" in sponsors
+    assert "Port Elizabeth Amateur Radio Society (PEARS)" in sponsors
+
+
+def test_zs1_runs_an_hour_later_than_the_other_provincial_parties(catalog):
+    # Five provincial parties with near-identical rules, and one of them starts
+    # at 16:00 rather than 14:00. That is the detail a regularised copy of a
+    # calendar would smooth away, so it gets its own assertion.
+    assert expand(by_id(catalog, "zs1-qso-party"), 2026)[0].start.hour == 16
+    for cid in ("zs2-qso-party", "zs3-qso-party", "zs4-qso-party", "zs5-qso-party"):
+        assert expand(by_id(catalog, cid), 2026)[0].start.hour == 14, cid
+
+
+def test_za_club_eligibility_is_unverified_where_the_manual_is_silent(catalog):
+    """
+    The manual names entity lists for SARL's own HAMNET and Top Band contests
+    and says nothing at all about who may enter the club parties. Silence is
+    not a statement, so those records are worldwide with verified false.
+    """
+    silent = ["zs1-qso-party", "zs2-qso-party", "zs3-qso-party", "zs4-qso-party",
+              "zs5-qso-party", "hammies-qso-party", "early-morning-coffee-qso-party",
+              "awasa-cw-activity-day"]
+    for cid in silent:
+        e = by_id(catalog, cid)["eligibility"]
+        assert e["scope"] == "worldwide" and e["verified"] is False, cid
+
+    # HamSat-SA is the exception: its aim names "South Africa and the world".
+    e = by_id(catalog, "hamsat-sa-qo100-qso-party")["eligibility"]
+    assert e["scope"] == "worldwide" and e["verified"] is True
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

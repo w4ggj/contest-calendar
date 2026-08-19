@@ -11144,6 +11144,393 @@
         "verified": true,
         "note": "'The Contest is open to all licensed Radio Amateurs in South Africa, Namibia (V5), Botswana (A2), Zimbabwe (Z2), Mozambique (C9), Lesotho (7P) and ESwatini (3DA). Only contacts with these states will count.' SARL names the prefixes itself here, so unlike its club contests this list is not an inference."
       }
+    },
+    {
+      "id": "zs1-qso-party",
+      "name": "ZS1 QSO Party",
+      "sponsor": "Cape Town Amateur Radio Club",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A phone and CW contest on 40 m: CW 7 000-7 040 kHz, SSB 7 063-7 100 and 7 130-7 200 kHz.",
+      "exchange": "RS(T) and the provincial or country abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": -1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'ZS1 QSO Party': 'This is a fun activity to promote contacts between radio amateurs in the Western Cape and radio amateurs in Southern African countries.' '2. Date and Time 16:00 to 17:00 UTC on the last Sunday of July - 26 July 2026.' Frequency: '4.1. It is a phone and CW contest on the 40 meter band 4.1.1. CW: 7 000 to 7 040 kHz 4.1.2. SSB: 7 063 to 7 100 and 7 130 to 7 200 kHz'. Sponsor Club - Cape Town Amateur Radio Club.",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      },
+      "summary": "An hour on 40 m for the Western Cape, on the last Sunday of July -- an hour later than South Africa's other provincial parties."
+    },
+    {
+      "id": "zs2-qso-party",
+      "name": "ZS2 QSO Party",
+      "sponsor": "Port Elizabeth Amateur Radio Society (PEARS)",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A phone and CW contest on 40 m: CW 7 000-7 040 kHz, SSB 7 063-7 100 and 7 130-7 200 kHz.",
+      "exchange": "RS(T) and the provincial or country abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'ZS2 QSO Party': 'This is a fun activity to promote contacts between radio amateurs in the Eastern Cape and radio amateurs in Southern African countries.' '2. Date and Time 14:00 to 15:00 UTC on the 3rd Sunday of July - 19 July 2026.' Sponsor Club - Port Elizabeth Amateur Radio Society (PEARS).",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      },
+      "summary": "An hour on 40 m for the Eastern Cape, on the third Sunday of July."
+    },
+    {
+      "id": "zs3-qso-party",
+      "name": "ZS3 QSO Party",
+      "sponsor": "Northern Cape Amateur Radio Club",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A phone and CW contest on 40 m: CW 7 000-7 040 kHz, SSB 7 063-7 100 and 7 130-7 200 kHz.",
+      "exchange": "RS(T) and the provincial or country abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'ZS3 QSO Party': 'This is a fun activity to promote contacts between radio amateurs in the Northern Cape and radio amateurs in Southern African countries.' '2. Date and Time 14:00 to 15:00 UTC on the 3rd Sunday of May - 17 May 2026.' Sponsor Club - Northern Cape Amateur Radio Club.",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      },
+      "summary": "An hour on 40 m for the Northern Cape, on the third Sunday of May."
+    },
+    {
+      "id": "zs4-qso-party",
+      "name": "ZS4 QSO Party",
+      "sponsor": "Sasolburg Amateur Radio Club",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A phone and CW contest on 40 m: CW 7 000-7 040 kHz, SSB 7 063-7 100 and 7 130-7 200 kHz.",
+      "exchange": "RS(T) and the provincial or country abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 2,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'ZS4 QSO Party': 'This is a fun activity to promote contacts between radio amateurs in the Free State and radio amateurs in Southern African countries.' '2. Date and Time 14:00 to 15:00 UTC on the 2nd Sunday of April - 12 April 2026' Scoring: '5.1. All CW contacts count 5 points.' Sponsor Club - Sasolburg Amateur Radio Club ZS4SRK.",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      },
+      "summary": "An hour on 40 m for the Free State, on the second Sunday of April."
+    },
+    {
+      "id": "zs5-qso-party",
+      "name": "ZS5 QSO Party",
+      "sponsor": "Highway Amateur Radio Club",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A phone and CW contest on 40 m: CW 7 000-7 040 kHz, SSB 7 063-7 100 and 7 130-7 200 kHz.",
+      "exchange": "ZS5 stations send RS(T) and their town name or abbreviation; everyone else sends RS(T) and the provincial or country abbreviation.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'ZS5 QSO Party': 'This is a fun activity to promote contacts between radio amateurs in Kwazulu-Natal and radio amateurs in Southern African countries.' '2. Date and Time From 14:00 to 15:00 UTC on the 1st Sunday of July - 5 July 2026' Exchange: '3.1. ZS5 - RS(T) and town name or abbreviation. 3.2. Other - RS(T) and provincial or country abbreviation.' Sponsor Club - Highway Amateur Radio Club.",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      },
+      "summary": "An hour on 40 m for KwaZulu-Natal, on the first Sunday of July."
+    },
+    {
+      "id": "hammies-qso-party",
+      "name": "Hammies QSO Party",
+      "sponsor": "Hammies Amateur Radio Club",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "A phone contest on 40 m: 7 063-7 100 and 7 130-7 200 kHz. 7 100-7 130 kHz is contest free.",
+      "exchange": "RS and the provincial abbreviation; stations outside South Africa send DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 2,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'Hammies QSO Party': 'This is a fun activity to promote contacts between Hammies and radio amateurs in Southern African countries with an emphasis on ZU stations.' '2. Date and Time 14:00 to 15:00 UTC 2nd Sunday of June - 14 June 2026' Frequency and mode: '4.1. A phone contest on the 40-meter band - 7 063 to 7 100 and 7 130 to 7 200 kHz. 4.2. 7 100 to 7 130 kHz is contest free.' Exchange: '3.1. The exchange is RS and provincial abbreviation, DX for all stations outside South Africa.' '3.3. Maximum RF power not to exceed 20dBW.' Sponsor Club - Hammies Amateur Radio Club.",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      },
+      "power_categories": [
+        {
+          "name": "20 dBW maximum",
+          "max_watts": 100
+        }
+      ],
+      "summary": "An hour of phone on 40 m for the Hammies club, on the second Sunday of June, with an emphasis on ZU novice stations."
+    },
+    {
+      "id": "early-morning-coffee-qso-party",
+      "name": "Early Morning Coffee QSO Party",
+      "sponsor": "Bo Karoo Amateur Radio Club",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "80 m: 3 603-3 650 and 3 703-3 800 kHz, with 3 651-3 699 kHz contest free. 40 m: 7 063-7 100 and 7 130-7 200 kHz, with 7 100-7 130 kHz contest free.",
+      "exchange": "Your call sign, an RS report, your grid square, your age category and your name.",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 2,
+        "months": [
+          5,
+          10
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The Early Morning Coffee QSO Party': '1. Aim. To create an interest and activity on 80 and 40 m in the mornings and to try and contact as many of the early morning stations as possible. This is a phone only contest and scoring on a sliding scale would depend on the age of the person that you work.' '2. Dates and Times 04:00 UTC (06:00 CAT) to 05:00 UTC (07:00 CAT) on the 2nd Wednesday of May and October - Wednesday 13th May and Wednesday 14th October 2026.' Exchange: '4.1. Your call sign, a RS report, your Grid Square, your age category and name.' Sponsor Club - Bo Karoo Amateur Radio Club.",
+      "note": "An hour at 0400 UTC, which is 0600 local -- the earliest start of any contest in this catalog, and the point of it. Two months a year rather than monthly, which is what monthly_nth_weekday's `months` field carries. SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "summary": "An hour of 80 and 40 m phone at six in the morning, twice a year, scored on a sliding scale by the age of the operator you work.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      }
+    },
+    {
+      "id": "awasa-cw-activity-day",
+      "name": "Antique Wireless Association CW Activity Day",
+      "sponsor": "AWASA",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "http://www.awasa.org.za/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "14 000-14 060 kHz, 7 000-7 040 kHz and 3 510-3 560 kHz.",
+      "exchange": "RST, the operator's name and grid square locator.",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'Antique Wireless Association CW Activity Day', which names the organiser and links it: 'The AWASA http://www.awasa.org.za/'. '1. Aim The aim of the CW Activity Day is for participants to contact as many amateurs as possible on the 20, 40 and 80 m amateur bands.' '2. Date and Time 13:00 - 15:00 UTC on the 1st Sunday of February - 1 February 2026.' '3. Frequencies 14 000 to 14 060 kHz 7 000 to 7 040 kHz 3 510 to 3 560 kHz.' Categories: single operator all band or single band, low power (maximum 100 W) or QRP (maximum 5 W). Exchange: '5.1. RST, operators name and Grid Square locator.'",
+      "note": "SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "summary": "Two hours of CW on the first Sunday of February, run by South Africa's antique wireless society on three HF bands.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states NO participation clause for this contest -- unlike SARL's own HAMNET and Top Band contests, which name their entity lists -- and there is no blanket clause in the general rules either. Its scoring contemplates stations outside the region, so it is recorded as worldwide, with verified false because that is an absence of words rather than a statement."
+      }
+    },
+    {
+      "id": "hamsat-sa-qo100-qso-party",
+      "name": "HamSat-SA ZS QO-100 QSO Party",
+      "sponsor": "HamSat-SA",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://www.hamsatsa.co.za/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "3cm"
+      ],
+      "bands_note": "Through the QO-100 geostationary satellite: SSB on 10 489.870 to 10 489.990 MHz, which is the 3 cm band.",
+      "exchange": "RS and grid locator.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 2,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The HamSat-SA ZS QO-100 QSO Party': '1. Aim This is a fun activity to promote contacts between radio amateurs from South Africa and the world using the QO-100 satellite. The aim for stations from ZS to as many different countries as possible.' '2. Date and Time From 13:00 to 15:00 UTC on 2nd Sunday February - 8 February 2026.' '3. Exchange RS and Grid locator.' '4. Frequency SSB: 10 489,870 to 10 489,990.' Log sheets: 'Excel Log sheets template available from https://www.hamsatsa.co.za/hamsat-sa-satellite-competitions/.'",
+      "note": "THE CATALOG'S FIRST SATELLITE CONTEST. Every contact is through QO-100, the geostationary amateur transponder, so the band recorded is 3 cm -- the 10 489 MHz downlink -- and a band filter will find it there. That is the honest token for the frequency in use, but it is worth knowing that this contest is nothing like the other 3 cm entries in the catalog: no terrestrial path is involved, and the equipment is a dish rather than a microwave rig. SOURCED FROM THE SARL CONTEST MANUAL, WHICH IS NOT AN AGGREGATOR. The manual carries this contest's FULL rules -- aim, dates, exchange, frequencies, scoring, log sheets -- and names its organising club, rather than summarising a calendar entry. It is the venue in which South African clubs publish their contest rules, the way DARC's Ausschreibungen or UBA's rules pages are, so it is a primary source for these contests and not a third-party listing. The distinction that matters: an aggregator republishes rules it found elsewhere, and this is where the rules appear.",
+      "summary": "Two hours through the QO-100 geostationary satellite on the second Sunday of February, South Africa to the world.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The aim names 'radio amateurs from South Africa and the world', and QO-100's footprint covers Africa, Europe and much of Asia."
+      }
     }
   ]
 }
