@@ -81,7 +81,7 @@ SATURDAY = 5
 # excludes such a record, and callers that filter must say so rather than let
 # it vanish. Mirrored in engine/src/recurrence.ts.
 
-CATALOG_MODES = ("CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed")
+CATALOG_MODES = ("CW", "SSB", "FM", "RTTY", "Digital", "FT8/FT4", "Mixed")
 
 CATALOG_BANDS = (
     "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",

@@ -93,6 +93,36 @@ describe("filter vocabulary", () => {
 });
 
 describe("a record is shown as itself", () => {
+  it("keeps FM out from under SSB, and SSB out from under FM", () => {
+    // FM joined the vocabulary on 2026-08-19, driven by SARL's VHF/UHF FM Mode
+    // Contest -- an FM-ONLY event. Until then SSB doubled as a general phone
+    // token, which was serviceable while every phone contest also allowed SSB.
+    //
+    // The two must not subsume each other. Someone filtering SSB who is handed
+    // an FM-only contest has been told the sponsor permits SSB, which is the
+    // overstatement this whole table exists to prevent; and someone filtering
+    // FM who is handed an SSB-only contest has the same problem mirrored.
+    expect(modeFamilies(["FM"])).toContain("FM");
+    expect(modeFamilies(["FM"])).not.toContain("SSB");
+    expect(modeFamilies(["SSB"])).not.toContain("FM");
+
+    // Mixed is subsumed by FM exactly as it is by every other specific mode:
+    // a mixed-mode contest genuinely permits FM, so an FM operator wants it.
+    expect(modeFamilies(["Mixed"])).toContain("FM");
+    // ...and FM is not a digital mode.
+    expect(modeFamilies(["FM"])).not.toContain("Digital");
+  });
+
+  it("lets the FM filter find the FM-only contest", async () => {
+    // Over twelve months, because the FM contest runs in June and October and
+    // the default window is thirty days -- a filter test scoped to the default
+    // window passes or fails on what month it is run in, which is not a
+    // property of the filter.
+    const res = await get("/?mode=FM&range=365d");
+    expect(res.status).toBe(200);
+    expect(await res.text()).toContain("FM Mode Contest");
+  });
+
   it("does not render an RTTY-only contest as RTTY/Digital", async () => {
     // The ARRL RTTY Roundup allows RTTY only -- ARRL's own words. The page used
     // to print the FILTER's widened view of the record, which claimed

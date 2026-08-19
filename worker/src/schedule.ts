@@ -69,13 +69,19 @@ export function occurrencesForYear(year: number, myEntity = "K"): Occurrence[] {
  * but itself -- selecting "Mixed" means "contests where more than one mode
  * counts", which a CW-only contest is not.
  */
-export const MODE_FAMILIES = ["CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed"] as const;
+export const MODE_FAMILIES = ["CW", "SSB", "FM", "RTTY", "Digital", "FT8/FT4", "Mixed"] as const;
 export type ModeFamily = (typeof MODE_FAMILIES)[number];
 
 /** Filter token -> the record modes it accepts. */
 const MODE_SUBSUMES: Record<ModeFamily, readonly ModeFamily[]> = {
   "CW": ["CW", "Mixed"],
   "SSB": ["SSB", "Mixed"],
+  // FM is its own mode and NOT under SSB. The catalog used SSB as a general
+  // phone token until 2026-08-19, which was fine while every phone contest
+  // allowed SSB -- and stopped being fine at SARL's VHF/UHF FM Mode Contest,
+  // which is FM only. Calling that SSB would state something the sponsor does
+  // not permit, which is the one thing this table exists to prevent.
+  "FM": ["FM", "Mixed"],
   "RTTY": ["RTTY", "Mixed"],
   "Digital": ["Digital", "RTTY", "FT8/FT4", "Mixed"],
   "FT8/FT4": ["FT8/FT4", "Mixed"],

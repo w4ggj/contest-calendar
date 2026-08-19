@@ -1077,12 +1077,33 @@ other SARL record's eligibility quotes a sentence and is verified; a test holds 
 bands low to high in frequency and an existing test said so, so it is `["40m", "20m"]`. Small,
 and exactly the sort of thing that is invisible until something checks.
 
+### The two stragglers, and a mode the vocabulary did not have
+
+**The VHF/UHF FM Mode Contest is encoded**, from the manual: *"From 10:00 UTC to 13:00 UTC on
+Saturday 13 June 2026 (2nd Saturday of June)"* and *"…on Saturday 31 October 2026 (Last
+Saturday of October)"*. Two legs on one record — same hours, different anchor *shapes*, which a
+`composite` holds without trouble. SARL even explains the timing: *"The dates are three weeks
+after the RAE Radio Amateur Examination"*, which is why it is aimed at new licensees. That is
+context, not a rule; the ordinals are what is encoded.
+
+It is also **the record that put FM into this catalog's mode vocabulary**. The contest is FM
+*only*, and `CATALOG_MODES` had no FM token — SSB had been doing double duty as a general phone
+token. That works right up until the first FM-only event, where calling it SSB states something
+the sponsor does not permit. See "FM joined the vocabulary" in `FRONTEND_BRIEF.md` for the
+filter relation and the ten records that moved FM out of `submodes` as a consequence.
+
+**The Youth of the Air Contest is not encoded, and may not exist any more.** Its only PDF on
+mysarl.org.za is the 2024 edition, and it does not appear anywhere in the 2026 Contest Manual —
+not in the rules, not in the date-ordered list, not in the `.ics`. That is a different thing
+from a blocked source: the evidence points at a contest SARL has stopped running, and the
+honest response is to ask rather than to encode a 2024 leaflet or to assume it is dead.
+
+That leaves SARL at **22 records of an estimated 23**.
+
 ### Scope, recorded
 
-- **Two SARL events are still not encoded, and neither is blocked.** The VHF/UHF FM Mode
-  Contest is in the date list and the `.ics` but its rules section could not be located under
-  that heading in the decoded manual, and the Youth of the Air Contest's only PDF on the site
-  is the 2024 edition. Both are a second look at the manual rather than a source problem.
+- **One SARL event is still not encoded**, and it is the Youth of the Air Contest — see above.
+  The VHF/UHF FM Mode Contest was found on a second look at the manual and is encoded.
 - **The `.ics` also carries events run by other South African bodies** — the Antique Wireless
   Association, HamSat-SA, the ZS1–ZS5 provincial QSO parties, BACAR. Those are separate
   sponsors needing their own registry entries and their own sources, not SARL records.

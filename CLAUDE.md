@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 145 passed
+npm test                       # expect: 147 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -96,7 +96,7 @@ which is a worse failure than an unverified record. Read it before planning a so
 ## Modes and bands are controlled sets
 
 ```
-modes       CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+modes       CW · SSB · FM · RTTY · Digital · FT8/FT4 · Mixed
 bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
 ```
 
@@ -112,7 +112,9 @@ not read its source is the failure this project exists to avoid.
 
 The record says exactly what it is; **the filter is what widens.** `Digital` matches
 Digital, RTTY, FT8/FT4 and Mixed; `FT8/FT4` matches FT8/FT4 and Mixed; every specific mode
-also matches Mixed, and `Mixed` matches only Mixed. Never inflate the record — a row that
+also matches Mixed, and `Mixed` matches only Mixed. **`FM` and `SSB` do not subsume each
+other** — SSB doubled as a general phone token until 2026-08-19, and an FM-only contest
+recorded as SSB states something the sponsor does not permit. Never inflate the record — a row that
 prints "RTTY/Digital" for an RTTY-only contest overstates what the sponsor permits. The
 table is in `worker/src/schedule.ts` (`MODE_SUBSUMES`) and asserted in
 `worker/tests/filters.worker.test.ts`; the reasoning is in `FRONTEND_BRIEF.md` under

@@ -5645,9 +5645,7 @@
       "log_deadline_days": 3,
       "modes": [
         "SSB",
-        "CW"
-      ],
-      "submodes": [
+        "CW",
         "FM"
       ],
       "bands": [
@@ -6336,9 +6334,7 @@
       "rules_url": "https://www.uba.be/en/node/2457",
       "log_format": "Cabrillo",
       "modes": [
-        "SSB"
-      ],
-      "submodes": [
+        "SSB",
         "FM"
       ],
       "bands": [
@@ -8360,9 +8356,7 @@
       "log_submit_url": "https://ylom.mrasz.hu/log-feltoltes",
       "log_deadline_days": 15,
       "modes": [
-        "SSB"
-      ],
-      "submodes": [
+        "SSB",
         "FM"
       ],
       "bands": [
@@ -8941,9 +8935,7 @@
       "log_deadline_days": 1,
       "modes": [
         "CW",
-        "SSB"
-      ],
-      "submodes": [
+        "SSB",
         "FM"
       ],
       "bands": [
@@ -9399,11 +9391,11 @@
       "log_format": "Cabrillo",
       "modes": [
         "SSB",
-        "CW"
+        "CW",
+        "FM"
       ],
       "submodes": [
-        "AM",
-        "FM"
+        "AM"
       ],
       "bands": [
         "6m"
@@ -10548,11 +10540,11 @@
       "timezone": "Asia/Tokyo",
       "modes": [
         "CW",
-        "SSB"
+        "SSB",
+        "FM"
       ],
       "submodes": [
-        "AM",
-        "FM"
+        "AM"
       ],
       "verified": true,
       "rules_url_checked": "2026-08-19",
@@ -10605,11 +10597,11 @@
       "timezone": "Asia/Tokyo",
       "modes": [
         "CW",
-        "SSB"
+        "SSB",
+        "FM"
       ],
       "submodes": [
-        "AM",
-        "FM"
+        "AM"
       ],
       "verified": true,
       "rules_url_checked": "2026-08-19",
@@ -10661,11 +10653,11 @@
       "timezone": "Asia/Tokyo",
       "modes": [
         "CW",
-        "SSB"
+        "SSB",
+        "FM"
       ],
       "submodes": [
-        "AM",
-        "FM"
+        "AM"
       ],
       "verified": true,
       "rules_url_checked": "2026-08-19",
@@ -10721,11 +10713,11 @@
       "timezone": "Asia/Tokyo",
       "modes": [
         "CW",
-        "SSB"
+        "SSB",
+        "FM"
       ],
       "submodes": [
-        "AM",
-        "FM"
+        "AM"
       ],
       "verified": true,
       "rules_url_checked": "2026-08-19",
@@ -11051,9 +11043,7 @@
       "sponsor_home": "https://trac.org.tr/",
       "modes": [
         "SSB",
-        "CW"
-      ],
-      "submodes": [
+        "CW",
         "FM"
       ],
       "bands": [
@@ -11091,6 +11081,68 @@
         "scope": "worldwide",
         "verified": true,
         "note": "'Türkiye ve yurtdışındaki tüm lisanslı amatör telsiz operatörleri' -- all licensed amateur operators in Turkey and abroad. TRAC adds that entrants must obey their own country's regulations, and that in Turkey only class A and B amateurs may use 50 MHz."
+      }
+    },
+    {
+      "id": "sarl-vhf-uhf-fm",
+      "name": "SARL VHF/UHF FM Mode Contest",
+      "sponsor": "SARL",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/",
+      "modes": [
+        "FM"
+      ],
+      "bands": [
+        "6m",
+        "2m",
+        "70cm"
+      ],
+      "bands_note": "FM mode on the 6m, 2m and 70cm bands.",
+      "exchange": "A signal report and your full six-character Maidenhead locator. When working a mobile station the contesting station must obtain its grid position.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 6,
+            "n": 2,
+            "weekday": 5
+          },
+          {
+            "type": "nth_weekday",
+            "month": 10,
+            "n": -1,
+            "weekday": 5
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), 'SARL VHF/UHF FM Mode Contest': '2.1. From 10:00 UTC to 13:00 UTC on Saturday 13 June 2026 (2nd Saturday of June) 2.2. From 10:00 UTC to 13:00 UTC on Saturday 31 October 2026 (Last Saturday of October). The dates are three weeks after the RAE Radio Amateur Examination.' Frequency: '3. FM mode on the 6m, 2 m and 70cm bands'. Contacts: '4.1. Contacts must be two-way point to point. Stations shall exchange signal reports as well as their full six-digit Maidenhead locator.' '4.6. No EME, repeater, satellite or IRLP (Echo link etc.) contacts are allowed.' Eligibility: '1.6. The Contest is open to all licensed Radio Amateurs in South Africa, Namibia (V5), Botswana (A2), Zimbabwe (Z2), Mozambique (C9), Lesotho (7P) and ESwatini (3DA). Only contacts with these states will count.' Both dates are confirmed by SARL's own Date Ordered List and its SARL-Contests-2026-Calendar.ics.",
+      "note": "THE RECORD THAT PUT FM IN THE MODE VOCABULARY. This contest is FM ONLY, and until 2026-08-19 this catalog had no FM token -- it used SSB as a general phone token, which was serviceable while every phone contest also allowed SSB. Recording an FM-only contest as SSB would have stated something SARL does not permit, which is precisely the overstatement the mode rules exist to prevent, so FM was added to CATALOG_MODES in both engines and to the filter families instead. Ten records that had been carrying FM in submodes moved it into modes in the same commit.\n\nTwo legs on one record: both run 10:00-13:00 UTC and differ only in their anchor, and the anchors are different SHAPES -- the second Saturday of June and the LAST Saturday of October -- which a composite holds without trouble.\n\nSARL explains the timing: 'The dates are three weeks after the RAE Radio Amateur Examination', which is why the contest is aimed at newly licensed amateurs. That is context rather than a rule; the ordinals are what is encoded.\n\nNo log deadline was read in this pass, so none is recorded.",
+      "summary": "Three hours of FM on 6 m, 2 m and 70 cm, run twice a year three weeks after South Africa's licence exams, with grid squares exchanged.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS",
+          "V5",
+          "A2",
+          "Z2",
+          "C9",
+          "7P",
+          "3DA"
+        ],
+        "verified": true,
+        "note": "'The Contest is open to all licensed Radio Amateurs in South Africa, Namibia (V5), Botswana (A2), Zimbabwe (Z2), Mozambique (C9), Lesotho (7P) and ESwatini (3DA). Only contacts with these states will count.' SARL names the prefixes itself here, so unlike its club contests this list is not an inference."
       }
     }
   ]

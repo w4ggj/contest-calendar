@@ -318,6 +318,33 @@ Every band filter necessarily excludes it, so the landing view names it in a `.c
 line with a link that clears the band filter. Silently dropping a record because we could
 not read its source is the exact failure this project exists to avoid.
 
+#### FM joined the vocabulary, because a contest needed it
+
+`CATALOG_MODES` gained **FM** on 2026-08-19, and the record that forced it was SARL's VHF/UHF
+FM Mode Contest — *"FM mode on the 6m, 2 m and 70cm bands"*, and nothing else.
+
+SSB had been doing double duty as a general phone token. That was serviceable for as long as
+every phone contest in the catalog also allowed SSB, and it stopped being serviceable at the
+first FM-only event: recording it as SSB would have stated something SARL does not permit,
+which is exactly the overstatement the mode rules exist to prevent. The alternative — leaving
+the contest out — would have hidden a real contest behind a vocabulary gap.
+
+The filter relation gains one row and **FM and SSB do not subsume each other**:
+
+| Filter token | Matches records whose mode is |
+| --- | --- |
+| `FM` | FM, Mixed |
+
+Mixed is subsumed by FM exactly as by every other specific mode: a mixed-mode contest genuinely
+permits FM, so an FM operator wants to see it.
+
+**Ten existing records moved FM out of `submodes` and into `modes` in the same commit**, which
+the catalog's own invariant forced rather than suggested: `submodes` is free text and must
+never hold a value from the controlled set, or the mode is recorded twice in two fields that
+will eventually disagree. A test caught every one of them. Those ten are now findable by an FM
+filter, which they were not before — REF's DDFM 50 MHz, UBA's Belgian Mills Award, MRASZ YL-OM,
+LRMD's Vytautas Magnus, REP 50 MHz, all four JARL domestic contests and TRAC's TA VHF-UHF.
+
 #### FT8/FT4 filters as its own mode *and* under Digital
 
 The question the brief asked: does someone filtering "Digital" expect FT8 results? Yes —

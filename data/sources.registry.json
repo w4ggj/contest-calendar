@@ -455,11 +455,11 @@
       "catalog_sponsors": [
         "SARL"
       ],
-      "encoded": 21,
-      "encoded_verified": 20,
-      "estimated_total": 24,
+      "encoded": 22,
+      "encoded_verified": 21,
+      "estimated_total": 23,
       "status": "partial",
-      "notes": "UNBLOCKED AND SOURCED 2026-08-19, after being the catalog's longest-standing blocker. THE LEAGUE HAD MOVED. sarl.org.za served an expired TLS certificate in August 2026 and is now worse than that -- it answers on http with a cPanel 'Default Web Site Page', i.e. a parked domain, so it was never coming back. The SARL is at mysarl.org.za, and contest.sarl.org.za redirects there. WHAT IT PUBLISHES: an 84-page 2026 SARL Contest Manual (Version 1.1, 2025-12-15) plus a per-contest rules PDF for each major event, AND its own SARL-Contests-2026-Calendar.ics with 53 events. The .ics is the independent second source every record is tested against; its times carry TZID='South Africa Standard Time', a fixed +0200 with no DST, and SARL's own X-CALSTART confirms the offset by writing 09:00 local as 07:00Z. TWENTY-ONE RECORDS ENCODED: the HF Phone, Digital and CW contests (1st, 2nd and 4th Sundays of August), the National Field Day (two legs, one record), the Africa All Mode International DX Contest, the Africa FT4 DX Contest (two legs, one record) and the two Equinox 6m challenges (two records, because their end offsets differ). A GUESS THIS CORRECTED: the sarl-hf-phone record had been carried unverified with eligibility guessed as ZS-only and a note saying 'Confirm'. It is worldwide -- the scoring table's Area 9 is 'Stations in the rest of the world' -- and both Africa DX contests say so outright. Its bands were also empty for want of a readable source and are now recorded, which leaves jarl-new-year-qso-party as the catalog's only bands: [] record. THE REST OF THE PROGRAMME FOLLOWED the same day, read from the Contest Manual once the per-page font decoding worked: the four QRP legs, the three Club Contests, the 80 m QSO Party, the YL, Youth and Newbie QSO Parties, the HAMNET 40 m Simulated Emergency Contest and the Top Band QSO Contest. STILL OPEN: the VHF/UHF FM Mode Contest, whose section could not be located under that heading in the manual text, and the Youth of the Air Contest, whose only PDF on the site is the 2024 edition. Neither is blocked -- both are a second look at the manual. ONE RECORD IS DELIBERATELY UNVERIFIED: the Top Band QSO Contest. SARL's prose and its own date table disagree about the start day, and 'the first full week of June' has two readings that agree in 2026 and diverge in 2027. It is encoded as manual with SARL's published 2026 date only, and asking SARL which reading is intended turns it into a rule. The .ics also carries events run by OTHER South African bodies -- the Antique Wireless Association, HamSat-SA, the ZS1-ZS5 provincial QSO parties -- which are separate sponsors and separate work."
+      "notes": "UNBLOCKED AND SOURCED 2026-08-19, after being the catalog's longest-standing blocker. THE LEAGUE HAD MOVED. sarl.org.za served an expired TLS certificate in August 2026 and is now worse than that -- it answers on http with a cPanel 'Default Web Site Page', i.e. a parked domain, so it was never coming back. The SARL is at mysarl.org.za, and contest.sarl.org.za redirects there. WHAT IT PUBLISHES: an 84-page 2026 SARL Contest Manual (Version 1.1, 2025-12-15) plus a per-contest rules PDF for each major event, AND its own SARL-Contests-2026-Calendar.ics with 53 events. The .ics is the independent second source every record is tested against; its times carry TZID='South Africa Standard Time', a fixed +0200 with no DST, and SARL's own X-CALSTART confirms the offset by writing 09:00 local as 07:00Z. TWENTY-ONE RECORDS ENCODED: the HF Phone, Digital and CW contests (1st, 2nd and 4th Sundays of August), the National Field Day (two legs, one record), the Africa All Mode International DX Contest, the Africa FT4 DX Contest (two legs, one record) and the two Equinox 6m challenges (two records, because their end offsets differ). A GUESS THIS CORRECTED: the sarl-hf-phone record had been carried unverified with eligibility guessed as ZS-only and a note saying 'Confirm'. It is worldwide -- the scoring table's Area 9 is 'Stations in the rest of the world' -- and both Africa DX contests say so outright. Its bands were also empty for want of a readable source and are now recorded, which leaves jarl-new-year-qso-party as the catalog's only bands: [] record. THE REST OF THE PROGRAMME FOLLOWED the same day, read from the Contest Manual once the per-page font decoding worked: the four QRP legs, the three Club Contests, the 80 m QSO Party, the YL, Youth and Newbie QSO Parties, the HAMNET 40 m Simulated Emergency Contest and the Top Band QSO Contest. THE VHF/UHF FM MODE CONTEST IS NOW ENCODED TOO, and it is the record that put FM into this catalog's mode vocabulary: it is FM only, and there was no FM token, so recording it would have meant calling it SSB. STILL OPEN: the Youth of the Air Contest, whose only PDF on the site is the 2024 edition and which does not appear in the 2026 Contest Manual at all -- so it may simply not run any more. Ask SARL rather than assume either way. ONE RECORD IS DELIBERATELY UNVERIFIED: the Top Band QSO Contest. SARL's prose and its own date table disagree about the start day, and 'the first full week of June' has two readings that agree in 2026 and diverge in 2027. It is encoded as manual with SARL's published 2026 date only, and asking SARL which reading is intended turns it into a rule. The .ics also carries events run by OTHER South African bodies -- the Antique Wireless Association, HamSat-SA, the ZS1-ZS5 provincial QSO parties -- which are separate sponsors and separate work."
     },
     {
       "org": "Oceania DX Contest Committee",
@@ -909,8 +909,8 @@
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
     "as_of": "2026-08-19",
-    "total_encoded": 206,
-    "total_verified": 198,
+    "total_encoded": 207,
+    "total_verified": 199,
     "total_retired": 8,
     "by_tier": {
       "tier_1_major_international": {
@@ -930,8 +930,8 @@
       "tier_3_other_regions": {
         "orgs": 12,
         "orgs_worked": 8,
-        "encoded": 39,
-        "verified": 37,
+        "encoded": 40,
+        "verified": 38,
         "retired": 0
       },
       "tier_4_specialty_clubs": {
@@ -954,8 +954,8 @@
         "retired": 8
       },
       "Africa": {
-        "encoded": 21,
-        "verified": 20,
+        "encoded": 22,
+        "verified": 21,
         "retired": 0
       },
       "Asia": {
@@ -986,8 +986,8 @@
         "retired": 8
       },
       "ZA": {
-        "encoded": 21,
-        "verified": 20,
+        "encoded": 22,
+        "verified": 21,
         "retired": 0
       },
       "DE": {
@@ -1170,7 +1170,7 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 42.7,
+      "largest_region_share_pct": 42.5,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "GACW",

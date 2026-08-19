@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 206 contest definitions → 824 occurrences for 2026. 373 Python tests,
-386 TypeScript tests, 145 Worker tests. Engine complete in both languages — no known
+**Current state:** 207 contest definitions → 826 occurrences for 2026. 373 Python tests,
+386 TypeScript tests, 147 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -61,7 +61,7 @@ python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
 cd engine; npm install; npm test   # expect: 386 passed (373 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 145 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
+cd ..\worker; npm install; npm test # expect: 147 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -153,8 +153,8 @@ Two things worth knowing before you touch it:
   reports `resolver: intl`, `pinned: true`, `wouldSelectWithoutPin: intl`, and the DST
   self-check passing 8/8. See `TIMEZONE_BRIEF.md`, "Measured on the fleet".
 - `modes` and `bands` **are** controlled vocabularies, declared in both engines and asserted
-  by all three suites. `modes` is one or more of CW · SSB · RTTY · Digital · FT8/FT4 ·
-  Mixed; `bands` is a per-contest list off the 160m…3cm ladder. Free-text `submodes` and
+  by all three suites. `modes` is one or more of CW · SSB · FM · RTTY · Digital ·
+  FT8/FT4 · Mixed; `bands` is a per-contest list off the 160m…3cm ladder. Free-text `submodes` and
   `bands_note` carry the specifics — displayed, never filtered on. **Empty `bands` means
   unrecorded, not unbanded**, so every band filter excludes such a record and the page says
   so out loud rather than letting it vanish. Reasoning and the FT8/FT4-under-Digital
