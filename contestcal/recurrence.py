@@ -8,10 +8,15 @@ third-party calendar.
 
 Rule types
 ----------
-nth_full_weekend   {month, n}            n=-1 means last. A "full weekend" is a
-                                         Sat/Sun pair with BOTH days in the month.
-nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. n=-1 means last.
+nth_full_weekend   {month, n}            n=-1 means last, n=-2 the one before it.
+                                         A "full weekend" is a Sat/Sun pair with
+                                         BOTH days in the month.
+nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. Negative n counts
+                                         back from the last.
 fixed_date         {month, day}          Same calendar date every year.
+nearest_weekday    {month, day, weekday} The instance of `weekday` closest to
+                                         {month, day} -- WIA Remembrance Day's
+                                         "weekend in August closest to the 15th".
 
 Anchors
 -------
@@ -51,6 +56,37 @@ from typing import Any
 from zoneinfo import ZoneInfo
 
 SATURDAY = 5
+
+# --------------------------------------------------------------------------
+# Catalog vocabularies
+# --------------------------------------------------------------------------
+#
+# `modes` and `bands` are controlled sets, not free text. They were free text
+# once: `Digital` and `DIGITAL` were different values, PSK31 and RTTY75 sat
+# alongside them as if they were peers, and a band filter could not be written
+# at all. A filter is only ever as good as the field it reads.
+#
+# What each field may hold:
+#
+#   modes       one or more of CATALOG_MODES, in the order the sponsor writes
+#               them ("CW/SSB", not the vocabulary's order)
+#   submodes    free text, for the specifics `modes` deliberately drops --
+#               "PSK31", "RTTY 75 baud". Displayed, never filtered on: a
+#               free-text field cannot be a filter, which is the whole point
+#   bands       zero or more of CATALOG_BANDS, low to high
+#   bands_note  free text, for a sponsor's range or suggestion wording that a
+#               list of tokens cannot carry -- "10 GHz through light"
+#
+# EMPTY `bands` MEANS UNRECORDED, NOT UNBANDED. Every band filter therefore
+# excludes such a record, and callers that filter must say so rather than let
+# it vanish. Mirrored in engine/src/recurrence.ts.
+
+CATALOG_MODES = ("CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed")
+
+CATALOG_BANDS = (
+    "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",
+    "6m", "2m", "1.25m", "70cm", "33cm", "23cm", "13cm", "3cm",
+)
 
 
 class NoAnchorsThisYear(ValueError):
@@ -195,16 +231,27 @@ def _full_weekends_in_month(year: int, month: int) -> list[date]:
 
 
 def _nth(items: list[date], n: int) -> date:
-    """1-indexed selection; n=-1 selects the last item."""
+    """
+    1-indexed selection, counted from the front for n >= 1 and from the back for
+    n <= -1: n=-1 is the last item, n=-2 the one before it, and so on.
+
+    Sponsors do write rules that count backwards past "last". BFRA's LZ DX
+    Contest is "the weekend before the last full weekend of November", which is
+    n=-2 -- and it is a *rule*, not an annual announcement, because the weekend
+    it names is defined by CQ WW CW sitting on the last one.
+
+    n=0 is not a position in either direction and is rejected as a malformed
+    rule rather than silently read as the first or the last.
+    """
     if not items:
         raise NoAnchorsThisYear("no candidate dates in month")
-    if n == -1:
-        return items[-1]
-    if n < 1 or n > len(items):
+    if n == 0:
+        raise ValueError("n=0 is not a valid occurrence index")
+    if abs(n) > len(items):
         raise NoAnchorsThisYear(
             f"requested occurrence {n} but only {len(items)} exist"
         )
-    return items[n - 1]
+    return items[n if n < 0 else n - 1]
 
 
 def _weekdays_in_month(year: int, month: int, weekday: int) -> list[date]:
@@ -235,6 +282,16 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
         ]
     elif kind == "fixed_date":
         anchors = [date(year, rule["month"], rule["day"])]
+    elif kind == "nearest_weekday":
+        # e.g. WIA Remembrance Day: "Weekend in August closest to the 15th".
+        # Well defined in all seven cases and never ambiguous: the nearest
+        # instance of a weekday is at most three days away, and a tie would
+        # need a distance of 3.5, which does not exist because seven is odd.
+        target = date(year, rule["month"], rule["day"])
+        shift = (rule["weekday"] - target.weekday()) % 7  # 0..6, forwards
+        if shift > 3:
+            shift -= 7  # ...or backwards, when that is the shorter way round
+        anchors = [target + timedelta(days=shift)]
     elif kind == "monthly_nth_weekday":
         # e.g. ARS Spartan Sprint: first Monday of every month.
         anchors = []
@@ -243,16 +300,24 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
                 anchors.append(
                     _nth(_weekdays_in_month(year, m, rule["weekday"]), rule["n"])
                 )
-            except ValueError:
+            except NoAnchorsThisYear:
+                # A "fifth Monday" rule simply skips months that have four.
+                # Narrower than `except ValueError` so a malformed n=0 rule
+                # still raises instead of quietly producing an empty year.
                 continue
     elif kind == "weekly":
-        # e.g. CWops CWT: every Wednesday.
+        # e.g. CWops CWT: every Wednesday. `months` narrows it to a season
+        # rather than the whole year -- NZART's sprints run "each Tuesday in
+        # April and August" and on no other Tuesday. Same key, same meaning as
+        # in monthly_nth_weekday.
+        months = set(rule.get("months", range(1, 13)))
         anchors = []
         d = date(year, 1, 1)
         while d.weekday() != rule["weekday"]:
             d += timedelta(days=1)
         while d.year == year:
-            anchors.append(d)
+            if d.month in months:
+                anchors.append(d)
             d += timedelta(days=7)
     elif kind == "multi_weekend":
         # e.g. Stew Perry Topband Challenge: several set weekends per year.
@@ -312,7 +377,9 @@ class Occurrence:
     local_rolling: bool = False
     timezone_name: str = ""
     modes: list[str] = field(default_factory=list)
+    submodes: list[str] = field(default_factory=list)
     bands: list[str] = field(default_factory=list)
+    bands_note: str = ""
     sponsor: str = ""
     rules_url: str = ""
     verified: bool = False
@@ -384,7 +451,9 @@ class Occurrence:
             "timezone": self.timezone_name,
             "duration_hours": round(self.duration_hours, 2),
             "modes": self.modes,
+            "submodes": self.submodes,
             "bands": self.bands,
+            "bands_note": self.bands_note,
             "sponsor": self.sponsor,
             "rules_url": self.rules_url,
             "verified": self.verified,
@@ -518,7 +587,9 @@ def expand(
                     local_rolling=rolling,
                     timezone_name=tz_name or "",
                     modes=contest.get("modes", []),
+                    submodes=contest.get("submodes", []),
                     bands=contest.get("bands", []),
+                    bands_note=contest.get("bands_note", ""),
                     sponsor=contest.get("sponsor", ""),
                     rules_url=resolve_rules_url(contest, year),
                     verified=contest.get("verified", False),

@@ -1,0 +1,20 @@
+{
+  // The Node-side half of the test setup: vitest.config.ts and the global setup
+  // that shells out to the Python reference engine. Kept apart from
+  // tsconfig.json so the Worker sources are checked against Workers globals
+  // only -- if `node:fs` type-checks inside src/, something is about to fail at
+  // deploy time instead of here.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  "include": ["tests/global-setup.ts", "vitest.config.ts"]
+}

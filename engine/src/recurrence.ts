@@ -12,11 +12,15 @@
  *
  * Rule types
  * ----------
- * nth_full_weekend   {month, n}            n=-1 means last. A "full weekend" is
- *                                          a Sat/Sun pair with BOTH days in the
- *                                          month.
- * nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. n=-1 = last.
+ * nth_full_weekend   {month, n}            n=-1 means last, n=-2 the one before
+ *                                          it. A "full weekend" is a Sat/Sun
+ *                                          pair with BOTH days in the month.
+ * nth_weekday        {month, n, weekday}   weekday 0=Mon .. 6=Sun. Negative n
+ *                                          counts back from the last.
  * fixed_date         {month, day}          Same calendar date every year.
+ * nearest_weekday    {month, day, weekday} The instance of `weekday` closest to
+ *                                          {month, day} -- WIA Remembrance Day's
+ *                                          "weekend in August closest to the 15th".
  *
  * Anchors
  * -------
@@ -56,6 +60,42 @@
 import { resolveWallClock, type WallFields } from "./zones.js";
 
 export const SATURDAY = 5;
+
+// ---------------------------------------------------------------------------
+// Catalog vocabularies
+// ---------------------------------------------------------------------------
+//
+// `modes` and `bands` are controlled sets, not free text. They were free text
+// once: `Digital` and `DIGITAL` were different values, PSK31 and RTTY75 sat
+// alongside them as if they were peers, and a band filter could not be written
+// at all. A filter is only ever as good as the field it reads.
+//
+// What each field may hold:
+//
+//   modes       one or more of CATALOG_MODES, in the order the sponsor writes
+//               them ("CW/SSB", not the vocabulary's order)
+//   submodes    free text, for the specifics `modes` deliberately drops --
+//               "PSK31", "RTTY 75 baud". Displayed, never filtered on: a
+//               free-text field cannot be a filter, which is the whole point
+//   bands       zero or more of CATALOG_BANDS, low to high
+//   bands_note  free text, for a sponsor's range or suggestion wording that a
+//               list of tokens cannot carry -- "10 GHz through light"
+//
+// EMPTY `bands` MEANS UNRECORDED, NOT UNBANDED. Every band filter therefore
+// excludes such a record, and callers that filter must say so rather than let
+// it vanish. Mirrored in contestcal/recurrence.py.
+
+export const CATALOG_MODES = [
+  "CW", "SSB", "RTTY", "Digital", "FT8/FT4", "Mixed",
+] as const;
+
+export const CATALOG_BANDS = [
+  "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",
+  "6m", "2m", "1.25m", "70cm", "33cm", "23cm", "13cm", "3cm",
+] as const;
+
+export type CatalogMode = (typeof CATALOG_MODES)[number];
+export type CatalogBand = (typeof CATALOG_BANDS)[number];
 
 /**
  * A rule that simply does not fire in the requested year.
@@ -121,7 +161,11 @@ export interface Contest {
   timezone?: string;
   local_rolling?: boolean;
   modes?: string[];
+  /** Free text, e.g. "PSK31". The specifics `modes` deliberately drops. */
+  submodes?: string[];
   bands?: string[];
+  /** The sponsor's own wording where a band list is a range or a suggestion. */
+  bands_note?: string;
   sponsor?: string;
   country?: string;
   rules_url?: string;
@@ -306,18 +350,29 @@ export function weekdaysInMonth(
   return out;
 }
 
-/** 1-indexed selection; n=-1 selects the last item. */
+/**
+ * 1-indexed selection, counted from the front for n >= 1 and from the back for
+ * n <= -1: n=-1 is the last item, n=-2 the one before it, and so on.
+ *
+ * Sponsors do write rules that count backwards past "last". BFRA's LZ DX
+ * Contest is "the weekend before the last full weekend of November", which is
+ * n=-2 -- and it is a *rule*, not an annual announcement, because the weekend
+ * it names is defined by CQ WW CW sitting on the last one.
+ *
+ * n=0 is not a position in either direction and is rejected as a malformed
+ * rule rather than silently read as the first or the last.
+ */
 function nth(items: Date[], n: number): Date {
   if (items.length === 0) {
     throw new NoAnchorsThisYear("no candidate dates in month");
   }
-  if (n === -1) return items[items.length - 1];
-  if (n < 1 || n > items.length) {
+  if (n === 0) throw new RangeError("n=0 is not a valid occurrence index");
+  if (Math.abs(n) > items.length) {
     throw new NoAnchorsThisYear(
       `requested occurrence ${n} but only ${items.length} exist`,
     );
   }
-  return items[n - 1];
+  return items[n < 0 ? items.length + n : n - 1];
 }
 
 // --------------------------------------------------------------------------
@@ -342,6 +397,15 @@ export function resolveAnchors(rule: RecurrenceRule, year: number): Date[] {
     anchors = [nth(weekdaysInMonth(year, rule.month!, rule.weekday!), rule.n!)];
   } else if (kind === "fixed_date") {
     anchors = [makeDate(year, rule.month!, rule.day!)];
+  } else if (kind === "nearest_weekday") {
+    // e.g. WIA Remembrance Day: "Weekend in August closest to the 15th".
+    // Well defined in all seven cases and never ambiguous: the nearest
+    // instance of a weekday is at most three days away, and a tie would
+    // need a distance of 3.5, which does not exist because seven is odd.
+    const target = makeDate(year, rule.month!, rule.day!);
+    let shift = (((rule.weekday! - weekdayOf(target)) % 7) + 7) % 7; // 0..6, forwards
+    if (shift > 3) shift -= 7; // ...or backwards, when that is the shorter way round
+    anchors = [addDays(target, shift)];
   } else if (kind === "monthly_nth_weekday") {
     // e.g. ARS Spartan Sprint: first Monday of every month.
     anchors = [];
@@ -349,17 +413,27 @@ export function resolveAnchors(rule: RecurrenceRule, year: number): Date[] {
     for (const m of months) {
       try {
         anchors.push(nth(weekdaysInMonth(year, m, rule.weekday!), rule.n!));
-      } catch {
-        continue;
+      } catch (err) {
+        // A "fifth Monday" rule simply skips months that have four. Narrower
+        // than a bare catch so a malformed n=0 rule still throws instead of
+        // quietly producing an empty year.
+        if (err instanceof NoAnchorsThisYear) continue;
+        throw err;
       }
     }
   } else if (kind === "weekly") {
-    // e.g. CWops CWT: every Wednesday.
+    // e.g. CWops CWT: every Wednesday. `months` narrows it to a season
+    // rather than the whole year -- NZART's sprints run "each Tuesday in
+    // April and August" and on no other Tuesday. Same key, same meaning as
+    // in monthly_nth_weekday.
+    const inMonths = new Set(
+      rule.months ?? [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    );
     anchors = [];
     let d = makeDate(year, 1, 1);
     while (weekdayOf(d) !== rule.weekday!) d = addDays(d, 1);
     while (d.getUTCFullYear() === year) {
-      anchors.push(d);
+      if (inMonths.has(d.getUTCMonth() + 1)) anchors.push(d);
       d = addDays(d, 7);
     }
   } else if (kind === "multi_weekend") {
@@ -423,7 +497,11 @@ export interface OccurrenceInit {
   local_rolling?: boolean;
   timezone_name?: string;
   modes?: string[];
+  /** Free text, e.g. "PSK31". The specifics `modes` deliberately drops. */
+  submodes?: string[];
   bands?: string[];
+  /** The sponsor's own wording where a band list is a range or a suggestion. */
+  bands_note?: string;
   sponsor?: string;
   rules_url?: string;
   verified?: boolean;
@@ -450,7 +528,9 @@ export class Occurrence {
   local_rolling: boolean;
   timezone_name: string;
   modes: string[];
+  submodes: string[];
   bands: string[];
+  bands_note: string;
   sponsor: string;
   rules_url: string;
   verified: boolean;
@@ -476,7 +556,9 @@ export class Occurrence {
     this.local_rolling = init.local_rolling ?? false;
     this.timezone_name = init.timezone_name ?? "";
     this.modes = init.modes ?? [];
+    this.submodes = init.submodes ?? [];
     this.bands = init.bands ?? [];
+    this.bands_note = init.bands_note ?? "";
     this.sponsor = init.sponsor ?? "";
     this.rules_url = init.rules_url ?? "";
     this.verified = init.verified ?? false;
@@ -547,7 +629,9 @@ export class Occurrence {
       timezone: this.timezone_name,
       duration_hours: roundHalfEven(this.duration_hours, 2),
       modes: this.modes,
+      submodes: this.submodes,
       bands: this.bands,
+      bands_note: this.bands_note,
       sponsor: this.sponsor,
       rules_url: this.rules_url,
       verified: this.verified,
@@ -738,7 +822,9 @@ export function expand(
           local_rolling: rolling,
           timezone_name: tzName ?? "",
           modes: contest.modes ?? [],
+          submodes: contest.submodes ?? [],
           bands: contest.bands ?? [],
+          bands_note: contest.bands_note ?? "",
           sponsor: contest.sponsor ?? "",
           rules_url: resolveRulesUrl(contest, year),
           verified: contest.verified ?? false,

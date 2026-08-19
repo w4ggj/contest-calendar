@@ -5,7 +5,7 @@ sponsor-published evidence.
 
 ```bash
 npm install
-npm test          # 116 mirrored tests + 13 parity tests
+npm test          # 127 mirrored tests + 13 parity tests
 npm run typecheck
 ```
 
@@ -17,7 +17,10 @@ this one. Two implementations of contest dates is a liability unless they are
 provably identical, so:
 
 - `tests/recurrence.test.ts` mirrors `tests/test_recurrence.py` one-for-one:
-  same names, same assertions, same sponsor tables. Both suites are 116 tests.
+  same names, same assertions, same sponsor tables. Both suites are 127 tests.
+  That includes the catalog vocabularies: `CATALOG_MODES` and `CATALOG_BANDS` are
+  declared in each engine, and one test parses the Python source to prove the two
+  declarations are the same list. A vocabulary that drifts is a filter that lies.
 - `tests/parity.test.ts` goes further and compares **every field of every
   occurrence** for four years against output from the Python engine, generated
   on demand by `scripts/dump_occurrences.py`. Passing the same assertions is not

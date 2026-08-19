@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "types": ["@cloudflare/workers-types"],
+    "strict": true,
+    "noUncheckedIndexedAccess": false,
+    "resolveJsonModule": true,
+    "allowImportingTsExtensions": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true
+  },
+  // The engine is listed file by file, not globbed. `engine/src/catalog.ts`
+  // reads the catalog off disk with node:fs; the Worker cannot use it and must
+  // not -- worker/src/catalog.ts imports the same JSON as a module so the
+  // bundler inlines it. Naming the two files we do use makes an accidental
+  // `node:fs` import fail here rather than at deploy time.
+  "include": [
+    "src/**/*.ts",
+    "tests/**/*.ts",
+    "../engine/src/recurrence.ts",
+    "../engine/src/zones.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    // Node-side: runs the Python reference engine before workerd starts.
+    // Checked separately by tsconfig.node.json, because pulling @types/node
+    // into this project would give the Worker sources Node globals they will
+    // not have at runtime.
+    "tests/global-setup.ts"
+  ]
+}

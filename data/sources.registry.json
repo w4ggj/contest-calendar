@@ -1,7 +1,15 @@
 {
-  "$comment": "Global sourcing registry for independent contest catalog construction. Every contest in the catalog must trace to a sponsor on this list. Organizations are grouped by tier: work top-down. URLs marked verified:true were confirmed during research; the rest are the organization's known primary domain and should be confirmed on first use.",
-  "schema_version": "1.0",
+  "$comment": "Global sourcing registry for independent contest catalog construction. Every contest in the catalog must trace to a sponsor on this list, and a test enforces that. Organizations are grouped by tier: work top-down. `url_verified: true` means the URL itself was confirmed during research; the rest are the organization's known primary domain and should be confirmed on first use. READ `counts_are_estimates` BEFORE PLANNING A PASS.",
+  "schema_version": "1.1",
   "sourcing_rule": "NEVER populate a contest record from an aggregator. Only from the sponsoring organization's own published rules. If the sponsor's page cannot be found, the record stays unverified and does not ship.",
+  "counts_are_estimates": "`estimated_total` on every org entry is a guess made before any of that sponsor's pages were read. It is NOT a target and it is NOT a denominator. Where a sponsor has actually been worked, verification has moved the number in both directions -- 10-10 was estimated at four QSO Parties and runs three; AGCW's ten includes one that publishes no closing time; NCJ's five dropped an SSB Sprint that no longer exists. `encoded` and `encoded_verified` are the real numbers, generated from the catalog by scripts/coverage.py and asserted by both test suites, so they cannot drift. Treat any gap between `encoded` and `estimated_total` as unexplored, not as work remaining.",
+  "field_notes": {
+    "encoded": "GENERATED. Contests from this sponsor currently in data/contests.seed.json.",
+    "encoded_verified": "GENERATED. Of those, how many carry verified:true -- rule read at the sponsor's own source.",
+    "estimated_total": "HAND-WRITTEN ESTIMATE, pre-research. See counts_are_estimates.",
+    "catalog_sponsors": "Exact `sponsor` strings this org uses in the catalog. The join key. A sponsor string with no registry entry fails a test in both engines.",
+    "status": "complete | partial | blocked | not-started. `blocked` means a source problem that more effort will not fix -- read the note."
+  },
   "known_derived_sources": [
     {
       "name": "ARRL Contest Corral (monthly PDF)",
@@ -21,98 +29,1151 @@
       "reason": "Downstream aggregators. Useful only for locating a sponsor's primary domain."
     }
   ],
-
   "tier_1_major_international": [
-    { "org": "ARRL", "country": "US", "url": "http://www.arrl.org/contest-calendar", "verified": true, "contests": 21, "notes": "Publishes a generic recurrence calendar in plain language. Fully mined -- see contests.seed.json." },
-    { "org": "CQ Magazine", "country": "US", "url": "https://www.cqww.com/rules.htm", "verified": false, "contests": 8, "notes": "CQ WW SSB/CW/RTTY, WPX SSB/CW/RTTY, CQ 160 CW/SSB. Separate domains per contest: cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com." },
-    { "org": "RSGB Contest Committee", "country": "GB", "url": "https://www.rsgbcc.org/hf/", "verified": true, "contests": 25, "notes": "Excellent source. Per-year rules at rsgbcc.org/hf/rules/YYYY/. States recurrence in words. Separate VHF pages at /vhf/. IOTA confirmed and encoded." },
-    { "org": "DARC", "country": "DE", "url": "https://www.darc.de/der-club/referate/conteste/", "verified": false, "contests": 15, "notes": "WAE DX (CW/SSB/RTTY), WAG, DARC 10m, Christmas Contest, FT4, RTTY Sprint." },
-    { "org": "JARL", "country": "JP", "url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/2016AA_rule.htm", "verified": false, "contests": 6, "notes": "All Asian DX (CW/Phone), JARL WW RTTY, ACAG, Field Day. English pages available." },
-    { "org": "IARU", "country": "INTL", "url": "http://www.arrl.org/iaru-hf-world-championship", "verified": true, "contests": 6, "notes": "HF World Championship administered by ARRL. Region 1 contests (Field Day CW/SSB, 50/145 MHz, 70 MHz) via iaru-r1.org." },
-    { "org": "WIA", "country": "AU", "url": "https://www.wia.org.au/members/contests/about/", "verified": false, "contests": 5, "notes": "Oceania DX (co-sponsored with NZART), VK Shires, John Moyle Field Day, Remembrance Day." },
-    { "org": "RAC", "country": "CA", "url": "https://www.rac.ca/operating/contesting/", "verified": false, "contests": 3, "notes": "Canada Day Contest, Winter Contest, Canada Winter." }
+    {
+      "org": "ARRL",
+      "country": "US",
+      "url": "http://www.arrl.org/contest-calendar",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ARRL"
+      ],
+      "encoded": 20,
+      "encoded_verified": 18,
+      "estimated_total": 21,
+      "status": "complete",
+      "notes": "Publishes a generic recurrence calendar in plain language, plus per-contest pages. Bands read at source 2026-08-16. Two records stay verified:false -- January VHF and 222 MHz And Up, whose recurrence was taken from the generic calendar rather than the contest's own page."
+    },
+    {
+      "org": "CQ Magazine",
+      "country": "US",
+      "url": "https://cqww.com/rules.htm",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "CQ Magazine"
+      ],
+      "encoded": 8,
+      "encoded_verified": 8,
+      "estimated_total": 8,
+      "status": "complete",
+      "notes": "DONE 2026-08-16, all eight. CQ WW SSB/CW/RTTY, WPX SSB/CW/RTTY, CQ 160 CW/SSB, on five separate domains: cqww.com, cqwpx.com, cqwpxrtty.com, cqwwrtty.com, cq160.com. CQ PUBLISHES NO RECURRENCE RULE -- one sentence in the whole 2016-2026 corpus, in the 2016 WPX rules. Seven of the eight are held to CQ's own published dates and log deadlines instead; read data/sources.md, 'CQ publishes dates, not rules', before touching them. CQ 160 SSB is the FOURTH SATURDAY of February -- CQ's dates rule out 'last Saturday' in 2020 exactly as they rule out 'last full weekend' in 2026. Open: CQ has not published 2026 CQ WW rules, so CQ WW keeps a 5-day log deadline while the other three moved to 48 hours."
+    },
+    {
+      "org": "RSGB Contest Committee",
+      "country": "GB",
+      "url": "https://www.rsgbcc.org/hf/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "RSGB Contest Committee"
+      ],
+      "encoded": 2,
+      "encoded_verified": 1,
+      "estimated_total": 25,
+      "status": "partial",
+      "notes": "LARGEST TIER-1 GAP: 25 estimated, 2 encoded. Excellent source -- per-year rules at rsgbcc.org/hf/rules/YYYY/, recurrence stated in words, separate VHF pages at /vhf/. IOTA confirmed and encoded. AFS CW is encoded but unverified: the rules filename was guessed and 404s; find the real page under rsgbcc.org/hf/ and set rules_url_pattern."
+    },
+    {
+      "org": "IARU",
+      "country": "INTL",
+      "url": "http://www.arrl.org/iaru-hf-world-championship",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ARRL / IARU"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 6,
+      "status": "partial",
+      "notes": "HF World Championship administered by ARRL and encoded. Region 1 contests (Field Day CW/SSB, 50/145 MHz, 70 MHz) via iaru-r1.org -- not started."
+    },
+    {
+      "org": "DARC",
+      "country": "DE",
+      "url": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "DARC"
+      ],
+      "encoded": 8,
+      "encoded_verified": 8,
+      "estimated_total": 13,
+      "status": "partial",
+      "notes": "SOURCED 2026-08-18 from darc.de/der-club/referate/conteste/ -- the last unworked tier-1 org. Eight encoded: WAE DX CW/SSB/RTTY, WAG, the 10m Contest, the Weihnachtswettbewerb, and the quarterly FT4 and RTTY-Kurzcontest series. Every date and every log deadline was checked against DARC's own \"Termine DARC KW Conteste 2026\" table at /darc-kw-conteste/kw-conteste/, which is the registered url. estimated_total now counts the HF contests DARC runs itself and lists there: the five not encoded are the Ostercontest, the Hell Contest, the HELL-Kurzcontest, the Ausbildungscontest and the CW-Ausbildungscontest. The IARU Region 1 Fieldday appears on that table but is IARU's event, not DARC's -- same call as UBA. DARC's UKW/VHF contests are a separate referat and are not counted here."
+    },
+    {
+      "org": "JARL",
+      "country": "JP",
+      "url": "https://www.jarl.org/English/4_Library/A-4-3_Contests/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "JARL"
+      ],
+      "encoded": 4,
+      "encoded_verified": 3,
+      "estimated_total": 6,
+      "status": "partial",
+      "notes": "Sourced 2026-08-17; the catalog's first Asian contests. JARL's English index lists exactly three contests, and all three are encoded: All Asian DX (CW and Phone legs) and JARL WW RTTY. The New Year QSO Party is encoded too, from its own English rules page, and is the record with unrecorded bands -- JARL states only 'All bands and Modes permitted for JA amateur radio stations'. DEFERRED, NOT MISSED: ALL JA, Field Day, 6m And Down and ACAG appear on the English index only inside HTML comments, and their rules are published in Japanese. They are real contests and a future pass should read the Japanese pages rather than guess."
+    },
+    {
+      "org": "WIA",
+      "country": "AU",
+      "url": "https://www.wia.org.au/members/contests/about/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "WIA"
+      ],
+      "encoded": 5,
+      "encoded_verified": 5,
+      "estimated_total": 5,
+      "status": "complete",
+      "notes": "Sourced 2026-08-17. Remembrance Day, John Moyle Memorial Field Day, VK Shires, Harry Angel Memorial Sprint, Trans-Tasman Low-Band. Each has its own rules page under /members/contests/. Remembrance Day is the one contest in the catalog needing the nearest_weekday rule ('weekend in August closest to the 15th'). WIA's Oceania DX page is a co-sponsor's statement of the OCDX recurrence and is cited as such by those two records; the contest itself belongs to the Oceania DX Contest Committee in tier 3. WIA's Harry Angel page contradicts itself on 2027 -- the rule is thrice-stated and is what the record follows; the discrepancy is in that record's note."
+    },
+    {
+      "org": "RAC",
+      "country": "CA",
+      "url": "https://www.rac.ca/contesting-results/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "RAC"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 2,
+      "status": "complete",
+      "notes": "Sourced 2026-08-17; the catalog's first non-US North American contests. RAC runs two: Canada Day (fixed to July 1) and Canada Winter. The stub's third was a duplicate of the second. Canada Winter is the project's best-evidenced `manual` record -- eight dates from eight of RAC's own annual rules PDFs, fitting no ordinal Saturday, and a Sunday in 2026. Rules are published as a fresh PDF each year whose path embeds the upload month, so rules_url is this stable hub instead."
+    }
   ],
-
   "tier_2_european_societies": [
-    { "org": "REF", "country": "FR", "url": "https://concours.r-e-f.org/", "verified": false, "contests": 5, "notes": "REF Contest CW/SSB, REF 160m, DDFM 6m." },
-    { "org": "UBA", "country": "BE", "url": "https://www.uba.be/en/hf/contest-rules", "verified": false, "contests": 10, "notes": "UBA DX CW/SSB, PSK63 Prefix, Spring Contest series, ON Contest series." },
-    { "org": "VERON", "country": "NL", "url": "https://www.veron.nl/vereniging/commissies-werkgroepen/traffic-bureau/pacc-contest/", "verified": false, "contests": 2, "notes": "Dutch PACC, PACCdigi." },
-    { "org": "PZK / SP DX Club", "country": "PL", "url": "https://spdxcontest.info/", "verified": false, "contests": 2, "notes": "SP DX Contest, SP DX RTTY." },
-    { "org": "CRK / SARA", "country": "CZ/SK", "url": "https://okomdx.crk.cz/", "verified": false, "contests": 3, "notes": "OK/OM DX CW/SSB, OK DX RTTY." },
-    { "org": "ARI", "country": "IT", "url": "https://www.ari.it/", "verified": false, "contests": 6, "notes": "ARI International DX, ARI 40/80, Marconi Memorial HF, Marconi Club ARI Loano." },
-    { "org": "URE", "country": "ES", "url": "https://concursos.ure.es/en/", "verified": false, "contests": 6, "notes": "His Maj. King of Spain CW/SSB, EA RTTY, EA PSK63, EA-QRP CW." },
-    { "org": "REP", "country": "PT", "url": "https://www.rep.pt/", "verified": false, "contests": 3, "notes": "Portugal Day Contest, Navy Day." },
-    { "org": "USKA", "country": "CH", "url": "https://www.uska.ch/", "verified": false, "contests": 2, "notes": "Helvetia Contest." },
-    { "org": "OEVSV", "country": "AT", "url": "https://www.oevsv.at/", "verified": false, "contests": 2, "notes": "All Austrian 160-Meter Contest." },
-    { "org": "MRASZ", "country": "HU", "url": "https://www.mrasz.hu/", "verified": false, "contests": 4, "notes": "Hungarian DX, Hungarian Straight Key, HA3NS Sprint Memorial, Tisza Cup." },
-    { "org": "BFRA", "country": "BG", "url": "https://www.lzdx.org/", "verified": false, "contests": 2, "notes": "LZ DX Contest, LZ International 6-Meter." },
-    { "org": "FRR", "country": "RO", "url": "https://www.hamradio.ro/", "verified": false, "contests": 4, "notes": "YO DX HF, YO International PSK31, Bucharest Digital, Romanian Diaspora." },
-    { "org": "SRS / YU", "country": "RS", "url": "https://www.yudx.org/", "verified": false, "contests": 2, "notes": "YU DX Contest." },
-    { "org": "HRS", "country": "HR", "url": "https://www.hamradio.hr/", "verified": false, "contests": 1, "notes": "Croatian DX Contest." },
-    { "org": "NRAU", "country": "Nordic", "url": "https://nrau.net/", "verified": false, "contests": 3, "notes": "NRAU-Baltic CW/SSB, NRAU 10m Activity. Also SSA (SE), NRRL (NO), EDR (DK), SRAL (FI) run national contests." },
-    { "org": "LRAL / ERAU / LRMD", "country": "Baltics", "url": "https://www.lral.lv/", "verified": false, "contests": 3, "notes": "Baltic Contest, ES Open HF Championship (Estonia)." },
-    { "org": "SRR", "country": "RU", "url": "https://www.rdxc.org/", "verified": false, "contests": 8, "notes": "Russian DX Contest, RAEM, Russian 160m, Russian WW series, RCC Cup." },
-    { "org": "UARL", "country": "UA", "url": "https://www.uarl.org.ua/", "verified": false, "contests": 4, "notes": "Ukrainian DX, Open Ukraine RTTY, UDXC Classic RTTY." }
+    {
+      "org": "IRTS",
+      "country": "IE",
+      "url": "https://www.irts.ie/",
+      "url_verified": false,
+      "catalog_sponsors": [
+        "IRTS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 4,
+      "status": "partial",
+      "notes": "ADDED 2026-08-16 -- the 80m Counties Contest was in the catalog with no registry entry at all, which is exactly the drift this file exists to prevent. That record is unverified; source it, then look for the rest of IRTS's programme."
+    },
+    {
+      "org": "REF",
+      "country": "FR",
+      "url": "https://concours.r-e-f.org/reglements/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "REF"
+      ],
+      "encoded": 4,
+      "encoded_verified": 4,
+      "estimated_total": 5,
+      "status": "partial",
+      "notes": "SOURCED 2026-08-18. Coupe du REF CW/SSB, REF 160 Metres, DDFM 50 MHz -- four records, all from REF's own French-language rules PDFs, each tested against two years REF published independently. URL corrected: the 'reglements/actuels/' index redirects to concours.ref-union.org, whose DNS does not resolve, so the working index is 'reglements/'. Still open: the Championnat de France THF, deferred because no REF document consulted states its modes and a record with no mode fails a catalog test. REF's worldwide contest list is an aggregator and was not used."
+    },
+    {
+      "org": "UBA",
+      "country": "BE",
+      "url": "https://www.uba.be/en/hf/contest-rules",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "UBA"
+      ],
+      "encoded": 12,
+      "encoded_verified": 12,
+      "estimated_total": 12,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. Twelve records: UBA DX SSB/CW, PSK63 Prefix, the four-leg Spring Contest and the four-leg ON Contest (both manual -- UBA states dates, never a recurrence), and the Belgian Mills Award. Estimate raised from 10. UBA's contest calendar is an aggregator except for rows marked (**), which UBA labels 'see: HF > Contest Rules' -- its own events -- and only those rows were used, as a second published source for dates. The 'UBA IARU Region 1 Fieldday' row is IARU's event with no UBA rules page and is deliberately not encoded. The BMA page points to belgianmillaward.be for the complete rules; only UBA's own page was used."
+    },
+    {
+      "org": "VERON",
+      "country": "NL",
+      "url": "https://veron.nl/vereniging/commissies-en-werkgroepen/traffic-bureau/hf-contesten/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "VERON"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 2,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. PACC and PACCdigi. URL corrected -- the registry's 'commissies-werkgroepen/traffic-bureau/pacc-contest/' path 404s; the live tree is 'commissies-en-werkgroepen/traffic-bureau/hf-contesten/'. PACC is tested against three further editions VERON published (2027, 2028, 2029). PACCdigi is manual: VERON gives two dated editions and states no rule, unlike the PACC page which says 'het tweede volle weekend van februari'."
+    },
+    {
+      "org": "PZK / SP DX Club",
+      "country": "PL",
+      "url": "https://spdxcontest.pzk.org.pl/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "PZK / SP DX Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. SP DX Contest only. TWO CORRECTIONS. (1) The registry's spdxcontest.info is no longer this contest's site -- the domain now serves an unrelated adult-site directory. The sponsor's own site is spdxcontest.pzk.org.pl, with per-year rules at /<year>/rules.php. (2) The SP DX RTTY Contest is not this org's: its rules name PK RVG, the Polish Radiovideography Club, as organiser. It now has its own entry."
+    },
+    {
+      "org": "PK RVG",
+      "country": "PL",
+      "url": "https://pkrvg.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "PK RVG"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-08-18. The Polish Radiovideography Club (Polski Klub Radiowideografii). Its SP DX RTTY Contest was previously assumed in this registry to belong to PZK / SP DX Club; the rules name PK RVG as organiser ('The SPDX RTTY Contest organized the Polish Radiovideography Club (PK RVG)') with PZK as a co-sponsor, so the contest is recorded here instead."
+    },
+    {
+      "org": "CRK / SARA",
+      "country": "CZ",
+      "url": "http://www.okomdx.crk.cz/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "CRK / SARA",
+        "CRK"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 3,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. OK/OM DX SSB and CW (sponsor string 'CRK / SARA') and the OK DX RTTY Contest (sponsor string 'CRK'), which is registered here under the same org because it is hosted on crk.cz and takes logs at okrtty@crk.cz -- but neither its English nor its Czech rules page names an organising society, so the attribution is an inference and the record says so. BLOCKER, not transient: okomdx.crk.cz and okrtty.crk.cz both serve a TLS certificate issued for default.web4u.cz, so HTTPS fails validation. Both rules_url values are http:// deliberately and the link checker will keep reporting them until CRK fixes the hosts."
+    },
+    {
+      "org": "ARI",
+      "country": "IT",
+      "url": "https://contest.ari.it/hf_web/regolamenti.php",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ARI"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 5,
+      "status": "partial",
+      "notes": "SOURCED 2026-08-18. ARI International DX, Contest delle Sezioni HF, ARI 40/80 -- three records, from ARI's own Italian rules PDFs and its 40/80 rules page. URL corrected: ari.it/contest-hf/ari-international.html carries results, not rules; the rules live at contest.ari.it/hf_web/rules/*.pdf, indexed at regolamenti.php. Still open: the Marconi Memorial HF Contest, which is on ARI's calendar for 4-5 July 2026 but has no rules page on ari.it, and Marconi Club ARI Loano, a separate body. Coppa ARI was struck from the estimate: it is a trophy awarded on combined placings in the two contests above, not a contest of its own -- the same call made for AGCW's Goldene Taste. ari.it's contest calendar is an aggregator and was not used."
+    },
+    {
+      "org": "URE",
+      "country": "ES",
+      "url": "https://concursos.ure.es/en/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "URE"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 6,
+      "status": "complete",
+      "notes": "SOURCED 2026-08-18. All six of URE's HF contests: King of Spain CW and SSB, EA RTTY, EA PSK63, CNCW and CME. The last two run two sessions with an overnight break and use the sessions array. CONTRADICTION IN URE'S OWN PAGES: the 'Annual HF Championship Rules 2026' page lists every one of the six a day later than the individual rules pages do, and each of its dates is a 2025 weekend -- so it was not used as an independent date source. The individual pages are self-consistent for 2026 and are what is encoded. EA-QRP CW, listed in the previous estimate, is not on concursos.ure.es."
+    },
+    {
+      "org": "REP",
+      "country": "PT",
+      "url": "https://www.rep.pt/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 3,
+      "status": "not-started",
+      "notes": "Portugal Day Contest, Navy Day."
+    },
+    {
+      "org": "USKA",
+      "country": "CH",
+      "url": "https://uska.ch/kw-contest/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "USKA"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 6,
+      "status": "complete",
+      "notes": "Helvetia Contest, Field Day CW and SSB, National Mountain Day, Weihnachtswettbewerb SSB and CW. That is the whole KW-Contest programme, counted from USKA's own page rather than guessed. The Reglemente are PDFs linked from /kw-contest/, which also prints the year's dates independently and is what every record is tested against."
+    },
+    {
+      "org": "OEVSV",
+      "country": "AT",
+      "url": "https://www.oevsv.at/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ÖVSV"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 2,
+      "status": "complete",
+      "notes": "AOEE 80/40m and AOEC 160m, the HF-Referat's two HF events; the AOEE VHF/UHF legs belong to the UKW referat and are separate work. Catalog sponsor string is the umlaut form OeVSV writes itself. The AOEC 160m Ausschreibung on offer is still the 2025 edition -- pending."
+    },
+    {
+      "org": "MRASZ",
+      "country": "HU",
+      "url": "https://mrasz.hu/radioforgalmi-versenyek",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "MRASZ"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 9,
+      "status": "partial",
+      "notes": "HA-DX, YL-OM and the World Amateur Radio Day HF leg encoded. Not yet read: RHOB, URHOB, the Junior contest, the Straight Key Memorial Contest, Tisza Kupa and the VHF leg of RF-WD. HA-DX has its own host at ha-dx.com, which MRASZ links as its own; the 2026 count is from MRASZ's own competition index, not a guess."
+    },
+    {
+      "org": "BFRA",
+      "country": "BG",
+      "url": "https://lzdx.bfra.bg/rulesen.html",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "BFRA"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 2,
+      "status": "partial",
+      "notes": "LZ DX Contest encoded. CORRECTION: the registered host www.lzdx.org does not resolve, and neither does the lzdx.bfra.org that BFRA's own news items cite; the live rules are at lzdx.bfra.bg and the federation at bfra.bg. LZ Open 80m has not been read."
+    },
+    {
+      "org": "FRR",
+      "country": "RO",
+      "url": "https://www.yodx.ro/rules.php",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "FRR"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 3,
+      "status": "partial",
+      "notes": "YO DX HF Contest encoded. La Multi Ani YO is BLOCKED: the only rules document FRR publishes is a scan with no text layer. Cupa Romaniei QRP is an on-site event with no calendar rule and is out of scope. estimated_total 4 -> 3, counted from what FRR actually publishes. An older hamradio.ro PDF contradicts the current yodx.ro rules about which August weekend YO DX falls on -- see data/sources.md."
+    },
+    {
+      "org": "SRS / YU",
+      "country": "RS",
+      "url": "https://www.radiosport.yu1srs.org.rs/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "SRS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 3,
+      "status": "partial",
+      "notes": "Tesla Memorial HF CW encoded. CORRECTION: the registered host www.yudx.org no longer resolves; SRS's radiosport pages are at radiosport.yu1srs.org.rs. BLOCKED: the domestic schedule and rules pages render only a JavaScript placeholder and the old site at stari.yu1srs.org.rs returns HTTP 500, so KT Prvenstvo Srbije and KT Kup SRS could not be read."
+    },
+    {
+      "org": "HRS",
+      "country": "HR",
+      "url": "https://www.hamradio.hr/9a-dx-contest/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "HRS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "Croatian DX Contest encoded -- HRS's only HF contest. Its other calendar entries are VHF/UHF events run by the UKV referat and are separate work."
+    },
+    {
+      "org": "NRAU",
+      "country": "SE",
+      "url": "https://nrau.net/",
+      "url_verified": true,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 3,
+      "status": "blocked",
+      "notes": "BLOCKED at source. nrau.net says 'All NRAU Contest related information is under revision', and no NRAU-Baltic rules are published anywhere on the site. The NAC / Nordic Activity Contest pages give dates and times but state no modes and link no rules, so a record built from them could not declare a mode and would be dropped silently by every mode filter. Nothing encoded; the five NAC recurrence rules and the 19:00-23:00 local-time finding are recorded in data/sources.md for when NRAU republishes. The national societies SSA (SE), NRRL (NO), EDR (DK) and SRAL (FI) are separate work."
+    },
+    {
+      "org": "LRAL / ERAU / LRMD",
+      "country": "LV",
+      "url": "https://lral.lv/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "LRAL",
+        "ERAU",
+        "LRMD"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 6,
+      "status": "partial",
+      "notes": "Six encoded across the three societies: LRAL's 18 November and 4 May 80m contests, ERAU's ES Open HF Championship and ES LL KV series, LRMD's Vytautas Magnus Contest and WAL Contest. Each society is its own catalog sponsor -- LV, EE and LT records are not interchangeable -- and each has its own site: lral.lv, erau.ee, lrmd.lt. The joint NRAU-Baltic Contest is blocked at NRAU, not here."
+    },
+    {
+      "org": "SRR",
+      "country": "RU",
+      "url": "https://www.rdxc.org/rules",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "SRR"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 8,
+      "status": "partial",
+      "notes": "Russian DX Contest encoded, and only for 2027: rdxc.org publishes a date rather than a recurrence rule, and the only edition currently announced is 20-21 March 2027. RAEM, Russian 160m, the Russian WW series and the RCC Cup are on separate hosts and have not been read."
+    },
+    {
+      "org": "UARL",
+      "country": "UA",
+      "url": "http://uarl.org.ua/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "UARL"
+      ],
+      "encoded": 4,
+      "encoded_verified": 4,
+      "estimated_total": 4,
+      "status": "partial",
+      "notes": "The three 2026 HF championships (RTTY, CW, SSB) and the Low Power Cup encoded, all from UARL's own reglamenty. CORRECTION: https://uarl.org.ua/ fails TLS certificate validation; http:// serves the site, so the registry records the http URL. UARL publishes dates for the year rather than recurrence rules, so all four records are manual and cover 2026 only. Its monthly calendar posts link contestcalendar.com; that aggregator was not used."
+    }
   ],
-
   "tier_3_other_regions": [
-    { "org": "SARL", "country": "ZA", "url": "https://www.sarl.org.za/", "verified": false, "contests": 10, "notes": "SARL HF Phone/CW/Digital, 80m QSO Party, VHF/UHF FM, Field Day, Hamnet." },
-    { "org": "NZART", "country": "NZ", "url": "https://www.nzart.org.nz/contests/", "verified": false, "contests": 4, "notes": "Sangster Shield, Memorial Contest, Trans-Tasman (with WIA)." },
-    { "org": "ORARI", "country": "ID", "url": "https://orari.or.id/", "verified": false, "contests": 8, "notes": "Large family of YB contests: YB DX, YB DX RTTY, YB ORARI DX, YBDXPI FT8, regional Indonesian contests." },
-    { "org": "LABRE", "country": "BR", "url": "https://www.labre.org.br/", "verified": false, "contests": 4, "notes": "LABRE DX, CVA DX CW/SSB, South America 10 Meter." },
-    { "org": "GACW", "country": "AR", "url": "https://www.gacw.org/", "verified": false, "contests": 2, "notes": "GACW WWSA CW DX Contest." },
-    { "org": "FMRE", "country": "MX", "url": "https://www.fmre.mx/", "verified": false, "contests": 2, "notes": "Mexico RTTY International." },
-    { "org": "TRAC", "country": "TR", "url": "https://www.trac.org.tr/", "verified": false, "contests": 3, "notes": "TRC DX, TRC Digi, TA VHF/UHF, Turkey HF." },
-    { "org": "IARC", "country": "IL", "url": "https://www.iarc.org/", "verified": false, "contests": 1, "notes": "World Wide Holyland Contest." },
-    { "org": "CRSA", "country": "CN", "url": "https://www.crac.org.cn/", "verified": false, "contests": 2, "notes": "Worked All Provinces of China DX Contest." },
-    { "org": "ARSI", "country": "IN", "url": "https://www.arsi.info/", "verified": false, "contests": 1, "notes": "ARSI VU DX Contest." }
+    {
+      "org": "SARL",
+      "country": "ZA",
+      "url": "https://www.sarl.org.za/",
+      "url_verified": false,
+      "catalog_sponsors": [
+        "SARL"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 10,
+      "status": "blocked",
+      "notes": "BLOCKED -- DEAD HOST, NOT A TRANSIENT ERROR. sarl.org.za returned 503 during the original research and was retried on 2026-08-16, when the rules page (sarl.org.za/public/contests/contestrules.asp) failed with an EXPIRED TLS CERTIFICATE. check_links.py has reported it broken on every run since. The one encoded record, SARL HF Phone, is the catalog's only contest with NO BANDS RECORDED AT ALL -- bands:[] means unrecorded, so every band filter excludes it and the page says so out loud. Do not fill it in from a third-party calendar. Next step: contact SARL, or wait for the certificate to be renewed."
+    },
+    {
+      "org": "Oceania DX Contest Committee",
+      "country": "OC",
+      "url": "https://www.oceaniadxcontest.com/rules",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Oceania DX Contest Committee"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 2,
+      "status": "complete",
+      "notes": "Sourced 2026-08-17. Added as its own org because the OCDX Contest is run by a joint VK/ZL committee, not by the WIA or NZART -- 'The Oceania DX (OCDX) Contest is managed by the Oceania DX Contest Committee.' Its country is OC, the one non-national code in region_map, because no single country's society owns it. The rules live in a PDF embedded in a WordPress viewer at /rules (the old /html/rules.html is a 404); the file URL is in each record's source_note. NOTE ON PROVENANCE: the committee's PDF states only the current year's dates, so the recurrence in words is cited from co-sponsor WIA's Oceania page. That is a sponsor, not an aggregator, and the two records say so."
+    },
+    {
+      "org": "NZART",
+      "country": "NZ",
+      "url": "https://nzart.org.nz/activities/contests/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "NZART"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 6,
+      "status": "complete",
+      "notes": "Sourced 2026-08-17. URL CORRECTED: the registry's old www.nzart.org.nz/contests/ is a 404. Jock White Memorial Field Day, Sangster Shield, Memorial Contest, and the ZL Autumn and Winter Sprints as three records -- NZART runs CW, SSB and FT4 in three back-to-back 29-minute windows and scores each separately. The Field Day is the catalog's third sponsor-anchored contest (NZDT wall clock) and needed the exclude_dates path for NZART's three-full-weekend February rule. EXCLUDED DELIBERATELY: the Portable Activity Day, which NZART's own page says is not a contest. Trans-Tasman is WIA's, filed under WIA."
+    },
+    {
+      "org": "ORARI",
+      "country": "ID",
+      "url": "https://www.oraricontest.id/rules/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ORARI"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 2,
+      "status": "partial",
+      "notes": "Sourced 2026-08-17. The stub's estimate of eight was far too high: oraricontest.id, run by ORARI Lokal Jakarta Utara, publishes two contests. The North Jakarta ORARI DX Contest is encoded, and it is the best-evidenced recurrence in this pass -- the page states the rule AND lists the next four years' dates, all four of which the rule reproduces. YB DX RTTY IS NOT ENCODED: its page carries a 2022 date and no rule, so there is nothing to derive a recurrence from."
+    },
+    {
+      "org": "LABRE",
+      "country": "BR",
+      "url": "https://www.labre.org.br/contest/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "LABRE"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "Sourced 2026-08-17; the catalog's first South American contest. LABRE publishes one contest of its own, the LABRE DX Contest, with an English rules PDF each year. The stub's other three were misattributed: CVA DX is run by the Araucaria DX Group and South America 10 Meter by GDXG -- both are separate orgs and neither has been sourced. LABRE's own printed log link, labre.org.br/sendlog, 404s; no log_submit_url is recorded rather than one that does not resolve."
+    },
+    {
+      "org": "GACW",
+      "country": "AR",
+      "url": "https://gacw.ar/wwsa/reglas-rules/",
+      "url_verified": true,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "blocked",
+      "notes": "BLOCKED -- THE RULES ARE IMAGERY. Checked 2026-08-17. GACW moved to gacw.ar and its WWSA page carries only two PDFs, WWSA_Reglas_Castellano.pdf and WWSA_Reglas_Ingles.pdf. Both were downloaded and their font encoding worked out (two-byte codes, a uniform +29 subset offset), which recovers the cover line -- 'Revision: February 06, 2024. Word Wide South America CW Contest Rules. WWSA' -- and nothing else: the rules body is scanned images with no text layer. There is no machine-readable rule to encode and no second GACW page that states one. Next step: ask GACW for a text version. Do not fill this in from a third-party calendar."
+    },
+    {
+      "org": "FMRE",
+      "country": "MX",
+      "url": "https://www.fmre.mx/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 2,
+      "status": "not-started",
+      "notes": "Mexico RTTY International."
+    },
+    {
+      "org": "TRAC",
+      "country": "TR",
+      "url": "https://www.trac.org.tr/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 3,
+      "status": "not-started",
+      "notes": "TRC DX, TRC Digi, TA VHF/UHF, Turkey HF."
+    },
+    {
+      "org": "IARC",
+      "country": "IL",
+      "url": "https://www.iarc.org/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "not-started",
+      "notes": "World Wide Holyland Contest."
+    },
+    {
+      "org": "CRSA",
+      "country": "CN",
+      "url": "https://www.crac.org.cn/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 2,
+      "status": "not-started",
+      "notes": "Worked All Provinces of China DX Contest."
+    },
+    {
+      "org": "ARSI",
+      "country": "IN",
+      "url": "https://www.arsi.info/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "not-started",
+      "notes": "ARSI VU DX Contest."
+    }
   ],
-
   "tier_4_specialty_clubs": [
-    { "org": "SKCC", "url": "https://www.skccgroup.com/", "verified": false, "contests": 5, "notes": "Weekend Sprintathon, SKCC Sprint, QSO Party, Sprint Europe. High-frequency recurring -- monthly rules." },
-    { "org": "CWops", "url": "https://cwops.org/", "verified": false, "contests": 3, "notes": "CWT (weekly!), CW Open. Weekly contests need a distinct recurrence type -- see note below." },
-    { "org": "AGCW", "url": "https://www.agcw.de/contest/", "verified": true, "contests": 10, "notes": "DONE. Happy New Year, QRP, Handtastenparty 80m + 40m, Deutscher Telegrafie Contest, QRP/QRP Party, Schlackertastenabend, VHF/UHF, YL-CW-Party, ZAP Merit. Per-contest rules pages state each recurrence in German; four also give a 'nächster Termin' used as the cross-check. 'Goldene Taste' is an AWARD, not a contest -- do not add it. ZAP Merit publishes no closing time and ships verified:false." },
-    { "org": "QRP ARCI", "url": "https://qrparci.org/contests/", "verified": false, "contests": 8, "notes": "BLOCKED -- NOT AN AGGREGATOR PROBLEM, A SOURCE PROBLEM. qrparci.org/contests carries prose only; qrparci.org/qrp-event-calendar renders nothing without JavaScript and exposes no data endpoint; the WordPress page list contains exactly one 'contests' page and no per-contest rules pages. Rules appear to live in the members' magazine QRP Quarterly. qrpcontest.com is a third-party logging service, NOT the sponsor -- do not source from it. Next step: ask QRP ARCI directly, or find their rules in a QRP Quarterly issue they publish themselves." },
-    { "org": "PODXS 070 Club", "url": "https://www.podxs070.com/o7o-club-sponsored-contests", "verified": true, "contests": 10, "notes": "DONE. All ten verified. Best-documented sponsor found so far: per-contest rules pages plus a calendar page that repeats every rule AND publishes projected dates for 2026-2035, used as the cross-check. NOTE: podxs070.com rejects some automated fetchers -- a normal browser user-agent works." },
-    { "org": "10-10 International", "url": "https://www.ten-ten.org/index.php/activity/qso-party-rules", "verified": true, "contests": 3, "notes": "DONE. Rule 5.2.2 states all three recurrences in words; the schedule page gives the dates. CORRECTION: there are THREE QSO Parties, not four -- 'There are currently three QSO Parties held throughout the calendar year' (Winter Phone, Summer Phone, 10-10 Day Sprint). No Fall party." },
-    { "org": "BARTG", "url": "https://bartg.org.uk/contests/", "verified": true, "contests": 4, "notes": "DONE. HF RTTY, January Sprint, Sprint75, Sprint PSK63. Rules PDFs state the recurrence in words; each contest page lists six years of dates as the cross-check." },
-    { "org": "SARTG", "url": "https://www.sartg.com/contest.htm", "verified": true, "contests": 2, "notes": "DONE. WW RTTY (third full weekend in August, three separate 8-hour periods) and New Year RTTY (January 1st, 0800-1100 UTC). Site uses frames -- go straight to /contest/wwrules.htm and /contest/nyrules.htm." },
-    { "org": "FISTS", "url": "https://www.fistsna.org/operating.php", "verified": true, "contests": 8, "notes": "DONE but SUSPENDED. Eight sprints verified (second Saturday / third Sunday of Feb, May, Aug, Nov) and recorded with active_until:2025, because fistsna.org states 'Sprints will NOT continue in 2026'. fists.org is only a portal -- the sponsors are the regional chapters (fistsna.org Americas, fists.co.uk UK). FISTS Friday is explicitly 'not a contest'; the G3ZQS and Nancy Kott memorial events are operating activities, not contests." },
-    { "org": "NCJ (National Contest Journal)", "url": "https://ncjweb.com/", "verified": true, "contests": 5, "notes": "DONE. NAQP CW/SSB/RTTY plus North American Sprint CW and RTTY. CORRECTION: NCJ no longer runs an SSB/Phone Sprint -- the 2026 rules document is titled '(CW/RTTY)' and the Sprint page has no SSB anything. The Sprint records use the `manual` rule type because NCJ publishes dates, not a recurrence rule. NCCC Sprint is NOT an NCJ contest -- see the separate NCCC entry." },
-    { "org": "NCCC (Northern California Contest Club)", "url": "https://www.ncccsprint.com/", "verified": true, "contests": 3, "notes": "DONE. NS (CW) 0230-0300Z, RTTY NS 0145-0215Z, FT4 NS 0100-0130Z -- all weekly, Friday UTC / Thursday evening NA, DST ignored. Rules at ncccsprint.com/{rules,rttyns,ft4ns}.html, NOT nccc.cc. Entrant eligibility is inferred from the absence of a clause and stays unverified." },
-    { "org": "4 States QRP Group", "url": "https://www.4sqrp.com/SSS/sss_rules_revised_02_2026.pdf", "verified": true, "contests": 1, "notes": "DONE. Second Sunday Sprint -- monthly, second Sunday night LOCAL, 7-9 PM central. Local-time contest: the sponsor states outright that the UTC time moves with CST/CDT." },
-    { "org": "ARS (Adventure Radio Society)", "url": "https://ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html", "verified": true, "contests": 2, "notes": "Spartan Sprint DONE -- first MONDAY of every month US local (Tuesday UTC), 2 hours, 'Does not shift for DST', so local-time. The working URL is ars-qrp.com, not arsqrp.blogspot.com. Flight of the Bumblebees still to do." },
-    { "org": "Stew Perry / Boring Amateur Radio Club", "url": "https://www.kkn.net/stew/", "verified": false, "contests": 1, "notes": "Topband Challenge -- runs multiple times per year." }
+    {
+      "org": "SKCC",
+      "country": "INTL",
+      "url": "https://www.skccgroup.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Straight Key Century Club"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 5,
+      "status": "partial",
+      "notes": "Weekend Sprintathon and Weekday Sprint encoded and verified, bands read at source 2026-08-16. QSO Party and Sprint Europe not started."
+    },
+    {
+      "org": "CWops",
+      "country": "INTL",
+      "url": "https://cwops.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "CWops"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 3,
+      "status": "partial",
+      "notes": "CWT encoded -- weekly, four sessions (Wed 1300Z/1900Z, Thu 0300Z/0700Z). An earlier stub had three and silently dropped ~52 sessions a year; pinned by test now. CW Open not started."
+    },
+    {
+      "org": "AGCW",
+      "country": "DE",
+      "url": "https://www.agcw.de/contest/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "AGCW-DL",
+        "AGCW-DL / High Speed Club (HSC)"
+      ],
+      "encoded": 10,
+      "encoded_verified": 9,
+      "estimated_total": 10,
+      "status": "complete",
+      "notes": "DONE. Happy New Year, QRP, Handtastenparty 80m + 40m, Deutscher Telegrafie Contest, QRP/QRP Party, Schlackertastenabend, VHF/UHF, YL-CW-Party, ZAP Merit. Per-contest rules pages state each recurrence in German; four also give a 'naechster Termin' used as the cross-check. 'Goldene Taste' is an AWARD, not a contest -- do not add it. ZAP Merit publishes no closing time and ships verified:false."
+    },
+    {
+      "org": "QRP ARCI",
+      "country": "US",
+      "url": "https://qrparci.org/contests/",
+      "url_verified": true,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 8,
+      "status": "blocked",
+      "notes": "BLOCKED -- NOT AN AGGREGATOR PROBLEM, A SOURCE PROBLEM. qrparci.org/contests carries prose only ('We sponsor several contests each year with the emphasis on having fun!'); qrparci.org/qrp-event-calendar renders nothing without JavaScript and exposes no data endpoint; the site's WordPress page list contains exactly one 'contests' page and no per-contest rules pages. Rules appear to live in the members' magazine QRP Quarterly. qrpcontest.com is a third-party logging service, NOT the sponsor -- do not source from it. NO RECORDS CREATED, deliberately: eight estimated, zero encoded, and that gap is the sourcing rule working rather than work outstanding. Next step needs a human -- email the contest manager and cite the reply with date and name, or find the rules in a QRP Quarterly issue the club publishes itself."
+    },
+    {
+      "org": "PODXS 070 Club",
+      "country": "US",
+      "url": "https://www.podxs070.com/o7o-club-sponsored-contests",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "PODXS 070 Club"
+      ],
+      "encoded": 10,
+      "encoded_verified": 10,
+      "estimated_total": 10,
+      "status": "complete",
+      "notes": "DONE. All ten verified. Best-documented sponsor found so far: per-contest rules pages plus a calendar page that repeats every rule AND publishes projected dates for 2026-2035, used as the cross-check. NOTE: podxs070.com rejects some automated fetchers -- a normal browser user-agent works."
+    },
+    {
+      "org": "10-10 International",
+      "country": "INTL",
+      "url": "https://www.ten-ten.org/index.php/activity/qso-party-rules",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "10-10 International Net"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 3,
+      "status": "complete",
+      "notes": "DONE. Rule 5.2.2 states all three recurrences in words; the schedule page gives the dates. CORRECTION: there are THREE QSO Parties, not the four originally estimated -- 'There are currently three QSO Parties held throughout the calendar year' (Winter Phone, Summer Phone, 10-10 Day Sprint). No Fall party. estimated_total was lowered to 3 to match what the sponsor says it runs."
+    },
+    {
+      "org": "BARTG",
+      "country": "GB",
+      "url": "https://bartg.org.uk/contests/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "BARTG"
+      ],
+      "encoded": 4,
+      "encoded_verified": 4,
+      "estimated_total": 4,
+      "status": "complete",
+      "notes": "DONE. HF RTTY, January Sprint, Sprint75, Sprint PSK63. Rules PDFs state the recurrence in words; each contest page lists six years of dates as the cross-check."
+    },
+    {
+      "org": "SARTG",
+      "country": "SE",
+      "url": "https://www.sartg.com/contest.htm",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "SARTG (Scandinavian Amateur Radio Teleprinter Group)"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 2,
+      "status": "complete",
+      "notes": "DONE. WW RTTY (third full weekend in August, three separate 8-hour periods) and New Year RTTY (January 1st, 0800-1100 UTC). Site uses frames -- go straight to /contest/wwrules.htm and /contest/nyrules.htm."
+    },
+    {
+      "org": "FISTS",
+      "country": "US",
+      "url": "https://www.fistsna.org/operating.php",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "FISTS CW Club (Americas Chapter)"
+      ],
+      "encoded": 8,
+      "encoded_verified": 8,
+      "estimated_total": 8,
+      "status": "complete",
+      "notes": "DONE but SUSPENDED FROM 2026. Eight sprints verified (second Saturday / third Sunday of Feb, May, Aug, Nov) and recorded with active_until:2025, because fistsna.org states 'Sprints will NOT continue in 2026'. They stay encoded so a 2025 lookup still answers correctly; they generate nothing for 2026 onward. Do not delete them and do not count them as live coverage. fists.org is only a portal -- the sponsors are the regional chapters (fistsna.org Americas, fists.co.uk UK). FISTS Friday is explicitly 'not a contest'; the G3ZQS and Nancy Kott memorial events are operating activities, not contests."
+    },
+    {
+      "org": "NCJ (National Contest Journal)",
+      "country": "US",
+      "url": "https://ncjweb.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "National Contest Journal (NCJ)"
+      ],
+      "encoded": 5,
+      "encoded_verified": 5,
+      "estimated_total": 5,
+      "status": "complete",
+      "notes": "DONE. NAQP CW/SSB/RTTY plus North American Sprint CW and RTTY. CORRECTION: NCJ NO LONGER RUNS AN SSB/PHONE SPRINT -- the 2026 rules document is titled '(CW/RTTY)' and the Sprint page has no SSB anything. The Sprint records use the `manual` rule type because NCJ publishes dates, not a recurrence rule. NAQP RTTY is the catalog's proof that 'last Saturday' and 'last full weekend' are different rules. NCCC Sprint is NOT an NCJ contest -- see the separate NCCC entry."
+    },
+    {
+      "org": "NCCC (Northern California Contest Club)",
+      "country": "US",
+      "url": "https://www.ncccsprint.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Northern California Contest Club (NCCC)"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 3,
+      "status": "complete",
+      "notes": "DONE. NS (CW) 0230-0300Z, RTTY NS 0145-0215Z, FT4 NS 0100-0130Z -- all weekly, Friday UTC / Thursday evening NA, DST ignored. Rules at ncccsprint.com/{rules,rttyns,ft4ns}.html, NOT nccc.cc. THIS IS NCCC'S CONTEST, NOT NCJ'S -- it was attributed to NCJ before verification. Entrant eligibility is inferred from the absence of a clause and stays unverified."
+    },
+    {
+      "org": "K1USN Radio Club",
+      "country": "US",
+      "url": "https://www.k1usn.com/sst.html",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "K1USN Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-08-16 -- the Slow Speed Test was in the catalog with no registry entry at all. Verified: 'held twice weekly at 0000Z Mondays and 2000Z Fridays'."
+    },
+    {
+      "org": "4 States QRP Group",
+      "country": "US",
+      "url": "https://www.4sqrp.com/SSS/sss_rules_revised_02_2026.pdf",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "4 States QRP Group"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "DONE. Second Sunday Sprint -- monthly, second Sunday night LOCAL, 7-9 PM central. Sponsor-anchored local-time contest: the sponsor states outright that the UTC time moves with CST/CDT."
+    },
+    {
+      "org": "ARS (Adventure Radio Society)",
+      "country": "US",
+      "url": "https://ars-qrp.com/Spartan_Sprint/Spartan_Sprint.html",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Adventure Radio Society"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 2,
+      "status": "partial",
+      "notes": "Spartan Sprint DONE -- first MONDAY of every month US local (Tuesday UTC), 2 hours, 'Does not shift for DST', so sponsor-anchored local time. CORRECTION: it was encoded as the first TUESDAY, which diverges by a full week whenever the 1st is a Tuesday. The working URL is ars-qrp.com, not arsqrp.blogspot.com. Flight of the Bumblebees still to do."
+    },
+    {
+      "org": "Stew Perry / Boring Amateur Radio Club",
+      "country": "US",
+      "url": "https://www.kkn.net/stew/",
+      "url_verified": false,
+      "catalog_sponsors": [],
+      "encoded": 0,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "not-started",
+      "notes": "Topband Challenge -- runs multiple times per year, so it needs either multiple records or a legs array."
+    }
   ],
-
   "tier_5_qso_parties": {
-    "notes": "Roughly 45 US state QSO parties plus Canadian provincial parties. Each has its own sponsoring club and site. The State QSO Party Challenge (stateqsoparty.com) indexes them but is itself an aggregator -- use it only to locate sponsors, then source from each sponsor directly. Florida QSO Party is local priority for GCCC.",
+    "status": "not-started",
+    "encoded": 0,
+    "encoded_verified": 0,
+    "estimated_total": 50,
+    "catalog_sponsors": [],
+    "notes": "Roughly 45 US state QSO parties plus Canadian provincial parties. Each has its own sponsoring club and site. The State QSO Party Challenge (stateqsoparty.com) indexes them but is itself an aggregator -- use it only to locate sponsors, then source from each sponsor directly. Florida QSO Party is local priority for GCCC. NOTE ON SEQUENCING: this tier is 50 more US contests. The catalog is already 71% North American, so working tier 5 before tiers 2 and 3 would make the imbalance worse, not better.",
     "index_for_discovery_only": "https://www.stateqsoparty.com/",
     "local_priority": [
-      { "org": "Florida QSO Party", "url": "https://www.floridaqsoparty.org/", "verified": false },
-      { "org": "Georgia QSO Party", "url": "https://www.georgiaqsoparty.org/", "verified": false },
-      { "org": "Alabama QSO Party", "url": "https://www.alabamaqsoparty.org/", "verified": false },
-      { "org": "South Carolina QSO Party", "url": "https://www.scqso.com/", "verified": false },
-      { "org": "North Carolina QSO Party", "url": "https://www.ncqsoparty.org/", "verified": false },
-      { "org": "Tennessee QSO Party", "url": "https://www.tnqp.org/", "verified": false }
+      {
+        "org": "Florida QSO Party",
+        "url": "https://www.floridaqsoparty.org/",
+        "url_verified": false
+      },
+      {
+        "org": "Georgia QSO Party",
+        "url": "https://www.georgiaqsoparty.org/",
+        "url_verified": false
+      },
+      {
+        "org": "Alabama QSO Party",
+        "url": "https://www.alabamaqsoparty.org/",
+        "url_verified": false
+      },
+      {
+        "org": "South Carolina QSO Party",
+        "url": "https://www.scqso.com/",
+        "url_verified": false
+      },
+      {
+        "org": "North Carolina QSO Party",
+        "url": "https://www.ncqsoparty.org/",
+        "url_verified": false
+      },
+      {
+        "org": "Tennessee QSO Party",
+        "url": "https://www.tnqp.org/",
+        "url_verified": false
+      }
     ]
   },
-
+  "region_map": {
+    "$comment": "Maps a contest record's `country` to the region used in coverage.by_region. Both engines read this rather than hard-coding a mapping. A country in the catalog that is missing here fails a test.",
+    "US": "North America",
+    "CA": "North America",
+    "MX": "North America",
+    "BR": "South America",
+    "AR": "South America",
+    "GB": "Europe",
+    "IE": "Europe",
+    "DE": "Europe",
+    "FR": "Europe",
+    "BE": "Europe",
+    "NL": "Europe",
+    "PL": "Europe",
+    "CZ": "Europe",
+    "SK": "Europe",
+    "IT": "Europe",
+    "ES": "Europe",
+    "PT": "Europe",
+    "CH": "Europe",
+    "AT": "Europe",
+    "HU": "Europe",
+    "BG": "Europe",
+    "RO": "Europe",
+    "RS": "Europe",
+    "HR": "Europe",
+    "SE": "Europe",
+    "NO": "Europe",
+    "DK": "Europe",
+    "FI": "Europe",
+    "LV": "Europe",
+    "LT": "Europe",
+    "EE": "Europe",
+    "RU": "Europe",
+    "UA": "Europe",
+    "ZA": "Africa",
+    "JP": "Asia",
+    "ID": "Asia",
+    "CN": "Asia",
+    "IN": "Asia",
+    "IL": "Asia",
+    "TR": "Asia",
+    "AU": "Oceania",
+    "NZ": "Oceania",
+    "OC": "Oceania",
+    "INTL": "International"
+  },
+  "$region_map_note": "OC is not an ISO country code. It is the code for a contest whose sponsor is a multi-national body inside one region -- currently only the Oceania DX Contest Committee, a joint VK/ZL committee. INTL is the same idea a level up, for a sponsor with no region at all. Neither is a country, and neither should be used where a national society owns the contest.",
+  "coverage": {
+    "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
+    "as_of": "2026-08-19",
+    "total_encoded": 171,
+    "total_verified": 164,
+    "total_retired": 8,
+    "by_tier": {
+      "tier_1_major_international": {
+        "orgs": 8,
+        "orgs_worked": 8,
+        "encoded": 50,
+        "verified": 46,
+        "retired": 0
+      },
+      "tier_2_european_societies": {
+        "orgs": 21,
+        "orgs_worked": 19,
+        "encoded": 59,
+        "verified": 58,
+        "retired": 0
+      },
+      "tier_3_other_regions": {
+        "orgs": 11,
+        "orgs_worked": 5,
+        "encoded": 11,
+        "verified": 10,
+        "retired": 0
+      },
+      "tier_4_specialty_clubs": {
+        "orgs": 15,
+        "orgs_worked": 13,
+        "encoded": 51,
+        "verified": 50,
+        "retired": 8
+      }
+    },
+    "by_region": {
+      "Europe": {
+        "encoded": 85,
+        "verified": 82,
+        "retired": 0
+      },
+      "North America": {
+        "encoded": 62,
+        "verified": 60,
+        "retired": 8
+      },
+      "Oceania": {
+        "encoded": 13,
+        "verified": 13,
+        "retired": 0
+      },
+      "Asia": {
+        "encoded": 5,
+        "verified": 4,
+        "retired": 0
+      },
+      "International": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
+      "Africa": {
+        "encoded": 1,
+        "verified": 0,
+        "retired": 0
+      },
+      "South America": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      }
+    },
+    "by_country": {
+      "US": {
+        "encoded": 60,
+        "verified": 58,
+        "retired": 8
+      },
+      "DE": {
+        "encoded": 18,
+        "verified": 17,
+        "retired": 0
+      },
+      "BE": {
+        "encoded": 12,
+        "verified": 12,
+        "retired": 0
+      },
+      "GB": {
+        "encoded": 6,
+        "verified": 5,
+        "retired": 0
+      },
+      "NZ": {
+        "encoded": 6,
+        "verified": 6,
+        "retired": 0
+      },
+      "ES": {
+        "encoded": 6,
+        "verified": 6,
+        "retired": 0
+      },
+      "CH": {
+        "encoded": 6,
+        "verified": 6,
+        "retired": 0
+      },
+      "AU": {
+        "encoded": 5,
+        "verified": 5,
+        "retired": 0
+      },
+      "INTL": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
+      "JP": {
+        "encoded": 4,
+        "verified": 3,
+        "retired": 0
+      },
+      "FR": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
+      "UA": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
+      "CZ": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
+      "IT": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
+      "HU": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
+      "SE": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "CA": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "OC": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "NL": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "PL": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "AT": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "LV": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "EE": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "LT": {
+        "encoded": 2,
+        "verified": 2,
+        "retired": 0
+      },
+      "ZA": {
+        "encoded": 1,
+        "verified": 0,
+        "retired": 0
+      },
+      "IE": {
+        "encoded": 1,
+        "verified": 0,
+        "retired": 0
+      },
+      "BR": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "ID": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "BG": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "RO": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "HR": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "RS": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      },
+      "RU": {
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
+      }
+    },
+    "thin": {
+      "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
+      "regions_with_nothing": [],
+      "largest_region": "Europe",
+      "largest_region_share_pct": 49.7,
+      "tiers_barely_started": [],
+      "orgs_blocked_at_source": [
+        "GACW",
+        "NRAU",
+        "QRP ARCI",
+        "SARL"
+      ]
+    },
+    "unverified_ids": [
+      "agcw-zap-merit",
+      "arrl-222-and-up",
+      "arrl-january-vhf",
+      "irts-80m-counties",
+      "jarl-new-year-qso-party",
+      "rsgb-afs-cw",
+      "sarl-hf-phone"
+    ],
+    "sponsors_missing_from_registry": []
+  },
   "engine_gaps": [
     {
       "gap": "Weekly and monthly recurrence",
-      "detail": "CWops CWT runs weekly; SKCC Sprint, ARS Spartan Sprint, 4SQRP Second Sunday Sprint and NCCC Sprint run monthly. The current engine produces at most one occurrence per contest per year.",
-      "fix": "Add rule types 'weekly' {weekday, times[]} and 'monthly_nth_weekday' {n, weekday}, and change expand() to return a LIST of occurrences rather than a single one. This materially increases catalog coverage -- these high-frequency contests are a large share of WA7BNM's ~500 entries."
+      "status": "CLOSED",
+      "detail": "CWops CWT runs weekly; SKCC Sprint, ARS Spartan Sprint, 4SQRP Second Sunday Sprint and NCCC Sprint run monthly. The old engine produced at most one occurrence per contest per year.",
+      "fix": "DONE. Rule types `weekly` and `monthly_nth_weekday` added and expand() returns a list. These high-frequency contests are now a large share of the catalog's 648 occurrences for 2026."
     },
     {
       "gap": "Multi-leg contests",
+      "status": "OPEN",
       "detail": "ARRL 10 GHz has two rounds; Stew Perry runs three or four times a year; EME has multiple weekends.",
       "fix": "Currently handled by separate records per leg, which works but duplicates metadata. Consider a 'legs' array on one record."
     },
     {
       "gap": "Sponsor-determined dates",
-      "detail": "ARRL EME dates are set annually based on lunar conditions and have no fixed rule.",
-      "fix": "Add rule type 'manual' with an explicit date table, flagged in the UI as 'confirm with sponsor'."
+      "status": "CLOSED",
+      "detail": "ARRL EME dates are set annually based on lunar conditions and have no fixed rule. NCJ publishes Sprint dates without a recurrence rule, and CQ publishes dates for all eight of its contests without one.",
+      "fix": "DONE. Rule type `manual` takes an explicit date table. Note the CQ case is different and did NOT need it: CQ publishes no rule, but its published dates fit a stable recurrence, which is derivable and testable against eleven years of them. Prefer that over `manual` where the dates actually do follow a rule. The clearest instance found since is RAC Canada Winter (added 2026-08-17): eight dates from eight of RAC's own annual rules PDFs land on the fourth, third, third, third, fifth, third and fourth December Saturday -- and in 2026 on a Sunday. No ordinal fits, so 2027 onward is simply absent from the calendar rather than guessed, which is what `manual` is for."
+    },
+    {
+      "gap": "Contests dated relative to a weekday near a fixed date",
+      "status": "CLOSED 2026-08-17",
+      "detail": "The WIA Remembrance Day Contest runs on the 'weekend in August closest to the 15th' -- neither an ordinal weekday nor a fixed date, and the two readings diverge every year the 15th is not itself a Saturday.",
+      "fix": "DONE. Rule type `nearest_weekday` takes a month, a day and a weekday, and moves at most three days in whichever direction is shorter. It can never be ambiguous: a tie would need a distance of 3.5 days, which does not exist because seven is odd. All seven cases are pinned by test in both engines, against WIA's published 2023 (August 12) and 2026 (August 15) dates."
+    },
+    {
+      "gap": "Weekly contests that run only in some months",
+      "status": "CLOSED 2026-08-17",
+      "detail": "NZART's ZL Autumn and Winter Sprints run 'each Tuesday in April and August' and on no other Tuesday. `weekly` covered the whole year and `composite` was the obvious workaround.",
+      "fix": "DONE. `weekly` now takes the same optional `months` key `monthly_nth_weekday` already had. The composite workaround was tried first and rejected: it would have to name a fifth Tuesday, neither April nor August 2026 has one, and the sub-call raises rather than returning nothing -- so the whole contest would have vanished that year."
     },
     {
       "gap": "Local-time contests",
@@ -121,15 +1182,30 @@
       "fix": "DONE. `local_time` retired. Sponsor-anchored records carry an IANA `timezone` plus `wall_clock` time specs, resolved through stdlib `zoneinfo`. Operator-anchored records carry `local_rolling` and expose no UTC instant at all (start/end are None). Both DST edges pinned by test. Windows needs `tzdata`; see requirements.txt. NOTE: no catalog record is operator-anchored today -- the capability is tested against a synthetic definition so the next one found does not get a fabricated instant."
     }
   ],
-
   "estimated_scope": {
-    "tier_1": { "contests": 89, "hours": 8 },
-    "tier_2": { "contests": 72, "hours": 12 },
-    "tier_3": { "contests": 37, "hours": 8 },
-    "tier_4": { "contests": 62, "hours": 10 },
-    "tier_5": { "contests": 50, "hours": 12 },
-    "total_contests": 310,
+    "$comment": "Pre-research estimates, kept for planning only. Compare against `coverage`, which is generated. See counts_are_estimates.",
+    "tier_1": {
+      "estimated_total": 89,
+      "hours": 8
+    },
+    "tier_2": {
+      "estimated_total": 72,
+      "hours": 12
+    },
+    "tier_3": {
+      "estimated_total": 37,
+      "hours": 8
+    },
+    "tier_4": {
+      "estimated_total": 61,
+      "hours": 10
+    },
+    "tier_5": {
+      "estimated_total": 50,
+      "hours": 12
+    },
+    "total_contests": 309,
     "total_hours": 50,
-    "note": "Reaching WA7BNM's ~500 requires the long tail of small regional and weekly events, which is where the remaining effort compounds. 310 well-sourced contests covers essentially everything an active contester would ever enter."
+    "note": "Reaching WA7BNM's ~500 requires the long tail of small regional and weekly events, which is where the remaining effort compounds. 309 well-sourced contests covers essentially everything an active contester would ever enter. Two of these estimates are known to be unreachable as written: QRP ARCI's 8 are blocked at source and SARL's 10 are behind a dead host, so ~18 of the 309 need a human before they need an engineer."
   }
 }

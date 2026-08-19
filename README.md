@@ -68,12 +68,15 @@ The engine is proved against two unrelated sponsors on two continents:
   independently published 2026 date table
 - **RSGB** — "the contest always takes place over the last FULL weekend of July"
   generates IOTA at Jul 25–26 1200Z, matching RSGB's published 2026 dates
+- **ORARI** — the best-evidenced record in the catalog: the sponsor states the rule
+  ("Every June 2nd Weekend") *and* lists the next four years' dates, and the rule
+  reproduces all four
 
 Plus CWops, K1USN, SKCC and NCJ — all generating dates that match each sponsor's own
 published 2026 schedule.
 
 ```
-52 passed
+311 passed
 ```
 
 ---
@@ -87,6 +90,7 @@ pip install -r requirements.txt
 
 python scripts/validate.py          # regenerate + check against sponsor tables
 python scripts/check_links.py       # verify every sponsor rules link is live
+python scripts/coverage.py --check  # where the catalog is thin, by tier and region
 pytest -q                           # full suite
 ```
 
@@ -107,12 +111,13 @@ for o in mine[:5]:
 ## Layout
 
 ```
-contestcal/recurrence.py     rules engine -- 7 rule types, eligibility, link resolution
+contestcal/recurrence.py     rules engine -- 9 rule types, eligibility, link resolution
 data/contests.seed.json      the catalog
-data/sources.registry.json   global sponsor registry, 5 tiers, ~60 organisations
+data/sources.registry.json   global sponsor registry, 5 tiers, 55 organisations + tier 5
 scripts/validate.py          regenerate and check against sponsor date tables
 scripts/check_links.py       sponsor link rot checker (run monthly in CI)
-tests/                       42 tests
+scripts/coverage.py          regenerate the registry's coverage block from the catalog
+tests/                       311 tests
 BUILD_BRIEF.md               full architecture and phased plan
 HANDOVER.md                  start here if you're picking this up
 ```
@@ -124,14 +129,15 @@ HANDOVER.md                  start here if you're picking this up
 | `nth_full_weekend` | most HF contests | Field Day = 4th full weekend of June |
 | `nth_weekday` | single-day events | Rookie Roundup = 3rd Sunday |
 | `fixed_date` | calendar-fixed | Straight Key Night = Jan 1 |
+| `nearest_weekday` | weekday nearest a fixed date | WIA Remembrance Day = Saturday nearest Aug 15 |
 | `monthly_nth_weekday` | monthly sprints | Spartan Sprint = 1st Monday |
-| `weekly` | weekly tests | CWops CWT = every Wednesday |
+| `weekly` | weekly tests, optionally in named months only | CWops CWT = every Wednesday; NZART sprints = Tuesdays in April and August |
 | `multi_weekend` | several sessions/yr | Stew Perry Topband |
 | `manual` | sponsor sets annually | ARRL EME (lunar conditions) |
 | `composite` | seasons with different rules | NAQP RTTY (last-Sat-Feb + 3rd-wknd-Jul) |
 
-Weekly and monthly types matter most for coverage: **84 definitions currently produce
-648 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
+Weekly and monthly types matter most for coverage: **171 definitions currently produce
+777 occurrences**, because CWT alone is 208. Encoding high-frequency club contests fills
 hundreds of calendar slots — far better coverage-per-hour than once-a-year regional
 events.
 
@@ -144,7 +150,7 @@ under `data/` — the catalog is never duplicated, because two copies drift.
 Keeping them honest takes two layers:
 
 - `engine/tests/recurrence.test.ts` mirrors `tests/test_recurrence.py` one-for-one — same
-  names, same assertions, same sponsor-published tables. Both suites are 116 tests.
+  names, same assertions, same sponsor-published tables. Both suites are 311 tests.
 - `engine/tests/parity.test.ts` compares **every field of every occurrence** for four years
   against output from the Python engine. Shared assertions prove both engines satisfy the
   same rules; only a full diff proves they agree on the fields nobody asserted on.
@@ -196,11 +202,50 @@ depends on being global.
 Plus `practical` for contests that are open but unrewarding from a given location. That's
 advice, not a filter.
 
+## Modes and bands
+
+Both are controlled sets, so they can be filtered on. A field that is free text is a field
+nothing can query.
+
+```
+modes   CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+bands   160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
+```
+
+`modes` keeps the sponsor's own order — `CW/SSB`, not the vocabulary's. The specifics a
+small set deliberately drops are kept beside it as free text and displayed, never filtered
+on: `submodes` ("PSK31", "RTTY 75 baud") and `bands_note` ("10 GHz through light").
+
+Filtering widens, records do not. A record says exactly what the sponsor permits;
+**`Digital` as a *query* matches Digital, RTTY and FT8/FT4**, and every specific mode also
+matches `Mixed`. So someone filtering "Digital" gets FT8 results without the ARRL RTTY
+Roundup ever being described as anything but RTTY.
+
+**Empty `bands` means unrecorded, not unbanded** — one record is in that state today,
+because SARL's rules page has an expired certificate. Every band filter necessarily
+excludes it, and every consumer that filters is expected to say so rather than let the
+contest vanish. Same rule as `verified: false`: the gaps are published, not hidden.
+
 ---
 
 ## Status
 
-**41 contest definitions → 386 occurrences for 2026. 26 verified at source.**
+**171 contest definitions → 777 occurrences for 2026. 164 verified at source**, with the
+remaining 7 carrying a `note` that says what is unconfirmed and why.
+
+**Europe is now the largest region, and North America is no longer a majority of anything.**
+85 of the 171 records are European (49.7%, up from 13% in July), 62 North American (36.3%,
+down from 71%), 13 Oceanian, 5 Asian, 4 international, 1 African and 1 South American. Asia,
+Oceania and South America came off zero on 2026-08-17 with JARL, RAC, WIA, the Oceania DX
+Contest Committee, NZART, LABRE and ORARI; Europe went from 19 records to 51 on 2026-08-18
+with REF, UBA, VERON, PZK / SP DX Club, PK RVG, CRK / SARA, ARI and URE, to 59 with DARC —
+which also finished the Tier 1 organisations, all eight now worked — and to 85 on 2026-08-19
+with USKA, ÖVSV, MRASZ, BFRA, FRR, SRS, HRS, LRAL, ERAU, LRMD, SRR and UARL. Africa and
+South America are now the thin ones — one record each. A region with zero contests is a worse gap than an unverified record,
+because it is simply invisible to every operator who lives there. The numbers
+are generated from the catalog by `scripts/coverage.py` into
+`data/sources.registry.json`'s `coverage` block and re-derived by a test in both engines,
+so they cannot quietly go stale the way the registry's original hand-written estimates did.
 
 Two corrections surfaced during verification, both now pinned by tests:
 
@@ -209,7 +254,14 @@ Two corrections surfaced during verification, both now pinned by tests:
 - **"Last Saturday" ≠ "last full weekend".** NAQP RTTY starts the last Saturday in
   February — Feb 28 in 2026, whose Sunday falls in March. Required a `composite` rule type.
 
-Next: finish Tier 4 clubs, then resolve the 8 CQ records. See `HANDOVER.md`.
+A third correction came out of making `modes` a controlled set: **ARRL RTTY Roundup was
+recorded as RTTY and Digital, and ARRL permits RTTY only** — *"Only contacts using
+Radioteletype (RTTY) mode are allowed."* Free text hid it; a vocabulary surfaced it.
+
+Next: resolve the 8 CQ records (bands are read at source, the recurrence rules are not),
+and fill Africa and South America — one record each, and the thinnest part of the catalog.
+Two Tier 2 European societies are left, REP and NRAU, and NRAU is blocked at source: its
+site says its contest information is under revision. See `HANDOVER.md`.
 
 ## License
 

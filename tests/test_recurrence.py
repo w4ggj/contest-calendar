@@ -21,6 +21,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from contestcal import load_catalog, load_registry  # noqa: E402
 from contestcal.recurrence import (  # noqa: E402
+    CATALOG_BANDS,
+    CATALOG_MODES,
+    NoAnchorsThisYear,
     _full_weekends_in_month,
     _saturdays_in_month,
     eligibility_for,
@@ -261,6 +264,114 @@ def test_registry_flags_derived_sources():
     assert any("SM3CER" in n for n in derived)
 
 
+REGISTRY_TIERS = [
+    "tier_1_major_international",
+    "tier_2_european_societies",
+    "tier_3_other_regions",
+    "tier_4_specialty_clubs",
+]
+
+
+def _registry_owner(reg):
+    """sponsor string -> (tier key, org name). The registry declares this join."""
+    owner = {}
+    for tier in REGISTRY_TIERS:
+        for org in reg[tier]:
+            for sponsor in org["catalog_sponsors"]:
+                assert sponsor not in owner, f"{sponsor} claimed by two orgs"
+                owner[sponsor] = (tier, org["org"])
+    return owner
+
+
+def _tally(rows):
+    return (
+        len(rows),
+        sum(1 for c in rows if c.get("verified")),
+        sum(1 for c in rows if "active_until" in c),
+    )
+
+
+def test_registry_coverage_is_current(catalog):
+    """
+    The `coverage` block and every per-org `encoded` count are generated from
+    the catalog by scripts/coverage.py. This recomputes them from scratch
+    rather than importing that script: a generator that checks its own output
+    is grading its own homework.
+
+    Stale counts are the specific failure being guarded. The registry's
+    hand-written `estimated_total` figures went stale silently -- 10-10 was
+    listed at four QSO Parties and runs three -- and a sourcing pass planned
+    against numbers that were never true wastes the pass. Anything stating how
+    much of the catalog exists therefore has to be derived from the catalog.
+    """
+    reg = load_registry()
+    owner = _registry_owner(reg)
+    regions = {k: v for k, v in reg["region_map"].items() if not k.startswith("$")}
+    cov = reg["coverage"]
+
+    for c in catalog:
+        assert c["sponsor"] in owner, f"{c['id']}: sponsor {c['sponsor']!r} unregistered"
+        assert c.get("country") in regions, f"{c['id']}: country not in region_map"
+
+    assert (cov["total_encoded"], cov["total_verified"], cov["total_retired"]) == _tally(
+        catalog
+    )
+    assert cov["sponsors_missing_from_registry"] == []
+    assert cov["unverified_ids"] == sorted(
+        c["id"] for c in catalog if not c.get("verified")
+    )
+
+    for tier in REGISTRY_TIERS:
+        for org in reg[tier]:
+            rows = [c for c in catalog if owner[c["sponsor"]] == (tier, org["org"])]
+            encoded, verified, _retired = _tally(rows)
+            assert org["encoded"] == encoded, f"{org['org']}: encoded"
+            assert org["encoded_verified"] == verified, f"{org['org']}: encoded_verified"
+
+        row = cov["by_tier"][tier]
+        rows = [c for c in catalog if owner[c["sponsor"]][0] == tier]
+        assert (row["encoded"], row["verified"], row["retired"]) == _tally(rows), tier
+        assert row["orgs"] == len(reg[tier]), tier
+        assert row["orgs_worked"] == sum(1 for o in reg[tier] if o["encoded"] > 0), tier
+
+    for country in set(regions):
+        rows = [c for c in catalog if c["country"] == country]
+        if rows:
+            row = cov["by_country"][country]
+            assert (row["encoded"], row["verified"], row["retired"]) == _tally(rows)
+        else:
+            assert country not in cov["by_country"], country
+
+    for region in set(regions.values()):
+        rows = [c for c in catalog if regions[c["country"]] == region]
+        if rows:
+            row = cov["by_region"][region]
+            assert (row["encoded"], row["verified"], row["retired"]) == _tally(rows)
+        else:
+            # A region with nothing in it is invisible to every operator who
+            # lives there, so it is named out loud rather than merely absent.
+            assert region not in cov["by_region"], region
+            assert region in cov["thin"]["regions_with_nothing"], region
+
+    thin = cov["thin"]
+    biggest = max(cov["by_region"].items(), key=lambda kv: kv[1]["encoded"])
+    assert thin["largest_region"] == biggest[0]
+    assert thin["largest_region_share_pct"] == round(
+        100.0 * biggest[1]["encoded"] / len(catalog), 1
+    )
+    assert thin["tiers_barely_started"] == sorted(
+        t
+        for t in REGISTRY_TIERS
+        if len(reg[t]) > 1 and sum(1 for o in reg[t] if o["encoded"] > 0) <= 1
+    )
+    assert thin["orgs_blocked_at_source"] == sorted(
+        o["org"]
+        for t in REGISTRY_TIERS
+        for o in reg[t]
+        if o.get("status") == "blocked"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Tier 4 sponsor validation -- high-frequency club contests
 # ---------------------------------------------------------------------------
@@ -335,6 +446,244 @@ def test_naqp_is_twelve_hours(catalog):
     for cid in NAQP_2026:
         for o in expand(by_id(catalog, cid), 2026):
             assert 11.9 < o.duration_hours < 12.1
+
+
+# ---------------------------------------------------------------------------
+# CQ Magazine -- the eight CQ contests.
+#
+# CQ is the one sponsor in this catalog that publishes almost no recurrence
+# wording at all. Its five rules pages state the period ("Starts 00:00:00 UTC
+# Saturday Ends 23:59:59 UTC Sunday") and that year's dates, and stop there. A
+# sweep of every archived rules document on CQ's own five sites for 2016-2026
+# turned up exactly one recurrence sentence, in the 2016 WPX rules:
+#
+#     "Each contest mode is a separate event running from 0000 UTC Saturday
+#      until 2359 UTC Sunday. SSB is the last full weekend of March and CW is
+#      the last full weekend of May."
+#
+# So seven of the eight rules are held to CQ's own published dates rather than
+# to CQ's prose, and these tables are what makes that safe. Two independent
+# CQ-published fields are checked: the contest dates CQ prints in the header of
+# each year's rules, and the explicit log deadline CQ prints inside them.
+# ---------------------------------------------------------------------------
+
+# Dates CQ printed in the header of its own rules for that year. For CQ 160
+# that is the 2200Z Friday start ("CW: 2200Z January 23 to 2200Z January 25");
+# for the rest it is the 0000Z Saturday start.
+CQ_PRINTED_DATES = {
+    "cq-160-cw": [
+        (2016, date(2016, 1, 29)), (2017, date(2017, 1, 27)),
+        (2018, date(2018, 1, 26)), (2019, date(2019, 1, 25)),
+        (2020, date(2020, 1, 24)), (2021, date(2021, 1, 29)),
+        (2022, date(2022, 1, 28)), (2023, date(2023, 1, 27)),
+        (2024, date(2024, 1, 26)), (2025, date(2025, 1, 24)),
+        (2026, date(2026, 1, 23)),
+    ],
+    "cq-160-ssb": [
+        (2016, date(2016, 2, 26)), (2017, date(2017, 2, 24)),
+        (2018, date(2018, 2, 23)), (2019, date(2019, 2, 22)),
+        (2020, date(2020, 2, 21)), (2021, date(2021, 2, 26)),
+        (2022, date(2022, 2, 25)), (2023, date(2023, 2, 24)),
+        (2024, date(2024, 2, 23)), (2025, date(2025, 2, 21)),
+        (2026, date(2026, 2, 27)),
+    ],
+    "cq-wpx-ssb": [
+        (2021, date(2021, 3, 27)), (2023, date(2023, 3, 25)),
+        (2024, date(2024, 3, 30)), (2025, date(2025, 3, 29)),
+        (2026, date(2026, 3, 28)),
+    ],
+    "cq-wpx-cw": [
+        (2021, date(2021, 5, 29)), (2023, date(2023, 5, 27)),
+        (2024, date(2024, 5, 25)), (2025, date(2025, 5, 24)),
+        (2026, date(2026, 5, 30)),
+    ],
+    # 2025 is deliberately absent: CQ's own WPX_RTTY_Rules_2025_en.pdf is
+    # headed "February 10-11, 2024", which were the 2024 dates. The log
+    # deadline in that same PDF puts the 2025 running on February 8-9, and the
+    # deadline table below is what pins it.
+    "cq-wpx-rtty": [
+        (2022, date(2022, 2, 12)), (2024, date(2024, 2, 10)),
+        (2026, date(2026, 2, 14)),
+    ],
+    "cq-ww-rtty": [
+        (2016, date(2016, 9, 24)), (2017, date(2017, 9, 23)),
+        (2019, date(2019, 9, 28)), (2021, date(2021, 9, 25)),
+        (2022, date(2022, 9, 24)), (2023, date(2023, 9, 23)),
+        (2024, date(2024, 9, 28)), (2025, date(2025, 9, 27)),
+        (2026, date(2026, 9, 26)),
+    ],
+    # CQ has not published 2026 CQ WW rules; cqww.com still serves the 2025 set.
+    "cq-ww-ssb": [
+        (2016, date(2016, 10, 29)), (2019, date(2019, 10, 26)),
+        (2020, date(2020, 10, 24)), (2021, date(2021, 10, 30)),
+        (2022, date(2022, 10, 29)), (2023, date(2023, 10, 28)),
+        (2024, date(2024, 10, 26)), (2025, date(2025, 10, 25)),
+    ],
+    "cq-ww-cw": [
+        (2016, date(2016, 11, 26)), (2019, date(2019, 11, 23)),
+        (2020, date(2020, 11, 28)), (2021, date(2021, 11, 27)),
+        (2022, date(2022, 11, 26)), (2023, date(2023, 11, 25)),
+        (2024, date(2024, 11, 23)), (2025, date(2025, 11, 29)),
+    ],
+}
+
+
+@pytest.mark.parametrize("cid,published", sorted(CQ_PRINTED_DATES.items()))
+def test_cq_matches_the_dates_cq_printed_in_its_own_rules(catalog, cid, published):
+    c = by_id(catalog, cid)
+    for year, expected in published:
+        occ = expand(c, year)
+        assert occ, f"{cid} produced nothing for {year}"
+        assert occ[0].start.date() == expected, (
+            f"{cid} {year}: engine gave {occ[0].start.date()}, "
+            f"CQ printed {expected}"
+        )
+
+
+# The log deadline CQ printed inside each year's rules, as (year, window days,
+# deadline date). The window is CQ's own: "All entries must be sent WITHIN FIVE
+# (5) DAYS after the end of the contest" through 2025, and "WITHIN 48 HOURS"
+# from 2026 for WPX, WPX RTTY and WW RTTY. Checking end + window against the
+# printed deadline reaches the years whose header text would not extract, and
+# is a second CQ-published field rather than a restatement of the first.
+CQ_PRINTED_DEADLINES = {
+    "cq-160-cw": [
+        (2016, 5, date(2016, 2, 5)), (2017, 5, date(2017, 2, 3)),
+        (2018, 5, date(2018, 2, 2)), (2021, 5, date(2021, 2, 5)),
+        (2022, 5, date(2022, 2, 4)), (2023, 5, date(2023, 2, 3)),
+        (2024, 5, date(2024, 2, 2)), (2025, 5, date(2025, 1, 31)),
+        (2026, 5, date(2026, 1, 30)),
+    ],
+    "cq-160-ssb": [
+        (2016, 5, date(2016, 3, 4)), (2017, 5, date(2017, 3, 3)),
+        (2018, 5, date(2018, 3, 2)), (2020, 5, date(2020, 2, 28)),
+        (2021, 5, date(2021, 3, 5)), (2022, 5, date(2022, 3, 4)),
+        (2023, 5, date(2023, 3, 3)), (2024, 5, date(2024, 3, 1)),
+        (2025, 5, date(2025, 2, 28)), (2026, 5, date(2026, 3, 6)),
+    ],
+    "cq-wpx-ssb": [
+        (2016, 5, date(2016, 4, 1)), (2017, 5, date(2017, 3, 31)),
+        (2018, 5, date(2018, 3, 30)), (2019, 5, date(2019, 4, 5)),
+        (2020, 5, date(2020, 4, 3)), (2021, 5, date(2021, 4, 2)),
+        (2022, 5, date(2022, 4, 1)), (2023, 5, date(2023, 3, 31)),
+        (2024, 5, date(2024, 4, 5)), (2025, 5, date(2025, 4, 4)),
+        (2026, 2, date(2026, 3, 31)),
+    ],
+    "cq-wpx-cw": [
+        (2016, 5, date(2016, 6, 3)), (2017, 5, date(2017, 6, 2)),
+        (2018, 5, date(2018, 6, 1)), (2019, 5, date(2019, 5, 31)),
+        (2020, 5, date(2020, 6, 5)), (2021, 5, date(2021, 6, 4)),
+        (2022, 5, date(2022, 6, 3)), (2023, 5, date(2023, 6, 2)),
+        (2024, 5, date(2024, 5, 31)), (2025, 5, date(2025, 5, 30)),
+        (2026, 2, date(2026, 6, 2)),
+    ],
+    "cq-wpx-rtty": [
+        (2016, 5, date(2016, 2, 19)), (2017, 5, date(2017, 2, 17)),
+        (2018, 5, date(2018, 2, 16)), (2019, 5, date(2019, 2, 15)),
+        (2020, 5, date(2020, 2, 14)), (2021, 5, date(2021, 2, 19)),
+        (2022, 5, date(2022, 2, 18)), (2023, 5, date(2023, 2, 17)),
+        (2024, 5, date(2024, 2, 16)), (2025, 5, date(2025, 2, 14)),
+        (2026, 2, date(2026, 2, 17)),
+    ],
+    "cq-ww-rtty": [
+        (2016, 5, date(2016, 9, 30)), (2017, 5, date(2017, 9, 29)),
+        (2018, 5, date(2018, 10, 5)), (2019, 5, date(2019, 10, 4)),
+        (2020, 5, date(2020, 10, 2)), (2021, 5, date(2021, 10, 1)),
+        (2022, 5, date(2022, 9, 30)), (2023, 5, date(2023, 9, 29)),
+        (2024, 5, date(2024, 10, 4)), (2025, 5, date(2025, 10, 3)),
+        (2026, 2, date(2026, 9, 29)),
+    ],
+    "cq-ww-ssb": [
+        (2016, 5, date(2016, 11, 4)), (2017, 5, date(2017, 11, 3)),
+        (2018, 5, date(2018, 11, 2)), (2019, 5, date(2019, 11, 1)),
+        (2020, 5, date(2020, 10, 30)), (2021, 5, date(2021, 11, 5)),
+        (2022, 5, date(2022, 11, 4)), (2023, 5, date(2023, 11, 3)),
+        (2024, 5, date(2024, 11, 1)), (2025, 5, date(2025, 10, 31)),
+    ],
+    "cq-ww-cw": [
+        (2016, 5, date(2016, 12, 2)), (2017, 5, date(2017, 12, 1)),
+        (2018, 5, date(2018, 11, 30)), (2019, 5, date(2019, 11, 29)),
+        (2020, 5, date(2020, 12, 4)), (2021, 5, date(2021, 12, 3)),
+        (2022, 5, date(2022, 12, 2)), (2023, 5, date(2023, 12, 1)),
+        (2024, 5, date(2024, 11, 29)), (2025, 5, date(2025, 12, 5)),
+    ],
+}
+
+
+@pytest.mark.parametrize("cid,published", sorted(CQ_PRINTED_DEADLINES.items()))
+def test_cq_end_dates_match_the_log_deadlines_cq_printed(catalog, cid, published):
+    c = by_id(catalog, cid)
+    for year, window, deadline in published:
+        occ = expand(c, year)
+        assert occ, f"{cid} produced nothing for {year}"
+        o = occ[0]
+        assert o.end.date() + timedelta(days=window) == deadline, (
+            f"{cid} {year}: engine ends {o.end.date()}, +{window}d misses "
+            f"CQ's printed deadline {deadline}"
+        )
+        # Where the year's window is the one on the record, log_due -- the
+        # field the site actually shows -- must land on CQ's printed instant,
+        # time included. CQ prints "2359 UTC" for the weekend contests and
+        # "2200z" for CQ 160, which is exactly end + window.
+        if window == c["log_deadline_days"]:
+            assert o.log_due == datetime.combine(
+                deadline, o.end.timetz()
+            ), f"{cid} {year}: log_due {o.log_due} != CQ's {deadline}"
+
+
+def test_cq_160_ssb_is_the_fourth_saturday_not_the_last_anything(catalog):
+    """
+    The one CQ rule that neither "last full weekend" nor "last Saturday"
+    explains. CQ settles it in both directions with its own dates: 2020 ran
+    2200Z Feb 21 (the last Saturday was Feb 29) and 2026 runs 2200Z Feb 27 to
+    2200Z Mar 1 (the last full weekend was Feb 21-22). Only the fourth Saturday
+    of February fits both, and the CW running in January is a different rule
+    again -- there, the last full weekend fits all eleven years.
+    """
+    ssb = by_id(catalog, "cq-160-ssb")
+
+    twenty = expand(ssb, 2020)[0]
+    assert twenty.start.date() == date(2020, 2, 21)  # Friday before Sat Feb 22
+    assert twenty.start.date() != date(2020, 2, 28)  # not the Sat Feb 29 weekend
+
+    six = expand(ssb, 2026)[0]
+    assert six.start.date() == date(2026, 2, 27)
+    assert six.start.date() != date(2026, 2, 20)  # not the last full weekend
+    assert six.end.date() == date(2026, 3, 1)  # spills into March
+
+    # January's CW running really is the last full weekend: in 2026 the last
+    # Saturday is Jan 31, whose Sunday falls in February, and CQ ran Jan 24-25.
+    cw = expand(by_id(catalog, "cq-160-cw"), 2026)[0]
+    assert cw.start.date() == date(2026, 1, 23)
+    assert cw.end.date() == date(2026, 1, 25)
+
+
+CQ_WEEKEND_CONTESTS = [
+    "cq-wpx-ssb", "cq-wpx-cw", "cq-wpx-rtty",
+    "cq-ww-ssb", "cq-ww-cw", "cq-ww-rtty",
+]
+
+
+@pytest.mark.parametrize("cid", CQ_WEEKEND_CONTESTS)
+def test_cq_weekend_contests_run_0000_saturday_to_2359_sunday(catalog, cid):
+    """CQ states the period identically on all four weekend rules pages."""
+    o = expand(by_id(catalog, cid), 2026)[0]
+    assert o.start.weekday() == 5
+    assert (o.start.hour, o.start.minute) == (0, 0)
+    assert o.end.weekday() == 6
+    assert (o.end.hour, o.end.minute) == (23, 59)
+    assert 47.9 < o.duration_hours < 48.1
+
+
+@pytest.mark.parametrize("cid", ["cq-160-cw", "cq-160-ssb"])
+def test_cq_160_is_48_hours_from_2200z_friday(catalog, cid):
+    """cq160.com: 'Each contest is 48 hours long and starts at 2200Z.'"""
+    o = expand(by_id(catalog, cid), 2026)[0]
+    assert o.start.weekday() == 4  # Friday
+    assert (o.start.hour, o.start.minute) == (22, 0)
+    assert o.end.weekday() == 6  # Sunday
+    assert (o.end.hour, o.end.minute) == (22, 0)
+    assert 47.9 < o.duration_hours < 48.1
 
 
 NCJ_SPRINT_2026 = {
@@ -482,12 +831,18 @@ def test_sponsor_anchored_contests_declare_a_zone_and_explain_it(catalog):
     mark its time specs wall_clock, and explain the UTC consequence -- or a
     reader will trust a UTC instant that is an hour wrong for half the year.
     """
-    for cid in ("4sqrp-sss", "ars-spartan-sprint"):
+    for cid in ("4sqrp-sss", "ars-spartan-sprint", "nzart-jock-white-field-day"):
         c = by_id(catalog, cid)
         assert c.get("timezone"), f"{cid} has no timezone"
         assert c["start"].get("wall_clock") is True, cid
         assert c["end"].get("wall_clock") is True, cid
         assert "UTC" in c["note"], cid
+        # A sessioned contest is expanded from `sessions`, not from the
+        # top-level pair, so an unmarked session would silently be resolved as
+        # UTC no matter what the top-level specs say.
+        for s in c.get("sessions", []):
+            assert s["start"].get("wall_clock") is True, cid
+            assert s["end"].get("wall_clock") is True, cid
 
 
 # ---------------------------------------------------------------------------
@@ -917,6 +1272,1245 @@ def test_suspended_contests_explain_themselves(catalog):
 
 
 # ---------------------------------------------------------------------------
+# Sponsor validation -- JARL, RAC, WIA, Oceania DX, NZART, LABRE, ORARI
+#
+# The pass that opened Asia, Oceania and South America. Every rule below is
+# encoded from the sponsor's own wording; every date below was published by the
+# same sponsor separately from that wording, on the same page or in an earlier
+# year's rules. The rule goes in the catalog, the dates are the check, and
+# neither came from an aggregator.
+# ---------------------------------------------------------------------------
+
+WORLD_PUBLISHED = {
+    "jarl-aa-dx-cw": (
+        "third Saturday in June",
+        [(2026, 6, 20)],
+    ),
+    "jarl-aa-dx-phone": (
+        "first Saturday in September",
+        [(2026, 9, 5)],
+    ),
+    "jarl-ww-rtty": (
+        "third Saturday in October",
+        [(2026, 10, 17)],
+    ),
+    "rac-canada-day": (
+        "Canada Day, July 1",
+        [(2025, 7, 1), (2026, 7, 1)],
+    ),
+    "wia-remembrance-day": (
+        "weekend in August closest to the 15th",
+        [(2023, 8, 12), (2026, 8, 15)],
+    ),
+    "wia-john-moyle-field-day": (
+        "3rd full weekend in March",
+        [(2026, 3, 21)],
+    ),
+    "wia-vk-shires": (
+        "weekend prior to the second Monday of June",
+        [(2026, 6, 6), (2027, 6, 12)],
+    ),
+    "wia-harry-angel-sprint": (
+        "first Saturday in May",
+        [(2026, 5, 2)],
+    ),
+    "wia-trans-tasman": (
+        "Saturday night of the third full weekend of July",
+        [(2026, 7, 18)],
+    ),
+    "ocdx-phone": (
+        "first full weekend in October",
+        [(2024, 10, 5), (2026, 10, 3)],
+    ),
+    "ocdx-cw": (
+        "second full weekend in October",
+        [(2024, 10, 12), (2026, 10, 10)],
+    ),
+    "nzart-jock-white-field-day": (
+        "last full weekend in February, moved a week when February has only three",
+        [(2026, 2, 28), (2027, 2, 27)],
+    ),
+    "nzart-sangster-shield": (
+        "third Saturday of May",
+        [(2026, 5, 16)],
+    ),
+    "nzart-memorial-contest": (
+        "first Saturday in July",
+        [(2026, 7, 4)],
+    ),
+    "labre-dx": (
+        "3rd (third) weekend of July",
+        [(2026, 7, 18)],
+    ),
+    "orari-north-jakarta-dx": (
+        "every June 2nd weekend",
+        [(2026, 6, 13), (2027, 6, 12), (2028, 6, 10), (2029, 6, 9)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(WORLD_PUBLISHED.items())
+])
+def test_world_sponsors_match_their_own_published_dates(catalog, cid, rule, published):
+    c = by_id(catalog, cid)
+    for y, m, day in published:
+        occ = expand(c, y)
+        assert occ, f"{cid} produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
+
+
+# WIA: "Weekend in August closest to the 15th". Seven years, seven weekdays for
+# the 15th, so the whole table is covered -- 2019 is skipped only because it
+# would repeat a weekday. The rule can never be ambiguous: the nearest instance
+# of a weekday is at most three days away, and a tie would need a distance of
+# 3.5, which does not exist because seven is odd.
+REMEMBRANCE_DAY_SHIFTS = [
+    (2018, 2, 18),   # the 15th is a Wednesday -> forward 3
+    (2020, 5, 15),   # ...a Saturday           -> already there
+    (2021, 6, 14),   # ...a Sunday             -> back 1
+    (2022, 0, 13),   # ...a Monday             -> back 2
+    (2023, 1, 12),   # ...a Tuesday            -> back 3
+    (2024, 3, 17),   # ...a Thursday           -> forward 2
+    (2025, 4, 16),   # ...a Friday             -> forward 1
+]
+
+
+@pytest.mark.parametrize("year,weekday_of_15th,day", REMEMBRANCE_DAY_SHIFTS)
+def test_nearest_weekday_resolves_every_case_to_a_saturday(
+    catalog, year, weekday_of_15th, day
+):
+    assert date(year, 8, 15).weekday() == weekday_of_15th
+    anchors = resolve_anchors(
+        by_id(catalog, "wia-remembrance-day")["recurrence"], year
+    )
+    assert anchors == [date(year, 8, day)]
+    assert anchors[0].weekday() == 5
+    assert abs((anchors[0] - date(year, 8, 15)).days) <= 3
+
+
+# RAC's own rules PDFs, one per year. The December Saturday ordinal is 4th,
+# 3rd, 3rd, 3rd, 5th, 4th, 3rd -- and 2026 is not a Saturday at all.
+RAC_WINTER_PUBLISHED = [
+    (2019, 12, 28), (2020, 12, 19), (2021, 12, 18), (2022, 12, 17),
+    (2023, 12, 30), (2024, 12, 28), (2025, 12, 20), (2026, 12, 27),
+]
+
+
+def test_rac_canada_winter_reproduces_every_date_rac_published(catalog):
+    c = by_id(catalog, "rac-canada-winter")
+    for y, m, day in RAC_WINTER_PUBLISHED:
+        occ = expand(c, y)
+        assert occ, f"rac-canada-winter produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day)
+
+
+def test_rac_canada_winter_is_manual_because_no_rule_fits(catalog):
+    """
+    The point of `manual` is that it is used only where a rule would be a guess.
+    RAC announces this date each year: the eight dates it has published are not
+    a consistent ordinal Saturday, and 2026's is a Sunday. A record that fitted
+    an ordinal to them would print confident dates for years RAC has not set.
+    """
+    ordinals = set()
+    for y, m, day in RAC_WINTER_PUBLISHED:
+        d = date(y, m, day)
+        if d.weekday() == 5:
+            ordinals.add(sum(1 for s in _saturdays_in_month(y, m) if s <= d))
+    assert len(ordinals) > 1, "an ordinal Saturday would have fitted after all"
+    assert date(2026, 12, 27).weekday() == 6  # Sunday
+    # ...and the years RAC has not announced are simply absent, not guessed.
+    assert expand(by_id(catalog, "rac-canada-winter"), 2027) == []
+
+
+def test_nzart_field_day_moves_when_february_has_three_full_weekends(catalog):
+    """
+    NZART: 'when February only has three full weekends then field day will be
+    held on Saturday 28th February and Sunday 1st March ... This will occur in
+    2026.' The last-full-weekend Saturday is February 21 exactly when February
+    has 28 days and starts on a Sunday, which is precisely that case, so the
+    exclusion is the rule rather than a patch over one year.
+    """
+    c = by_id(catalog, "nzart-jock-white-field-day")
+    assert len(_full_weekends_in_month(2026, 2)) == 3
+    assert _full_weekends_in_month(2026, 2)[-1] == date(2026, 2, 21)
+    assert expand(c, 2026)[0].start.date() == date(2026, 2, 28)
+    # A four-full-weekend February is untouched by the exclusion.
+    assert len(_full_weekends_in_month(2027, 2)) == 4
+    assert expand(c, 2027)[0].start.date() == date(2027, 2, 27)
+
+
+def test_nzart_field_day_runs_two_sessions_on_new_zealand_time(catalog):
+    """
+    1500-2400 Saturday and 0600-1500 Sunday NZDT. New Zealand is UTC+13 in
+    February, so both sessions land on UTC dates that are not the local ones --
+    which is the whole reason the record is wall-clock rather than UTC.
+    """
+    occ = expand(by_id(catalog, "nzart-jock-white-field-day"), 2026)
+    assert len(occ) == 2
+    assert [o.duration_hours for o in occ] == [9.0, 9.0]
+    assert occ[0].start == datetime(2026, 2, 28, 2, 0, tzinfo=UTC)
+    assert occ[1].end == datetime(2026, 3, 1, 2, 0, tzinfo=UTC)
+
+
+NZART_SPRINT_IDS = ("nzart-sprint-cw", "nzart-sprint-ssb", "nzart-sprint-ft4")
+
+
+@pytest.mark.parametrize("cid", NZART_SPRINT_IDS)
+def test_nzart_sprints_run_every_tuesday_in_april_and_august_only(catalog, cid):
+    """
+    'Each Tuesday in April and August' -- a weekly rule narrowed to a season.
+    Encoded as `weekly` with `months` rather than as a composite of ordinal
+    Tuesdays: neither April nor August 2026 has a fifth Tuesday, and a composite
+    would have to name one, so the whole contest would vanish that year.
+    """
+    occ = expand(by_id(catalog, cid), 2026)
+    assert {o.start.weekday() for o in occ} == {1}  # Tuesday
+    assert {o.start.month for o in occ} == {4, 8}
+    assert len(occ) == 8  # four Tuesdays in each month, 2026
+    assert occ[0].start.date() == date(2026, 4, 7)
+    assert occ[-1].start.date() == date(2026, 8, 25)
+
+
+def test_nzart_sprints_are_three_back_to_back_windows(catalog):
+    """
+    Three modes, three 29-minute windows, one evening, scored separately -- so
+    three records. Each ends one minute before the next begins.
+    """
+    firsts = [expand(by_id(catalog, cid), 2026)[0] for cid in NZART_SPRINT_IDS]
+    assert [o.start.strftime("%H%M") for o in firsts] == ["0800", "0830", "0900"]
+    assert [o.end.strftime("%H%M") for o in firsts] == ["0829", "0859", "0929"]
+    assert len({o.start.date() for o in firsts}) == 1
+
+
+def test_jarl_rtty_log_deadline_is_the_tenth_day_after_the_end(catalog):
+    """
+    JARL: 'Logs must be submitted no later than 24:00 UTC on the 10th day after
+    the end of the contest.' The contest ends at 24:00 UTC on October 18 2026,
+    which this catalog stores as the instant 00:00 on the 19th, so ten days
+    later is 00:00 on the 29th -- 24:00 on the 28th, the tenth day after the
+    18th. The two All Asian legs deliberately carry no deadline field, because
+    the same arithmetic there lands a day past the date JARL prints.
+    """
+    o = expand(by_id(catalog, "jarl-ww-rtty"), 2026)[0]
+    assert o.end == datetime(2026, 10, 19, 0, 0, tzinfo=UTC)
+    assert o.log_due == datetime(2026, 10, 29, 0, 0, tzinfo=UTC)
+    for cid in ("jarl-aa-dx-cw", "jarl-aa-dx-phone"):
+        assert "log_deadline_days" not in by_id(catalog, cid)
+
+
+def test_oceania_dx_is_two_consecutive_full_weekends(catalog):
+    """
+    Phone on the first full weekend of October, CW on the second. The committee
+    publishes only the year's dates; the rule in words comes from co-sponsor WIA.
+    """
+    for y in (2024, 2026):
+        phone = expand(by_id(catalog, "ocdx-phone"), y)[0]
+        cw = expand(by_id(catalog, "ocdx-cw"), y)[0]
+        assert (cw.start - phone.start).days == 7
+        assert phone.start.weekday() == cw.start.weekday() == 5
+
+
+# ---------------------------------------------------------------------------
+# Sponsor validation -- REF, UBA, VERON, PZK/SP DX Club, PK RVG, CRK/SARA,
+# ARI, URE
+#
+# The Tier 2 European pass. Most of these societies publish only in their own
+# language, so each record carries the rule in the sponsor's own words; the
+# dates below were published by the same sponsor separately from that wording,
+# in another year's rules or on the sponsor's own calendar page. Where a
+# sponsor's calendar is an aggregator of other people's contests -- REF's and
+# ARI's are, and UBA's is except for the rows it marks as its own -- it was not
+# used at all.
+# ---------------------------------------------------------------------------
+
+EUROPE_TIER2_PUBLISHED = {
+    "ref-coupe-du-ref-cw": (
+        "dernier week-end entier du mois de janvier",
+        [(2025, 1, 25), (2026, 1, 24)],
+    ),
+    "ref-coupe-du-ref-ssb": (
+        "dernier week-end entier du mois de fevrier",
+        [(2025, 2, 22), (2026, 2, 21)],
+    ),
+    "ref-160m": (
+        "troisieme week-end de novembre",
+        [(2025, 11, 15), (2026, 11, 21)],
+    ),
+    "ref-ddfm-50mhz": (
+        "le deuxieme samedi de juin",
+        [(2025, 6, 14), (2026, 6, 13)],
+    ),
+    "uba-dx-ssb": (
+        "starts every year on the last Saturday of January",
+        [(2026, 1, 31)],
+    ),
+    "uba-dx-cw": (
+        "starts every year on the last Saturday of February",
+        [(2026, 2, 28)],
+    ),
+    "uba-psk63-prefix": (
+        "every year the 2nd weekend of january",
+        [(2026, 1, 10), (2027, 1, 9)],
+    ),
+    "pacc": (
+        "het tweede volle weekend van februari",
+        [(2026, 2, 14), (2027, 2, 13), (2028, 2, 12), (2029, 2, 10)],
+    ),
+    "sp-dx-contest": (
+        "pierwszy pelny weekend kwietnia",
+        [(2025, 4, 5), (2026, 4, 4)],
+    ),
+    "sp-dx-rtty": (
+        "the 4th full weekend of April",
+        [(2026, 4, 25)],
+    ),
+    "ok-om-dx-ssb": (
+        "second weekend in April",
+        [(2026, 4, 11)],
+    ),
+    "ok-om-dx-cw": (
+        "second (full) weekend in November",
+        [(2026, 11, 14)],
+    ),
+    "ok-dx-rtty": (
+        "3rd full weekend in December",
+        [(2026, 12, 19)],
+    ),
+    "ari-international-dx": (
+        "il primo weekend completo di Maggio",
+        [(2026, 5, 2)],
+    ),
+    "ari-contest-sezioni-hf": (
+        "ogni secondo week-end completo di Giugno",
+        [(2026, 6, 13)],
+    ),
+    "ari-40-80": (
+        "il secondo weekend completo di Dicembre",
+        [(2025, 12, 13), (2026, 12, 12)],
+    ),
+    "ure-rey-de-espana-cw": (
+        "3rd full weekend of May",
+        [(2026, 5, 16)],
+    ),
+    "ure-rey-de-espana-ssb": (
+        "4rd full weekend of June",  # URE's typo, quoted as written
+        [(2026, 6, 27)],
+    ),
+    "ure-eapsk63": (
+        "segundo fin de semana del mes de marzo",
+        [(2026, 3, 14)],
+    ),
+    "ure-cncw": (
+        "3rd full weekend of July",
+        [(2026, 7, 18)],
+    ),
+    "ure-cme": (
+        "2nd full weekend of August",
+        [(2026, 8, 8)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(EUROPE_TIER2_PUBLISHED.items())
+])
+def test_tier2_european_societies_match_their_own_published_dates(
+    catalog, cid, rule, published
+):
+    c = by_id(catalog, cid)
+    for y, m, day in published:
+        occ = expand(c, y)
+        assert occ, f"{cid} produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
+
+
+def test_uba_dx_is_the_last_saturday_not_the_last_full_weekend(catalog):
+    """
+    UBA: 'starts every year on the last Saturday of January'. The two readings
+    diverge in 2026 and UBA's own dates settle it -- January 31 is a Saturday
+    and February 1 a Sunday, so the last FULL weekend of January 2026 is the
+    24th, but UBA published January 31 - February 1.
+    """
+    assert _full_weekends_in_month(2026, 1)[-1] == date(2026, 1, 24)
+    assert expand(by_id(catalog, "uba-dx-ssb"), 2026)[0].start.date() == date(
+        2026, 1, 31
+    )
+    # 2026 separates the two readings on both legs: February 28 is a Saturday
+    # whose Sunday falls in March, so the last full weekend of February is the
+    # 21st -- and UBA published February 28 - March 1.
+    assert _full_weekends_in_month(2026, 2)[-1] == date(2026, 2, 21)
+    assert expand(by_id(catalog, "uba-dx-cw"), 2026)[0].start.date() == date(
+        2026, 2, 28
+    )
+
+
+# UBA prints a log deadline beside each ON Contest leg. All four are the leg's
+# own date plus five days, which is what makes 'no later than 5 days after the
+# contest' encodable rather than a fixed date to be quoted.
+UBA_ON_LEGS = [
+    ("uba-on-6m", date(2026, 9, 27), date(2026, 10, 2)),
+    ("uba-on-80-40-ssb", date(2026, 10, 4), date(2026, 10, 9)),
+    ("uba-on-80-40-cw", date(2026, 10, 11), date(2026, 10, 16)),
+    ("uba-on-2m", date(2026, 10, 18), date(2026, 10, 23)),
+]
+
+
+@pytest.mark.parametrize("cid,day,deadline", UBA_ON_LEGS)
+def test_uba_on_contest_deadlines_are_the_dates_uba_printed(
+    catalog, cid, day, deadline
+):
+    o = expand(by_id(catalog, cid), 2026)[0]
+    assert o.start.date() == day
+    assert o.log_due.date() == deadline
+
+
+def test_ref_160m_deadline_is_the_second_monday_after_the_contest(catalog):
+    """
+    REF states no interval for this one -- 'A plus tard le deuxieme lundi apres
+    le concours' -- so the 8 in the record is derived, and only correct because
+    the contest always ends at 0000 UTC on a Sunday. Checked across a decade
+    rather than asserted once.
+    """
+    c = by_id(catalog, "ref-160m")
+    for y in range(2025, 2035):
+        o = expand(c, y)[0]
+        assert o.start.weekday() == 5 and o.end.weekday() == 6
+        mondays = [
+            o.start.date() + timedelta(days=n)
+            for n in range(1, 15)
+            if (o.start.date() + timedelta(days=n)).weekday() == 0
+        ]
+        assert o.log_due.date() == mondays[1], y
+
+
+def test_ure_night_break_contests_run_two_sessions(catalog):
+    """
+    URE's CNCW and CME both stop overnight: '1200 UTC Saturday till 2259 UTC
+    Saturday and from 0500UTC till 1159UTC Sunday'. Two sessions, not one long
+    window -- a single span would claim eighteen hours of operating time that
+    the rules do not permit.
+    """
+    for cid, first in (("ure-cncw", date(2026, 7, 18)), ("ure-cme", date(2026, 8, 8))):
+        occ = expand(by_id(catalog, cid), 2026)
+        assert len(occ) == 2, cid
+        assert occ[0].start.date() == first
+        assert [o.start.strftime("%H%M") for o in occ] == ["1200", "0500"]
+        assert [o.end.strftime("%H%M") for o in occ] == ["2259", "1159"]
+        # Six hours off air between them, which is the point of the split.
+        assert (occ[1].start - occ[0].end) == timedelta(hours=6, minutes=1)
+
+
+def test_ure_deadline_is_fifteen_days_from_the_end_of_the_second_session(catalog):
+    """
+    Every URE record states '(15 days)' and prints a date. For the two-session
+    contests the printed date is fifteen days after the SECOND session ends;
+    the engine applies the interval per session, so the first session's
+    computed deadline is a day early. Recorded in the records' notes rather
+    than papered over.
+    """
+    for cid, printed in (
+        ("ure-cncw", date(2026, 8, 3)),
+        ("ure-cme", date(2026, 8, 24)),
+    ):
+        occ = expand(by_id(catalog, cid), 2026)
+        assert occ[1].log_due.date() == printed, cid
+        assert occ[0].log_due.date() == printed - timedelta(days=1), cid
+
+
+def test_ok_dx_rtty_carries_no_deadline_because_the_sponsor_contradicts_itself(
+    catalog,
+):
+    """
+    The rules say 'not later than 7th day after the contest'; the announcement
+    of the same edition prints 26 December -- with the wrong year, 2025, for a
+    2026 contest. The stored end is 00:00 on the Sunday, so seven days from
+    there is the 27th. No number is invented: the field is absent and both
+    statements are quoted in the record. The two OK/OM legs, whose parenthetical
+    dates DO match their stated interval, encode it.
+    """
+    assert "log_deadline_days" not in by_id(catalog, "ok-dx-rtty")
+    o = expand(by_id(catalog, "ok-dx-rtty"), 2026)[0]
+    assert o.end == datetime(2026, 12, 20, 0, 0, tzinfo=UTC)
+    assert o.log_due is None
+    for cid, due in (
+        ("ok-om-dx-ssb", date(2026, 4, 19)),
+        ("ok-om-dx-cw", date(2026, 11, 22)),
+    ):
+        assert expand(by_id(catalog, cid), 2026)[0].log_due.date() == due
+
+
+# Records where the sponsor publishes dates and never states a rule. Each is
+# manual on purpose: an ordinal fitted to the dates would print confident
+# schedules for years the sponsor has not announced.
+TIER2_MANUAL = {
+    "uba-spring-2m": (2026, 2027),
+    "uba-spring-80m-cw": (2026, 2027),
+    "uba-spring-6m": (2026, 2027),
+    "uba-spring-80m-ssb": (2026, 2027),
+    "uba-on-6m": (2026, 2027),
+    "uba-on-80-40-ssb": (2026, 2027),
+    "uba-on-80-40-cw": (2026, 2027),
+    "uba-on-2m": (2026, 2027),
+    "uba-bma": (2026, 2027),
+    "paccdigi": (2027, 2028),
+    "ure-eartty": (2026, 2027),
+}
+
+
+@pytest.mark.parametrize("cid,last,after", [
+    (cid, last, after) for cid, (last, after) in sorted(TIER2_MANUAL.items())
+])
+def test_tier2_manual_records_stop_where_the_sponsor_stopped_publishing(
+    catalog, cid, last, after
+):
+    c = by_id(catalog, cid)
+    assert c["recurrence"]["type"] == "manual"
+    assert expand(c, last), f"{cid} produced nothing for its last published year"
+    assert expand(c, after) == [], f"{cid} guessed {after}, a year nobody published"
+
+
+def test_paccdigi_is_manual_even_though_both_dates_look_like_a_rule(catalog):
+    """
+    VERON's two published PACCdigi editions are both the third Saturday of
+    April, and the temptation is to encode that. VERON does not say it -- the
+    PACC page says 'het tweede volle weekend van februari' in so many words and
+    the PACCdigi page says nothing of the kind, so the difference is the
+    sponsor's, not ours.
+    """
+    c = by_id(catalog, "paccdigi")
+    published = [expand(c, y)[0].start.date() for y in (2026, 2027)]
+    assert published == [date(2026, 4, 18), date(2027, 4, 17)]
+    assert all(d.weekday() == 5 for d in published)
+    assert all(15 <= d.day <= 21 for d in published)  # third Saturday, both years
+    assert c["recurrence"]["type"] == "manual"
+
+
+def test_ure_rtty_is_manual_while_ure_states_a_rule_for_its_other_five(catalog):
+    """
+    Five of URE's six HF contests name an ordinal weekend in both language
+    versions of their page. EA RTTY names a date and nothing else, in both, so
+    it alone is manual -- the contrast is what makes that a reading of URE
+    rather than an inconsistency of ours.
+    """
+    assert by_id(catalog, "ure-eartty")["recurrence"]["type"] == "manual"
+    others = [
+        "ure-rey-de-espana-cw", "ure-rey-de-espana-ssb",
+        "ure-eapsk63", "ure-cncw", "ure-cme",
+    ]
+    for cid in others:
+        assert by_id(catalog, cid)["recurrence"]["type"] == "nth_full_weekend", cid
+
+
+def test_czech_contest_hosts_are_http_because_their_tls_is_broken(catalog):
+    """
+    okomdx.crk.cz and okrtty.crk.cz serve a certificate issued for
+    default.web4u.cz, so HTTPS fails validation. The http:// URLs are a
+    recorded blocker, not an oversight, and each record says so -- the same
+    treatment given to SARL's dead host.
+    """
+    for cid in ("ok-om-dx-ssb", "ok-om-dx-cw", "ok-dx-rtty"):
+        c = by_id(catalog, cid)
+        assert c["rules_url"].startswith("http://"), cid
+        assert "crk.cz" in c["rules_url"], cid
+        assert "TLS" in c["note"], cid
+
+
+# ---------------------------------------------------------------------------
+# Sponsor validation -- DARC
+#
+# The rules are German and each record quotes them in German. The dates and
+# deadlines below are DARC's, published separately from that wording in its own
+# "Termine DARC KW Conteste 2026" table at /darc-kw-conteste/kw-conteste/. That
+# table lists only DARC's own contests, so it is a sponsor source and not an
+# aggregator -- the one IARU event on it is not encoded, for that reason.
+# ---------------------------------------------------------------------------
+
+DARC_PUBLISHED = {
+    "wae-dx-cw": (
+        "CW: August, zweites Wochenende",
+        [(2026, 8, 8)],
+    ),
+    "wae-dx-ssb": (
+        "SSB: September, zweites Wochenende",
+        [(2026, 9, 12)],
+    ),
+    "wae-dx-rtty": (
+        "RTTY: November, zweites Wochenende",
+        [(2026, 11, 14)],
+    ),
+    "darc-wag": (
+        "Oktober, drittes volles Wochenende, 1500 UTC Samstag bis 1459 UTC Sonntag",
+        [(2026, 10, 17)],
+    ),
+    "darc-10m": (
+        "Zweiter Sonntag im Januar, 0900-1059 UTC",
+        [(2026, 1, 11)],
+    ),
+    "darc-xmas": (
+        "26. Dezember, 08.30-10.59 UTC",
+        [(2026, 12, 26)],
+    ),
+    "darc-ft4": (
+        "Jeweils 2. Monat im Quartal, Am 2. Dienstag im Monat",
+        [(2026, 2, 10), (2026, 5, 12), (2026, 8, 11), (2026, 11, 10)],
+    ),
+    "darc-rtty-kurzcontest": (
+        "jeweils im 1. Monat eines jeden Quartals am 2. Dienstag",
+        [(2026, 1, 13), (2026, 4, 14), (2026, 7, 14), (2026, 10, 13)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(DARC_PUBLISHED.items())
+])
+def test_darc_contests_match_darcs_own_published_dates(catalog, cid, rule, published):
+    got = [o.start.date() for o in expand(by_id(catalog, cid), 2026)]
+    assert got == [date(*d) for d in published], f"{cid}: rule '{rule}'"
+
+
+# The deadline column of the same table. DARC states the interval once in the
+# general contest rules and again in most of the individual Ausschreibungen, so
+# these are a second statement of it rather than a restatement of ours.
+DARC_PUBLISHED_DEADLINES = {
+    "wae-dx-cw": [(2026, 8, 16)],
+    "wae-dx-ssb": [(2026, 9, 20)],
+    "wae-dx-rtty": [(2026, 11, 22)],
+    "darc-wag": [(2026, 10, 25)],
+    "darc-10m": [(2026, 1, 18)],
+    "darc-xmas": [(2027, 1, 2)],
+    "darc-ft4": [(2026, 2, 17), (2026, 5, 19), (2026, 8, 18), (2026, 11, 17)],
+    "darc-rtty-kurzcontest": [
+        (2026, 1, 20), (2026, 4, 21), (2026, 7, 21), (2026, 10, 20),
+    ],
+}
+
+
+@pytest.mark.parametrize("cid,published", sorted(DARC_PUBLISHED_DEADLINES.items()))
+def test_darc_log_deadlines_match_darcs_own_published_dates(catalog, cid, published):
+    c = by_id(catalog, cid)
+    assert c["log_deadline_days"] == 7, cid
+    got = [o.log_due.date() for o in expand(c, 2026)]
+    assert got == [date(*d) for d in published], cid
+
+
+def test_darc_wae_rtty_is_the_second_full_weekend_not_the_second_weekend(catalog):
+    """
+    DARC writes 'zweites Wochenende', without 'volles'. November 2026 is the
+    year that separates the readings: 1 November is a Sunday whose Saturday
+    belongs to October, so counting weekends from it gives 7-8 November. DARC
+    publishes 14-15, which is the second FULL weekend.
+    """
+    assert date(2026, 11, 1).weekday() == 6  # an orphan Sunday
+    assert _full_weekends_in_month(2026, 11)[1] == date(2026, 11, 14)
+    assert expand(by_id(catalog, "wae-dx-rtty"), 2026)[0].start.date() == date(
+        2026, 11, 14
+    )
+
+
+def test_wae_cw_deadline_follows_the_interval_darc_states_twice(catalog):
+    """
+    DARC contradicts itself on this one leg. Rule 13 of the WAE rules and the
+    general contest rules both say seven days; seven days is 16 August 2026,
+    which is what DARC's own contest calendar prints. The per-leg line on the
+    rules page says 17.08.2026. The interval wins because it is stated twice
+    and because it reproduces the SSB and RTTY legs' printed instants exactly.
+    """
+    c = by_id(catalog, "wae-dx-cw")
+    assert expand(c, 2026)[0].log_due.date() == date(2026, 8, 16)
+    assert "17.08.2026" in c["note"]  # the losing statement stays recorded
+
+
+def test_darc_quarterly_series_interleave_on_the_same_weekday(catalog):
+    """
+    RTTY takes the first month of each quarter and FT4 the second, both on the
+    second Tuesday. Encoded as one record each, so the two months lists must
+    stay disjoint or a leg would be claimed twice.
+    """
+    rtty = by_id(catalog, "darc-rtty-kurzcontest")["recurrence"]
+    ft4 = by_id(catalog, "darc-ft4")["recurrence"]
+    assert rtty["months"] == [1, 4, 7, 10]
+    assert ft4["months"] == [2, 5, 8, 11]
+    assert not set(rtty["months"]) & set(ft4["months"])
+    assert rtty["weekday"] == ft4["weekday"] == 1  # Tuesday
+    assert rtty["n"] == ft4["n"] == 2
+    for cid in ("darc-rtty-kurzcontest", "darc-ft4"):
+        for o in expand(by_id(catalog, cid), 2026):
+            assert o.start.weekday() == 1, cid
+            assert 8 <= o.start.day <= 14, cid  # the second Tuesday, always
+
+
+def test_darc_xmas_is_a_calendar_date_and_ignores_the_weekday(catalog):
+    """
+    26 December whatever day it falls on -- 2026 is a Saturday, 2027 a Sunday,
+    2028 a Tuesday. A weekday rule fitted to any one of them would be wrong the
+    next year.
+    """
+    c = by_id(catalog, "darc-xmas")
+    assert c["recurrence"] == {"type": "fixed_date", "month": 12, "day": 26}
+    for y, weekday in ((2026, 5), (2027, 6), (2028, 1)):
+        occ = expand(c, y)[0]
+        assert occ.start.date() == date(y, 12, 26)
+        assert occ.start.weekday() == weekday
+
+
+def test_darc_10m_rule_comes_from_darcs_superseded_ausschreibung(catalog):
+    """
+    The current Ausschreibung prints '11.01.26' and no rule; the pre-2023 one
+    DARC keeps below it on the same page says 'Zweiter Sonntag im Januar'. That
+    is where the recurrence comes from, and the record says so rather than
+    letting a rule appear to have been fitted to a single date.
+    """
+    c = by_id(catalog, "darc-10m")
+    assert c["recurrence"] == {"type": "nth_weekday", "month": 1, "n": 2, "weekday": 6}
+    assert "bis 2023" in c["source_note"]
+    assert expand(c, 2026)[0].start.date() == date(2026, 1, 11)
+
+
+def test_darc_records_all_carry_the_sponsor_string_the_registry_joins_on(catalog):
+    """
+    DARC runs these under one contest department; the registry's DARC entry
+    lists exactly one catalog_sponsors string, and an unregistered sponsor is
+    only detectable through that join.
+    """
+    darc = [c for c in catalog if c["id"] in DARC_PUBLISHED]
+    assert len(darc) == 8
+    assert {c["sponsor"] for c in darc} == {"DARC"}
+    assert {c["country"] for c in darc} == {"DE"}
+
+
+# ---------------------------------------------------------------------------
+# Counting backwards past "last"
+#
+# `n` used to mean "the nth from the front", with -1 special-cased to mean the
+# last. BFRA's LZ DX Contest is the rule that needed more: "the weekend before
+# the last full weekend of November", which BFRA states as a rule and not as an
+# annual announcement, because the weekend it names is defined by CQ WW CW
+# sitting on the last one. So n <= -1 now counts back from the end.
+#
+# The risk that comes with it is n=0, which is a position in neither direction.
+# Read as "the first" it silently shifts a contest; read as "no anchors this
+# year" it silently empties one. It raises instead, and because
+# NoAnchorsThisYear is a ValueError, `monthly_nth_weekday`'s skip-a-short-month
+# catch had to be narrowed so it does not swallow that.
+# ---------------------------------------------------------------------------
+
+def _synthetic(rule):
+    """A minimal record for exercising a rule with no catalog entry behind it."""
+    return {
+        "id": "synthetic",
+        "name": "Synthetic",
+        "recurrence": rule,
+        "start": {"day_offset": 0, "time": "0000"},
+        "end": {"day_offset": 0, "time": "0100"},
+    }
+
+
+def test_nth_counts_backwards_past_last():
+    """
+    November 2025 has five full weekends: 1, 8, 15, 22 and 29 November. -1 is
+    the last, -2 the one before it, -3 the one before that.
+    """
+    assert _full_weekends_in_month(2025, 11) == [
+        date(2025, 11, 1),
+        date(2025, 11, 8),
+        date(2025, 11, 15),
+        date(2025, 11, 22),
+        date(2025, 11, 29),
+    ]
+    for n, expected in ((-1, 29), (-2, 22), (-3, 15)):
+        got = expand(_synthetic({"type": "nth_full_weekend", "month": 11, "n": n}), 2025)
+        assert got[0].start.date() == date(2025, 11, expected), n
+
+
+def test_nth_counting_back_past_the_start_is_an_empty_year_not_an_error():
+    """
+    Asking for the sixth-from-last of five is the same kind of nothing as a
+    fifth Monday in a four-Monday month: the year has no such date, and expand
+    returns nothing rather than raising.
+    """
+    rule = {"type": "nth_full_weekend", "month": 11, "n": -6}
+    assert expand(_synthetic(rule), 2025) == []
+
+
+def test_nth_rejects_zero_as_a_malformed_rule():
+    """
+    n=0 is a catalog typo, not a date that does not exist. Read as "the first"
+    it moves a contest a week; read as NoAnchorsThisYear it drops the contest
+    from the calendar without a word. Neither is acceptable, so it raises -- and
+    the exception must not be NoAnchorsThisYear, or callers that legitimately
+    swallow that would swallow this too.
+    """
+    rule = {"type": "nth_weekday", "month": 11, "n": 0, "weekday": 5}
+    with pytest.raises(ValueError) as exc:
+        expand(_synthetic(rule), 2025)
+    assert not isinstance(exc.value, NoAnchorsThisYear)
+    assert "n=0" in str(exc.value)
+
+
+def test_monthly_nth_weekday_skips_short_months_but_not_malformed_rules():
+    """
+    A "fifth Monday" rule simply has no date in a month with four, and skipping
+    those is the whole point of the catch inside monthly_nth_weekday. It is
+    narrowed to NoAnchorsThisYear so a n=0 rule inside the same loop still
+    raises instead of quietly producing an empty year.
+    """
+    months = list(range(1, 13))
+    fifths = expand(
+        _synthetic(
+            {"type": "monthly_nth_weekday", "n": 5, "weekday": 0, "months": months}
+        ),
+        2026,
+    )
+    assert 0 < len(fifths) < 12
+    assert all(o.start.day > 28 for o in fifths)
+    assert all(o.start.weekday() == 0 for o in fifths)
+
+    with pytest.raises(ValueError) as exc:
+        expand(
+            _synthetic(
+                {"type": "monthly_nth_weekday", "n": 0, "weekday": 0, "months": months}
+            ),
+            2026,
+        )
+    assert not isinstance(exc.value, NoAnchorsThisYear)
+
+
+# ---------------------------------------------------------------------------
+# Sponsor validation -- the remaining Tier 2 European societies
+#
+# USKA, OeVSV, MRASZ, BFRA, FRR, SRS, HRS, LRAL, ERAU, LRMD, SRR and UARL. Each
+# rule is quoted in the sponsor's own language on the record; the dates below
+# are the sponsor's too, published separately from that wording -- a KW-Contest
+# date page, a year printed inside the rules themselves, an archive of past
+# editions, a society calendar. NRAU is absent on purpose: it is blocked at
+# source and encodes nothing. See data/sources.md.
+#
+# Session records emit one occurrence per session, so start dates are deduped.
+# ---------------------------------------------------------------------------
+
+TIER2B_PUBLISHED = {
+    "uska-helvetia": (
+        "Letztes volles Wochenende im April, Samstag 13:00 UTC bis Sonntag 12:59 UTC",
+        {2026: [(2026, 4, 25)], 2027: [(2027, 4, 24)]},
+    ),
+    "uska-field-day-cw": (
+        "CW: Erstes volles Wochenende im Juni",
+        {2026: [(2026, 6, 6)], 2027: [(2027, 6, 5)]},
+    ),
+    "uska-field-day-ssb": (
+        "SSB: Erstes volles Wochenende im September",
+        {2026: [(2026, 9, 5)]},
+    ),
+    "uska-nmd": (
+        "Dritter Sonntag im Juli, 06:00 UTC bis 09:59 UTC",
+        {2026: [(2026, 7, 19)]},
+    ),
+    "uska-weihnachtswettbewerb-ssb": (
+        "SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC",
+        {2026: [(2026, 12, 5)]},
+    ),
+    "uska-weihnachtswettbewerb-cw": (
+        "CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC",
+        {2026: [(2026, 12, 12)]},
+    ),
+    "oevsv-aoee-80-40": (
+        "2. TERMIN: 1. Mai 2026",
+        {2026: [(2026, 5, 1)]},
+    ),
+    "oevsv-aoec-160m": (
+        "Jeweils am dritten vollen Wochenende im NOVEMBER",
+        {2025: [(2025, 11, 15)], 2026: [(2026, 11, 21)]},
+    ),
+    "mrasz-ha-dx": (
+        "every year 3rd full weekend of January",
+        {2026: [(2026, 1, 17)]},
+    ),
+    "mrasz-yl-om": (
+        "minden evben marcius 8-hoz legkozelebb eso hetvegen",
+        {2026: [(2026, 3, 8)]},
+    ),
+    "mrasz-rfwd-hf": (
+        "evente aprilis 18.-an 16.00 UT-tol 16.59 UT-ig",
+        {2026: [(2026, 4, 18)]},
+    ),
+    "bfra-lz-dx": (
+        "The weekend before the last full weekend of November",
+        {2025: [(2025, 11, 22)], 2026: [(2026, 11, 21)]},
+    ),
+    "frr-yo-dx-hf": (
+        "Al patrulea weekend intreg al lunii August",
+        {2026: [(2026, 8, 22)]},
+    ),
+    "hrs-9a-dx": (
+        "3rd full weekend in December",
+        {2025: [(2025, 12, 20)], 2026: [(2026, 12, 19)]},
+    ),
+    "srs-tesla-memorial-hf-cw": (
+        "odrzavace se svake godine drugog vikenda u martu",
+        {
+            2019: [(2019, 3, 9)],
+            2020: [(2020, 3, 14)],
+            2021: [(2021, 3, 13)],
+            2022: [(2022, 3, 12)],
+            2023: [(2023, 3, 11)],
+            2024: [(2024, 3, 9)],
+            2025: [(2025, 3, 8)],
+            2026: [(2026, 3, 14)],
+        },
+    ),
+    "lral-18-november-80m": (
+        "18. novembri no 08.00-11.14 pec vieteja laika",
+        {2026: [(2026, 11, 18)]},
+    ),
+    "lral-4-may-80m": (
+        "4. maija no 07.00-10.14 pec vieteja laika",
+        {2026: [(2026, 5, 4)]},
+    ),
+    "erau-es-open": (
+        "3rd SATURDAY in APRIL: 18. APRIL 2026 05.00 - 08.59 UTC",
+        {2026: [(2026, 4, 18)]},
+    ),
+    "erau-es-ll-kv": (
+        "9-s etapis laupaeva hommikuti vastavalt ERAU kalenderplaanile",
+        {
+            2026: [
+                (2026, 1, 3),
+                (2026, 2, 14),
+                (2026, 3, 7),
+                (2026, 4, 4),
+                (2026, 5, 2),
+                (2026, 9, 5),
+                (2026, 10, 3),
+                (2026, 11, 7),
+                (2026, 12, 5),
+            ]
+        },
+    ),
+    "lrmd-vytautas-magnus": (
+        "kiekvienais metais pirma sekmadieni po Nauju metu, 0700-0759 UTC",
+        {2026: [(2026, 1, 4)]},
+    ),
+    "lrmd-wal": (
+        "2026 m. birzelio 06 d. (sestadieni), 06:00-08:59 UTC",
+        {2026: [(2026, 6, 6)]},
+    ),
+    "srr-russian-dx": (
+        "s 12:00 UTC 20 marta po 11:59 UTC 21 marta 2027 goda",
+        {2027: [(2027, 3, 20)]},
+    ),
+    "uarl-champ-rtty": (
+        "Teletaypnyy Chempionat Ukrayiny na KKH - 7 bereznya 2026 r.",
+        {2026: [(2026, 3, 7)]},
+    ),
+    "uarl-champ-cw": (
+        "Telehrafnyy Chempionat Ukrayiny na KKH - 15 bereznya 2026 r.",
+        {2026: [(2026, 3, 15)]},
+    ),
+    "uarl-champ-ssb": (
+        "Telefonnyy Chempionat Ukrayiny na KKH - 22 bereznya 2026 r.",
+        {2026: [(2026, 3, 22)]},
+    ),
+    "uarl-lp-cup-cw": (
+        "bude provedeno 10 travnya 2026r. z 16:00 do 17:59 UT",
+        {2026: [(2026, 5, 10)]},
+    ),
+}
+
+
+def _start_dates(catalog, cid, year):
+    """Unique start dates, in order. A sessions record yields one per session."""
+    seen = []
+    for o in expand(by_id(catalog, cid), year):
+        if o.start.date() not in seen:
+            seen.append(o.start.date())
+    return seen
+
+
+@pytest.mark.parametrize("cid,rule,year,published", [
+    (cid, rule, year, dates)
+    for cid, (rule, years) in sorted(TIER2B_PUBLISHED.items())
+    for year, dates in sorted(years.items())
+])
+def test_tier2b_contests_match_their_sponsors_published_dates(
+    catalog, cid, rule, year, published
+):
+    got = _start_dates(catalog, cid, year)
+    assert got == [date(*d) for d in published], f"{cid} {year}: rule '{rule}'"
+
+
+def test_tesla_memorial_second_weekend_means_second_full_weekend(catalog):
+    """
+    SRS says "odrzavace se svake godine drugog vikenda u martu" -- every year,
+    the second weekend in March -- and publishes eight editions. 2020 is the
+    year that separates the readings: 1 March 2020 was a Sunday whose Saturday
+    belonged to February, so counting weekends by their Sunday gives 7-8 March.
+    SRS published 14-15, which is the second FULL weekend.
+    """
+    assert date(2020, 3, 1).weekday() == 6  # an orphan Sunday
+    assert _full_weekends_in_month(2020, 3)[1] == date(2020, 3, 14)
+    assert _start_dates(catalog, "srs-tesla-memorial-hf-cw", 2020) == [date(2020, 3, 14)]
+    # ...and the eight published editions all reproduce, which is what makes it
+    # a rule rather than eight coincidences.
+    assert len(TIER2B_PUBLISHED["srs-tesla-memorial-hf-cw"][1]) == 8
+
+
+def test_lz_dx_counts_back_two_weekends_because_cq_ww_cw_takes_the_last(catalog):
+    """
+    BFRA anchors its date to another sponsor's contest: "The weekend before the
+    last full weekend of November (the weekend before CQWW CW contest weekend)".
+    That is n=-2, and it is the record that made the engine count backwards past
+    "last". November 2025 has five full weekends and BFRA published 22-23.
+    """
+    assert len(_full_weekends_in_month(2025, 11)) == 5
+    c = by_id(catalog, "bfra-lz-dx")
+    assert c["recurrence"] == {"type": "nth_full_weekend", "month": 11, "n": -2}
+    assert _start_dates(catalog, "bfra-lz-dx", 2025) == [date(2025, 11, 22)]
+    assert _full_weekends_in_month(2025, 11)[-1] == date(2025, 11, 29)  # CQ WW CW
+
+
+def test_yo_dx_is_the_fourth_full_weekend_not_the_last(catalog):
+    """
+    August 2026 separates the readings: 1 August is a Saturday, so the month has
+    five full weekends and the fourth (22-23) is not the last (29-30). The
+    current yodx.ro rules and FRR's own 2026 announcement both say the fourth.
+    An older hamradio.ro PDF says "Ultimul weekend intreg" -- the last -- and
+    that statement stays on the record rather than being reconciled away.
+    """
+    weekends = _full_weekends_in_month(2026, 8)
+    assert len(weekends) == 5
+    assert weekends[3] == date(2026, 8, 22) and weekends[-1] == date(2026, 8, 29)
+    assert _start_dates(catalog, "frr-yo-dx-hf", 2026) == [date(2026, 8, 22)]
+    assert "Ultimul weekend intreg" in by_id(catalog, "frr-yo-dx-hf")["note"]
+
+
+def test_aoec_third_full_weekend_survives_an_orphan_sunday(catalog):
+    """
+    OeVSV states the rule twice, in German and in English, and prints 15
+    November 2025 for itself. 2026 is the harder year: 1 November is a Sunday
+    whose Saturday belongs to October, so the full weekends start on the 7th and
+    the third is the 21st.
+    """
+    assert date(2026, 11, 1).weekday() == 6  # an orphan Sunday
+    assert _full_weekends_in_month(2026, 11)[0] == date(2026, 11, 7)
+    assert _start_dates(catalog, "oevsv-aoec-160m", 2025) == [date(2025, 11, 15)]
+    assert _start_dates(catalog, "oevsv-aoec-160m", 2026) == [date(2026, 11, 21)]
+
+
+def test_uska_forward_dates_come_from_uskas_own_kw_contest_page(catalog):
+    """
+    USKA's KW-Contest page prints the year's dates separately from the
+    Reglemente, and states two 2027 dates in prose: "Der Helvetia Contest findet
+    am 24. - 25. April 2027 ... statt" and "Der Field Day in CW findet am 5. -
+    6. Juni 2027 ... statt". Those are forward statements rather than calendar
+    rows, so they test the rule a year past every other date USKA publishes.
+    """
+    assert _start_dates(catalog, "uska-helvetia", 2027) == [date(2027, 4, 24)]
+    assert _start_dates(catalog, "uska-field-day-cw", 2027) == [date(2027, 6, 5)]
+
+
+def test_weihnachtswettbewerb_sessions_leave_the_gap_hour_out(catalog):
+    """
+    Each Saturday is a phone-or-CW morning and then a separate digital hour, and
+    the hour between them is not part of the contest. Two sessions rather than
+    one 07:00-10:59 span, or the calendar would claim an hour USKA does not run.
+    """
+    for cid in ("uska-weihnachtswettbewerb-ssb", "uska-weihnachtswettbewerb-cw"):
+        occs = expand(by_id(catalog, cid), 2026)
+        assert len(occs) == 2, cid
+        assert [(o.start.hour, o.start.minute) for o in occs] == [(7, 0), (10, 0)], cid
+        assert [(o.end.hour, o.end.minute) for o in occs] == [(9, 59), (10, 59)], cid
+
+
+def test_weihnachtswettbewerb_carries_no_deadline_because_uska_states_none(catalog):
+    """
+    Three of USKA's four KW Reglemente say "Die Logs sind innert 8 Tagen ...
+    einzureichen". The Weihnachtswettbewerb's says nothing at all. Borrowing the
+    interval from its siblings would be this catalog inventing a deadline, so
+    none is encoded and the silence is recorded on the record.
+    """
+    for cid in ("uska-weihnachtswettbewerb-ssb", "uska-weihnachtswettbewerb-cw"):
+        c = by_id(catalog, cid)
+        assert "log_deadline_days" not in c, cid
+        assert "no log deadline" in c["note"], cid
+    for cid in ("uska-helvetia", "uska-field-day-cw", "uska-field-day-ssb", "uska-nmd"):
+        assert by_id(catalog, cid)["log_deadline_days"] == 8, cid
+
+
+def test_yl_om_falls_on_the_sunday_nearest_8_march(catalog):
+    """
+    MRASZ ties the date to International Women's Day: "minden evben marcius
+    8-hoz legkozelebb eso hetvegen", run on the Sunday. 2026 is the only year
+    MRASZ confirms independently, and in it 8 March is itself a Sunday, so the
+    rule and the date agree trivially. The caveat is on the record; what is
+    asserted here is that the rule is nearest-Sunday and not a hard 8 March.
+    """
+    c = by_id(catalog, "mrasz-yl-om")
+    assert c["recurrence"] == {
+        "type": "nearest_weekday", "month": 3, "day": 8, "weekday": 6
+    }
+    assert date(2026, 3, 8).weekday() == 6
+    assert _start_dates(catalog, "mrasz-yl-om", 2026) == [date(2026, 3, 8)]
+    # 8 March 2027 is a Monday, so the nearest Sunday is behind it, not ahead.
+    assert date(2027, 3, 8).weekday() == 0
+    assert _start_dates(catalog, "mrasz-yl-om", 2027) == [date(2027, 3, 7)]
+    assert "Only that one year is independently confirmed" in c["note"]
+
+
+def test_vmc_first_sunday_reading_is_recorded_as_a_caveat(catalog):
+    """
+    LRMD writes it both ways on the same page: "pirma sekmadieni po Nauju metu"
+    and "the first Sunday after New Year's Day". The readings diverge only when
+    1 January is itself a Sunday, and LRMD has published no such year, so the
+    first-Sunday-in-January reading is encoded and the divergence is recorded
+    rather than resolved by picking a winner nobody has confirmed.
+    """
+    c = by_id(catalog, "lrmd-vytautas-magnus")
+    assert c["recurrence"] == {"type": "nth_weekday", "month": 1, "n": 1, "weekday": 6}
+    assert _start_dates(catalog, "lrmd-vytautas-magnus", 2026) == [date(2026, 1, 4)]
+    assert "CAVEAT" in c["note"] and "1 January is itself a Sunday" in c["note"]
+    # 2034 is such a year: the two readings give 1 January and 8 January.
+    assert date(2034, 1, 1).weekday() == 6
+    assert _start_dates(catalog, "lrmd-vytautas-magnus", 2034) == [date(2034, 1, 1)]
+
+
+def test_es_ll_kv_tallinn_wall_clock_reproduces_eraus_own_utc_calendar(catalog):
+    """
+    ERAU's rules give the hour in Estonian time -- "Etappide algus on 10:00 Eesti
+    aja (EA) jargi" -- and its 2026 calendar prints the same nine stages in UTC:
+    08:00-08:59 for stages 1, 2, 3, 8 and 9, and 07:00-07:59 for 4, 5, 6 and 7.
+    That split IS the DST boundary, and it is the second source: get the zone
+    handling wrong in either direction and four rows stop matching.
+    """
+    c = by_id(catalog, "erau-es-ll-kv")
+    assert c["timezone"] == "Europe/Tallinn"
+    occs = expand(c, 2026)
+    assert len(occs) == 9
+    assert [o.start.hour for o in occs] == [8, 8, 8, 7, 7, 7, 7, 8, 8]
+    assert {(o.end.hour, o.end.minute) for o in occs} == {(8, 59), (7, 59)}
+
+
+def test_lral_rounds_are_riga_wall_clock(catalog):
+    """
+    LRAL states the rounds "pec vieteja laika" -- in local time -- and never in
+    UTC, so the same 08.00 start is a different instant in November than the
+    07.00 start is in May. 18 November 2026 is EET (UTC+2) and 4 May 2026 is
+    EEST (UTC+3).
+    """
+    nov = expand(by_id(catalog, "lral-18-november-80m"), 2026)
+    assert by_id(catalog, "lral-18-november-80m")["timezone"] == "Europe/Riga"
+    assert [o.start.hour for o in nov] == [6, 8]  # 08.00 and 10.15 local
+    assert (nov[1].start.hour, nov[1].start.minute) == (8, 15)
+
+    may = expand(by_id(catalog, "lral-4-may-80m"), 2026)
+    assert [o.start.hour for o in may] == [4, 6]  # 07.00 and 09.15 local
+    assert (may[1].start.hour, may[1].start.minute) == (6, 15)
+
+
+def test_uarl_championships_are_kyiv_wall_clock_and_the_lp_cup_is_not(catalog):
+    """
+    UARL writes its championships in Kyiv time ("z 19:00 do 19:29 kyyivskoho
+    chasu") and its Low Power Cup in UT with Kyiv time in brackets ("z 16:00 do
+    17:59 UT (z 19:00 kyyivskoho chasu do 20:59)"). Same local hour, two
+    different UTC instants, because March is EET and May is EEST -- and only one
+    of the two records is wall-clocked. Encoding both the same way would move
+    one of them by an hour.
+    """
+    for cid in ("uarl-champ-rtty", "uarl-champ-cw", "uarl-champ-ssb"):
+        c = by_id(catalog, cid)
+        assert c["timezone"] == "Europe/Kyiv", cid
+        o = expand(c, 2026)[0]
+        assert (o.start.hour, o.end.hour) == (17, 18), cid  # 19:00-20:59 Kyiv, EET
+        assert o.end.minute == 59, cid
+
+    cup = by_id(catalog, "uarl-lp-cup-cw")
+    assert "timezone" not in cup
+    o = expand(cup, 2026)[0]
+    assert (o.start.hour, o.end.hour, o.end.minute) == (16, 17, 59)
+
+
+def test_rdxc_deadline_lands_on_the_date_srr_prints(catalog):
+    """
+    SRR states the interval and the instant in one sentence: reports are taken
+    "v techenii 14 dney posle okonchaniya sorevnovaniy (po 04.04.2027 goda
+    vklyuchitelno)". The contest ends 11:59 UTC on 21 March 2027, and fourteen
+    days is 4 April -- so the sponsor's own arithmetic is what checks ours.
+    """
+    c = by_id(catalog, "srr-russian-dx")
+    assert c["log_deadline_days"] == 14
+    o = expand(c, 2027)[0]
+    assert o.end.date() == date(2027, 3, 21)
+    assert o.log_due.date() == date(2027, 4, 4)
+
+
+def test_lp_cup_deadline_lands_on_the_date_uarl_prints(catalog):
+    """
+    Same shape, from UARL: "7 dib pislya zakinchennya zmahan. Tobto, 17 travnya
+    2026 roku ostanniy den." Seven days from 10 May is 17 May.
+    """
+    c = by_id(catalog, "uarl-lp-cup-cw")
+    assert c["log_deadline_days"] == 7
+    o = expand(c, 2026)[0]
+    assert o.log_due.date() == date(2026, 5, 17)
+
+
+def test_es_open_is_worldwide_with_a_note_not_two_sided(catalog):
+    """
+    ERAU's rule is asymmetric -- "ESTONIAN STATIONS CAN WORK ALL THE STATIONS WHO
+    PARTICIPATE ... NON-ES STATIONS CAN WORK ONLY ES STATIONS" -- but that is
+    about who counts, not about who may enter. two_sided needs both sides
+    enumerated and tells a station in neither that it cannot enter, which is
+    false here. Same call as DARC's WAE and WAG and JARL's All Asian.
+    """
+    elig = by_id(catalog, "erau-es-open")["eligibility"]
+    assert elig["scope"] == "worldwide"
+    assert "NON-ES STATIONS CAN WORK ONLY ES STATIONS" in elig["note"]
+    for entity in ("ES", "K", "JA", "VK"):
+        assert eligibility_for(by_id(catalog, "erau-es-open"), entity)["can_enter"]
+
+
+def test_tier2b_records_carry_the_sponsor_strings_the_registry_joins_on(catalog):
+    """
+    Three Baltic societies share one registry entry but are three separate
+    sponsors in the catalog, because an LV record is not an EE one. The join is
+    the only thing that makes an unregistered sponsor detectable, so it is
+    asserted here rather than left to the coverage test to discover.
+    """
+    records = [c for c in catalog if c["id"] in TIER2B_PUBLISHED]
+    assert len(records) == 26
+    assert {c["sponsor"] for c in records} == {
+        "USKA", "ÖVSV", "MRASZ", "BFRA", "FRR", "SRS", "HRS",
+        "LRAL", "ERAU", "LRMD", "SRR", "UARL",
+    }
+    assert {c["country"] for c in records} == {
+        "CH", "AT", "HU", "BG", "RO", "RS", "HR", "LV", "EE", "LT", "RU", "UA",
+    }
+    reg = load_registry()
+    owner = _registry_owner(reg)
+    for c in records:
+        assert owner[c["sponsor"]][0] == "tier_2_european_societies", c["id"]
+
+
+def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
+    """
+    nrau.net says all NRAU contest information is under revision, and the NAC
+    pages state no modes and link no rules. A record built from them could not
+    declare a mode, and a mode-less record is dropped silently by every mode
+    filter -- worse than not shipping it. So NRAU is recorded as blocked with
+    nothing encoded, and what was found is written down in data/sources.md.
+    """
+    assert not [c for c in catalog if c["sponsor"] == "NRAU"]
+    reg = load_registry()
+    nrau = next(
+        o for o in reg["tier_2_european_societies"] if o["org"] == "NRAU"
+    )
+    assert nrau["status"] == "blocked"
+    assert nrau["encoded"] == 0 and nrau["catalog_sponsors"] == []
+    assert "NRAU" in reg["coverage"]["thin"]["orgs_blocked_at_source"]
+
+
+# ---------------------------------------------------------------------------
 # Time zones
 #
 # `local_time` used to mean two incompatible things: "the sponsor runs this at
@@ -1170,3 +2764,133 @@ def test_composite_rule_handles_mixed_subrules():
         2026,
     )
     assert anchors == [date(2026, 2, 28), date(2026, 7, 18)]
+
+
+# ---------------------------------------------------------------------------
+# Catalog vocabularies
+#
+# `modes` and `bands` were free text until 2026-08-16: `Digital` and `DIGITAL`
+# were different values, PSK31 sat alongside them as if it were a peer, and no
+# band filter could be written at all. These tests are what stops that
+# returning -- a controlled set that nothing enforces is a convention, and a
+# convention decays one hand-edited record at a time.
+#
+# Mirrored one-for-one in engine/tests/recurrence.test.ts.
+# ---------------------------------------------------------------------------
+
+
+def test_every_record_draws_its_modes_from_the_controlled_set(catalog):
+    offenders = [
+        (c["id"], m)
+        for c in catalog
+        for m in c.get("modes", [])
+        if m not in CATALOG_MODES
+    ]
+    assert offenders == [], f"modes outside the vocabulary: {offenders}"
+
+
+def test_every_record_declares_at_least_one_mode(catalog):
+    # A contest with no mode cannot be found by anyone filtering on mode, and
+    # every sponsor states one. Absence here is an editing slip, not a fact.
+    assert [c["id"] for c in catalog if not c.get("modes")] == []
+
+
+def test_every_record_draws_its_bands_from_the_ladder(catalog):
+    offenders = [
+        (c["id"], b)
+        for c in catalog
+        for b in c.get("bands", [])
+        if b not in CATALOG_BANDS
+    ]
+    assert offenders == [], f"bands outside the ladder: {offenders}"
+
+
+def test_bands_are_listed_low_to_high(catalog):
+    # Order is displayed as-is -- "160-10m" is collapsed from the ends of the
+    # list. An unsorted list renders as a wrong range rather than as a mess,
+    # which is the kind of wrong that gets believed.
+    for c in catalog:
+        bands = c.get("bands", [])
+        order = [CATALOG_BANDS.index(b) for b in bands]
+        assert order == sorted(order), f"{c['id']} lists bands out of order: {bands}"
+
+
+def test_no_record_carries_a_duplicate_mode_or_band(catalog):
+    for c in catalog:
+        for fieldname in ("modes", "bands"):
+            values = c.get(fieldname, [])
+            assert len(values) == len(set(values)), f"{c['id']}: duplicate {fieldname}"
+
+
+def test_retired_free_text_tokens_are_gone_everywhere(catalog):
+    # The exact values that were in the catalog before the migration. Named
+    # rather than inferred, so this fails loudly if one is reintroduced by a
+    # copy-paste from an old record.
+    retired = {"DIGITAL", "PSK31", "PSK63", "RTTY75", "FT4", "VHF+", "222MHz+", "10GHz+"}
+    stragglers = [
+        (c["id"], v)
+        for c in catalog
+        for v in c.get("modes", []) + c.get("bands", [])
+        if v in retired
+    ]
+    assert stragglers == [], f"pre-migration tokens still in the catalog: {stragglers}"
+
+
+def test_submodes_are_specifics_not_a_second_mode_list(catalog):
+    # `submodes` is free text on purpose. What it must never hold is a value
+    # from the controlled set -- that would be the mode recorded twice, in two
+    # fields, and the two would eventually disagree.
+    for c in catalog:
+        for s in c.get("submodes", []):
+            assert s not in CATALOG_MODES, f"{c['id']}: submode {s!r} belongs in modes"
+
+
+def test_a_record_with_submodes_declares_the_family_they_belong_to(catalog):
+    # PSK31 without Digital, or FT4 without FT8/FT4, is a record that shows up
+    # in no filter at all. The submode is the detail; the mode is the handle.
+    for c in catalog:
+        if c.get("submodes"):
+            assert c.get("modes"), f"{c['id']} has submodes but no mode"
+
+
+def test_unrecorded_bands_are_the_documented_exception(catalog):
+    """
+    Empty `bands` means unrecorded, and a band filter drops the record. That is
+    a real cost, so it is pinned to the records that have a documented reason.
+
+    jarl-new-year-qso-party: JARL's rule is "All bands and Modes permitted for
+    JA amateur radio stations" and points at the Japanese band plan. There is no
+    band list on the page to record, and inferring one from the band plan would
+    be this catalog writing a rule JARL did not.
+
+    sarl-hf-phone: sarl.org.za served an expired TLS certificate on 2026-08-16,
+    so its rules could not be read. The project's rule is to document a blocked
+    source and stop, never to reach for an aggregator.
+    """
+    unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
+    assert unrecorded == ["jarl-new-year-qso-party", "sarl-hf-phone"]
+
+
+def test_bands_note_never_stands_in_for_a_band_list(catalog):
+    # The note carries the sponsor's wording; it is not a place to record the
+    # bands themselves in prose and skip the machine-readable list.
+    for c in catalog:
+        if c.get("bands_note"):
+            assert c.get("bands"), f"{c['id']} has a bands_note but no bands"
+
+
+def test_the_two_engines_declare_the_same_vocabularies():
+    # The Python and TypeScript vocabularies are hand-maintained in two files.
+    # This asserts the Python side against the literal text of the TypeScript
+    # one, so a value added to one and not the other fails here rather than in
+    # a filter six months later.
+    ts = (Path(__file__).resolve().parent.parent / "engine" / "src" / "recurrence.ts").read_text(
+        encoding="utf-8"
+    )
+    for name, values in (
+        ("CATALOG_MODES", CATALOG_MODES),
+        ("CATALOG_BANDS", CATALOG_BANDS),
+    ):
+        block = ts.split(f"export const {name} = [")[1].split("]")[0]
+        declared = tuple(v.strip().strip('",') for v in block.split(",") if v.strip())
+        assert declared == values, f"{name} differs between the engines"
