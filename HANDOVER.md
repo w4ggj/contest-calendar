@@ -26,8 +26,9 @@ the Now / next-7-days landing view, filters and search, the iCal feed, and — s
 vocabularies. The page has a three-state theme switch and has been through a measured
 narrow-viewport pass. **The front-end build list is closed**; what remains is sourcing.
 
-The detail view is not deployed yet: it is green locally in all three suites and wants
-`npx wrangler deploy` from `worker/`.
+Deployed 2026-08-19, version `239f81ce`, and verified on the fleet: `/api/health` reports
+`ok` with `resolver: intl`, `pinned: true` and the DST self-check passing, and the detail
+routes answer 200 / 404 / 400 as they do locally.
 
 **Where it is thin:** Africa and South America — **one record each**, and now the largest
 gaps in the catalog. Every region has something: Asia, Oceania and South America came off
@@ -104,9 +105,9 @@ test asserting generated dates match dates the sponsor published independently.
 
 ## Next: sourcing, and a deploy
 
-**The front end is done.** `FRONTEND_BRIEF.md` records every section and what it cost; all
-six are shipped and the definition of done is met. What is left is **REP (Portugal)**, then
-**Africa and South America**, and one `npx wrangler deploy` to put the detail view live.
+**The front end is done and deployed.** `FRONTEND_BRIEF.md` records every section and what
+it cost; all six are shipped and the definition of done is met. What is left is sourcing:
+**REP (Portugal)**, then **Africa and South America**.
 
 Building it against the catalog as it stood was the right call and it paid the way the brief
 predicted: the detail view surfaced four plain-language rule bugs that had been shipping in
@@ -123,9 +124,13 @@ address bar is the subscription URL and "Subscribe to this view" is that fact ma
 **The contest detail view is at `/contest/:id`** — the rule in plain language, the clock the
 sponsor wrote, the next runnings, what you send, and the sentence each record was read from.
 Every contest name on the schedule links to it, carrying the reader's filters in the query.
-It is built and green locally; deploy it.
 
-Deploy with `npx wrangler deploy` in `worker/`. There is still no KV and no D1 — a year of
+Deploy with `npx wrangler deploy` in `worker/`. **Probe more than once afterwards**: the
+first request after a deploy can land on a colo still running the old script, which returned
+a 404 for a route that had just been added and a 200 for the same URL seconds later. A single
+probe straight after deploying can mislead in either direction.
+
+There is still no KV and no D1 — a year of
 occurrences costs **4.44 ms** to expand cold inside workerd and is already memoised per
 isolate in `schedule.ts`, while the same data is 533 KB serialised. A KV read would be a
 network round trip and a `JSON.parse` to avoid 4.44 ms of arithmetic, and it would put a
