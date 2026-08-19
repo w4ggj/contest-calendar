@@ -905,6 +905,119 @@ test rather than a comment — reverting it means arguing with the evidence.
 - The registry URL `https://www.rep.pt/` carries no rules and is corrected to
   `https://concursos.rep.pt/`.
 
+## Africa stops being one record — SARL — 2026-08-19
+
+The catalog's longest-standing blocker, and it was not a blocker any more. **Eight records —
+181 encoded, up from 174 — and Africa goes from 1 unverified record to 8 verified ones**,
+4.4% of the catalog.
+
+| Contest | Rule as SARL states it | Encoded as |
+|---|---|---|
+| SARL HF Phone | "(1st Sunday) 2 August 2026 14:00 to 17:00 UTC" | 1st Sunday of August |
+| SARL HF Digital | "(2nd Sunday) 9 August 2026 13:00 UTC to 16:00 UTC" | 2nd Sunday — **an hour earlier** |
+| SARL HF CW | "(4th Sunday) 23 August 2026 14:00 to 17:00 UTC" | 4th Sunday, not last |
+| SARL National Field Day | "2nd full weekend of March" and "1st full weekend of September" | one record, two legs |
+| Africa All Mode International DX | "12:00 UTC on Saturday 28 March to 12:00 UTC on Sunday 29 March 2026 (The 4th full weekend of March)" | 4th full weekend of March |
+| Africa FT4 DX | "2nd Saturday of April" and "2nd Saturday of September", 15:00–18:00 UTC | one record, two legs |
+| SARL Equinox 6m (March) | "From 00:01UTC on the 16th March to 23:59 UTC on 15th April" | fixed 16 March, 30 days |
+| SARL Equinox 6m (September) | "From 00:01UTC on the 16th September to 23:59 UTC on 15th October" | fixed 16 September, 29 days |
+
+### The league had moved, and the old domain is worse than broken
+
+`sarl.org.za` was recorded here as blocked by an expired TLS certificate. Re-checked on
+2026-08-19: it now answers on plain HTTP with a cPanel **"Default Web Site Page"** — a parked
+domain, not a site with a bad certificate. It was never coming back, and a retry against that
+host would have failed forever.
+
+**The SARL is at `mysarl.org.za`**, and `contest.sarl.org.za` redirects there. That is the
+registry URL now.
+
+### What SARL publishes, and why this pass could verify everything
+
+Better provenance than most sponsors in this catalog offer:
+
+- an **84-page 2026 SARL Contest Manual** (Version 1.1, 2025-12-15) with every contest's rules
+- a **per-contest rules PDF** for each major event, extracted from that manual
+- **`SARL-Contests-2026-Calendar.ics`** — 53 events, SARL's own dates in machine-readable form
+
+The `.ics` is the independent second source every record here is tested against. Its times
+carry `TZID="South Africa Standard Time"`, a fixed **+0200 with no DST**, and SARL's own
+`X-CALSTART` confirms the offset by writing 09:00 local as `07:00Z`. Every encoded instant was
+checked against it and every one agrees.
+
+### The rules are in PDFs whose fonts are a substitution cipher
+
+Worth recording because the next African or South American society will do the same thing.
+SARL's PDFs embed **subset fonts with arbitrary byte codes**, so a naive text dump reads as
+`%&'(!)*+,-.,` rather than `SARL Contest`. Each font carries a `/ToUnicode` CMap, and the
+codes **conflict between fonts** — `<21>` is `T` in one and a space in another — so a single
+merged table decodes half the document into garbage.
+
+The fix is to resolve each page's own `/Resources /Font` dictionary, following the indirect
+reference, and decode every run with the map that actually applies to it. With that, all five
+rules PDFs decode with **zero unmappable characters**. The tool lives in the session
+scratchpad rather than the repo: it is not needed to build or serve anything, and a PDF
+reader in a browser does the same job for a human.
+
+### A guess this corrected, and the flag that made it safe
+
+`sarl-hf-phone` had been in the catalog since July as `verified: false`, with **no bands at
+all** and eligibility guessed as `entity_list: ["ZS"]` with the note *"SARL contests are
+generally South African entrants only. Confirm."*
+
+Reading the rules confirmed the opposite. The scoring table's **Area 9 is "Stations in the
+rest of the world"**, and the two Africa DX contests say it outright — *"All participating
+stations worldwide may work any country"* and *"A separate category is available to
+non-African contestants"*. The record's recurrence and times were right all along; its
+eligibility was wrong.
+
+This is the case the `verified: false` flag exists for. An unverified record that turns out to
+be **wrong** is worse than one that turns out to be right, and the only thing that made it
+safe was that the page said so and the note said what to check. The correction is now a test
+in both engines, so it cannot come back quietly.
+
+It also leaves **`jarl-new-year-qso-party` as the only `bands: []` record in the catalog** —
+the two worker tests that used SARL as their unrecorded-bands fixture were repointed, because
+a fixture that is no longer in the state it is testing proves nothing.
+
+### Judgement calls
+
+- **Two legs on one record where the offsets match, two records where they do not.** Field Day
+  and Africa FT4 each run twice a year with identical start and end offsets, so each is one
+  record with a `composite` recurrence — the contest is one contest. The Equinox challenges
+  could not be: 16 March to 15 April is **30 days** and 16 September to 15 October is **29**,
+  and one record carries one `start`/`end` pair, so a single record would be wrong by a day in
+  one leg.
+- **The HF log deadline is the right day and not the right hour.** SARL says "by 21:59 UTC on
+  Friday"; the contest ends 17:00 UTC on the Sunday five days earlier, so `log_deadline_days:
+  5` derives a `log_due` of 17:00 rather than 21:59. The day is exact in every year because
+  both ends hang off the same Sunday. The five hours are recorded in each record's note rather
+  than papered over.
+- **Africa All Mode's deadline is encoded with confidence**, because SARL states it *both*
+  ways — "15 days after the contest" and "Monday 13 April 2026" — and the two agree exactly
+  against a Sunday 12:00 UTC finish. That is the rare case where a span and a date confirm
+  each other.
+- **The digital leg's 13:00 start is SARL's, not a slip.** It runs an hour earlier than the
+  Phone and CW legs. There is a test, because that is exactly the detail a regularised copy
+  would smooth away.
+- **"4th Sunday", not "last Sunday"**, for the CW contest — they differ in a five-Sunday
+  August, and SARL writes "(4th Sunday)".
+- **The Equinox challenges are a month long**, which makes them the longest occurrences in the
+  catalog at 744 and 720 hours. They are scored competitions with published rules, so they are
+  contests; the rail will draw them as full-width bars, which is correct.
+
+### Scope, recorded
+
+- **About a dozen more SARL events are in the manual and not yet encoded**: the QRP Contest,
+  the Saturday 40 m / 20 m and Wednesday 80 m Club Contests, the 80 m QSO Party, the Top Band
+  QSO Contest, the VHF/UHF FM Contest, the YL, Youth and Newbie QSO Parties, and the HAMNET
+  40 m Simulated Emergency Contest. Each has rules in the Contest Manual. This pass was scoped
+  to the contests SARL publishes as standalone rules PDFs; the manual is the source for the
+  rest and the decoder now handles it.
+- **The `.ics` also carries events run by other South African bodies** — the Antique Wireless
+  Association, HamSat-SA, the ZS1–ZS5 provincial QSO parties, BACAR. Those are separate
+  sponsors needing their own registry entries and their own sources, not SARL records.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the
@@ -984,15 +1097,7 @@ test rather than a comment — reverting it means arguing with the evidence.
   the date of the reply, and test the generated dates against whichever past years he gives.
 - **RSGB AFS CW** — guessed rules filename returned 404. Find the real page under
   rsgbcc.org/hf/ and set `rules_url_pattern`. Recurrence and eligibility unconfirmed.
-- **SARL HF Phone** — **blocked at source.** sarl.org.za returned 503 during the original
-  research; on 2026-08-16 the rules page (sarl.org.za/public/contests/contestrules.asp) failed
-  to fetch with an **expired TLS certificate**, which is a different and more durable blocker
-  than a transient 503. No third-party calendar was consulted, so this record has **no bands
-  recorded at all** — one of two such records, with JARL's New Year QSO Party, and the only one
-  where the cause is an unreachable page. `bands: []` means unrecorded, so every band
-  filter excludes it and the landing view names it in a caveat rather than dropping it
-  silently. Recurrence and whether DX entries are accepted are still unconfirmed. Next step:
-  retry once SARL renews the certificate, or ask SARL's contest committee directly.
+- **SARL was blocked and is not any more.** The entry that stood here said sarl.org.za served an expired certificate and the record had no bands recorded. The league had moved to mysarl.org.za; the rules were read there on 2026-08-19, the bands are recorded, and the ZS-only eligibility guess turned out to be wrong. See "Africa stops being one record" above. About a dozen further SARL contests remain in the Contest Manual and are scope, not blockers.
 - **IRTS 80m Counties** — recurrence and entrant restrictions unconfirmed.
 - **AGCW ZAP Merit Contest (ZMC)** — recurrence verified ("jeden Montag", pre-logging from
   1740 UTC, telegram transmission 1800 UTC) but AGCW publishes **no closing time**. The

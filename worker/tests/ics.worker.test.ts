@@ -320,7 +320,9 @@ describe("GET /api/ics — what the subscriber gets to read", () => {
     // Empty `bands` means we have not read the sponsor's page, not that the
     // contest has none. The web page says so in a caveat; the feed has to say
     // it in the event or the omission is silently misleading.
-    const cal = parse(await ics("/api/ics?q=SARL&range=365d"));
+    // Was ?q=SARL until 2026-08-19; SARL's bands are recorded now, so the
+    // fixture moved to the record that is still genuinely unrecorded.
+    const cal = parse(await ics("/api/ics?id=jarl-new-year-qso-party&range=365d"));
     expect(cal.events.length).toBeGreaterThan(0);
     expect(text(cal.events[0], "DESCRIPTION")).toContain(
       "Bands: not yet read off the sponsor's own rules",

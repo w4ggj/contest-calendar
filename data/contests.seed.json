@@ -1618,13 +1618,10 @@
     {
       "id": "sarl-hf-phone",
       "name": "SARL HF Phone Contest",
-      "sponsor": "SARL",
-      "country": "ZA",
       "modes": [
         "SSB"
       ],
-      "bands": [],
-      "rules_url": "https://www.sarl.org.za/",
+      "exchange": "RS, RSQ or RST report and a consecutive serial number starting at 001.",
       "recurrence": {
         "type": "nth_weekday",
         "month": 8,
@@ -1639,16 +1636,28 @@
         "day_offset": 0,
         "time": "1700"
       },
-      "verified": false,
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The SARL HF Phone, Digital and CW Contests': '2.1. HF Phone Contest on (1st Sunday) 2 August 2026 14:00 to 17:00 UTC'. Aim: 'to contact as many amateurs in Southern Africa as possible on the 20, 40 and 80 m amateur bands'. Exchange: '5.1. CW and SSB: RS, RSQ or RST report and a consecutive serial number starting at 001.' Logs: '7.1. Submit logs in ADIF, Cabrillo or MS Excel spreadsheet by 21:59 UTC on Friday 7 August (Phone), Friday 14 August (Digital) and Friday 28 August 2026 (CW) by e-mail to contest@sarl.org.za.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "PREVIOUSLY UNVERIFIED, AND THE FLAG WAS DOING ITS JOB. This record was carried with bands: [] and eligibility guessed as ZS-only 'Confirm', because sarl.org.za served an expired certificate. SARL has since moved to mysarl.org.za and the rules are now readable: the recurrence and times the record already held were right, the bands are 20/40/80 m, and the eligibility guess was WRONG -- the scoring table's Area 9 is 'Stations in the rest of the world'. log_deadline_days is 5, which is the right DAY and not the right hour: SARL states 'by 21:59 UTC on Friday', and the contest ends at 17:00 UTC on the Sunday five days before, so the engine's derived log_due lands at 17:00 rather than 21:59. The day is exact in every year because both ends are tied to the same Sunday. The five hours are recorded here rather than papered over.",
+      "summary": "South Africa's HF phone contest: three hours on the first Sunday in August, with South African call areas and neighbouring African entities as the multiplier.",
       "eligibility": {
-        "scope": "entity_list",
-        "entities": [
-          "ZS"
-        ],
-        "verified": false,
-        "note": "SARL contests are generally South African entrants only. Confirm."
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The aim is 'to contact as many amateurs in Southern Africa as possible', but the scoring table's Area 9 is 'Stations in the rest of the world', so entry is not restricted to South Africa. This corrects an earlier assumption in this catalog that SARL contests were ZS-only, which was flagged 'Confirm' and turned out to be wrong."
       },
-      "note": "UNVERIFIED. sarl.org.za returned 503 during research; on 2026-08-16 its rules page served an expired TLS certificate. Bands are unrecorded for that reason, not because the contest has none. Confirm recurrence and whether DX entries are accepted."
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-The-SARL-HF-Phone-Digital-and-CW-Contests-v1.1.pdf",
+      "log_format": "ADIF, Cabrillo or MS Excel",
+      "log_deadline_days": 5,
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "20, 40 and 80 m. SSB 14 125-14 350, 7 063-7 100 and 7 130-7 200, 3 603-3 650 and 3 700-3 800 kHz; CW 14 020-14 030, 7 000-7 040, 3 510-3 560 kHz. The segments 7 100-7 130 and 3 651-3 699 kHz are contest free.",
+      "verified": true,
+      "rules_url_checked": "2026-08-19"
     },
     {
       "id": "irts-80m-counties",
@@ -9423,6 +9432,346 @@
         "scope": "worldwide",
         "verified": true,
         "note": "'Âmbito Internacional' -- international in scope; 'Este concurso está aberto a todos os radioamadores devidamente licenciados.'"
+      }
+    },
+    {
+      "id": "sarl-hf-digital",
+      "name": "SARL HF Digital Contest",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4",
+        "FT8"
+      ],
+      "exchange": "Minimally a signal strength report and RRR/73/RRR73 and a serial number in each direction between the two parties.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 2,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za: '2.2. HF Digital Contest on (2nd Sunday) 9 August 2026 13:00 UTC to 16:00 UTC'. Modes: '3.3. FT4 and FT8 as Digital modes: The default frequencies for FT4 and FT8 in WSJT-X for the three contest frequencies of 20m, 40m and 80m.' Exchange: '5.2. FT4 and FT8 minimally a signal strength report and RRR/73/RRR73 and a serial number in each direction between the two parties.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "Starts an hour earlier than the Phone and CW legs -- 13:00 UTC, not 14:00 -- which is SARL's own wording and not a transcription slip. log_deadline_days is 5, which is the right DAY and not the right hour: SARL states 'by 21:59 UTC on Friday', and the contest ends at 17:00 UTC on the Sunday five days before, so the engine's derived log_due lands at 17:00 rather than 21:59. The day is exact in every year because both ends are tied to the same Sunday. The five hours are recorded here rather than papered over.",
+      "summary": "The digital leg of SARL's August HF series: three hours of FT4 and FT8 on 20, 40 and 80 m, on the second Sunday.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The aim is 'to contact as many amateurs in Southern Africa as possible', but the scoring table's Area 9 is 'Stations in the rest of the world', so entry is not restricted to South Africa. This corrects an earlier assumption in this catalog that SARL contests were ZS-only, which was flagged 'Confirm' and turned out to be wrong."
+      },
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-The-SARL-HF-Phone-Digital-and-CW-Contests-v1.1.pdf",
+      "log_format": "ADIF, Cabrillo or MS Excel",
+      "log_deadline_days": 5,
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "20, 40 and 80 m. SSB 14 125-14 350, 7 063-7 100 and 7 130-7 200, 3 603-3 650 and 3 700-3 800 kHz; CW 14 020-14 030, 7 000-7 040, 3 510-3 560 kHz. The segments 7 100-7 130 and 3 651-3 699 kHz are contest free.",
+      "verified": true,
+      "rules_url_checked": "2026-08-19"
+    },
+    {
+      "id": "sarl-hf-cw",
+      "name": "SARL HF CW Contest",
+      "modes": [
+        "CW"
+      ],
+      "exchange": "RS, RSQ or RST report and a consecutive serial number starting at 001.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 4,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za: '2.3. HF CW Contest on (4th Sunday) 23 August 2026 14:00 to 17:00 UTC'. CW frequencies: '3.2. CW: 14 020 to 14 030 kHz 7 000 to 7 040 kHz 3 510 to 3 560 kHz.' Exchange as for Phone. Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "FOURTH Sunday, not last: in a five-Sunday August the two differ, and SARL writes '(4th Sunday)'. log_deadline_days is 5, which is the right DAY and not the right hour: SARL states 'by 21:59 UTC on Friday', and the contest ends at 17:00 UTC on the Sunday five days before, so the engine's derived log_due lands at 17:00 rather than 21:59. The day is exact in every year because both ends are tied to the same Sunday. The five hours are recorded here rather than papered over.",
+      "summary": "The CW leg of SARL's August HF series: three hours on 20, 40 and 80 m, on the fourth Sunday.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The aim is 'to contact as many amateurs in Southern Africa as possible', but the scoring table's Area 9 is 'Stations in the rest of the world', so entry is not restricted to South Africa. This corrects an earlier assumption in this catalog that SARL contests were ZS-only, which was flagged 'Confirm' and turned out to be wrong."
+      },
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-The-SARL-HF-Phone-Digital-and-CW-Contests-v1.1.pdf",
+      "log_format": "ADIF, Cabrillo or MS Excel",
+      "log_deadline_days": 5,
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "20, 40 and 80 m. SSB 14 125-14 350, 7 063-7 100 and 7 130-7 200, 3 603-3 650 and 3 700-3 800 kHz; CW 14 020-14 030, 7 000-7 040, 3 510-3 560 kHz. The segments 7 100-7 130 and 3 651-3 699 kHz are contest free.",
+      "verified": true,
+      "rules_url_checked": "2026-08-19"
+    },
+    {
+      "id": "sarl-national-field-day",
+      "name": "SARL National Field Day",
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-The-SARL-National-Field-Day-v1.1.pdf",
+      "log_format": "ADIF, Cabrillo or MS Excel",
+      "log_deadline_days": 5,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160, 80, 40, 20, 15 and 10 m, excluding the 60, 30, 17 and 12 m bands. The segments 7 100-7 130 and 3 651-3 699 kHz are contest free.",
+      "exchange": "A contest-specific exchange; phone and CW on one band count as separate bands and a station may be worked once per band per mode.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_full_weekend",
+            "month": 3,
+            "n": 2
+          },
+          {
+            "type": "nth_full_weekend",
+            "month": 9,
+            "n": 1
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1000"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The SARL National Field Day': '2.1. 08:00 UTC on Saturday 14 March to 10:00 UTC on Sunday 15 March 2026 (2nd full weekend of March)' and '2.2. 08:00 UTC on Saturday 5 September to 10:00 UTC on Sunday 6 September 2026 (1st full weekend of September)'. Bands: '3.1. 160, 80, 40, 20, 15 and 10 m.' Modes: '3.4. The modes that may be used are Phone and CW.' Logs: '10.1. Logs in ADIF or Cabrillo with a summary sheet or MS Excel shall be submitted by 21:59 UTC on Friday 20 March and Friday 11 September 2026.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "Two legs a year off ONE record, because both share a start and end offset -- 0800 UTC Saturday to 1000 UTC Sunday -- and differ only in which weekend they anchor to. SARL states both readings itself, weekend AND date, and both agree for 2026. log_deadline_days is 5, which is the right DAY and not the right hour: SARL states 'by 21:59 UTC on Friday', and the contest ends at 10:00 UTC on the Sunday five days before, so the engine's derived log_due lands at 17:00 rather than 21:59. The day is exact in every year because both ends are tied to the same Sunday. The five hours are recorded here rather than papered over.",
+      "summary": "South Africa's field day, run twice a year over the second March weekend and the first September weekend: 26 hours on six HF bands, scored on contacts into the SADC region.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The focus is SADC: 'QSOs with stations outside the SADC region score less points' -- fewer points, not no entry."
+      }
+    },
+    {
+      "id": "sarl-africa-all-mode-dx",
+      "name": "Africa All Mode International DX Contest",
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-Africa-All-Mode-International-DX-Contest-v1.1.pdf",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160, 80, 40, 20, 15 and 10 metres. No contest QSOs are allowed on 12, 17, 30 or 60 metres.",
+      "exchange": "Signal report and a serial number.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'Africa All Mode International DX Contest': '1. Date: 12:00 UTC on Saturday 28 March to 12:00 UTC on Sunday 29 March 2026 (The 4th full weekend of March).' Aim: 'The objective of this all-mode contest is to stimulate contesting from Africa. All participating stations worldwide may work any country during the contest period.' Bands: '2. 160, 80, 40, 20, 15 and 10 metres ... No contest QSOs are allowed on 12, 17, 30 or 60 metres.' Modes: '3. CW and SSB.' Logs: '4. Entries must be submitted in Cabrillo format only and be received no later than 15 days after the contest - Monday 13 April 2026.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "The log deadline is one of the few in this catalog stated BOTH ways by the sponsor -- '15 days after the contest' and 'Monday 13 April 2026' -- and the two agree exactly against a Sunday 12:00 UTC finish, so 15 is encoded with confidence rather than inferred from one year's date.",
+      "summary": "Africa's international DX contest: 24 hours from 1200 UTC over the fourth March weekend, CW and SSB on six HF bands, open to the whole world.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'All participating stations worldwide may work any country during the contest period.'"
+      }
+    },
+    {
+      "id": "sarl-africa-ft4",
+      "name": "Africa FT4 DX Contest",
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-Africa-FT4-DX-Contest-v1.1.pdf",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "80m, 40m and 20m; recommended dial frequencies 3576 kHz, 7047.5 kHz and 14080 kHz (USB), the WSJT-X FT4 defaults.",
+      "exchange": "A signal report and the four-digit Maidenhead grid locator, using the FT4 mode.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_weekday",
+            "month": 4,
+            "n": 2,
+            "weekday": 5
+          },
+          {
+            "type": "nth_weekday",
+            "month": 9,
+            "n": 2,
+            "weekday": 5
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The Africa FT4 DX Contest': '2.1. 15:00 to 18:00 UTC on 2nd Saturday of April - 11 April 2026' and '2.2. 15:00 to 18:00 UTC on 2nd Saturday of September - 12 September 2026'. Aim: 'The DX Contest is aimed at all licensed Radio Amateurs in the countries in Africa and the Indian Ocean and Atlantic Islands close to Africa. A separate category is available to non-African contestants.' Exchange: '3.2. Contestants shall exchange signal reports as well as their four-digit maidenhead grid locator using the FT4 mode.' Bands: '5.4. Contacts may be made on 80m, 40m and 20m.' Power: '4.2. Power shall be limited to 100 Watts.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "Two legs off one record: both run 15:00-18:00 UTC and differ only in which second Saturday they anchor to. Power is capped at 100 W for everyone, so it is recorded as the single power category rather than as a set of entry classes. No log deadline is stated in the contest's own rules section.",
+      "summary": "Africa's FT4 contest, run on the second Saturday of April and of September: three hours on 80, 40 and 20 m at 100 watts, with grid squares exchanged.",
+      "power_categories": [
+        {
+          "name": "100 W limit",
+          "max_watts": 100
+        }
+      ],
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Aimed at African and nearby-island amateurs, but 'A separate category is available to non-African contestants.'"
+      }
+    },
+    {
+      "id": "sarl-equinox-6m-march",
+      "name": "SARL Equinox 6m African DX Entity Challenge (March)",
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-SARL-Equinox-6m-African-DX-Entity-Challenge-v1.1.pdf",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "exchange": "Signal reports; contacts must be two-way point to point.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 3,
+        "day": 16
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0001"
+      },
+      "end": {
+        "day_offset": 30,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'SARL Equinox 6m African DX Entity Challenge': '2. Dates: Two challenges, each one month long over each equinox: 2.1. From 00:01UTC on the 16th March to 23:59 UTC on 15th April. 2.2. From 00:01UTC on the 16th September to 23:59 UTC on 15th October.' Aim: '1.6. The Contest is open to all licensed Radio Amateurs worldwide.' Mode: '3. Frequency: FT8 mode on the 6m band.' Contacts: '4.1. Contacts must be two-way point to point. Stations shall exchange signal reports.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "A month-long challenge rather than a weekend contest, which is why it is the longest single occurrence in the catalog. 16 March to 15 April is 30 days. The two legs are separate records because their end offsets differ -- the March leg runs 30 days and the September leg 29 -- and one record carries one start/end pair. SARL's own calendar marks each leg with a start and an end event rather than one long block, and those markers confirm both instants.",
+      "summary": "A month of 6m FT8 around the equinox, scoring DX entities worked and confirmed, open worldwide.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'1.6. The Contest is open to all licensed Radio Amateurs worldwide.'"
+      }
+    },
+    {
+      "id": "sarl-equinox-6m-september",
+      "name": "SARL Equinox 6m African DX Entity Challenge (September)",
+      "sponsor": "SARL",
+      "country": "ZA",
+      "sponsor_home": "https://mysarl.org.za/",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/11/2026-SARL-Equinox-6m-African-DX-Entity-Challenge-v1.1.pdf",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "exchange": "Signal reports; contacts must be two-way point to point.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 9,
+        "day": 16
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0001"
+      },
+      "end": {
+        "day_offset": 29,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'SARL Equinox 6m African DX Entity Challenge': '2. Dates: Two challenges, each one month long over each equinox: 2.1. From 00:01UTC on the 16th March to 23:59 UTC on 15th April. 2.2. From 00:01UTC on the 16th September to 23:59 UTC on 15th October.' Aim: '1.6. The Contest is open to all licensed Radio Amateurs worldwide.' Mode: '3. Frequency: FT8 mode on the 6m band.' Contacts: '4.1. Contacts must be two-way point to point. Stations shall exchange signal reports.' Checked against SARL's own published dates as well as its rules: SARL publishes SARL-Contests-2026-Calendar.ics on the same page, whose times carry TZID=\"South Africa Standard Time\" (a fixed +0200, no DST -- its own X-CALSTART confirms 09:00 local as 07:00Z). That calendar is an independent second source for every date encoded here.",
+      "note": "A month-long challenge rather than a weekend contest, which is why it is the longest single occurrence in the catalog. 16 September to 15 October is 29 days. The two legs are separate records because their end offsets differ -- the March leg runs 30 days and the September leg 29 -- and one record carries one start/end pair. SARL's own calendar marks each leg with a start and an end event rather than one long block, and those markers confirm both instants.",
+      "summary": "A month of 6m FT8 around the equinox, scoring DX entities worked and confirmed, open worldwide.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'1.6. The Contest is open to all licensed Radio Amateurs worldwide.'"
       }
     }
   ]

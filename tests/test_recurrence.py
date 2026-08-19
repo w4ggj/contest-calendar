@@ -1365,6 +1365,139 @@ def test_world_sponsors_match_their_own_published_dates(catalog, cid, rule, publ
         assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
 
 
+# ---------------------------------------------------------------------------
+# SARL -- and the reason Africa was stuck at one record.
+#
+# sarl.org.za served an expired certificate, then became a parked cPanel page.
+# The league had moved to mysarl.org.za, which publishes a per-contest rules
+# PDF for each event AND its own SARL-Contests-2026-Calendar.ics. That .ics is
+# the independent second source every record here is tested against: its times
+# carry TZID="South Africa Standard Time", a fixed +0200 with no DST, and SARL's
+# own X-CALSTART confirms the offset by writing 09:00 local as 07:00Z.
+# ---------------------------------------------------------------------------
+
+SARL_PUBLISHED = {
+    "sarl-hf-phone": (
+        "HF Phone Contest on (1st Sunday) 2 August 2026 14:00 to 17:00 UTC",
+        [(2026, 8, 2)],
+    ),
+    "sarl-hf-digital": (
+        "HF Digital Contest on (2nd Sunday) 9 August 2026 13:00 UTC to 16:00 UTC",
+        [(2026, 8, 9)],
+    ),
+    "sarl-hf-cw": (
+        "HF CW Contest on (4th Sunday) 23 August 2026 14:00 to 17:00 UTC",
+        [(2026, 8, 23)],
+    ),
+    "sarl-africa-all-mode-dx": (
+        "12:00 UTC on Saturday 28 March to 12:00 UTC on Sunday 29 March 2026 "
+        "(The 4th full weekend of March)",
+        [(2026, 3, 28)],
+    ),
+    "sarl-equinox-6m-march": (
+        "From 00:01UTC on the 16th March to 23:59 UTC on 15th April",
+        [(2026, 3, 16)],
+    ),
+    "sarl-equinox-6m-september": (
+        "From 00:01UTC on the 16th September to 23:59 UTC on 15th October",
+        [(2026, 9, 16)],
+    ),
+}
+
+
+@pytest.mark.parametrize("cid,rule,published", [
+    (cid, rule, dates) for cid, (rule, dates) in sorted(SARL_PUBLISHED.items())
+])
+def test_sarl_contests_match_the_dates_sarl_publishes(catalog, cid, rule, published):
+    c = by_id(catalog, cid)
+    for y, m, day in published:
+        occ = expand(c, y)
+        assert occ, f"{cid} produced nothing for {y}"
+        assert occ[0].start.date() == date(y, m, day), f"{cid} {y}: rule '{rule}'"
+
+
+def test_sarl_two_leg_contests_produce_both_legs(catalog):
+    """
+    Field Day and the Africa FT4 contest each run twice a year off ONE record,
+    because both legs share a start and end offset and differ only in the
+    weekend they anchor to. A record that produced one leg would silently drop
+    half the contest, which no date-level test on the first occurrence catches.
+    """
+    fd = [o.start.date() for o in expand(by_id(catalog, "sarl-national-field-day"), 2026)]
+    assert fd == [date(2026, 3, 14), date(2026, 9, 5)]
+
+    ft4 = [o.start.date() for o in expand(by_id(catalog, "sarl-africa-ft4"), 2026)]
+    assert ft4 == [date(2026, 4, 11), date(2026, 9, 12)]
+
+
+def test_sarl_hf_series_runs_the_hours_sarl_states(catalog):
+    """
+    The digital leg starts an hour earlier than the other two. That is SARL's
+    own wording -- '13:00 UTC to 16:00 UTC' against '14:00 to 17:00' -- and it
+    is the kind of detail a copied schedule regularises away.
+    """
+    hours = {}
+    for cid in ("sarl-hf-phone", "sarl-hf-digital", "sarl-hf-cw"):
+        (o,) = expand(by_id(catalog, cid), 2026)
+        hours[cid] = (o.start.hour, o.end.hour)
+    assert hours == {
+        "sarl-hf-phone": (14, 17),
+        "sarl-hf-digital": (13, 16),
+        "sarl-hf-cw": (14, 17),
+    }
+
+
+def test_sarl_equinox_legs_run_a_month_and_end_where_sarl_says(catalog):
+    """
+    Two records rather than one, because the end offsets differ: 16 March to
+    15 April is 30 days and 16 September to 15 October is 29. One record
+    carries one start/end pair, so a single record would be wrong by a day in
+    one leg or the other.
+    """
+    (mar,) = expand(by_id(catalog, "sarl-equinox-6m-march"), 2026)
+    assert (mar.start.date(), mar.end.date()) == (date(2026, 3, 16), date(2026, 4, 15))
+
+    (sep,) = expand(by_id(catalog, "sarl-equinox-6m-september"), 2026)
+    assert (sep.start.date(), sep.end.date()) == (date(2026, 9, 16), date(2026, 10, 15))
+
+    for o in (mar, sep):
+        assert (o.start.hour, o.start.minute) == (0, 1)
+        assert (o.end.hour, o.end.minute) == (23, 59)
+
+
+def test_africa_all_mode_deadline_matches_the_date_sarl_prints(catalog):
+    """
+    SARL states this deadline BOTH ways -- '15 days after the contest' and
+    'Monday 13 April 2026' -- so the span can be encoded against the sponsor's
+    own arithmetic rather than inferred from one year's date.
+    """
+    c = by_id(catalog, "sarl-africa-all-mode-dx")
+    assert c["log_deadline_days"] == 15
+    (o,) = expand(c, 2026)
+    assert o.log_due.date() == date(2026, 4, 13)
+
+
+def test_sarl_entry_is_worldwide_which_corrects_an_earlier_guess(catalog):
+    """
+    This catalog previously carried SARL HF Phone as ZS-only, flagged
+    verified: false with the note 'SARL contests are generally South African
+    entrants only. Confirm.' Reading the rules confirmed the opposite: the
+    scoring table's Area 9 is 'Stations in the rest of the world', and the two
+    Africa DX contests say worldwide entry in as many words.
+
+    The flag did its job, so this test pins the correction rather than the
+    guess -- an unverified record that was WRONG is the case the flag exists
+    for, and it should not be able to come back quietly.
+    """
+    for cid in ("sarl-hf-phone", "sarl-hf-digital", "sarl-hf-cw",
+                "sarl-africa-all-mode-dx", "sarl-africa-ft4",
+                "sarl-equinox-6m-march", "sarl-national-field-day"):
+        c = by_id(catalog, cid)
+        assert c["eligibility"]["scope"] == "worldwide", cid
+        assert eligibility_for(c, "K")["can_enter"], cid
+        assert c["verified"], cid
+
+
 # WIA: "Weekend in August closest to the 15th". Seven years, seven weekdays for
 # the 15th, so the whole table is covered -- 2019 is skipped only because it
 # would repeat a weekday. The rule can never be ambiguous: the nearest instance
@@ -2961,12 +3094,15 @@ def test_unrecorded_bands_are_the_documented_exception(catalog):
     band list on the page to record, and inferring one from the band plan would
     be this catalog writing a rule JARL did not.
 
-    sarl-hf-phone: sarl.org.za served an expired TLS certificate on 2026-08-16,
-    so its rules could not be read. The project's rule is to document a blocked
-    source and stop, never to reach for an aggregator.
+    It is down to that one. sarl-hf-phone was the other, carried with no bands
+    because sarl.org.za served an expired certificate and then went dark
+    entirely; the league had moved to mysarl.org.za, and on 2026-08-19 its rules
+    were read there and the bands recorded. Waiting was the right call: the
+    project's rule is to document a blocked source and stop, never to reach for
+    an aggregator, and the source came back.
     """
     unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
-    assert unrecorded == ["jarl-new-year-qso-party", "sarl-hf-phone"]
+    assert unrecorded == ["jarl-new-year-qso-party"]
 
 
 def test_bands_note_never_stands_in_for_a_band_list(catalog):

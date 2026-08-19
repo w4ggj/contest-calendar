@@ -167,11 +167,18 @@ describe("what the record does not say", () => {
   });
 
   it("says out loud that unrecorded bands are hidden by every band filter", async () => {
-    // sarl-hf-phone: SARL's rules page has an expired certificate, so the band
-    // list could not be read. Empty bands means unrecorded, not unbanded --
-    // and the consequence for the reader is that a band filter drops it.
-    expect(contestById("sarl-hf-phone")!.bands).toEqual([]);
-    const html = await page("/contest/sarl-hf-phone");
+    // jarl-new-year-qso-party: JARL states only "All bands and Modes permitted
+    // for JA amateur radio stations", so there is no band list to record and
+    // inferring one from the Japanese band plan would be this catalog writing
+    // a rule JARL did not. Empty bands means unrecorded, not unbanded -- and
+    // the consequence for the reader is that a band filter drops it.
+    //
+    // This was sarl-hf-phone until 2026-08-19, when SARL's rules became
+    // readable again at mysarl.org.za and its bands were recorded. One record
+    // is in this state now, which is the point: the fixture has to be a record
+    // that is ACTUALLY unrecorded, or the test stops proving anything.
+    expect(contestById("jarl-new-year-qso-party")!.bands).toEqual([]);
+    const html = await page("/contest/jarl-new-year-qso-party");
     expect(html).toContain("every band filter on the schedule hides this contest");
   });
 

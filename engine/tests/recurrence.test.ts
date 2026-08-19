@@ -1386,6 +1386,132 @@ test.each(
   }
 });
 
+// ---------------------------------------------------------------------------
+// SARL -- and the reason Africa was stuck at one record.
+//
+// sarl.org.za served an expired certificate, then became a parked cPanel page.
+// The league had moved to mysarl.org.za, which publishes a per-contest rules
+// PDF for each event AND its own SARL-Contests-2026-Calendar.ics. That .ics is
+// the independent second source every record here is tested against: its times
+// carry TZID="South Africa Standard Time", a fixed +0200 with no DST, and
+// SARL's own X-CALSTART confirms the offset by writing 09:00 local as 07:00Z.
+// ---------------------------------------------------------------------------
+
+const SARL_PUBLISHED: Record<string, [string, [number, number, number][]]> = {
+  "sarl-hf-phone": [
+    "HF Phone Contest on (1st Sunday) 2 August 2026 14:00 to 17:00 UTC",
+    [[2026, 8, 2]],
+  ],
+  "sarl-hf-digital": [
+    "HF Digital Contest on (2nd Sunday) 9 August 2026 13:00 UTC to 16:00 UTC",
+    [[2026, 8, 9]],
+  ],
+  "sarl-hf-cw": [
+    "HF CW Contest on (4th Sunday) 23 August 2026 14:00 to 17:00 UTC",
+    [[2026, 8, 23]],
+  ],
+  "sarl-africa-all-mode-dx": [
+    "12:00 UTC on Saturday 28 March to 12:00 UTC on Sunday 29 March 2026 (The 4th full weekend of March)",
+    [[2026, 3, 28]],
+  ],
+  "sarl-equinox-6m-march": [
+    "From 00:01UTC on the 16th March to 23:59 UTC on 15th April",
+    [[2026, 3, 16]],
+  ],
+  "sarl-equinox-6m-september": [
+    "From 00:01UTC on the 16th September to 23:59 UTC on 15th October",
+    [[2026, 9, 16]],
+  ],
+};
+
+test.each(
+  Object.entries(SARL_PUBLISHED)
+    .sort()
+    .map(([cid, [rule, dates]]) => [cid, rule, dates] as const),
+)("SARL contests match the dates SARL publishes: %s", (cid, rule, published) => {
+  const c = byId(cid);
+  for (const [y, m, day] of published) {
+    const occ = expand(c, y);
+    expect(occ.length, `${cid} produced nothing for ${y}`).toBeGreaterThan(0);
+    expect(isoDate(occ[0].start!), `${cid} ${y}: rule '${rule}'`).toBe(D(y, m, day));
+  }
+});
+
+test("SARL two-leg contests produce both legs", () => {
+  // Field Day and the Africa FT4 contest each run twice a year off ONE record,
+  // because both legs share a start and end offset and differ only in the
+  // weekend they anchor to. A record that produced one leg would silently drop
+  // half the contest, which no date-level test on the first occurrence catches.
+  expect(expand(byId("sarl-national-field-day"), 2026).map((o) => isoDate(o.start!)))
+    .toEqual([D(2026, 3, 14), D(2026, 9, 5)]);
+  expect(expand(byId("sarl-africa-ft4"), 2026).map((o) => isoDate(o.start!)))
+    .toEqual([D(2026, 4, 11), D(2026, 9, 12)]);
+});
+
+test("the SARL HF series runs the hours SARL states", () => {
+  // The digital leg starts an hour earlier than the other two. That is SARL's
+  // own wording -- "13:00 UTC to 16:00 UTC" against "14:00 to 17:00" -- and it
+  // is the kind of detail a copied schedule regularises away.
+  const hours: Record<string, number[]> = {};
+  for (const cid of ["sarl-hf-phone", "sarl-hf-digital", "sarl-hf-cw"]) {
+    const [o] = expand(byId(cid), 2026);
+    hours[cid] = [o.start!.getUTCHours(), o.end!.getUTCHours()];
+  }
+  expect(hours).toEqual({
+    "sarl-hf-phone": [14, 17],
+    "sarl-hf-digital": [13, 16],
+    "sarl-hf-cw": [14, 17],
+  });
+});
+
+test("the SARL equinox legs run a month and end where SARL says", () => {
+  // Two records rather than one, because the end offsets differ: 16 March to
+  // 15 April is 30 days and 16 September to 15 October is 29. One record
+  // carries one start/end pair, so a single record would be wrong by a day in
+  // one leg or the other.
+  const [mar] = expand(byId("sarl-equinox-6m-march"), 2026);
+  expect([isoDate(mar.start!), isoDate(mar.end!)]).toEqual([D(2026, 3, 16), D(2026, 4, 15)]);
+
+  const [sep] = expand(byId("sarl-equinox-6m-september"), 2026);
+  expect([isoDate(sep.start!), isoDate(sep.end!)]).toEqual([D(2026, 9, 16), D(2026, 10, 15)]);
+
+  for (const o of [mar, sep]) {
+    expect([o.start!.getUTCHours(), o.start!.getUTCMinutes()]).toEqual([0, 1]);
+    expect([o.end!.getUTCHours(), o.end!.getUTCMinutes()]).toEqual([23, 59]);
+  }
+});
+
+test("the Africa All Mode deadline matches the date SARL prints", () => {
+  // SARL states this deadline BOTH ways -- "15 days after the contest" and
+  // "Monday 13 April 2026" -- so the span can be encoded against the sponsor's
+  // own arithmetic rather than inferred from one year's date.
+  const c = byId("sarl-africa-all-mode-dx");
+  expect(c.log_deadline_days).toBe(15);
+  const [o] = expand(c, 2026);
+  expect(isoDate(o.log_due!)).toBe(D(2026, 4, 13));
+});
+
+test("SARL entry is worldwide, which corrects an earlier guess", () => {
+  // This catalog previously carried SARL HF Phone as ZS-only, flagged
+  // verified: false with the note "SARL contests are generally South African
+  // entrants only. Confirm." Reading the rules confirmed the opposite: the
+  // scoring table's Area 9 is "Stations in the rest of the world", and the two
+  // Africa DX contests say worldwide entry in as many words.
+  //
+  // The flag did its job, so this test pins the correction rather than the
+  // guess -- an unverified record that was WRONG is the case the flag exists
+  // for, and it should not be able to come back quietly.
+  for (const cid of [
+    "sarl-hf-phone", "sarl-hf-digital", "sarl-hf-cw", "sarl-africa-all-mode-dx",
+    "sarl-africa-ft4", "sarl-equinox-6m-march", "sarl-national-field-day",
+  ]) {
+    const c = byId(cid);
+    expect(c.eligibility?.scope, cid).toBe("worldwide");
+    expect(eligibilityFor(c, "K").can_enter, cid).toBe(true);
+    expect(c.verified, cid).toBeTruthy();
+  }
+});
+
 // WIA: "Weekend in August closest to the 15th". Seven years, seven weekdays for
 // the 15th, so the whole table is covered -- 2019 is skipped only because it
 // would repeat a weekday. The rule can never be ambiguous: the nearest instance
@@ -2940,14 +3066,17 @@ describe("catalog vocabularies", () => {
     // There is no band list on the page to record, and inferring one from the
     // band plan would be this catalog writing a rule JARL did not.
     //
-    // sarl-hf-phone: sarl.org.za served an expired TLS certificate on
-    // 2026-08-16, so its rules could not be read. The project's rule is to
-    // document a blocked source and stop, never to reach for an aggregator.
+    // It is down to that one. sarl-hf-phone was the other, carried with no
+    // bands because sarl.org.za served an expired certificate and then went
+    // dark entirely; the league had moved to mysarl.org.za, and on 2026-08-19
+    // its rules were read there and the bands recorded. Waiting was the right
+    // call: the project's rule is to document a blocked source and stop, never
+    // to reach for an aggregator, and the source came back.
     const unrecorded = catalog
       .filter((c) => !(c.bands ?? []).length)
       .map((c) => c.id)
       .sort();
-    expect(unrecorded).toEqual(["jarl-new-year-qso-party", "sarl-hf-phone"]);
+    expect(unrecorded).toEqual(["jarl-new-year-qso-party"]);
   });
 
   test("bands_note never stands in for a band list", () => {
