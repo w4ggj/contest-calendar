@@ -2852,6 +2852,33 @@ def test_rep_deadlines_are_encoded_only_where_the_sponsor_states_a_span(catalog)
         assert "log_deadline_days" not in by_id(catalog, cid), cid
 
 
+def test_rca_holds_only_the_editions_argentina_published(catalog):
+    """
+    Radio Club Argentino states one dated running per contest and no
+    recurrence, so both records are `manual` and both currently sit in the
+    past: 18 October 2025 for the 40 m contest and 13 June 2026 for the 80 m
+    one. Neither puts anything on a forward calendar, and that is correct --
+    fitting an ordinal to a single date would be a rule RCA has not written.
+
+    South America is the catalog's thinnest region, which makes this exactly
+    the place where inventing a rule would be most tempting and least
+    defensible.
+    """
+    for cid, year, day in (("rca-nacional-40m", 2025, date(2025, 10, 18)),
+                           ("rca-nacional-80m", 2026, date(2026, 6, 13))):
+        c = by_id(catalog, cid)
+        assert c["recurrence"]["type"] == "manual", cid
+        (o,) = expand(c, year)
+        assert o.start.date() == day, cid
+        # No year RCA has not announced.
+        assert expand(c, year + 1) == [], cid
+
+    # RCA restricts entry to Argentina and its neighbours, which is a real
+    # entity list rather than a formality, so a K station cannot enter.
+    assert not eligibility_for(by_id(catalog, "rca-nacional-80m"), "K")["can_enter"]
+    assert eligibility_for(by_id(catalog, "rca-nacional-80m"), "LU")["can_enter"]
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

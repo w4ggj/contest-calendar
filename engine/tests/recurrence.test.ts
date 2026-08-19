@@ -2838,6 +2838,33 @@ test("REP deadlines are encoded only where the sponsor states a span", () => {
   }
 });
 
+test("RCA holds only the editions Argentina published", () => {
+  // Radio Club Argentino states one dated running per contest and no
+  // recurrence, so both records are `manual` and both currently sit in the
+  // past: 18 October 2025 for the 40 m contest and 13 June 2026 for the 80 m
+  // one. Neither puts anything on a forward calendar, and that is correct --
+  // fitting an ordinal to a single date would be a rule RCA has not written.
+  //
+  // South America is the catalog's thinnest region, which makes this exactly
+  // the place where inventing a rule would be most tempting and least
+  // defensible.
+  for (const [cid, year, day] of [
+    ["rca-nacional-40m", 2025, D(2025, 10, 18)],
+    ["rca-nacional-80m", 2026, D(2026, 6, 13)],
+  ] as const) {
+    const c = byId(cid);
+    expect(c.recurrence.type, cid).toBe("manual");
+    const [o] = expand(c, year);
+    expect(isoDate(o.start!), cid).toBe(day);
+    expect(expand(c, year + 1), cid).toEqual([]);
+  }
+
+  // RCA restricts entry to Argentina and its neighbours, which is a real
+  // entity list rather than a formality, so a K station cannot enter.
+  expect(eligibilityFor(byId("rca-nacional-80m"), "K").can_enter).toBe(false);
+  expect(eligibilityFor(byId("rca-nacional-80m"), "LU").can_enter).toBe(true);
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

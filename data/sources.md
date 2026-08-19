@@ -1087,6 +1087,50 @@ and exactly the sort of thing that is invisible until something checks.
   Association, HamSat-SA, the ZS1–ZS5 provincial QSO parties, BACAR. Those are separate
   sponsors needing their own registry entries and their own sources, not SARL records.
 
+## South America, and what it actually publishes — 2026-08-19
+
+**Two records, and a map of the region that is worth more than the two.** South America was
+the last region at a single record. It is now at three, and the honest finding is that the
+gap is mostly not ours to close by reading harder.
+
+| Society | What it publishes | Outcome |
+|---|---|---|
+| **RCA** (Radio Club Argentino, `lu4aa.org/wp`) | Bases pages for the Concurso Nacional de 7 MHz and de 3,5 MHz | **2 records**, both `manual` |
+| **RCU** (Radio Club Uruguayo, `cx1aa.org`) | An awards and activities programme — Áreas Protegidas, the CX award | **No contest** with a schedule to encode |
+| **LCRA** (Colombia, `lcra.org.co`) | A live site with no contest or *reglamento* section reachable from it | Nothing found |
+| **Radio Club de Chile** (`radioclubdechile.cl` → `ce3aa.cl`) | Live, no contest or *bases* links | Nothing found |
+| **GACW** (Argentina) | WWSA rules as scanned PDFs with no text layer | Still blocked — unchanged |
+| **LABRE** (Brazil) | Already sourced; one record | Unchanged |
+
+### RCA publishes editions, not rules
+
+Both Argentine contests state a single dated running and no recurrence:
+
+- *"Fecha y Hora Sábado 18 de octubre de 2025 18:30 a 20:30 hora LU (21:30 a 23:30 hora UTC)"*
+- *"Fecha y Hora Sábado 13 de junio de 2026 de 19:00 a 20:59 hs. LU / 22:00 a 23:59 UTC"*
+
+So both are `manual`, and **both dates have already passed** — neither puts anything on a
+forward calendar today. That is the correct outcome rather than a disappointing one. South
+America being the thinnest region is exactly what would make fitting a plausible ordinal to a
+single date tempting, and exactly why it would be indefensible: "third Saturday of October"
+is a rule RCA has not written. When RCA announces the next editions it is one line each.
+
+RCA states its times in UTC alongside local Argentine time, so no zone resolution is involved.
+Entry is restricted — *"Estaciones fijas argentinas y de países limítrofes"* — and the entity
+list is this catalog's expansion of "bordering countries" into prefixes, which the note says.
+
+### The finding worth recording
+
+**Most South American societies do not publish contest rules on the web at all.** Three of the
+five national sites checked are live, well-maintained and simply have no contest section; the
+one blocked source (GACW) is blocked by scanned imagery, not by absence. This is a different
+shape of gap from Europe, where every society published and the work was reading eleven
+languages, and from Africa, where one society published everything and had merely moved.
+
+It means the region will not be closed by more reading. It needs the same treatment as QRP
+ARCI: ask the societies directly, and cite the reply. That is now the recorded next step
+rather than an open-ended search.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

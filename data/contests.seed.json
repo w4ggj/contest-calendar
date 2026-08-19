@@ -10422,6 +10422,124 @@
         "verified": true,
         "note": "'The event is open to all licensed amateurs in the SADC countries that have access to the 160-metre band.'"
       }
+    },
+    {
+      "id": "rca-nacional-40m",
+      "name": "Concurso Nacional de 7 MHz",
+      "sponsor": "RCA",
+      "country": "AR",
+      "rules_url": "https://www.lu4aa.org/wp/concurso-nacional-40m/",
+      "sponsor_home": "https://www.lu4aa.org/wp/",
+      "modes": [
+        "SSB"
+      ],
+      "submodes": [
+        "LSB"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "40 metres, in the segment between 7.100 and 7.300 kHz.",
+      "exchange": "RS report followed by the last two digits of the year in which the operator obtained their first amateur licence -- a licence obtained in 1998 is sent as '59 98'.",
+      "power_categories": [
+        {
+          "name": "Baja Potencia",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-10-18"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2130"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2330"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lu4aa.org/wp/concurso-nacional-40m/, Radio Club Argentino's own bases: 'Fecha y Hora Sabado 18 de octubre de 2025 18:30 a 20:30 hora LU (21:30 a 23:30 hora UTC)'. Banda: '40 metros, en el segmento comprendido entre 7.100 y 7.300 kHz'. Modo: 'LSB'. Participantes: 'Estaciones fijas argentinas y de paises limitrofes. Radioclubes argentinos y de paises limitrofes.' Categorias: 'Monooperador Baja Potencia 100 W maximo. Radioclub/Equipo Multioperador Baja Potencia 100 W maximo.' Serie a pasar: 'Luego del reporte RS, la serie sera los dos ultimos digitos correspondientes al ano en que el participante obtuvo su primera licencia de radioaficionado. Ejemplo: Si Ud. obtuvo su licencia en el ano 1998, el reporte a pasar sera 59 98.'",
+      "note": "RCA PUBLISHES ONE EDITION AT A TIME, NOT A RULE. The bases page states a single dated running and no recurrence, so this is a manual record holding exactly what RCA published and nothing more. Both of RCA's national contests are in that state, and both of the dates on offer as of 2026-08-19 have already passed, so neither puts anything on a forward calendar today. That is the honest position: a plausible ordinal fitted to one date would be a rule RCA has not written. When RCA announces the next edition it is one line each. The times are stated by RCA in UTC alongside local Argentine time, so no zone resolution is involved.",
+      "summary": "Radio Club Argentino's national 40m contest: two hours of LSB for Argentine stations and those of bordering countries, exchanging the year you were first licensed.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "LU",
+          "CE",
+          "CP",
+          "ZP",
+          "PY",
+          "CX"
+        ],
+        "verified": true,
+        "note": "'Estaciones fijas argentinas y de paises limitrofes. Radioclubes argentinos y de paises limitrofes.' -- Argentine fixed stations and radio clubs and those of bordering countries. The entity list is this catalog's expansion of 'bordering': Argentina, Chile, Bolivia, Paraguay, Brazil and Uruguay. RCA names the rule, not the prefixes."
+      }
+    },
+    {
+      "id": "rca-nacional-80m",
+      "name": "Concurso Nacional de 3,5 MHz",
+      "sponsor": "RCA",
+      "country": "AR",
+      "rules_url": "https://www.lu4aa.org/wp/concurso-nacional-80m/",
+      "sponsor_home": "https://www.lu4aa.org/wp/",
+      "modes": [
+        "SSB"
+      ],
+      "submodes": [
+        "LSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "80 metres, in the segment between 3.550 and 3.700 kHz.",
+      "exchange": "RS report followed by the last two digits of the year in which the operator obtained their first amateur licence -- a licence obtained in 1998 is sent as '59 98'.",
+      "power_categories": [
+        {
+          "name": "Baja Potencia",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-06-13"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "lu4aa.org/wp/concurso-nacional-80m/, Radio Club Argentino's own bases: 'Fecha y Hora Sabado 13 de junio de 2026 de 19:00 a 20:59 hs. LU / 22:00 a 23:59 UTC'. Banda: '80 metros, en el segmento comprendido entre 3.550 y 3.700 kHz'. Modo: 'LSB'. Participantes: 'Estaciones fijas argentinas y de paises limitrofes.' Categorias: 'Monooperador Baja Potencia 100 W maximo.' Serie a pasar: 'Reporte RS mas los dos ultimos digitos correspondientes al ano en que el participante obtuvo su primera licencia de radioaficionado.'",
+      "note": "RCA PUBLISHES ONE EDITION AT A TIME, NOT A RULE. The bases page states a single dated running and no recurrence, so this is a manual record holding exactly what RCA published and nothing more. Both of RCA's national contests are in that state, and both of the dates on offer as of 2026-08-19 have already passed, so neither puts anything on a forward calendar today. That is the honest position: a plausible ordinal fitted to one date would be a rule RCA has not written. When RCA announces the next edition it is one line each. The times are stated by RCA in UTC alongside local Argentine time, so no zone resolution is involved.",
+      "summary": "Radio Club Argentino's national 80m contest: two hours of LSB for Argentine stations and those of bordering countries, exchanging the year you were first licensed.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "LU",
+          "CE",
+          "CP",
+          "ZP",
+          "PY",
+          "CX"
+        ],
+        "verified": true,
+        "note": "'Estaciones fijas argentinas y de paises limitrofes. Radioclubes argentinos y de paises limitrofes.' -- Argentine fixed stations and radio clubs and those of bordering countries. The entity list is this catalog's expansion of 'bordering': Argentina, Chile, Bolivia, Paraguay, Brazil and Uruguay. RCA names the rule, not the prefixes."
+      }
     }
   ]
 }
