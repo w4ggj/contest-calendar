@@ -279,6 +279,11 @@ test("registry flags derived sources", () => {
   // Guard rail: the registry must keep naming sources that are downstream of
   // contestcalendar.com, so nobody reintroduces them as 'primary' later.
   const derived = loadRegistry().known_derived_sources.map((d) => d.name);
+  // qrpcontest.com is the one that would actually get taken. It publishes
+  // recurrences in exactly this catalog's shape, for the one sponsor whose
+  // rules are nowhere on the public web -- and it links WA7BNM from its own
+  // front page, so it is downstream too.
+  expect(derived.some((n: string) => n.toLowerCase().includes("qrpcontest"))).toBe(true);
   expect(derived.some((n) => n.includes("Corral"))).toBe(true);
   expect(derived.some((n) => n.includes("SM3CER"))).toBe(true);
 });

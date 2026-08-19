@@ -262,6 +262,11 @@ def test_registry_flags_derived_sources():
     derived = {d["name"] for d in reg["known_derived_sources"]}
     assert any("Corral" in n for n in derived)
     assert any("SM3CER" in n for n in derived)
+    # qrpcontest.com is the one that would actually get taken. It publishes
+    # recurrences in exactly this catalog's shape, for the one sponsor whose
+    # rules are nowhere on the public web -- and it links WA7BNM from its own
+    # front page, so it is downstream too.
+    assert any("qrpcontest" in n.lower() for n in derived)
 
 
 REGISTRY_TIERS = [

@@ -964,8 +964,17 @@ test rather than a comment — reverting it means arguing with the evidence.
   qrparci.org/qrp-event-calendar renders nothing without JavaScript and exposes no data
   endpoint; the site's WordPress page list contains exactly one `contests` page and no
   per-contest rules pages. The rules appear to be published in the members' magazine
-  *QRP Quarterly*. **qrpcontest.com is a third-party logging service, not the sponsor** —
-  it is not a valid source. No records created. **Next step: QRP ARCI's own Contact Us page
+  *QRP Quarterly*. **qrpcontest.com is not a valid source, and this entry used to undersell
+  why.** Re-read on 2026-08-19: it is an aggregator listing the contests of seven clubs it
+  does not sponsor — QRP ARCI, NAQCC, Flying Pigs, 4SQRP, ARS, AzScQRPions, NOGA — and it
+  links the WA7BNM Contest Calendar from its own front page, so it is downstream of
+  contestcalendar.com in the same way ARRL's Contest Corral is. Its own business is log
+  submission, which is a service to those clubs rather than authorship of their rules. It is
+  **the most tempting wrong source in this project**: it states QRP ARCI's recurrences in
+  exactly the form this catalog wants — "QRP ARCI Spring QSO Party, 2nd Saturday in April,
+  0000Z - 0600Z" — for the one sponsor whose rules are nowhere on the public web. Taking them
+  would look like sourcing and would be copying. It now has a `known_derived_sources` entry
+  and a test in both engines. No records created. **Next step: QRP ARCI's own Contact Us page
   names Larry Makowski W2LJ as Contest Manager at `contest@qrparci.org`** and directs contest
   queries there (read 2026-08-19). Ask for the recurrence in the club's own wording, not this
   year's dates, and for the last few years' dates as the independent check. A reply recorded
