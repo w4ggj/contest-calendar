@@ -3173,6 +3173,25 @@ test("SOTA says all bands, so none are recorded", () => {
     .toEqual([D(2026, 5, 16), D(2026, 9, 19)]);
 });
 
+test("Australia Day opens the day before the holiday", () => {
+  // Australia Day is 26 January and the contest opens at 2200 UTC on the 25th,
+  // which is 0900 on the 26th in eastern Australia. The anchor is therefore
+  // the 26th with a negative offset on the start, exactly as WIA states it --
+  // not a rule about the 25th, which would drift if WIA moved the hours.
+  for (const year of [2026, 2027, 2028]) {
+    const [o] = expand(byId("wia-australia-day"), year);
+    expect(isoDate(o.start!), String(year)).toBe(D(year, 1, 25));
+    expect([o.start!.getUTCHours(), o.end!.getUTCHours()]).toEqual([22, 10]);
+    expect(isoDate(o.end!), String(year)).toBe(D(year, 1, 26));
+    expect(o.duration_hours).toBe(12);
+  }
+  // WIA's "Phone" covers AM, FM and SSB; FM has a token and AM does not.
+  const c = byId("wia-australia-day");
+  expect(c.modes).toContain("FM");
+  expect(c.modes).toContain("SSB");
+  expect(c.submodes).toEqual(["AM"]);
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

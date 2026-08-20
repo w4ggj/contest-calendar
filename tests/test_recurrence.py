@@ -3202,6 +3202,26 @@ def test_sota_says_all_bands_so_none_are_recorded(catalog):
     assert [o.start.date() for o in occ] == [date(2026, 5, 16), date(2026, 9, 19)]
 
 
+def test_australia_day_opens_the_day_before_the_holiday(catalog):
+    """
+    Australia Day is 26 January and the contest opens at 2200 UTC on the 25th,
+    which is 0900 on the 26th in eastern Australia. The anchor is therefore the
+    26th with a negative offset on the start, exactly as WIA states it -- not a
+    rule about the 25th, which would drift if WIA ever moved the hours.
+    """
+    for year in (2026, 2027, 2028):
+        (o,) = expand(by_id(catalog, "wia-australia-day"), year)
+        assert o.start.date() == date(year, 1, 25)
+        assert (o.start.hour, o.end.hour) == (22, 10)
+        assert o.end.date() == date(year, 1, 26)
+        assert o.duration_hours == 12
+
+    # WIA's "Phone" covers AM, FM and SSB; FM has a token and AM does not.
+    c = by_id(catalog, "wia-australia-day")
+    assert "FM" in c["modes"] and "SSB" in c["modes"]
+    assert c["submodes"] == ["AM"]
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

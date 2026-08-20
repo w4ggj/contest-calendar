@@ -1402,6 +1402,47 @@ Belgian Mills Award, and its note says all of that out loud.
 That takes the South African club entry to **12 of 12**, and the only thing left in SARL's
 calendar with no rules in the manual is BACAR, which appears in its news categories.
 
+## WIA was not complete after all — 2026-08-19
+
+The registry said **complete, 5 of 5**. WIA's own navigation lists ten "Official WIA Contests",
+and three of them had never been encoded. This is the third registry count corrected today,
+after ARSI (1 → 5) and TRAC (3 → 1), and the lesson is the same each time: **the stub's
+estimate is a guess, and "complete" is only as good as the pass that set it.**
+
+**Australia Day Contest is now encoded.** WIA states it plainly: *"It is held on the Australia
+Day Public Holiday that being the 26th of January"*, and *"2200 UTC 25th January to 1000 UTC
+26th January"*. The record anchors on **the 26th with a −1 day offset on the start**, which is
+how WIA phrases it and is the stable encoding: 2200 UTC on the 25th is 0900 on the 26th in
+eastern Australia, so the contest genuinely belongs to the holiday rather than to the day
+before it. A rule written about the 25th would drift the moment WIA moved the hours.
+
+Modes are worth a line. WIA's *"Phone"* covers AM, FM and SSB and scores as one mode, so **SSB
+and FM are both recorded** — both are permitted — and AM sits in `submodes`, having no token.
+FT8/FT4 is a separately scored section. This is the second contest in a day to need the FM
+token that SARL's VHF/UHF contest introduced.
+
+### Two are read and deliberately not encoded, and the blocker is ours
+
+**Ross Hull Memorial VHF/UHF Contest (Marathon)** — *"Date & Time: The month of January"*, a
+month-long marathon scored on the entrant's best seven days.
+
+**VHF-UHF Field Days** — three legs a year, all 0100 UTC Saturday to 0059 UTC Sunday: the 1st
+full weekend of January (Summer), the 3rd weekend of June (Winter) and the 3rd weekend of
+September (Spring). WIA prints 2026's dates beside each, and all three match those rules.
+
+Both recurrences are stated plainly on WIA's pages. **Neither page carries a band list** — both
+defer to a rules PDF — and those PDFs yield no text to the extractor written for SARL's manual
+earlier today. That is a limitation of the tool, not of the source: a human opening the PDF
+sees the bands immediately.
+
+So they are recorded as read-and-waiting rather than encoded, because the alternative is
+guessing a band list for two VHF contests, and a VHF record with invented bands is worse than
+no record. Anyone with a PDF reader can finish both in about ten minutes.
+
+Of the remaining nav entries, the **Commonwealth Contest** is RSGB's BERU and the **Contest
+Champion** is an award computed over WIA's other contests, so neither is a WIA contest to
+encode. WIA is now **6 of 8** rather than 5 of 5.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

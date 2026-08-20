@@ -11704,6 +11704,57 @@
         "verified": true,
         "note": "'This fun activity is open to all radio amateurs.'"
       }
+    },
+    {
+      "id": "wia-australia-day",
+      "name": "Australia Day Contest",
+      "sponsor": "WIA",
+      "country": "AU",
+      "rules_url": "https://www.wia.org.au/members/contests/australiaday/",
+      "sponsor_home": "https://www.wia.org.au/",
+      "log_submit_url": "https://www.vklogchecker.com/",
+      "modes": [
+        "SSB",
+        "FM",
+        "CW",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "AM"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160, 80, 40, 20, 15 and 10 metre bands only.",
+      "exchange": "RS(T) or SNR followed by a four-character grid square.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 1,
+        "day": 26
+      },
+      "start": {
+        "day_offset": -1,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "wia.org.au/members/contests/australiaday/, the WIA's own page: 'It is held on the Australia Day Public Holiday that being the 26th of January.' 'Upcoming Contest Date & Time: Australia Day January 26th. 2200 UTC 25th January to 1000 UTC 26th January.' Aim: 'Amateurs in VK will endeavour to contact other amateurs around the world. Some VK operators will be using the AX prefix to celebrate Australia day.' Modes: 'Phone (Includes AM, FM & SSB), CW, Mixed, DIGI - FT8/FT4 (Separate digital section)', with 'FM, AM, & SSB count as one mode.' Exchange: 'A valid exchange consists of RS(T) or SNR followed by a 4 character grid square.' Permitted bands: '160, 80, 40, 20, 15, and 10 meter bands only.' Scoring is distance-based on four-character grid squares, and results are published at vklogchecker.com.",
+      "note": "ANCHORED ON A PUBLIC HOLIDAY AND STARTING THE DAY BEFORE IT. Australia Day is 26 January, and the contest opens at 2200 UTC on the 25th -- which is 0900 on the 26th in eastern Australia. So the record's anchor is the 26th with a day_offset of -1 on the start, exactly as WIA states it, rather than a rule about the 25th.\n\nModes: WIA's 'Phone' covers AM, FM and SSB and scores as one mode, so SSB and FM are both recorded -- both are permitted -- and AM sits in submodes because it has no token in this catalog. FT8/FT4 is a separate scored section.\n\nNo log deadline is stated on the page.",
+      "summary": "Australia's national day contest: twelve hours from 2200 UTC on 25 January, six HF bands, scored on distance between grid squares.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The categories are 'DX and VK' and the aim is for VK amateurs 'to contact other amateurs around the world', so entry is not restricted to Australia."
+      }
     }
   ]
 }
