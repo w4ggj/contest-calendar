@@ -1506,6 +1506,100 @@ section anywhere in its navigation**, in English or Chinese. The stub named a "W
 Provinces of China DX Contest"; whoever runs it, CRAC does not publish its rules. Next step is
 to identify the actual organiser, or write to CRAC.
 
+## Seven more RSGB contests, and what four years of dates settle — 2026-08-20
+
+RSGB is the best-shaped source in the catalog for one reason that has nothing to do with how
+well it writes: it keeps **a separate rules page per year**, at
+`rsgbcc.org/hf/rules/{year}/r<slug>.shtml`. So the sponsor's own published dates test the
+sponsor's own stated recurrence, four or five years deep, without going anywhere else. Every
+record below was expanded for 2023, 2024, 2025 and 2026 and compared against what RSGB printed
+in each of those years — 28 date-points, all matching.
+
+The rules index itself is a **403**: `rsgbcc.org/hf/rules/{year}/` refuses a directory listing.
+The eleven known pages were found by harvesting links out of `/hf/results/results.shtml` and out
+of the rules pages themselves — `rafs`, `rclubcalls`, `rhfchamp`, `riota`, `rnfd`, `r80mcc`,
+`rautumn`, `r160m`, `rallband_ft4`, `rcwc`, `rqrp`. Several cover more than one contest, so a
+page count is not a contest count.
+
+### The seven
+
+| Contest | 2023 | 2024 | 2025 | 2026 | Rule |
+|---|---|---|---|---|---|
+| 1.8 MHz, February | 11 Feb | 10 Feb | 8 Feb | 14 Feb | 2nd Saturday of February |
+| 1.8 MHz, November | 18 Nov | 16 Nov | 15 Nov | 21 Nov | 3rd Saturday of November |
+| Club Calls | 11 Nov | 9 Nov | 8 Nov | 14 Nov | 2nd Saturday of November |
+| National Field Day (CW) | 3 Jun | 1 Jun | 7 Jun | 6 Jun | 1st Saturday of June |
+| SSB Field Day | 2 Sep | 7 Sep | 6 Sep | 5 Sep | 1st Saturday of September |
+| Low Power | 16 Jul | 21 Jul | 20 Jul | 19 Jul | 3rd Sunday of July |
+| FT4 International Activity Day | 1 Apr | 6 Apr | 5 Apr | 11 Apr | **none — `manual`** |
+
+### Four things the four years settled that a single year would have got wrong
+
+**The AFS New Year exclusion does not generalise.** AFS skips 1 January when it falls on a
+Saturday; that was established from 2022 and is in the record. The obvious next move is to copy
+`exclude_dates: [[1, 1]]` on to National Field Day for June — and it would be wrong. **1 June
+2024 was itself a Saturday and RSGB ran NFD on it.** Same committee, same phrasing, opposite
+answer. A test asserts both halves so that the symmetry is never tidied in.
+
+**The FT4 Activity Day has no rule to encode.** First Saturday of April in 2023, 2024 and 2025;
+**second** Saturday in 2026. Three years out of four is not a recurrence, so the record is
+`manual` and holds only the date RSGB published — it produces nothing for 2027. There is a
+plausible story: Easter Sunday fell on 5 April 2026, which would have put the first Saturday on
+Easter Saturday, and Easter fell outside early April in the other three years. A story is not a
+source. If RSGB confirms it avoids Easter, this becomes a rule with an exception. Its format
+also changed under it: 2023 was a single 12-hour day at 0800–2000 UTC, and from 2024 it has been
+24 hours at 1200–1200.
+
+**The two 1.8 MHz contests share a rules page and not a mode.** February is CW *and* SSB;
+November is **CW only**. That is the sponsor's own distinction and it is why these are two
+records rather than one with two legs — a reader filtering for SSB should not be shown the
+November one. Both also moved from 1900–2300 to 2000–2300 UTC in 2025 *without the date rule
+changing*, which is recorded in the notes so that a reader comparing an old result against this
+calendar is not misled.
+
+**The Low Power Contest breaks for lunch.** 0900–1200 and 1300–1600 UTC, which is what the
+`sessions` array is for. Encoding it as one seven-hour block would put a contest on the calendar
+during an hour RSGB does not run one.
+
+### Smaller things worth writing down
+
+**Club Calls caps the whole contest at 32 watts** — not an entry class, the contest. Every other
+single-ceiling record in the catalog sits at 5 W (a QRP class) or 100 W (the usual low-power
+class), so 32 is exactly the sort of odd number that gets tidied to 30 by someone who has not
+read the rules. A test holds it. It is also on top band on the *second* Saturday of November,
+one week before the 1.8 MHz contest on the third — two different contests in the same
+neighbourhood, and easy to conflate.
+
+**The two field days differ in two ways, both RSGB's.** CW starts at 1500 and includes 160 m;
+SSB starts at 1300 and does not. Same rules page, same 24 hours.
+
+**Eligibility, contest by contest.** NFD and SSB Field Day are "primarily intended for RSGB
+Members and Affiliated Societies", with non-members entering only through an Affiliated Society;
+Club Calls requires stations "all of whom must be within the UK&CD". Those three are recorded as
+`entity_list: ["G"]` and verified. The 1.8 MHz contests and the FT4 day have explicit non-UK&CD
+sections, so they are worldwide and verified.
+
+**The Low Power Contest's eligibility is the one unverified thing here.** RSGB says only that
+"UK&CD entrants must be RSGB members" and says nothing at all about anyone else, which reads as
+open but is an *absence* rather than a statement. RSGB separately lists an "International Low
+Power Contest" in its results archive, which raises the possibility that this one is the
+domestic one. Recorded worldwide with `verified: false` and a note saying why. It is one
+question to the contest committee.
+
+### Read and deliberately deferred: the Commonwealth Contest (BERU)
+
+Its recurrence is clean and confirmed against four years — 11 Mar 2023, 9 Mar 2024, 8 Mar 2025,
+14 Mar 2026, the second weekend of March, Saturday 1000 to Sunday 1000 UTC, CW on 3.5/7/14/21/28
+MHz. It is not encoded because of eligibility: the rules restrict entry by **"the Commonwealth
+Call Area from which they are operating"** and do not enumerate the Commonwealth Call Areas
+anywhere on that page. Writing an `entity_list` would mean assembling one from elsewhere and
+attributing it to RSGB. The alternative — recording it as worldwide — would be plainly false.
+So it waits for the list RSGB actually uses, and the reason is here rather than nowhere.
+
+Also unread at RSGB: the HF Championship (`rhfchamp`), the 80m Club Championships (`r80mcc`) and
+the Autumn Series (`rautumn`), all multi-leg series that need their own careful read; the AFS 160
+contest; and the four VHF/UHF AFS contests, which live under `/vhf/`.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

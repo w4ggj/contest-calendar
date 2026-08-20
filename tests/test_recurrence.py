@@ -3273,6 +3273,105 @@ def test_rsgb_afs_new_year_exception_is_evidenced(catalog):
     assert expand(by_id(catalog, "rsgb-afs-cw"), 2028)[0].start.date() == date(2028, 1, 8)
 
 
+# Four years of RSGB's own rules pages, per contest. RSGB keeps a page per
+# year, so the sponsor checks the sponsor's rule -- 28 date-points here.
+RSGB_PUBLISHED = {
+    "rsgb-1_8mhz-first": {2023: (2, 11), 2024: (2, 10), 2025: (2, 8), 2026: (2, 14)},
+    "rsgb-1_8mhz-second": {2023: (11, 18), 2024: (11, 16), 2025: (11, 15), 2026: (11, 21)},
+    "rsgb-club-calls": {2023: (11, 11), 2024: (11, 9), 2025: (11, 8), 2026: (11, 14)},
+    "rsgb-nfd-cw": {2023: (6, 3), 2024: (6, 1), 2025: (6, 7), 2026: (6, 6)},
+    "rsgb-ssb-field-day": {2023: (9, 2), 2024: (9, 7), 2025: (9, 6), 2026: (9, 5)},
+    "rsgb-low-power": {2023: (7, 16), 2024: (7, 21), 2025: (7, 20), 2026: (7, 19)},
+}
+
+
+@pytest.mark.parametrize(
+    "cid,year,md",
+    [(cid, y, md) for cid, years in sorted(RSGB_PUBLISHED.items())
+     for y, md in sorted(years.items())],
+)
+def test_rsgb_reproduces_four_years_of_its_own_dates(catalog, cid, year, md):
+    got = expand(by_id(catalog, cid), year)[0].start.date()
+    assert got == date(year, *md), cid
+
+
+def test_rsgb_national_field_day_has_no_new_year_style_exception(catalog):
+    """
+    The same committee, two different answers, and only published dates
+    separate them.
+
+    AFS skips 1 January when it falls on a Saturday -- evidenced by 2022. NFD
+    does not skip 1 June: 1 June 2024 was itself a Saturday and RSGB ran the
+    contest on it. So the AFS exclusion must not be copied across to NFD out of
+    symmetry, and this test is here to fail if someone tries.
+    """
+    assert date(2024, 6, 1).weekday() == 5
+    assert expand(by_id(catalog, "rsgb-nfd-cw"), 2024)[0].start.date() == date(2024, 6, 1)
+    assert "exclude_dates" not in by_id(catalog, "rsgb-nfd-cw")["recurrence"]
+    assert by_id(catalog, "rsgb-afs-cw")["recurrence"]["exclude_dates"] == [[1, 1]]
+
+
+def test_rsgb_ft4_activity_day_is_manual_because_the_ordinal_breaks(catalog):
+    """
+    First Saturday of April in 2023, 2024 and 2025 -- and the second in 2026.
+    Three years out of four is not a rule, so the record holds only the date
+    RSGB published. Easter Sunday fell on 5 April 2026, which is a plausible
+    reason and not a source.
+    """
+    c = by_id(catalog, "rsgb-ft4-activity-day")
+    assert c["recurrence"]["type"] == "manual"
+    assert not c["verified"]
+    occ = expand(c, 2026)
+    assert len(occ) == 1
+    assert occ[0].start.date() == date(2026, 4, 11)
+    # The ordinal that would have been wrong: 2026's first Saturday is the 4th.
+    assert date(2026, 4, 4).weekday() == 5
+    # ...and it produces nothing at all for a year RSGB has not published.
+    assert expand(c, 2027) == []
+
+
+def test_rsgb_low_power_leaves_the_lunch_hour_empty(catalog):
+    # 0900-1200 and 1300-1600, which is why this record uses sessions. A single
+    # seven-hour block would put a contest on the calendar during an hour RSGB
+    # does not run one.
+    occ = expand(by_id(catalog, "rsgb-low-power"), 2026)
+    assert [(o.start.hour, o.end.hour) for o in occ] == [(9, 12), (13, 16)]
+    assert all(o.duration_hours == 3.0 for o in occ)
+
+
+def test_rsgb_top_band_records_differ_in_the_ways_rsgb_states(catalog):
+    """
+    Three top-band contests, three sets of rules, and the differences are the
+    sponsor's own -- which is why they are three records and not one.
+    """
+    feb = by_id(catalog, "rsgb-1_8mhz-first")
+    nov = by_id(catalog, "rsgb-1_8mhz-second")
+    club = by_id(catalog, "rsgb-club-calls")
+
+    assert feb["modes"] == ["CW", "SSB"]
+    assert nov["modes"] == ["CW"]          # the November leg is CW only
+    assert [c["bands"] for c in (feb, nov, club)] == [["160m"]] * 3
+
+    # Club Calls caps the whole contest at 32 W, which is the point of it
+    # rather than a footnote. Every other single-ceiling record in the catalog
+    # sits at 5 W (a QRP class) or 100 W (the usual low-power class); 32 is a
+    # value nothing else uses, so it is exactly the sort of number that gets
+    # "tidied" to 30 or 35 by someone who has not read the rules.
+    assert club["power_categories"][0]["max_watts"] == 32
+    whole_contest_ceilings = {
+        c["power_categories"][0]["max_watts"]
+        for c in catalog
+        if len(c.get("power_categories") or []) == 1
+        and c["power_categories"][0].get("max_watts")
+    }
+    assert whole_contest_ceilings == {5, 32, 100}
+
+    # Club Calls and the November leg are a week apart and are not the same
+    # contest -- the second and third Saturdays of November.
+    assert expand(club, 2026)[0].start.date() == date(2026, 11, 14)
+    assert expand(nov, 2026)[0].start.date() == date(2026, 11, 21)
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC

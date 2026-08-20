@@ -3235,6 +3235,101 @@ test("the RSGB AFS New Year exception is evidenced", () => {
   expect(isoDate(expand(byId("rsgb-afs-cw"), 2028)[0].start!)).toBe(D(2028, 1, 8));
 });
 
+// Four years of RSGB's own rules pages, per contest. RSGB keeps a page per
+// year, so the sponsor checks the sponsor's rule -- 28 date-points here.
+const RSGB_PUBLISHED: [string, number, number, number][] = [
+  ["rsgb-1_8mhz-first", 2023, 2, 11], ["rsgb-1_8mhz-first", 2024, 2, 10],
+  ["rsgb-1_8mhz-first", 2025, 2, 8], ["rsgb-1_8mhz-first", 2026, 2, 14],
+  ["rsgb-1_8mhz-second", 2023, 11, 18], ["rsgb-1_8mhz-second", 2024, 11, 16],
+  ["rsgb-1_8mhz-second", 2025, 11, 15], ["rsgb-1_8mhz-second", 2026, 11, 21],
+  ["rsgb-club-calls", 2023, 11, 11], ["rsgb-club-calls", 2024, 11, 9],
+  ["rsgb-club-calls", 2025, 11, 8], ["rsgb-club-calls", 2026, 11, 14],
+  ["rsgb-nfd-cw", 2023, 6, 3], ["rsgb-nfd-cw", 2024, 6, 1],
+  ["rsgb-nfd-cw", 2025, 6, 7], ["rsgb-nfd-cw", 2026, 6, 6],
+  ["rsgb-ssb-field-day", 2023, 9, 2], ["rsgb-ssb-field-day", 2024, 9, 7],
+  ["rsgb-ssb-field-day", 2025, 9, 6], ["rsgb-ssb-field-day", 2026, 9, 5],
+  ["rsgb-low-power", 2023, 7, 16], ["rsgb-low-power", 2024, 7, 21],
+  ["rsgb-low-power", 2025, 7, 20], ["rsgb-low-power", 2026, 7, 19],
+];
+
+test.each(RSGB_PUBLISHED)(
+  "RSGB reproduces four years of its own dates: %s %i",
+  (cid, year, month, day) => {
+    expect(isoDate(expand(byId(cid), year)[0].start!)).toBe(D(year, month, day));
+  },
+);
+
+test("RSGB National Field Day has no New Year-style exception", () => {
+  // The same committee, two different answers, and only published dates
+  // separate them. AFS skips 1 January when it falls on a Saturday --
+  // evidenced by 2022. NFD does not skip 1 June: 1 June 2024 was itself a
+  // Saturday and RSGB ran the contest on it. So the AFS exclusion must not be
+  // copied across to NFD out of symmetry, and this test fails if it is.
+  expect(isoDate(expand(byId("rsgb-nfd-cw"), 2024)[0].start!)).toBe(D(2024, 6, 1));
+  expect(byId("rsgb-nfd-cw").recurrence.exclude_dates).toBeUndefined();
+  expect(byId("rsgb-afs-cw").recurrence.exclude_dates).toEqual([[1, 1]]);
+});
+
+test("the RSGB FT4 Activity Day is manual because the ordinal breaks", () => {
+  // First Saturday of April in 2023, 2024 and 2025 -- and the second in 2026.
+  // Three years out of four is not a rule, so the record holds only the date
+  // RSGB published. Easter Sunday fell on 5 April 2026, which is a plausible
+  // reason and not a source.
+  const c = byId("rsgb-ft4-activity-day");
+  expect(c.recurrence.type).toBe("manual");
+  expect(c.verified).toBeFalsy();
+  const occ = expand(c, 2026);
+  expect(occ).toHaveLength(1);
+  expect(isoDate(occ[0].start!)).toBe(D(2026, 4, 11));
+  // ...and it produces nothing at all for a year RSGB has not published.
+  expect(expand(c, 2027)).toEqual([]);
+});
+
+test("the RSGB Low Power Contest leaves the lunch hour empty", () => {
+  // 0900-1200 and 1300-1600, which is why this record uses sessions. A single
+  // seven-hour block would put a contest on the calendar during an hour RSGB
+  // does not run one.
+  const occ = expand(byId("rsgb-low-power"), 2026);
+  expect(occ.map((o) => [o.start!.getUTCHours(), o.end!.getUTCHours()]))
+    .toEqual([[9, 12], [13, 16]]);
+  expect(occ.every((o) => o.duration_hours === 3.0)).toBe(true);
+});
+
+test("the RSGB top band records differ in the ways RSGB states", () => {
+  // Three top-band contests, three sets of rules, and the differences are the
+  // sponsor's own -- which is why they are three records and not one.
+  const feb = byId("rsgb-1_8mhz-first");
+  const nov = byId("rsgb-1_8mhz-second");
+  const club = byId("rsgb-club-calls");
+
+  expect(feb.modes).toEqual(["CW", "SSB"]);
+  expect(nov.modes).toEqual(["CW"]);          // the November leg is CW only
+  expect([feb, nov, club].map((c) => c.bands))
+    .toEqual([["160m"], ["160m"], ["160m"]]);
+
+  // Club Calls caps the whole contest at 32 W, which is the point of it rather
+  // than a footnote. Every other single-ceiling record in the catalog sits at
+  // 5 W (a QRP class) or 100 W (the usual low-power class); 32 is exactly the
+  // sort of odd number that gets "tidied" by someone who has not read the rules.
+  // power_categories is not on the Contest interface -- it reaches the render
+  // layer through the index signature -- so it is cast here exactly as
+  // worker/src/render/detail.ts casts it.
+  const cats = (c: Contest) =>
+    (c.power_categories ?? []) as { name: string; max_watts?: number | null }[];
+  expect(cats(club)[0].max_watts).toBe(32);
+  const wholeContestCeilings = new Set(
+    catalog
+      .filter((c) => cats(c).length === 1 && cats(c)[0].max_watts)
+      .map((c) => cats(c)[0].max_watts!),
+  );
+  expect([...wholeContestCeilings].sort((a, b) => a - b)).toEqual([5, 32, 100]);
+
+  // Club Calls and the November leg are a week apart and are not the same
+  // contest -- the second and third Saturdays of November.
+  expect(isoDate(expand(club, 2026)[0].start!)).toBe(D(2026, 11, 14));
+  expect(isoDate(expand(nov, 2026)[0].start!)).toBe(D(2026, 11, 21));
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not
