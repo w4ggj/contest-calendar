@@ -1,15 +1,15 @@
 # NEEDS A HUMAN
 
 **For:** Joe Leone, W4GGJ
-**Updated:** 2026-08-19
+**Updated:** 2026-08-20
 
 Everything in this file is blocked on **you** rather than on more work. It is deliberately
 short: anything Claude can do — reading sponsor pages, encoding records, writing tests,
 deploying — is not here. If an item appears here, it is because it needs your credentials,
 your hardware, your callsign on an email, or a reply that only a sponsor can give.
 
-Roughly ordered by value. **The letters are the biggest single lever** — six of them would
-unblock about fifteen contests and settle four flagged records.
+Roughly ordered by value. **The letters are the biggest single lever** — seven of them would
+unblock about sixteen contests and settle seven flagged records.
 
 ---
 
@@ -148,7 +148,32 @@ next matters in **2028**.
 2. **The VU Rookie Contest** states no participation clause at all — only that the objective is
    encouraging newly-licensed operators "in India". Open to all, or VU only?
 
-### 2.7 Smaller ones, worth batching if you are writing anyway
+### 2.7 RSGB — three questions in one email
+
+**To:** the RSGB HF Contest Committee, via `rsgbcc.org`
+**Unblocks:** 1 contest, upgrades 2 flagged records, and settles a rule.
+
+Eleven RSGB contests are encoded and ten are verified. These three are what four years of
+RSGB's own published dates could not settle:
+
+1. **The Commonwealth Contest (BERU) — where is the list of Commonwealth Call Areas?** The
+   rules restrict entry by *"the Commonwealth Call Area from which they are operating"* and do
+   not enumerate the areas on that page. Everything else about the contest is clean — second
+   weekend of March, Saturday 1000 to Sunday 1000 UTC, CW on 3.5/7/14/21/28 MHz, confirmed
+   against 2023–2026. It is not encoded because writing an eligibility list would mean
+   assembling one from elsewhere and attributing it to RSGB.
+2. **The FT4 International Activity Day — is Easter the reason?** RSGB ran it on the first
+   Saturday of April in 2023, 2024 and 2025 and on the **second** in 2026. Easter Sunday fell on
+   5 April 2026, which would have put the first Saturday on Easter Saturday. If the contest
+   avoids Easter, that is a rule with an exception and the record becomes a recurrence rather
+   than a single stored date. If it does not, the record stays as it is, correctly.
+3. **The Low Power Contest — may stations outside the UK&CD enter?** The rules say only that
+   *"UK&CD entrants must be RSGB members"* and nothing about anyone else. RSGB's results archive
+   separately lists an *"International Low Power Contest"*, which raises the question of whether
+   this one is the domestic contest. The calendar currently records it as open to all and flags
+   that as an absence of words rather than a statement.
+
+### 2.8 Smaller ones, worth batching if you are writing anyway
 
 | Who | Ask | Unblocks |
 |---|---|---|
@@ -205,8 +230,9 @@ each has a moment when checking is worthwhile.
 
 These are Claude's to do and need nothing from you — listed only so the boundary is clear:
 
-- **More sourcing.** About 60 contests remain readable behind known-good sources: RSGB (21),
-  SRR (7), MRASZ (6), DARC (5), IARU (5), IRTS (3), SKCC (3), and a dozen others.
+- **More sourcing.** About 50 contests remain readable behind known-good sources: RSGB (14,
+  down from 21 on 2026-08-20), SRR (7), MRASZ (6), DARC (5), IARU (5), IRTS (3), SKCC (3),
+  and a dozen others.
 - **Deploying.** `npx wrangler deploy` from `worker/`, already authorised and routine.
 - **The REP FT4 schema question** — whether to add per-date times so a series with three
   editions at two different clock times can be one record. A design decision, not a human one.
