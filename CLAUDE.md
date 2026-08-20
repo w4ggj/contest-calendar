@@ -221,6 +221,7 @@ countdowns. Anything that renders blank without JS is a regression.
 | File | What it covers |
 | --- | --- |
 | `HANDOVER.md` | Current state, health checks, the sourcing rule. **Start here.** |
+| `NEEDS_A_HUMAN.md` | Blocked on the owner, not on work: credentials, hardware, letters to sponsors. **Do not do these; do not delete items because they look stale.** When a reply arrives it becomes a `source_note` with the person's name and the date. |
 | `BUILD_BRIEF.md` | Overall plan and provenance model for the whole project. |
 | `FRONTEND_BRIEF.md` | The current phase — UI, Worker, iCal feed. Engine port is done. |
 | `TIMEZONE_BRIEF.md` | Wall-clock vs rolling time handling. Done; includes the Worker resolver decision. |

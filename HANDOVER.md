@@ -44,6 +44,10 @@ source. Measured rather than assumed: run
 
 ## Read first
 
+**`NEEDS_A_HUMAN.md` is the one file addressed to the owner rather than to Claude.** It lists
+everything blocked on a person — two checks needing your credentials or an iPhone, six letters
+to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do is in it.
+
 0. `SESSION_HANDOVER.md` — **only if you are setting up a new machine**: what is not in
    git, how to verify you arrived, and the one link check that is expected to fail today
 1. `README.md` — provenance and architecture
