@@ -3147,6 +3147,32 @@ test("South African club eligibility is unverified where the manual is silent", 
   expect(hs.verified).toBe(true);
 });
 
+test("PEARS runs two scored sessions back to back", () => {
+  // PEARS calls it "a 44-hour dual contest ... divided into 2 sessions" and
+  // scores them separately. They are contiguous -- the second "commences
+  // immediately after" the first ends at 14:00 UTC Saturday -- so a single
+  // 44-hour occurrence would draw the same bar while losing the fact that
+  // there are two scored periods. The anchor is the 2nd FRIDAY of January.
+  const occ = expand(byId("pears-national-vhf-uhf"), 2026);
+  expect(occ).toHaveLength(2);
+  expect(isoDate(occ[0].start!)).toBe(D(2026, 1, 9));
+  expect(occ[0].start!.getUTCDay()).toBe(5); // Friday
+  expect(occ[0].duration_hours).toBe(22);
+  expect(occ[1].duration_hours).toBe(22);
+  expect(occ[0].end!.getTime()).toBe(occ[1].start!.getTime());
+});
+
+test("SOTA says all bands, so none are recorded", () => {
+  // "Frequencies and modes: All amateur bands and modes". Mixed is exactly
+  // what that sentence means for modes; for bands there is no list to record,
+  // and writing one would invent a restriction SARL did not state.
+  const c = byId("zs-sota-activity-weekend");
+  expect(c.bands).toEqual([]);
+  expect(c.modes).toEqual(["Mixed"]);
+  expect(expand(c, 2026).map((o) => isoDate(o.start!)))
+    .toEqual([D(2026, 5, 16), D(2026, 9, 19)]);
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not
@@ -3500,17 +3526,20 @@ describe("catalog vocabularies", () => {
     // There is no band list on the page to record, and inferring one from the
     // band plan would be this catalog writing a rule JARL did not.
     //
-    // It is down to that one. sarl-hf-phone was the other, carried with no
-    // bands because sarl.org.za served an expired certificate and then went
-    // dark entirely; the league had moved to mysarl.org.za, and on 2026-08-19
-    // its rules were read there and the bands recorded. Waiting was the right
-    // call: the project's rule is to document a blocked source and stop, never
-    // to reach for an aggregator, and the source came back.
+    // zs-sota-activity-weekend: SARL states "Frequencies and modes: All
+    // amateur bands and modes". Same shape -- no list on the page, and writing
+    // one out would be inventing a restriction the sponsor did not state.
+    //
+    // Note what BOTH have in common: the sponsor said "all bands", and that
+    // was recorded as an absence rather than guessed at. sarl-hf-phone used to
+    // be here for the OTHER reason -- its source was unreachable -- and left
+    // this list on 2026-08-19 when the league turned out to have moved rather
+    // than died.
     const unrecorded = catalog
       .filter((c) => !(c.bands ?? []).length)
       .map((c) => c.id)
       .sort();
-    expect(unrecorded).toEqual(["jarl-new-year-qso-party"]);
+    expect(unrecorded).toEqual(["jarl-new-year-qso-party", "zs-sota-activity-weekend"]);
   });
 
   test("bands_note never stands in for a band list", () => {

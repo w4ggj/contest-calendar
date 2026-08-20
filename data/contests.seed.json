@@ -11531,6 +11531,179 @@
         "verified": true,
         "note": "The aim names 'radio amateurs from South Africa and the world', and QO-100's footprint covers Africa, Europe and much of Asia."
       }
+    },
+    {
+      "id": "pears-national-vhf-uhf",
+      "name": "PEARS National VHF/UHF Contest",
+      "sponsor": "Port Elizabeth Amateur Radio Society (PEARS)",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://mysarl.org.za/contest-resources/",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM",
+        "Digital"
+      ],
+      "bands": [
+        "6m",
+        "2m",
+        "70cm",
+        "23cm"
+      ],
+      "bands_note": "50, 70, 144, 432 and 1296 MHz, each split into SSB/CW, digital and FM channels -- for example 144.200-144.250 SSB/CW, 144.250-144.300 digital, 144.350-144.400 FM. The 70 MHz (4 m) band is in PEARS's list but has no token in this catalog's band vocabulary, so it is recorded only here.",
+      "exchange": "A signal report and locator, per the contest's channel plan.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 2,
+        "weekday": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "1200"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "1400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 2,
+            "time": "1200"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The PEARS National VHF/UHF Contest': '1.1. The PEARS National VHF and UHF contest will take place from 9 to 11 January 2026 and is open to all licensed amateurs in the RSA, including non-members of the SARL, as well as amateurs from the neighbouring states.' '1.3. This is a 44-hour dual contest for analogue and digital modes, which is divided into 2 sessions that will spread out activity over the contest period and reflect changes of propagation.' '2. Dates and Times The first 22-hour session of the VHF and UHF contest starts at 16:00 UTC on Friday 9 January and closes at 14:00 UTC on Saturday afternoon 10 January (2nd Friday and Saturday of January). The second 22-hour session commences immediately after 14:00 UTC on Saturday 10 January and ends at 12:00 UTC on Sunday 11 January 2026 (2nd Saturday and Sunday of January).'",
+      "note": "TWO SESSIONS, NOT ONE 44-HOUR BLOCK, and the distinction is the sponsor's own: PEARS scores them separately and says so. They are back to back -- the second 'commences immediately after' the first ends at 14:00 UTC Saturday -- so a single 44-hour occurrence would draw the same bar on the rail and lose the fact that they are two scored periods. The anchor is the 2nd FRIDAY of January, which is how PEARS phrases it. Sourced from the SARL Contest Manual, which carries this contest's full rules and names its organising body -- the venue in which South African clubs publish their rules, not a listing of them. See data/sources.md, 'Nine South African clubs, one manual'.",
+      "summary": "South Africa's big VHF and UHF weekend: two 22-hour sessions from 1600 UTC on the second Friday of January, analogue and digital from 6 m to 23 cm.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "ZS",
+          "V5",
+          "A2",
+          "Z2",
+          "C9",
+          "7P",
+          "3DA"
+        ],
+        "verified": true,
+        "note": "'open to all licensed amateurs in the RSA, including non-members of the SARL, as well as amateurs from the neighbouring states.' PEARS says 'neighbouring states' rather than naming them; the list here is the same one SARL names for its own HAMNET contest."
+      }
+    },
+    {
+      "id": "awasa-valve-ssb-qso-party",
+      "name": "AWA Valve SSB QSO Party",
+      "sponsor": "AWASA",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "http://www.awasa.org.za/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "40 m SSB 7 063-7 100 and 7 130-7 200 kHz, with 7 100-7 130 contest free; 80 m SSB 3 603-3 650 kHz, with 3 651-3 699 contest free.",
+      "exchange": "Call sign, an RS report, a consecutive serial number starting at 001, and the type of radio used -- for example 'HT37 TX'.",
+      "power_categories": [
+        {
+          "name": "100 W, unless the rig itself exceeds it",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 1,
+        "weekday": 6,
+        "months": [
+          5,
+          10
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'Antique Wireless Association Valve SSB QSO Party', which names the organiser and links it: 'The AWASA http://www.awasa.org.za/'. '1. Aim The aim of the AWA Valve QSO party is to create activity on the 40m and 80m bands. It is a phone only contest using SSB. Preferably, valve radios or radios with valves in them may be used. No linear amplifiers may be used.' '2. Date and Time 13:00 to 17:00 UTC 1st Sunday of May and October. Sunday 3 May 2026 - 13:00 to 17:00 UTC. Sunday 4 October 2026 - 13:00 to 17:00 UTC.' '4. Power The output power may not exceed 100 w, unless the rig itself has a higher output power (FTDX400, etc.)' '5.1. Call sign, RS report, a consecutive serial numbers starting at 001 and the type of radio used, eg HT37 TX.'",
+      "note": "The exchange includes the RADIO you are using, and the four scoring classes are all-valve, hybrid, solid state pre-1970 and solid state post-1970 -- which is the point of the contest rather than a curiosity. No linear amplifiers, and the power limit bends for a rig that simply runs hotter than 100 W by design. Sourced from the SARL Contest Manual, which carries this contest's full rules and names its organising body -- the venue in which South African clubs publish their rules, not a listing of them. See data/sources.md, 'Nine South African clubs, one manual'.",
+      "summary": "Four hours of SSB on 40 and 80 m for valve radios, on the first Sunday of May and of October; you exchange the set you are using.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The manual states no participation clause for this contest, as for the other club parties. Recorded worldwide with verified false -- an absence of words rather than a statement."
+      }
+    },
+    {
+      "id": "zs-sota-activity-weekend",
+      "name": "ZS SOTA Activity Weekend",
+      "sponsor": "SOTA SA",
+      "country": "ZA",
+      "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
+      "sponsor_home": "https://www.sota.org.uk/",
+      "modes": [
+        "Mixed"
+      ],
+      "bands": [],
+      "exchange": "An RS, RST or RSQ report and the SOTA reference.",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_full_weekend",
+            "month": 5,
+            "n": 3
+          },
+          {
+            "type": "nth_full_weekend",
+            "month": 9,
+            "n": 3
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2159"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, 'The ZS SOTA Activity Weekends': 'This is a fun event to encourage radio amateurs to participate in the Summits on the Air (SOTA) programme. This fun activity is open to all radio amateurs.' '1.1. 00:00 UTC on 16 May to 21:59 UTC on 17 May 2026 on the third full weekend of May - Autumn Activity Weekend. 1.2. 00:00 UTC on 19 September to 21:59 UTC on 20 September 2026 on the third full weekend of September - Spring Activity Weekend.' '2. Frequencies and modes All amateur bands and modes.' '3.1. RS, RST or RSQ report and the SOTA reference.' '4. Categories 4.1. Activator 4.2. Chaser.' Logs go to the SOTA database rather than to SARL: '6.1. Upload your SOTA log to the SOTA Database (https://www.sotadata.org.uk/en/) as soon as possible after the QSO Party.'",
+      "note": "THE CATALOG'S SECOND RECORD WITH NO BANDS, AND THE SECOND FOR A GOOD REASON. SARL states '2. Frequencies and modes All amateur bands and modes' -- there is no list to record, and writing one out would be this catalog inventing a restriction SARL did not state. Same treatment as JARL's New Year QSO Party. The consequence is real and the page says so: every band filter necessarily excludes this record.\n\nModes are 'Mixed' for the same sentence -- that is exactly what the token means.\n\nIt sits at the edge of what this catalog is for. It has dates, rules, an exchange and categories, so it is a scheduled operating event with a schedule worth publishing; but it is scored through the SOTA database rather than by a log submitted to the sponsor, and 'Activator' and 'Chaser' are roles rather than entry classes. Encoded on the same reasoning as UBA's Belgian Mills Award, which is also an award-shaped event with real dates. Sourced from the SARL Contest Manual, which carries this contest's full rules and names its organising body -- the venue in which South African clubs publish their rules, not a listing of them. See data/sources.md, 'Nine South African clubs, one manual'.",
+      "summary": "Two weekends a year for Summits on the Air in South Africa, on the third full weekends of May and September -- any band, any mode, logged to the SOTA database.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'This fun activity is open to all radio amateurs.'"
+      }
     }
   ]
 }

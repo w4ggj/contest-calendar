@@ -21,7 +21,7 @@ Activate the venv **before** running the TypeScript suite too — see below.
 
 ```powershell
 # Python -- the reference engine
-python -m pytest -q            # expect: 385 passed
+python -m pytest -q            # expect: 387 passed
 python scripts\validate.py     # expect: ARRL 2026 rule-engine validation: 21/21 match
 python scripts\check_links.py  # sponsor rules URLs still resolve
 python scripts\coverage.py     # regenerate the registry's coverage block
@@ -30,7 +30,7 @@ python scripts\coverage.py --check   # ...or just report where the catalog is th
 # TypeScript -- what actually serves the site
 cd engine
 npm install                    # node_modules is gitignored; needed on a fresh clone
-npm test                       # expect: 398 passed (385 mirrored + 13 parity)
+npm test                       # expect: 400 passed (387 mirrored + 13 parity)
 npm run typecheck
 ```
 

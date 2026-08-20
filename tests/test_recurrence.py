@@ -3172,6 +3172,36 @@ def test_za_club_eligibility_is_unverified_where_the_manual_is_silent(catalog):
     assert e["scope"] == "worldwide" and e["verified"] is True
 
 
+def test_pears_runs_two_scored_sessions_back_to_back(catalog):
+    """
+    PEARS calls it "a 44-hour dual contest ... divided into 2 sessions", and
+    scores them separately. They are contiguous -- the second "commences
+    immediately after" the first ends at 14:00 UTC on the Saturday -- so a
+    single 44-hour occurrence would draw the same bar on the rail while losing
+    the fact that there are two scored periods.
+
+    The anchor is the 2nd FRIDAY of January, which is how PEARS phrases it:
+    "(2nd Friday and Saturday of January)".
+    """
+    occ = expand(by_id(catalog, "pears-national-vhf-uhf"), 2026)
+    assert len(occ) == 2
+    assert occ[0].start.date() == date(2026, 1, 9) and occ[0].start.weekday() == 4
+    assert occ[0].duration_hours == 22 and occ[1].duration_hours == 22
+    # Contiguous: session two starts exactly where session one ends.
+    assert occ[0].end == occ[1].start
+
+
+def test_sota_says_all_bands_so_none_are_recorded(catalog):
+    # "Frequencies and modes: All amateur bands and modes". Mixed is exactly
+    # what that sentence means for modes; for bands there is no list to record,
+    # and writing one would invent a restriction SARL did not state.
+    c = by_id(catalog, "zs-sota-activity-weekend")
+    assert c["bands"] == []
+    assert c["modes"] == ["Mixed"]
+    occ = expand(c, 2026)
+    assert [o.start.date() for o in occ] == [date(2026, 5, 16), date(2026, 9, 19)]
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC
@@ -3543,15 +3573,20 @@ def test_unrecorded_bands_are_the_documented_exception(catalog):
     band list on the page to record, and inferring one from the band plan would
     be this catalog writing a rule JARL did not.
 
-    It is down to that one. sarl-hf-phone was the other, carried with no bands
-    because sarl.org.za served an expired certificate and then went dark
-    entirely; the league had moved to mysarl.org.za, and on 2026-08-19 its rules
-    were read there and the bands recorded. Waiting was the right call: the
-    project's rule is to document a blocked source and stop, never to reach for
-    an aggregator, and the source came back.
+    zs-sota-activity-weekend: SARL states "Frequencies and modes: All amateur
+    bands and modes". Same shape as JARL -- there is no list on the page, and
+    writing one out would be this catalog inventing a restriction the sponsor
+    did not state.
+
+    Note what BOTH of these have in common, and what neither is: the sponsor
+    said "all bands", and we recorded that as an absence rather than guessing a
+    list. sarl-hf-phone used to be here for the OTHER reason -- its source was
+    unreachable -- and it left this list on 2026-08-19 when the league turned
+    out to have moved rather than died. Waiting was the right call: the rule is
+    to document a blocked source and stop, never to reach for an aggregator.
     """
     unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
-    assert unrecorded == ["jarl-new-year-qso-party"]
+    assert unrecorded == ["jarl-new-year-qso-party", "zs-sota-activity-weekend"]
 
 
 def test_bands_note_never_stands_in_for_a_band_list(catalog):

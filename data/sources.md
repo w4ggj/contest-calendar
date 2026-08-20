@@ -1372,15 +1372,35 @@ frequency in use, and the record's note says what it does not convey: no terrest
 involved, and the equipment is a dish rather than a microwave rig, so it has little in common
 with the catalog's other 3 cm entries.
 
-### Still open
+### The three that were left open, closed
 
-- **PEARS National VHF/UHF Contest** — a 44-hour dual analogue/digital contest in multiple
-  sessions, 9–11 January 2026. It needs its own careful read rather than a hurried one.
-- **Antique Wireless Association SSB Valve QSO Party** — in the date list for 3 May and 4
-  October; its rules section was not located under that heading in the decoded manual.
-- **ZS SOTA Activity Weekend** — may not be a contest at all: it has activator and chaser
-  categories and is scored through the SOTA database rather than a submitted log.
-- **BACAR** appears in SARL's news categories and has no rules in the manual.
+**PEARS National VHF/UHF Contest.** PEARS calls it *"a 44-hour dual contest … divided into 2
+sessions"* and scores them separately, so it is encoded with the `sessions` array rather than
+as one long block: 1600 UTC Friday to 1400 Saturday, then 1400 Saturday to 1200 Sunday. They
+are contiguous — the second *"commences immediately after"* the first — so a single 44-hour
+occurrence would draw the same bar on the rail while losing the fact that there are two scored
+periods. The anchor is the **2nd Friday of January**, which is how PEARS phrases it. Its band
+list reaches 70 MHz, so 4 m goes in `bands_note` for the same reason REP's did.
+
+**AWA Valve SSB QSO Party** — the heading in the manual is "Antique Wireless Association
+**Valve SSB** QSO Party", which is why the first search for "SSB Valve" missed it. First Sunday
+of May and October, 1300–1700 UTC, 40 and 80 m. The exchange includes **the radio you are
+using** ("eg HT37 TX") and the four classes are all-valve, hybrid, solid-state pre-1970 and
+solid-state post-1970 — which is the point of the contest rather than a curiosity.
+
+**ZS SOTA Activity Weekend** — third full weekends of May and September, and **the catalog's
+second record with no bands**. SARL states *"Frequencies and modes: All amateur bands and
+modes"*: there is no list to record, and writing one out would be inventing a restriction SARL
+did not state. `Mixed` is exactly what that sentence means for modes.
+
+It is the record closest to the edge of what this catalog is for. It has dates, rules, an
+exchange and categories, so it is a scheduled operating event worth publishing — but it is
+scored through the SOTA database rather than by a log submitted to the sponsor, and "Activator"
+and "Chaser" are roles rather than entry classes. Encoded on the same reasoning as UBA's
+Belgian Mills Award, and its note says all of that out loud.
+
+That takes the South African club entry to **12 of 12**, and the only thing left in SARL's
+calendar with no rules in the manual is BACAR, which appears in its news categories.
 
 ## Pending verification
 
