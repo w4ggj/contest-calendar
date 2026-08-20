@@ -3192,6 +3192,49 @@ test("Australia Day opens the day before the holiday", () => {
   expect(c.submodes).toEqual(["AM"]);
 });
 
+// RSGB keeps a rules page per year, so five years of its own dates check one
+// rule -- fifteen date-points across three contests, all from one anchor.
+const AFS_PUBLISHED: [number, number, number, number][] = [
+  [2022, 8, 16, 22], [2023, 7, 15, 21], [2024, 6, 14, 20],
+  [2025, 4, 12, 18], [2026, 3, 11, 17],
+];
+
+test.each(AFS_PUBLISHED)(
+  "RSGB AFS reproduces every date RSGB published: %i",
+  (year, cw, data, ssb) => {
+    const got = ["rsgb-afs-cw", "rsgb-afs-data", "rsgb-afs-ssb"]
+      .map((cid) => expand(byId(cid), year)[0].start!.getUTCDate());
+    expect(got).toEqual([cw, data, ssb]);
+  },
+);
+
+test("RSGB AFS hangs three contests off one anchor", () => {
+  // The AFS CW Saturday is the anchor; Datamodes is the Sunday eight days
+  // later and SSB the Saturday fourteen days later. Datamodes has no
+  // consistent ordinal of its own -- third Sunday in 2022 and 2023, second in
+  // 2024, 2025 and 2026 -- so an ordinal would have been wrong in two of the
+  // five years RSGB published.
+  const offsets: Record<string, number> = {
+    "rsgb-afs-cw": 0, "rsgb-afs-data": 8, "rsgb-afs-ssb": 14,
+  };
+  for (const [cid, off] of Object.entries(offsets)) {
+    const c = byId(cid);
+    expect(c.start.day_offset, cid).toBe(off);
+    expect(c.recurrence.exclude_dates, cid).toEqual([[1, 1]]);
+    expect(c.verified, cid).toBeTruthy();
+  }
+  expect(expand(byId("rsgb-afs-data"), 2023)[0].start!.getUTCDate()).toBe(15);
+  expect(expand(byId("rsgb-afs-data"), 2026)[0].start!.getUTCDate()).toBe(11);
+});
+
+test("the RSGB AFS New Year exception is evidenced", () => {
+  // 1 January 2022 was itself a Saturday and RSGB ran AFS CW on the 8th. The
+  // exclusion is not a guess fitted to one year: it is the only reading that
+  // fits all five years across all three contests.
+  expect(isoDate(expand(byId("rsgb-afs-cw"), 2022)[0].start!)).toBe(D(2022, 1, 8));
+  expect(isoDate(expand(byId("rsgb-afs-cw"), 2028)[0].start!)).toBe(D(2028, 1, 8));
+});
+
 test("NRAU is blocked at source and encodes nothing", () => {
   // nrau.net says all NRAU contest information is under revision, and the NAC
   // pages state no modes and link no rules. A record built from them could not

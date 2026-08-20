@@ -1582,6 +1582,9 @@
       "name": "RSGB AFS Contest, CW",
       "sponsor": "RSGB Contest Committee",
       "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rafs.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rafs.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
       "modes": [
         "CW"
       ],
@@ -1589,12 +1592,33 @@
         "80m",
         "40m"
       ],
-      "rules_url": "https://www.rsgbcc.org/hf/",
+      "bands_note": "80 m and 40 m. CW 3510-3570 and 7000-7040 kHz; SSB 3600-3775 and 7060-7200 kHz; PSK63 3580-3590 and 7040-7045 kHz; RTTY 3590-3620 and 7045-7060 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1, irrespective of band.",
+      "power_categories": [
+        {
+          "name": "Maximum licenced power",
+          "max_watts": null
+        },
+        {
+          "name": "100 W",
+          "max_watts": 100
+        },
+        {
+          "name": "10 W",
+          "max_watts": 10
+        }
+      ],
       "recurrence": {
         "type": "nth_weekday",
         "month": 1,
         "n": 1,
-        "weekday": 5
+        "weekday": 5,
+        "exclude_dates": [
+          [
+            1,
+            1
+          ]
+        ]
       },
       "start": {
         "day_offset": 0,
@@ -1604,15 +1628,18 @@
         "day_offset": 0,
         "time": "1700"
       },
-      "verified": false,
-      "note": "UNVERIFIED. The guessed per-year rules filename returned 404 -- find the real AFS rules page under rsgbcc.org/hf/ and set rules_url_pattern. Recurrence and eligibility both unconfirmed.",
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "rsgbcc.org/hf/rules/2026/rafs.shtml, the RSGB Contest Committee's own rules, which cover three contests at once: 'There are four HF AFS Contests annually - the Rules below apply to the AFS CW, SSB and Datamodes contests on 80m & 40m.' '2. Date & Time: AFS CW - Saturday 3 January 2026, 1300-1700 UTC. AFS Datamodes - Sunday 11 January 2026 1300-1700 UTC. AFS SSB - Saturday 17 January 2026, 1300-1700 UTC.' This record is the CW leg. Entrants: '(a) Clubs entering these contests must be affiliated to the RSGB (b) A club may be represented by any number of stations, all of whom must be within the UK&CD'. Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1, irrespective of band'. Power sections: maximum licenced power, 100 W and 10 W. RSGB keeps a rules page per year, so five years of its own dates check the rule: AFS CW ran 8 Jan 2022, 7 Jan 2023, 6 Jan 2024, 4 Jan 2025 and 3 Jan 2026; Datamodes 16, 15, 14, 12 and 11 January; SSB 22, 21, 20, 18 and 17 January. All fifteen are reproduced by one anchor -- the first Saturday of January, skipping 1 January -- at offsets of 0, 8 and 14 days.",
+      "note": "ALL THREE HANG OFF ONE ANCHOR, WHICH IS WHAT FIVE YEARS OF RSGB'S DATES SHOW. The AFS CW Saturday is the anchor; Datamodes is the Sunday eight days later and SSB the Saturday fourteen days later. No consistent ordinal describes Datamodes on its own -- it is the third Sunday in 2022 and 2023 and the second in 2024, 2025 and 2026 -- so encoding it as an ordinal would have been wrong in two of the five years RSGB published.\n\nTHE 1 JANUARY EXCEPTION IS EVIDENCED, NOT ASSUMED. 1 January 2022 was itself a Saturday and RSGB ran AFS CW on the 8th, so `exclude_dates: [[1, 1]]` is what reproduces that year -- the same shape ARRL RTTY Roundup states outright for its own New Year clash. RSGB does not state it in words, but unlike TRAC's equivalent this is not a single year's evidence fitted to a rule: it is the only reading that fits all five years across all three contests. It next decides anything in 2028.\n\nPREVIOUSLY UNVERIFIED, AND THE GUESS WAS RIGHT ABOUT THE RULE AND WRONG ABOUT NOTHING ELSE. This record was carried with a guessed rules URL that 404'd, and the note asked someone to find the real page under rsgbcc.org/hf/. It is at /hf/rules/{year}/rafs.shtml, which is now the record's rules_url_pattern. The first-Saturday recurrence and the 1300-1700 times the record already held were correct; what was missing was the 1 January exception, and the two sibling contests.",
+      "summary": "Four hours of CW on 80 and 40 m for RSGB affiliated club teams, in January.",
       "eligibility": {
         "scope": "entity_list",
         "entities": [
           "G"
         ],
-        "verified": false,
-        "note": "RSGB AFS is a UK affiliated-society team event. Confirm entrant clause."
+        "verified": true,
+        "note": "'Clubs entering these contests must be affiliated to the RSGB' and 'A club may be represented by any number of stations, all of whom must be within the UK&CD' -- the United Kingdom and Crown Dependencies. Stations elsewhere may be worked but cannot enter."
       }
     },
     {
@@ -11754,6 +11781,140 @@
         "scope": "worldwide",
         "verified": true,
         "note": "The categories are 'DX and VK' and the aim is for VK amateurs 'to contact other amateurs around the world', so entry is not restricted to Australia."
+      }
+    },
+    {
+      "id": "rsgb-afs-data",
+      "name": "RSGB AFS Contest, Datamodes",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rafs.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rafs.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "RTTY",
+        "Digital"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "80 m and 40 m. CW 3510-3570 and 7000-7040 kHz; SSB 3600-3775 and 7060-7200 kHz; PSK63 3580-3590 and 7040-7045 kHz; RTTY 3590-3620 and 7045-7060 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1, irrespective of band.",
+      "power_categories": [
+        {
+          "name": "Maximum licenced power",
+          "max_watts": null
+        },
+        {
+          "name": "100 W",
+          "max_watts": 100
+        },
+        {
+          "name": "10 W",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 1,
+        "weekday": 5,
+        "exclude_dates": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "start": {
+        "day_offset": 8,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 8,
+        "time": "1700"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "rsgbcc.org/hf/rules/2026/rafs.shtml, the RSGB Contest Committee's own rules, which cover three contests at once: 'There are four HF AFS Contests annually - the Rules below apply to the AFS CW, SSB and Datamodes contests on 80m & 40m.' '2. Date & Time: AFS CW - Saturday 3 January 2026, 1300-1700 UTC. AFS Datamodes - Sunday 11 January 2026 1300-1700 UTC. AFS SSB - Saturday 17 January 2026, 1300-1700 UTC.' This record is the datamodes leg. Entrants: '(a) Clubs entering these contests must be affiliated to the RSGB (b) A club may be represented by any number of stations, all of whom must be within the UK&CD'. Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1, irrespective of band'. Power sections: maximum licenced power, 100 W and 10 W. RSGB keeps a rules page per year, so five years of its own dates check the rule: AFS CW ran 8 Jan 2022, 7 Jan 2023, 6 Jan 2024, 4 Jan 2025 and 3 Jan 2026; Datamodes 16, 15, 14, 12 and 11 January; SSB 22, 21, 20, 18 and 17 January. All fifteen are reproduced by one anchor -- the first Saturday of January, skipping 1 January -- at offsets of 0, 8 and 14 days.",
+      "note": "ALL THREE HANG OFF ONE ANCHOR, WHICH IS WHAT FIVE YEARS OF RSGB'S DATES SHOW. The AFS CW Saturday is the anchor; Datamodes is the Sunday eight days later and SSB the Saturday fourteen days later. No consistent ordinal describes Datamodes on its own -- it is the third Sunday in 2022 and 2023 and the second in 2024, 2025 and 2026 -- so encoding it as an ordinal would have been wrong in two of the five years RSGB published.\n\nTHE 1 JANUARY EXCEPTION IS EVIDENCED, NOT ASSUMED. 1 January 2022 was itself a Saturday and RSGB ran AFS CW on the 8th, so `exclude_dates: [[1, 1]]` is what reproduces that year -- the same shape ARRL RTTY Roundup states outright for its own New Year clash. RSGB does not state it in words, but unlike TRAC's equivalent this is not a single year's evidence fitted to a rule: it is the only reading that fits all five years across all three contests. It next decides anything in 2028.",
+      "summary": "Four hours of datamodes on 80 and 40 m for RSGB affiliated club teams, in January.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "G"
+        ],
+        "verified": true,
+        "note": "'Clubs entering these contests must be affiliated to the RSGB' and 'A club may be represented by any number of stations, all of whom must be within the UK&CD' -- the United Kingdom and Crown Dependencies. Stations elsewhere may be worked but cannot enter."
+      },
+      "submodes": [
+        "PSK63"
+      ]
+    },
+    {
+      "id": "rsgb-afs-ssb",
+      "name": "RSGB AFS Contest, SSB",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rafs.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rafs.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "80 m and 40 m. CW 3510-3570 and 7000-7040 kHz; SSB 3600-3775 and 7060-7200 kHz; PSK63 3580-3590 and 7040-7045 kHz; RTTY 3590-3620 and 7045-7060 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1, irrespective of band.",
+      "power_categories": [
+        {
+          "name": "Maximum licenced power",
+          "max_watts": null
+        },
+        {
+          "name": "100 W",
+          "max_watts": 100
+        },
+        {
+          "name": "10 W",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 1,
+        "weekday": 5,
+        "exclude_dates": [
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      "start": {
+        "day_offset": 14,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 14,
+        "time": "1700"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-19",
+      "source_note": "rsgbcc.org/hf/rules/2026/rafs.shtml, the RSGB Contest Committee's own rules, which cover three contests at once: 'There are four HF AFS Contests annually - the Rules below apply to the AFS CW, SSB and Datamodes contests on 80m & 40m.' '2. Date & Time: AFS CW - Saturday 3 January 2026, 1300-1700 UTC. AFS Datamodes - Sunday 11 January 2026 1300-1700 UTC. AFS SSB - Saturday 17 January 2026, 1300-1700 UTC.' This record is the SSB leg. Entrants: '(a) Clubs entering these contests must be affiliated to the RSGB (b) A club may be represented by any number of stations, all of whom must be within the UK&CD'. Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1, irrespective of band'. Power sections: maximum licenced power, 100 W and 10 W. RSGB keeps a rules page per year, so five years of its own dates check the rule: AFS CW ran 8 Jan 2022, 7 Jan 2023, 6 Jan 2024, 4 Jan 2025 and 3 Jan 2026; Datamodes 16, 15, 14, 12 and 11 January; SSB 22, 21, 20, 18 and 17 January. All fifteen are reproduced by one anchor -- the first Saturday of January, skipping 1 January -- at offsets of 0, 8 and 14 days.",
+      "note": "ALL THREE HANG OFF ONE ANCHOR, WHICH IS WHAT FIVE YEARS OF RSGB'S DATES SHOW. The AFS CW Saturday is the anchor; Datamodes is the Sunday eight days later and SSB the Saturday fourteen days later. No consistent ordinal describes Datamodes on its own -- it is the third Sunday in 2022 and 2023 and the second in 2024, 2025 and 2026 -- so encoding it as an ordinal would have been wrong in two of the five years RSGB published.\n\nTHE 1 JANUARY EXCEPTION IS EVIDENCED, NOT ASSUMED. 1 January 2022 was itself a Saturday and RSGB ran AFS CW on the 8th, so `exclude_dates: [[1, 1]]` is what reproduces that year -- the same shape ARRL RTTY Roundup states outright for its own New Year clash. RSGB does not state it in words, but unlike TRAC's equivalent this is not a single year's evidence fitted to a rule: it is the only reading that fits all five years across all three contests. It next decides anything in 2028.",
+      "summary": "Four hours of SSB on 80 and 40 m for RSGB affiliated club teams, in January.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "G"
+        ],
+        "verified": true,
+        "note": "'Clubs entering these contests must be affiliated to the RSGB' and 'A club may be represented by any number of stations, all of whom must be within the UK&CD' -- the United Kingdom and Crown Dependencies. Stations elsewhere may be worked but cannot enter."
       }
     }
   ]

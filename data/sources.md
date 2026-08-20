@@ -1443,6 +1443,69 @@ Of the remaining nav entries, the **Commonwealth Contest** is RSGB's BERU and th
 Champion** is an award computed over WIA's other contests, so neither is a WIA contest to
 encode. WIA is now **6 of 8** rather than 5 of 5.
 
+## RSGB AFS: one unverified record becomes three verified ones — 2026-08-19
+
+`rsgb-afs-cw` had sat `verified: false` since July with the note *"the guessed per-year rules
+filename returned 404 — find the real AFS rules page under rsgbcc.org/hf/"*. Found:
+**`rsgbcc.org/hf/rules/{year}/rafs.shtml`**, now the record's `rules_url_pattern`.
+
+It covers **three contests, not one** — *"the Rules below apply to the AFS CW, SSB and
+Datamodes contests on 80m & 40m"* — so two records were added and all three are verified.
+
+### Five years of RSGB's own dates, and what they show
+
+RSGB keeps a rules page per year, which hands over fifteen date-points published independently
+of any rule:
+
+| Year | AFS CW | Datamodes | SSB |
+|---|---|---|---|
+| 2022 | Sat **8** Jan | Sun 16 | Sat 22 |
+| 2023 | Sat 7 | Sun 15 | Sat 21 |
+| 2024 | Sat 6 | Sun 14 | Sat 20 |
+| 2025 | Sat 4 | Sun 12 | Sat 18 |
+| 2026 | Sat 3 | Sun 11 | Sat 17 |
+
+All fifteen come from **one anchor**: the first Saturday of January, with Datamodes at +8 days
+and SSB at +14.
+
+**Datamodes has no ordinal of its own**, which is the finding that matters. It is the *third*
+Sunday of January in 2022 and 2023 and the *second* in 2024, 2025 and 2026. Encoding it as an
+ordinal — the obvious thing to do from one year's page — would have been wrong in two of the
+five years RSGB published.
+
+**The 1 January exception is evidenced rather than assumed.** 1 January 2022 was itself a
+Saturday and RSGB ran AFS CW on the 8th, so `exclude_dates: [[1, 1]]` is what reproduces that
+year — the shape ARRL RTTY Roundup states outright for its own New Year clash. RSGB does not
+state it in words, but unlike TRAC's equivalent this is not one year fitted into a rule: it is
+the only reading that fits all five years across all three contests. It next decides anything
+in **2028**.
+
+The guess this replaced was right about more than it had any business being: the first-Saturday
+recurrence and the 1300–1700 times the record already carried were correct. What was missing
+was the New Year exception and two whole contests.
+
+**Still open at RSGB:** the AFS 160 contest has separate rules, the four VHF/UHF AFS contests
+have their own, and `rsgbcc.org/hf/rules/{year}/` returns 403 — so the rules index has to be
+reached contest by contest rather than listed.
+
+## Asia's last two societies are blocked, with evidence — 2026-08-19
+
+Both were left as "needs a closer look than the front page" earlier today. Looked closer:
+
+**IARC (Israel)** — runs the World Wide Holyland Contest and links it from its main nav, but
+the destination is an Angular single-page app that server-renders nothing, and
+`iarc.org/holyland/` is a placeholder reading, in full: *"The content of this page will be
+updated before Holyland contest."* A search restricted to iarc.org surfaced no rules page.
+**This is probably a timing blocker rather than a permanent one** — the contest runs in April,
+so rechecking in February or March should find it published. Nothing encoded, and nothing taken
+from the many third-party pages that carry these rules.
+
+**CRSA/CRAC (China)** — the club is at `crac.org.cn` (`crsa.org.cn` returns 403). Its site is
+news, notices, activities, policy and examination results; there is **no contest or rules
+section anywhere in its navigation**, in English or Chinese. The stub named a "Worked All
+Provinces of China DX Contest"; whoever runs it, CRAC does not publish its rules. Next step is
+to identify the actual organiser, or write to CRAC.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the
@@ -1520,8 +1583,11 @@ encode. WIA is now **6 of 8** rather than 5 of 5.
   club publishes itself. **The email went out on 2026-08-19 — do not send a second one.** When
   W2LJ replies, his answer *is* the source: record it in each `source_note` with his name and
   the date of the reply, and test the generated dates against whichever past years he gives.
-- **RSGB AFS CW** — guessed rules filename returned 404. Find the real page under
-  rsgbcc.org/hf/ and set `rules_url_pattern`. Recurrence and eligibility unconfirmed.
+- **RSGB AFS — done 2026-08-19.** The real page is `rsgbcc.org/hf/rules/{year}/rafs.shtml`,
+  it covers three contests rather than one, and five years of RSGB's own dates confirm a
+  single anchor. See "RSGB AFS: one unverified record becomes three verified ones" above.
+  Still open at RSGB: the AFS 160 contest and the four VHF/UHF AFS contests, each with
+  their own rules, and `rsgbcc.org/hf/rules/{year}/` is a 403 so there is no index to walk.
 - **SARL was blocked and is not any more.** The entry that stood here said sarl.org.za served an expired certificate and the record had no bands recorded. The league had moved to mysarl.org.za; the rules were read there on 2026-08-19, the bands are recorded, and the ZS-only eligibility guess turned out to be wrong. See "Africa stops being one record" above. About a dozen further SARL contests remain in the Contest Manual and are scope, not blockers.
 - **IRTS 80m Counties** — recurrence and entrant restrictions unconfirmed.
 - **AGCW ZAP Merit Contest (ZMC)** — recurrence verified ("jeden Montag", pre-logging from

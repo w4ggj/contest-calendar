@@ -3222,6 +3222,57 @@ def test_australia_day_opens_the_day_before_the_holiday(catalog):
     assert c["submodes"] == ["AM"]
 
 
+# RSGB keeps a rules page per year, so five years of its own dates check one
+# rule -- fifteen date-points across three contests, all from one anchor.
+AFS_PUBLISHED = {
+    2022: (8, 16, 22),
+    2023: (7, 15, 21),
+    2024: (6, 14, 20),
+    2025: (4, 12, 18),
+    2026: (3, 11, 17),
+}
+
+
+@pytest.mark.parametrize("year,days", sorted(AFS_PUBLISHED.items()))
+def test_rsgb_afs_reproduces_every_date_rsgb_published(catalog, year, days):
+    got = tuple(
+        expand(by_id(catalog, cid), year)[0].start.day
+        for cid in ("rsgb-afs-cw", "rsgb-afs-data", "rsgb-afs-ssb")
+    )
+    assert got == days, year
+
+
+def test_rsgb_afs_hangs_three_contests_off_one_anchor(catalog):
+    """
+    The AFS CW Saturday is the anchor; Datamodes is the Sunday eight days later
+    and SSB the Saturday fourteen days later. Datamodes has no consistent
+    ordinal of its own -- it is the third Sunday of January in 2022 and 2023
+    and the second in 2024, 2025 and 2026 -- so encoding it as an ordinal would
+    have been wrong in two of the five years RSGB published.
+    """
+    offsets = {"rsgb-afs-cw": 0, "rsgb-afs-data": 8, "rsgb-afs-ssb": 14}
+    for cid, off in offsets.items():
+        c = by_id(catalog, cid)
+        assert c["start"]["day_offset"] == off, cid
+        assert c["recurrence"]["exclude_dates"] == [[1, 1]], cid
+        assert c["verified"], cid
+
+    # The Datamodes leg really does move ordinal between years.
+    assert expand(by_id(catalog, "rsgb-afs-data"), 2023)[0].start.day == 15   # 3rd Sunday
+    assert expand(by_id(catalog, "rsgb-afs-data"), 2026)[0].start.day == 11   # 2nd Sunday
+
+
+def test_rsgb_afs_new_year_exception_is_evidenced(catalog):
+    # 1 January 2022 was itself a Saturday and RSGB ran AFS CW on the 8th. The
+    # exclusion is not a guess fitted to one year: it is the only reading that
+    # fits all five years across all three contests.
+    assert date(2022, 1, 1).weekday() == 5
+    assert expand(by_id(catalog, "rsgb-afs-cw"), 2022)[0].start.date() == date(2022, 1, 8)
+    # Next time it decides anything.
+    assert date(2028, 1, 1).weekday() == 5
+    assert expand(by_id(catalog, "rsgb-afs-cw"), 2028)[0].start.date() == date(2028, 1, 8)
+
+
 def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
     """
     nrau.net says all NRAU contest information is under revision, and the NAC
