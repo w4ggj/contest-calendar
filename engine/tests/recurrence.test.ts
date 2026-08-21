@@ -3749,6 +3749,104 @@ describe("catalog vocabularies", () => {
     }
   });
 
+// -------------------------------------------------------------------------
+// The expiry cliff
+// -------------------------------------------------------------------------
+//
+// A `manual` record produces NOTHING for a year absent from its `dates` map.
+// That is correct behaviour and this project's discipline working as designed:
+// a sponsor who publishes one year at a time gets a record holding exactly what
+// was published, and no ordinal is invented to fill the gap.
+//
+// The failure mode is that correctness has an expiry date and nothing on the
+// record's face says when. A wrong rule shows a contest on the wrong day, which
+// somebody notices. An expired one shows nothing at all, on a calendar that
+// still looks complete -- so nobody notices, which is worse.
+//
+// Measured 2026-08-21: 220 of 230 records produce occurrences in 2026 and only
+// 194 do in 2027. These tests exist so that number cannot move in silence.
+// Mirrored one-for-one with tests/test_recurrence.py.
+
+const CATALOG_YEAR = 2026;
+
+// Re-read the sponsors and move this forward when you do. Past it, the suite
+// fails on purpose -- see "manual records get reviewed before the year turns".
+const MANUAL_REVIEW_DEADLINE = Date.UTC(2026, 11, 1); // 1 December 2026
+
+// Every `manual` record whose latest published year is CATALOG_YEAR, so it goes
+// dark on 1 January. Pinned by id rather than by count: a count tells you the
+// cliff moved, ids tell you which contest fell off it.
+const EXPIRE_AFTER_CATALOG_YEAR = [
+  "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
+  "arsi-vu-rookie", "erau-es-ll-kv", "lrmd-wal", "ncj-sprint-cw",
+  "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+  "rsgb-ft4-activity-day", "sarl-top-band-qso", "uarl-champ-cw",
+  "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
+  "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
+  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
+  "uba-spring-80m-ssb", "ure-eartty",
+].sort();
+
+// Records that already produce nothing this year WITHOUT active_until to say
+// why. `active_until` means "the sponsor stopped running it"; neither of these
+// has that evidence, so setting it would be a claim we cannot support.
+const DARK_WITHOUT_EXPLANATION = [
+  "rca-nacional-40m",   // holds 2025 only -- invisible in 2026 AND 2027
+  "srr-russian-dx",     // holds 2027 only -- invisible for all of 2026
+].sort();
+
+function latestManualYear(c: Contest): number | null {
+  const dates = (c.recurrence as { dates?: Record<string, unknown> }).dates ?? {};
+  const years = Object.keys(dates).map(Number);
+  return years.length ? Math.max(...years) : null;
+}
+
+test("the expiry cliff is exactly where we think it is", () => {
+  // Fails in both directions on purpose. A record ADDED to the cliff -- a new
+  // sponsor who publishes one year at a time -- must be written down here so the
+  // liability is visible rather than discovered next January. One REMOVED
+  // because next year's dates arrived is good news that still has to be
+  // recorded, because an unexplained shrink means somebody edited the data
+  // without understanding this.
+  const got = catalog
+    .filter((c) => c.recurrence.type === "manual"
+      && !c.active_until
+      && latestManualYear(c) === CATALOG_YEAR)
+    .map((c) => c.id)
+    .sort();
+  expect(got).toEqual(EXPIRE_AFTER_CATALOG_YEAR);
+});
+
+test("a record showing nothing this year says why", () => {
+  // Either explained by active_until -- the sponsor stopped running it, which
+  // the eight FISTS sprints record correctly -- or pinned above. A record that
+  // silently shows nothing is the exact failure these tests exist to prevent.
+  const dark = catalog.filter((c) => expand(c, CATALOG_YEAR).length === 0);
+  const unexplained = dark.filter((c) => !c.active_until).map((c) => c.id).sort();
+  expect(unexplained).toEqual(DARK_WITHOUT_EXPLANATION);
+
+  // ...and the explained ones really are explained, not merely absent.
+  for (const c of dark.filter((x) => x.active_until)) {
+    expect(c.active_until!, c.id).toBeLessThan(CATALOG_YEAR);
+  }
+});
+
+test("manual records get reviewed before the year turns", () => {
+  // A dated tripwire, and it is meant to go off. Past MANUAL_REVIEW_DEADLINE
+  // this fails until somebody re-reads the sponsors on the cliff, adds whatever
+  // they have published for next year, and moves the deadline forward. Bumping
+  // the date is not a loophole -- it is the point. It turns "nobody looked" into
+  // a commit that says who looked and when.
+  expect(
+    Date.now(),
+    `${EXPIRE_AFTER_CATALOG_YEAR.length} manual records hold ${CATALOG_YEAR} dates `
+    + `only and will produce nothing from ${CATALOG_YEAR + 1}-01-01. Re-read those `
+    + `sponsors, add any dates they have published, then move MANUAL_REVIEW_DEADLINE `
+    + `and CATALOG_YEAR forward and update the two pinned sets. On the cliff: `
+    + EXPIRE_AFTER_CATALOG_YEAR.join(", "),
+  ).toBeLessThan(MANUAL_REVIEW_DEADLINE);
+});
+
   test("the two engines declare the same vocabularies", () => {
     // The Python and TypeScript vocabularies are hand-maintained in two files.
     // This asserts the TypeScript side against the literal text of the Python

@@ -3817,6 +3817,124 @@ def test_bands_note_never_stands_in_for_a_band_list(catalog):
             assert c.get("bands"), f"{c['id']} has a bands_note but no bands"
 
 
+# ---------------------------------------------------------------------------
+# The expiry cliff
+# ---------------------------------------------------------------------------
+#
+# A `manual` record produces NOTHING for a year absent from its `dates` map.
+# That is correct behaviour and this project's discipline working as designed:
+# a sponsor who publishes one year at a time gets a record holding exactly what
+# was published, and no ordinal is invented to fill the gap.
+#
+# The failure mode is that correctness has an expiry date and nothing on the
+# record's face says when. A wrong rule shows a contest on the wrong day, which
+# somebody notices. An expired one shows nothing at all, on a calendar that
+# still looks complete -- so nobody notices, which is worse.
+#
+# Measured 2026-08-21: 220 of 230 records produce occurrences in 2026 and only
+# 194 do in 2027. These tests exist so that number cannot move in silence.
+
+CATALOG_YEAR = 2026
+
+# Re-read the sponsors and move this forward when you do. Past it, the suite
+# fails on purpose -- see test_manual_records_get_reviewed_before_the_year_turns.
+MANUAL_REVIEW_DEADLINE = date(2026, 12, 1)
+
+# Every `manual` record whose latest published year is CATALOG_YEAR, so it goes
+# dark on 1 January. Pinned by id rather than by count: a count tells you the
+# cliff moved, ids tell you which contest fell off it.
+EXPIRE_AFTER_CATALOG_YEAR = {
+    "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
+    "arsi-vu-rookie", "erau-es-ll-kv", "lrmd-wal", "ncj-sprint-cw",
+    "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+    "rsgb-ft4-activity-day", "sarl-top-band-qso", "uarl-champ-cw",
+    "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
+    "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
+    "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
+    "uba-spring-80m-ssb", "ure-eartty",
+}
+
+# Records that already produce nothing this year WITHOUT active_until to say
+# why. `active_until` means "the sponsor stopped running it"; neither of these
+# has that evidence, so setting it would be a claim we cannot support. They are
+# pinned here instead, which is the honest form of the same statement.
+DARK_WITHOUT_EXPLANATION = {
+    "srr-russian-dx",     # holds 2027 only -- invisible for all of 2026
+    "rca-nacional-40m",   # holds 2025 only -- invisible in 2026 AND 2027
+}
+
+
+def _latest_manual_year(contest):
+    years = [int(y) for y in (contest["recurrence"].get("dates") or {})]
+    return max(years) if years else None
+
+
+def test_the_expiry_cliff_is_exactly_where_we_think_it_is(catalog):
+    """
+    The set of contests that go dark on 1 January is pinned by id.
+
+    Fails in both directions on purpose. If a record is ADDED to the cliff --
+    someone encodes a new sponsor who publishes one year at a time -- it must be
+    written down here, so the liability is visible rather than discovered next
+    January. If one is REMOVED because next year's dates arrived, that is good
+    news and it still has to be recorded, because an unexplained shrink means
+    somebody edited the data without understanding this.
+    """
+    got = {
+        c["id"] for c in catalog
+        if c["recurrence"]["type"] == "manual"
+        and not c.get("active_until")
+        and _latest_manual_year(c) == CATALOG_YEAR
+    }
+    assert got == EXPIRE_AFTER_CATALOG_YEAR
+
+
+def test_a_record_showing_nothing_this_year_says_why(catalog):
+    """
+    Every record producing no occurrence in the catalog year is either explained
+    by `active_until` -- the sponsor stopped running it, which the eight FISTS
+    sprints record correctly -- or is pinned in DARK_WITHOUT_EXPLANATION.
+
+    A record that silently shows nothing is the exact failure this file exists
+    to prevent, and it is worse than a wrong date because the site still looks
+    complete.
+    """
+    dark = {c["id"] for c in catalog if not expand(c, CATALOG_YEAR)}
+    unexplained = {
+        i for i in dark
+        if not by_id(catalog, i).get("active_until")
+    }
+    assert unexplained == DARK_WITHOUT_EXPLANATION
+
+    # ...and the explained ones really are explained, not merely absent.
+    for i in dark - unexplained:
+        assert by_id(catalog, i)["active_until"] < CATALOG_YEAR, i
+
+
+def test_manual_records_get_reviewed_before_the_year_turns():
+    """
+    A dated tripwire, and it is meant to go off.
+
+    Past MANUAL_REVIEW_DEADLINE this fails until somebody re-reads the sponsors
+    on the cliff, adds whatever they have published for next year, and moves the
+    deadline forward. Bumping the date is not a loophole -- it is the point. It
+    turns "nobody looked" into a commit that says who looked and when, which is
+    the same move test_registry_coverage_is_current makes for the coverage block.
+
+    Set to 1 December because that is when the sponsors here typically publish
+    the following year, and it still leaves a month before the contests vanish.
+    """
+    today = date.today()
+    assert today < MANUAL_REVIEW_DEADLINE, (
+        f"{len(EXPIRE_AFTER_CATALOG_YEAR)} manual records hold {CATALOG_YEAR} dates "
+        f"only and will produce nothing from {CATALOG_YEAR + 1}-01-01. Re-read those "
+        f"sponsors, add any dates they have published, then move "
+        f"MANUAL_REVIEW_DEADLINE and CATALOG_YEAR forward and update the two pinned "
+        f"sets. Sponsors on the cliff: "
+        f"{', '.join(sorted(EXPIRE_AFTER_CATALOG_YEAR))}"
+    )
+
+
 def test_the_two_engines_declare_the_same_vocabularies():
     # The Python and TypeScript vocabularies are hand-maintained in two files.
     # This asserts the Python side against the literal text of the TypeScript

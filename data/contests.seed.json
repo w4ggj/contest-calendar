@@ -48,8 +48,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL generic contest calendar",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: '0000 UTC - 2359 UTC January 1.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL generic contest calendar'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -92,8 +92,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: first full weekend of January, but never on January 1",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'First full weekend of January, but never on January 1, 1800 UTC Saturday through 2359 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: first full weekend of January, but never on January 1'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -175,8 +175,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: third full weekend in February",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Third full weekend in February, 0000 UTC Saturday through 2359 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: third full weekend in February'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "two_sided",
@@ -223,8 +223,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: first full weekend in March",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'First full weekend in March, 0000 UTC Saturday through 2359 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: first full weekend in March'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "two_sided",
@@ -271,8 +271,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: third Sunday, 1800-2359 UTC",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Third Sunday, 1800 UTC through 2359 UTC.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: third Sunday, 1800-2359 UTC'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "entity_list",
@@ -317,8 +317,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: first full weekend in June",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'First full weekend in June, 1800 UTC Saturday through 2359 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: first full weekend in June'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -359,8 +359,8 @@
         "time": "0259"
       },
       "verified": true,
-      "source_note": "ARRL: second full weekend in June",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Second full weekend in June, 1800 UTC Saturday through 0259 UTC Monday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: second full weekend in June'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -402,8 +402,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: third Saturday in June",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Third Saturday in June, 1800 UTC through 2359 UTC.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: third Saturday in June'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -450,8 +450,8 @@
         "time": "2059"
       },
       "verified": true,
-      "source_note": "ARRL: fourth full weekend in June",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Fourth full weekend in June, 1800 UTC Saturday through 2059 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: fourth full weekend in June'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "entity_list",
@@ -494,8 +494,8 @@
         "time": "1159"
       },
       "verified": true,
-      "source_note": "ARRL: second full weekend of July",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'The second full weekend of July, 1200 UTC Saturday through 1159 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: second full weekend of July'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -612,8 +612,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: third Sunday, 1800-2359 UTC",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Third Sunday, 1800 UTC through 2359 UTC.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: third Sunday, 1800-2359 UTC'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "entity_list",
@@ -659,8 +659,8 @@
         "time": "0259"
       },
       "verified": true,
-      "source_note": "ARRL: second full weekend of September",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Second full weekend of September, 1800 UTC Saturday through 0259 UTC Monday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: second full weekend of September'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -737,8 +737,8 @@
         "time": "0259"
       },
       "verified": true,
-      "source_note": "ARRL: first full weekend in November",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'First full weekend in November, 2100 UTC Saturday through 0259 UTC Monday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: first full weekend in November'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "entity_list",
@@ -780,8 +780,8 @@
         "time": "0259"
       },
       "verified": true,
-      "source_note": "ARRL: third full weekend in November",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Third full weekend in November, 2100 UTC Saturday through 0259 UTC Monday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: third full weekend in November'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "entity_list",
@@ -818,8 +818,8 @@
         "time": "1559"
       },
       "verified": true,
-      "source_note": "ARRL: first full weekend in December, 2200 UTC Friday to 1559 UTC Sunday",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'First full weekend in December, 2200 UTC Friday through 1559 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: first full weekend in December, 2200 UTC Friday to 1559 UTC Sunday'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -853,8 +853,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: second full weekend in December",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Second full weekend in December, 0000 UTC Saturday through 2359 UTC Sunday.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: second full weekend in December'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "worldwide",
@@ -892,8 +892,8 @@
         "time": "2359"
       },
       "verified": true,
-      "source_note": "ARRL: third Sunday, 1800-2359 UTC",
-      "rules_url_checked": "2026-08-11",
+      "source_note": "ARRL's Generic ARRL Contest Calendar at arrl.org/contest-calendar, which is ARRL stating the recurrence of its own contest in words: 'Third Sunday, 1800 UTC through 2359 UTC.' Re-verified 2026-08-21 against the stored rule, which matches. The Contest Corral on the same page is NOT a source here -- ARRL states it is generated from WA7BNM Contest Calendar data, so it is derived. Previous note read: 'ARRL: third Sunday, 1800-2359 UTC'.",
+      "rules_url_checked": "2026-08-21",
       "sponsor_home": "http://www.arrl.org/contest-calendar",
       "eligibility": {
         "scope": "entity_list",
