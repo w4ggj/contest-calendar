@@ -3192,6 +3192,46 @@ test("Australia Day opens the day before the holiday", () => {
   expect(c.submodes).toEqual(["AM"]);
 });
 
+// WWROF publishes future dates on its front page and keeps a rules PDF per
+// year, so five of the sponsor's own dates check one rule.
+const WW_DIGI_PUBLISHED: [number, number][] = [
+  [2024, 24], [2026, 29], [2027, 28], [2028, 26], [2029, 25],
+];
+
+test.each(WW_DIGI_PUBLISHED)(
+  "WW Digi reproduces every date WWROF published: %i",
+  (year, day) => {
+    expect(isoDate(expand(byId("ww-digi"), year)[0].start!)).toBe(D(year, 8, day));
+  },
+);
+
+test("WW Digi is a full-weekend rule and 2024 is why", () => {
+  // "Last full weekend of August" and "last Saturday of August" are different
+  // rules. They agree every year EXCEPT when 31 August is a Saturday, because
+  // the Sunday then falls in September and that weekend is not full.
+  //
+  // 2024 was such a year, and WWROF's own 2024 rules PDF says the contest ran
+  // Saturday 24 August -- not the 31st. This test exists because the two
+  // encodings agree in 2026, 2027, 2028 and 2029, so every year a casual check
+  // is likely to try would pass with the wrong rule stored.
+  const c = byId("ww-digi");
+  expect(c.recurrence).toEqual({ type: "nth_full_weekend", month: 8, n: -1 });
+  expect(isoDate(expand(c, 2024)[0].start!)).toBe(D(2024, 8, 24));
+});
+
+test("WW Digi records the 2026 rule changes", () => {
+  // Both changed for 2026 and both matter to an operator: the log deadline went
+  // from five days to 48 hours, and autonomous operation is now prohibited --
+  // which is a rule about unattended FT8.
+  const c = byId("ww-digi");
+  expect(c.log_deadline_days).toBe(2);
+  expect(c.source_note).toContain("Autonomous systems or robots");
+  expect(c.modes).toEqual(["FT8/FT4"]);
+  const occ = expand(c, 2026)[0];
+  expect([occ.start!.getUTCHours(), occ.start!.getUTCMinutes()]).toEqual([12, 0]);
+  expect([occ.end!.getUTCHours(), occ.end!.getUTCMinutes()]).toEqual([11, 59]);
+});
+
 // RSGB keeps a rules page per year, so five years of its own dates check one
 // rule -- fifteen date-points across three contests, all from one anchor.
 const AFS_PUBLISHED: [number, number, number, number][] = [

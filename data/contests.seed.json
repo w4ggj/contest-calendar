@@ -12263,6 +12263,55 @@
         "verified": true,
         "note": "The sections are 'UK 100W OPEN', 'UK 100W RESTRICTED', 'UK 10W RESTRICTED' and non-UK equivalents, so overseas entrants have sections of their own. The contest's name says International."
       }
+    },
+    {
+      "id": "ww-digi",
+      "name": "World Wide Digi DX Contest",
+      "sponsor": "WWROF / Slovenia Contest Club",
+      "country": "INTL",
+      "rules_url": "https://ww-digi.com/rules/",
+      "sponsor_home": "https://ww-digi.com/",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4",
+        "FT8"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "A four-character Maidenhead grid square.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "log_deadline_days": 2,
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "ww-digi.com, the contest's own site, which states the recurrence on its front page and the running in its rules: 'Contest is always the last full weekend of August.' 'Starts: Saturday August 29 12:00:00 UTC / Ends: Sunday August 30 11:59:59 UTC.' Mode: 'Only FT4 and FT8 modes are permitted.' Bands: 'Six bands only: 1.8, 3.5, 7, 14, 21 and 28 MHz.' Exchange: '4-character Grid Square.' Log deadline: 'All entries must be sent WITHIN 48 HOURS after the end of the contest: no later than 2359 UTC September 1, 2026.' Operating: 'A human operator must initiate calling each QSO partner. Autonomous systems or robots that emulate this action are prohibited.' Sponsored by the World Wide Radio Operators Foundation with the Slovenia Contest Club; the site's own copyright line reads 'Copyright (c) 2019-2026 World Wide Radio Operators Foundation, Inc.'",
+      "note": "THE RECURRENCE IS THE SPONSOR'S OWN WORDS AND IT SURVIVES THE YEAR THAT TESTS IT. 'Last full weekend of August' and 'last Saturday of August' are different rules, and they diverge whenever 31 August is a Saturday -- the Sunday then falls in September, so that weekend is not full. 2024 was such a year. The sponsor's own 2024 rules PDF (ww-digi.com/rules/wwdigi24_eng.pdf) reads '2024 World Wide Digi DX Contest Starts: Saturday August 24 12:00:00 UTC Ends: Sunday August 25 11:59:59 UTC' -- the 24th, not the 31st. So the full-weekend reading is what WWROF actually runs, and nth_full_weekend with n = -1 is right.\n\nChecked against five dates the sponsor published itself: 24 Aug 2024, 29 Aug 2026, 28 Aug 2027, 26 Aug 2028 and 25 Aug 2029. All five are reproduced.\n\nTHE LOG DEADLINE CHANGED FOR 2026, from five days to 48 hours. The 2024 rules said 'WITHIN FIVE (5) DAYS'; the current rules say 'WITHIN 48 HOURS'. log_deadline_days is 2 and this note exists so a reader comparing against an older edition is not misled.\n\nALSO NEW AND WORTH READING BEFORE ENTERING: autonomous operation is prohibited. 'A human operator must initiate calling each QSO partner. Autonomous systems or robots that emulate this action are prohibited.' That is a rule about unattended FT8, which is how a lot of stations run this mode.",
+      "summary": "Twenty-four hours of FT4 and FT8 across six HF bands on the last full weekend of August, scored on distance between grid squares.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'For amateurs around the world to contact as many other amateurs in as many Maidenhead Grid Fields as possible using the FT4 and FT8 modes.' No entity restriction is stated anywhere in the rules."
+      }
     }
   ]
 }

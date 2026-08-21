@@ -1600,6 +1600,60 @@ Also unread at RSGB: the HF Championship (`rhfchamp`), the 80m Club Championship
 the Autumn Series (`rautumn`), all multi-leg series that need their own careful read; the AFS 160
 contest; and the four VHF/UHF AFS contests, which live under `/vhf/`.
 
+## WW Digi — the contest that was never a candidate — 2026-08-21
+
+Found by the gap audit in `CONTESTCLOCK_GAP_AUDIT.md`, and it is the clearest single instance of
+what that audit was looking for: **WWROF appeared nowhere in `sources.registry.json`.** Not as a
+worked organisation, not as a gap, not as a blocked entry, not inside anyone's `estimated_total`.
+The World Wide Digi DX Contest has run since 2019, is FT4/FT8 on six HF bands, and was never a
+candidate for verification because the organisation that runs it was never on the list. The
+catalog's 221-of-229 verification rate measured the accuracy of what had been listed and said
+nothing at all about what had never been listed.
+
+### The rule, and the year that proves it
+
+WWROF states it on its front page: **"Contest is always the last full weekend of August."**
+
+That sentence has two readings and they are not the same rule. "Last full weekend" requires both
+days in August; "last Saturday" does not. They agree in most years and diverge whenever 31 August
+is a Saturday — the Sunday then falls in September, so that weekend is not full.
+
+**2024 was such a year, and it settles it.** WWROF's own 2024 rules PDF, still served at
+`ww-digi.com/rules/wwdigi24_eng.pdf`, reads *"2024 World Wide Digi DX Contest Starts: Saturday
+August 24 12:00:00 UTC Ends: Sunday August 25 11:59:59 UTC"* — the 24th, not the 31st. The
+full-weekend reading is what the sponsor actually runs, so the record is
+`nth_full_weekend` with `n: -1`.
+
+The record is checked against **five dates WWROF published itself**: 24 Aug 2024 (from the
+archived rules PDF) and 29 Aug 2026, 28 Aug 2027, 26 Aug 2028 and 25 Aug 2029 (from the front
+page). All five reproduce.
+
+A test pins 2024 specifically, because the two candidate encodings agree in 2026, 2027, 2028 and
+2029 — every year a casual check is likely to try would pass with the wrong rule stored.
+
+### Two 2026 rule changes worth surfacing
+
+Both are the sponsor's, both are new this year, and both are recorded in the record's `note`
+rather than left to a reader to notice:
+
+- **Autonomous operation is prohibited.** *"A human operator must initiate calling each QSO
+  partner. Autonomous systems or robots that emulate this action are prohibited."* That is a
+  rule about unattended FT8, which is how a great many stations run this mode.
+- **The log deadline dropped from five days to 48 hours.** The 2024 rules said *"WITHIN FIVE (5)
+  DAYS"*; the current rules say *"WITHIN 48 HOURS ... no later than 2359 UTC September 1, 2026."*
+
+### On the PDF
+
+The sponsor's per-year rules are PDFs whose text is stored as hex strings against a subset font
+offset by a constant from ASCII, so neither the fetch tool nor `pdftext3.py` read them —
+`pdftext3` scans for `N 0 obj ... endobj` and this file keeps its objects in object streams,
+where that pattern never appears. `scratchpad/pdfgrep.py` was written for it: inflate every
+stream, keep the ones carrying text operators, and pull literal strings with a hand-rolled
+scanner rather than a regex, which backtracks catastrophically on binary data.
+
+Worth keeping in mind for the other sponsors whose rules are PDFs — the two WIA band lists in
+`NEEDS_A_HUMAN.md` §3 may now be readable without a human.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

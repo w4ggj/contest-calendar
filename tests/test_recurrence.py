@@ -3222,6 +3222,56 @@ def test_australia_day_opens_the_day_before_the_holiday(catalog):
     assert c["submodes"] == ["AM"]
 
 
+# WWROF publishes future dates on its front page and keeps a rules PDF per
+# year, so five of the sponsor's own dates check one rule.
+WW_DIGI_PUBLISHED = {
+    2024: date(2024, 8, 24),
+    2026: date(2026, 8, 29),
+    2027: date(2027, 8, 28),
+    2028: date(2028, 8, 26),
+    2029: date(2029, 8, 25),
+}
+
+
+@pytest.mark.parametrize("year,day", sorted(WW_DIGI_PUBLISHED.items()))
+def test_ww_digi_reproduces_every_date_wwrof_published(catalog, year, day):
+    assert expand(by_id(catalog, "ww-digi"), year)[0].start.date() == day
+
+
+def test_ww_digi_is_a_full_weekend_rule_and_2024_is_why(catalog):
+    """
+    "Last full weekend of August" and "last Saturday of August" are different
+    rules. They agree every year EXCEPT when 31 August is a Saturday, because
+    the Sunday then falls in September and that weekend is not full.
+
+    2024 was such a year, and WWROF's own 2024 rules PDF says the contest ran
+    Saturday 24 August -- not the 31st. So the full-weekend reading is what the
+    sponsor actually runs. This test exists because the two encodings agree in
+    2026, 2027, 2028 and 2029, so every year a casual check is likely to try
+    would pass with the wrong rule stored.
+    """
+    c = by_id(catalog, "ww-digi")
+    assert c["recurrence"] == {"type": "nth_full_weekend", "month": 8, "n": -1}
+
+    # The year that separates them, from both directions.
+    assert date(2024, 8, 31).weekday() == 5          # a Saturday...
+    assert date(2024, 9, 1).month == 9               # ...whose Sunday is not in August
+    assert expand(c, 2024)[0].start.date() == date(2024, 8, 24)
+
+
+def test_ww_digi_records_the_2026_rule_changes(catalog):
+    # Both changed for 2026 and both matter to an operator: the log deadline
+    # went from five days to 48 hours, and autonomous operation is now
+    # prohibited -- which is a rule about unattended FT8.
+    c = by_id(catalog, "ww-digi")
+    assert c["log_deadline_days"] == 2
+    assert "Autonomous systems or robots" in c["source_note"]
+    assert c["modes"] == ["FT8/FT4"]
+    occ = expand(c, 2026)[0]
+    assert (occ.start.hour, occ.start.minute) == (12, 0)
+    assert (occ.end.hour, occ.end.minute) == (11, 59)
+
+
 # RSGB keeps a rules page per year, so five years of its own dates check one
 # rule -- fifteen date-points across three contests, all from one anchor.
 AFS_PUBLISHED = {
