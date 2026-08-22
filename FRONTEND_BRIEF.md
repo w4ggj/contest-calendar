@@ -812,11 +812,41 @@ Google needs two different things and they are not interchangeable, so the page 
 and names the difference rather than leaving a reader to find it:
 
 - **Add to Google Calendar** — `calendar.google.com/calendar/render?action=TEMPLATE`, carrying
-  the **next running only**, as one event. This is a documented, stable deep link and it works
-  without an account-side feed poll, which is what makes it the reliable half.
-- **Subscribe (iCal)** — unchanged, and the note now says the Google route for it is
-  *Other calendars → From URL*, with the **absolute** feed address printed for pasting. A
-  relative path is worthless in a subscribe box.
+  the **next running only**, as one event. A documented, stable deep link that works without an
+  account-side feed poll, which is what makes it the immediate half.
+- **Subscribe (Google)** — `calendar.google.com/calendar/r?cid=<percent-encoded https URL>`,
+  carrying every running and keeping it current. On `/` this is the whole catalog; on
+  `/contest/:id` it is that contest's feed alone.
+- **Subscribe (iCal)** — unchanged. Apple Calendar, Outlook and Thunderbird take the address
+  directly, and it is printed in full because a relative path is worthless pasted into any of
+  them.
+
+### The percent-encoding is not tidiness, and its failure looks like success
+
+`cid` must be percent-encoded and must be `https://`, never `webcal://` — webcal is what the
+three working clients want and Google is the one that refuses it.
+
+The per-contest feed is where this bites. `/api/ics?id=cq-ww-cw` unencoded leaves Google reading
+`cid` as ending at `/api/ics`, with `id` looking like a parameter of Google's own query. The
+reader who asked for one contest is then **silently subscribed to all 230**, with no error
+anywhere and a calendar that appears to have worked. One assertion separates those outcomes, so
+it has its own test rather than being folded into a "the link is present" check.
+
+### Subscribe is unconditional; add-one-event is not
+
+A contest with no next running keeps **both** subscribe buttons and loses only the add-event one.
+That is not an oversight: a feed with nothing in it yet is precisely when a subscription beats a
+one-off, because when the sponsor publishes next year's date and it is encoded here, everyone
+already subscribed gets it without coming back. `rca-nacional-40m` is the live case — it holds
+2025 dates only. Only the add-event link genuinely needs an instant, so only it is conditional.
+
+### And the delay is stated
+
+**Google polls external calendars on its own schedule, often 8–24 hours, and it cannot be
+forced.** A reader who subscribes, sees nothing for a day and concludes the feed is broken is a
+real failure with no button anywhere to fix it, so the sentence sits next to the subscribe link
+on both pages. On `/contest/:id` it points at Add to Google Calendar as the way to get the next
+running in immediately.
 
 ### Why the Google link is conditional
 
