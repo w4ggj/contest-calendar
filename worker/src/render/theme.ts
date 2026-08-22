@@ -735,12 +735,20 @@ a:hover { color: var(--ink); }
 .doc.wide { max-width: var(--shell); }
 .doc.wide .detail { max-width: none; }
 
-/* ...but the prose INSIDE a wide record still gets a measure. The provenance
-   note is a real paragraph and 78rem of it would be a 200-character line. */
-.doc.wide .detail p,
-.doc.wide .detail dd,
-.doc.wide .detail .clocks { max-width: 78ch; }
-.doc.wide .detail .dt-take { max-width: none; }
+/* The prose inside a wide record runs full width too. Owner's call, and it
+   REVERSES what shipped a few hours earlier on the same day.
+
+   The first version held the source note to a 78ch measure, on the ordinary
+   typographic argument that a 200-character line is hard to read. What that
+   argument missed is where these notes actually sit: in a definition list,
+   beside rows that are two words long. Capping only the long values gave one
+   list two different right edges, which does not read as a considered measure
+   -- it reads as a bug. And a contest record is reference material to scan
+   rather than an essay to read, which is the case the measure argument is
+   weakest against.
+
+   dt-cta-note keeps its own 34ch. That is a caption beside a button rather than
+   part of the record, and it was narrow before any of this. */
 
 .backlink {
   margin: 0 0 2rem;
