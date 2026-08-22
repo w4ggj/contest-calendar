@@ -395,39 +395,18 @@ describe("what it does not become", () => {
       expect(m![2]).toContain('rel="noopener external"');
     });
 
-    it("subscribes Google to this contest's feed alone, not the catalog", async () => {
-      const html = await page("/contest/cq-ww-cw");
-      const m = /<a class="btn" href="(https:\/\/calendar\.google\.com\/calendar\/r\?cid=[^"]+)"([^>]*)>/
-        .exec(html);
-      expect(m, "no per-contest Google subscribe link").not.toBeNull();
-
-      const raw = m![1].replace(/&amp;/g, "&");
-      const cid = raw.slice(raw.indexOf("cid=") + 4);
-
-      // The whole point of a per-contest link: it must decode to THIS feed.
-      expect(decodeURIComponent(cid)).toBe(`${BASE}/api/ics?id=cq-ww-cw`);
-
-      // ...and the "?" must be encoded. Unencoded, Google reads cid as ending
-      // at /api/ics and treats `id` as its own parameter -- silently
-      // subscribing the reader to all 230 contests while looking like it
-      // worked. This single assertion is the difference between the two.
-      expect(cid).toContain("%3Fid%3Dcq-ww-cw");
-      expect(cid).not.toContain("?");
-      expect(cid).not.toContain("webcal");
-
-      expect(m![2]).toContain('target="_blank"');
-      expect(m![2]).toContain('rel="noopener external"');
-    });
-
-    it("keeps the plain feed address and all three routes into a calendar", async () => {
+    it("keeps the plain feed address and the two routes that work", async () => {
       const html = await page("/contest/cq-ww-cw");
       // Apple, Outlook and Thunderbird take this directly; a relative path
       // would be worthless pasted into any of them.
       expect(html).toContain(`<code class="feed">${BASE}/api/ics?id=cq-ww-cw</code>`);
       expect(html).toContain(">Subscribe (iCal)<");
-      expect(html).toContain(">Subscribe (Google)<");
       expect(html).toContain(">Add to Google Calendar<");
-      // The three do different things, and the page says which is which.
+
+      // Google's one-click subscribe was tried against a real account and
+      // refused, so it is gone and the manual box is named instead.
+      expect(html).not.toContain("calendar/r?cid=");
+      expect(html).toContain("From URL");
       expect(html).toContain("single event");
       expect(html).toContain("8–24");
     });
@@ -447,7 +426,7 @@ describe("what it does not become", () => {
       // subscribed gets it without coming back. Only the add-one-event link
       // needs an instant, so only it is conditional.
       expect(html).toContain(">Subscribe (iCal)<");
-      expect(html).toContain(">Subscribe (Google)<");
+      expect(html).not.toContain("calendar.google.com");
     });
 
     it("refuses a Google link for a rolling contest, which has no instant", () => {

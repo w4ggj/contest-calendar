@@ -464,31 +464,26 @@ export interface LandingInput {
   origin: string;
 }
 
-/**
- * Google's "add a calendar by URL" deep link, for whatever feed it is given.
+/*
+ * THERE IS NO GOOGLE SUBSCRIBE LINK, AND THAT IS A TESTED FINDING.
  *
- * Takes the whole absolute feed address rather than building one, because the
- * two callers want different feeds: the index subscribes to everything at
- * `/api/ics`, and a contest page subscribes to `/api/ics?id=<id>`.
+ * `calendar.google.com/calendar/r?cid=<percent-encoded https url>` is the
+ * documented deep link for adding a calendar by URL, and it was shipped here on
+ * 2026-08-21 in exactly that form — percent-encoded, https rather than webcal.
+ * The owner tried it against a real Google account and Google answered
+ * "unable to add to calendar". It was removed the same day.
  *
- * Two things here are requirements rather than style, and each one silently
- * produces a calendar that never updates if it is got wrong:
+ * So: do not re-add it. It looks correct, it is the form every reference
+ * describes, and it does not work. `noGoogleSubscribeDeepLink` in
+ * pages.worker.test.ts fails the build if a `cid=` link reappears on any route.
  *
- * - `cid` must be **percent-encoded**. This matters most for the per-contest
- *   feed, whose `?id=` would otherwise be parsed as part of Google's OWN query
- *   — Google would see a `cid` ending at `/api/ics` and an unknown `id` param,
- *   and quietly subscribe the reader to the entire catalog instead of the one
- *   contest they asked for. That is the failure this encoding prevents, and it
- *   looks like success.
- * - it must be **https://, not webcal://** — the webcal scheme is what Apple
- *   Calendar, Outlook and Thunderbird want, and Google is the outlier that
- *   refuses it.
+ * What DOES work, and is still here:
+ *   - the add-one-event template link on /contest/:id (googleCalendarHref),
+ *     confirmed working by the owner on the same pass;
+ *   - pasting the feed address into Google's own Settings → Add calendar →
+ *     From URL box, which is how the feed was verified end to end on
+ *     2026-08-16 (699 events, instants, STATUS and TRANSP all intact).
  */
-export function googleSubscribeHref(feedUrl: string): string {
-  return (
-    "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(feedUrl)
-  );
-}
 
 /**
  * The three sections, and the directions when a section is empty.
@@ -618,15 +613,14 @@ ${ICON_LINKS}
     <p class="links">${pageLinks()}</p>
     <p class="links">
       <a href="/api/ics">Subscribe (iCal)</a>
-      <a href="${esc(googleSubscribeHref(`${input.origin}/api/ics`))}" target="_blank"
-         rel="noopener external">Add to Google Calendar</a>
       <a href="/api/contests?year=${now.getUTCFullYear()}">This year as JSON</a>
       <a href="/api/health">Health</a>
     </p>
-    <p class="feed-note">Subscribe (iCal) is the feed address — Apple Calendar,
-    Outlook and Thunderbird take it directly. Google is the outlier and needs
-    its own button. Either way, <strong>Google polls external calendars on its
-    own schedule, often 8–24 hours, and it cannot be forced</strong>, so a
+    <p class="feed-note">Apple Calendar, Outlook and Thunderbird take that feed
+    address directly. <strong>Google has no working one-click subscribe</strong>
+    — paste <code class="feed">${esc(input.origin)}/api/ics</code> into Settings
+    → Add calendar → <strong>From URL</strong>. Google then polls it on its own
+    schedule, <strong>often 8–24 hours, and that cannot be forced</strong>, so a
     newly-added contest will not appear there straight away.</p>
     <p>Catalog published under CC BY 4.0.</p>
   </footer>

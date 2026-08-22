@@ -39,14 +39,7 @@ import {
 } from "../schedule.js";
 import { relink } from "./filters.js";
 import { SITE_NAME, esc } from "./html.js";
-import {
-  googleSubscribeHref,
-  humanDuration,
-  isoAttr,
-  relative,
-  zDate,
-  zTime,
-} from "./landing.js";
+import { humanDuration, isoAttr, relative, zDate, zTime } from "./landing.js";
 import { pageLinks } from "./pages.js";
 import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
@@ -292,8 +285,7 @@ function takeSection(
   const gcal = googleCalendarHref(contest, next, origin);
 
   // Ordered by what a reader most likely wants: the next running in their
-  // calendar now, then every running kept current, then the same feed for the
-  // three clients that take it directly, then the raw record.
+  // calendar now, then the feed, then the raw record.
   return (
     `<section class="dt-sec" aria-labelledby="h-take">` +
     `<h2 id="h-take">Take it with you</h2>` +
@@ -302,33 +294,28 @@ function takeSection(
       ? `<a class="btn" href="${esc(gcal)}" target="_blank" ` +
         `rel="noopener external">Add to Google Calendar</a>`
       : "") +
-    `<a class="btn" href="${esc(googleSubscribeHref(feed))}" target="_blank" ` +
-    `rel="noopener external">Subscribe (Google)</a>` +
     `<a class="btn" href="${ics}">Subscribe (iCal)</a>` +
     `<a class="btn ghost" href="/api/contests/${encodeURIComponent(contest.id)}">` +
     `This record as JSON</a>` +
     `</p>` +
-    // Three buttons that all put this contest in a calendar do different
-    // things, and the differences are the reason there are three. Saying so is
-    // cheaper than letting a reader find out by picking the wrong one.
     (gcal
       ? `<p class="note"><strong>Add to Google Calendar</strong> puts the next ` +
-        `running in as a single event, straight away. <strong>Subscribe ` +
-        `(Google)</strong> takes every running of this contest and keeps them ` +
-        `current — but <strong>Google polls external calendars on its own ` +
-        `schedule, often 8–24 hours, and it cannot be forced</strong>, so a new ` +
-        `subscription will not appear immediately. Use the first if you want ` +
-        `this running in your calendar now.</p>`
-      : `<p class="note"><strong>Subscribe (Google)</strong> takes every running ` +
-        `of this contest and keeps them current, but <strong>Google polls ` +
-        `external calendars on its own schedule, often 8–24 hours, and it ` +
-        `cannot be forced</strong>.</p>`) +
-    `<p class="note"><strong>Subscribe (iCal)</strong> is the same feed for ` +
-    `Apple Calendar, Outlook and Thunderbird, which take this address ` +
-    `directly. It carries this contest's runnings for the next twelve months ` +
-    `as UTC instants, and its identifiers are stable across deploys, so ` +
-    `re-subscribing does not duplicate anything: ` +
-    `<code class="feed">${esc(feed)}</code></p>` +
+        `running in as a single event. It is one event, not a subscription — ` +
+        `come back for the one after it, or use the feed below.</p>`
+      : "") +
+    `<p class="note"><strong>Subscribe (iCal)</strong> carries this contest's ` +
+    `runnings for the next twelve months as UTC instants and keeps them ` +
+    `current. Apple Calendar, Outlook and Thunderbird take this address ` +
+    `directly. Its identifiers are stable across deploys, so re-subscribing ` +
+    `does not duplicate anything: <code class="feed">${esc(feed)}</code></p>` +
+    // Google has no working one-click subscribe -- its documented cid deep link
+    // was tried and refused. The manual box is the only route that works, and a
+    // reader who does not know that will assume the feed is broken.
+    `<p class="note"><strong>Google has no working one-click subscribe.</strong> ` +
+    `Paste that address into Settings → Add calendar → <strong>From URL</strong>. ` +
+    `Google then polls it on its own schedule, <strong>often 8–24 hours, and ` +
+    `that cannot be forced</strong> — so use Add to Google Calendar above if you ` +
+    `want the next running in your calendar now.</p>` +
     `</section>`
   );
 }

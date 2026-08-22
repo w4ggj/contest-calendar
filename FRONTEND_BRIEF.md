@@ -812,71 +812,45 @@ Google needs two different things and they are not interchangeable, so the page 
 and names the difference rather than leaving a reader to find it:
 
 - **Add to Google Calendar** — `calendar.google.com/calendar/render?action=TEMPLATE`, carrying
-  the **next running only**, as one event. A documented, stable deep link that works without an
-  account-side feed poll, which is what makes it the immediate half.
-- **Subscribe (Google)** — `calendar.google.com/calendar/r?cid=<percent-encoded https URL>`,
-  carrying every running and keeping it current. On `/` this is the whole catalog; on
-  `/contest/:id` it is that contest's feed alone.
+  the **next running only**, as one event. A documented, stable deep link that needs no
+  account-side feed poll. **Tested working** by the owner, 2026-08-21.
 - **Subscribe (iCal)** — unchanged. Apple Calendar, Outlook and Thunderbird take the address
   directly, and it is printed in full because a relative path is worthless pasted into any of
   them.
 
-### The percent-encoding is not tidiness, and its failure looks like success
+### Google's documented subscribe deep link does not work — tested, 2026-08-21
 
-`cid` must be percent-encoded and must be `https://`, never `webcal://` — webcal is what the
-three working clients want and Google is the one that refuses it.
+`calendar.google.com/calendar/r?cid=<percent-encoded https url>` is the documented way to add a
+calendar by URL, and it shipped here in exactly that form: percent-encoded, `https` rather than
+`webcal`, on the index for the whole feed and on `/contest/:id` for one contest's feed. The owner
+tried it against a real Google account and Google answered **"unable to add to calendar"**. It
+was removed the same day, everywhere.
 
-The per-contest feed is where this bites. `/api/ics?id=cq-ww-cw` unencoded leaves Google reading
-`cid` as ending at `/api/ics`, with `id` looking like a parameter of Google's own query. The
-reader who asked for one contest is then **silently subscribed to all 230**, with no error
-anywhere and a calendar that appears to have worked. One assertion separates those outcomes, so
-it has its own test rather than being folded into a "the link is present" check.
+Three things are worth keeping from that, because the next person will be tempted to re-add it:
 
-### Subscribe is unconditional; add-one-event is not
+**It is not guessable from the documentation.** The link looks right, every reference describes
+that form, and reasoning about it more carefully would not have found the problem. Only a real
+account did. This is the second item in this project to need a live account to settle — the
+Apple/Outlook iCal check in `NEEDS_A_HUMAN.md` §1.1 is the other — and both are cases where the
+honest answer to "does this work" was "somebody has to try it".
 
-A contest with no next running keeps **both** subscribe buttons and loses only the add-event one.
-That is not an oversight: a feed with nothing in it yet is precisely when a subscription beats a
-one-off, because when the sponsor publishes next year's date and it is encoded here, everyone
-already subscribed gets it without coming back. `rca-nacional-40m` is the live case — it holds
-2025 dates only. Only the add-event link genuinely needs an instant, so only it is conditional.
+**A test holds the finding.** `ships no Google subscribe deep link, on any route` in
+`pages.worker.test.ts` fails the build if a `cid=` link reappears on `/`, a contest page, or the
+no-runnings page. Prose in a brief is not enough for something whose wrong version looks correct.
+
+**The feed itself is fine in Google.** It was verified end to end on 2026-08-16 — 699 events,
+instants, `STATUS`, `TRANSP` and the escaped comma all intact. Only the one-click route is
+broken. So both pages now name the route that does work — Settings → Add calendar →
+**From URL** — and print the absolute address to paste. Without that sentence a reader who tries
+the obvious thing and fails concludes the feed is broken, which it is not.
 
 ### And the delay is stated
 
 **Google polls external calendars on its own schedule, often 8–24 hours, and it cannot be
-forced.** A reader who subscribes, sees nothing for a day and concludes the feed is broken is a
-real failure with no button anywhere to fix it, so the sentence sits next to the subscribe link
-on both pages. On `/contest/:id` it points at Add to Google Calendar as the way to get the next
+forced.** A reader who pastes the feed in, sees nothing for a day and concludes it is broken is a
+real failure with no button anywhere to fix it, so the sentence sits next to the feed address on
+both pages. On `/contest/:id` it points at Add to Google Calendar as the way to get the next
 running in immediately.
-
-### Why the Google link is conditional
-
-`googleCalendarHref()` returns null in two cases, and both would otherwise put a false statement
-on the page.
-
-**No next running.** The runnings section already explains the absence — the record is closed
-off at a year, or the sponsor publishes annually and has not published the next one. A dead
-button sitting beside that sentence contradicts it. `rca-nacional-40m` is the live example: it
-holds 2025 dates only.
-
-**A rolling contest.** `local_rolling` means the contest starts at a clock time *wherever the
-operator is*, so the occurrence carries a wall reading and `start` is null — there is no
-instant. A Google Calendar event is an instant by construction, so building one would invent
-exactly the fact the engine refuses to invent, and `running()` already avoids the same error by
-not wrapping a rolling time in `<time>`. **No record uses `local_rolling` today**, which is
-precisely why the guard is a unit test on the builder rather than a page assertion: it has to
-exist before the first rolling record does, or the bug ships with that record and looks like a
-data problem.
-
-### Two smaller things
-
-The event description carries the sponsor's rules URL and an absolute link back to the record,
-because a calendar entry is read somewhere else entirely, months later, with no page around it.
-
-`origin` now reaches the renderer from `url.origin` rather than being hard-coded, so
-`wrangler dev` and production each describe themselves correctly. The feed address is styled
-`overflow-wrap: anywhere` and `user-select: all` — it is one long unbroken token, which is the
-shape this brief already records as the thing that puts a phone into horizontal scroll, and a
-reader is going to select and copy it rather than read it.
 
 ---
 
