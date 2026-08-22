@@ -227,10 +227,22 @@ describe("the standing pages", () => {
       expect(strip, `masthead links /${p.slug}`).not.toContain(`/${p.slug}`);
     }
 
-    // And the pages carry no masthead of their own -- one back link only.
+    // The pages DO carry the masthead now -- added 2026-08-21 at the owner's
+    // request, reversing an earlier decision recorded in CLAUDE.md that they
+    // should carry nothing but a back link.
+    //
+    // That reversal does not touch the rule this test is really about. "Not a
+    // nav bar" was never about whether the bar APPEARS; it is about whether the
+    // bar enumerates the standing pages and so puts three links in front of the
+    // calendar. It still does not: the masthead is an identity bar with a link
+    // home, and the assertion above -- that it names none of these slugs -- is
+    // what holds that line and is unchanged.
     for (const p of STATIC_PAGES) {
       const html = await page(`/${p.slug}`);
-      expect(html, `/${p.slug} grew a masthead`).not.toContain('class="strip"');
+      expect(html, `/${p.slug} lost its masthead`).toContain('class="strip"');
+      expect(html).toContain('<a href="/">Contest Calendar</a>');
+      // The descriptive back link stays alongside it, as on the month grid and
+      // a contest record: same shape on every page that is not the calendar.
       expect(html).toContain('class="backlink"');
     }
   });

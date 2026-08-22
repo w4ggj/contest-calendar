@@ -20,7 +20,7 @@
  */
 
 import { CATALOG, CATALOG_SIZE } from "../catalog.js";
-import { SITE_NAME, esc } from "./html.js";
+import { SITE_NAME, esc, masthead } from "./html.js";
 import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
 import { THEME_BOOT } from "./client.js";
@@ -286,6 +286,7 @@ ${ICON_LINKS}
 <script>${THEME_BOOT}</script>
 </head>
 <body>
+${masthead(false, "Skip to the page")}
 <main class="shell doc" id="main">
   <p class="backlink"><a href="/">← Contests on the air now</a></p>
   <article class="prose">${page.body}</article>

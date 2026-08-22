@@ -194,10 +194,22 @@ match and five records contain another record's id or name, so a per-contest sub
 built on `q` would quietly carry a second contest.
 
 `/about`, `/data` and `/contact` are three standing pages in `worker/src/render/pages.ts`
-— **deliberately not a nav bar.** The calendar keeps `/` with nothing in front of it; the
-pages are reachable from the footer and from each other, and each links back. They reuse
-`CSS` and `THEME_BOOT` and ship no client bundle. `pages.worker.test.ts` asserts both halves
-— that they exist, and that they stay out of the way.
+— **still deliberately not a nav bar**, though what that means got sharper on 2026-08-21.
+The pages are reachable from the footer and from each other, and each links back. They reuse
+`CSS` and `THEME_BOOT` and ship no client bundle.
+
+Every page except the calendar now carries the **masthead** (`masthead()` in `render/html.ts`)
+— the site name linking home, the tag line, and the iCal/API links. That reversed an earlier
+rule that these three should carry nothing but a back link. **The nav-bar rule survived the
+reversal because it was never about whether the bar appears**: it is about whether the bar
+*enumerates* the standing pages and so puts three links in front of the calendar. It does not,
+and `pages.worker.test.ts` still asserts the masthead names none of their slugs. That
+assertion is the one holding the line; the rest is layout.
+
+`masthead()` takes a boolean that is **semantics, not style**. On `/` the site is the subject
+of the page, so the name is the `<h1>`. Everywhere else the subject is a contest, a month or
+the page's own title, and the site name renders as `.ident-name` instead — a second `<h1>`
+would give those pages two competing top-level headings. A test pins it in both directions.
 
 **Every link that leaves this site carries `target="_blank"` with `rel="noopener external"`**
 — the sponsor's rules, sponsor home pages, log submission. `_blank` because the reader's
