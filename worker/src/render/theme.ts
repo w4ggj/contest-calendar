@@ -200,6 +200,16 @@ a:hover { color: var(--ink); }
   letter-spacing: .14em; text-transform: uppercase;
   color: var(--ink);
 }
+/* The title is a link home, and it goes to a CLEAN schedule -- no query. That
+   is the one control on the site that discards the reader's filters, and it is
+   deliberate: everything else preserves them, so without this there is no way
+   back to the whole calendar except editing the URL. A site title going home is
+   also what a reader will try first.
+   It does not look like a link at rest, because a masthead that reads as body
+   copy in link colour is a masthead nobody trusts. Cyan on hover and focus,
+   which is where this site says interactive. */
+.ident h1 a { color: inherit; text-decoration: none; }
+.ident h1 a:hover { color: var(--cyan); }
 .ident .tag {
   margin: 0;
   font: 400 .72rem/1.4 var(--font-ui);

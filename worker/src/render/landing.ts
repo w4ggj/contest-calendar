@@ -557,7 +557,7 @@ ${ICON_LINKS}
 <div class="strip">
   <div class="strip-in">
     <div class="ident">
-      <h1>Contest Calendar</h1>
+      <h1><a href="/">Contest Calendar</a></h1>
       <p class="tag">Amateur radio contests<span class="tag-more"> &mdash; all ${CATALOG_SIZE} computed from sponsors&rsquo; own published rules</span></p>
     </div>
     <a href="/api/ics">iCal feed</a>

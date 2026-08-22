@@ -265,6 +265,31 @@ describe("the standing pages", () => {
  * rather than a subscription, and ITS DOCUMENTED SUBSCRIBE DEEP LINK DOES NOT
  * WORK. Both facts are load-bearing and neither is guessable from the docs.
  */
+describe("the masthead", () => {
+
+  it("makes the masthead title a link home that clears the filters", async () => {
+    // A reader will try the title first -- it is what every site puts a home
+    // link on. It goes to a CLEAN schedule with no query, and that is the point
+    // rather than an oversight: every other link on this site preserves the
+    // reader's filters, so without this there is no way back to the whole
+    // calendar short of editing the URL.
+    const plain = await page("/");
+    expect(plain).toContain('<h1><a href="/">Contest Calendar</a></h1>');
+
+    // Still bare with filters applied. If this ever starts carrying the query
+    // it stops being the reset and becomes a link to the page you are on.
+    const filtered = await page("/?mode=CW&band=20m");
+    expect(filtered).toContain('<h1><a href="/">Contest Calendar</a></h1>');
+    expect(filtered).not.toContain('<h1><a href="/?mode=CW');
+
+    // The masthead is the landing page's alone -- the month grid and a contest
+    // record open with a backlink that DOES preserve filters, which is the
+    // other half of the pair.
+    expect(await page("/month")).toContain("Back to the schedule");
+    expect(await page("/contest/cq-ww-cw?mode=CW")).toContain('href="/?mode=CW"');
+  });
+});
+
 describe("subscribing from the index", () => {
   it("ships no Google subscribe deep link, on any route", async () => {
     // calendar.google.com/calendar/r?cid=<percent-encoded https url> is the
