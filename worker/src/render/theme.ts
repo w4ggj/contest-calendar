@@ -943,7 +943,20 @@ a:hover { color: var(--ink); }
 /* The two switches sit at the foot of this page rather than in a masthead:
    there is no readout here for them to belong to, and putting controls above
    the contest would be a nav bar by another name. */
-.dt-controls { margin: 2.5rem 0 0; }
+/* The time and theme controls sit at the TOP of a contest page, on the backlink
+   row -- moved there 2026-08-21 because at the bottom they were below the fold
+   on every phone and most desktops, so changing the clock meant scrolling past
+   the thing you wanted to read in a different clock. Beside the backlink rather
+   than stacked above the heading, so they cost no vertical space: the same
+   arrangement the schedule uses, where the controls sit alongside the readout
+   instead of pushing the contests down. */
+.dt-top {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: .5rem 1.5rem; flex-wrap: wrap;
+  margin: 0 0 2rem;
+}
+.dt-top .backlink { margin: 0; }
+.dt-controls { margin: 0; }
 
 /* -- footer ------------------------------------------------------------ */
 

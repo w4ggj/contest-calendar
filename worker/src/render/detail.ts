@@ -560,7 +560,22 @@ ${ICON_LINKS}
 </head>
 <body data-now="${isoAttr(new Date(nowMs))}">
 <main class="shell doc" id="main">
-  <p class="backlink"><a href="${esc(back)}">← Back to the schedule</a></p>
+  <div class="dt-top">
+    <p class="backlink"><a href="${esc(back)}">← Back to the schedule</a></p>
+    <div class="controls dt-controls">
+      <div class="tzbar" id="tzbar" hidden>
+        <span>Show times in</span>
+        <button type="button" class="tzbtn" data-tz="local" aria-pressed="false">Local</button>
+        <button type="button" class="tzbtn" data-tz="utc" aria-pressed="true">UTC</button>
+      </div>
+      <div class="tzbar" id="themebar" hidden>
+        <span>Display</span>
+        <button type="button" class="thbtn" data-theme-set="auto" aria-pressed="true">Auto</button>
+        <button type="button" class="thbtn" data-theme-set="light" aria-pressed="false">Light</button>
+        <button type="button" class="thbtn" data-theme-set="dark" aria-pressed="false">Dark</button>
+      </div>
+    </div>
+  </div>
 
   <article class="detail">
     <header class="dt-head">
@@ -585,20 +600,6 @@ ${ICON_LINKS}
 
     ${takeSection(contest, next, origin)}
   </article>
-
-  <div class="controls dt-controls">
-    <div class="tzbar" id="tzbar" hidden>
-      <span>Show times in</span>
-      <button type="button" class="tzbtn" data-tz="local" aria-pressed="false">Local</button>
-      <button type="button" class="tzbtn" data-tz="utc" aria-pressed="true">UTC</button>
-    </div>
-    <div class="tzbar" id="themebar" hidden>
-      <span>Display</span>
-      <button type="button" class="thbtn" data-theme-set="auto" aria-pressed="true">Auto</button>
-      <button type="button" class="thbtn" data-theme-set="light" aria-pressed="false">Light</button>
-      <button type="button" class="thbtn" data-theme-set="dark" aria-pressed="false">Dark</button>
-    </div>
-  </div>
 
   <footer class="foot">
     <p>Dates are computed from a recurrence rule taken from the sponsor's own

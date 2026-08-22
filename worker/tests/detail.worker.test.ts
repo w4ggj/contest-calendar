@@ -140,6 +140,36 @@ describe("GET /contest/:id", () => {
     expect(rules![2]).toContain('rel="noopener external"');
   });
 
+  it("puts the time and theme controls at the top, not the bottom", async () => {
+    // They used to sit after the article, which on a phone and on most desktops
+    // put them below the fold: changing the clock meant scrolling past the very
+    // thing you wanted to read in a different clock, then scrolling back.
+    //
+    // Pinned by POSITION rather than presence, because presence never broke --
+    // a refactor that moved them back would leave every other assertion here
+    // green.
+    const html = await page("/contest/cq-ww-cw");
+
+    const tz = html.indexOf('id="tzbar"');
+    const theme = html.indexOf('id="themebar"');
+    const article = html.indexOf('<article class="detail">');
+    const footer = html.indexOf('<footer class="foot">');
+
+    expect(tz, "no tz control").toBeGreaterThan(-1);
+    expect(theme, "no theme control").toBeGreaterThan(-1);
+    expect(tz, "tz control is not above the contest").toBeLessThan(article);
+    expect(theme, "theme control is not above the contest").toBeLessThan(article);
+    expect(tz).toBeLessThan(footer);
+
+    // On the backlink row rather than stacked above the heading, so they cost
+    // no vertical space -- the same arrangement the schedule uses.
+    const top = /<div class="dt-top">[\s\S]*?<\/div>\s*<article/.exec(html);
+    expect(top, "controls are not on the backlink row").not.toBeNull();
+    expect(top![0]).toContain("Back to the schedule");
+    expect(top![0]).toContain("Show times in");
+    expect(top![0]).toContain("Display");
+  });
+
   it("names the contest and the site in the title and description", async () => {
     const html = await page("/contest/cq-ww-cw");
     const title = /<title>([^<]+)<\/title>/.exec(html)!;
