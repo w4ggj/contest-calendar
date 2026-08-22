@@ -456,6 +456,32 @@ export interface LandingInput {
   filters: Filters;
   params: URLSearchParams;
   sponsors: string[];
+  /**
+   * This deployment's origin. Google's subscribe link is a URL on Google's
+   * servers carrying ours as a parameter, so it cannot be relative. Taken from
+   * the request so `wrangler dev` and production each describe themselves.
+   */
+  origin: string;
+}
+
+/**
+ * Google's "add a calendar by URL" deep link for the whole feed.
+ *
+ * Three things here are requirements rather than style, and each one silently
+ * produces a calendar that never updates if it is got wrong:
+ *
+ * - `cid` must be **percent-encoded**, because the feed address contains `?`
+ *   and `=` that would otherwise be read as part of Google's own query.
+ * - it must be **https://, not webcal://** — the webcal scheme is what Apple
+ *   Calendar and Outlook want, and Google is the outlier that does not.
+ * - it points at the UNFILTERED feed. This subscribes to everything; a reader
+ *   who wants one contest subscribes from that contest's page instead.
+ */
+export function googleSubscribeHref(origin: string): string {
+  return (
+    "https://calendar.google.com/calendar/r?cid=" +
+    encodeURIComponent(`${origin}/api/ics`)
+  );
 }
 
 /**
@@ -586,9 +612,16 @@ ${ICON_LINKS}
     <p class="links">${pageLinks()}</p>
     <p class="links">
       <a href="/api/ics">Subscribe (iCal)</a>
+      <a href="${esc(googleSubscribeHref(input.origin))}" target="_blank"
+         rel="noopener external">Add to Google Calendar</a>
       <a href="/api/contests?year=${now.getUTCFullYear()}">This year as JSON</a>
       <a href="/api/health">Health</a>
     </p>
+    <p class="feed-note">Subscribe (iCal) is the feed address — Apple Calendar,
+    Outlook and Thunderbird take it directly. Google is the outlier and needs
+    its own button. Either way, <strong>Google polls external calendars on its
+    own schedule, often 8–24 hours, and it cannot be forced</strong>, so a
+    newly-added contest will not appear there straight away.</p>
     <p>Catalog published under CC BY 4.0.</p>
   </footer>
 </main>

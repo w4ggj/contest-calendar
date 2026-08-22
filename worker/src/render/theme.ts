@@ -956,6 +956,12 @@ a:hover { color: var(--ink); }
 }
 .foot p { margin: 0; max-width: 60ch; }
 .foot .links { display: flex; gap: 1rem; flex-wrap: wrap; }
+/* The Google polling delay. Dimmer than the footer's own prose because it is a
+   caveat on the line above it, not a claim of its own -- but it has to be here,
+   because a reader who subscribes and sees nothing for a day concludes the feed
+   is broken, and no button anywhere can hurry Google along. */
+.foot .feed-note { color: var(--ink-faint); }
+.foot .feed-note strong { color: var(--ink-dim); }
 
 /* -- phone -------------------------------------------------------------
 

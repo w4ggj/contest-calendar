@@ -307,10 +307,18 @@ function takeSection(
       : "") +
     `<p class="note"><strong>Subscribe (iCal)</strong> carries this contest's ` +
     `runnings for the next twelve months as UTC instants, and keeps them ` +
-    `current. Its identifiers are stable across deploys, so re-subscribing ` +
-    `does not duplicate anything. In Google Calendar the feed goes in under ` +
-    `Other calendars → From URL rather than through the button: ` +
+    `current. Apple Calendar, Outlook and Thunderbird take this address ` +
+    `directly. Its identifiers are stable across deploys, so re-subscribing ` +
+    `does not duplicate anything: ` +
     `<code class="feed">${esc(feed)}</code></p>` +
+    // Someone who subscribes in Google and then waits, seeing nothing, will
+    // conclude the feed is broken. It is not, and there is no button anyone can
+    // press to hurry it -- so the delay is stated rather than discovered.
+    `<p class="note">In Google Calendar this address goes in under ` +
+    `<strong>Other calendars → From URL</strong>, not through the button above. ` +
+    `<strong>Google polls external calendars on its own schedule, often 8–24 ` +
+    `hours, and it cannot be forced</strong> — so use Add to Google Calendar ` +
+    `if you want this running in your calendar now.</p>` +
     `</section>`
   );
 }

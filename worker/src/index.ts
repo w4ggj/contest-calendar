@@ -104,6 +104,7 @@ export default {
             filters,
             params: url.searchParams,
             sponsors: allSponsors(),
+            origin: url.origin,
           }),
         );
       } else if (path.startsWith("/contest/")) {

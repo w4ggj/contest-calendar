@@ -17,6 +17,7 @@ import { SELF } from "cloudflare:test";
 
 import { SITE_NAME } from "../src/render/html.js";
 import { STATIC_PAGES } from "../src/render/pages.js";
+import { googleSubscribeHref } from "../src/render/landing.js";
 
 const BASE = "https://contestcal.test";
 const get = async (path: string) => await SELF.fetch(BASE + path);
@@ -254,5 +255,73 @@ describe("the standing pages", () => {
     for (const path of ["/aboutus", "/data/catalog", "/contacts"]) {
       expect((await get(path)).status, path).toBe(404);
     }
+  });
+});
+
+/**
+ * Getting this calendar into someone else's calendar.
+ *
+ * Apple Calendar, Outlook and Thunderbird take the feed address directly.
+ * Google is the outlier twice over: it treats a downloaded .ics as a one-off
+ * import rather than a subscription, and its subscribe route is a deep link
+ * with rules of its own. Each of those rules fails SILENTLY -- the reader gets
+ * a calendar that never updates, or no calendar at all, with no error anywhere.
+ * So they are pinned separately rather than as one "link is present" check.
+ */
+describe("subscribing from the index", () => {
+  it("gives Google a cid link that is percent-encoded and https", async () => {
+    const html = await page("/");
+    const m = /<a href="(https:\/\/calendar\.google\.com\/calendar\/r\?cid=[^"]+)"/
+      .exec(html);
+    expect(m, "no Google subscribe link in the footer").not.toBeNull();
+
+    const raw = m![1].replace(/&amp;/g, "&");
+    const cid = raw.slice(raw.indexOf("cid=") + 4);
+
+    // Percent-encoded, because the feed address carries no query today but the
+    // scheme's own "://" and any future "?id=" would be read as Google's.
+    expect(cid).not.toContain("://");
+    expect(decodeURIComponent(cid)).toBe(`${BASE}/api/ics`);
+
+    // https, NOT webcal. webcal is what Apple and Outlook want; Google is the
+    // one client that does not take it, and a webcal cid silently adds nothing.
+    expect(decodeURIComponent(cid).startsWith("https://")).toBe(true);
+    expect(cid).not.toContain("webcal");
+
+    // The whole feed, unfiltered -- a reader wanting one contest subscribes
+    // from that contest's page instead.
+    expect(decodeURIComponent(cid)).not.toContain("?");
+  });
+
+  it("keeps the iCal link, because Google is the outlier and not the rule", async () => {
+    // This was an addition, not a replacement. Three clients take the plain
+    // address and removing it to make room for Google would break all of them.
+    const html = await page("/");
+    expect(html).toContain('<a href="/api/ics">Subscribe (iCal)</a>');
+    expect(html).toContain("Add to Google Calendar");
+    expect(html).toMatch(/Apple Calendar,\s*\n?\s*Outlook and Thunderbird/);
+  });
+
+  it("warns that Google's polling cannot be hurried", async () => {
+    // A reader who subscribes, sees nothing for a day and concludes the feed is
+    // broken is the failure this sentence exists to prevent. There is no button
+    // anywhere that makes Google poll sooner, so the delay has to be stated.
+    const html = await page("/");
+    expect(html).toContain("8–24");
+    expect(html).toMatch(/cannot be forced|can't be forced/);
+  });
+
+  it("builds the cid link from the request's own origin", () => {
+    // Not hard-coded, so wrangler dev and production each describe themselves.
+    // A link that says "production" while served from localhost subscribes the
+    // developer to the wrong calendar and looks like it worked.
+    const href = googleSubscribeHref("https://example.test");
+    expect(href).toBe(
+      "https://calendar.google.com/calendar/r?cid=" +
+        encodeURIComponent("https://example.test/api/ics"),
+    );
+    expect(googleSubscribeHref("http://localhost:8787")).toContain(
+      encodeURIComponent("http://localhost:8787/api/ics"),
+    );
   });
 });
