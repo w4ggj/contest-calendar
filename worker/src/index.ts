@@ -24,6 +24,7 @@ import { allSponsors, buildNowView, contestById } from "./schedule.js";
 import { SITE_NAME } from "./render/html.js";
 import { renderDetail } from "./render/detail.js";
 import { renderLanding } from "./render/landing.js";
+import { parseMonth, renderMonth } from "./render/month.js";
 import { FAVICON_SVG, ICON_LINKS } from "./render/icon.js";
 import { findPage, renderPage } from "./render/pages.js";
 
@@ -107,6 +108,30 @@ export default {
             origin: url.origin,
           }),
         );
+      } else if (path === "/month") {
+        // The month grid. Same filters as the schedule, so a reader who
+        // narrowed to CW keeps that view when they switch to the calendar.
+        const filters = parseFilters(url.searchParams);
+        const when = parseMonth(url.searchParams.get("m"), nowMs);
+        if (!when) {
+          // A malformed `m` is a 400 rather than a silent fallback to this
+          // month: showing August under a URL that said 2026-13 is the kind of
+          // quiet wrong answer this project spends its effort avoiding.
+          response = new Response("Bad month. Use ?m=YYYY-MM.", {
+            status: 400,
+            headers: { "content-type": "text/plain; charset=utf-8" },
+          });
+        } else {
+          response = html(
+            renderMonth({
+              year: when.year,
+              month: when.month,
+              nowMs,
+              filters,
+              params: url.searchParams,
+            }),
+          );
+        }
       } else if (path.startsWith("/contest/")) {
         // The detail view. Singular, so it cannot be mistaken for the API's
         // `/api/contests/:id` or for `/contests.ics`, both of which serve the

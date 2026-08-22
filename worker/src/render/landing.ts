@@ -22,6 +22,7 @@ import {
   describeSelection,
   detailHref,
   emptyState,
+  relink,
   renderFilters,
   unrecordedNote,
 } from "./filters.js";
@@ -583,6 +584,9 @@ ${ICON_LINKS}
         <li><b>${view.next7.length}</b><span>next 7 days</span></li>
         <li><b>${view.later.length}</b><span>${esc(view.laterLabel.toLowerCase())}</span></li>
       </ul>
+      <p class="viewswitch"><a class="btn" href="${esc(
+        relink(input.params, [], {}, "/month"),
+      )}">Month view</a></p>
       <div class="controls">
         <div class="tzbar" id="tzbar" hidden>
           <span>Show times in</span>

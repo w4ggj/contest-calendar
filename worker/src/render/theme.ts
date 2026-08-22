@@ -1061,6 +1061,97 @@ a:hover { color: var(--ink); }
   }
 }
 
+/* ---------------------------------------------------------------------------
+   The month grid
+   ---------------------------------------------------------------------------
+   Colour stays inside the three roles the rest of the site uses. The weekend
+   and out-of-month tints are SURFACE changes, not a fourth colour role -- the
+   weekend is not a new kind of meaning, it is the same cell shaded. Today is
+   marked in amber because amber is time here, and today is a fact about time.
+   Nothing in this grid is cyan except the links, which are interactive. */
+
+.vh {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+
+.mo-head {
+  display: flex; flex-wrap: wrap; gap: .8rem 1.2rem;
+  align-items: baseline; justify-content: space-between;
+  margin: 0 0 .4rem;
+}
+.mo-head h1 { margin: 0; font-size: 1.5rem; letter-spacing: -.01em; }
+.mo-nav { display: flex; gap: .5rem; flex-wrap: wrap; margin: 0; }
+.mo-sub { margin: 0 0 1rem; max-width: 70ch;
+  font: 500 .8rem/1.6 var(--font-mono); color: var(--ink-faint); }
+.mo-sub strong { color: var(--ink-dim); }
+.viewswitch { margin: .6rem 0 0; }
+
+/* The page body must never scroll sideways, so the grid scrolls inside itself.
+   A month is seven columns whatever the viewport is: collapsing it to a list on
+   a phone would throw away the one thing this view exists to show. */
+.mo-wrap { overflow-x: auto; margin: 0 0 1.4rem; }
+.mo-grid {
+  width: 100%; min-width: 44rem;
+  border-collapse: collapse; table-layout: fixed;
+  font: 500 .8rem/1.4 var(--font-mono);
+}
+.mo-grid th {
+  padding: .35rem .5rem; text-align: left;
+  font-weight: 600; color: var(--ink-faint);
+  border-bottom: 1px solid var(--rule);
+}
+.mo-grid th abbr { text-decoration: none; }
+.mo-grid th.we { color: var(--ink-dim); }
+
+.mo-day {
+  vertical-align: top; width: 14.28%; height: 6.5rem;
+  padding: .3rem .35rem;
+  border: 1px solid var(--rule-soft);
+  background: var(--panel);
+}
+.mo-day.we { background: var(--panel-2); }
+.mo-day.out { opacity: .45; }
+.mo-day.today { outline: 2px solid var(--amber); outline-offset: -2px; }
+
+.mo-dn {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: .4rem; margin: 0 0 .25rem; color: var(--ink-faint);
+}
+.mo-day.today .mo-dn time { color: var(--amber); font-weight: 700; }
+.mo-c {
+  font-size: .7rem; color: var(--ink-faint);
+  border: 1px solid var(--rule-soft); border-radius: 999px;
+  padding: 0 .3rem;
+}
+
+.mo-evs { list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: .15rem; }
+.mo-ev a {
+  display: flex; gap: .3rem; align-items: baseline;
+  padding: .1rem .25rem; border-radius: 3px;
+  color: var(--ink-dim); text-decoration: none;
+  border-left: 2px solid var(--cyan-dim);
+  background: var(--panel-2);
+}
+.mo-day.we .mo-ev a { background: var(--panel); }
+.mo-ev a:hover { color: var(--ink); border-left-color: var(--cyan); }
+.mo-ev a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; }
+.mo-t { color: var(--amber); font-size: .7rem; flex: none; }
+.mo-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* A day the contest continues into is not a second running of it, and the grid
+   must not read as though it were. Dimmer, and marked. */
+.mo-ev.cont a { border-left-style: dotted; opacity: .8; }
+.cont-mark { color: var(--ink-faint); }
+.mo-ev.unver a { border-left-color: var(--rule); }
+
+@media (max-width: 640px) {
+  .mo-grid { min-width: 40rem; font-size: .72rem; }
+  .mo-day { height: 5.5rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .001ms !important;
