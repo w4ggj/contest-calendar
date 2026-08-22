@@ -288,6 +288,59 @@ describe("the masthead", () => {
     expect(await page("/month")).toContain("Back to the schedule");
     expect(await page("/contest/cq-ww-cw?mode=CW")).toContain('href="/?mode=CW"');
   });
+
+  it("carries the title onto the month grid and a contest record", async () => {
+    for (const route of ["/month?m=2026-11", "/contest/cq-ww-cw"]) {
+      const html = await page(route);
+      expect(html, `${route}: no masthead`).toContain("<div class=\"strip\">");
+      expect(html, `${route}: title does not go home`)
+        .toContain('<a href="/">Contest Calendar</a>');
+    }
+  });
+
+  it("does not give those pages a second h1", async () => {
+    // The semantics switch, and the reason the helper takes a flag at all. On
+    // the schedule the SITE is the subject, so the name is the h1. On a contest
+    // record the subject is the contest and on the month grid it is the month;
+    // the site name being a second h1 there would give the page two competing
+    // top-level headings, which is wrong for a screen reader walking the
+    // outline. So it renders as a paragraph that merely looks like a masthead.
+    const cases: [string, string][] = [
+      ["/month?m=2026-11", "November 2026"],
+      ["/contest/cq-ww-cw", "CQ Worldwide DX Contest, CW"],
+    ];
+    for (const [route, subject] of cases) {
+      const html = await page(route);
+      const h1s = [...html.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)].map((m) => m[1]);
+      expect(h1s, `${route}: expected exactly one h1`).toHaveLength(1);
+      expect(h1s[0], `${route}: the h1 should be the page's own subject`)
+        .toContain(subject);
+      expect(h1s[0]).not.toContain("Contest Calendar");
+      // ...and the site name is present, just not as a heading.
+      expect(html).toContain('<p class="ident-name">');
+    }
+
+    // The schedule keeps the site name AS its h1, because there it is the
+    // subject. If this ever flips, the outline is wrong in the other direction.
+    const home = await page("/");
+    const homeH1 = [...home.matchAll(/<h1[^>]*>([\s\S]*?)<\/h1>/g)].map((m) => m[1]);
+    expect(homeH1).toHaveLength(1);
+    expect(homeH1[0]).toContain("Contest Calendar");
+    expect(home).not.toContain('<p class="ident-name">');
+  });
+
+  it("keeps a skip link ahead of the masthead on every page that has one", async () => {
+    // The bar puts three links before the main content, so skipping past it
+    // stops being a nicety.
+    for (const route of ["/", "/month?m=2026-11", "/contest/cq-ww-cw"]) {
+      const html = await page(route);
+      const skip = html.indexOf('class="skip"');
+      const strip = html.indexOf('<div class="strip">');
+      expect(skip, `${route}: no skip link`).toBeGreaterThan(-1);
+      expect(skip, `${route}: skip link is not first`).toBeLessThan(strip);
+      expect(html).toContain('id="main"');
+    }
+  });
 });
 
 describe("subscribing from the index", () => {

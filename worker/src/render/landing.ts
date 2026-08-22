@@ -11,7 +11,6 @@
  */
 
 import type { Occurrence } from "../../../engine/src/recurrence.js";
-import { CATALOG_SIZE } from "../catalog.js";
 import {
   bandFamilies,
   durationBucketOf,
@@ -26,7 +25,7 @@ import {
   renderFilters,
   unrecordedNote,
 } from "./filters.js";
-import { SITE_NAME, esc } from "./html.js";
+import { SITE_NAME, esc, masthead } from "./html.js";
 import { pageLinks } from "./pages.js";
 import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
@@ -552,19 +551,7 @@ ${ICON_LINKS}
 <script>${THEME_BOOT}</script>
 </head>
 <body data-now="${isoAttr(now)}">
-<a class="skip" href="#main">Skip to contests</a>
-
-<div class="strip">
-  <div class="strip-in">
-    <div class="ident">
-      <h1><a href="/">Contest Calendar</a></h1>
-      <p class="tag">Amateur radio contests<span class="tag-more"> &mdash; all ${CATALOG_SIZE} computed from sponsors&rsquo; own published rules</span></p>
-    </div>
-    <a href="/api/ics">iCal feed</a>
-    <span class="sep">/</span>
-    <a href="/api/contests">API</a>
-  </div>
-</div>
+${masthead(true, "Skip to contests")}
 
 <header class="readout">
   <div class="shell readout-grid">

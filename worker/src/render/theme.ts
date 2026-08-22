@@ -736,6 +736,18 @@ a:hover { color: var(--ink); }
    beside it. */
 .doc { padding-top: 2.5rem; max-width: 74ch; }
 
+/* The masthead name on pages whose own h1 belongs to something else -- a
+   contest, a month. Identical to the h1 version on purpose: it is the same bar,
+   and only the document outline underneath it differs. */
+.ident .ident-name {
+  margin: 0;
+  font: 700 .84rem/1.2 var(--font-mono);
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink);
+}
+.ident .ident-name a { color: inherit; text-decoration: none; }
+.ident .ident-name a:hover { color: var(--cyan); }
+
 /* The month grid and a contest record run to the SCHEDULE'S width on desktop,
    so moving between the three views does not move the page's edges. The prose
    pages (/about, /data, /contact) keep the 74ch measure -- they are reading,

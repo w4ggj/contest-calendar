@@ -46,7 +46,7 @@ import {
   occurrencesInRange,
 } from "../schedule.js";
 import { detailHref, relink } from "./filters.js";
-import { SITE_NAME, esc } from "./html.js";
+import { SITE_NAME, esc, masthead } from "./html.js";
 import { isoAttr } from "./landing.js";
 import { pageLinks } from "./pages.js";
 import { ICON_LINKS } from "./icon.js";
@@ -340,6 +340,7 @@ ${ICON_LINKS}
 <script>${THEME_BOOT}</script>
 </head>
 <body data-now="${isoAttr(new Date(nowMs))}">
+${masthead(false, "Skip to the calendar")}
 <main class="shell doc wide" id="main">
   <p class="backlink"><a href="${esc(relink(params, ["m"], {}, "/"))}">← Back to the schedule</a></p>
 
