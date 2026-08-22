@@ -465,22 +465,28 @@ export interface LandingInput {
 }
 
 /**
- * Google's "add a calendar by URL" deep link for the whole feed.
+ * Google's "add a calendar by URL" deep link, for whatever feed it is given.
  *
- * Three things here are requirements rather than style, and each one silently
+ * Takes the whole absolute feed address rather than building one, because the
+ * two callers want different feeds: the index subscribes to everything at
+ * `/api/ics`, and a contest page subscribes to `/api/ics?id=<id>`.
+ *
+ * Two things here are requirements rather than style, and each one silently
  * produces a calendar that never updates if it is got wrong:
  *
- * - `cid` must be **percent-encoded**, because the feed address contains `?`
- *   and `=` that would otherwise be read as part of Google's own query.
+ * - `cid` must be **percent-encoded**. This matters most for the per-contest
+ *   feed, whose `?id=` would otherwise be parsed as part of Google's OWN query
+ *   — Google would see a `cid` ending at `/api/ics` and an unknown `id` param,
+ *   and quietly subscribe the reader to the entire catalog instead of the one
+ *   contest they asked for. That is the failure this encoding prevents, and it
+ *   looks like success.
  * - it must be **https://, not webcal://** — the webcal scheme is what Apple
- *   Calendar and Outlook want, and Google is the outlier that does not.
- * - it points at the UNFILTERED feed. This subscribes to everything; a reader
- *   who wants one contest subscribes from that contest's page instead.
+ *   Calendar, Outlook and Thunderbird want, and Google is the outlier that
+ *   refuses it.
  */
-export function googleSubscribeHref(origin: string): string {
+export function googleSubscribeHref(feedUrl: string): string {
   return (
-    "https://calendar.google.com/calendar/r?cid=" +
-    encodeURIComponent(`${origin}/api/ics`)
+    "https://calendar.google.com/calendar/r?cid=" + encodeURIComponent(feedUrl)
   );
 }
 
@@ -612,7 +618,7 @@ ${ICON_LINKS}
     <p class="links">${pageLinks()}</p>
     <p class="links">
       <a href="/api/ics">Subscribe (iCal)</a>
-      <a href="${esc(googleSubscribeHref(input.origin))}" target="_blank"
+      <a href="${esc(googleSubscribeHref(`${input.origin}/api/ics`))}" target="_blank"
          rel="noopener external">Add to Google Calendar</a>
       <a href="/api/contests?year=${now.getUTCFullYear()}">This year as JSON</a>
       <a href="/api/health">Health</a>

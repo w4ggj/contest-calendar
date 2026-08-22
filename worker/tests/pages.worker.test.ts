@@ -315,13 +315,21 @@ describe("subscribing from the index", () => {
     // Not hard-coded, so wrangler dev and production each describe themselves.
     // A link that says "production" while served from localhost subscribes the
     // developer to the wrong calendar and looks like it worked.
-    const href = googleSubscribeHref("https://example.test");
+    const href = googleSubscribeHref("https://example.test/api/ics");
     expect(href).toBe(
       "https://calendar.google.com/calendar/r?cid=" +
         encodeURIComponent("https://example.test/api/ics"),
     );
-    expect(googleSubscribeHref("http://localhost:8787")).toContain(
+    expect(googleSubscribeHref("http://localhost:8787/api/ics")).toContain(
       encodeURIComponent("http://localhost:8787/api/ics"),
     );
+
+    // The per-contest feed is the case where the encoding earns its keep: an
+    // unencoded "?" would end Google's cid at /api/ics and leave `id` looking
+    // like a parameter of Google's own, subscribing the reader to the entire
+    // catalog while appearing to work.
+    const one = googleSubscribeHref("https://example.test/api/ics?id=cq-ww-cw");
+    expect(one).toContain("%3Fid%3Dcq-ww-cw");
+    expect(one.slice(one.indexOf("cid=") + 4)).not.toContain("?");
   });
 });
