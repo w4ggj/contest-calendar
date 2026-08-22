@@ -848,6 +848,10 @@ a:hover { color: var(--ink); }
 }
 .detail .note code { color: var(--amber); }
 .detail .note strong { color: var(--ink-dim); }
+/* The feed address is one long unbroken token, which is the shape that pushes a
+   phone into horizontal scroll. Break it anywhere rather than let it set the
+   page width -- a reader is going to select and copy it, not read it. */
+.detail .note code.feed { overflow-wrap: anywhere; user-select: all; }
 
 /* One running per line: when it opens and closes, how long, and how far off.
    Tabular numerals because these are read as a column even though each is a

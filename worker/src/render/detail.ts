@@ -226,6 +226,95 @@ function noRunnings(contest: Contest): string {
   );
 }
 
+// ---------------------------------------------------------------------------
+// Taking it away
+// ---------------------------------------------------------------------------
+
+/** Google's event template wants `YYYYMMDDTHHMMSSZ`, with no punctuation. */
+function gcalStamp(d: Date): string {
+  return d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+}
+
+/**
+ * A Google Calendar "add this event" link for one running, or null.
+ *
+ * Null in the two cases where a link would state something untrue:
+ *
+ * **No next running.** Nothing to add. The runnings section already explains
+ * why -- the record is closed off at a year, or the sponsor publishes annually
+ * and has not published the next one -- and a dead button beside that
+ * explanation would contradict it.
+ *
+ * **A rolling contest.** `local_rolling` means the contest starts at a clock
+ * time wherever the operator is, so it has NO single instant; the occurrence
+ * carries a wall reading and `start` is null. A Google Calendar event is an
+ * instant by construction, so building one here would invent a fact the engine
+ * deliberately refuses to invent -- the same category error `running()` avoids
+ * by not wrapping a rolling time in `<time>`. No record uses `local_rolling`
+ * today; this is guarded because one silently would produce a wrong hour.
+ */
+export function googleCalendarHref(
+  contest: Contest,
+  next: Occurrence | undefined,
+  origin: string,
+): string | null {
+  if (!next || next.local_rolling) return null;
+  if (!next.start || !next.end) return null;
+
+  const q = new URLSearchParams({
+    action: "TEMPLATE",
+    text: contest.name,
+    dates: `${gcalStamp(next.start)}/${gcalStamp(next.end)}`,
+    // The sponsor's own rules are the thing a reader will actually want once
+    // the event fires, so the description carries them plus this record.
+    details:
+      `${contest.sponsor}\n\n` +
+      (contest.rules_url ? `Rules: ${contest.rules_url}\n` : "") +
+      `Details: ${origin}/contest/${contest.id}`,
+  });
+  return `https://calendar.google.com/calendar/render?${q.toString()}`;
+}
+
+function takeSection(
+  contest: Contest,
+  next: Occurrence | undefined,
+  origin: string,
+): string {
+  const ics = `/api/ics?id=${encodeURIComponent(contest.id)}`;
+  const feed = `${origin}${ics}`;
+  const gcal = googleCalendarHref(contest, next, origin);
+
+  return (
+    `<section class="dt-sec" aria-labelledby="h-take">` +
+    `<h2 id="h-take">Take it with you</h2>` +
+    `<p class="dt-take">` +
+    (gcal
+      ? `<a class="btn" href="${esc(gcal)}" target="_blank" ` +
+        `rel="noopener external">Add to Google Calendar</a>`
+      : "") +
+    `<a class="btn" href="${ics}">Subscribe (iCal)</a>` +
+    `<a class="btn ghost" href="/api/contests/${encodeURIComponent(contest.id)}">` +
+    `This record as JSON</a>` +
+    `</p>` +
+    // The distinction is the whole reason there are two buttons, so it is
+    // stated rather than left for the reader to discover: one adds a single
+    // event, the other subscribes to all of them.
+    (gcal
+      ? `<p class="note"><strong>Add to Google Calendar</strong> puts the next ` +
+        `running in as a single event. Google treats a downloaded .ics as a ` +
+        `one-off import rather than a subscription, which is why it is a ` +
+        `separate button.</p>`
+      : "") +
+    `<p class="note"><strong>Subscribe (iCal)</strong> carries this contest's ` +
+    `runnings for the next twelve months as UTC instants, and keeps them ` +
+    `current. Its identifiers are stable across deploys, so re-subscribing ` +
+    `does not duplicate anything. In Google Calendar the feed goes in under ` +
+    `Other calendars → From URL rather than through the button: ` +
+    `<code class="feed">${esc(feed)}</code></p>` +
+    `</section>`
+  );
+}
+
 function runningsSection(contest: Contest, nowMs: number): string {
   const next = nextOccurrences(contest.id, nowMs, RUNNINGS);
   return (
@@ -406,10 +495,20 @@ export interface DetailInput {
   /** The reader's query, carried through so returning keeps their view. */
   params: URLSearchParams;
   entity: string;
+  /**
+   * This deployment's origin, e.g. "https://contest-calendar.jleone0.workers.dev".
+   *
+   * Needed because two things on this page have to be absolute: Google's
+   * add-event link is a URL on Google's servers that points back here, and the
+   * feed address a reader pastes into a subscribe box is useless as a relative
+   * path. Taken from the request rather than hard-coded so `wrangler dev` and
+   * production each describe themselves correctly.
+   */
+  origin: string;
 }
 
 export function renderDetail(input: DetailInput): string {
-  const { contest, nowMs, params, entity } = input;
+  const { contest, nowMs, params, entity, origin } = input;
   const back = relink(params, [], {}, "/");
   const rule = describeRule(contest.recurrence);
   const next = nextOccurrences(contest.id, nowMs, 1)[0];
@@ -479,16 +578,7 @@ ${ICON_LINKS}
     ${operatingSection(contest, entity)}
     ${provenanceSection(contest)}
 
-    <section class="dt-sec" aria-labelledby="h-take">
-      <h2 id="h-take">Take it with you</h2>
-      <p class="dt-take">
-        <a class="btn" href="/api/ics?id=${encodeURIComponent(contest.id)}">Subscribe (iCal)</a>
-        <a class="btn ghost" href="/api/contests/${encodeURIComponent(contest.id)}">This record as JSON</a>
-      </p>
-      <p class="note">The feed carries this contest's runnings for the next twelve
-      months as UTC instants. Its identifiers are stable across deploys, so
-      re-subscribing does not duplicate anything.</p>
-    </section>
+    ${takeSection(contest, next, origin)}
   </article>
 
   <div class="controls dt-controls">

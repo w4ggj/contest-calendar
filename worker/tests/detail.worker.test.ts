@@ -27,7 +27,13 @@ import { SELF } from "cloudflare:test";
 import { CATALOG } from "../src/catalog.js";
 import { SITE_NAME } from "../src/render/html.js";
 import { CSS } from "../src/render/theme.js";
-import { describeRule, describeSchedule, contestById } from "../src/schedule.js";
+import {
+  describeRule,
+  describeSchedule,
+  contestById,
+  nextOccurrences,
+} from "../src/schedule.js";
+import { googleCalendarHref } from "../src/render/detail.js";
 
 const BASE = "https://contestcal.test";
 const get = async (path: string) => await SELF.fetch(BASE + path);
@@ -345,4 +351,92 @@ describe("what it does not become", () => {
       }
     }
   });
+
+  /**
+   * Google treats a downloaded .ics as a one-off IMPORT, not a subscription, so
+   * "Subscribe (iCal)" does nothing useful for a Google Calendar user -- which
+   * is what prompted this. The page therefore offers both paths and says which
+   * is which, because a button that silently does the wrong thing is worse than
+   * one that is missing.
+   */
+  describe("taking it with you", () => {
+    it("offers Google an add-event link, absolute and pointing back here", async () => {
+      const html = await page("/contest/cq-ww-cw");
+      const m = /<a class="btn" href="(https:\/\/calendar\.google\.com[^"]+)"([^>]*)>/
+        .exec(html);
+      expect(m, "no Google Calendar link on the detail page").not.toBeNull();
+
+      const u = new URL(m![1].replace(/&amp;/g, "&"));
+      expect(u.pathname).toBe("/calendar/render");
+      expect(u.searchParams.get("action")).toBe("TEMPLATE");
+      expect(u.searchParams.get("text")).toBe(contestById("cq-ww-cw")!.name);
+
+      // Google's stamp format is YYYYMMDDTHHMMSSZ/YYYYMMDDTHHMMSSZ. Anything
+      // else is accepted by the URL and then silently misread as all-day.
+      const dates = u.searchParams.get("dates")!;
+      expect(dates).toMatch(/^\d{8}T\d{6}Z\/\d{8}T\d{6}Z$/);
+
+      // ...and the instants are the ones this site shows, not a re-derivation.
+      const next = nextOccurrences("cq-ww-cw", Date.now(), 1)[0];
+      const [from, to] = dates.split("/");
+      expect(from).toBe(next.start!.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""));
+      expect(to).toBe(next.end!.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""));
+
+      // The description has to survive leaving this page, so it carries the
+      // sponsor's rules and a way back to the record. Relative would be useless
+      // inside a Google Calendar event.
+      const details = u.searchParams.get("details")!;
+      expect(details).toContain(contestById("cq-ww-cw")!.rules_url);
+      expect(details).toContain("/contest/cq-ww-cw");
+      expect(details).toContain(BASE);
+
+      // It leaves this site, so it carries both halves of the outbound rule.
+      expect(m![2]).toContain('target="_blank"');
+      expect(m![2]).toContain('rel="noopener external"');
+    });
+
+    it("gives Google's From URL box an absolute feed address", async () => {
+      // A relative path is worthless in a subscribe box, and this is the only
+      // route that actually subscribes Google to the feed.
+      const html = await page("/contest/cq-ww-cw");
+      expect(html).toContain(`<code class="feed">${BASE}/api/ics?id=cq-ww-cw</code>`);
+      expect(html).toContain("From URL");
+      // Both buttons still there, and the one-event/all-events distinction said.
+      expect(html).toContain(">Subscribe (iCal)<");
+      expect(html).toContain(">Add to Google Calendar<");
+      expect(html).toContain("single event");
+    });
+
+    it("omits the Google link when there is no instant to add", async () => {
+      // rca-nacional-40m holds 2025 dates only, so it has no next running. A
+      // dead button beside "the sponsor publishes annually" would contradict
+      // the sentence next to it.
+      const html = await page("/contest/rca-nacional-40m");
+      expect(nextOccurrences("rca-nacional-40m", Date.now(), 1)).toHaveLength(0);
+      expect(html).not.toContain("calendar.google.com");
+      // The iCal button and the feed address stay: the feed is still the right
+      // thing to subscribe to for when the sponsor publishes again.
+      expect(html).toContain(">Subscribe (iCal)<");
+    });
+
+    it("refuses a Google link for a rolling contest, which has no instant", () => {
+      // local_rolling means the contest starts at a clock time wherever the
+      // operator is, so `start` is null and there is no instant to put in a
+      // calendar. No record uses it today, which is exactly why this is a unit
+      // test on the builder rather than a page assertion -- the guard has to
+      // exist BEFORE the first rolling record does.
+      const contest = contestById("cq-ww-cw")!;
+      const real = nextOccurrences("cq-ww-cw", Date.now(), 1)[0];
+      expect(googleCalendarHref(contest, real, BASE)).toContain("calendar.google.com");
+
+      const rolling = { ...real, local_rolling: true } as typeof real;
+      expect(googleCalendarHref(contest, rolling, BASE)).toBeNull();
+
+      const instantless = { ...real, start: null, end: null } as unknown as typeof real;
+      expect(googleCalendarHref(contest, instantless, BASE)).toBeNull();
+
+      expect(googleCalendarHref(contest, undefined, BASE)).toBeNull();
+    });
+  });
+
 });

@@ -800,6 +800,56 @@ catalog text now breaks inside a word.
 
 ---
 
+## Two calendar buttons, because Google is not an iCal client — 2026-08-21
+
+`/contest/:id` had one **Subscribe (iCal)** button pointing at `/api/ics?id=…`. For Apple
+Calendar and Outlook that is the right thing. For Google Calendar it is close to useless, and
+the failure is silent in the worst way: clicking it downloads a `.ics`, and Google treats a
+downloaded `.ics` as a **one-off import**, not a subscription. The reader gets the events once,
+they never update, and nothing anywhere says so. Reported by the owner.
+
+Google needs two different things and they are not interchangeable, so the page now offers both
+and names the difference rather than leaving a reader to find it:
+
+- **Add to Google Calendar** — `calendar.google.com/calendar/render?action=TEMPLATE`, carrying
+  the **next running only**, as one event. This is a documented, stable deep link and it works
+  without an account-side feed poll, which is what makes it the reliable half.
+- **Subscribe (iCal)** — unchanged, and the note now says the Google route for it is
+  *Other calendars → From URL*, with the **absolute** feed address printed for pasting. A
+  relative path is worthless in a subscribe box.
+
+### Why the Google link is conditional
+
+`googleCalendarHref()` returns null in two cases, and both would otherwise put a false statement
+on the page.
+
+**No next running.** The runnings section already explains the absence — the record is closed
+off at a year, or the sponsor publishes annually and has not published the next one. A dead
+button sitting beside that sentence contradicts it. `rca-nacional-40m` is the live example: it
+holds 2025 dates only.
+
+**A rolling contest.** `local_rolling` means the contest starts at a clock time *wherever the
+operator is*, so the occurrence carries a wall reading and `start` is null — there is no
+instant. A Google Calendar event is an instant by construction, so building one would invent
+exactly the fact the engine refuses to invent, and `running()` already avoids the same error by
+not wrapping a rolling time in `<time>`. **No record uses `local_rolling` today**, which is
+precisely why the guard is a unit test on the builder rather than a page assertion: it has to
+exist before the first rolling record does, or the bug ships with that record and looks like a
+data problem.
+
+### Two smaller things
+
+The event description carries the sponsor's rules URL and an absolute link back to the record,
+because a calendar entry is read somewhere else entirely, months later, with no page around it.
+
+`origin` now reaches the renderer from `url.origin` rather than being hard-coded, so
+`wrangler dev` and production each describe themselves correctly. The feed address is styled
+`overflow-wrap: anywhere` and `user-select: all` — it is one long unbroken token, which is the
+shape this brief already records as the thing that puts a phone into horizontal scroll, and a
+reader is going to select and copy it rather than read it.
+
+---
+
 ## What this is not
 
 Not a club site, not a logging tool, not a scores database, not a social feature. One job:

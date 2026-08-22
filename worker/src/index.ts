@@ -126,6 +126,7 @@ export default {
               nowMs,
               params: url.searchParams,
               entity: url.searchParams.get("entity") ?? "K",
+              origin: url.origin,
             }),
           );
           // Nothing here is a function of `now` except the countdowns, which
