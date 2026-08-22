@@ -17,11 +17,16 @@
  *
  * **Cells are UTC days, and the page says so.** This site server-renders UTC and
  * converts times to local in the browser; a *cell assignment* cannot be
- * converted after the fact without rebuilding the grid, so converting the times
- * inside a UTC-bucketed cell would produce a row of local times sitting under
- * the wrong date. Sponsors publish in UTC, so UTC is also the honest bucket —
- * but a reader several zones away is entitled to know that, and the page tells
- * them rather than leaving it to be discovered.
+ * converted after the fact without rebuilding the grid, so a local time sitting
+ * inside a UTC-bucketed cell would be a time under the wrong date. Sponsors
+ * publish in UTC, so UTC is also the honest bucket — but a reader several zones
+ * away is entitled to know that, and the page tells them.
+ *
+ * This is also why the grid shows NO TIMES and offers no local/UTC toggle. Half
+ * a conversion is worse than none: converting the times while leaving the cells
+ * on their UTC dates would put "7:00 PM" under a Saturday that is Friday where
+ * the reader is sitting. The times belong on the contest page, where the toggle
+ * can move the whole answer at once.
  *
  * **Weeks start Monday.** Not the US convention, and chosen deliberately: it
  * keeps Saturday and Sunday adjacent. Nearly every contest in the catalog runs
@@ -136,36 +141,57 @@ function daysTouched(o: Occurrence): string[] {
   return out;
 }
 
-function timeLabel(d: Date): string {
-  return `${String(d.getUTCHours()).padStart(2, "0")}${String(
-    d.getUTCMinutes(),
-  ).padStart(2, "0")}Z`;
+/**
+ * One contest inside one day cell: the title, and nothing else.
+ *
+ * NO TIMES HERE, deliberately. A month cell is a few centimetres wide and holds
+ * up to six contests; a clock against each one is the first thing to wrap, push
+ * the name into an ellipsis, or make the row unreadable on a phone. The reader's
+ * question at this zoom is "is anything on that Saturday", not "at what hour" —
+ * and the answer to the second is one tap away on the contest's own page, where
+ * it can be given properly with the local/UTC toggle beside it.
+ *
+ * `first` still distinguishes the day a contest STARTS from the days it runs
+ * into. That is not a time, it is which of the cells showing this name is the
+ * beginning of it, and without the marker a weekend contest reads as two.
+ *
+ * `title` carries the full name because `.mo-n` truncates with an ellipsis when
+ * the cell is narrower than the name, which is most of them.
+ */
+function entry(e: DayEntry, params: URLSearchParams): string {
+  const { o, first, sessions } = e;
+  const label =
+    sessions > 1 ? `${o.name} — ${sessions} sessions today` : o.name;
+  return (
+    `<li class="mo-ev${first ? "" : " cont"}${o.verified ? "" : " unver"}">` +
+    `<a href="${esc(detailHref(o.contest_id, params))}" title="${esc(label)}">` +
+    (first
+      ? ""
+      : `<span class="cont-mark" aria-hidden="true">↳</span>` +
+        `<span class="vh">continues: </span>`) +
+    `<span class="mo-n">${esc(o.name)}</span>` +
+    (sessions > 1
+      ? `<span class="mo-x">&times;${sessions}</span>` +
+        `<span class="vh"> (${sessions} sessions)</span>`
+      : "") +
+    `</a></li>`
+  );
 }
 
 /**
- * One contest inside one day cell.
+ * One contest's presence in one day, collapsed.
  *
- * `first` distinguishes the day it starts from the days it continues into. Both
- * are shown — see the header comment — but they are not the same fact, and a
- * reader scanning for "what starts on the 14th" should not have to guess.
+ * `sessions` exists because removing the clock made a real duplicate visible.
+ * CWops Test runs two sessions per UTC day; with times shown those were two
+ * distinguishable lines, and without them they were the same title printed
+ * twice, which reads as a rendering bug rather than as a fact about the
+ * contest. So a contest appears ONCE per day and says how many times it runs.
  */
-function entry(o: Occurrence, first: boolean, params: URLSearchParams): string {
-  const start = (o.start ?? o.start_wall)!;
-  const end = (o.end ?? o.end_wall)!;
-  const span =
-    `${esc(o.name)} — ${timeLabel(start)} ` +
-    `${new Date(start).toISOString().slice(0, 10)} to ${timeLabel(end)} ` +
-    `${new Date(end).toISOString().slice(0, 10)}`;
-
-  return (
-    `<li class="mo-ev${first ? "" : " cont"}${o.verified ? "" : " unver"}">` +
-    `<a href="${esc(detailHref(o.contest_id, params))}" title="${span}">` +
-    (first
-      ? `<span class="mo-t">${esc(timeLabel(start))}</span>`
-      : `<span class="mo-t cont-mark" aria-hidden="true">↳</span>` +
-        `<span class="vh">continues: </span>`) +
-    `<span class="mo-n">${esc(o.name)}</span></a></li>`
-  );
+interface DayEntry {
+  o: Occurrence;
+  /** True if any of that day's sessions is this occurrence's first day. */
+  first: boolean;
+  sessions: number;
 }
 
 function cell(
@@ -174,7 +200,7 @@ function cell(
   weekday: number,
   inMonth: boolean,
   todayKey: string,
-  events: { o: Occurrence; first: boolean }[],
+  events: DayEntry[],
   params: URLSearchParams,
 ): string {
   const classes = [
@@ -197,7 +223,7 @@ function cell(
     `</p>` +
     (events.length
       ? `<ul class="mo-evs">${events
-          .map((e) => entry(e.o, e.first, params))
+          .map((e) => entry(e, params))
           .join("")}</ul>`
       : "") +
     `</td>`
@@ -225,27 +251,43 @@ export function renderMonth(input: MonthInput): string {
     filters,
   );
 
-  // day key -> the contests running that day, start days first.
-  const byDay = new Map<string, { o: Occurrence; first: boolean }[]>();
+  // day key -> contest id -> that contest's presence in that day. Keyed by
+  // contest rather than by occurrence so a contest with several sessions in one
+  // day is one line, not the same title repeated.
+  const byDay = new Map<string, Map<string, DayEntry>>();
   for (const o of outcome.kept) {
-    const days = daysTouched(o);
-    days.forEach((key, i) => {
-      const list = byDay.get(key) ?? [];
-      list.push({ o, first: i === 0 });
-      byDay.set(key, list);
+    daysTouched(o).forEach((key, i) => {
+      const day = byDay.get(key) ?? new Map<string, DayEntry>();
+      const seen = day.get(o.contest_id);
+      if (seen) {
+        seen.sessions += 1;
+        // A day is a "start" day if ANY session of this contest begins on it.
+        seen.first = seen.first || i === 0;
+      } else {
+        day.set(o.contest_id, { o, first: i === 0, sessions: 1 });
+      }
+      byDay.set(key, day);
     });
   }
-  for (const list of byDay.values()) {
-    list.sort((a, b) =>
-      a.first === b.first
-        ? a.o.name < b.o.name
-          ? -1
-          : a.o.name > b.o.name
-            ? 1
-            : 0
-        : a.first
-          ? -1
-          : 1,
+
+  // Starts before continuations, then alphabetical. With no clock on the page
+  // there is no time order to preserve, and alphabetical is what a reader can
+  // actually scan.
+  const dayList = new Map<string, DayEntry[]>();
+  for (const [key, day] of byDay) {
+    dayList.set(
+      key,
+      [...day.values()].sort((a, b) =>
+        a.first === b.first
+          ? a.o.name < b.o.name
+            ? -1
+            : a.o.name > b.o.name
+              ? 1
+              : 0
+          : a.first
+            ? -1
+            : 1,
+      ),
     );
   }
 
@@ -264,7 +306,7 @@ export function renderMonth(input: MonthInput): string {
           d,
           date.getUTCMonth() + 1 === month && date.getUTCFullYear() === year,
           todayKey,
-          byDay.get(key) ?? [],
+          dayList.get(key) ?? [],
           params,
         ),
       );
@@ -298,7 +340,7 @@ ${ICON_LINKS}
 <script>${THEME_BOOT}</script>
 </head>
 <body data-now="${isoAttr(new Date(nowMs))}">
-<main class="shell doc" id="main">
+<main class="shell doc wide" id="main">
   <p class="backlink"><a href="${esc(relink(params, ["m"], {}, "/"))}">← Back to the schedule</a></p>
 
   <div class="mo-head">
@@ -322,11 +364,12 @@ ${ICON_LINKS}
   </div>
 
   <p class="mo-sub">${shown} contest${shown === 1 ? "" : "s"} running this month.
-  <strong>Days are UTC</strong> — a contest opening 2200Z sits on the UTC date,
-  which may be the evening before where you are. Times shown are UTC too; a
-  contest running across midnight appears on every day it is on the air, with
-  <span class="cont-mark" aria-hidden="true">↳</span> marking the days it
-  continues into rather than starts.</p>
+  Names only at this zoom — <strong>tap a contest for its times</strong>, in your
+  own clock or UTC. A contest running across midnight appears on every day it is
+  on the air, with <span class="cont-mark" aria-hidden="true">↳</span> marking
+  the days it continues into rather than starts.
+  <strong>Days are UTC</strong>, so a contest opening 2200Z sits on the UTC date
+  — which may be the evening before where you are.</p>
 
   ${
     outcome.unrecordedBands.length

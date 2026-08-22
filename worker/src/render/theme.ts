@@ -726,6 +726,22 @@ a:hover { color: var(--ink); }
    beside it. */
 .doc { padding-top: 2.5rem; max-width: 74ch; }
 
+/* The month grid and a contest record run to the SCHEDULE'S width on desktop,
+   so moving between the three views does not move the page's edges. The prose
+   pages (/about, /data, /contact) keep the 74ch measure -- they are reading,
+   and a line is not more readable for having room.
+   Nothing here touches mobile: a max-width above the viewport does nothing, so
+   the narrow layout is untouched by construction. */
+.doc.wide { max-width: var(--shell); }
+.doc.wide .detail { max-width: none; }
+
+/* ...but the prose INSIDE a wide record still gets a measure. The provenance
+   note is a real paragraph and 78rem of it would be a 200-character line. */
+.doc.wide .detail p,
+.doc.wide .detail dd,
+.doc.wide .detail .clocks { max-width: 78ch; }
+.doc.wide .detail .dt-take { max-width: none; }
+
 .backlink {
   margin: 0 0 2rem;
   font: 500 .74rem/1 var(--font-mono);
@@ -1151,13 +1167,16 @@ a:hover { color: var(--ink); }
 .mo-day.we .mo-ev a { background: var(--panel); }
 .mo-ev a:hover { color: var(--ink); border-left-color: var(--cyan); }
 .mo-ev a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; }
-.mo-t { color: var(--amber); font-size: .7rem; flex: none; }
 .mo-n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* "x2" where a contest runs more than one session in the same UTC day. Without
+   the clock on the page those sessions would otherwise be the same title
+   printed twice, which reads as a bug rather than as a fact about the contest. */
+.mo-x { color: var(--ink-faint); font-size: .7rem; flex: none; }
 
 /* A day the contest continues into is not a second running of it, and the grid
    must not read as though it were. Dimmer, and marked. */
 .mo-ev.cont a { border-left-style: dotted; opacity: .8; }
-.cont-mark { color: var(--ink-faint); }
+.cont-mark { color: var(--ink-faint); font-size: .7rem; flex: none; }
 .mo-ev.unver a { border-left-color: var(--rule); }
 
 @media (max-width: 640px) {

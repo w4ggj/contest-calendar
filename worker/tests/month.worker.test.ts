@@ -68,14 +68,65 @@ describe("the month grid", () => {
       expect(namesIn(sat)).toContain("CQ Worldwide DX Contest, CW");
       expect(namesIn(sun)).toContain("CQ Worldwide DX Contest, CW");
 
-      // Saturday is the start: it carries the opening time and no continuation
-      // marker. Sunday is the same running continuing, and says so -- otherwise
-      // the grid reads as two separate contests with the same name.
-      expect(sat).toContain("0000Z");
+      // Saturday is the start and carries no continuation marker. Sunday is the
+      // same running continuing, and says so -- otherwise the grid reads as two
+      // separate contests that happen to share a name.
       expect(sat).not.toContain("mo-ev cont");
       expect(sun).toContain("mo-ev cont");
       expect(sun).toContain("continues: ");
     });
+
+  it("shows names only, with no clock anywhere in the grid", async () => {
+    // A month cell is a few centimetres wide and holds up to six contests. A
+    // time against each one is the first thing to wrap or truncate the name,
+    // and the reader's question at this zoom is "is anything on that Saturday",
+    // not "at what hour" -- which is one tap away, on a page that can answer it
+    // properly with the local/UTC toggle beside it.
+    //
+    // Asserted as the ABSENCE of a pattern rather than the presence of a
+    // layout, because that is the thing that would creep back: one more useful
+    // detail per cell, each defensible on its own.
+    const html = await page("/month?m=2026-11");
+    const grid = /<table class="mo-grid">[\s\S]*?<\/table>/.exec(html)![0];
+
+    expect(grid).not.toMatch(/\d{3,4}Z/);      // 0000Z, 1200Z
+    expect(grid).not.toMatch(/\d{1,2}:\d{2}/); // 00:00, 9:30
+
+    // The names really are there -- otherwise this passes by rendering nothing.
+    expect(grid).toContain("CQ Worldwide DX Contest, CW");
+    expect((grid.match(/<span class="mo-n">/g) ?? []).length).toBeGreaterThan(20);
+
+    // And no time controls, for the same reason: converting the times while
+    // leaving cells on their UTC dates is half a conversion, which is worse
+    // than none.
+    expect(html).not.toContain('id="tzbar"');
+    expect(html).not.toContain("Show times in");
+  });
+
+  it("shows a contest once per day, even when it runs twice that day", async () => {
+    // Removing the clock made this visible. CWops Test runs two sessions per UTC
+    // day (1300Z and 1900Z on the Wednesday); with times on the page they were
+    // two distinguishable lines, and without them they were the SAME TITLE
+    // PRINTED TWICE -- which reads as a rendering bug rather than as a fact
+    // about the contest.
+    //
+    // So a contest is one line per day and says how many times it runs.
+    const html = await page("/month?m=2026-11");
+    const cell = cellFor(html, "2026-11-04");
+    expect(cell, "no cell for 4 November").not.toBe("");
+
+    const cwt = namesIn(cell).filter((n) => n.includes("CWops Test"));
+    expect(cwt, "CWops Test should appear once, not once per session")
+      .toHaveLength(1);
+    expect(cell).toContain("&times;2");
+    expect(cell).toContain("2 sessions");
+
+    // The day count agrees with what is drawn. Counting occurrences instead of
+    // contests would say 3 over a cell showing 2 lines.
+    const shown = namesIn(cell).length;
+    const badge = /<span class="mo-c">(\d+)<\/span>/.exec(cell);
+    expect(Number(badge![1])).toBe(shown);
+  });
 
   it("pulls in a contest that starts in the previous month", async () => {
     // The grid's first row reaches back to the Monday on or before the 1st. A

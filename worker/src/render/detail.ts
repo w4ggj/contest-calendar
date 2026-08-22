@@ -559,7 +559,7 @@ ${ICON_LINKS}
 <script>${THEME_BOOT}</script>
 </head>
 <body data-now="${isoAttr(new Date(nowMs))}">
-<main class="shell doc" id="main">
+<main class="shell doc wide" id="main">
   <div class="dt-top">
     <p class="backlink"><a href="${esc(back)}">← Back to the schedule</a></p>
     <div class="controls dt-controls">
