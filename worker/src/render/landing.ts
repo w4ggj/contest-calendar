@@ -574,7 +574,9 @@ ${masthead(true, "Skip to contests")}
       </ul>
       <p class="viewswitch"><a class="btn" href="${esc(
         relink(input.params, [], {}, "/month"),
-      )}">Month view</a></p>
+      )}">Month view</a> <a class="btn" href="${esc(
+        relink(input.params, [], {}, "/dx"),
+      )}">DXpeditions</a></p>
       <div class="controls">
         <div class="tzbar" id="tzbar" hidden>
           <span>Show times in</span>

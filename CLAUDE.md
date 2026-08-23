@@ -228,6 +228,41 @@ The page must stay correct with JavaScript off. Server-render every time as UTC 
 machine-readable `datetime`; `render/client.ts` only converts to local and ticks
 countdowns. Anything that renders blank without JS is a regression.
 
+## DXpeditions are not contests, and live apart
+
+`data/dxpeditions.seed.json`, `worker/src/dx.ts`, `/dx`. Added 2026-08-23.
+
+A contest record is built around a **recurrence rule** — the thesis of this whole
+project — plus an exchange and an eligibility question. **A DXpedition has none of the
+three.** It is one operation, on announced days, by a team. Folding one into a contest
+record would make `recurrence`, `exchange` and `eligibility` conditional on a type flag, and
+"230 contests" would stop being literally true on the front page. So they are a separate
+file, a separate module and a separate record shape, rendered alongside contests on `/month`.
+
+**The recurrence engine is not involved.** These are plain UTC day ranges. Nothing in
+`dx.ts` imports `expand()`, and adding a DXpedition cannot change a contest date — which is
+why the Python and engine suites did not move when this shipped.
+
+Three rules, each because the obvious implementation gets it wrong:
+
+- **`precision: "month"` is never drawn on a calendar.** Teams announce "March 2027" long
+  before they announce days; that is the normal state, not a defect. Plotting it across
+  thirty-one cells claims a month of operating nobody announced, and plotting a guessed
+  fortnight invents the one fact a reader came for. `datedDXpeditions()` filters them out;
+  `/dx` lists them with the window as the team stated it.
+- **A finished operation is kept, not deleted.** `desecheo2026.com` reads "Officially QRT"
+  seven months on, with its own dates gone — so this record becomes the surviving statement
+  of when the entity was last on the air. `hasEnded()` computes from the clock rather than
+  trusting the stored `ended` flag, because a stored flag goes stale the moment nobody
+  updates it.
+- **Empty `bands` means unrecorded**, exactly as in the contest catalog, and a test fails a
+  record whose note does not say so.
+
+**The sourcing rule bites harder here.** NG3K's ADXO, DX-World, DXZone and dxping are how
+you learn an operation exists; they are never the source of its dates. `dx.worker.test.ts`
+enforces that on the rendered page — it walks every outbound link on `/dx` and fails if one
+points at an aggregator.
+
 ## The four briefs
 
 | File | What it covers |

@@ -1214,6 +1214,50 @@ a:hover { color: var(--ink); }
   .mo-day { height: 5.5rem; }
 }
 
+/* ---------------------------------------------------------------------------
+   DXpeditions
+   ---------------------------------------------------------------------------
+   A DXpedition is not a contest and must not read as one. It gets a mark of its
+   own in a month cell rather than a new colour: the palette's three roles are
+   full, and a fourth hue would say "another duration bucket" to anyone who has
+   read the rail. The filled circle is a station on the air, and it sits in
+   amber because amber is time here and the thing worth knowing about a rare
+   entity is that it is on NOW and will not be again for years. */
+
+.dx-mark { color: var(--amber); font-size: .7rem; flex: none; }
+.mo-ev.dx a { border-left-color: var(--amber); }
+.mo-ev.dx a:hover { border-left-color: var(--amber); color: var(--ink); }
+
+.dx-card {
+  margin: 0 0 1.4rem; padding: 1rem 1.1rem;
+  border: 1px solid var(--rule-soft); border-left: 3px solid var(--amber);
+  border-radius: var(--radius); background: var(--panel);
+}
+.dx-card h3 {
+  margin: 0 0 .3rem;
+  font: 700 1.05rem/1.3 var(--font-mono); color: var(--ink);
+  display: flex; gap: .5rem; align-items: baseline; flex-wrap: wrap;
+}
+.dx-call { color: var(--amber); letter-spacing: .04em; }
+.dx-when {
+  margin: 0 0 .5rem;
+  font: 500 .8rem/1.5 var(--font-mono); color: var(--ink-dim);
+}
+.dx-prov {
+  display: inline-block; margin-left: .5rem;
+  font-size: .72rem; color: var(--ink-faint);
+  border: 1px dashed var(--rule); border-radius: 999px; padding: 0 .45rem;
+}
+.dx-sum { margin: 0 0 .8rem; color: var(--ink-dim); }
+.dx-links { margin: .9rem 0 0; }
+
+/* A finished operation is dimmed, not hidden. The team's own site has usually
+   gone dark by now, so this record is the surviving statement of when it ran --
+   which is worth keeping visible and worth not mistaking for something to
+   chase. */
+.dx-card.over { opacity: .68; border-left-color: var(--rule); }
+.dx-card.over .dx-call { color: var(--ink-faint); }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .001ms !important;

@@ -158,7 +158,9 @@ describe("the month grid", () => {
     );
     expect(n).toBeLessThan(89);
     expect(n).toBeLessThanOrEqual(ids.size);
-    expect(html).toContain(`${n} contests running this month`);
+    // The standfirst now names DXpeditions separately, because they are not
+    // contests and counting them together would make the number mean less.
+    expect(html).toContain(`${n} contests and 1 DXpedition running this month`);
   });
 
   it("says which clock the cells are bucketed by", async () => {

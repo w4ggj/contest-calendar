@@ -1,0 +1,55 @@
+{
+  "$comment": "DXpeditions: one-shot operations, NOT contests. Kept in a separate file from contests.seed.json on purpose -- a DXpedition has no recurrence rule, no exchange and no eligibility question, and forcing it into a contest record would make every one of those fields conditional and stop 'contest' meaning what it means. The recurrence engine is not involved at all: these are plain UTC day ranges, so nothing here touches the Python/TypeScript parity suite.",
+  "schema_version": "1.0",
+  "sourcing_rule": "Same rule as the contest catalog, and it bites harder here. Populate a record ONLY from the expedition's own site. NG3K's ADXO, DX-World, DXZone, dxping and the rest are aggregators -- use them to LEARN THAT AN OPERATION EXISTS and to find its site, never as the source of its dates.",
+  "field_notes": {
+    "precision": "'exact' means the team published start and end dates. 'month' means they have announced only a month or a season, which is the normal state of a DXpedition until a few weeks out. A 'month' record is NEVER drawn on the calendar -- placing it on days nobody announced would be inventing the one fact a reader came for. It is listed on /dx with the window as stated.",
+    "start/end": "Whole UTC days, not instants. A DXpedition runs around the clock for its duration and teams do not publish an hour, so an hour is not recorded. This is why the month grid suits them: it buckets by UTC day already.",
+    "ended": "Set true once the operation is over. The record stays -- the site's own page often goes dark or turns into a QRT notice within months, so this calendar becomes the surviving statement of when it ran.",
+    "bands/modes": "Same invariant as contests: EMPTY MEANS UNRECORDED, not unrestricted. Most teams publish a band plan on a page of its own, and where it has not been read the list stays empty and every band filter excludes the record."
+  },
+  "dxpeditions": [
+    {
+      "id": "vk9xy-2026",
+      "callsign": "VK9XY",
+      "name": "Christmas Island",
+      "entity": "Christmas Island",
+      "iota": "OC-002",
+      "team": "Pacific Islands DXpedition Group (PIDXG) with YOTA",
+      "country": "AU",
+      "url": "https://vk9xy2026.com",
+      "url_checked": "2026-08-23",
+      "start": "2026-11-16",
+      "end": "2026-12-04",
+      "precision": "exact",
+      "modes": [],
+      "bands": [],
+      "ended": false,
+      "verified": true,
+      "source_note": "vk9xy2026.com, the team's own site: 'On the air November 16 - December 4, 2026.' The operation is Christmas Island, IOTA OC-002, run by the Pacific Islands DXpedition Group in partnership with YOTA (Youngsters On The Air) and led by Max Freedman, N4ML. Checked 2026-08-23.",
+      "note": "BANDS AND MODES ARE NOT RECORDED YET. The team's front page states the dates and the entity but no band plan, and this catalog does not guess one -- an invented band list on a nineteen-day operation would be read as a schedule. The consequence is the usual one and the pages say it: every band filter excludes this record until someone reads the team's band plan.",
+      "summary": "Nineteen days from Christmas Island, run by the Pacific Islands DXpedition Group with a youth team."
+    },
+    {
+      "id": "vp0sg-2027",
+      "callsign": "VP0SG",
+      "name": "South Georgia",
+      "entity": "South Georgia and the South Sandwich Islands",
+      "iota": null,
+      "team": "Amateur Radio DXpeditions (ARD)",
+      "country": "GS",
+      "url": "https://www.ardxpeditions.com/dxpeditions/vp0sg",
+      "url_checked": "2026-08-23",
+      "start": "2027-03-01",
+      "end": "2027-03-31",
+      "precision": "month",
+      "modes": [],
+      "bands": [],
+      "ended": false,
+      "verified": true,
+      "source_note": "ardxpeditions.com/dxpeditions/vp0sg, the team's own page. The permit is granted and the timing is a month, not dates: an August 2026 update states VP0SG 'is authorised to conduct its planned amateur radio operations at Husvik, South Georgia, in March 2027'. No start or end day has been published. Checked 2026-08-23.",
+      "note": "MONTH PRECISION, WHICH IS WHY IT IS NOT ON THE CALENDAR. The team has announced March 2027 and nothing narrower. Drawing it across the whole of March would claim thirty-one days of operation nobody announced, and drawing it on a guessed fortnight would invent the one fact a reader came for. It is listed with the window as stated and moves onto the calendar the day the team publishes days. This is the normal state of a DXpedition until a few weeks out -- most are announced by month first. BANDS AND MODES ARE ALSO UNRECORDED, and for the same reason as the dates: the team has a permit and a month, and has not published a band plan. Empty means unread here exactly as it does in the contest catalog, so every band filter excludes this record.",
+      "summary": "A permitted operation from Husvik, South Georgia, announced for March 2027 with dates still to come."
+    }
+  ]
+}

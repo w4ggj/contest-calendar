@@ -25,6 +25,7 @@ import { SITE_NAME } from "./render/html.js";
 import { renderDetail } from "./render/detail.js";
 import { renderLanding } from "./render/landing.js";
 import { parseMonth, renderMonth } from "./render/month.js";
+import { renderDx } from "./render/dxpage.js";
 import { FAVICON_SVG, ICON_LINKS, manifest } from "./render/icon.js";
 import {
   APPLE_TOUCH_PNG_B64,
@@ -161,6 +162,8 @@ export default {
             }),
           );
         }
+      } else if (path === "/dx") {
+        response = html(renderDx(nowMs, url.searchParams));
       } else if (path.startsWith("/contest/")) {
         // The detail view. Singular, so it cannot be mistaken for the API's
         // `/api/contests/:id` or for `/contests.ics`, both of which serve the

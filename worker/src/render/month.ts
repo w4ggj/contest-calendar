@@ -45,6 +45,7 @@ import {
   filterWithNotes,
   occurrencesInRange,
 } from "../schedule.js";
+import { type DXpedition, daysCovered, dxInRange } from "../dx.js";
 import { detailHref, relink } from "./filters.js";
 import { SITE_NAME, esc, masthead } from "./html.js";
 import { isoAttr } from "./landing.js";
@@ -194,6 +195,33 @@ interface DayEntry {
   sessions: number;
 }
 
+/**
+ * A DXpedition inside a day cell.
+ *
+ * Placed FIRST in the cell and marked, because it is a different kind of thing
+ * from a contest and the difference matters to the reader: a contest comes
+ * round again next year, and a rare entity may not be on the air again for a
+ * decade. It runs for weeks rather than hours, so it appears in every day it
+ * covers -- the same rule the contests follow, and for a stronger reason.
+ *
+ * The callsign leads. That is what an operator tunes for and what they will
+ * recognise in a cluster spot; the island name is the gloss, not the label.
+ */
+function dxEntry(d: DXpedition, first: boolean, params: URLSearchParams): string {
+  return (
+    `<li class="mo-ev dx${first ? "" : " cont"}">` +
+    `<a href="${esc(relink(params, ["m"], {}, "/dx"))}#${esc(d.id)}" ` +
+    `title="${esc(`${d.callsign} — ${d.entity}, ${d.start} to ${d.end}`)}">` +
+    (first
+      ? `<span class="dx-mark" aria-hidden="true">\u25c9</span>`
+      : `<span class="cont-mark" aria-hidden="true">\u21b3</span>` +
+        `<span class="vh">continues: </span>`) +
+    `<span class="mo-n">${esc(d.callsign)} ${esc(d.name)}</span>` +
+    `<span class="vh"> (DXpedition)</span>` +
+    `</a></li>`
+  );
+}
+
 function cell(
   key: string,
   day: number,
@@ -201,6 +229,7 @@ function cell(
   inMonth: boolean,
   todayKey: string,
   events: DayEntry[],
+  dx: { d: DXpedition; first: boolean }[],
   params: URLSearchParams,
 ): string {
   const classes = [
@@ -208,7 +237,7 @@ function cell(
     weekday >= 5 ? "we" : "",
     inMonth ? "" : "out",
     key === todayKey ? "today" : "",
-    events.length ? "has" : "",
+    events.length || dx.length ? "has" : "",
   ]
     .filter(Boolean)
     .join(" ");
@@ -217,14 +246,15 @@ function cell(
     `<td class="${classes}">` +
     `<p class="mo-dn"><time datetime="${key}">${day}</time>` +
     (key === todayKey ? `<span class="vh"> (today)</span>` : "") +
-    (events.length
-      ? `<span class="mo-c">${events.length}</span>`
+    (events.length + dx.length
+      ? `<span class="mo-c">${events.length + dx.length}</span>`
       : "") +
     `</p>` +
-    (events.length
-      ? `<ul class="mo-evs">${events
-          .map((e) => entry(e, params))
-          .join("")}</ul>`
+    (events.length + dx.length
+      ? `<ul class="mo-evs">` +
+        dx.map((x) => dxEntry(x.d, x.first, params)).join("") +
+        events.map((e) => entry(e, params)).join("") +
+        `</ul>`
       : "") +
     `</td>`
   );
@@ -291,6 +321,19 @@ export function renderMonth(input: MonthInput): string {
     );
   }
 
+  // DXpeditions overlapping the grid. Only `exact` ones reach here --
+  // dxInRange filters month-precision announcements out, because putting
+  // "March 2027" on thirty-one specific days would invent the fact a reader
+  // came for.
+  const dxByDay = new Map<string, { d: DXpedition; first: boolean }[]>();
+  for (const d of dxInRange(gridStart, gridEnd)) {
+    daysCovered(d, gridStart, gridEnd).forEach((key) => {
+      const list = dxByDay.get(key) ?? [];
+      list.push({ d, first: key === d.start });
+      dxByDay.set(key, list);
+    });
+  }
+
   const todayKey = new Date(nowMs).toISOString().slice(0, 10);
   const rows: string[] = [];
   for (let t = gridStart; t <= gridEnd; t += 7 * DAY) {
@@ -307,6 +350,7 @@ export function renderMonth(input: MonthInput): string {
           date.getUTCMonth() + 1 === month && date.getUTCFullYear() === year,
           todayKey,
           dayList.get(key) ?? [],
+          dxByDay.get(key) ?? [],
           params,
         ),
       );
@@ -336,6 +380,7 @@ export function renderMonth(input: MonthInput): string {
       .map((o) => o.contest_id),
   );
   const shown = monthIds.size;
+  const dxThisMonth = dxInRange(first, last).length;
   const title = `${MONTHS[month - 1]} ${year}`;
 
   return `<!doctype html>
@@ -377,10 +422,13 @@ ${masthead(false, "Skip to the calendar")}
       <a class="btn" href="${link(next.year, next.month)}" rel="next">${esc(
         MONTHS[next.month - 1],
       )} →</a>
+      <a class="btn ghost" href="${esc(relink(params, ["m"], {}, "/dx"))}">DXpeditions</a>
     </p>
   </div>
 
-  <p class="mo-sub">${shown} contest${shown === 1 ? "" : "s"} running this month.
+  <p class="mo-sub">${shown} contest${shown === 1 ? "" : "s"}${
+    dxThisMonth ? ` and ${dxThisMonth} DXpedition${dxThisMonth === 1 ? "" : "s"}` : ""
+  } running this month.
   Names only at this zoom — <strong>tap a contest for its times</strong>, in your
   own clock or UTC. A contest running across midnight appears on every day it is
   on the air, with <span class="cont-mark" aria-hidden="true">↳</span> marking
