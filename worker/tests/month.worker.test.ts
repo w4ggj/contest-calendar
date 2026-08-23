@@ -158,9 +158,18 @@ describe("the month grid", () => {
     );
     expect(n).toBeLessThan(89);
     expect(n).toBeLessThanOrEqual(ids.size);
-    // The standfirst now names DXpeditions separately, because they are not
+    // The standfirst names DXpeditions separately, because they are not
     // contests and counting them together would make the number mean less.
-    expect(html).toContain(`${n} contests and 1 DXpedition running this month`);
+    // The DX count is read from the page rather than hard-coded: November now
+    // holds three of them, and pinning a literal made this test a maintenance
+    // tax that said nothing about the behaviour it was guarding.
+    const dxCount = /and (\d+) DXpeditions? running this month/.exec(html);
+    expect(dxCount, "no DXpedition count in the standfirst").not.toBeNull();
+    const dxn = Number(dxCount![1]);
+    expect(dxn).toBeGreaterThan(0);
+    expect(html).toContain(
+      `${n} contests and ${dxn} DXpedition${dxn === 1 ? "" : "s"} running this month`,
+    );
   });
 
   it("says which clock the cells are bucketed by", async () => {

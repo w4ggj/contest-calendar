@@ -1729,6 +1729,49 @@ calendar followed. Second time this has happened in two days, after RI1FJL.
 teams, different callsigns, same DXCC entity and same IOTA group. Neither is a duplicate of the
 other.
 
+### The rest of the list — 2026-08-23
+
+Nine of the eleven addresses read. Five more encoded: **S9R** Sao Tome (17-31 Oct), **KH8A**
+American Samoa (30 Oct - 12 Nov), **C8K** Mozambique (9-20 Nov), **7P8GE** Lesotho (16-29 Oct)
+and **6O6X** Somaliland (February 2027, month precision).
+
+**Two could not be read at all**, and neither is encoded:
+
+- **XU7X** Cambodia — the team's site answers **503** with `Retry-After: 216000`, which is sixty
+  hours. Nothing to read.
+- **3W9C** Vietnam — has no team site; ADXO points at its QRZ page, and QRZ says *"Login is
+  required for additional detail"*. The callsign and the entity are public and nothing else is.
+  A QRZ page written by the operators would be a primary source; one nobody can read is not a
+  source of anything.
+
+### One rule settled three arguments about bands
+
+**A comma-separated list is a list; a span is not.** RI1FJZ and S9R each printed their bands one
+by one, WARC included, and both records carry them. H49A wrote *"all HF bands + 6m"*, XR0Z wrote
+*"160 to 10 meters"*, C8K wrote *"160-6m, 60m including!"* and 7P8GE wrote *"80 m through 10 m"*
+— four spans, four empty band lists, four notes quoting the team.
+
+C8K is the one that tests the rule, because *"60m including!"* resolves the very band a reader
+would doubt. It is still a span, and enumerating it would mean deciding for the team which WARC
+bands the dash covers. The aside is preserved in `bands_note`; nothing is lost but the guess.
+
+### Two more things worth recording
+
+**KH8A has no modes either**, which is rarer than missing bands and worse: a reader filtering for
+CW or FT8 will not see it at all. Its welcome page states the dates and the entity and nothing
+else, and links an operating-frequencies page a later pass should read. Kept anyway — a
+fourteen-day operation from American Samoa is worth knowing about before its band plan is.
+
+**C8K publishes two windows.** *"Arrival : November 9th, Departure : November 20th 2026"* with
+*"full operation planned from November 12th till 18th"* inside it. The record spans 9-20, because
+that is when the team is in the country and can be on the air; the inner week is in the note so a
+reader planning one evening knows where the effort is concentrated. Recording only 12-18 would
+hide days they may well be working.
+
+**6O6X is called Somaliland and its entity is Somalia.** The team operates from and writes about
+Somaliland; DXCC counts that territory as Somalia. Both fields are true, and a reader chasing the
+DXCC entity should not need to know the politics to find it.
+
 ### Team sites harvested for the next pass
 
 Found through ADXO, which is exactly the job it is allowed to do. **None of these has been

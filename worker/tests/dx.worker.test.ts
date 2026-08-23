@@ -91,9 +91,24 @@ describe("DXpeditions", () => {
     // The day before it starts must be clear, or the range is off by one.
     expect(cellFor("2026-11-15")).not.toContain("VK9XY");
 
-    // The start day is marked as the start; the rest continue.
-    expect(cellFor("2026-11-16")).not.toContain("mo-ev dx cont");
-    expect(cellFor("2026-11-20")).toContain("cont");
+    // The start day is marked as the start; the rest continue. Asserted on
+    // VK9XY'S OWN entry rather than on the whole cell: C8K runs 9-20 November
+    // and is a continuation on both of these days, so a cell-level check said
+    // nothing about VK9XY once a second operation overlapped it.
+    const entryFor = (iso: string) =>
+      /<li class="mo-ev dx( cont)?">(?:(?!<\/li>)[\s\S])*?VK9XY[\s\S]*?<\/li>/
+        .exec(cellFor(iso))?.[0] ?? "";
+    // Both halves must MATCH something first: an empty string trivially
+    // satisfies not.toContain("cont"), so without this the start-day assertion
+    // would pass on a regex that found nothing at all.
+    expect(entryFor("2026-11-16"), "no VK9XY entry on its start day").not.toBe("");
+    expect(entryFor("2026-11-20"), "no VK9XY entry on a later day").not.toBe("");
+    expect(entryFor("2026-11-16"), "start day").not.toContain("cont");
+    expect(entryFor("2026-11-20"), "a later day").toContain("cont");
+
+    // ...and the day really does carry a second operation, which is what made
+    // the old cell-level assertion meaningless.
+    expect(cellFor("2026-11-16")).toContain("C8K");
   });
 
   it("keeps a finished operation rather than deleting it", () => {
