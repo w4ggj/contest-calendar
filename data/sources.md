@@ -1654,6 +1654,63 @@ scanner rather than a regex, which backtracks catastrophically on binary data.
 Worth keeping in mind for the other sponsors whose rules are PDFs — the two WIA band lists in
 `NEEDS_A_HUMAN.md` §3 may now be readable without a human.
 
+## DXpeditions, and how the aggregator rule applies to them — 2026-08-23
+
+DXpedition schedules are distributed almost entirely by aggregators, which makes this the
+hardest place in the project to hold the sourcing rule and the place where holding it pays
+most. The rule is unchanged: **an aggregator is how you learn an operation exists and where
+its team's site is; it is never the source of a date.**
+
+Three are now declared in `known_derived_sources`: **NG3K's ADXO**, **DX-World**, and
+**DXZone** (already listed for its contest pages; its DX catalogue is the same site under a
+different path). All three are *good* references. None supplies a date to this catalog.
+
+### RI1FJL is why the line is not ceremony
+
+The owner spotted this one missing while it was on the air. Three sources, three answers:
+
+| Source | Window | Standing |
+|---|---|---|
+| `rudxt.org/ri1fjl` — the team | Departure **7 Aug**, crossing **6–7 days**, operating **15 days** → ashore ~13 Aug, ending 28–29 Aug | Primary |
+| NG3K ADXO | **22–29 Aug** | Aggregator |
+| A separate report | Left Murmansk **12 Aug**, not the 7th | Aggregator |
+
+Only the first is the team speaking, and it gives a *derivation* rather than dates. So the
+record holds the team's own figures, is marked `approximate` everywhere it appears, shows the
+arithmetic in its note, and says plainly that the start day is unsettled — while noting that
+29 August is the one point all three agree on. Picking whichever number looked most confident
+would have been faster and would have been a guess wearing a citation.
+
+That case is what added the **`approximate`** precision level. It sits between `exact` and
+`month`: the team published enough to *bound* the window but not the days. It is plotted,
+because refusing to show an operation that is on the air fails the reader over a technicality
+— and it is marked, because it is not a schedule the team issued.
+
+### Team sites harvested for the next pass
+
+Found through ADXO, which is exactly the job it is allowed to do. **None of these has been
+read yet** — they are addresses, not records, and each needs its own visit before anything is
+encoded.
+
+| Call | Entity | Team's own site |
+|---|---|---|
+| 3Y0L | Peter I | `3y0l.com` |
+| XR0Z | Juan Fernández | `xr0z.net` |
+| H49A | Solomon Islands | `solomon2026.com` |
+| S9R | São Tomé & Príncipe | `s9r.viacom.ao` |
+| KH8A | American Samoa | `kh8a.mydx.de` |
+| C8K | Mozambique | `cdxp.cz` |
+| 7P8GE | Lesotho | `webufr.dl7ufr.selfhost.eu/7p8/` |
+| RI1FJZ | Franz Josef Land | `ri1fjz.ru/en/` |
+| 6O6X | Somalia | `dx-adventure.com` |
+| XU7X | Cambodia | `xu7cambdx-8jdsr6a4.manus.space` |
+| 3W9C | Vietnam | QRZ page only — no team site |
+
+**The cost is worth stating before anyone commits to it.** That is eleven visits for eleven
+records, and roughly fifty to a hundred a year on an ongoing basis, because every one of them
+expires. Contests are read once and then stable for years; this is a different kind of work
+and it does not stop.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

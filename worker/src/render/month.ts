@@ -45,7 +45,12 @@ import {
   filterWithNotes,
   occurrencesInRange,
 } from "../schedule.js";
-import { type DXpedition, daysCovered, dxInRange } from "../dx.js";
+import {
+  type DXpedition,
+  daysCovered,
+  dxInRange,
+  isApproximate,
+} from "../dx.js";
 import { detailHref, relink } from "./filters.js";
 import { SITE_NAME, esc, masthead } from "./html.js";
 import { isoAttr } from "./landing.js";
@@ -211,12 +216,19 @@ function dxEntry(d: DXpedition, first: boolean, params: URLSearchParams): string
   return (
     `<li class="mo-ev dx${first ? "" : " cont"}">` +
     `<a href="${esc(relink(params, ["m"], {}, "/dx"))}#${esc(d.id)}" ` +
-    `title="${esc(`${d.callsign} — ${d.entity}, ${d.start} to ${d.end}`)}">` +
+    `title="${esc(
+      `${d.callsign} — ${d.entity}, ${d.start} to ${d.end}` +
+        (isApproximate(d) ? " (approximate: the team published a departure and a duration, not dates)" : ""),
+    )}">` +
     (first
       ? `<span class="dx-mark" aria-hidden="true">\u25c9</span>`
       : `<span class="cont-mark" aria-hidden="true">\u21b3</span>` +
         `<span class="vh">continues: </span>`) +
     `<span class="mo-n">${esc(d.callsign)} ${esc(d.name)}</span>` +
+    (isApproximate(d)
+      ? `<span class="mo-x" aria-hidden="true">~</span>` +
+        `<span class="vh"> (approximate dates)</span>`
+      : "") +
     `<span class="vh"> (DXpedition)</span>` +
     `</a></li>`
   );

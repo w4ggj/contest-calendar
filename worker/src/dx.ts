@@ -45,10 +45,18 @@ export interface DXpedition {
   end: string;
   /**
    * `exact` — the team published start and end days.
-   * `month` — they have announced only a month, which is the normal state
-   * until a few weeks out. A `month` record is never drawn on the calendar.
+   *
+   * `approximate` — they published enough to BOUND the window but not the days:
+   * a departure, a crossing time and a duration. RI1FJL is the case that forced
+   * this to exist. It IS plotted, because refusing to show an operation that is
+   * on the air right now fails the reader for the sake of a technicality, but it
+   * is marked wherever it appears and its note shows the arithmetic.
+   *
+   * `month` — only a month or a season announced, the normal state until a few
+   * weeks out. Never plotted: those days are nobody's statement.
    */
-  precision: "exact" | "month";
+  precision: "exact" | "approximate" | "month";
+  submodes?: string[];
   modes: string[];
   /** EMPTY MEANS UNRECORDED, not unrestricted -- as in the contest catalog. */
   bands: string[];
@@ -85,14 +93,30 @@ export function dxById(id: string): DXpedition | undefined {
  * limitation: drawing "March 2027" across thirty-one days would claim a month
  * of operating nobody announced, and drawing it on a guessed fortnight would
  * invent the one fact a reader came for.
+ *
+ * `approximate` IS included. The distinction is whether the team's own figures
+ * bound the window: a departure plus a crossing plus a duration does, and a
+ * bare month does not.
  */
 export function datedDXpeditions(): DXpedition[] {
-  return DXPEDITIONS.filter((d) => d.precision === "exact");
+  return DXPEDITIONS.filter((d) => d.precision !== "month");
 }
 
-/** Announced, but only to a month. Listed, never plotted. */
+/** Plotted, but on a window this catalog derived rather than one they published. */
+export function isApproximate(d: DXpedition): boolean {
+  return d.precision === "approximate";
+}
+
+/**
+ * Announced, but only to a month. Listed, never plotted.
+ *
+ * `=== "month"`, not `!== "exact"`. Adding the `approximate` level turned the
+ * negative form into a bug the moment it was written: an approximate operation
+ * would have appeared BOTH on the calendar and under "dates still to come",
+ * which are contradictory claims about the same record.
+ */
 export function undatedDXpeditions(): DXpedition[] {
-  return DXPEDITIONS.filter((d) => d.precision !== "exact");
+  return DXPEDITIONS.filter((d) => d.precision === "month");
 }
 
 /** Every dated operation overlapping a window, soonest first. */

@@ -126,7 +126,7 @@ describe("DXpeditions", () => {
       expect(Array.isArray(d.bands)).toBe(true);
       if (!d.bands.length) {
         expect(d.note, `${d.id} has no bands and does not say so`)
-          .toMatch(/not recorded|band plan/i);
+          .toMatch(/unrecorded|not recorded|band plan/i);
       }
       expect(d.source_note.length, `${d.id} has no provenance`).toBeGreaterThan(40);
       expect(d.url_checked).toMatch(/^\d{4}-\d{2}-\d{2}$/);
@@ -158,12 +158,43 @@ describe("DXpeditions", () => {
     }
   });
 
+  it("never lists a record as both plotted and unscheduled", () => {
+    // Adding the `approximate` level turned undatedDXpeditions()'s negative
+    // predicate into a bug the moment it was written -- `!== "exact"` would
+    // have put an approximate operation on the calendar AND under "dates still
+    // to come", which are contradictory claims about the same record.
+    const plotted = new Set(datedDXpeditions().map((d) => d.id));
+    for (const d of undatedDXpeditions()) {
+      expect(plotted.has(d.id), `${d.id} is both plotted and unscheduled`)
+        .toBe(false);
+      expect(d.precision).toBe("month");
+    }
+    // Together they account for everything: no record falls through.
+    expect(plotted.size + undatedDXpeditions().length).toBe(DXPEDITIONS.length);
+  });
+
+  it("marks an approximate window instead of passing it off as published", async () => {
+    // RI1FJL is the case that forced the level to exist: the team published a
+    // departure, a crossing and a duration, not days. It IS plotted -- refusing
+    // to show an operation on the air right now fails the reader -- but it must
+    // never look like a schedule the team issued.
+    const approx = DXPEDITIONS.filter((d) => d.precision === "approximate");
+    expect(approx.length).toBeGreaterThan(0);
+    for (const d of approx) {
+      expect(d.note, `${d.id} does not show its arithmetic`)
+        .toMatch(/departure|crossing|duration|arithmetic/i);
+    }
+    const grid = await page("/month?m=2026-08");
+    expect(grid).toContain("RI1FJL");
+    expect(grid).toContain("approximate dates");
+  });
+
   it("has a coherent span for every record", () => {
     for (const d of DXPEDITIONS) {
       const { from, to } = spanOf(d);
       expect(to, `${d.id} ends before it starts`).toBeGreaterThan(from);
       expect(d.start <= d.end, `${d.id} start after end`).toBe(true);
-      expect(["exact", "month"]).toContain(d.precision);
+      expect(["exact", "approximate", "month"]).toContain(d.precision);
     }
   });
 });

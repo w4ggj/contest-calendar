@@ -3,12 +3,40 @@
   "schema_version": "1.0",
   "sourcing_rule": "Same rule as the contest catalog, and it bites harder here. Populate a record ONLY from the expedition's own site. NG3K's ADXO, DX-World, DXZone, dxping and the rest are aggregators -- use them to LEARN THAT AN OPERATION EXISTS and to find its site, never as the source of its dates.",
   "field_notes": {
-    "precision": "'exact' means the team published start and end dates. 'month' means they have announced only a month or a season, which is the normal state of a DXpedition until a few weeks out. A 'month' record is NEVER drawn on the calendar -- placing it on days nobody announced would be inventing the one fact a reader came for. It is listed on /dx with the window as stated.",
+    "precision": "'exact' -- the team published start and end days. 'approximate' -- the team published enough to BOUND the window but not the days themselves, typically a departure date plus a travel estimate plus a duration. Plotted on the calendar, because refusing to show an operation that is on the air fails the reader, but marked everywhere it appears so it is never mistaken for a published schedule. The record's note must show the arithmetic. 'month' -- only a month or a season has been announced, the normal state until a few weeks out. NEVER plotted: placing it on days nobody announced would invent the one fact a reader came for. Listed on /dx with the window as stated.",
     "start/end": "Whole UTC days, not instants. A DXpedition runs around the clock for its duration and teams do not publish an hour, so an hour is not recorded. This is why the month grid suits them: it buckets by UTC day already.",
     "ended": "Set true once the operation is over. The record stays -- the site's own page often goes dark or turns into a QRT notice within months, so this calendar becomes the surviving statement of when it ran.",
     "bands/modes": "Same invariant as contests: EMPTY MEANS UNRECORDED, not unrestricted. Most teams publish a band plan on a page of its own, and where it has not been read the list stays empty and every band filter excludes the record."
   },
   "dxpeditions": [
+    {
+      "id": "ri1fjl-2026",
+      "callsign": "RI1FJL",
+      "name": "Franz Josef Land",
+      "entity": "Franz Josef Land",
+      "iota": "EU-019",
+      "team": "Russian DXpedition Team (RUDXT)",
+      "country": "RU",
+      "url": "https://www.rudxt.org/ri1fjl",
+      "url_checked": "2026-08-23",
+      "start": "2026-08-13",
+      "end": "2026-08-29",
+      "precision": "approximate",
+      "modes": [
+        "CW",
+        "SSB",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [],
+      "ended": false,
+      "verified": true,
+      "source_note": "rudxt.org/ri1fjl, the Russian DXpedition Team's own page for the operation. Heiss Island, Franz Josef Land, IOTA EU-019, which the team calls 'the northernmost DXCC in the world'. Six operators: R7AL (leader), UA3QLC, RW8A, UA4Z, RA4DX and RW9JZ. Modes and stations: they will 'run ... at least 5 high-power stations 24/7 on all HF bands' in CW, SSB and FT8. QSL by direct OQRS through ClubLog, bureau available. Timing as the team states it: 'The departure is scheduled on the 7-th of August 2026 from Murmansk', 'Estimated travel time is 6-7 days', and the operation runs 'for 15 days'. Checked 2026-08-23.",
+      "note": "APPROXIMATE, AND HERE IS THE ARITHMETIC. The team did not publish a start day or an end day -- they published a departure, a crossing and a duration. Departure 7 August plus the stated 6-7 days at sea puts them ashore on 13 or 14 August; 15 days of operating from there ends on 28 or 29 August. This record holds 13 to 29 August, which is the widest window the team's own numbers support, and it is marked approximate everywhere it appears rather than presented as a schedule.\n\nIT IS ALSO WEATHER-DEPENDENT AND THE TEAM SAYS SO: 'Fingers crossed that the coastal strip will be free of ice.' A landing on Franz Josef Land is not a certainty even after the crossing.\n\nBANDS ARE UNRECORDED. 'All HF bands' is the team's phrasing, and this catalog does not turn a phrase into a band list -- the same reason JARL's New Year Party and the ZS SOTA weekend carry none. Every band filter therefore excludes this record.\n\nAN ANNOUNCEMENT LIST DISAGREES WITH THE ARITHMETIC, AND THAT IS RECORDED RATHER THAN RESOLVED. NG3K's ADXO shows this operation as 22-29 August. The team's own page supports 13-14 August ashore, and a separate report has them leaving Murmansk on 12 August rather than the 7th announced, which would push the landing later still. Three numbers, one of them from a source this project does not take dates from. The window here stays as the team's own figures bound it and this note says plainly that the start day is not settled; the end, 29 August, is the one point all three agree on.",
+      "summary": "Six operators on Heiss Island, Franz Josef Land -- the northernmost DXCC entity -- with five high-power stations running around the clock on CW, SSB and FT8."
+    },
     {
       "id": "vk9xy-2026",
       "callsign": "VK9XY",
