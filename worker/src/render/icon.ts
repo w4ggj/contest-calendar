@@ -55,7 +55,14 @@ export const FAVICON_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0
  */
 export const ICON_LINKS =
   `<link rel="icon" href="/favicon.svg" type="image/svg+xml">` +
-  `<link rel="apple-touch-icon" href="/favicon.svg">` +
+  // iOS DOES NOT RENDER AN SVG APPLE-TOUCH-ICON. This pointed at
+  // /favicon.svg, which meant "Add to Home Screen" on an iPhone fell back
+  // to a screenshot of the page rather than the mark -- the one place the
+  // icon most needs to be a recognisable shape. It is a 180px PNG now.
+  `<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">` +
+  // Declared even though browsers request it unprompted, so the format is
+  // stated rather than sniffed.
+  `<link rel="icon" sizes="32x32" href="/favicon.ico" type="image/x-icon">` +
   // ONE theme-color, set by script rather than by media query -- and the same
   // correction as the icon above, for the same reason.
   //

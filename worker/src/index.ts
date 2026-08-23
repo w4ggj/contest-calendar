@@ -26,6 +26,10 @@ import { renderDetail } from "./render/detail.js";
 import { renderLanding } from "./render/landing.js";
 import { parseMonth, renderMonth } from "./render/month.js";
 import { FAVICON_SVG, ICON_LINKS } from "./render/icon.js";
+import {
+  APPLE_TOUCH_PNG_B64,
+  FAVICON_ICO_B64,
+} from "./render/icon-raster.js";
 import { findPage, renderPage } from "./render/pages.js";
 
 /**
@@ -54,6 +58,29 @@ function html(body: string, status = 200): Response {
         "img-src 'self' data:; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
       "referrer-policy": "strict-origin-when-cross-origin",
       "x-content-type-options": "nosniff",
+    },
+  });
+}
+
+/**
+ * A base64 constant, served as bytes.
+ *
+ * The icons are inlined as base64 rather than shipped as files because this
+ * Worker's entire deployable is source -- there is no asset pipeline to put a
+ * binary through, and a constant in a .ts file is reviewable in a diff. They
+ * are generated from the same geometry as FAVICON_SVG by
+ * scratchpad/make_icons.py; regenerate rather than hand-edit.
+ */
+function binary(b64: string, type: string): Response {
+  const raw = atob(b64);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return new Response(bytes, {
+    headers: {
+      "content-type": type,
+      // Immutable: the mark does not change, and an icon re-fetched on every
+      // navigation is the cheapest possible waste.
+      "cache-control": "public, max-age=604800, immutable",
     },
   });
 }
@@ -196,6 +223,19 @@ export default {
             "cache-control": "public, max-age=604800, immutable",
           },
         });
+      } else if (path === "/favicon.ico") {
+        // Served even though every page declares its icon in <head>, because
+        // the declaration only reaches things that parse the page. Crawlers,
+        // link previewers, feed readers and a few browsers ask for this path
+        // unconditionally, and it was answering 404 -- which is how a site with
+        // a perfectly good icon still shows a blank square in a search result.
+        response = binary(FAVICON_ICO_B64, "image/x-icon");
+      } else if (path === "/apple-touch-icon.png"
+        || path === "/apple-touch-icon-precomposed.png") {
+        // iOS asks for both spellings before it gives up and screenshots the
+        // page, and it asks for them at the ROOT regardless of what the <head>
+        // says. Both answer.
+        response = binary(APPLE_TOUCH_PNG_B64, "image/png");
       } else if (path === "/robots.txt") {
         response = new Response("User-agent: *\nAllow: /\n", {
           headers: { "content-type": "text/plain; charset=utf-8" },
