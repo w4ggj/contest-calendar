@@ -1686,6 +1686,49 @@ That case is what added the **`approximate`** precision level. It sits between `
 because refusing to show an operation that is on the air fails the reader over a technicality
 — and it is marked, because it is not a schedule the team issued.
 
+### Four team sites read, three encoded — 2026-08-23
+
+Working the addresses ADXO supplied. Each was read at the team's own site; none of the dates
+below came from an announcement list.
+
+| Call | Entity | Team's own wording | Encoded as |
+|---|---|---|---|
+| **RI1FJZ** | Franz Josef Land (Aleksandry Is) | `09.09.2026 - 25.09.2026` | `exact`, nine HF bands |
+| **H49A** | Solomon Islands | `October 9th – October 21st 2026` | `exact`, bands unrecorded |
+| **XR0Z** | Juan Fernández (Alexander Selkirk) | `approximately 10 days during October 2026` | `month`, not plotted |
+| **3Y0L** | Peter I | — | **not encoded** |
+
+**3Y0L is the interesting one.** Peter I is among the most wanted entities on earth and NG3K
+lists it for February 2027 — but `3y0l.com` is under construction and publishes **no dates at
+all**, saying only that *"More information about the DXpedition will be released then."* Taking
+NG3K's February would be taking an aggregator's date for a record's central fact, which is the
+one thing the rule forbids. So it is not here, and this row exists so the next person knows it
+was read rather than missed. Re-check when the site opens.
+
+### Three treatments of "what bands?", and the difference is the team's
+
+- **RI1FJZ enumerated nine bands**, WARC included, so the record has them.
+- **H49A wrote "all HF bands + 6m"** and **XR0Z wrote "160 to 10 meters"**. Both are phrases
+  rather than lists and both leave the WARC bands open, so `bands` stays empty and the phrase
+  goes in `bands_note` — the same treatment JARL's New Year Party and the ZS SOTA weekend get.
+  Every band filter excludes those two until someone reads a published band plan.
+
+That is not pedantry about three records. It is the difference between a catalog that says what
+it knows and one that fills gaps with plausible guesses, and a band list is exactly the kind of
+gap that fills itself if nobody is watching.
+
+### Where an aggregator and a team disagreed
+
+NG3K lists **H49A as 7–21 October**; the team's own site says the **9th**. The team wins, as it
+must. Recorded because the two disagree and a reader comparing them should know which this
+calendar followed. Second time this has happened in two days, after RI1FJL.
+
+### Two Franz Josef Land operations in a month
+
+`RI1FJL` was Heiss Island in August; `RI1FJZ` is Aleksandry Island in September. Different
+teams, different callsigns, same DXCC entity and same IOTA group. Neither is a duplicate of the
+other.
+
 ### Team sites harvested for the next pass
 
 Found through ADXO, which is exactly the job it is allowed to do. **None of these has been

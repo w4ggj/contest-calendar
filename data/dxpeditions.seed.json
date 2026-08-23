@@ -78,6 +78,103 @@
       "source_note": "ardxpeditions.com/dxpeditions/vp0sg, the team's own page. The permit is granted and the timing is a month, not dates: an August 2026 update states VP0SG 'is authorised to conduct its planned amateur radio operations at Husvik, South Georgia, in March 2027'. No start or end day has been published. Checked 2026-08-23.",
       "note": "MONTH PRECISION, WHICH IS WHY IT IS NOT ON THE CALENDAR. The team has announced March 2027 and nothing narrower. Drawing it across the whole of March would claim thirty-one days of operation nobody announced, and drawing it on a guessed fortnight would invent the one fact a reader came for. It is listed with the window as stated and moves onto the calendar the day the team publishes days. This is the normal state of a DXpedition until a few weeks out -- most are announced by month first. BANDS AND MODES ARE ALSO UNRECORDED, and for the same reason as the dates: the team has a permit and a month, and has not published a band plan. Empty means unread here exactly as it does in the contest catalog, so every band filter excludes this record.",
       "summary": "A permitted operation from Husvik, South Georgia, announced for March 2027 with dates still to come."
+    },
+    {
+      "id": "ri1fjz-2026",
+      "callsign": "RI1FJZ",
+      "name": "Franz Josef Land",
+      "entity": "Franz Josef Land",
+      "iota": "EU-019",
+      "team": "Russian Arctic National Park expedition (RA1ZZ, R9LR)",
+      "country": "RU",
+      "url": "https://ri1fjz.ru/en/",
+      "url_checked": "2026-08-23",
+      "start": "2026-09-09",
+      "end": "2026-09-25",
+      "precision": "exact",
+      "modes": [
+        "CW",
+        "SSB",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "30m",
+        "20m",
+        "17m",
+        "15m",
+        "12m",
+        "10m"
+      ],
+      "ended": false,
+      "verified": true,
+      "source_note": "ri1fjz.ru/en/, the team's own site. Aleksandry Island, Franz Josef Land, IOTA EU-019. Dates as printed: '09.09.2026 - 25.09.2026'. Bands and modes: '160, 80, 40, 30, 20, 17, 15, 12, 10 m, VHF bands and satellites' with 'CW, SSB, FT-8 (Normal mode, Fox mode MSHV software)', including QO-100. Led by RA1ZZ (Vasily) and R9LR (Vladimir) with the support of the Russian Arctic National Park. 'QSL via: R9LR', and the 'Full DXpedition log will uploaded to Club Log and LoTW'. Checked 2026-08-23.",
+      "note": "THE BANDS ARE ENUMERATED HERE BECAUSE THE TEAM ENUMERATED THEM -- nine HF bands listed one by one, WARC included. That is a list rather than a phrase, so it is recorded as one, unlike H49A and XR0Z below whose teams wrote 'all HF bands' and '160 to 10 meters' and left the WARC question open.\n\nThe team also names 'VHF bands and satellites' including QO-100 without listing which, so that stays in bands_note. VHF is out of scope for sourcing new contests; it is not a reason to truncate what a team says about its own operation.\n\nTHE SECOND FRANZ JOSEF LAND OPERATION IN A MONTH, and a different one: RI1FJL was Heiss Island in August, this is Aleksandry Island in September, different teams and different callsigns. Same DXCC entity, same IOTA group.",
+      "bands_note": "The team also lists 'VHF bands and satellites', including QO-100, without naming which.",
+      "summary": "Seventeen days from Aleksandry Island, Franz Josef Land, on nine HF bands plus satellite, with the Russian Arctic National Park's support."
+    },
+    {
+      "id": "h49a-2026",
+      "callsign": "H49A",
+      "name": "Solomon Islands",
+      "entity": "Solomon Islands",
+      "iota": null,
+      "team": "9A3MR and a Croatian team",
+      "country": "SB",
+      "url": "https://solomon2026.com/",
+      "url_checked": "2026-08-23",
+      "start": "2026-10-09",
+      "end": "2026-10-21",
+      "precision": "exact",
+      "modes": [
+        "CW",
+        "SSB",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [],
+      "ended": false,
+      "verified": true,
+      "source_note": "solomon2026.com, the team's own site: 'October 9th - October 21st 2026', 'all HF bands + 6m, CW, SSB and FT8'. Led by Rolando 9A3MR with Zrinko DK8ZZ/YT3ZZ, Mladen 9A2NA, Frane 9A3CJY, Kristijan 9A4WY and Livio 9A7Y. Checked 2026-08-23.",
+      "note": "BANDS UNRECORDED BECAUSE 'ALL HF BANDS' IS A PHRASE, NOT A LIST. It leaves the WARC bands open and this catalog does not turn a phrase into a band list -- the same treatment JARL's New Year Party and the ZS SOTA weekend get. Every band filter therefore excludes this record until someone reads a published band plan.\n\nNG3K'S ANNOUNCEMENT LIST SAYS 7-21 OCTOBER; THE TEAM SAYS THE 9TH. The team's own site wins, as it must. Recorded here because the two disagree and a reader comparing them should know which this calendar followed.",
+      "bands_note": "The team says 'all HF bands + 6m' without naming them.",
+      "summary": "Thirteen days from the Solomon Islands by a Croatian team, CW, SSB and FT8 across the HF bands and 6 m."
+    },
+    {
+      "id": "xr0z-2026",
+      "callsign": "XR0Z",
+      "name": "Juan Fernández",
+      "entity": "Juan Fernández Islands",
+      "iota": "SA-101",
+      "team": "CE3VTZ and XQ7IR",
+      "country": "CL",
+      "url": "https://www.xr0z.net/",
+      "url_checked": "2026-08-23",
+      "start": "2026-10-01",
+      "end": "2026-10-31",
+      "precision": "month",
+      "modes": [
+        "CW",
+        "SSB",
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [],
+      "ended": false,
+      "verified": true,
+      "source_note": "xr0z.net, the team's own site. Alexander Selkirk Island, Juan Fernández, IOTA SA-101. Timing as stated: 'approximately 10 days during October 2026'. Bands and modes: 160 to 10 metres in FT8, CW and SSB. Moisés CE3VTZ and Felipe XQ7IR; QSL via M0URX. Checked 2026-08-23.",
+      "note": "MONTH PRECISION, AND VAGUER THAN MOST: 'approximately 10 days during October 2026' gives a month and a duration but no start. Ten days inside a thirty-one-day window has twenty-two possible starts, so it is listed and not plotted -- putting it on a guessed fortnight would invent the one fact a reader came for. It moves onto the calendar the day the team names days.\n\nBANDS UNRECORDED: '160 to 10 meters' is a span rather than a list and leaves WARC open. RI1FJZ's team enumerated its nine bands and that record has them; this one did not.",
+      "bands_note": "The team says '160 to 10 meters' without naming the bands.",
+      "summary": "About ten days from Alexander Selkirk Island in the Juan Fernández group, with the days still to be announced."
     }
   ]
 }
