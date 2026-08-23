@@ -1845,3 +1845,12 @@ and it does not stop.
   sponsor's server being down is not evidence that the rule changed. Re-check before altering
   anything; the co-sponsor mirror at wia.org.au is already recorded in the row above. SARL is
   the third and remains the long-standing expired-certificate blocker.
+- **`yodx.ro` stopped answering on 2026-08-23**, and it is the same shape. `check_links.py`
+  went from **247 live, 0 broken** to **249 live, 1 broken** within an hour, and the one is
+  FRR's YO DX HF Contest. The whole host is unreachable, not the page: `www.yodx.ro` times out
+  on both HTTP and HTTPS and the apex refuses immediately. **The record is unchanged** — its
+  rule was read at FRR's own source in both English and Romanian and quoted in full, and a
+  server being down is not evidence a rule changed. Re-check before touching it. Third instance
+  of this pattern after Oceania and SARL, which is enough to say plainly: **a broken link in
+  this project is a fact about a web server, and the record it points at is innocent until
+  something contradicts its wording.**
