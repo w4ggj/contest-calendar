@@ -133,6 +133,62 @@ describe("DXpeditions", () => {
     }
   });
 
+  it("shows DXpeditions on the schedule, in a section of their own", async () => {
+    const html = await page("/");
+    expect(html).toContain('id="lg-dx"');
+    expect(html).toContain("RI1FJL");
+    // Directly under the live contests: an operation on the air right now is
+    // the most perishable thing on the page.
+    const live = html.indexOf('id="lg-live"') >= 0
+      ? html.indexOf('id="lg-live"')
+      : 0;
+    expect(html.indexOf('id="lg-dx"')).toBeGreaterThan(live);
+    expect(html.indexOf('id="lg-dx"')).toBeLessThan(html.indexOf('id="lg-week"'));
+  });
+
+  it("keeps DXpeditions out of the contest counts and the rail", async () => {
+    // The tally says CONTESTS and a reader adds it up; and the rail is a
+    // duration chart, where a nineteen-day operation drawn on a seven-day axis
+    // is a full-width bar that says nothing.
+    const html = await page("/");
+    const rail = /<div class="rail"[\s\S]*?<\/ol>/.exec(html)?.[0] ?? "";
+    expect(rail, "a DXpedition reached the 7-day rail").not.toContain("RI1FJL");
+
+    const tot = Number(/<li class="tot"><b>(\d+)<\/b>/.exec(html)![1]);
+    const week = Number(/id="lg-week">Next 7 days<span class="count">(\d+)</.exec(html)![1]);
+    const dx = Number(/id="lg-dx">DXpeditions<span class="count">(\d+)</.exec(html)![1]);
+    expect(dx).toBeGreaterThan(0);
+    // The total counts contests only, so adding the DX count must exceed it.
+    expect(tot).toBeGreaterThanOrEqual(week);
+    expect(tot + dx).toBeGreaterThan(tot);
+  });
+
+  it("emits no <time> for a DXpedition's day range", async () => {
+    // The client converts every <time> it finds. A DXpedition has no instant --
+    // it is a range of whole UTC days -- so a bare date would be parsed in the
+    // reader's own zone and could land a day out, and a fabricated T00:00:00Z
+    // would invent an hour the team never published. The existing
+    // "never emits a bare local-time string" test caught this when the first
+    // version used <time datetime="2026-08-13">.
+    const html = await page("/");
+    const section = /<section aria-labelledby="lg-dx">[\s\S]*?<\/section>/.exec(html)![0];
+    expect(section).not.toContain("<time");
+    expect(section).toContain('<span class="dxd">2026-08-13</span>');
+  });
+
+  it("does not filter DXpeditions by the contest filters", async () => {
+    // A band filter would hide every one of them, because none has had its band
+    // plan read and empty means unrecorded -- the reader would lose a rare
+    // entity over a gap in THIS catalog rather than anything about the
+    // operation. The page says it is unfiltered rather than leaving it to be
+    // discovered.
+    for (const q of ["/", "/?mode=CW", "/?band=20m", "/?mode=SSB&band=40m"]) {
+      const html = await page(q);
+      expect(html, `${q}: DXpeditions vanished under a filter`).toContain("RI1FJL");
+    }
+    expect(await page("/")).toContain("not filtered by your selection");
+  });
+
   it("is reachable from the schedule and the month grid", async () => {
     expect(await page("/")).toContain('href="/dx"');
     expect(await page("/month?m=2026-11")).toContain('href="/dx"');

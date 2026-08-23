@@ -1266,6 +1266,50 @@ a:hover { color: var(--ink); }
 .dx-card.over { opacity: .68; border-left-color: var(--rule); }
 .dx-card.over .dx-call { color: var(--ink-faint); }
 
+/* DXpeditions on the landing page.
+
+   Their own classes, NOT .row and .row-name. Those carry contest-row
+   invariants the suite enforces -- exactly one link per row, an href under
+   /contest/, a 44px touch target on the name -- and none of them is true of a
+   DXpedition, which links to /dx and is not a contest. Reusing the classes made
+   three existing tests fail, and they were right to. */
+.dxrows { list-style: none; margin: .25rem 0 0; padding: 0; }
+.dxrow {
+  padding: .55rem 0 .55rem .75rem; margin: 0 0 .35rem;
+  border-left: 3px solid var(--amber-dim);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.dxrow.live { border-left-color: var(--amber); }
+.dxrow-name { margin: 0; font: 600 1rem/1.35 var(--font-ui); }
+.dxrow-name a { text-decoration: none; color: var(--ink); }
+.dxrow-name a:hover { color: var(--cyan); }
+.dxrow-name .dx-call { color: var(--amber); letter-spacing: .04em; font-weight: 700; }
+.dxrow-meta, .dxrow-when {
+  margin: .15rem 0 0;
+  font: 500 .76rem/1.5 var(--font-mono); color: var(--ink-faint);
+}
+.dxrow-when .dxd { color: var(--ink-dim); }
+.dxrow-count {
+  display: inline-block; margin-top: .2rem;
+  font: 600 .72rem/1.4 var(--font-mono); color: var(--ink-faint);
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.dxrow-count.soon { color: var(--amber); }
+.dx-note {
+  margin: 0 0 .6rem; max-width: 78ch;
+  font: 500 .76rem/1.6 var(--font-mono); color: var(--ink-faint);
+}
+
+/* A touch target for the one link a DX row has, matching the contest rows. */
+@media (pointer: coarse) {
+  .dxrow-name a { position: relative; }
+  .dxrow-name a::after {
+    content: ""; position: absolute;
+    left: 0; right: 0; top: 50%; height: 44px;
+    transform: translateY(-50%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .001ms !important;

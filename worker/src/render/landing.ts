@@ -19,6 +19,11 @@ import {
   type NowView,
 } from "../schedule.js";
 import {
+  dxInRange,
+  isApproximate,
+  spanOf as dxSpan,
+} from "../dx.js";
+import {
   describeSelection,
   detailHref,
   emptyState,
@@ -500,6 +505,97 @@ export interface LandingInput {
  * answers a narrower question than the one they put in the URL, and implies
  * there might be something later when there is not.
  */
+/**
+ * DXpeditions overlapping the window this page is showing.
+ *
+ * A SECTION OF ITS OWN, not rows mixed into the contest list, and not a bar on
+ * the seven-day rail. Three reasons, and the first two are the same ones that
+ * kept them out of the contest catalog:
+ *
+ * A DXpedition is not a contest. Putting one in the "next 7 days" list would
+ * make the count above it wrong -- that number says contests and a reader adds
+ * it up. And the rail is a duration chart: a nineteen-day operation drawn on a
+ * seven-day axis is a full-width bar that says nothing, while the whole point
+ * of the ramp is that width and colour encode length.
+ *
+ * The third is that it is worth MORE prominence, not less. A contest comes
+ * round next year; a rare entity may not be on the air again for a decade, and
+ * an operation running right now is the most perishable thing this site knows.
+ * So it sits directly under the contests that are live.
+ *
+ * DELIBERATELY NOT FILTERED. The filter panel is about contests -- its counts
+ * say so -- and two things follow. A band filter would hide every DXpedition
+ * here, because none has had its band plan read and empty means unrecorded, so
+ * the reader would lose a rare entity over a gap in OUR coverage rather than
+ * anything about the operation. And a mode filter would hide an operation
+ * working four modes because the reader ticked one. The page says it is
+ * unfiltered rather than leaving that to be discovered.
+ */
+function dxSection(
+  view: NowView,
+  params: URLSearchParams,
+): string {
+  const from = view.now;
+  const to = Math.max(view.window.to, view.laterRangeEnd);
+  const items = dxInRange(from, to);
+  if (!items.length) return "";
+
+  const rows = items
+    .map((d) => {
+      const { from: s, to: e } = dxSpan(d);
+      const live = s <= view.now;
+      const days = Math.max(1, Math.round((e + 1 - Math.max(s, view.now)) / DAY_MS));
+      const when = live
+        ? `<span class="dxrow-count soon">on the air now</span>`
+        : `<span class="dxrow-count">${esc(relative(s - view.now).text)}</span>`;
+
+      return (
+        `<li class="dxrow${live ? " live" : ""}">` +
+        `<p class="dxrow-name"><a href="${esc(relink(params, [], {}, "/dx"))}#${esc(d.id)}">` +
+        `<span class="dx-call">${esc(d.callsign)}</span> ${esc(d.name)}</a>` +
+        (isApproximate(d)
+          ? `<span class="flag" title="The team published a departure and a ` +
+            `duration rather than dates, so this window is derived from their ` +
+            `own figures.">approximate dates</span>`
+          : "") +
+        `</p>` +
+        `<p class="dxrow-meta">${esc(d.entity)}` +
+        (d.iota ? `<span class="dot"> · </span>IOTA ${esc(d.iota)}` : "") +
+        `<span class="dot"> · </span>${esc(d.team)}` +
+        (d.modes.length ? `<span class="dot"> · </span>${esc(d.modes.join("/"))}` : "") +
+        `</p>` +
+        // NOT <time> elements, and that is the same rule `running()` follows for
+        // a rolling contest. The client script converts every <time> it finds,
+        // and a DXpedition has no instant to convert -- it is a range of whole
+        // UTC days. A bare date would be parsed in the reader's own zone and
+        // could land a day out; a fabricated T00:00:00Z would invent an hour the
+        // team never published and render as "1:00 AM" somewhere.
+        `<p class="dxrow-when">` +
+        `<span class="dxd">${esc(d.start)}</span>` +
+        `<span class="arrow"> → </span>` +
+        `<span class="dxd">${esc(d.end)}</span>` +
+        `<span class="dot"> · </span>` +
+        `${days} day${days === 1 ? "" : "s"} ${live ? "left" : "long"}</p>` +
+        when +
+        `</li>`
+      );
+    })
+    .join("");
+
+  return (
+    `<section aria-labelledby="lg-dx">` +
+    `<h2 class="legend" id="lg-dx">DXpeditions` +
+    `<span class="count">${items.length}</span></h2>` +
+    `<p class="dx-note">Not contests, and not filtered by your selection above — ` +
+    `a rare entity is worth seeing whichever mode you picked, and none of these ` +
+    `has had its band plan read, so a band filter would hide them all over a gap ` +
+    `in this catalog rather than anything about the operation. ` +
+    `<a href="${esc(relink(params, [], {}, "/dx"))}">All DXpeditions</a>.</p>` +
+    `<ul class="dxrows">${rows}</ul>` +
+    `</section>`
+  );
+}
+
 function sections(view: NowView, input: LandingInput): string {
   const { filters, params } = input;
   const nothing = view.totalConsidered === 0;
@@ -522,6 +618,9 @@ function sections(view: NowView, input: LandingInput): string {
 
   return (
     liveSection(view.live, view.now, params) +
+    // Directly under the live contests: an operation on the air right now is
+    // the most perishable thing on this page.
+    dxSection(view, params) +
     (view.weekApplies ? weekSection(view.next7, view.now, weekEmpty, params) : "") +
     laterSection(view, laterEmpty, params)
   );
