@@ -494,6 +494,57 @@ function provenanceSection(contest: Contest): string {
 // The page
 // ---------------------------------------------------------------------------
 
+/**
+ * The one sentence a search result or a pasted link gets.
+ *
+ * BUDGETED, which the first version was not: it ran to 297 characters on the
+ * longest record and a search engine cuts around 160. What sat past the cut was
+ * always the same thing -- "Next running ..." -- which is the single most
+ * useful fact on the page for somebody deciding whether to click. So the tail
+ * is reserved first and the summary is trimmed to fit around it, rather than
+ * the sentence being built in reading order and truncated wherever it lands.
+ *
+ * The contest's NAME is deliberately not repeated. It is already the first
+ * thing in the <title>, which sits directly above the description in every
+ * search result, and spending thirty characters of a hundred-and-sixty
+ * character budget saying it twice costs the next running.
+ *
+ * The sponsor is included only when it fits WITHOUT trimming the summary. It is
+ * a real trust signal and it is not worth a truncated sentence.
+ */
+const DESC_LIMIT = 160;
+
+function trimToWord(text: string, room: number): string {
+  if (text.length <= room) return text;
+  const cut = text.slice(0, Math.max(0, room));
+  const at = cut.lastIndexOf(" ");
+  return (at > 20 ? cut.slice(0, at) : cut).replace(/[\s,.;:—-]+$/, "");
+}
+
+export function metaDescription(
+  contest: Contest,
+  rule: string,
+  next: Occurrence | undefined,
+): string {
+  const when = next ? (next.start ?? next.start_wall)! : null;
+  const tail = when
+    ? ` Next running ${zDate(when)} ${when.getUTCFullYear()}.`
+    : "";
+  const lead = contest.summary
+    ? String(contest.summary)
+    : `Run by ${contest.sponsor ?? "its sponsor"}: ${rule}.`;
+  const who = contest.summary && contest.sponsor
+    ? ` Run by ${contest.sponsor}.`
+    : "";
+
+  if ((lead + who + tail).length <= DESC_LIMIT) return lead + who + tail;
+  if ((lead + tail).length <= DESC_LIMIT) return lead + tail;
+
+  const room = DESC_LIMIT - tail.length - 1;
+  if (room <= 20) return trimToWord(lead, DESC_LIMIT);
+  return `${trimToWord(lead, room)}\u2026${tail}`;
+}
+
 export interface DetailInput {
   contest: Contest;
   nowMs: number;
@@ -518,13 +569,7 @@ export function renderDetail(input: DetailInput): string {
   const rule = describeRule(contest.recurrence);
   const next = nextOccurrences(contest.id, nowMs, 1)[0];
 
-  // A description has no page around it either. Say what the contest is, who
-  // runs it and when it next runs -- the three things a search result should
-  // carry -- and fall back to the rule when the record has no summary.
-  const description =
-    (contest.summary ? `${String(contest.summary)} ` : "") +
-    `${contest.name} is run by ${contest.sponsor ?? "its sponsor"}: ${rule}.` +
-    (next ? ` Next running ${zDate((next.start ?? next.start_wall)!)} ${(next.start ?? next.start_wall)!.getUTCFullYear()}.` : "");
+  const description = metaDescription(contest, rule, next);
 
   const flags = contest.verified
     ? ""

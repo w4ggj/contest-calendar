@@ -33,7 +33,7 @@ import {
   contestById,
   nextOccurrences,
 } from "../src/schedule.js";
-import { googleCalendarHref } from "../src/render/detail.js";
+import { googleCalendarHref, metaDescription } from "../src/render/detail.js";
 
 const BASE = "https://contestcal.test";
 const get = async (path: string) => await SELF.fetch(BASE + path);
@@ -168,6 +168,40 @@ describe("GET /contest/:id", () => {
     expect(top![0]).toContain("Back to the schedule");
     expect(top![0]).toContain("Show times in");
     expect(top![0]).toContain("Display");
+  });
+
+  it("keeps every contest's description inside what a search result shows", () => {
+    // Checked over the whole catalog rather than a sampled page, because the
+    // failure was invisible on the pages anyone happens to look at: the
+    // description was built in reading order with no budget, so it ran to 297
+    // characters on the longest record and a search engine cut it around 160.
+    //
+    // What sat past the cut was always the same thing -- "Next running ..." --
+    // the one fact that decides whether somebody clicks. So the length bound
+    // and the survival of the tail are asserted together; either alone passes
+    // while the other is broken.
+    let truncated = 0;
+    for (const c of CATALOG) {
+      const next = nextOccurrences(c.id, Date.now(), 1)[0];
+      const d = metaDescription(c, describeRule(c.recurrence), next);
+
+      expect(d.length, `${c.id}: ${d.length} chars`).toBeLessThanOrEqual(160);
+      expect(d.length, `${c.id}: description too thin to be useful`)
+        .toBeGreaterThan(30);
+
+      // The old scaffolding repeated the contest name, which the <title>
+      // already carries directly above the description in every search result.
+      expect(d, `${c.id} repeats the name`).not.toContain(" is run by ");
+
+      if (next) {
+        expect(d, `${c.id} lost its next running`).toContain("Next running");
+      }
+      if (d.includes("\u2026")) truncated++;
+    }
+
+    // Non-vacuous: some records really are long enough to be trimmed, so the
+    // trimming path is exercised rather than merely present.
+    expect(truncated, "no description was long enough to trim").toBeGreaterThan(0);
   });
 
   it("names the contest and the site in the title and description", async () => {

@@ -139,6 +139,28 @@ describe("the month grid", () => {
     expect(/<td class="[^"]*\bout\b[^"]*"/.test(html)).toBe(true);
   });
 
+  it("describes the month without overclaiming, and counts contests", async () => {
+    const html = await page("/month?m=2026-11");
+    const d = /<meta name="description" content="([^"]*)">/.exec(html)![1];
+
+    // Same overclaim just removed from the landing page: this said "Every
+    // amateur radio contest running in November 2026", and the catalog is
+    // explicitly not every contest.
+    expect(d).not.toMatch(/(every|all)\s+amateur radio contest/i);
+    expect(d).toMatch(/^\d+ amateur radio contests? running in November 2026/);
+    expect(d.length).toBeLessThanOrEqual(160);
+
+    // The number is DISTINCT CONTESTS, not occurrences. Counting occurrences
+    // said 89 for a month in which CWops Test alone contributes eight.
+    const n = Number(/^(\d+)/.exec(d)![1]);
+    const ids = new Set(
+      [...html.matchAll(/href="\/contest\/([^"?]+)/g)].map((m) => m[1]),
+    );
+    expect(n).toBeLessThan(89);
+    expect(n).toBeLessThanOrEqual(ids.size);
+    expect(html).toContain(`${n} contests running this month`);
+  });
+
   it("says which clock the cells are bucketed by", async () => {
     // A reader several zones west sees a 2200Z contest sitting on a date that
     // is the evening before where they are. That is correct and surprising, so

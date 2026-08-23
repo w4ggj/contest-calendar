@@ -321,7 +321,21 @@ export function renderMonth(input: MonthInput): string {
   const link = (y: number, m: number) =>
     esc(relink(params, [], { m: monthParam(y, m) }, "/month"));
 
-  const shown = outcome.kept.length;
+  // DISTINCT CONTESTS, not occurrences. The first version counted
+  // outcome.kept and said "89 contests running this month" -- but CWops Test
+  // alone contributes eight of those, so the number overstated what a reader
+  // would find by a factor no one could see. Counted over the month proper
+  // rather than the whole grid, so the neighbouring months' spillover cells do
+  // not inflate a figure that says "this month".
+  const monthIds = new Set(
+    outcome.kept
+      .filter((o) => {
+        const d = (o.start ?? o.start_wall)!;
+        return d.getUTCFullYear() === year && d.getUTCMonth() + 1 === month;
+      })
+      .map((o) => o.contest_id),
+  );
+  const shown = monthIds.size;
   const title = `${MONTHS[month - 1]} ${year}`;
 
   return `<!doctype html>
@@ -330,7 +344,9 @@ export function renderMonth(input: MonthInput): string {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)} · ${esc(SITE_NAME)}</title>
-<meta name="description" content="Every amateur radio contest running in ${esc(
+<meta name="description" content="${shown} amateur radio contest${
+      shown === 1 ? "" : "s"
+    } running in ${esc(
     title,
   )}, laid out as a month grid so you can see which days and weekends are busy.">
 <meta name="color-scheme" content="dark light">
