@@ -3796,12 +3796,12 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
   "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
   "arsi-vu-rookie", "cwops-cw-open", "erau-es-ll-kv", "lrmd-wal",
   "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
-  "rsgb-autumn-cw", "rsgb-autumn-data", "rsgb-autumn-ssb",
-  "rsgb-ft4-activity-day", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
-  "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
-  "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
-  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb",
-  "ure-eartty",
+  "rsgb-80mcc-cw", "rsgb-80mcc-data", "rsgb-80mcc-ssb", "rsgb-autumn-cw",
+  "rsgb-autumn-data", "rsgb-autumn-ssb", "rsgb-ft4-activity-day",
+  "sarl-top-band-qso", "stew-perry", "uarl-champ-cw", "uarl-champ-rtty",
+  "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma", "uba-on-2m", "uba-on-6m",
+  "uba-on-80-40-cw", "uba-on-80-40-ssb", "uba-spring-2m", "uba-spring-6m",
+  "uba-spring-80m-cw", "uba-spring-80m-ssb", "ure-eartty",
 ].sort();
 
 // Records that already produce nothing this year WITHOUT active_until to say

@@ -13038,6 +13038,181 @@
       "submodes": [
         "PSK63"
       ]
+    },
+    {
+      "id": "rsgb-80mcc-cw",
+      "name": "RSGB 3.5 MHz Club Championship, CW",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/r80mcc.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/r80mcc.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3510-3565 kHz at any speed, with 3565-3570 kHz reserved for 15 wpm maximum.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-02-26",
+              "start": "2000",
+              "end": "2130"
+            },
+            {
+              "date": "2026-03-11",
+              "start": "2000",
+              "end": "2130"
+            },
+            "2026-04-13",
+            "2026-05-28",
+            "2026-06-10",
+            "2026-07-06"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "log_deadline_days": 1,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/r80mcc.shtml for the rules and rsgbcc.org/cgi-bin/hfreadcal.pl?year=2026 for the dates -- both RSGB's own, and the rules page sends you to the second: 'On Mondays, Wednesdays or Thursdays only - click here for specific dates.' Times: 'February-March: 2000-2130 UTC' and 'April-July: 1900-2030 UTC'. Frequencies: 'CW: 3510-3565 kHz (any speed); 3565-3570 kHz (15wpm max). SSB: 3600-3775 kHz. PSK63: 3580-3590 kHz. RTTY: 3590-3620 kHz.' Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Entrants: members of RSGB Affiliated Societies, RSGB members as individuals, NON-UK STATIONS AS INDIVIDUALS, and members of the RSGB Contest Club. Logs: 'by 23:59:59 (UTC) on the day following the end of the contest'. Checked 2026-08-23.",
+      "note": "THE DATES ARE NOT ON THE RULES PAGE. RSGB publishes the rules at rules/2026/r80mcc.shtml and the eighteen legs on a separate CGI calendar, and the rules page links to it in so many words. This record holds what that calendar prints; nothing is derived.\n\nTHE CLOCK MOVES IN APRIL and the record says so per date: February and March run 2000-2130 UTC, April to July run 1900-2030. The record's default is the April-July clock because four of each mode's six legs use it, and the two early legs carry their own times. Same mechanism as the Autumn Series, and the second contest to need it.\n\nMANUAL BECAUSE THE LEGS FOLLOW NO ORDINAL. They fall on Mondays, Wednesdays and Thursdays with the weekday rotating through the series, which is exactly the shape an ordinal must not be fitted to.\n\nNON-UK STATIONS MAY ENTER AS INDIVIDUALS -- RSGB states it, which is worth noting beside the AFS and Club Calls contests where entry really is UK&CD only.",
+      "summary": "Ninety minutes of CW on 80 m, six evenings from February to July, scored as a club championship.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB lists 'non-UK stations as individuals' among the entrant categories alongside affiliated-society members and RSGB members, so entry is not restricted to the UK&CD as it is for AFS and Club Calls."
+      }
+    },
+    {
+      "id": "rsgb-80mcc-ssb",
+      "name": "RSGB 3.5 MHz Club Championship, SSB",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/r80mcc.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/r80mcc.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3600-3775 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-02-02",
+              "start": "2000",
+              "end": "2130"
+            },
+            {
+              "date": "2026-03-26",
+              "start": "2000",
+              "end": "2130"
+            },
+            "2026-04-22",
+            "2026-05-11",
+            "2026-06-25",
+            "2026-07-15"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "log_deadline_days": 1,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/r80mcc.shtml for the rules and rsgbcc.org/cgi-bin/hfreadcal.pl?year=2026 for the dates -- both RSGB's own, and the rules page sends you to the second: 'On Mondays, Wednesdays or Thursdays only - click here for specific dates.' Times: 'February-March: 2000-2130 UTC' and 'April-July: 1900-2030 UTC'. Frequencies: 'CW: 3510-3565 kHz (any speed); 3565-3570 kHz (15wpm max). SSB: 3600-3775 kHz. PSK63: 3580-3590 kHz. RTTY: 3590-3620 kHz.' Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Entrants: members of RSGB Affiliated Societies, RSGB members as individuals, NON-UK STATIONS AS INDIVIDUALS, and members of the RSGB Contest Club. Logs: 'by 23:59:59 (UTC) on the day following the end of the contest'. Checked 2026-08-23.",
+      "note": "THE DATES ARE NOT ON THE RULES PAGE. RSGB publishes the rules at rules/2026/r80mcc.shtml and the eighteen legs on a separate CGI calendar, and the rules page links to it in so many words. This record holds what that calendar prints; nothing is derived.\n\nTHE CLOCK MOVES IN APRIL and the record says so per date: February and March run 2000-2130 UTC, April to July run 1900-2030. The record's default is the April-July clock because four of each mode's six legs use it, and the two early legs carry their own times. Same mechanism as the Autumn Series, and the second contest to need it.\n\nMANUAL BECAUSE THE LEGS FOLLOW NO ORDINAL. They fall on Mondays, Wednesdays and Thursdays with the weekday rotating through the series, which is exactly the shape an ordinal must not be fitted to.\n\nNON-UK STATIONS MAY ENTER AS INDIVIDUALS -- RSGB states it, which is worth noting beside the AFS and Club Calls contests where entry really is UK&CD only.",
+      "summary": "Ninety minutes of SSB on 80 m, six evenings from February to July, scored as a club championship.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB lists 'non-UK stations as individuals' among the entrant categories alongside affiliated-society members and RSGB members, so entry is not restricted to the UK&CD as it is for AFS and Club Calls."
+      }
+    },
+    {
+      "id": "rsgb-80mcc-data",
+      "name": "RSGB 3.5 MHz Club Championship, Data",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/r80mcc.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/r80mcc.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "RTTY",
+        "Digital"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "PSK63 3580-3590 kHz; RTTY 3590-3620 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-02-11",
+              "start": "2000",
+              "end": "2130"
+            },
+            {
+              "date": "2026-03-02",
+              "start": "2000",
+              "end": "2130"
+            },
+            "2026-04-30",
+            "2026-05-20",
+            "2026-06-01",
+            "2026-07-23"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "log_deadline_days": 1,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/r80mcc.shtml for the rules and rsgbcc.org/cgi-bin/hfreadcal.pl?year=2026 for the dates -- both RSGB's own, and the rules page sends you to the second: 'On Mondays, Wednesdays or Thursdays only - click here for specific dates.' Times: 'February-March: 2000-2130 UTC' and 'April-July: 1900-2030 UTC'. Frequencies: 'CW: 3510-3565 kHz (any speed); 3565-3570 kHz (15wpm max). SSB: 3600-3775 kHz. PSK63: 3580-3590 kHz. RTTY: 3590-3620 kHz.' Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Entrants: members of RSGB Affiliated Societies, RSGB members as individuals, NON-UK STATIONS AS INDIVIDUALS, and members of the RSGB Contest Club. Logs: 'by 23:59:59 (UTC) on the day following the end of the contest'. Checked 2026-08-23.",
+      "note": "THE DATES ARE NOT ON THE RULES PAGE. RSGB publishes the rules at rules/2026/r80mcc.shtml and the eighteen legs on a separate CGI calendar, and the rules page links to it in so many words. This record holds what that calendar prints; nothing is derived.\n\nTHE CLOCK MOVES IN APRIL and the record says so per date: February and March run 2000-2130 UTC, April to July run 1900-2030. The record's default is the April-July clock because four of each mode's six legs use it, and the two early legs carry their own times. Same mechanism as the Autumn Series, and the second contest to need it.\n\nMANUAL BECAUSE THE LEGS FOLLOW NO ORDINAL. They fall on Mondays, Wednesdays and Thursdays with the weekday rotating through the series, which is exactly the shape an ordinal must not be fitted to.\n\nNON-UK STATIONS MAY ENTER AS INDIVIDUALS -- RSGB states it, which is worth noting beside the AFS and Club Calls contests where entry really is UK&CD only.",
+      "summary": "Ninety minutes of Data on 80 m, six evenings from February to July, scored as a club championship.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB lists 'non-UK stations as individuals' among the entrant categories alongside affiliated-society members and RSGB members, so entry is not restricted to the UK&CD as it is for AFS and Club Calls."
+      },
+      "submodes": [
+        "PSK63"
+      ]
     }
   ]
 }
