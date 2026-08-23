@@ -12312,6 +12312,469 @@
         "verified": true,
         "note": "'For amateurs around the world to contact as many other amateurs in as many Maidenhead Grid Fields as possible using the FT4 and FT8 modes.' No entity restriction is stated anywhere in the rules."
       }
+    },
+    {
+      "id": "florida-qso-party",
+      "name": "Florida QSO Party",
+      "sponsor": "Florida Contest Group",
+      "country": "US",
+      "rules_url": "https://www.floridaqsoparty.org/rules/",
+      "sponsor_home": "https://www.floridaqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "No 160 or 80 metres, no WARC bands and no VHF.",
+      "exchange": "Florida stations send RS(T) and their county. Everyone else sends RS(T) and their state, Canadian province, or DXCC prefix.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": -1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2159"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0159"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2159"
+          }
+        }
+      ],
+      "log_deadline_days": 10,
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "floridaqsoparty.org/rules/, the Florida Contest Group's own rules: 'Starts the last Saturday of April. For 2026, the Florida QSO Party dates will be April 25th- 26th.' Sessions: 'Saturday 16:00:00Z (Noon EDT) - Sunday 01:59:59Z (9:59:59 PM EDT)' and 'Sunday 12:00:00Z (8 AM EDT) - 21:59:59Z (5:59:59 PM EDT)'. Modes: 'Phone, CW, Mixed (Phone and CW)', with 'No digital QSOs are allowed in the FQP'. Bands: 'No 160 or 80 meters, WARC or VHF bands'. Exchange: 'Florida operators send county'; 'US (including KH6/KL7) operators send State. Canadian operators send province'; 'DX (including KP4, etc.) operators send DXCC prefix'. Deadline: 'Entries must be received (postmarked for mailed logs) no later than 10 days after the end of the FQP.'",
+      "note": "LAST SATURDAY, NOT LAST FULL WEEKEND -- the sponsor's own words are 'Starts the last Saturday of April', and the two readings diverge whenever 30 April is a Saturday. 2026 does not test it: the last Saturday is the 25th and the last full weekend is the same weekend. 2033 is the next year that separates them.\n\nTWO SESSIONS WITH A NIGHT BETWEEN THEM, which is why this record uses the sessions array: 1600Z Saturday to 0159Z Sunday, then 1200Z to 2159Z on the Sunday. A single block would put the contest on the air through a night it does not run.\n\nAND IT IS NOT A DIGITAL CONTEST. 'No digital QSOs are allowed in the FQP' -- worth stating because most state parties do allow them, and because an operator filtering for FT8 should not find this.",
+      "summary": "Florida's own party: phone and CW over two sessions on the last April weekend, with the state's 67 counties as the multipliers everyone else is chasing.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'For radio amateurs outside of the state of Florida to make contacts with as many Florida stations' -- and Florida operators 'can work anyone outside and within Florida'."
+      }
+    },
+    {
+      "id": "ft-roundup",
+      "name": "FT Roundup",
+      "sponsor": "RTTY Contesting",
+      "country": "US",
+      "rules_url": "https://www.rttycontesting.com/ft-roundup/rules/",
+      "sponsor_home": "https://www.rttycontesting.com/",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4",
+        "FT8"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "80 through 10 metres, no WARC bands.",
+      "exchange": "US and Canadian stations send a signal report and their state or province. Everyone else sends a signal report and a serial number from 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "rttycontesting.com/ft-roundup/rules/: 'First full weekend of December.' 'Begins 1800 UTC Saturday, ends 2359 UTC Sunday.' Modes: 'Only FT4 and FT8 modes are permitted.' Bands: 80, 40, 20, 15 and 10 metres with recommended sub-bands per mode. Exchange: 'Signal report and State (except KH6 and KL7)' for the US and 'Signal report and Province' for Canada; DX send 'Signal report and consecutive serial number, starting with 001 (including KH6 and KL7)'. Operating time: the entire 30-hour period may be worked but only the first 24 hours score.",
+      "note": "THE SPONSOR FIELD IS AN ATTRIBUTION, NOT A QUOTATION. The rules page names no organising body at all -- it credits a wine sponsor for the awards and nothing else -- so 'RTTY Contesting' here is the site that publishes and runs it rather than a society that claims it. Recorded this way for the same reason the OK DX RTTY Contest is: an inferred organiser is better stated than implied. Worth one question to whoever answers the log address.\n\nThe page still shows 2023's dates beside a rule stated in general terms, so the rule is what is encoded. Re-read it nearer December.",
+      "summary": "Thirty hours of FT4 and FT8 on the first December weekend, with twenty-four of them scoring -- the digital answer to the RTTY Roundup.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Amateurs worldwide' contact each other; the exchange has a form for stations outside the US and Canada."
+      }
+    },
+    {
+      "id": "sac-cw",
+      "name": "Scandinavian Activity Contest, CW",
+      "sponsor": "NRAU",
+      "country": "SE",
+      "rules_url": "https://www.sactest.net/blog/rules/",
+      "sponsor_home": "https://www.sactest.net/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3510-3560, 7000-7040, 14000-14060, 21000-21070, 28000-28070 kHz",
+      "exchange": "RS(T) plus a serial number starting at 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "log_deadline_days": 5,
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "sactest.net/blog/rules/, the contest's own rules: 'CW: 16-17 September 2023 (3rd full weekend of September each year)'. 'Starts 12:00 UTC Saturday and ends 11:59 UTC Sunday.' Frequencies: '3510-3560, 7000-7040, 14000-14060, 21000-21070, 28000-28070 kHz' Exchange: 'The contest exchange consists of RS(T) plus serial number sequence starting with 001 (e.g., 59(9) 001).' Organiser: 'The Nordic Radio Amateur Union (NRAU) is the organizer of the contest.' Deadline: 'Cabrillo logs shall be uploaded no later than 5 days after the end of the contest, at 23:59 UTC.'",
+      "note": "FOUND BECAUSE A BLOCKED ORGANISATION STOPPED BEING ASKED WHAT ELSE IT RUNS. NRAU is recorded in this registry as blocked, correctly: nrau.net says its contest information is under revision and publishes no rules for NRAU-Baltic or the Nordic Activity Contests. But NRAU also organises this, its flagship, and it publishes complete rules at a domain of its own. SAC appeared nowhere in the registry at all until the 2026-08-21 gap audit.\n\nTHE PAGE IS HEADED 2023 AND THE RULE IS STATED AS STANDING. The recurrence sentences say 'each year', which is the form this catalog trusts -- the same form ARRL's generic calendar uses -- and they reproduce that page's own 2023 dates. Re-read when NRAU publishes a newer edition.",
+      "summary": "Twenty-four hours working Scandinavia on CW, the Nordic societies' own contest and one of the oldest in Europe.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Everyone may enter; Scandinavian stations are the ones being worked and are what the scoring is built around."
+      }
+    },
+    {
+      "id": "sac-ssb",
+      "name": "Scandinavian Activity Contest, SSB",
+      "sponsor": "NRAU",
+      "country": "SE",
+      "rules_url": "https://www.sactest.net/blog/rules/",
+      "sponsor_home": "https://www.sactest.net/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3600-3650, 3700-3800, 7060-7100, 7130-7200, 14125-14300, 21151-21450, 28320-29000 kHz",
+      "exchange": "RS(T) plus a serial number starting at 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "log_deadline_days": 5,
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "sactest.net/blog/rules/, the contest's own rules: 'SSB: 14-15 October 2023 (2nd full weekend of October each year)'. 'Starts 12:00 UTC Saturday and ends 11:59 UTC Sunday.' Frequencies: '3600-3650, 3700-3800, 7060-7100, 7130-7200, 14125-14300, 21151-21450, 28320-29000 kHz' Exchange: 'The contest exchange consists of RS(T) plus serial number sequence starting with 001 (e.g., 59(9) 001).' Organiser: 'The Nordic Radio Amateur Union (NRAU) is the organizer of the contest.' Deadline: 'Cabrillo logs shall be uploaded no later than 5 days after the end of the contest, at 23:59 UTC.'",
+      "note": "FOUND BECAUSE A BLOCKED ORGANISATION STOPPED BEING ASKED WHAT ELSE IT RUNS. NRAU is recorded in this registry as blocked, correctly: nrau.net says its contest information is under revision and publishes no rules for NRAU-Baltic or the Nordic Activity Contests. But NRAU also organises this, its flagship, and it publishes complete rules at a domain of its own. SAC appeared nowhere in the registry at all until the 2026-08-21 gap audit.\n\nTHE PAGE IS HEADED 2023 AND THE RULE IS STATED AS STANDING. The recurrence sentences say 'each year', which is the form this catalog trusts -- the same form ARRL's generic calendar uses -- and they reproduce that page's own 2023 dates. Re-read when NRAU publishes a newer edition.",
+      "summary": "Twenty-four hours working Scandinavia on SSB, the Nordic societies' own contest and one of the oldest in Europe.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Everyone may enter; Scandinavian stations are the ones being worked and are what the scoring is built around."
+      }
+    },
+    {
+      "id": "jidx-cw",
+      "name": "Japan International DX Contest, CW",
+      "sponsor": "JIDX Contest Committee",
+      "country": "JP",
+      "rules_url": "https://jidx.org/jidxrule-e.html",
+      "sponsor_home": "https://jidx.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "1.8, 3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "Japanese stations send RST and their prefecture number, 01 to 50. Everyone else sends RST and their CQ zone.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1300"
+      },
+      "log_deadline_days": 30,
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "jidx.org/jidxrule-e.html, the JIDX Contest Committee's own English rules: 'CW Start Sat. 0700 -Sun. 1300UTC 2nd full weekend of April'. Bands: '1.8/3.5/7/14/21/28MHz'. Exchange: 'JAs : RS(T) + Prefecture number(01 to 50)' and 'Others: RS(T) + CQ Zone number'. Deadline: 'No later than ONE month after the end of contest.'",
+      "note": "THE TWO LEGS ARE SIX MONTHS APART AND SHARE EVERYTHING ELSE -- same hours, same bands, same exchange, same second-full-weekend rule. CW runs in April and phone in November, which is the only reason these are two records.\n\nThirty hours rather than a round twenty-four: 0700 Saturday to 1300 Sunday.",
+      "summary": "Thirty hours of CW into Japan, with the 47 prefectures as multipliers -- the main event for working JA from anywhere.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The exchange has a form for stations outside Japan, which is who the contest is aimed at."
+      }
+    },
+    {
+      "id": "jidx-phone",
+      "name": "Japan International DX Contest, Phone",
+      "sponsor": "JIDX Contest Committee",
+      "country": "JP",
+      "rules_url": "https://jidx.org/jidxrule-e.html",
+      "sponsor_home": "https://jidx.org/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "1.8, 3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "Japanese stations send RST and their prefecture number, 01 to 50. Everyone else sends RST and their CQ zone.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 11,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1300"
+      },
+      "log_deadline_days": 30,
+      "verified": true,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "jidx.org/jidxrule-e.html, the JIDX Contest Committee's own English rules: 'Phone Start Sat. 0700 -Sun. 1300UTC 2nd full weekend of November'. Bands: '1.8/3.5/7/14/21/28MHz'. Exchange: 'JAs : RS(T) + Prefecture number(01 to 50)' and 'Others: RS(T) + CQ Zone number'. Deadline: 'No later than ONE month after the end of contest.'",
+      "note": "THE TWO LEGS ARE SIX MONTHS APART AND SHARE EVERYTHING ELSE -- same hours, same bands, same exchange, same second-full-weekend rule. CW runs in April and phone in November, which is the only reason these are two records.\n\nThirty hours rather than a round twenty-four: 0700 Saturday to 1300 Sunday.",
+      "summary": "Thirty hours of Phone into Japan, with the 47 prefectures as multipliers -- the main event for working JA from anywhere.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "The exchange has a form for stations outside Japan, which is who the contest is aimed at."
+      }
+    },
+    {
+      "id": "arrl-kids-day-jan",
+      "name": "ARRL Kids Day (January)",
+      "sponsor": "ARRL",
+      "country": "US",
+      "rules_url": "http://www.arrl.org/kids-day",
+      "sponsor_home": "http://www.arrl.org/contest-calendar",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "17m",
+        "15m",
+        "12m",
+        "10m"
+      ],
+      "bands_note": "Suggested frequencies on each band, for example 28.350-28.400 MHz on 10 m. Local repeaters may also be used with the owner's permission.",
+      "exchange": "Name, age, location and favourite colour.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 1,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "arrl.org/kids-day, ARRL's own page: 'Generally the first Saturday in January, and the third Saturday in June.' 'Kids Day always runs from 1800 UTC through 2359 UTC.' Exchange: 'Name, age, location and favorite color.' Call: 'CQ Kids Day'. Bands listed with suggested frequencies, and local repeaters permitted with permission.",
+      "note": "UNVERIFIED ON PURPOSE, AND THE HEDGE IS ARRL'S OWN. Their page says 'GENERALLY the first Saturday in January' -- and ARRL's Generic Contest Calendar, which states every other ARRL recurrence flatly, lists only the June running and gives it as 'Third Saturday in June' with no hedge at all. So the January date is stated once, softly, in one place. The record carries the hedge as a hedge rather than promoting it to a rule.\n\nThe catalog held the June running from the first seeding pass and never had this one, from a sponsor with 21 encoded records -- which is the gap audit's second finding in miniature: the bias was not only across sponsors but WITHIN them.",
+      "summary": "Six hours on a January Saturday for getting young operators on the air; you exchange a name, an age and a favourite colour.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "An operating event rather than a contest; anyone may take part."
+      }
+    },
+    {
+      "id": "stew-perry",
+      "name": "Stew Perry Topband Challenge",
+      "sponsor": "Boring Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://www.kkn.net/stew/stew_rules.html",
+      "sponsor_home": "https://www.kkn.net/stew/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m"
+      ],
+      "bands_note": "160 metres only.",
+      "exchange": "A four-character grid square, for example CN85.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-14",
+            "2026-06-20",
+            "2026-10-17",
+            "2026-12-26"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1459"
+      },
+      "log_deadline_days": 14,
+      "verified": false,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "kkn.net/stew/stew_rules.html, the Boring Amateur Radio Club's own rules. Four runnings a year, each stated as a date rather than a rule: March 14, June 20, October 17 and December 26. Each runs '1500z for 24 hours' on '160 meters CW only', with a 'Four character grid square (i.e. CN85)' as the exchange and logs due 'within 14 days of the contest'.",
+      "note": "MANUAL, BECAUSE THE CLUB PUBLISHES DATES AND NOT A RULE. All four 2026 runnings fall on a Saturday, but no single ordinal describes them -- March's is the second Saturday, June's the third, October's the third and December's the fourth. The record holds exactly what the club published and produces nothing for 2027 until somebody reads their next list, which is the same treatment the NCJ Sprints get and for the same reason.\n\nMarked unverified because ONE year's dates cannot confirm a pattern that does not exist. It becomes verified when a second year's list is read and the record still only claims what was printed.\n\nThe grid-square exchange is the point of the contest: scoring is by distance, so a short haul into a rare square can outscore a long one.",
+      "summary": "Twenty-four hours on top band, four times a year, scored by distance between grid squares rather than by contacts.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "No entry restriction is stated; the club runs it as an open event on 160 metres."
+      }
+    },
+    {
+      "id": "cwops-cw-open",
+      "name": "CWops CW Open",
+      "sponsor": "CWops",
+      "country": "US",
+      "rules_url": "https://cwops.org/cwops-tests/cw-open/",
+      "sponsor_home": "https://cwops.org/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "160, 80, 40, 20, 15 and 10 metres.",
+      "exchange": "A serial number and your name.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-05"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "0000"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "0359"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1559"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "2000"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": false,
+      "rules_url_checked": "2026-08-21",
+      "source_note": "cwops.org/cwops-tests/cw-open/, CWops' own page: 'The 2026 CW Open Will Be Held On September 5, 2026.' Three separate competitions on the one day, 0000-0359z, 1200-1559z and 2000-2359z. Bands: '160, 80, 40, 20, 15, 10 meters'. Exchange: 'Sequential Serial Number and Name'. Deadline: 'All logs for CWO 2026 must be submitted by the log deadline: September 27, 2026.'",
+      "note": "THREE SEPARATE COMPETITIONS ON ONE DAY, not one twelve-hour contest with breaks -- CWops scores each session on its own, which is why this record uses the sessions array rather than a single window.\n\nMANUAL AND UNVERIFIED BECAUSE ONE PUBLISHED DATE IS NOT A RULE. September 5 2026 is the first Saturday of September, and that is an observation about one year rather than a recurrence CWops states. Fitting an ordinal to a single date is the mistake this catalog spends most of its effort not making. A second year's announcement settles it.",
+      "summary": "Three four-hour CW sprints in one September day, scored separately, with a serial number and your name as the exchange.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Open to all; CWops membership is not required to enter."
+      }
     }
   ]
 }

@@ -274,6 +274,7 @@ REGISTRY_TIERS = [
     "tier_2_european_societies",
     "tier_3_other_regions",
     "tier_4_specialty_clubs",
+    "tier_5_qso_parties",
 ]
 
 
@@ -3422,22 +3423,41 @@ def test_rsgb_top_band_records_differ_in_the_ways_rsgb_states(catalog):
     assert expand(nov, 2026)[0].start.date() == date(2026, 11, 21)
 
 
-def test_nrau_is_blocked_at_source_and_encodes_nothing(catalog):
+def test_nrau_is_blocked_for_the_right_contests_and_not_for_sac(catalog):
     """
-    nrau.net says all NRAU contest information is under revision, and the NAC
-    pages state no modes and link no rules. A record built from them could not
-    declare a mode, and a mode-less record is dropped silently by every mode
-    filter -- worse than not shipping it. So NRAU is recorded as blocked with
-    nothing encoded, and what was found is written down in data/sources.md.
+    This test used to assert NRAU encoded NOTHING, and it was half right.
+
+    nrau.net does say its contest information is under revision, and it does
+    publish nothing usable for NRAU-Baltic or the Nordic Activity Contests --
+    that half stands and those are still unencoded. What it got wrong is the
+    leap from "this organisation's site is blocked" to "this organisation runs
+    nothing we can read". NRAU also organises the Scandinavian Activity Contest,
+    which publishes complete rules with standing recurrence wording at a domain
+    of its own, and SAC appeared nowhere in the registry at all until the
+    2026-08-21 gap audit.
+
+    So the assertion is now the corrected shape: SAC is encoded, the blocked
+    contests are still absent, and the entry says both.
     """
-    assert not [c for c in catalog if c["sponsor"] == "NRAU"]
     reg = load_registry()
-    nrau = next(
-        o for o in reg["tier_2_european_societies"] if o["org"] == "NRAU"
-    )
-    assert nrau["status"] == "blocked"
-    assert nrau["encoded"] == 0 and nrau["catalog_sponsors"] == []
-    assert "NRAU" in reg["coverage"]["thin"]["orgs_blocked_at_source"]
+    nrau = next(o for o in reg["tier_2_european_societies"] if o["org"] == "NRAU")
+
+    # The flagship is in, both legs, from the contest's own site.
+    sac = sorted(c["id"] for c in catalog if c["sponsor"] == "NRAU")
+    assert sac == ["sac-cw", "sac-ssb"]
+    for cid in sac:
+        c = by_id(catalog, cid)
+        assert "sactest.net" in c["rules_url"], cid
+        assert c["verified"], cid
+
+    # ...and the part that really is blocked is still empty. No NAC, no Baltic.
+    names = " ".join(c["name"].lower() for c in catalog)
+    assert "nordic activity" not in names
+    assert "nrau-baltic" not in names
+
+    assert nrau["status"] == "partial"
+    assert nrau["catalog_sponsors"] == ["NRAU"]
+    assert "under revision" in nrau["notes"]
 
 
 # ---------------------------------------------------------------------------
@@ -3845,9 +3865,9 @@ MANUAL_REVIEW_DEADLINE = date(2026, 12, 1)
 # cliff moved, ids tell you which contest fell off it.
 EXPIRE_AFTER_CATALOG_YEAR = {
     "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
-    "arsi-vu-rookie", "erau-es-ll-kv", "lrmd-wal", "ncj-sprint-cw",
-    "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
-    "rsgb-ft4-activity-day", "sarl-top-band-qso", "uarl-champ-cw",
+    "arsi-vu-rookie", "cwops-cw-open", "erau-es-ll-kv", "lrmd-wal",
+    "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+    "rsgb-ft4-activity-day", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
     "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
     "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
     "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",

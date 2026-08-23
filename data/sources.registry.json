@@ -56,11 +56,11 @@
       "catalog_sponsors": [
         "ARRL"
       ],
-      "encoded": 20,
+      "encoded": 21,
       "encoded_verified": 18,
       "estimated_total": 21,
       "status": "complete",
-      "notes": "Publishes a generic recurrence calendar in plain language, plus per-contest pages. Bands read at source 2026-08-16. Two records stay verified:false -- January VHF and 222 MHz And Up, whose recurrence was taken from the generic calendar rather than the contest's own page."
+      "notes": "Publishes a generic recurrence calendar in plain language, plus per-contest pages. Bands read at source 2026-08-16. Two records stay verified:false -- January VHF and 222 MHz And Up, whose recurrence was taken from the generic calendar rather than the contest's own page. KIDS DAY JANUARY ADDED 2026-08-23, unverified, and the hedge is ARRL's own: their page says 'GENERALLY the first Saturday in January' while the Generic Contest Calendar lists only the June running. The catalog had held June alone since the first seeding pass -- a gap inside a sponsor with 21 records, which is the gap audit's finding about bias WITHIN sponsors rather than only across them."
     },
     {
       "org": "CQ Magazine",
@@ -173,6 +173,20 @@
       "estimated_total": 1,
       "status": "complete",
       "notes": "ADDED 2026-08-21 from the gap audit, and the reason it was missing is the point of that audit: WWROF appeared NOWHERE in this registry, so the World Wide Digi DX Contest was never a candidate for verification. It is a major FT4/FT8 contest running since 2019 and squarely in the modes this catalog claims to cover. The 221-of-229 verification rate measured the accuracy of what had been listed and said nothing about what had never been listed. Sponsor states the recurrence in words on its front page and keeps per-year rules PDFs, so the rule is checkable against the sponsor's own dates -- 2024, 2026, 2027, 2028 and 2029 all reproduce. WWROF also co-sponsors other events; this entry covers WW Digi only, and estimated_total should be revisited if that changes."
+    },
+    {
+      "org": "JIDX Contest Committee",
+      "country": "JP",
+      "url": "https://jidx.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "JIDX Contest Committee"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 2,
+      "status": "complete",
+      "notes": "Both legs encoded 2026-08-23 from jidx.org's own English rules page, which states one rule covering both: 2nd full weekend of April for CW and of November for Phone, 0700 Saturday to 1300 Sunday, 1.8 through 28 MHz, prefecture number from JA and CQ zone from everyone else. Separate from JARL, which has its own entry and its own contests -- JIDX is run by its own committee."
     }
   ],
   "tier_2_european_societies": [
@@ -418,14 +432,16 @@
     {
       "org": "NRAU",
       "country": "SE",
-      "url": "https://nrau.net/",
+      "url": "https://www.sactest.net/",
       "url_verified": true,
-      "catalog_sponsors": [],
-      "encoded": 0,
-      "encoded_verified": 0,
-      "estimated_total": 3,
-      "status": "blocked",
-      "notes": "BLOCKED at source. nrau.net says 'All NRAU Contest related information is under revision', and no NRAU-Baltic rules are published anywhere on the site. The NAC / Nordic Activity Contest pages give dates and times but state no modes and link no rules, so a record built from them could not declare a mode and would be dropped silently by every mode filter. Nothing encoded; the five NAC recurrence rules and the 19:00-23:00 local-time finding are recorded in data/sources.md for when NRAU republishes. The national societies SSA (SE), NRRL (NO), EDR (DK) and SRAL (FI) are separate work."
+      "catalog_sponsors": [
+        "NRAU"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 5,
+      "status": "partial",
+      "notes": "CORRECTED 2026-08-23, AND THE OLD ENTRY WAS RIGHT ABOUT ITS SCOPE AND WRONG ABOUT THE ORGANISATION. nrau.net really does say 'All NRAU Contest related information is under revision' and really does publish nothing usable for NRAU-Baltic or the Nordic Activity Contests -- that part stands and those three are still unencoded. But NRAU also organises the SCANDINAVIAN ACTIVITY CONTEST, its flagship and one of the oldest in Europe, which publishes complete rules at sactest.net including standing recurrence wording for both legs. SAC appeared NOWHERE in this registry until the gap audit -- not under NRAU, not as an entry of its own, not in anyone's estimated_total. Both legs are now encoded: CW on the 3rd full weekend of September, SSB on the 2nd full weekend of October, 1200Z Saturday to 1159Z Sunday. THE LESSON IS THE GENERALISABLE PART: a blocked organisation stopped being asked what else it runs. CRAC, SRS, FRR and IARC Holyland deserve the same question. BLOCKED at source. nrau.net says 'All NRAU Contest related information is under revision', and no NRAU-Baltic rules are published anywhere on the site. The NAC / Nordic Activity Contest pages give dates and times but state no modes and link no rules, so a record built from them could not declare a mode and would be dropped silently by every mode filter. Nothing encoded; the five NAC recurrence rules and the 19:00-23:00 local-time finding are recorded in data/sources.md for when NRAU republishes. The national societies SSA (SE), NRRL (NO), EDR (DK) and SRAL (FI) are separate work."
     },
     {
       "org": "LRAL / ERAU / LRMD",
@@ -680,11 +696,11 @@
       "catalog_sponsors": [
         "CWops"
       ],
-      "encoded": 1,
+      "encoded": 2,
       "encoded_verified": 1,
       "estimated_total": 3,
       "status": "partial",
-      "notes": "CWT encoded -- weekly, four sessions (Wed 1300Z/1900Z, Thu 0300Z/0700Z). An earlier stub had three and silently dropped ~52 sessions a year; pinned by test now. CW Open not started."
+      "notes": "CWT encoded -- weekly, four sessions (Wed 1300Z/1900Z, Thu 0300Z/0700Z). An earlier stub had three and silently dropped ~52 sessions a year; pinned by test now. CW Open not started. CW OPEN ENCODED 2026-08-23, `manual` and unverified: CWops published 5 September 2026 and no recurrence, and one date is not a rule. Three separately-scored four-hour sessions on the one day, which is what the sessions array is for."
     },
     {
       "org": "AGCW",
@@ -858,21 +874,49 @@
       "country": "US",
       "url": "https://www.kkn.net/stew/",
       "url_verified": false,
-      "catalog_sponsors": [],
-      "encoded": 0,
+      "catalog_sponsors": [
+        "Boring Amateur Radio Club"
+      ],
+      "encoded": 1,
       "encoded_verified": 0,
       "estimated_total": 1,
-      "status": "not-started",
-      "notes": "Topband Challenge -- runs multiple times per year, so it needs either multiple records or a legs array."
+      "status": "partial",
+      "notes": "Topband Challenge -- runs multiple times per year, so it needs either multiple records or a legs array. ENCODED 2026-08-23 as `manual` and unverified. The club publishes four DATES a year and no rule -- March 14, June 20, October 17, December 26 for 2026 -- and no ordinal fits all four, so the record holds exactly those and produces nothing for 2027 until the next list is read. Marked unverified because one year's dates cannot confirm a pattern that does not exist."
+    },
+    {
+      "org": "RTTY Contesting (FT Roundup)",
+      "country": "US",
+      "url": "https://www.rttycontesting.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "RTTY Contesting"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 2,
+      "status": "partial",
+      "notes": "FT Roundup encoded 2026-08-23: first full weekend of December, 1800Z Saturday to 2359Z Sunday, FT4 and FT8 on 80-10m. THE ORGANISER IS AN ATTRIBUTION RATHER THAN A QUOTATION -- the rules page names no society at all, crediting only a wine sponsor for the awards, so 'RTTY Contesting' is the site that publishes and runs it. Same standing as the OK DX RTTY attribution and worth the same question. The site also carries an 'International FT Challenge', unread, which is the 2."
     }
   ],
-  "tier_5_qso_parties": {
-    "status": "not-started",
-    "encoded": 0,
-    "encoded_verified": 0,
+  "tier_5_qso_parties": [
+    {
+      "org": "Florida Contest Group",
+      "country": "US",
+      "url": "https://www.floridaqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Florida Contest Group"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "Florida QSO Party encoded 2026-08-23. Sponsor's own wording is 'Starts the last Saturday of April' -- a last-SATURDAY rule, not last-full-weekend, and the two diverge whenever 30 April is a Saturday (next in 2033). Two sessions with a night between them, 1600Z Sat to 0159Z Sun and 1200Z to 2159Z Sun, which is what the sessions array is for. NO DIGITAL: 'No digital QSOs are allowed in the FQP', which is unusual for a state party and worth knowing before filtering. This is the owner's home state and was already named first under the tier's local_priority, so encoding it alone does not reopen the sequencing argument."
+    }
+  ],
+  "$tier_5_qso_parties_note": {
+    "$comment": "Tier-level context for the QSO parties, kept beside the tier rather than inside an org entry because it is about the TIER's sequencing, not about any one club. Moved here 2026-08-23 when the tier gained its first worked org and had to take the same list shape as the other four.",
     "estimated_total": 50,
-    "catalog_sponsors": [],
-    "notes": "Roughly 45 US state QSO parties plus Canadian provincial parties. Each has its own sponsoring club and site. The State QSO Party Challenge (stateqsoparty.com) indexes them but is itself an aggregator -- use it only to locate sponsors, then source from each sponsor directly. Florida QSO Party is local priority for GCCC. NOTE ON SEQUENCING: this tier is 50 more US contests. The catalog is already 71% North American, so working tier 5 before tiers 2 and 3 would make the imbalance worse, not better.",
     "index_for_discovery_only": "https://www.stateqsoparty.com/",
     "local_priority": [
       {
@@ -905,7 +949,8 @@
         "url": "https://www.tnqp.org/",
         "url_verified": false
       }
-    ]
+    ],
+    "sequencing": "FLORIDA ENCODED 2026-08-23, and deliberately ALONE. It is the owner's home state and this entry already named it first under local_priority, so it is the one record that does not reopen the sequencing argument below. Sponsor's own wording: 'Starts the last Saturday of April' -- a last-SATURDAY rule, not last-full-weekend -- two sessions with a night between them, and NO DIGITAL, which is unusual for a state party and worth knowing before filtering. The other ~45 remain not-started for the reason that follows, which has not changed. Roughly 45 US state QSO parties plus Canadian provincial parties. Each has its own sponsoring club and site. The State QSO Party Challenge (stateqsoparty.com) indexes them but is itself an aggregator -- use it only to locate sponsors, then source from each sponsor directly. Florida QSO Party is local priority for GCCC. NOTE ON SEQUENCING: this tier is 50 more US contests. The catalog is already 71% North American, so working tier 5 before tiers 2 and 3 would make the imbalance worse, not better."
   },
   "region_map": {
     "$comment": "Maps a contest record's `country` to the region used in coverage.by_region. Both engines read this rather than hard-coding a mapping. A country in the catalog that is missing here fails a test.",
@@ -957,23 +1002,23 @@
   "$region_map_note": "OC is not an ISO country code. It is the code for a contest whose sponsor is a multi-national body inside one region -- currently only the Oceania DX Contest Committee, a joint VK/ZL committee. INTL is the same idea a level up, for a sponsor with no region at all. Neither is a country, and neither should be used where a national society owns the contest.",
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
-    "as_of": "2026-08-21",
-    "total_encoded": 230,
-    "total_verified": 222,
+    "as_of": "2026-08-23",
+    "total_encoded": 239,
+    "total_verified": 228,
     "total_retired": 8,
     "by_tier": {
       "tier_1_major_international": {
-        "orgs": 9,
-        "orgs_worked": 9,
-        "encoded": 65,
-        "verified": 61,
+        "orgs": 10,
+        "orgs_worked": 10,
+        "encoded": 68,
+        "verified": 63,
         "retired": 0
       },
       "tier_2_european_societies": {
         "orgs": 21,
-        "orgs_worked": 20,
-        "encoded": 62,
-        "verified": 61,
+        "orgs_worked": 21,
+        "encoded": 64,
+        "verified": 63,
         "retired": 0
       },
       "tier_3_other_regions": {
@@ -984,22 +1029,29 @@
         "retired": 0
       },
       "tier_4_specialty_clubs": {
-        "orgs": 15,
-        "orgs_worked": 13,
-        "encoded": 51,
-        "verified": 50,
+        "orgs": 16,
+        "orgs_worked": 15,
+        "encoded": 54,
+        "verified": 51,
         "retired": 8
+      },
+      "tier_5_qso_parties": {
+        "orgs": 1,
+        "orgs_worked": 1,
+        "encoded": 1,
+        "verified": 1,
+        "retired": 0
       }
     },
     "by_region": {
       "Europe": {
-        "encoded": 97,
-        "verified": 94,
+        "encoded": 99,
+        "verified": 96,
         "retired": 0
       },
       "North America": {
-        "encoded": 62,
-        "verified": 60,
+        "encoded": 67,
+        "verified": 62,
         "retired": 8
       },
       "Africa": {
@@ -1008,8 +1060,8 @@
         "retired": 0
       },
       "Asia": {
-        "encoded": 15,
-        "verified": 13,
+        "encoded": 17,
+        "verified": 15,
         "retired": 0
       },
       "Oceania": {
@@ -1030,8 +1082,8 @@
     },
     "by_country": {
       "US": {
-        "encoded": 60,
-        "verified": 58,
+        "encoded": 65,
+        "verified": 60,
         "retired": 8
       },
       "ZA": {
@@ -1055,8 +1107,8 @@
         "retired": 0
       },
       "JP": {
-        "encoded": 8,
-        "verified": 7,
+        "encoded": 10,
+        "verified": 9,
         "retired": 0
       },
       "AU": {
@@ -1089,6 +1141,11 @@
         "verified": 5,
         "retired": 0
       },
+      "SE": {
+        "encoded": 4,
+        "verified": 4,
+        "retired": 0
+      },
       "FR": {
         "encoded": 4,
         "verified": 4,
@@ -1117,11 +1174,6 @@
       "PT": {
         "encoded": 3,
         "verified": 3,
-        "retired": 0
-      },
-      "SE": {
-        "encoded": 2,
-        "verified": 2,
         "retired": 0
       },
       "CA": {
@@ -1219,13 +1271,12 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 42.2,
+      "largest_region_share_pct": 41.4,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "CRSA",
         "GACW",
         "IARC",
-        "NRAU",
         "QRP ARCI"
       ]
     },
@@ -1233,10 +1284,13 @@
       "agcw-zap-merit",
       "arrl-222-and-up",
       "arrl-january-vhf",
+      "arrl-kids-day-jan",
+      "cwops-cw-open",
       "irts-80m-counties",
       "jarl-new-year-qso-party",
       "rsgb-ft4-activity-day",
       "sarl-top-band-qso",
+      "stew-perry",
       "trac-ta-vhf-uhf"
     ],
     "sponsors_missing_from_registry": []

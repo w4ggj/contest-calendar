@@ -35,11 +35,12 @@ TIERS = [
     "tier_2_european_societies",
     "tier_3_other_regions",
     "tier_4_specialty_clubs",
+    "tier_5_qso_parties",
 ]
 
 
 def org_entries(reg: dict):
-    """Every org entry across the four list-shaped tiers, with its tier key."""
+    """Every org entry across the list-shaped tiers, with its tier key."""
     for tier in TIERS:
         for org in reg[tier]:
             yield tier, org
@@ -182,11 +183,10 @@ def render(coverage: dict, reg: dict) -> str:
             f"    {tier:36s} {row['orgs']:4d}  {row['orgs_worked']:6d} "
             f"{row['encoded']:4d} {row['verified']:4d}"
         )
-    t5 = reg["tier_5_qso_parties"]
-    out.append(
-        f"    {'tier_5_qso_parties':36s} {'--':>4s}  {'--':>6s} "
-        f"{t5['encoded']:4d} {t5['encoded_verified']:4d}"
-    )
+    # tier_5 used to be appended by hand here with "--" for its org counts,
+    # because it was a placeholder dict with no orgs in it. It became a real
+    # list-shaped tier on 2026-08-23 when the Florida Contest Group was encoded,
+    # so it comes through the loop above like the other four.
     out.append("")
 
     out.append("  By region                        enc   ver   share")

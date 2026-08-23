@@ -293,6 +293,7 @@ const REGISTRY_TIERS = [
   "tier_2_european_societies",
   "tier_3_other_regions",
   "tier_4_specialty_clubs",
+  "tier_5_qso_parties",
 ];
 
 /** sponsor string -> "tier|org". The registry declares this join. */
@@ -3370,19 +3371,34 @@ test("the RSGB top band records differ in the ways RSGB states", () => {
   expect(isoDate(expand(nov, 2026)[0].start!)).toBe(D(2026, 11, 21));
 });
 
-test("NRAU is blocked at source and encodes nothing", () => {
-  // nrau.net says all NRAU contest information is under revision, and the NAC
-  // pages state no modes and link no rules. A record built from them could not
-  // declare a mode, and a mode-less record is dropped silently by every mode
-  // filter -- worse than not shipping it. So NRAU is recorded as blocked with
-  // nothing encoded, and what was found is written down in data/sources.md.
-  expect(catalog.filter((c) => c.sponsor === "NRAU")).toEqual([]);
+test("NRAU is blocked for the right contests and not for SAC", () => {
+  // This used to assert NRAU encoded NOTHING, and it was half right. nrau.net
+  // does say its contest information is under revision and does publish nothing
+  // usable for NRAU-Baltic or the Nordic Activity Contests. What it got wrong is
+  // the leap from "this organisation's site is blocked" to "this organisation
+  // runs nothing we can read": NRAU also organises the Scandinavian Activity
+  // Contest, which publishes complete rules at a domain of its own, and SAC
+  // appeared nowhere in the registry until the 2026-08-21 gap audit.
   const reg = loadRegistry() as Record<string, any>;
-  const nrau = reg.tier_2_european_societies.find((o: any) => o.org === "NRAU");
-  expect(nrau.status).toBe("blocked");
-  expect(nrau.encoded).toBe(0);
-  expect(nrau.catalog_sponsors).toEqual([]);
-  expect(reg.coverage.thin.orgs_blocked_at_source).toContain("NRAU");
+  const nrau = reg.tier_2_european_societies.find(
+    (o: { org: string }) => o.org === "NRAU",
+  );
+
+  const sac = catalog.filter((c) => c.sponsor === "NRAU").map((c) => c.id).sort();
+  expect(sac).toEqual(["sac-cw", "sac-ssb"]);
+  for (const id of sac) {
+    expect(byId(id).rules_url, id).toContain("sactest.net");
+    expect(byId(id).verified, id).toBeTruthy();
+  }
+
+  // ...and the part that really is blocked is still empty.
+  const names = catalog.map((c) => c.name.toLowerCase()).join(" ");
+  expect(names).not.toContain("nordic activity");
+  expect(names).not.toContain("nrau-baltic");
+
+  expect(nrau.status).toBe("partial");
+  expect(nrau.catalog_sponsors).toEqual(["NRAU"]);
+  expect(nrau.notes).toContain("under revision");
 });
 
 // ---------------------------------------------------------------------------
@@ -3778,9 +3794,9 @@ const MANUAL_REVIEW_DEADLINE = Date.UTC(2026, 11, 1); // 1 December 2026
 // cliff moved, ids tell you which contest fell off it.
 const EXPIRE_AFTER_CATALOG_YEAR = [
   "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
-  "arsi-vu-rookie", "erau-es-ll-kv", "lrmd-wal", "ncj-sprint-cw",
-  "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
-  "rsgb-ft4-activity-day", "sarl-top-band-qso", "uarl-champ-cw",
+  "arsi-vu-rookie", "cwops-cw-open", "erau-es-ll-kv", "lrmd-wal",
+  "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+  "rsgb-ft4-activity-day", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
   "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
   "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
   "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
