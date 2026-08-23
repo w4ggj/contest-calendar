@@ -52,13 +52,23 @@ function days(d: DXpedition): number {
 function card(d: DXpedition, nowMs: number): string {
   const ended = hasEnded(d, nowMs);
   const live = !ended && spanOf(d).from <= nowMs;
+  // Three precisions, three sentences. The first version branched on
+  // `exact` vs everything-else, which sent an APPROXIMATE window down the
+  // month path and printed "August 2026 - dates not yet published" over a
+  // record that was on the air at that moment and had a window in it.
+  const span =
+    `<time datetime="${d.start}">${esc(human(d.start))}</time> → ` +
+    `<time datetime="${d.end}">${esc(human(d.end))}</time>` +
+    `<span class="dot"> · </span>${days(d)} days`;
   const when =
     d.precision === "exact"
-      ? `<time datetime="${d.start}">${esc(human(d.start))}</time> → ` +
-        `<time datetime="${d.end}">${esc(human(d.end))}</time>` +
-        `<span class="dot"> · </span>${days(d)} days`
-      : `${esc(MONTHS[Number(d.start.slice(5, 7)) - 1])} ${esc(d.start.slice(0, 4))}` +
-        `<span class="dx-prov">dates not yet published</span>`;
+      ? span
+      : d.precision === "approximate"
+        ? span +
+          `<span class="dx-prov">approximate — the team published a departure ` +
+          `and a duration, not dates</span>`
+        : `${esc(MONTHS[Number(d.start.slice(5, 7)) - 1])} ${esc(d.start.slice(0, 4))}` +
+          `<span class="dx-prov">dates not yet published</span>`;
 
   return (
     `<article class="dx-card${ended ? " over" : ""}" id="${esc(d.id)}">` +

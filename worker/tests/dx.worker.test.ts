@@ -187,6 +187,15 @@ describe("DXpeditions", () => {
     const grid = await page("/month?m=2026-08");
     expect(grid).toContain("RI1FJL");
     expect(grid).toContain("approximate dates");
+
+    // ...and /dx shows its WINDOW, not the month-precision wording. The first
+    // version branched on exact-vs-everything-else and printed "dates not yet
+    // published" over a record that was on the air with a window in it.
+    const dx = await page("/dx");
+    const card = /id="ri1fjl-2026"[\s\S]*?<\/article>/.exec(dx)![0];
+    expect(card).toContain("Aug 2026");
+    expect(card).not.toContain("dates not yet published");
+    expect(card).toContain("approximate");
   });
 
   it("has a coherent span for every record", () => {
