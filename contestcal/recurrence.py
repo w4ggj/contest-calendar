@@ -335,8 +335,17 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
             anchors.extend(resolve_anchors(sub, year))
     elif kind == "manual":
         # Sponsor sets dates annually with no derivable rule (e.g. ARRL EME).
+        #
+        # An entry is a date string, OR an object carrying that date's own
+        # times. The second form exists because some series move their clock
+        # mid-run: RSGB's 3.5 MHz Autumn Series is 1900-2030 in September and
+        # October and 2000-2130 in November, and REP's FT4 series does the same.
+        # Splitting those into one record per clock time would fragment a series
+        # the sponsor treats as one; storing a single time would put a contest on
+        # the calendar at an hour it does not run.
         anchors = [
-            date(*map(int, s.split("-"))) for s in rule.get("dates", {}).get(str(year), [])
+            date(*map(int, (e if isinstance(e, str) else e["date"]).split("-")))
+            for e in rule.get("dates", {}).get(str(year), [])
         ]
     else:
         raise ValueError(f"unknown rule type: {kind!r}")
@@ -542,6 +551,30 @@ def expand(
         {"start": contest["start"], "end": contest["end"]}
     ]
 
+    # Per-date times, for a `manual` series whose clock moves mid-run. Keyed by
+    # anchor and aligned positionally so that exclude_dates shifting an anchor
+    # cannot silently detach a date from its own times.
+    rule = contest["recurrence"]
+    per_date: list[list[dict] | None] = [None] * len(anchors)
+    if rule.get("type") == "manual":
+        entries = rule.get("dates", {}).get(str(year), [])
+        for i, entry in enumerate(entries):
+            if isinstance(entry, dict) and ("start" in entry or "end" in entry):
+                per_date[i] = [{
+                    "start": {
+                        "day_offset": entry.get(
+                            "start_day_offset", contest["start"]["day_offset"]
+                        ),
+                        "time": entry.get("start", contest["start"]["time"]),
+                    },
+                    "end": {
+                        "day_offset": entry.get(
+                            "end_day_offset", contest["end"]["day_offset"]
+                        ),
+                        "time": entry.get("end", contest["end"]["time"]),
+                    },
+                }]
+
     elig = eligibility_for(contest, my_entity)
 
     tz_name = contest.get("timezone")
@@ -553,8 +586,8 @@ def expand(
         )
 
     out: list[Occurrence] = []
-    for anchor in anchors:
-        for sess in sessions:
+    for i, anchor in enumerate(anchors):
+        for sess in (per_date[i] or sessions):
             start_wall = _wall_datetime(anchor, sess["start"])
             end_wall = _wall_datetime(anchor, sess["end"])
 

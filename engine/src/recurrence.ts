@@ -151,6 +151,20 @@ export interface Eligibility {
   note?: string;
 }
 
+/**
+ * One entry in a `manual` rule's date list, when it carries its own times.
+ *
+ * `start`/`end` are "HHMM" strings, and the day offsets default to the record's
+ * own -- an override changes the clock, not the shape of the running.
+ */
+export interface ManualDate {
+  date: string;
+  start?: string;
+  end?: string;
+  start_day_offset?: number;
+  end_day_offset?: number;
+}
+
 export interface Contest {
   id: string;
   name: string;
@@ -450,9 +464,18 @@ export function resolveAnchors(rule: RecurrenceRule, year: number): Date[] {
     for (const sub of rule.rules!) anchors.push(...resolveAnchors(sub, year));
   } else if (kind === "manual") {
     // Sponsor sets dates annually with no derivable rule (e.g. ARRL EME).
-    const listed = rule.dates?.[String(year)] ?? [];
-    anchors = listed.map((s) => {
-      const [y, m, d] = s.split("-").map(Number);
+    //
+    // An entry is a date string, OR an object carrying that date's own times.
+    // The second form exists because some series move their clock mid-run:
+    // RSGB's 3.5 MHz Autumn Series is 1900-2030 in September and October and
+    // 2000-2130 in November, and REP's FT4 series does the same. Splitting
+    // those into one record per clock time would fragment a series the sponsor
+    // treats as one; storing a single time would put a contest on the calendar
+    // at an hour it does not run.
+    const listed = (rule.dates?.[String(year)] ?? []) as (string | ManualDate)[];
+    anchors = listed.map((e) => {
+      const iso = typeof e === "string" ? e : e.date;
+      const [y, m, d] = iso.split("-").map(Number);
       return makeDate(y, m, d);
     });
   } else {
@@ -768,6 +791,29 @@ export function expand(
     { start: contest.start, end: contest.end },
   ];
 
+  // Per-date times, for a `manual` series whose clock moves mid-run. Aligned
+  // positionally with `anchors` so that exclude_dates shifting an anchor cannot
+  // silently detach a date from its own times.
+  const perDate: (Session[] | null)[] = anchors.map(() => null);
+  if (contest.recurrence.type === "manual") {
+    const entries = (contest.recurrence.dates?.[String(year)] ?? []) as
+      (string | ManualDate)[];
+    entries.forEach((entry, i) => {
+      if (typeof entry === "string") return;
+      if (entry.start === undefined && entry.end === undefined) return;
+      perDate[i] = [{
+        start: {
+          day_offset: entry.start_day_offset ?? contest.start.day_offset,
+          time: entry.start ?? contest.start.time,
+        },
+        end: {
+          day_offset: entry.end_day_offset ?? contest.end.day_offset,
+          time: entry.end ?? contest.end.time,
+        },
+      }];
+    });
+  }
+
   const elig = eligibilityFor(contest, myEntity);
 
   const tzName = contest.timezone;
@@ -780,8 +826,9 @@ export function expand(
   }
 
   const out: Occurrence[] = [];
-  for (const anchor of anchors) {
-    for (const sess of sessions) {
+  for (let ai = 0; ai < anchors.length; ai++) {
+    const anchor = anchors[ai];
+    for (const sess of (perDate[ai] ?? sessions)) {
       const startWall = wallDatetime(anchor, sess.start);
       const endWall = wallDatetime(anchor, sess.end);
 

@@ -3796,11 +3796,12 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
   "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
   "arsi-vu-rookie", "cwops-cw-open", "erau-es-ll-kv", "lrmd-wal",
   "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+  "rsgb-autumn-cw", "rsgb-autumn-data", "rsgb-autumn-ssb",
   "rsgb-ft4-activity-day", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
   "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
   "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
-  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
-  "uba-spring-80m-ssb", "ure-eartty",
+  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb",
+  "ure-eartty",
 ].sort();
 
 // Records that already produce nothing this year WITHOUT active_until to say
@@ -3867,6 +3868,63 @@ test("manual records get reviewed before the year turns", () => {
   ).toBeLessThan(MANUAL_REVIEW_DEADLINE);
 });
 
+
+  test("a manual date may carry its own times", () => {
+    // The schema question NEEDS_A_HUMAN carried since the REP FT4 series,
+    // settled by RSGB's 3.5 MHz Autumn Series hitting the same wall: it runs
+    // 1900-2030 UTC in September and October and 2000-2130 in November, and
+    // every leg sits on one side or the other. One stored time would put two of
+    // three runnings on the calendar an hour wrong; a record per clock time
+    // means six records for a nine-leg series the sponsor treats as one.
+    const hhmm = (d: Date) =>
+      `${String(d.getUTCHours()).padStart(2, "0")}${String(d.getUTCMinutes()).padStart(2, "0")}`;
+    const legs = (id: string) =>
+      expand(byId(id), 2026).map((o) => [isoDate(o.start!), hhmm(o.start!), hhmm(o.end!)]);
+
+    expect(legs("rsgb-autumn-cw")).toEqual([
+      [D(2026, 9, 16), "1900", "2030"],
+      [D(2026, 10, 5), "1900", "2030"],
+      [D(2026, 11, 26), "2000", "2130"],   // <- November moves the clock
+    ]);
+    expect(legs("rsgb-autumn-ssb").at(-1)).toEqual([D(2026, 11, 11), "2000", "2130"]);
+    expect(legs("rsgb-autumn-data").at(-1)).toEqual([D(2026, 11, 2), "2000", "2130"]);
+
+    // Non-vacuous: the earlier legs really do fall back to the record's own
+    // default, so this is not asserting every leg got the override.
+    for (const id of ["rsgb-autumn-cw", "rsgb-autumn-ssb", "rsgb-autumn-data"]) {
+      expect(legs(id)[0][1], id).toBe("1900");
+      expect(byId(id).start.time, id).toBe("1900");
+    }
+  });
+
+  test("a plain manual date still uses the record's own times", () => {
+    // The override is opt-in per entry. Every other manual record lists bare
+    // strings and must be untouched by the feature existing, which is the
+    // failure a new branch in expand() would most easily cause.
+    const plain = catalog.filter(
+      (c) =>
+        c.recurrence.type === "manual" &&
+        !c.timezone &&
+        !c.local_rolling &&
+        Object.values(c.recurrence.dates ?? {}).every((lst) =>
+          (lst as unknown[]).every((e) => typeof e === "string"),
+        ),
+    );
+    expect(plain.length).toBeGreaterThan(20);
+
+    for (const c of plain) {
+      const want = new Set(
+        (c.sessions ?? [{ start: c.start, end: c.end }]).map((s) => s.start.time),
+      );
+      for (const year of Object.keys(c.recurrence.dates ?? {})) {
+        for (const o of expand(c, Number(year))) {
+          const t = `${String(o.start!.getUTCHours()).padStart(2, "0")}`
+            + `${String(o.start!.getUTCMinutes()).padStart(2, "0")}`;
+          expect(want.has(t), `${c.id} at ${t}`).toBe(true);
+        }
+      }
+    }
+  });
 
   test("verified means the evidence is in the record", () => {
     // HANDOVER.md defines verification as recording the rule IN THE SPONSOR'S

@@ -12884,6 +12884,160 @@
         "verified": true,
         "note": "Two entry categories and everyone fits one: stations in EI, G, GD, GI, GJ, GM, GU and GW enter as UK/EI, and 'any other station' as DX."
       }
+    },
+    {
+      "id": "rsgb-autumn-cw",
+      "name": "RSGB 3.5 MHz Autumn Series, CW",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rautumn.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rautumn.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3510-3565 kHz at any speed, with 3565-3570 kHz reserved for 15 wpm maximum.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-16",
+            "2026-10-05",
+            {
+              "date": "2026-11-26",
+              "start": "2000",
+              "end": "2130"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "log_deadline_days": 3,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/rautumn.shtml, the RSGB Contest Committee's own rules for the 'RSGB 3.5MHz Autumn Series Contests'. Dates and modes as printed: 7 September SSB, 16 September CW, 24 September Data, 5 October CW, 14 October Data, 22 October SSB, 2 November Data, 11 November SSB, 26 November CW. Times: 'September and October: 1900-2030 UTC' and 'November: 2000-2130 UTC'. Frequencies: 'CW: 3510-3565 kHz (any speed); 3565-3570 kHz (15wpm max). SSB: 3600-3775 kHz. PSK63: 3580-3590 kHz. RTTY: 3590-3620 kHz.' Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Entrants: members of RSGB Affiliated Societies, RSGB members as individuals, NON-UK STATIONS AS INDIVIDUALS, and members of the RSGB Contest Club. Logs: 'by 23:59:59 (UTC) on the third day following each contest'. Checked 2026-08-23.",
+      "note": "THE CLOCK MOVES IN NOVEMBER AND THE RECORD SAYS SO PER DATE. September and October run 1900-2030 UTC; November runs 2000-2130. Every leg of this series sits on one side or the other of that change, so a single stored time would put two of the three runnings on the calendar an hour wrong.\n\nThis is the first use of PER-DATE TIMES in a manual rule, a schema question NEEDS_A_HUMAN had been carrying since the REP FT4 series hit the same wall. The alternative was one record per clock time -- six records for a nine-leg series the sponsor treats as one -- or one record per leg, which is nine. Splitting by MODE is the split a reader actually wants, because the mode filter is what they reach for, and per-date times are what make that split possible without lying about an hour.\n\nMANUAL BECAUSE RSGB PUBLISHES DATES AND NO RULE for this series. The legs fall on Mondays, Wednesdays and Thursdays with no discernible ordinal, which is exactly the shape an ordinal must not be fitted to.\n\nNON-UK STATIONS MAY ENTER AS INDIVIDUALS -- RSGB states it outright, which is worth noting beside the AFS and Club Calls contests where entry really is UK&CD only.",
+      "summary": "Ninety minutes of CW on 80 m, three evenings across the autumn, scored as a series for RSGB affiliated clubs.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB lists 'non-UK stations as individuals' among the entrant categories alongside affiliated-society members and RSGB members, so entry is not restricted to the UK&CD as it is for AFS and Club Calls."
+      }
+    },
+    {
+      "id": "rsgb-autumn-ssb",
+      "name": "RSGB 3.5 MHz Autumn Series, SSB",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rautumn.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rautumn.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3600-3775 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-07",
+            "2026-10-22",
+            {
+              "date": "2026-11-11",
+              "start": "2000",
+              "end": "2130"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "log_deadline_days": 3,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/rautumn.shtml, the RSGB Contest Committee's own rules for the 'RSGB 3.5MHz Autumn Series Contests'. Dates and modes as printed: 7 September SSB, 16 September CW, 24 September Data, 5 October CW, 14 October Data, 22 October SSB, 2 November Data, 11 November SSB, 26 November CW. Times: 'September and October: 1900-2030 UTC' and 'November: 2000-2130 UTC'. Frequencies: 'CW: 3510-3565 kHz (any speed); 3565-3570 kHz (15wpm max). SSB: 3600-3775 kHz. PSK63: 3580-3590 kHz. RTTY: 3590-3620 kHz.' Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Entrants: members of RSGB Affiliated Societies, RSGB members as individuals, NON-UK STATIONS AS INDIVIDUALS, and members of the RSGB Contest Club. Logs: 'by 23:59:59 (UTC) on the third day following each contest'. Checked 2026-08-23.",
+      "note": "THE CLOCK MOVES IN NOVEMBER AND THE RECORD SAYS SO PER DATE. September and October run 1900-2030 UTC; November runs 2000-2130. Every leg of this series sits on one side or the other of that change, so a single stored time would put two of the three runnings on the calendar an hour wrong.\n\nThis is the first use of PER-DATE TIMES in a manual rule, a schema question NEEDS_A_HUMAN had been carrying since the REP FT4 series hit the same wall. The alternative was one record per clock time -- six records for a nine-leg series the sponsor treats as one -- or one record per leg, which is nine. Splitting by MODE is the split a reader actually wants, because the mode filter is what they reach for, and per-date times are what make that split possible without lying about an hour.\n\nMANUAL BECAUSE RSGB PUBLISHES DATES AND NO RULE for this series. The legs fall on Mondays, Wednesdays and Thursdays with no discernible ordinal, which is exactly the shape an ordinal must not be fitted to.\n\nNON-UK STATIONS MAY ENTER AS INDIVIDUALS -- RSGB states it outright, which is worth noting beside the AFS and Club Calls contests where entry really is UK&CD only.",
+      "summary": "Ninety minutes of SSB on 80 m, three evenings across the autumn, scored as a series for RSGB affiliated clubs.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB lists 'non-UK stations as individuals' among the entrant categories alongside affiliated-society members and RSGB members, so entry is not restricted to the UK&CD as it is for AFS and Club Calls."
+      }
+    },
+    {
+      "id": "rsgb-autumn-data",
+      "name": "RSGB 3.5 MHz Autumn Series, Data",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/rautumn.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/rautumn.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "RTTY",
+        "Digital"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "PSK63 3580-3590 kHz; RTTY 3590-3620 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-24",
+            "2026-10-14",
+            {
+              "date": "2026-11-02",
+              "start": "2000",
+              "end": "2130"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2030"
+      },
+      "log_deadline_days": 3,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/rautumn.shtml, the RSGB Contest Committee's own rules for the 'RSGB 3.5MHz Autumn Series Contests'. Dates and modes as printed: 7 September SSB, 16 September CW, 24 September Data, 5 October CW, 14 October Data, 22 October SSB, 2 November Data, 11 November SSB, 26 November CW. Times: 'September and October: 1900-2030 UTC' and 'November: 2000-2130 UTC'. Frequencies: 'CW: 3510-3565 kHz (any speed); 3565-3570 kHz (15wpm max). SSB: 3600-3775 kHz. PSK63: 3580-3590 kHz. RTTY: 3590-3620 kHz.' Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Entrants: members of RSGB Affiliated Societies, RSGB members as individuals, NON-UK STATIONS AS INDIVIDUALS, and members of the RSGB Contest Club. Logs: 'by 23:59:59 (UTC) on the third day following each contest'. Checked 2026-08-23.",
+      "note": "THE CLOCK MOVES IN NOVEMBER AND THE RECORD SAYS SO PER DATE. September and October run 1900-2030 UTC; November runs 2000-2130. Every leg of this series sits on one side or the other of that change, so a single stored time would put two of the three runnings on the calendar an hour wrong.\n\nThis is the first use of PER-DATE TIMES in a manual rule, a schema question NEEDS_A_HUMAN had been carrying since the REP FT4 series hit the same wall. The alternative was one record per clock time -- six records for a nine-leg series the sponsor treats as one -- or one record per leg, which is nine. Splitting by MODE is the split a reader actually wants, because the mode filter is what they reach for, and per-date times are what make that split possible without lying about an hour.\n\nMANUAL BECAUSE RSGB PUBLISHES DATES AND NO RULE for this series. The legs fall on Mondays, Wednesdays and Thursdays with no discernible ordinal, which is exactly the shape an ordinal must not be fitted to.\n\nNON-UK STATIONS MAY ENTER AS INDIVIDUALS -- RSGB states it outright, which is worth noting beside the AFS and Club Calls contests where entry really is UK&CD only.",
+      "summary": "Ninety minutes of Data on 80 m, three evenings across the autumn, scored as a series for RSGB affiliated clubs.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "RSGB lists 'non-UK stations as individuals' among the entrant categories alongside affiliated-society members and RSGB members, so entry is not restricted to the UK&CD as it is for AFS and Club Calls."
+      },
+      "submodes": [
+        "PSK63"
+      ]
     }
   ]
 }
