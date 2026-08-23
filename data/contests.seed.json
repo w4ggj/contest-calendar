@@ -13588,6 +13588,222 @@
         "verified": true,
         "note": "'Only stations operating from areas in the Commonwealth Call Area list may participate in this contest.' The list is RSGB's own, published at rsgbcc.org/hf/information/codes.shtml and read from there: 143 call areas across 151 prefixes, from 3B6/7 Agalega to ZS8 Marion Island. Stations outside it may be worked but cannot submit an entry."
       }
+    },
+    {
+      "id": "darc-ostercontest",
+      "name": "DARC Ostercontest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/darc-ostercontest/regeln/",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RS(T) and the sender's DOK for DARC and VFDB members; German non-members send RS(T) and 'NM'; stations outside Germany send RS(T) and a serial from 001.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-06"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1729"
+      },
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "darc.de/der-club/referate/conteste/darc-ostercontest/regeln/, DARC's own rules: the contest runs annually on 'Ostermontag' -- Easter Monday -- on 80 m and 40 m in CW and SSB, with seven entry classes plus a checklog. Exchange: 'RS(T) und ihren DOK' for members, 'NM' for German non-members, 'RS(T) + laufende Nummer' from abroad. Deadline: '7 Tage nach dem Wettbewerb (fuer 2026 der 13.04.2026, 23:59 UTC)'. Date and time from DARC's own 'Termine DARC KW Conteste 2026' table at darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/: 06.04.2026, 1500-1729 UTC. Checked 2026-08-23.",
+      "note": "MANUAL FOR A DATE THAT IS PERFECTLY COMPUTABLE, and that is a compromise rather than a judgement about DARC. They state the rule in words -- 'Ostermontag' -- and Easter is deterministic, so this SHOULD be a rule. This catalog has no Easter-anchored rule type, and adding one means changing both engines and the parity suite for a single record.\n\nSo it holds the published date and goes empty in 2027, and the cost is visible: it joins the expiry cliff for a date arithmetic could produce. If a second Easter-anchored contest turns up, that is the moment to add the rule type -- the same standard that added per-date times when the 3.5 MHz series became the second consumer rather than the first.\n\n6 April 2026 is Easter Monday, and matches DARC's own table.",
+      "summary": "Two and a half hours on 80 and 40 m on Easter Monday, CW and SSB, with DOKs as the multipliers.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "All radio amateurs may enter; stations outside Germany have an exchange of their own and their own placing."
+      }
+    },
+    {
+      "id": "darc-hell",
+      "name": "DARC Hell Contest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/hell-contest/ausschreibung/",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "Hell"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "80 m: 3.580-3.600 MHz; 40 m: 7.040-7.050 MHz.",
+      "exchange": "RST plus a serial number from 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1059"
+      },
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "darc.de/der-club/referate/conteste/hell-contest/ausschreibung/, DARC's own Ausschreibung. Recurrence in their words: 'Oktober, erstes vollstaendiges Wochenende' -- October, first complete weekend. Bands: '80m: 3,580 MHz - 3,600 MHz und 40m: 7,040 MHz - 7,050 MHz'. Mode: 'HELL'. Exchange: 'RST + Seriennummer ab 001'. Two categories, transmitting stations and SWLs. Deadline: 'eine Woche nach dem Wettbewerb'. Times from DARC's own 'Termine DARC KW Conteste 2026' table at darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/: 03./04.10.2026, 1600-1059 UTC. Checked 2026-08-23.",
+      "note": "THE RULE IS STATED AND THE TABLE AGREES: the first full weekend of October 2026 is the 3rd-4th, which is what DARC prints. So this is a recurrence rather than a date.\n\nFeld-Hell is a facsimile mode from the 1930s and has no token in this catalog's vocabulary, so the record is Digital with 'Hell' in submodes -- the same treatment PSK63 and FT4 get. Anyone filtering Digital finds it; nobody is told it is RTTY.",
+      "summary": "Nineteen hours of Feld-Hell on 80 and 40 m over the first October weekend, one of the few contests for the mode.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Transmitting stations and SWLs; no entity restriction is stated."
+      }
+    },
+    {
+      "id": "darc-hell-kurz",
+      "name": "DARC HELL-Kurzcontest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "Hell"
+      ],
+      "bands": [],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 1,
+        "months": [
+          2,
+          5,
+          8,
+          11
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1859"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "Dates and times from DARC's own 'Termine DARC KW Conteste 2026' table at darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/, which lists four runnings: 17.02.2026, 19.05.2026, 18.08.2026 and 17.11.2026, each 1800-1859 UTC. Unlike DARC's other short contests this one has NO Ausschreibung linked from that table, so the bands, the exchange and the log deadline are unread. Checked 2026-08-23.",
+      "note": "VERIFIED FALSE, AND THE RECURRENCE IS STILL DERIVED FROM DARC'S OWN FOUR DATES. All four are the THIRD TUESDAY of the second month of each quarter -- 17 Feb, 19 May, 18 Aug, 17 Nov 2026 -- which is a clean pattern across four points and sits alongside the RTTY-Kurzcontest (2nd Tuesday, months 1/4/7/10) and the FT4 Contest (2nd Tuesday, months 2/5/8/11) that DARC already runs.\n\nWhat is missing is everything the rules page would give: BANDS ARE UNRECORDED, so every band filter excludes this record, and the exchange and deadline are absent. The mode is taken from the contest's own name. That is why it is unverified: the dates are DARC's, the rule is an inference from them, and the rest is a gap.\n\nWHERE THE BANDS WOULD HAVE BEEN: Not read: this series has no Ausschreibung linked from DARC's table. That sentence sits here rather than in bands_note, because bands_note is for a sponsor's own wording ABOUT a band list and must never stand in for one -- a test enforces it, and it caught this.",
+      "summary": "One hour of Feld-Hell, four times a year on the third Tuesday of February, May, August and November.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "No participation clause has been read; no rules page is linked."
+      }
+    },
+    {
+      "id": "darc-ausbildungscontest",
+      "name": "DARC Ausbildungscontest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/ausbildungscontest/ac-ausschreibung/",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "exchange": "RS(T) and the sender's DOK for DARC and VFDB members; German non-members send RS(T) and 'NM'; stations outside Germany send RS(T) and a serial from 001.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-10-17"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1429"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "darc.de/der-club/referate/conteste/ausbildungscontest/ac-ausschreibung/, DARC's own Ausschreibung. 80 m and 40 m, SSB and CW. Three categories: 'Einsteiger' -- stations with a training callsign (DN1-8, or a personal callsign with a /T suffix) or an entry-level DO licence -- 'Fortgeschrittene' for other German stations, and foreign stations. Exchange as for the Ostercontest. Date and time from DARC's own 'Termine DARC KW Conteste 2026' table at darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/: 17.10.2026, 1200-1429 UTC. Checked 2026-08-23.",
+      "note": "A TRAINING CONTEST, AND THE CATEGORIES ARE THE POINT: newcomers on training callsigns are placed against each other rather than against experienced stations, and everyone else is there to give them contacts.\n\nMANUAL BECAUSE DARC STATES NO RECURRENCE for it. 17 October 2026 is the third Saturday, which is the kind of coincidence that invites an ordinal, and one date cannot support one. A second year's table settles it.",
+      "summary": "Two and a half hours on 80 and 40 m for newcomers on training callsigns, with everyone else there to work them.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Three categories, one of which is explicitly for stations outside Germany."
+      }
+    },
+    {
+      "id": "darc-cw-ausbildungscontest",
+      "name": "DARC CW-Ausbildungscontest",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/cwa/darc-cw-ausbildungscontest/",
+      "sponsor_home": "https://www.darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 1,
+        "months": [
+          3,
+          6,
+          9,
+          12
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1859"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "darc.de/der-club/referate/conteste/cwa/darc-cw-ausbildungscontest/, DARC's own page for the series: it runs '1-mal im Quartal' -- once a quarter -- and 'reiht sich vom Termin her in die anderen neuen DARC Kurzconteste (RTTY, FT4) ein', aligning with the other new DARC short contests. Speeds are moderate, 'around 12 WPM and potentially extending to 22-24 WPM', with extended character spacing for learners. Dates and times from DARC's own 'Termine DARC KW Conteste 2026' table at darc.de/der-club/referate/conteste/darc-kw-conteste/kw-conteste/: 10.03.2026, 09.06.2026, 08.09.2026 and 08.12.2026, each 1800-1859 UTC. Checked 2026-08-23.",
+      "note": "IT COMPLETES A PATTERN DARC DESCRIBES BUT DOES NOT SPELL OUT. Their three short contests take one month of each quarter in turn, all on a Tuesday evening: the RTTY-Kurzcontest in months 1/4/7/10, the FT4 Contest in 2/5/8/11, and this one in 3/6/9/12. All four of DARC's published dates are the SECOND TUESDAY of those months. That is what 'reiht sich vom Termin her in die anderen ... ein' means, and the arithmetic confirms it rather than assuming it.\n\nVERIFIED FALSE because the page that describes the series is prose about teaching CW rather than an Ausschreibung: no bands, no exchange, no deadline. BANDS ARE UNRECORDED, so every band filter excludes this record.\n\nWHERE THE BANDS WOULD HAVE BEEN: Not stated on the page that describes the series. That sentence sits here rather than in bands_note, because bands_note is for a sponsor's own wording ABOUT a band list and must never stand in for one -- a test enforces it, and it caught this.",
+      "summary": "One hour of slow CW for learners, four times a year on the second Tuesday of March, June, September and December.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "DARC welcomes CW newcomers and asks experienced operators to take part as QSO partners; no participation clause has been read."
+      }
     }
   ]
 }
