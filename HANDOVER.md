@@ -141,6 +141,42 @@ visibility rather than error, and both records are correct as they stand.
 
 ---
 
+## Scope: HF, decided 2026-08-23
+
+**Sourcing effort goes to HF.** VHF and UHF contests are not sought out, and a VHF-only gap is
+not a gap this project is trying to close.
+
+This is a decision about **what to source next**, not about what the catalog holds. Nothing is
+removed:
+
+- **21 records are VHF/UHF only** and they stay — ARRL's January/June/September VHF, 222 MHz
+  and Up, both 10 GHz legs, AGCW VHF/UHF, REF DDFM 50 MHz, four UBA legs, REP's two, SARL's
+  equinox pair and FM contest, JARL 6m-and-Down, TRAC, PEARS and the QO-100 party. Each was read
+  at its sponsor's own source and verified; deleting verified work to enforce a scope decision
+  would be destroying something real to tidy a boundary.
+- **19 more span HF and VHF** — Field Day, Straight Key Night, ARRL Digital, the JARL contests,
+  RAC's two and the rest. They are HF contests that also permit VHF and were never in question.
+- They are **maintained** like everything else: a broken link gets fixed, a wrong rule gets
+  corrected, an expiring `manual` record gets its new dates.
+
+### What this closes
+
+- **RSGB is complete.** The four VHF/UHF AFS contests were the only thing left, and they are a
+  different referat under `/vhf/`. That entry is now `complete`, not `partial`.
+- **`NEEDS_A_HUMAN` §3 is gone** — the request to open two WIA PDFs for the Ross Hull Memorial
+  and the VHF-UHF Field Days' band lists. Both are VHF/UHF contests, so the band lists are no
+  longer wanted and the owner gets a task back.
+- Several "separate work" notes stop being deferrals and become decisions: ÖVSV's AOEE VHF/UHF
+  legs, HRS's UKV calendar entries, MRASZ's VHF leg of RF-WD, and DARC's UKW referat.
+
+### The line, for the next person
+
+A contest belongs in scope if it is **worked on HF** — 160 m through 10 m. A contest that
+permits VHF alongside HF is in scope. A contest that is VHF/UHF only is out of scope *for new
+sourcing* and stays if it is already here.
+
+---
+
 ## The one rule that cannot be broken
 
 > **Never populate a contest record from an aggregator.** Only from the sponsoring

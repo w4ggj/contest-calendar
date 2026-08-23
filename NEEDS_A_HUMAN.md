@@ -1,7 +1,7 @@
 # NEEDS A HUMAN
 
 **For:** Joe Leone, W4GGJ
-**Updated:** 2026-08-20
+**Updated:** 2026-08-23
 
 Everything in this file is blocked on **you** rather than on more work. It is deliberately
 short: anything Claude can do — reading sponsor pages, encoding records, writing tests,
@@ -184,29 +184,25 @@ RSGB's own published dates could not settle:
 
 ---
 
-## 3. One lookup you can do in a minute and Claude cannot
+## 3. Withdrawn — nothing here needs you any more
 
-### 3.1 Two WIA band lists, trapped in PDFs
+### 3.1 The two WIA band lists are no longer wanted
 
-**Unblocks:** 2 contests — **Ross Hull Memorial (Marathon)** and the **VHF-UHF Field Days**.
+This asked you to open two PDFs and copy out the band lists for the **Ross Hull Memorial
+(Marathon)** and the **VHF-UHF Field Days**, because their pages defer to rules PDFs the
+extractor could not read.
 
-Both recurrences are already known and confirmed against WIA's own printed dates:
+**Both are VHF/UHF contests, and the project's scope was set to HF on 2026-08-23.** Those band
+lists are not wanted, so the task is withdrawn rather than left sitting on your list looking
+unfinished. The reasoning is in `HANDOVER.md` under "Scope: HF".
 
-- **Ross Hull** — the month of January, scored on the entrant's best seven days
-- **VHF-UHF Field Days** — 1st full weekend of January, 3rd weekend of June, 3rd weekend of
-  September, all 0100 UTC Saturday to 0059 UTC Sunday
+Nothing was deleted to make that true: the 21 VHF-only records already in the catalog stay and
+are still maintained. What changed is what gets *sought out*.
 
-Neither page carries a **band list**; both defer to a rules PDF, and those PDFs yield no text
-to the extractor written for this project. That is a limitation of the tool, not of the source
-— a PDF reader shows them immediately.
-
-**To do:** open these two and copy out the bands (and the entry sections, if they are handy):
-
-- `wia.org.au/members/contests/rosshull/` → "ROSS HULL CONTEST (MARATHON) RULES VER 1.1.pdf"
-- `wia.org.au/members/contests/vhfuhf/` → "2026 Winter VHF-UHF Field Day Rules.pdf"
-
-Paste them over and both records go in immediately. **They are deliberately not encoded with
-guessed bands** — a VHF record with invented bands is worse than no record.
+If the scope ever widens again, the two recurrences were confirmed against WIA's own printed
+dates and are recorded in `data/sources.md` — Ross Hull is the month of January scored on the
+entrant's best seven days, and the Field Days are the 1st full weekend of January and the 3rd
+weekends of June and September, 0100 to 0059 UTC. Only the band lists were missing.
 
 ---
 
