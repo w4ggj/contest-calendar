@@ -1691,6 +1691,8 @@
       "name": "IRTS 80m Counties Contest",
       "sponsor": "IRTS",
       "country": "IE",
+      "rules_url": "https://www.irts.ie/cgi/st.cgi?r_hfcrules.html",
+      "sponsor_home": "https://www.irts.ie/",
       "modes": [
         "CW",
         "SSB"
@@ -1698,30 +1700,39 @@
       "bands": [
         "80m"
       ],
-      "rules_url": "https://www.irts.ie/",
+      "bands_note": "CW 3510-3560 kHz; SSB 3600-3650 and 3700-3775 kHz.",
+      "exchange": "EI and GI stations send a signal report, a serial number starting at 001 and their county. Everyone else sends the report and serial only.",
       "recurrence": {
-        "type": "nth_weekday",
-        "month": 6,
-        "n": 3,
-        "weekday": 6
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-01-01",
+              "start": "1700",
+              "end": "1800"
+            },
+            "2026-03-18",
+            "2026-10-21"
+          ]
+        }
       },
       "start": {
         "day_offset": 0,
-        "time": "1300"
+        "time": "2000"
       },
       "end": {
         "day_offset": 0,
-        "time": "1500"
+        "time": "2100"
       },
-      "verified": false,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "irts.ie/cgi/st.cgi?r_hfcrules.html for the rules and irts.ie/cgi/st.cgi?test_calendar, IRTS's own Rules & Calendar page for the dates. Bands: '80m: CW 3510 - 3560; SSB 3600 - 3650 & 3700 - 3775'. Exchange: 'Signal report, serial number (starting 001 for the first contact) and county' from EI and GI stations, and 'signal report & serial number only' from DX. Six sections for EI/GI and two for stations outside them. The calendar gives three runnings in 2026: Thursday 1 January at 17:00 UTC, Wednesday 18 March at 20:00 and Wednesday 21 October at 20:00, each one hour, with logs due 15 January, 1 April and 4 November. Checked 2026-08-23.",
+      "note": "THIS RECORD WAS WRONG IN EVERY FIELD THAT MATTERED AND IS REWRITTEN. It was carried as the third Sunday of June, 1300-1500 UTC, with NO source_note at all -- a stub whose rule, month, weekday, hour and duration were all invented. IRTS runs it three times a year for ONE HOUR each: 1 January, 18 March and 21 October in 2026. Nothing about the old record survived contact with the sponsor's own calendar.\n\nIt was flagged `verified: false` throughout, which is the only reason it was not a lie -- and it is exactly why the registry entry said 'that record is unverified; source it'. An unverified record is a promise to come back, and this is what coming back found.\n\nMANUAL, AND THE NEW YEAR ROUND KEEPS ITS OWN HOUR. The January running is at 1700 UTC and the other two at 2000, so the record's default is 2000 and 1 January carries an override. There is no ordinal to derive: a fixed New Year's Day round and two Wednesday evenings in March and October are not one pattern.",
+      "summary": "One hour on 80 metres, three times a year, with Ireland's 32 counties as the multipliers.",
       "eligibility": {
-        "scope": "entity_list",
-        "entities": [
-          "EI",
-          "GI"
-        ],
-        "verified": false,
-        "note": "Irish counties contest. Confirm whether DX entries are accepted."
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Six sections for EI and GI stations and two for stations outside them, so entry is open -- but the counties are the point and they are all in Ireland."
       }
     },
     {
@@ -13803,6 +13814,197 @@
         "scope": "worldwide",
         "verified": false,
         "note": "DARC welcomes CW newcomers and asks experienced operators to take part as QSO partners; no participation clause has been read."
+      }
+    },
+    {
+      "id": "skcc-qso-party",
+      "name": "SKCC QSO Party",
+      "sponsor": "Straight Key Century Club",
+      "country": "US",
+      "rules_url": "https://www.skccgroup.com/operating_activities/QSO_Party/",
+      "sponsor_home": "https://www.skccgroup.com/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "bands_note": "160 through 6 m excluding the WARC bands -- SKCC names 60, 30, 17 and 12 m as excluded.",
+      "exchange": "RST, QTH, the operator's name, a four-character grid square and the SKCC number. Non-members send 'none' for the number.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "log_deadline_days": 8,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "skccgroup.com/operating_activities/QSO_Party/, the club's own rules: SKCC's Annual QSO Party 'starts at 1200 UTC on the third Saturday of June and ends at 2359 UTC on Sunday'. Bands: '160-6 meters, excluding the WARC bands (60, 30, 17, and 12 meters)', with suggested frequencies down to 1.8135 and up to 50.090 MHz. Straight keys, sideswipers or bugs required. Exchange: 'RST, QTH, operator name, four-letter grid square and SKCC number', with non-members sending 'none'. Entry is 'open to all licensed amateurs, as well as shortwave listeners'. Logs by '2359 UTC on the Sunday following the event'. Checked 2026-08-23.",
+      "note": "THIRTY-SIX HOURS, NOT A WEEKEND: 1200 UTC Saturday to 2359 UTC Sunday, so it starts at midday and runs to the end of the second day.\n\nStraight keys, sideswipers and bugs only: no keyer, no keyboard. That is the club's whole premise rather than a category.\n\nThe log deadline is eight days because SKCC states it as a WEEKDAY rather than an interval -- 'the Sunday following the event' -- and the contest ends on a Sunday, so the next Sunday is eight days after the Saturday it started.",
+      "summary": "Thirty-six hours of straight-key CW across seven bands on the third June weekend, open to members and non-members alike.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Open to all licensed amateurs, as well as shortwave listeners.' Membership is not required; non-members send 'none' where the SKCC number goes."
+      }
+    },
+    {
+      "id": "skcc-skse",
+      "name": "SKCC Straight Key Sprint Europe (SKSE)",
+      "sponsor": "Straight Key Century Club",
+      "country": "US",
+      "rules_url": "https://www.skccgroup.com/operating_activities/skse/",
+      "sponsor_home": "https://www.skccgroup.com/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "bands_note": "160 through 6 m excluding the WARC bands -- SKCC names 60, 30, 17 and 12 m as excluded.",
+      "exchange": "RST, QTH, the operator's name and the SKCC number. Non-members send 'none' for the number.",
+      "timezone": "Europe/Berlin",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 1,
+        "weekday": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2100",
+        "wall_clock": true
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2300",
+        "wall_clock": true
+      },
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "skccgroup.com/operating_activities/skse/, the club's own rules: the Straight Key Sprint Europe runs on 'the FIRST Thursday of Every Month', at 2000Z-2200Z in January, February, March, November and December and 1900Z-2100Z from April to October, with fifteen-minute QRS extensions at each end. Bands: '160-6 meters, excluding the WARC bands (60, 30, 17, and 12 meters)'. Straight key, sideswiper or bug only. Exchange: 'RST, QTH, operator name, and SKCC number', 'none' for non-members. 'Open to all licensed amateurs, as well as shortwave listeners'. Logs by '2359 UTC on the Thursday following the event'. Checked 2026-08-23.",
+      "note": "SKCC PRINTS TWO UTC TIMES AND THE CONTEST HAS ONE LOCAL TIME. 2000Z from November to March and 1900Z from April to October are both 2100 in central Europe: CET is UTC+1 and CEST is UTC+2. So this is not a contest that changes its hour twice a year, it is a contest at nine in the evening that Europe's clocks move around, and it is recorded the way the sponsor means it -- `timezone: Europe/Berlin` with wall_clock times, exactly as the ARS Spartan Sprint is recorded in New York.\n\nTHAT READING IS TESTABLE AND IT PASSES ON THE MONTHS THAT DECIDE IT. Europe changes clocks on the last Sunday of March and of October, and the first Thursday of both months falls on the near side of the change: March is still CET and resolves to 2000Z, April is CEST and resolves to 1900Z, October is still CEST at 1900Z, November is CET at 2000Z. All four match SKCC's own table, which is what makes this one rule rather than two.\n\nEncoding it as two records split by month -- winter and summer -- would have produced two entries with the same name and hidden the reason. Encoding one UTC time would have been wrong for five months of the year.\n\nStraight keys, sideswipers and bugs only: no keyer, no keyboard. That is the club's whole premise rather than a category.\n\nThe fifteen-minute QRS extensions at each end are not in the window: they are an invitation to slow operators rather than part of the scored period.",
+      "summary": "Two hours of straight-key CW on the first Thursday of every month, at nine in the evening in central Europe whatever the clocks are doing.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Open to all licensed amateurs, as well as shortwave listeners.' European in aim and timing rather than in entry."
+      }
+    },
+    {
+      "id": "irts-cw-field-day",
+      "name": "IRTS CW Field Day",
+      "sponsor": "IRTS",
+      "country": "IE",
+      "rules_url": "https://www.irts.ie/cgi/st.cgi?r_hffdrules.html",
+      "sponsor_home": "https://www.irts.ie/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "1.8, 3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "A signal report and a serial number starting at 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 6,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1500"
+      },
+      "log_deadline_days": 14,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "irts.ie/cgi/st.cgi?r_hffdrules.html, IRTS's own Field Day rules, with the dates and deadlines from irts.ie/cgi/st.cgi?test_calendar, IRTS's own Rules & Calendar page. 'From 15:00 UTC Saturday to 15:00 UTC Sunday on the first full weekend in June.' Bands: '1.8, 3.5, 7, 14, 21 and 28 MHz bands'. Exchange: 'Signal report, serial number (starting 001 for the first contact)'. Entrants: 'Any individual or group operating in EI complying with Rule 3.6 of the General Rules and operating portable on a site'. The calendar gives 6-7 June 2026 with logs due 21 June. Checked 2026-08-23.",
+      "note": "IT FALLS ON THE SAME WEEKEND AS RSGB'S, AND THAT IS NOT A COINCIDENCE. Both societies run their leg of the IARU Region 1 Field Day: RSGB's National Field Day is the first Saturday of June and IRTS's CW Field Day is the first full weekend, and the same pairing repeats in September. They are separate contests with separate rules, separate logs and separate results -- which is why both are here rather than one.\n\nThe pairing also settles what the IARU Region 1 Field Day IS: a framework each member society runs its own contest inside, not a contest IARU publishes rules for. DARC lists it on their calendar and says it is IARU's; UBA lists it too; IARU Region 1's own site publishes rules for the HF Championship and nothing else. Nobody claims it, so there is nothing to encode under IARU's name.\n\nENTRY IS EI ONLY AND PORTABLE ONLY: 'Any individual or group operating in EI complying with Rule 3.6 of the General Rules and operating portable on a site'. Stations elsewhere may be worked but cannot enter.",
+      "summary": "Twenty-four hours of portable CW from Ireland over the first June weekend, on six bands including top band.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "EI"
+        ],
+        "verified": true,
+        "note": "'Any individual or group operating in EI complying with Rule 3.6 of the General Rules and operating portable on a site.' Portable operation is part of the entry condition, not a category."
+      }
+    },
+    {
+      "id": "irts-ssb-field-day",
+      "name": "IRTS SSB Field Day",
+      "sponsor": "IRTS",
+      "country": "IE",
+      "rules_url": "https://www.irts.ie/cgi/st.cgi?r_hffdrules.html",
+      "sponsor_home": "https://www.irts.ie/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5, 7, 14, 21 and 28 MHz -- no 160 m, unlike the CW field day.",
+      "exchange": "A signal report and a serial number starting at 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1300"
+      },
+      "log_deadline_days": 14,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "irts.ie/cgi/st.cgi?r_hffdrules.html, IRTS's own Field Day rules, with the dates and deadlines from irts.ie/cgi/st.cgi?test_calendar, IRTS's own Rules & Calendar page. 'From 13:00 UTC Saturday to 13:00 UTC Sunday on the first full weekend in September.' Bands: '3.5, 7, 14, 21 and 28 MHz bands', for 'SSB phone contacts'. Same exchange and same entry condition as the CW field day. The calendar gives 5-6 September 2026 with logs due 20 September. Checked 2026-08-23.",
+      "note": "IT FALLS ON THE SAME WEEKEND AS RSGB'S, AND THAT IS NOT A COINCIDENCE. Both societies run their leg of the IARU Region 1 Field Day: RSGB's National Field Day is the first Saturday of June and IRTS's CW Field Day is the first full weekend, and the same pairing repeats in September. They are separate contests with separate rules, separate logs and separate results -- which is why both are here rather than one.\n\nThe pairing also settles what the IARU Region 1 Field Day IS: a framework each member society runs its own contest inside, not a contest IARU publishes rules for. DARC lists it on their calendar and says it is IARU's; UBA lists it too; IARU Region 1's own site publishes rules for the HF Championship and nothing else. Nobody claims it, so there is nothing to encode under IARU's name.\n\nENTRY IS EI ONLY AND PORTABLE ONLY: 'Any individual or group operating in EI complying with Rule 3.6 of the General Rules and operating portable on a site'. Stations elsewhere may be worked but cannot enter.\n\nTwo differences from the CW field day, both IRTS's own and both matching RSGB's pair exactly: it starts at 1300 rather than 1500, and it drops 160 m.",
+      "summary": "Twenty-four hours of portable SSB from Ireland over the first September weekend, on five HF bands.",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "EI"
+        ],
+        "verified": true,
+        "note": "'Any individual or group operating in EI complying with Rule 3.6 of the General Rules and operating portable on a site.' Portable operation is part of the entry condition, not a category."
       }
     }
   ]

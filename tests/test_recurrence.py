@@ -3876,14 +3876,14 @@ MANUAL_REVIEW_DEADLINE = date(2026, 12, 1)
 EXPIRE_AFTER_CATALOG_YEAR = {
     "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
     "arsi-vu-rookie", "cwops-cw-open", "darc-ausbildungscontest",
-    "darc-ostercontest", "erau-es-ll-kv", "lrmd-wal", "ncj-sprint-cw",
-    "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
-    "rsgb-80mcc-cw", "rsgb-80mcc-data", "rsgb-80mcc-ssb", "rsgb-autumn-cw",
-    "rsgb-autumn-data", "rsgb-autumn-ssb", "rsgb-ft4-activity-day",
-    "rsgb-ft4-series", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
-    "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
-    "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
-    "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
+    "darc-ostercontest", "erau-es-ll-kv", "irts-80m-counties", "lrmd-wal",
+    "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter",
+    "rca-nacional-80m", "rsgb-80mcc-cw", "rsgb-80mcc-data", "rsgb-80mcc-ssb",
+    "rsgb-autumn-cw", "rsgb-autumn-data", "rsgb-autumn-ssb",
+    "rsgb-ft4-activity-day", "rsgb-ft4-series", "sarl-top-band-qso",
+    "stew-perry", "uarl-champ-cw", "uarl-champ-rtty", "uarl-champ-ssb",
+    "uarl-lp-cup-cw", "uba-bma", "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw",
+    "uba-on-80-40-ssb", "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
     "uba-spring-80m-ssb", "ure-eartty",
 }
 
@@ -4096,6 +4096,42 @@ def test_a_long_entity_list_is_summarised_not_recited(catalog):
 
     short = eligibility_for(by_id(catalog, "rsgb-afs-cw"), "K")["reason"]
     assert "G" in short and "listed entities" not in short
+
+
+# SKCC prints two UTC times for one contest: 2000Z Nov-Mar and 1900Z Apr-Oct.
+SKSE_PUBLISHED_UTC = {
+    1: "2000", 2: "2000", 3: "2000", 4: "1900", 5: "1900", 6: "1900",
+    7: "1900", 8: "1900", 9: "1900", 10: "1900", 11: "2000", 12: "2000",
+}
+
+
+def test_skse_is_one_local_time_not_two_utc_ones(catalog):
+    """
+    SKCC states 2000Z-2200Z in January, February, March, November and December
+    and 1900Z-2100Z from April to October. That looks like a contest that
+    changes its hour twice a year. It is not: both are 2100 in central Europe,
+    where CET is UTC+1 and CEST is UTC+2.
+
+    So it is recorded as a wall-clock contest in Europe/Berlin, the same way the
+    ARS Spartan Sprint is recorded in New York, and `zoneinfo` produces both
+    published times from one rule.
+
+    The months that decide it are March, April, October and November, because
+    Europe changes its clocks on the last Sunday of March and of October and the
+    first Thursday of each of those months falls on the near side of the change.
+    All four are asserted below along with the other eight.
+    """
+    c = by_id(catalog, "skcc-skse")
+    assert c["timezone"] == "Europe/Berlin"
+    assert c["start"]["wall_clock"] and c["end"]["wall_clock"]
+    assert c["start"]["time"] == "2100"
+
+    got = {o.start.month: o.start.strftime("%H%M") for o in expand(c, 2026)}
+    assert got == SKSE_PUBLISHED_UTC
+
+    # Non-vacuous: the year really does contain both times, so this is not
+    # asserting that a fixed hour equals a fixed hour twelve times.
+    assert len(set(got.values())) == 2
 
 
 def test_verified_means_the_evidence_is_in_the_record(catalog):

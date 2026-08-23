@@ -3800,14 +3800,15 @@ const MANUAL_REVIEW_DEADLINE = Date.UTC(2026, 11, 1); // 1 December 2026
 const EXPIRE_AFTER_CATALOG_YEAR = [
   "arsi-40m-cq-vu-cw", "arsi-40m-cq-vu-ssb", "arsi-qrp-day", "arsi-vu-dx",
   "arsi-vu-rookie", "cwops-cw-open", "darc-ausbildungscontest",
-  "darc-ostercontest", "erau-es-ll-kv", "lrmd-wal", "ncj-sprint-cw",
-  "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m", "rsgb-80mcc-cw",
-  "rsgb-80mcc-data", "rsgb-80mcc-ssb", "rsgb-autumn-cw", "rsgb-autumn-data",
-  "rsgb-autumn-ssb", "rsgb-ft4-activity-day", "rsgb-ft4-series",
-  "sarl-top-band-qso", "stew-perry", "uarl-champ-cw", "uarl-champ-rtty",
-  "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma", "uba-on-2m", "uba-on-6m",
-  "uba-on-80-40-cw", "uba-on-80-40-ssb", "uba-spring-2m", "uba-spring-6m",
-  "uba-spring-80m-cw", "uba-spring-80m-ssb", "ure-eartty",
+  "darc-ostercontest", "erau-es-ll-kv", "irts-80m-counties", "lrmd-wal",
+  "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+  "rsgb-80mcc-cw", "rsgb-80mcc-data", "rsgb-80mcc-ssb", "rsgb-autumn-cw",
+  "rsgb-autumn-data", "rsgb-autumn-ssb", "rsgb-ft4-activity-day",
+  "rsgb-ft4-series", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
+  "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
+  "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
+  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb",
+  "ure-eartty",
 ].sort();
 
 // Records that already produce nothing this year WITHOUT active_until to say
@@ -3984,6 +3985,34 @@ test("a long entity list is summarised, not recited", () => {
   expect(short).not.toContain("listed entities");
 });
 
+
+  test("SKSE is one local time, not two UTC ones", () => {
+    // SKCC states 2000Z-2200Z in Jan/Feb/Mar/Nov/Dec and 1900Z-2100Z Apr-Oct.
+    // That looks like a contest that changes its hour twice a year. It is not:
+    // both are 2100 in central Europe, where CET is UTC+1 and CEST is UTC+2.
+    //
+    // The months that decide it are March, April, October and November --
+    // Europe changes its clocks on the last Sunday of March and October, and
+    // the first Thursday of each falls on the near side of the change.
+    const want: Record<number, string> = {
+      1: "2000", 2: "2000", 3: "2000", 4: "1900", 5: "1900", 6: "1900",
+      7: "1900", 8: "1900", 9: "1900", 10: "1900", 11: "2000", 12: "2000",
+    };
+    const c = byId("skcc-skse");
+    expect(c.timezone).toBe("Europe/Berlin");
+    expect(c.start.wall_clock).toBeTruthy();
+    expect(c.start.time).toBe("2100");
+
+    const got: Record<number, string> = {};
+    for (const o of expand(c, 2026)) {
+      const d = o.start!;
+      got[d.getUTCMonth() + 1] =
+        `${String(d.getUTCHours()).padStart(2, "0")}${String(d.getUTCMinutes()).padStart(2, "0")}`;
+    }
+    expect(got).toEqual(want);
+    // Non-vacuous: the year really does contain both times.
+    expect(new Set(Object.values(got)).size).toBe(2);
+  });
 
   test("verified means the evidence is in the record", () => {
     // HANDOVER.md defines verification as recording the rule IN THE SPONSOR'S

@@ -100,9 +100,9 @@
       ],
       "encoded": 1,
       "encoded_verified": 1,
-      "estimated_total": 6,
-      "status": "partial",
-      "notes": "HF World Championship administered by ARRL and encoded. Region 1 contests (Field Day CW/SSB, 50/145 MHz, 70 MHz) via iaru-r1.org -- not started."
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "HF World Championship administered by ARRL and encoded. Region 1 contests (Field Day CW/SSB, 50/145 MHz, 70 MHz) via iaru-r1.org -- not started. COMPLETE IN SCOPE 2026-08-23, and the estimate of 6 was wrong rather than unmet. Three of those six were the 50/145 MHz and 70 MHz contests, which are VHF and out of scope since the HF decision. The other two were the HF Field Day CW and SSB -- and THERE IS NO SUCH IARU CONTEST TO ENCODE. IARU Region 1's own site publishes rules for the HF Championship and nothing else; the Field Day is a framework each member society runs its own contest inside. DARC lists it and says it is IARU's, UBA lists it too, and IRTS's and RSGB's Field Days land on the same weekends as each other. Encoding it would mean taking one society's rules and putting IARU's name on them. So: the HF Championship is the one IARU contest, it is encoded, and this entry is done."
     },
     {
       "org": "DARC",
@@ -193,16 +193,16 @@
     {
       "org": "IRTS",
       "country": "IE",
-      "url": "https://www.irts.ie/",
+      "url": "https://www.irts.ie/cgi/st.cgi?test_calendar",
       "url_verified": false,
       "catalog_sponsors": [
         "IRTS"
       ],
-      "encoded": 1,
-      "encoded_verified": 0,
-      "estimated_total": 4,
-      "status": "partial",
-      "notes": "ADDED 2026-08-16 -- the 80m Counties Contest was in the catalog with no registry entry at all, which is exactly the drift this file exists to prevent. That record is unverified; source it, then look for the rest of IRTS's programme."
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 3,
+      "status": "complete",
+      "notes": "ADDED 2026-08-16 -- the 80m Counties Contest was in the catalog with no registry entry at all, which is exactly the drift this file exists to prevent. That record is unverified; source it, then look for the rest of IRTS's programme. COMPLETE 2026-08-23 at 3, and the promise in the line above is discharged. That unverified 80m Counties record was WRONG IN EVERY FIELD THAT MATTERED: it claimed the third Sunday of June, 1300-1500 UTC, and carried no source_note at all. IRTS runs it three times a year for ONE HOUR -- 1 January at 1700 and 18 March and 21 October at 2000 in 2026. The stub's rule, month, weekday, hour and duration were all invented and none survived contact with IRTS's own calendar. It was flagged unverified throughout, which is the only reason it was a gap rather than a falsehood.\n\nBoth Field Days added. THEY FALL ON THE SAME WEEKENDS AS RSGB'S, which is not a coincidence: each society runs its own leg of the IARU Region 1 Field Day, with its own rules, logs and results. Entry is EI only and portable only."
     },
     {
       "org": "REF",
@@ -369,9 +369,9 @@
       ],
       "encoded": 3,
       "encoded_verified": 3,
-      "estimated_total": 9,
+      "estimated_total": 7,
       "status": "partial",
-      "notes": "HA-DX, YL-OM and the World Amateur Radio Day HF leg encoded. Not yet read: RHOB, URHOB, the Junior contest, the Straight Key Memorial Contest, Tisza Kupa and the VHF leg of RF-WD. HA-DX has its own host at ha-dx.com, which MRASZ links as its own; the 2026 count is from MRASZ's own competition index, not a guess. VHF/UHF IS OUT OF SCOPE as of 2026-08-23 -- see HANDOVER.md, 'Scope: HF'. What this entry describes as separate work is now a decision rather than a deferral, and the records already held stay and are maintained."
+      "notes": "HA-DX, YL-OM and the World Amateur Radio Day HF leg encoded. Not yet read: RHOB, URHOB, the Junior contest, the Straight Key Memorial Contest, Tisza Kupa and the VHF leg of RF-WD. HA-DX has its own host at ha-dx.com, which MRASZ links as its own; the 2026 count is from MRASZ's own competition index, not a guess. VHF/UHF IS OUT OF SCOPE as of 2026-08-23 -- see HANDOVER.md, 'Scope: HF'. What this entry describes as separate work is now a decision rather than a deferral, and the records already held stay and are maintained. READ AGAIN 2026-08-23 and the gap is smaller than it looked. Of the six listed as unread, URHOB and the VHF leg of RF-WD are VHF/UHF and out of scope, which leaves four: RHOB, the Junior RH contest, the Straight Key Memorial Contest and the Tisza Kupa. MRASZ's index links rhob.mrasz.hu, skmc.hu and tiszacup.eu -- three separate hosts, none of them MRASZ's own domain -- and the Junior contest and the 23 October IFI contest have no rules link at all.\n\nRHOB was read and NOT encoded: its page gives the date (11 January 2026, moved to the Sunday because 'a hagyomanyosan versenynapkent szolgalo szombat 2026-ban munkanap lesz' -- the Saturday that traditionally serves as contest day is a working day in 2026) and points at a separate Versenykiiras for the bands, modes, exchange and deadline. A record with a date and nothing else is not a record. The remaining three hosts are unread."
     },
     {
       "org": "BFRA",
@@ -471,7 +471,7 @@
       "encoded_verified": 1,
       "estimated_total": 8,
       "status": "partial",
-      "notes": "Russian DX Contest encoded, and only for 2027: rdxc.org publishes a date rather than a recurrence rule, and the only edition currently announced is 20-21 March 2027. RAEM, Russian 160m, the Russian WW series and the RCC Cup are on separate hosts and have not been read."
+      "notes": "Russian DX Contest encoded, and only for 2027: rdxc.org publishes a date rather than a recurrence rule, and the only edition currently announced is 20-21 March 2027. RAEM, Russian 160m, the Russian WW series and the RCC Cup are on separate hosts and have not been read. READ AGAIN 2026-08-23. rdxc.org carries the Russian DX Contest ALONE and links none of SRR's other contests -- the SRR logo appears there as a sponsor and nothing more -- so each of the others needs its own host found. raem.srr.ru was found and read: the RAEM Contest, 'E. T. Krenkel Memorial', 28 December, 0000-1159 UTC, CW. NOT ENCODED, because that page is the 2025 edition (the 53rd) and SRR publishes one year at a time -- the same annual-publisher pattern as RCA and UARL. Encoding a past edition would add a record that is dark on arrival. Re-check for the 54th.\n\nAlso unfound: the Russian 160m contest, the Russian WW series and the RCC Cup, each on a host of its own that has not been located."
     },
     {
       "org": "UARL",
@@ -696,11 +696,11 @@
       "catalog_sponsors": [
         "Straight Key Century Club"
       ],
-      "encoded": 2,
-      "encoded_verified": 2,
-      "estimated_total": 5,
-      "status": "partial",
-      "notes": "Weekend Sprintathon and Weekday Sprint encoded and verified, bands read at source 2026-08-16. QSO Party and Sprint Europe not started."
+      "encoded": 4,
+      "encoded_verified": 4,
+      "estimated_total": 4,
+      "status": "complete",
+      "notes": "Weekend Sprintathon and Weekday Sprint encoded and verified, bands read at source 2026-08-16. QSO Party and Sprint Europe not started. COMPLETE 2026-08-23 at 4. The QSO Party and the Straight Key Sprint Europe are encoded. SKSE IS THE INTERESTING ONE: SKCC prints two UTC times for it -- 2000Z from November to March and 1900Z from April to October -- and both are 2100 in central Europe. It is not a contest that changes its hour twice a year, it is a contest at nine in the evening that Europe's clocks move around, so it is recorded with timezone Europe/Berlin and wall_clock times, exactly as the ARS Spartan Sprint is recorded in New York. One rule reproduces all twelve of SKCC's published times, including the four months either side of the clock changes, and a test pins it.\n\nNOT ENCODED, and out of scope rather than unread: the Straight Key Sprint ASIA is the same contest for a different region and would be a third record of the same shape; K3Y Straight Key Month and the Canadian equivalent are month-long operating events with special callsigns rather than contests; the Monthly Brag, Slow Speed Saunter and High Band Operating are activity programmes with no contest period at all. SKCC's own page calls them 'operating activities', which is the right description."
     },
     {
       "org": "CWops",
@@ -1029,8 +1029,8 @@
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
     "as_of": "2026-08-23",
-    "total_encoded": 256,
-    "total_verified": 243,
+    "total_encoded": 260,
+    "total_verified": 248,
     "total_retired": 10,
     "by_tier": {
       "tier_1_major_international": {
@@ -1043,8 +1043,8 @@
       "tier_2_european_societies": {
         "orgs": 22,
         "orgs_worked": 22,
-        "encoded": 66,
-        "verified": 65,
+        "encoded": 68,
+        "verified": 68,
         "retired": 0
       },
       "tier_3_other_regions": {
@@ -1057,8 +1057,8 @@
       "tier_4_specialty_clubs": {
         "orgs": 17,
         "orgs_worked": 15,
-        "encoded": 54,
-        "verified": 51,
+        "encoded": 56,
+        "verified": 53,
         "retired": 8
       },
       "tier_5_qso_parties": {
@@ -1071,13 +1071,13 @@
     },
     "by_region": {
       "Europe": {
-        "encoded": 116,
-        "verified": 111,
+        "encoded": 118,
+        "verified": 114,
         "retired": 2
       },
       "North America": {
-        "encoded": 67,
-        "verified": 62,
+        "encoded": 69,
+        "verified": 64,
         "retired": 8
       },
       "Africa": {
@@ -1108,8 +1108,8 @@
     },
     "by_country": {
       "US": {
-        "encoded": 65,
-        "verified": 60,
+        "encoded": 67,
+        "verified": 62,
         "retired": 8
       },
       "ZA": {
@@ -1182,6 +1182,11 @@
         "verified": 4,
         "retired": 0
       },
+      "IE": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
       "CZ": {
         "encoded": 3,
         "verified": 3,
@@ -1247,11 +1252,6 @@
         "verified": 2,
         "retired": 0
       },
-      "IE": {
-        "encoded": 1,
-        "verified": 0,
-        "retired": 0
-      },
       "BR": {
         "encoded": 1,
         "verified": 1,
@@ -1297,7 +1297,7 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 45.3,
+      "largest_region_share_pct": 45.4,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "CRSA",
@@ -1315,7 +1315,6 @@
       "cwops-cw-open",
       "darc-cw-ausbildungscontest",
       "darc-hell-kurz",
-      "irts-80m-counties",
       "jarl-new-year-qso-party",
       "rsgb-ft4-activity-day",
       "sarl-top-band-qso",
