@@ -25,10 +25,12 @@ import { SITE_NAME } from "./render/html.js";
 import { renderDetail } from "./render/detail.js";
 import { renderLanding } from "./render/landing.js";
 import { parseMonth, renderMonth } from "./render/month.js";
-import { FAVICON_SVG, ICON_LINKS } from "./render/icon.js";
+import { FAVICON_SVG, ICON_LINKS, manifest } from "./render/icon.js";
 import {
   APPLE_TOUCH_PNG_B64,
   FAVICON_ICO_B64,
+  ICON_192_PNG_B64,
+  ICON_512_PNG_B64,
 } from "./render/icon-raster.js";
 import { findPage, renderPage } from "./render/pages.js";
 
@@ -236,6 +238,19 @@ export default {
         // page, and it asks for them at the ROOT regardless of what the <head>
         // says. Both answer.
         response = binary(APPLE_TOUCH_PNG_B64, "image/png");
+      } else if (path === "/icon-192.png") {
+        response = binary(ICON_192_PNG_B64, "image/png");
+      } else if (path === "/icon-512.png") {
+        response = binary(ICON_512_PNG_B64, "image/png");
+      } else if (path === "/manifest.webmanifest" || path === "/manifest.json") {
+        // Both spellings: .webmanifest is correct and .json is what half the
+        // world links, and a 404 here costs the home-screen name silently.
+        response = new Response(manifest(), {
+          headers: {
+            "content-type": "application/manifest+json; charset=utf-8",
+            "cache-control": "public, max-age=86400",
+          },
+        });
       } else if (path === "/robots.txt") {
         response = new Response("User-agent: *\nAllow: /\n", {
           headers: { "content-type": "text/plain; charset=utf-8" },

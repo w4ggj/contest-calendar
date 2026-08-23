@@ -1,3 +1,5 @@
+import { SITE_NAME } from "./html.js";
+
 /**
  * The site's icon.
  *
@@ -77,4 +79,55 @@ export const ICON_LINKS =
   // bare `:root` declares -- with scripting off the page renders dark unless
   // the OS says light, and this at least matches the majority case rather than
   // contradicting it.
-  `<meta name="theme-color" content="#050B12">`;
+  `<meta name="theme-color" content="#050B12">` +
+  // Android reads the icon and the shortcut NAME from here; without it the
+  // home-screen label comes from the live <title>.
+  `<link rel="manifest" href="/manifest.webmanifest">`;
+
+
+/**
+ * The web app manifest.
+ *
+ * Added because "check the favicon on mobile" turned up something worse than a
+ * missing icon. Without a manifest, an Android home-screen shortcut takes its
+ * LABEL from the page <title> -- and this site's title is live, so a shortcut
+ * added at the wrong moment reads "1 contest on the air now - Amateur Ra..."
+ * and stays frozen at that count forever. `short_name` is the fix.
+ *
+ * `display` is "browser" ON PURPOSE. A manifest with "standalone" invites
+ * Chrome to offer an install prompt and to open the site chrome-less, and
+ * nobody asked for an app -- this is a calendar you read in a tab. The manifest
+ * is here for the icon and the name, and those work in "browser" mode.
+ *
+ * Built from SITE_NAME rather than a second copy of the string, so the two
+ * cannot drift.
+ */
+export function manifest(): string {
+  return JSON.stringify({
+    name: SITE_NAME,
+    // Twelve characters is about what an Android home screen shows before it
+    // truncates, and "Contests" alone is ambiguous among a screen of apps.
+    short_name: "Ham Contests",
+    description:
+      "Amateur radio contest dates, computed from each sponsor's own published rules.",
+    start_url: "/",
+    scope: "/",
+    display: "browser",
+    background_color: "#050B12",
+    theme_color: "#050B12",
+    icons: [
+      { src: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+      {
+        src: "/icon-192.png", sizes: "192x192", type: "image/png",
+        // "maskable" is a claim about SAFE AREA, not a style: it says the mark
+        // survives a circular or squircle crop. It is only true here because
+        // the generator draws it at 62% of the canvas -- asserted in the test.
+        purpose: "any maskable",
+      },
+      {
+        src: "/icon-512.png", sizes: "512x512", type: "image/png",
+        purpose: "any maskable",
+      },
+    ],
+  });
+}
