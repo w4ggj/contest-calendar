@@ -139,13 +139,21 @@ def eligibility_for(contest: dict[str, Any], my_entity: str = "K") -> dict[str, 
     if scope == "entity_list":
         entities = elig.get("entities", [])
         result["can_enter"] = my_entity in entities
+        # Name them when the list is short enough to read. RSGB's Commonwealth
+        # Contest is limited to 151 call-area prefixes, and joining those into a
+        # sentence produces a paragraph nobody reads instead of an answer.
+        listed = (
+            ", ".join(entities)
+            if len(entities) <= 8
+            else f"{len(entities)} listed entities"
+        )
         if not result["can_enter"]:
             result["reason"] = (
-                f"Entry limited to {', '.join(entities)}. "
+                f"Entry limited to {listed}. "
                 f"{my_entity} stations may be worked but cannot submit an entry."
             )
         else:
-            result["reason"] = f"Entry limited to {', '.join(entities)} -- includes {my_entity}."
+            result["reason"] = f"Entry limited to {listed} -- includes {my_entity}."
 
     elif scope == "two_sided":
         sides = elig.get("sides", {})

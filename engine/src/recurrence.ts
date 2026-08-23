@@ -243,9 +243,15 @@ export function eligibilityFor(
   if (scope === "entity_list") {
     const entities = elig.entities ?? [];
     result.can_enter = entities.includes(myEntity);
+    // Name them when the list is short enough to read. RSGB's Commonwealth
+    // Contest is limited to 151 call-area prefixes, and joining those into a
+    // sentence produces a paragraph nobody reads instead of an answer.
+    const listed = entities.length <= 8
+      ? entities.join(", ")
+      : `${entities.length} listed entities`;
     result.reason = result.can_enter
-      ? `Entry limited to ${entities.join(", ")} -- includes ${myEntity}.`
-      : `Entry limited to ${entities.join(", ")}. ` +
+      ? `Entry limited to ${listed} -- includes ${myEntity}.`
+      : `Entry limited to ${listed}. ` +
         `${myEntity} stations may be worked but cannot submit an entry.`;
   } else if (scope === "two_sided") {
     const sides = elig.sides ?? {};

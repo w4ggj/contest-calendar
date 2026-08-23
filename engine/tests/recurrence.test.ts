@@ -3927,6 +3927,59 @@ test("manual records get reviewed before the year turns", () => {
     }
   });
 
+// RSGB keeps a rules page per year, so its own dates check its own rule.
+const COMMONWEALTH_PUBLISHED: [number, number, number][] = [
+  [2023, 3, 11], [2024, 3, 9], [2025, 3, 8], [2026, 3, 14],
+];
+
+test.each(COMMONWEALTH_PUBLISHED)(
+  "Commonwealth reproduces RSGB's own dates: %i",
+  (year, month, day) => {
+    expect(isoDate(expand(byId("rsgb-commonwealth"), year)[0].start!))
+      .toBe(D(year, month, day));
+  },
+);
+
+test("Commonwealth entry is RSGB's own call area list", () => {
+  // Deferred for three days on ELIGIBILITY rather than on reading: the rules
+  // restrict entry to "the Commonwealth Call Area list" and do not print it.
+  // Writing one from general knowledge would have been this catalog inventing a
+  // restriction and attributing it to RSGB. RSGB publishes it at
+  // hf/information/codes.shtml, linked from the rules page -- the blocker was a
+  // link nobody had followed.
+  const c = byId("rsgb-commonwealth");
+  const ents = c.eligibility!.entities as string[];
+  expect(c.eligibility!.scope).toBe("entity_list");
+  expect(ents.length).toBeGreaterThan(140);
+
+  // PREFIXES, not DXCC entities: RSGB splits the big Commonwealth countries
+  // into call areas because the call area is the multiplier.
+  for (const p of ["VE1", "VE9", "VK6", "ZL1", "ZS1", "ZS8"]) {
+    expect(ents, p).toContain(p);
+  }
+  for (const home of ["G", "GD", "GI", "GJ", "GM", "GU", "GW"]) {
+    expect(ents, home).toContain(home);
+  }
+  expect(ents).toContain("3B6/7");
+  expect(ents).toContain("ZS0");
+
+  expect(eligibilityFor(c, "K").can_enter).toBe(false);
+  expect(eligibilityFor(c, "VE3").can_enter).toBe(true);
+});
+
+test("a long entity list is summarised, not recited", () => {
+  // Joining 151 prefixes into a sentence puts a wall of text where an answer
+  // should be. Short lists still name their entities.
+  const long = eligibilityFor(byId("rsgb-commonwealth"), "K").reason;
+  expect(long).toContain("151 listed entities");
+  expect(long).not.toContain("3B6/7");
+
+  const short = eligibilityFor(byId("rsgb-afs-cw"), "K").reason;
+  expect(short).toContain("G");
+  expect(short).not.toContain("listed entities");
+});
+
+
   test("verified means the evidence is in the record", () => {
     // HANDOVER.md defines verification as recording the rule IN THE SPONSOR'S
     // OWN WORDING in source_note. Three SARL club records carried

@@ -5840,6 +5840,64 @@ def test_a_plain_manual_date_still_uses_the_record_times(catalog):
                 assert o.start.strftime("%H%M") in want, c["id"]
 
 
+# RSGB keeps a rules page per year, so its own dates check its own rule.
+COMMONWEALTH_PUBLISHED = {
+    2023: date(2023, 3, 11), 2024: date(2024, 3, 9),
+    2025: date(2025, 3, 8), 2026: date(2026, 3, 14),
+}
+
+
+@pytest.mark.parametrize("year,day", sorted(COMMONWEALTH_PUBLISHED.items()))
+def test_commonwealth_reproduces_rsgbs_own_dates(catalog, year, day):
+    assert expand(by_id(catalog, "rsgb-commonwealth"), year)[0].start.date() == day
+
+
+def test_commonwealth_entry_is_rsgbs_own_call_area_list(catalog):
+    """
+    This contest sat deferred for three days on ELIGIBILITY rather than on
+    reading. Its rules restrict entry to "the Commonwealth Call Area list" and
+    the rules page does not print that list; writing one from general knowledge
+    of the Commonwealth would have been this catalog inventing a restriction and
+    attributing it to RSGB.
+
+    RSGB does publish it, at hf/information/codes.shtml, linked from the rules
+    page. The blocker was a link nobody had followed.
+    """
+    c = by_id(catalog, "rsgb-commonwealth")
+    ents = c["eligibility"]["entities"]
+    assert c["eligibility"]["scope"] == "entity_list"
+    assert c["eligibility"]["verified"]
+    assert len(ents) > 140, "the list is 151 prefixes; a short one means a guess"
+    assert "codes.shtml" in c["eligibility"]["note"]
+
+    # It is PREFIXES, not DXCC entities, and the difference is the point: RSGB
+    # splits the big Commonwealth countries into call areas because the call
+    # area is the multiplier.
+    for split in ("VE1", "VE9", "VK6", "ZL1", "ZS1", "ZS8"):
+        assert split in ents, split
+    # The seven home nations are separate areas whose mutual QSOs score nothing.
+    for home in ("G", "GD", "GI", "GJ", "GM", "GU", "GW"):
+        assert home in ents, home
+    # Ends of the list, to catch a truncated parse.
+    assert "3B6/7" in ents and "ZS0" in ents
+
+    # And the answer it exists to give.
+    assert not eligibility_for(c, "K")["can_enter"]
+    assert eligibility_for(c, "VE3")["can_enter"]
+
+
+def test_a_long_entity_list_is_summarised_not_recited(catalog):
+    # Joining 151 prefixes into a sentence produces a wall of text where an
+    # answer should be. Short lists still name their entities, which is the
+    # useful behaviour for the ones that have two or three.
+    long_reason = eligibility_for(by_id(catalog, "rsgb-commonwealth"), "K")["reason"]
+    assert "151 listed entities" in long_reason
+    assert "3B6/7" not in long_reason
+
+    short = eligibility_for(by_id(catalog, "rsgb-afs-cw"), "K")["reason"]
+    assert "G" in short and "listed entities" not in short
+
+
 def test_verified_means_the_evidence_is_in_the_record(catalog):
     """
     HANDOVER.md defines verification as recording the rule IN THE SPONSOR'S OWN
