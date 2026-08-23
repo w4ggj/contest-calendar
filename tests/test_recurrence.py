@@ -3959,6 +3959,33 @@ def test_manual_records_get_reviewed_before_the_year_turns():
     )
 
 
+
+def test_verified_means_the_evidence_is_in_the_record(catalog):
+    """
+    HANDOVER.md defines verification as recording the rule IN THE SPONSOR'S OWN
+    WORDING in `source_note`. Three SARL club records carried `verified: true`
+    with an empty string there, and that is a stricter defect than the thin
+    notes the same audit found beside them: an empty source_note is not weak
+    evidence, it is none, and there was nothing in the record to check a rule
+    against.
+
+    The bar here is deliberately low -- length, not content -- because the
+    failure being prevented is an EMPTY one. Judging whether a note actually
+    quotes its sponsor is a job for a person reading it; refusing to call a
+    record verified with nothing behind it is a job a test can do.
+    """
+    thin = [
+        (c["id"], len(c.get("source_note") or ""))
+        for c in catalog
+        if c.get("verified") and len(c.get("source_note") or "") < 40
+    ]
+    assert thin == [], f"verified with no evidence: {thin}"
+
+    # ...and every verified record says when its link was last confirmed, so a
+    # note that has quietly gone stale can at least be aged.
+    undated = [c["id"] for c in catalog if c.get("verified") and not c.get("rules_url_checked")]
+    assert undated == []
+
 def test_the_two_engines_declare_the_same_vocabularies():
     # The Python and TypeScript vocabularies are hand-maintained in two files.
     # This asserts the Python side against the literal text of the TypeScript

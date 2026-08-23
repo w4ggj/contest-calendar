@@ -3867,6 +3867,28 @@ test("manual records get reviewed before the year turns", () => {
   ).toBeLessThan(MANUAL_REVIEW_DEADLINE);
 });
 
+
+  test("verified means the evidence is in the record", () => {
+    // HANDOVER.md defines verification as recording the rule IN THE SPONSOR'S
+    // OWN WORDING in source_note. Three SARL club records carried
+    // verified: true with an empty string there -- a stricter defect than the
+    // thin notes found beside them, because an empty source_note is not weak
+    // evidence, it is none.
+    //
+    // The bar is length, not content, on purpose: judging whether a note really
+    // quotes its sponsor is a job for a person, and refusing to call a record
+    // verified with nothing behind it is a job a test can do.
+    const thin = catalog
+      .filter((c) => c.verified && ((c.source_note as string) ?? "").length < 40)
+      .map((c) => c.id);
+    expect(thin, "verified with no evidence").toEqual([]);
+
+    const undated = catalog
+      .filter((c) => c.verified && !c.rules_url_checked)
+      .map((c) => c.id);
+    expect(undated).toEqual([]);
+  });
+
   test("the two engines declare the same vocabularies", () => {
     // The Python and TypeScript vocabularies are hand-maintained in two files.
     // This asserts the TypeScript side against the literal text of the Python

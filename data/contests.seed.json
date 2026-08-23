@@ -9995,7 +9995,7 @@
       "sponsor_home": "https://mysarl.org.za/",
       "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-08-23",
       "id": "sarl-club-40m",
       "name": "SARL Saturday 40 m Club Contest",
       "modes": [
@@ -10035,8 +10035,9 @@
         "verified": false,
         "note": "THIS CATALOG'S READING, NOT SARL'S WORDING. The manual states no entry restriction, but the exchange requires an Abbreviated Club Callsign 'derived from the club's ICASA issued callsign', and ICASA is the South African regulator -- so a station outside South Africa has no valid exchange to send. Recorded as ZS with eligibility.verified false rather than as worldwide, and it should be confirmed with SARL."
       },
-      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
-      "summary": "An hour on 40 m for South African club teams, run in January, April, July and November; individual scores add up to a club total."
+      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.\n\nPROVENANCE RESTORED 2026-08-23. This record carried verified: true with an EMPTY source_note -- one of three the 2026-08-21 rule audit found, and a stricter defect than the thin ARRL notes beside them: an empty string is not weak evidence, it is none, and there was nothing in the record to check a rule against. The rule, the times, the bands and the exchange were all correct; only the evidence for them was missing. Re-read from the manual and quoted above, and SARL's own printed 2026 dates reproduce it.",
+      "summary": "An hour on 40 m for South African club teams, run in January, April, July and November; individual scores add up to a club total.",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, page 35 onward. The manual is the venue in which SARL publishes these rules; see data/sources.md, 'Africa stops being one record -- SARL'. 'The SARL Saturday 40 m Club Contest'. Date and times: '15:00 to 16:00 UTC on the 4th Saturday of a month - Saturday 24 January; Saturday 25 April; Saturday 25 July; Saturday 28 November 2026.' Frequencies: 'Phone - 7 063 to 7 100 and 7 130 to 7 200 kHz. The segment from 7 101 to 7 129 kHz is contest free. CW - 7 000 to 7 040 kHz. RTTY - 7 040 to 7 060 kHz.' Exchange: 'Your name, your Abbreviated Club Callsign and your 4-character grid square (eg KG30).' Re-read 2026-08-23."
     },
     {
       "sponsor": "SARL",
@@ -10044,7 +10045,7 @@
       "sponsor_home": "https://mysarl.org.za/",
       "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-08-23",
       "id": "sarl-club-20m",
       "name": "SARL Saturday 20 m Club Contest",
       "modes": [
@@ -10082,8 +10083,9 @@
         "verified": false,
         "note": "THIS CATALOG'S READING, NOT SARL'S WORDING. The manual states no entry restriction, but the exchange requires an Abbreviated Club Callsign 'derived from the club's ICASA issued callsign', and ICASA is the South African regulator -- so a station outside South Africa has no valid exchange to send. Recorded as ZS with eligibility.verified false rather than as worldwide, and it should be confirmed with SARL."
       },
-      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
-      "summary": "An hour on 20 m for South African club teams, run in March and June; individual scores add up to a club total."
+      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.\n\nPROVENANCE RESTORED 2026-08-23. This record carried verified: true with an EMPTY source_note -- one of three the 2026-08-21 rule audit found, and a stricter defect than the thin ARRL notes beside them: an empty string is not weak evidence, it is none, and there was nothing in the record to check a rule against. The rule, the times, the bands and the exchange were all correct; only the evidence for them was missing. Re-read from the manual and quoted above, and SARL's own printed 2026 dates reproduce it.",
+      "summary": "An hour on 20 m for South African club teams, run in March and June; individual scores add up to a club total.",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, page 35 onward. The manual is the venue in which SARL publishes these rules; see data/sources.md, 'Africa stops being one record -- SARL'. 'The SARL Saturday 20 m Club Contest'. Date and times: '11:00 to 12:00 UTC (13:00 to 14:00 CAT) on the 3rd Saturday of a month - Saturday 21st March and Saturday 20th June 2026.' Frequencies: 'CW: 14 000 - 14 060 kHz. SSB: 14 125 - 14 300 kHz. RTTY: 14 080 - 14 099 kHz.' Exchange: 'Your name, your Abbreviated Club Callsign and your 4-character grid square (eg KG30).' Re-read 2026-08-23."
     },
     {
       "sponsor": "SARL",
@@ -10091,7 +10093,7 @@
       "sponsor_home": "https://mysarl.org.za/",
       "rules_url": "https://mysarl.org.za/wp-content/uploads/2025/12/2026-SARL-Contest-Manual-Version-1.1-2025-12-15.pdf",
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-08-23",
       "id": "sarl-club-80m",
       "name": "SARL Wednesday 80 m Club Contest",
       "modes": [
@@ -10131,8 +10133,9 @@
         "verified": false,
         "note": "THIS CATALOG'S READING, NOT SARL'S WORDING. The manual states no entry restriction, but the exchange requires an Abbreviated Club Callsign 'derived from the club's ICASA issued callsign', and ICASA is the South African regulator -- so a station outside South Africa has no valid exchange to send. Recorded as ZS with eligibility.verified false rather than as worldwide, and it should be confirmed with SARL."
       },
-      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.",
-      "summary": "An hour on 80 m for South African club teams, run in February, May, August and October; individual scores add up to a club total."
+      "note": "A club championship rather than an individual contest: operators' scores are added into a club total. The month list is SARL's own -- these run in four months of the year, not every month -- which is what monthly_nth_weekday's `months` field exists for. log_format and log_deadline_days are absent: this pass read each contest's Aim, Dates, Frequencies and Exchange sections and did not read its Log Sheets section, so neither is recorded rather than assumed from SARL's other contests.\n\nPROVENANCE RESTORED 2026-08-23. This record carried verified: true with an EMPTY source_note -- one of three the 2026-08-21 rule audit found, and a stricter defect than the thin ARRL notes beside them: an empty string is not weak evidence, it is none, and there was nothing in the record to check a rule against. The rule, the times, the bands and the exchange were all correct; only the evidence for them was missing. Re-read from the manual and quoted above, and SARL's own printed 2026 dates reproduce it.",
+      "summary": "An hour on 80 m for South African club teams, run in February, May, August and October; individual scores add up to a club total.",
+      "source_note": "2026 SARL Contest Manual Version 1.1 (2025-12-15), mysarl.org.za, page 35 onward. The manual is the venue in which SARL publishes these rules; see data/sources.md, 'Africa stops being one record -- SARL'. 'The SARL Wednesday 80 m Club Contest'. Aim: 'The Wednesday 80 m Club contest is a Club activity, the scores of individual operators are added together to get a Club score. The Club with the highest score after the four (4) contests will be awarded the SARL 80 m Club Championship Trophy.' Date and times: '17:00 to 18:00 UTC on the third Wednesday of a month - Wednesday 18 February; Wednesday 20 May; Wednesday 19 August and Wednesday 21 October 2026.' Frequencies: 'Phone: 3 603 to 3 650 and 3 703 to 3 800 kHz may be used. The segment 3651 to 3.700 is contest free. CW: 3 510 to 3 560 kHz. RTTY: 3 580 to 3 600.' Exchange: 'Your name, your Abbreviated Club Callsign and your 4-character grid square (eg KG30).' Re-read 2026-08-23."
     },
     {
       "sponsor": "SARL",
