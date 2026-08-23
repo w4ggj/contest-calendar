@@ -83,6 +83,64 @@ comment in `requirements.txt` explains why — don't strip it to restore the inv
 
 ---
 
+## The December re-check — 13 sponsors, 29 contests
+
+**Due: 1 December 2026.** The suite fails on that date until this is done —
+`test_manual_records_get_reviewed_before_the_year_turns`, mirrored in both engines. That is
+deliberate: the alternative is 29 contests silently vanishing on 1 January and nobody noticing
+until somebody misses one.
+
+### What was established on 2026-08-23, so December does not repeat it
+
+Three sponsors were checked and **none had published 2027**, which is the expected state in
+August and is why this is a December job rather than a now job:
+
+- **UBA** — `spring-contest-dst` shows 2026 only, no recurrence sentence anywhere on the page.
+- **RCA** — the 40 m page still shows the 2025 edition *and its results*. Nothing for 2026 yet,
+  let alone 2027.
+- **RSGB** — `rules/2027/rallband_ft4.shtml` is a **404** where `rules/2026/` is a 200.
+
+**The records are not stale — the sponsors have not published.** Every one of the 29 holds
+exactly what its sponsor announced, which is the discipline working. What expires is not
+correctness, it is coverage.
+
+### The stops, biggest first
+
+29 records across **13 sponsors**, so this is thirteen visits and not twenty-nine.
+
+| Sponsor | Records | Where |
+|---|---|---|
+| **UBA** | **9** | `uba.be/en/hf/contest-rules/spring-contest-dst`, `.../on-contest`, `uba.be/en/node/2457` |
+| **ARSI** | 5 | `arsi.info` — five separate pages, one per contest |
+| **UARL** | 4 | `uarl.org.ua` — a PDF reglament per year; the 2026 path has the year in it |
+| **NCJ** | 2 | `ncjweb.com/Sprint-Rules.pdf` — one document covers both Sprints |
+| CWops | 1 | `cwops.org/cwops-tests/cw-open/` |
+| ERAU | 1 | `erau.ee` — PDF |
+| LRMD | 1 | `lrmd.lt/mobiliuju-portabiliuju/` |
+| RAC | 1 | `rac.ca/contesting-results/` |
+| RCA | 1 | `lu4aa.org/wp/concurso-nacional-80m/` |
+| RSGB | 1 | `rsgbcc.org/hf/rules/2027/rallband_ft4.shtml` — **URL is derivable**, just change the year |
+| SARL | 1 | `mysarl.org.za/contest-resources/` — publishes its manual **in December**, so this one is timed right |
+| Boring ARC | 1 | `kkn.net/stew/stew_rules.html` |
+| URE | 1 | `concursos.ure.es/en/eartty/bases/` |
+
+**UBA is more than a third of the cliff on its own** and its three pages cover all nine. Start
+there.
+
+### Two records that look like defects and are not
+
+`rule-audit.md` §7.1 flagged both as dark; investigation on 2026-08-23 says the alarm was about
+visibility rather than error, and both records are correct as they stand.
+
+- **`rca-nacional-40m`** holds 2025 only. RCA has not announced a 2026 edition — their page
+  still carries the 2025 results. The record is right and the sponsor is behind. It runs in
+  October, so a 2026 announcement may still appear; check it alongside the 80 m page.
+- **`srr-russian-dx`** holds 2027 only, which reads alarming and costs nothing: the 2026
+  running was in March and is long past. It is invisible for the remainder of a year in which
+  it has already happened. Nothing to fix.
+
+---
+
 ## The one rule that cannot be broken
 
 > **Never populate a contest record from an aggregator.** Only from the sponsoring

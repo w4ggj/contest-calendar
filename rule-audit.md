@@ -231,12 +231,21 @@ This is not a mis-encoding. Every one of those records is *correct*: the sponsor
 year and the record holds exactly that, which is this project's discipline working as designed.
 The defect is that correctness has an expiry date and nothing surfaces it.
 
-**Two records are already dark and nothing says so:**
+**Two records are already dark** — and both turned out to be correct when investigated on
+2026-08-23. Recorded here as raised and then answered, because a flag left standing becomes
+folklore:
 
-- **`rca-nacional-40m`** holds dates for **2025 only**, with no `active_until`. It produces zero
-  occurrences in 2026 and zero in 2027. It is on a public calendar showing nothing, and no field
-  distinguishes "this contest ended" from "nobody has added this year's date".
-- **`srr-russian-dx`** holds **2027 only**. It is invisible for the whole of 2026.
+- **`rca-nacional-40m`** holds dates for **2025 only**. Not stale: RCA has not announced a 2026
+  edition, and their page still carries the 2025 results. The record holds exactly what the
+  sponsor published, which is the discipline working. It runs in October, so an announcement may
+  still come.
+- **`srr-russian-dx`** holds **2027 only**, which reads alarming and costs nothing: the 2026
+  running was in March and is long past. It is invisible for the remainder of a year in which it
+  has already happened.
+
+The distinction the original note asked for — "this contest ended" versus "nobody has added this
+year's date" — is real, and `active_until` already draws it. Neither of these is the first case;
+both are the second.
 
 `NEEDS_A_HUMAN.md` §4 already tracks "RDXC, UARL, RCA, REP FT4, ORARI YB DX RTTY" as annual
 one-line additions, so the *practice* is known — but it is tracked as a chore, not as a dated

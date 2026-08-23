@@ -3946,12 +3946,16 @@ def test_manual_records_get_reviewed_before_the_year_turns():
     """
     today = date.today()
     assert today < MANUAL_REVIEW_DEADLINE, (
-        f"{len(EXPIRE_AFTER_CATALOG_YEAR)} manual records hold {CATALOG_YEAR} dates "
-        f"only and will produce nothing from {CATALOG_YEAR + 1}-01-01. Re-read those "
-        f"sponsors, add any dates they have published, then move "
-        f"MANUAL_REVIEW_DEADLINE and CATALOG_YEAR forward and update the two pinned "
-        f"sets. Sponsors on the cliff: "
-        f"{', '.join(sorted(EXPIRE_AFTER_CATALOG_YEAR))}"
+        f"{len(EXPIRE_AFTER_CATALOG_YEAR)} manual records hold {CATALOG_YEAR} dates only "
+        f"and will produce nothing from {CATALOG_YEAR + 1}-01-01. "
+        f"THE CHECKLIST IS IN HANDOVER.md, 'The December re-check'. It is THIRTEEN "
+        f"sponsors, not {len(EXPIRE_AFTER_CATALOG_YEAR)} contests -- UBA alone is nine of "
+        f"them and three pages cover all nine. RSGB's next URL is derivable: change the "
+        f"year in rules/{{year}}/. SARL publishes its manual in December, so it is timed "
+        f"right. "
+        f"When done: add whatever each sponsor has published, then move "
+        f"MANUAL_REVIEW_DEADLINE and CATALOG_YEAR forward and update the two pinned sets. "
+        f"Bumping the date without looking is the one way to make this test useless."
     )
 
 

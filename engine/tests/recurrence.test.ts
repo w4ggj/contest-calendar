@@ -3855,11 +3855,15 @@ test("manual records get reviewed before the year turns", () => {
   // a commit that says who looked and when.
   expect(
     Date.now(),
-    `${EXPIRE_AFTER_CATALOG_YEAR.length} manual records hold ${CATALOG_YEAR} dates `
-    + `only and will produce nothing from ${CATALOG_YEAR + 1}-01-01. Re-read those `
-    + `sponsors, add any dates they have published, then move MANUAL_REVIEW_DEADLINE `
-    + `and CATALOG_YEAR forward and update the two pinned sets. On the cliff: `
-    + EXPIRE_AFTER_CATALOG_YEAR.join(", "),
+    `${EXPIRE_AFTER_CATALOG_YEAR.length} manual records hold ${CATALOG_YEAR} dates only `
+    + `and will produce nothing from ${CATALOG_YEAR + 1}-01-01. `
+    + `THE CHECKLIST IS IN HANDOVER.md, "The December re-check". It is THIRTEEN sponsors, `
+    + `not ${EXPIRE_AFTER_CATALOG_YEAR.length} contests -- UBA alone is nine of them and `
+    + `three pages cover all nine. RSGB's next URL is derivable: change the year in `
+    + `rules/{year}/. SARL publishes its manual in December, so it is timed right. `
+    + `When done: add whatever each sponsor has published, then move `
+    + `MANUAL_REVIEW_DEADLINE and CATALOG_YEAR forward and update the two pinned sets. `
+    + `Bumping the date without looking is the one way to make this test useless.`,
   ).toBeLessThan(MANUAL_REVIEW_DEADLINE);
 });
 
