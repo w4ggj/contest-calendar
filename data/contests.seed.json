@@ -13213,6 +13213,183 @@
       "submodes": [
         "PSK63"
       ]
+    },
+    {
+      "id": "rsgb-ft4-series",
+      "name": "RSGB FT4 Contest Series",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/r80m_ft4.shtml",
+      "rules_url_pattern": "https://www.rsgbcc.org/hf/rules/{year}/r80m_ft4.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "80, 40, 20, 15 and 10 m.",
+      "exchange": "A signal report. A serial number is not required.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-01-19",
+            "2026-02-23",
+            "2026-03-16",
+            {
+              "date": "2026-04-27",
+              "start": "1900",
+              "end": "2100"
+            },
+            {
+              "date": "2026-05-18",
+              "start": "1900",
+              "end": "2100"
+            },
+            {
+              "date": "2026-06-15",
+              "start": "1900",
+              "end": "2100"
+            },
+            {
+              "date": "2026-07-27",
+              "start": "1900",
+              "end": "2100"
+            },
+            {
+              "date": "2026-08-17",
+              "start": "1900",
+              "end": "2100"
+            },
+            {
+              "date": "2026-09-28",
+              "start": "1900",
+              "end": "2100"
+            },
+            "2026-10-26",
+            "2026-11-16",
+            "2026-12-14"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2200"
+      },
+      "log_deadline_days": 1,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/r80m_ft4.shtml for the rules and rsgbcc.org/cgi-bin/hfreadcal.pl?year=2026 for the dates, both RSGB's own. 'On Mondays only', twelve legs across the year. Mode: 'Standard FT4 format will be used as implemented in WSJT-X V2.6.1 or later or the equivalent in JTDX, MSHV, WSJT-Z etc.', and entrants 'must not use dedicated Contest formats'. Bands: 80, 40, 20, 15 and 10 m. Exchange: 'Signal report is required' and 'Serial number is NOT required'. Six sections covering UK and Non-UK entrants at 100 W and 10 W, open and restricted; 'UK&CD entrants must be RSGB members'. Logs within 24 hours. Checked 2026-08-23.",
+      "note": "TWELVE MONDAY EVENINGS AND THE CLOCK SHIFTS FOR THE SUMMER: January to March and October to December run 2000-2200 UTC, April to September run 1900-2100. Six legs each way, so the record's default is the winter clock and the summer legs carry their own -- the third contest to need per-date times, after the Autumn Series and the 80m Club Championship.\n\nMANUAL BECAUSE THE DATES ARE NOT ON THE RULES PAGE and follow no ordinal: they are Mondays, but the third Monday in January, the fourth in February, the third in March. RSGB publishes them on its CGI calendar and this record holds what that prints.\n\nNot the same contest as the FT4 International Activity Day in April, which is 24 hours and has its own rules page.",
+      "summary": "Two hours of FT4 on a Monday evening, twelve times a year, across five HF bands.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Six sections split UK and Non-UK at 100 W and 10 W, so stations outside the UK&CD have categories of their own. RSGB adds that 'UK&CD entrants must be RSGB members', which is a condition on the home entrants rather than on everyone."
+      }
+    },
+    {
+      "id": "rsgb-eclipse-cw",
+      "name": "RSGB Eclipse 3.5 MHz CW Contest",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "http://www.rsgbcc.org/hf/rules/2026/r_eclipse_cw.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "3510-3570 kHz.",
+      "exchange": "RS(T) plus a serial number starting at 1 and incrementing by 1.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-08-12"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1630"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1930"
+      },
+      "log_deadline_days": 1,
+      "active_until": 2026,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/r_eclipse_cw.shtml, the RSGB Contest Committee's own rules. 'Wednesday August 12, 16:30 UTC to 19:30 UTC.' Band: 3510-3570 kHz on 80 m. Exchange: 'RS(T) plus Serial Number starting at 1 and incrementing by 1'. Two sections, UK & CD and non-UK & CD, single or multi-operator, club callsigns permitted. Logs due by the day after. Purpose: the contest investigates 'propagation effects due to the eclipse', using RBN data alongside entrants' logs. Checked 2026-08-23.",
+      "note": "A ONE-OFF, TIED TO ONE ECLIPSE, AND CLOSED RATHER THAN EXPIRED. RSGB ran this for the total solar eclipse of 12 August 2026 and describes it as a one-time opportunity tied to that event. So it carries active_until: 2026 -- which is the field's real meaning, 'the sponsor stopped running it', and NOT the same state as the thirty-odd manual records waiting for next year's dates. The detail page will say the record is closed rather than missing, and it stays off the expiry cliff because there is nothing to re-check.\n\nIf RSGB runs an eclipse contest for a future eclipse it will be a different contest with different propagation to study, and it gets its own record.",
+      "summary": "Three hours of CW on 80 m during the total solar eclipse of 12 August 2026, run to measure what the eclipse does to propagation.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Two sections, UK & CD and non-UK & CD, so entry is not restricted."
+      }
+    },
+    {
+      "id": "rsgb-eclipse-ft8",
+      "name": "RSGB Eclipse FT8 Contest",
+      "sponsor": "RSGB Contest Committee",
+      "country": "GB",
+      "rules_url": "https://www.rsgbcc.org/hf/rules/2026/r_eclipse_ft8.shtml",
+      "sponsor_home": "https://www.rsgbcc.org/hf/",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [
+        "40m"
+      ],
+      "bands_note": "40 m, 7074 kHz.",
+      "exchange": "A signal report. No serial number and no locator.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-08-12"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1630"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1930"
+      },
+      "log_deadline_days": 1,
+      "active_until": 2026,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "rsgbcc.org/hf/rules/2026/r_eclipse_ft8.shtml, the RSGB Contest Committee's own rules. 'Wednesday August 12, 16:30 UTC to 19:30 UTC.' Band: '40m, 7074 kHz'. Mode: 'Standard FT8 format will be used as implemented in WSJT-X V2.6.1 or later'. Exchange: a signal report; serial numbers and locators are not required. Two sections, UK & CD and non-UK & CD, single or multi-operator, club callsigns permitted. Logs due by the day after. Purpose: the contest investigates 'propagation effects due to the eclipse', using RBN data alongside entrants' logs. Checked 2026-08-23.",
+      "note": "A ONE-OFF, TIED TO ONE ECLIPSE, AND CLOSED RATHER THAN EXPIRED. RSGB ran this for the total solar eclipse of 12 August 2026 and describes it as a one-time opportunity tied to that event. So it carries active_until: 2026 -- which is the field's real meaning, 'the sponsor stopped running it', and NOT the same state as the thirty-odd manual records waiting for next year's dates. The detail page will say the record is closed rather than missing, and it stays off the expiry cliff because there is nothing to re-check.\n\nIf RSGB runs an eclipse contest for a future eclipse it will be a different contest with different propagation to study, and it gets its own record.\n\nRAN ALONGSIDE THE CW ECLIPSE CONTEST, same three hours, different band: CW on 80 m and FT8 on 40 m. Two bands watched at once during the same eclipse is the point of running two.",
+      "summary": "Three hours of FT8 on 40 m during the total solar eclipse of 12 August 2026, paired with the CW contest on 80 m.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Two sections, UK OPEN and Non-UK OPEN, so entry is not restricted."
+      }
     }
   ]
 }

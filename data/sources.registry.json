@@ -84,11 +84,11 @@
       "catalog_sponsors": [
         "RSGB Contest Committee"
       ],
-      "encoded": 17,
-      "encoded_verified": 16,
+      "encoded": 20,
+      "encoded_verified": 19,
       "estimated_total": 25,
       "status": "partial",
-      "notes": "Excellent source, and the best-shaped one in the catalog for checking a rule: RSGB keeps a SEPARATE RULES PAGE PER YEAR at rsgbcc.org/hf/rules/{year}/r<slug>.shtml, so the sponsor's own published dates test the sponsor's own stated recurrence. Every record here is checked against four or five years of them. VHF contests live separately at /vhf/.\n\nTHE RULES INDEX IS A 403. rsgbcc.org/hf/rules/{year}/ refuses a directory listing, so pages have to be reached one at a time. Eleven were found by harvesting links out of /hf/results/results.shtml and the individual rules pages: rafs, rclubcalls, rhfchamp, riota, rnfd, r80mcc, rautumn, r160m, rallband_ft4, rcwc, rqrp. Several cover more than one contest -- rafs covers three, rnfd and r160m two each -- which is why a page count is not a contest count.\n\nENCODED SO FAR: IOTA; AFS CW, Datamodes and SSB (2026-08-19); and seven more on 2026-08-20 -- the February and November 1.8 MHz contests, National Field Day (CW), SSB Field Day, Club Calls, the Low Power Contest and the FT4 International Activity Day. That last one is the only unverified record of the eleven, and deliberately: RSGB ran it on the first Saturday of April in 2023, 2024 and 2025 and the SECOND in 2026, so no ordinal describes it and the record is manual, holding only the published date. Easter Sunday fell on 5 April 2026, which is a plausible reason and not a source.\n\nTWO THINGS THIS PASS ESTABLISHED THAT LOOK LIKE STYLE AND ARE NOT. First, the AFS New Year exclusion does NOT generalise: 1 June 2024 was a Saturday and RSGB ran National Field Day on it, so NFD has no first-of-month exception even though its sibling does. Second, the two 1.8 MHz contests share one rules page but not one mode -- February is CW and SSB, November is CW only -- so they are two records, and both moved from 1900-2300 to 2000-2300 UTC in 2025 without the date rule changing.\n\nSTILL OPEN, and read but deferred: the Commonwealth Contest (BERU, page rcwc) -- its recurrence is clean, the second weekend of March, Sat 1000 to Sun 1000 CW, but the rules restrict entry by 'the Commonwealth Call Area from which they are operating' WITHOUT enumerating the areas anywhere on that page, so an entity_list would be this catalog's invention rather than RSGB's list. Also unread: the HF Championship (rhfchamp), the 80m Club Championships (r80mcc) and the Autumn Series (rautumn), all multi-leg series; the AFS 160 contest; and the four VHF/UHF AFS contests under /vhf/. estimated_total stays at 25 -- eleven pages covering at least sixteen HF contests, plus the multi-leg series and the VHF side, is still roughly that. HF CHAMPIONSHIP READ 2026-08-23 AND IS NOT A CONTEST: it is an award over eleven other contests, the same call already made about the WIA Contest Champion. It is however an excellent index of RSGB's season -- nine of its eleven were already encoded, and the two that were not are the UK/EI DX legs, now encoded under their own organiser. It also names the July contest 'International Low Power Contest', which settles half of the Low Power question in NEEDS_A_HUMAN. STILL OPEN: the 3.5 MHz Club Championship series (many legs, rotating CW/SSB/PSK63/RTTY, and the rules page says dates 'must be checked on the contest calendar' rather than listing them), the Autumn Series, AFS 160, and the four VHF/UHF AFS contests. THE TWO 80m SERIES ARE DONE, 2026-08-23. The 3.5 MHz Autumn Series (9 legs) and the 3.5 MHz Club Championship (18 legs) are encoded as three records each, split by mode, using per-date times -- both series move their clock mid-run and the Club Championship's dates are not on its rules page at all: RSGB publishes them on a CGI calendar at cgi-bin/hfreadcal.pl?year=YYYY and the rules page links to it. That calendar is the answer to 'where are RSGB's dates' generally and is worth reading first next time. STILL OPEN: AFS 160, the four VHF/UHF AFS contests, and the Eclipse contests the calendar lists in August, which are new and unread."
+      "notes": "Excellent source, and the best-shaped one in the catalog for checking a rule: RSGB keeps a SEPARATE RULES PAGE PER YEAR at rsgbcc.org/hf/rules/{year}/r<slug>.shtml, so the sponsor's own published dates test the sponsor's own stated recurrence. Every record here is checked against four or five years of them. VHF contests live separately at /vhf/.\n\nTHE RULES INDEX IS A 403. rsgbcc.org/hf/rules/{year}/ refuses a directory listing, so pages have to be reached one at a time. Eleven were found by harvesting links out of /hf/results/results.shtml and the individual rules pages: rafs, rclubcalls, rhfchamp, riota, rnfd, r80mcc, rautumn, r160m, rallband_ft4, rcwc, rqrp. Several cover more than one contest -- rafs covers three, rnfd and r160m two each -- which is why a page count is not a contest count.\n\nENCODED SO FAR: IOTA; AFS CW, Datamodes and SSB (2026-08-19); and seven more on 2026-08-20 -- the February and November 1.8 MHz contests, National Field Day (CW), SSB Field Day, Club Calls, the Low Power Contest and the FT4 International Activity Day. That last one is the only unverified record of the eleven, and deliberately: RSGB ran it on the first Saturday of April in 2023, 2024 and 2025 and the SECOND in 2026, so no ordinal describes it and the record is manual, holding only the published date. Easter Sunday fell on 5 April 2026, which is a plausible reason and not a source.\n\nTWO THINGS THIS PASS ESTABLISHED THAT LOOK LIKE STYLE AND ARE NOT. First, the AFS New Year exclusion does NOT generalise: 1 June 2024 was a Saturday and RSGB ran National Field Day on it, so NFD has no first-of-month exception even though its sibling does. Second, the two 1.8 MHz contests share one rules page but not one mode -- February is CW and SSB, November is CW only -- so they are two records, and both moved from 1900-2300 to 2000-2300 UTC in 2025 without the date rule changing.\n\nSTILL OPEN, and read but deferred: the Commonwealth Contest (BERU, page rcwc) -- its recurrence is clean, the second weekend of March, Sat 1000 to Sun 1000 CW, but the rules restrict entry by 'the Commonwealth Call Area from which they are operating' WITHOUT enumerating the areas anywhere on that page, so an entity_list would be this catalog's invention rather than RSGB's list. Also unread: the HF Championship (rhfchamp), the 80m Club Championships (r80mcc) and the Autumn Series (rautumn), all multi-leg series; the AFS 160 contest; and the four VHF/UHF AFS contests under /vhf/. estimated_total stays at 25 -- eleven pages covering at least sixteen HF contests, plus the multi-leg series and the VHF side, is still roughly that. HF CHAMPIONSHIP READ 2026-08-23 AND IS NOT A CONTEST: it is an award over eleven other contests, the same call already made about the WIA Contest Champion. It is however an excellent index of RSGB's season -- nine of its eleven were already encoded, and the two that were not are the UK/EI DX legs, now encoded under their own organiser. It also names the July contest 'International Low Power Contest', which settles half of the Low Power question in NEEDS_A_HUMAN. STILL OPEN: the 3.5 MHz Club Championship series (many legs, rotating CW/SSB/PSK63/RTTY, and the rules page says dates 'must be checked on the contest calendar' rather than listing them), the Autumn Series, AFS 160, and the four VHF/UHF AFS contests. THE TWO 80m SERIES ARE DONE, 2026-08-23. The 3.5 MHz Autumn Series (9 legs) and the 3.5 MHz Club Championship (18 legs) are encoded as three records each, split by mode, using per-date times -- both series move their clock mid-run and the Club Championship's dates are not on its rules page at all: RSGB publishes them on a CGI calendar at cgi-bin/hfreadcal.pl?year=YYYY and the rules page links to it. That calendar is the answer to 'where are RSGB's dates' generally and is worth reading first next time. STILL OPEN: AFS 160, the four VHF/UHF AFS contests, and the Eclipse contests the calendar lists in August, which are new and unread. RSGB IS EFFECTIVELY DONE ON HF, 2026-08-23. Reading its CGI calendar end to end closed the remaining gaps and settled three questions. AFS 160 IS NOT A SEPARATE CONTEST -- the calendar labels the 14 November entry 'Club Calls (1.8MHz AFS)', which is the Club Calls record already held. The RSGB FT4 Contest Series (12 Monday legs, clock shifting for the summer) and both ECLIPSE contests are now encoded; the Eclipse pair carries active_until 2026 because RSGB describes them as tied to the 12 August 2026 eclipse specifically, which is what that field means and is a different state from the manual records awaiting next year's dates. TWO THINGS ON THAT CALENDAR ARE DELIBERATELY NOT CONTESTS: the HF Championship and the GR2HQ Challenge are both AWARDS over other contests -- GR2HQ is entered by registering rather than by submitting a log -- and the WIA Contest Champion set that precedent. STILL OPEN: the Commonwealth Contest, deferred on eligibility rather than on reading, and the four VHF/UHF AFS contests, which live on a different calendar under /vhf/."
     },
     {
       "org": "IARU",
@@ -1029,16 +1029,16 @@
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
     "as_of": "2026-08-23",
-    "total_encoded": 247,
-    "total_verified": 236,
-    "total_retired": 8,
+    "total_encoded": 250,
+    "total_verified": 239,
+    "total_retired": 10,
     "by_tier": {
       "tier_1_major_international": {
         "orgs": 10,
         "orgs_worked": 10,
-        "encoded": 74,
-        "verified": 69,
-        "retired": 0
+        "encoded": 77,
+        "verified": 72,
+        "retired": 2
       },
       "tier_2_european_societies": {
         "orgs": 22,
@@ -1071,9 +1071,9 @@
     },
     "by_region": {
       "Europe": {
-        "encoded": 107,
-        "verified": 104,
-        "retired": 0
+        "encoded": 110,
+        "verified": 107,
+        "retired": 2
       },
       "North America": {
         "encoded": 67,
@@ -1118,9 +1118,9 @@
         "retired": 0
       },
       "GB": {
-        "encoded": 23,
-        "verified": 22,
-        "retired": 0
+        "encoded": 26,
+        "verified": 25,
+        "retired": 2
       },
       "DE": {
         "encoded": 18,
@@ -1297,7 +1297,7 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 43.3,
+      "largest_region_share_pct": 44.0,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "CRSA",
