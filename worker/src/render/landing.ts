@@ -11,6 +11,7 @@
  */
 
 import type { Occurrence } from "../../../engine/src/recurrence.js";
+import { CATALOG_SIZE } from "../catalog.js";
 import {
   bandFamilies,
   durationBucketOf,
@@ -543,7 +544,7 @@ export function renderLanding(view: NowView, input: LandingInput): string {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
-<meta name="description" content="Every amateur radio contest, computed from each sponsor's own published rules. What is on the air now and over the next seven days, in your local time.">
+<meta name="description" content="${CATALOG_SIZE} amateur radio contests, year-round, with every date computed from the sponsor's own published rules. Local time, filters, month view and an iCal feed.">
 <meta name="color-scheme" content="dark light">
 ${ICON_LINKS}
 <link rel="alternate" type="text/calendar" href="/api/ics" title="Amateur radio contests">

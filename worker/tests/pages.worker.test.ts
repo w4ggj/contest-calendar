@@ -150,6 +150,32 @@ describe("what the page calls itself", () => {
     }
   });
 
+  it("describes the site in the description, not the view you land on", async () => {
+    // The description used to say "on the air now and over the next seven
+    // days". True of what the landing page SHOWS, and misleading as the one
+    // sentence a search result or a pasted link gets: it reads as though the
+    // site only covers a week, when the catalog is year-round and the month
+    // grid and detail pages sit behind it.
+    const desc = /<meta name="description" content="([^"]+)">/.exec(await page("/"))![1];
+
+    expect(desc, "description still scopes the site to a week")
+      .not.toMatch(/seven days|7 days|this week/i);
+    expect(desc).toMatch(/year-round/i);
+
+    // And it must not overclaim in the other direction. "Every amateur radio
+    // contest" is what it said before, and the gap report says plainly that the
+    // catalog is NOT every contest -- no US state QSO parties at all, a whole
+    // tier unstarted. A count is a fact; "every" is a claim this project cannot
+    // support and spends most of its effort not making elsewhere.
+    expect(desc, "description overclaims completeness")
+      .not.toMatch(/\b(every|all)\s+(known\s+)?amateur radio contest/i);
+    expect(desc).toMatch(/^\d+ amateur radio contests/);
+
+    // Long enough to be useful, short enough to survive a search result.
+    expect(desc.length).toBeGreaterThan(80);
+    expect(desc.length).toBeLessThanOrEqual(160);
+  });
+
   it("keeps the masthead heading short and the subject beneath it", async () => {
     // The fix for a name that does not say who it is for is a second line, not
     // a longer heading. A heading that has to explain itself is doing the
