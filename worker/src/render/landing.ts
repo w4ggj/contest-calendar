@@ -571,6 +571,7 @@ ${masthead(true, "Skip to contests")}
         <li class="on"><b>${view.live.length}</b><span>on the air</span></li>
         <li><b>${view.next7.length}</b><span>next 7 days</span></li>
         <li><b>${view.later.length}</b><span>${esc(view.laterLabel.toLowerCase())}</span></li>
+        <li class="tot"><b>${view.totalConsidered}</b><span>listed below</span></li>
       </ul>
       <p class="viewswitch"><a class="btn" href="${esc(
         relink(input.params, [], {}, "/month"),

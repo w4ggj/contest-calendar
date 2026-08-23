@@ -327,6 +327,43 @@ describe("the masthead", () => {
     expect(await page("/contest/cq-ww-cw?mode=CW")).toContain('href="/?mode=CW"');
   });
 
+  it("totals the three buckets, and the total is their sum", async () => {
+    // The three counts are disjoint -- buildNowView partitions the window into
+    // live, next7 and later -- so a reader could add them up, and the page
+    // should not make them.
+    const html = await page("/");
+    const nums = [...html.matchAll(/<li class="([^"]*)"><b>(\d+)<\/b><span>([^<]*)</g)]
+      .map((m) => ({ cls: m[1], n: Number(m[2]), label: m[3] }));
+    const plain = [...html.matchAll(/<li><b>(\d+)<\/b><span>([^<]*)</g)]
+      .map((m) => ({ cls: "", n: Number(m[1]), label: m[2] }));
+    const all = [...nums, ...plain];
+
+    const live = all.find((x) => x.label.includes("on the air"))!;
+    const week = all.find((x) => x.label.includes("next 7 days"))!;
+    const total = all.find((x) => x.cls === "tot")!;
+    const later = all.find(
+      (x) => x !== live && x !== week && x !== total,
+    )!;
+
+    expect(total, "no total in the tally").toBeTruthy();
+    expect(total.label).toContain("listed");
+    expect(total.n, "total is not the sum of the three buckets")
+      .toBe(live.n + week.n + later.n);
+  });
+
+  it("keeps the total honest under a filter", async () => {
+    // It counts what is on the page, not what is in the catalog, so narrowing
+    // the view must move it.
+    const grab = async (q: string) => {
+      const html = await page(q);
+      return Number(/<li class="tot"><b>(\d+)<\/b>/.exec(html)![1]);
+    };
+    const all = await grab("/");
+    const cw = await grab("/?mode=CW");
+    expect(cw).toBeLessThan(all);
+    expect(cw).toBeGreaterThan(0);
+  });
+
   it("carries the title onto the month grid and a contest record", async () => {
     for (const route of ["/month?m=2026-11", "/contest/cq-ww-cw"]) {
       const html = await page(route);

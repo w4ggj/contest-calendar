@@ -281,6 +281,14 @@ a:hover { color: var(--ink); }
   font-variant-numeric: tabular-nums;
 }
 .tally .on b { color: var(--amber); }
+/* The total of the three buckets above it, which are disjoint -- buildNowView
+   already computes it as totalConsidered. Set off by a rule rather than a
+   colour: it is a sum of the others, not a fourth kind of thing, and the
+   palette's three roles are full. */
+.tally .tot {
+  border-left: 1px solid var(--rule); padding-left: 1.5rem; margin-left: -.5rem;
+}
+.tally .tot b { color: var(--ink-dim); }
 .tally span { color: var(--ink-faint); text-transform: uppercase; letter-spacing: .16em; font-size: .7rem; }
 
 /* -- section legends --------------------------------------------------- */
