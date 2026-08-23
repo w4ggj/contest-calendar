@@ -12208,7 +12208,7 @@
       "verified": true,
       "rules_url_checked": "2026-08-20",
       "source_note": "rsgbcc.org/hf/rules/2026/rqrp.shtml: '1. Objective A contest for operators to experiment with QRP and low power levels, with a choice of fixed or portable operation.' '2. Date & Time 19 July 2026 0900-1200 & 1300-1600 UTC.' Frequencies: 'CW only. 3510 - 3580 kHz (recommended 3540 - 3560 kHz), 7000 - 7040 kHz (recommended 7020 - 7040 kHz), 14000 - 14060 kHz (recommended 14040 - 14060 kHz).' Exchange: 'RS(T) + Serial Number starting at 1 and incrementing by 1 + Transmitted power.' Entrants: '(b) UK&CD entrants must be RSGB members.' RSGB's own dates for four years: 16 Jul 2023, 21 Jul 2024, 20 Jul 2025 and 19 Jul 2026 -- the third Sunday of July each time.",
-      "note": "TWO SESSIONS WITH AN HOUR'S BREAK FOR LUNCH, which is why this record uses the sessions array: 0900-1200 and 1300-1600. Encoding it as a single seven-hour block would put a contest on the calendar during an hour RSGB does not run one.\n\nThe exchange includes your transmitted power, which is how a low-power contest scores itself.\n\nELIGIBILITY IS THE ONE UNVERIFIED THING HERE. RSGB says 'UK&CD entrants must be RSGB members' and says nothing about anyone else, which reads as open but is an absence rather than a statement. RSGB also runs a separately-named 'International Low Power Contest' in its results archive, which suggests this one may be the domestic one. Worth one question. RSGB keeps a rules page per year, so its own dates check its own rule. Four years were read for this record -- 2023, 2024, 2025 and 2026 -- and the recurrence reproduces all of them.",
+      "note": "TWO SESSIONS WITH AN HOUR'S BREAK FOR LUNCH, which is why this record uses the sessions array: 0900-1200 and 1300-1600. Encoding it as a single seven-hour block would put a contest on the calendar during an hour RSGB does not run one.\n\nThe exchange includes your transmitted power, which is how a low-power contest scores itself.\n\nELIGIBILITY IS THE ONE UNVERIFIED THING HERE. RSGB says 'UK&CD entrants must be RSGB members' and says nothing about anyone else, which reads as open but is an absence rather than a statement. RSGB also runs a separately-named 'International Low Power Contest' in its results archive, which suggests this one may be the domestic one. Worth one question. RSGB keeps a rules page per year, so its own dates check its own rule. Four years were read for this record -- 2023, 2024, 2025 and 2026 -- and the recurrence reproduces all of them.\n\nPART OF THIS IS NOW ANSWERED, 2026-08-23. The open question was whether the July contest encoded here is RSGB's domestic low-power event or the 'International Low Power Contest' that appears separately in their results archive. RSGB's own HF Championship page lists the eleven contests counting towards it, and the July entry is named 'International Low Power Contest' -- there is exactly one low-power contest in RSGB's season and it is this one. So the two names are the same contest.\n\nThat does NOT by itself prove non-UK stations may enter, which is why the record stays verified: false: the championship's own entry clause is 'single operators who at the time of each contest are RSGB members and are operating in the UK&CD', and that is the CHAMPIONSHIP's restriction rather than the contest's. What has gone is the possibility that we encoded the wrong one of two contests.",
       "summary": "Two three-hour CW sessions at QRP on the third Sunday of July, with your power sent as part of the exchange.",
       "eligibility": {
         "scope": "worldwide",
@@ -12777,6 +12777,112 @@
         "scope": "worldwide",
         "verified": true,
         "note": "Open to all; CWops membership is not required to enter."
+      }
+    },
+    {
+      "id": "ukei-dx-cw",
+      "name": "UK/EI DX Contest, CW",
+      "sponsor": "UK/EI Contest Club",
+      "country": "GB",
+      "rules_url": "https://www.ukeicc.com/dx-contest-rules.php",
+      "sponsor_home": "https://www.ukeicc.com/",
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "RS(T) and a serial number from 1. Stations in the UK and Ireland add their two-character UK/EI District Code.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-04-26"
+          ],
+          "2026": [
+            "2026-04-25"
+          ],
+          "2027": [
+            "2027-04-24"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "log_deadline_days": 1,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "ukeicc.com/dx-contest-rules.php, the UK/EI Contest Club's own rules. 'All contests run from 1200z on Saturday to 1200z on Sunday.' Bands: '3.5, 7, 14, 21 and 28MHz'. Exchange: UK/EI stations send 'RS(T) (optional) plus a sequential serial number starting from 1' and 'add their 2-character UK/EI District Code'; DX stations send the report and serial without a district code. Entry: stations in 'EI, G, GD, GI, GJ, GM, GU, GW' enter as UK/EI and 'any other station' as DX. Run 'In partnership with the RSGB ... the IRTS ... and the GMDX Group'. Logs are due '24 hours after the end of the contest'. Checked 2026-08-23.",
+      "note": "MANUAL, AND THE SSB LEG IS WHY BOTH ARE. UKEICC publishes three years of dates and states no recurrence anywhere: CW on 26 Apr 2025, 25 Apr 2026 and 24 Apr 2027; SSB on 1 Nov 2025, 31 Oct 2026 and 23 Oct 2027.\n\nThe CW dates happen to be the last Saturday of April in all three years. The SSB dates fit nothing at all -- the FIRST Saturday of November, then the FIFTH Saturday of October, then the FOURTH -- not even the same month twice running. So this organiser demonstrably does not schedule by ordinal, which is the strongest possible argument against fitting one to the CW leg because three years happen to agree. Both legs hold exactly the dates UKEICC printed and produce nothing for 2028 until it publishes them.\n\nFOUND THROUGH RSGB'S HF CHAMPIONSHIP TABLE, which lists the eleven contests that count towards it. That page is an award over other contests rather than a contest itself -- the same call already made about the WIA Contest Champion -- but it is an excellent index of what RSGB's season actually contains, and both UK/EI legs were on it.",
+      "summary": "Twenty-four hours of CW working the UK and Ireland, with their district codes as the multipliers, run with the RSGB, IRTS and GMDX Group.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Two entry categories and everyone fits one: stations in EI, G, GD, GI, GJ, GM, GU and GW enter as UK/EI, and 'any other station' as DX."
+      }
+    },
+    {
+      "id": "ukei-dx-ssb",
+      "name": "UK/EI DX Contest, SSB",
+      "sponsor": "UK/EI Contest Club",
+      "country": "GB",
+      "rules_url": "https://www.ukeicc.com/dx-contest-rules.php",
+      "sponsor_home": "https://www.ukeicc.com/",
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "RS(T) and a serial number from 1. Stations in the UK and Ireland add their two-character UK/EI District Code.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-11-01"
+          ],
+          "2026": [
+            "2026-10-31"
+          ],
+          "2027": [
+            "2027-10-23"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "log_deadline_days": 1,
+      "verified": true,
+      "rules_url_checked": "2026-08-23",
+      "source_note": "ukeicc.com/dx-contest-rules.php, the UK/EI Contest Club's own rules. 'All contests run from 1200z on Saturday to 1200z on Sunday.' Bands: '3.5, 7, 14, 21 and 28MHz'. Exchange: UK/EI stations send 'RS(T) (optional) plus a sequential serial number starting from 1' and 'add their 2-character UK/EI District Code'; DX stations send the report and serial without a district code. Entry: stations in 'EI, G, GD, GI, GJ, GM, GU, GW' enter as UK/EI and 'any other station' as DX. Run 'In partnership with the RSGB ... the IRTS ... and the GMDX Group'. Logs are due '24 hours after the end of the contest'. Checked 2026-08-23.",
+      "note": "MANUAL, AND THE SSB LEG IS WHY BOTH ARE. UKEICC publishes three years of dates and states no recurrence anywhere: CW on 26 Apr 2025, 25 Apr 2026 and 24 Apr 2027; SSB on 1 Nov 2025, 31 Oct 2026 and 23 Oct 2027.\n\nThe CW dates happen to be the last Saturday of April in all three years. The SSB dates fit nothing at all -- the FIRST Saturday of November, then the FIFTH Saturday of October, then the FOURTH -- not even the same month twice running. So this organiser demonstrably does not schedule by ordinal, which is the strongest possible argument against fitting one to the CW leg because three years happen to agree. Both legs hold exactly the dates UKEICC printed and produce nothing for 2028 until it publishes them.\n\nFOUND THROUGH RSGB'S HF CHAMPIONSHIP TABLE, which lists the eleven contests that count towards it. That page is an award over other contests rather than a contest itself -- the same call already made about the WIA Contest Champion -- but it is an excellent index of what RSGB's season actually contains, and both UK/EI legs were on it.",
+      "summary": "Twenty-four hours of SSB working the UK and Ireland, with their district codes as the multipliers, run with the RSGB, IRTS and GMDX Group.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Two entry categories and everyone fits one: stations in EI, G, GD, GI, GJ, GM, GU and GW enter as UK/EI, and 'any other station' as DX."
       }
     }
   ]
