@@ -1839,6 +1839,10 @@ const EUROPE_TIER2_PUBLISHED: Record<string, [string, [number, number, number][]
   "ok-om-dx-ssb": ["second weekend in April", [[2026, 4, 11]]],
   "ok-om-dx-cw": ["second (full) weekend in November", [[2026, 11, 14]]],
   "ok-dx-rtty": ["3rd full weekend in December", [[2026, 12, 19]]],
+  "makrothen-rtty": [
+    "second full weekend of October (PL259 publishes Oct 10-11 2026)",
+    [[2026, 10, 10]],
+  ],
   "ari-international-dx": ["il primo weekend completo di Maggio", [[2026, 5, 2]]],
   "ari-contest-sezioni-hf": [
     "ogni secondo week-end completo di Giugno",
@@ -1984,6 +1988,23 @@ test("OK DX RTTY carries no deadline because the sponsor contradicts itself", ()
   ] as const) {
     expect(isoDate(expand(byId(cid), 2026)[0].log_due!)).toBe(due);
   }
+});
+
+test("Makrothen runs three periods and carries no deadline", () => {
+  // PL259's Makrothen RTTY Contest: 0000-0800Z and 1600-2400Z Saturday, 0800-1600Z
+  // Sunday, on the second full weekend of October (October 10-11 in 2026). One
+  // log, three periods -- so three occurrences, with the gaps left off the air.
+  // The rules page states a 2025 log deadline while announcing the 2026 dates, so
+  // no deadline is encoded.
+  const c = byId("makrothen-rtty");
+  expect(c.log_deadline_days).toBeUndefined();
+  const occ = [...expand(c, 2026)].sort((a, b) => a.start!.getTime() - b.start!.getTime());
+  expect(occ.map((o) => [o.start!.getTime(), o.end!.getTime()])).toEqual([
+    [at(2026, 10, 10, 0, 0), at(2026, 10, 10, 8, 0)],
+    [at(2026, 10, 10, 16, 0), at(2026, 10, 11, 0, 0)],
+    [at(2026, 10, 11, 8, 0), at(2026, 10, 11, 16, 0)],
+  ]);
+  for (const o of occ) expect(o.log_due ?? null).toBeNull();
 });
 
 // Records where the sponsor publishes dates and never states a rule. Each is

@@ -1797,6 +1797,34 @@ records, and roughly fifty to a hundred a year on an ongoing basis, because ever
 expires. Contests are read once and then stable for years; this is a different kind of work
 and it does not stop.
 
+## Pizza Lovers 259, and a sponsor that cannot be fetched — 2026-10-07
+
+**Makrothen RTTY Contest, sponsor Pizza Lovers 259 (PL259), contest manager Stu Phillips K6TU.**
+Rules: <https://www.pl259.org/makrothen/makrothen-rules/>.
+
+**Why the usual fetch-and-quote flow did not apply.** `pl259.org` disallows automated fetching
+in its `robots.txt`. The page was not crawled and must not be. The access restriction is the
+whole reason this record carries no quoted sponsor wording yet; it is not a sourcing gap and
+not an aggregator problem. PL259 is the sponsor, so the record is legitimate once a human has
+read the page. The owner reads it in a browser and pastes the text, or checks the encoded
+record against what he reads.
+
+**What is encoded, as relayed by the owner:** second full weekend of October; three periods
+anchored on the Saturday — 0000–0800Z and 1600–2400Z Saturday, 0800–1600Z Sunday; one combined
+log; RTTY; 80/40/20/15/10 m; exchange a 4-character grid locator; distance-based scoring with
+band factors. The generated 2026 dates match PL259's published October 10–11. The three
+periods are three `sessions`, so the off-air gaps stay off the calendar.
+
+**`verified: false` until the text is pasted.** `source_note` says so in capitals and holds no
+quotation, because there is nothing to quote yet. When the paste arrives: quote the rule,
+the periods and the exchange, set `verified: true`, and update `rules_url_checked`.
+
+**The log deadline is deliberately absent.** The rules page states a 2025 log deadline while
+announcing the 2026 dates. `log_deadline_days` is left unset and both statements are to be
+quoted in the record's `note` from the paste — the same treatment as JARL's All Asian DX
+Contest and OK DX RTTY. Power categories, log format and log submission URL were not relayed
+and are not recorded.
+
 ## Pending verification
 
 - **Five DARC HF contests are out of this pass's scope, not missed.** The Ostercontest, the

@@ -1845,6 +1845,10 @@ EUROPE_TIER2_PUBLISHED = {
         "3rd full weekend in December",
         [(2026, 12, 19)],
     ),
+    "makrothen-rtty": (
+        "second full weekend of October (PL259 publishes Oct 10-11 2026)",
+        [(2026, 10, 10)],
+    ),
     "ari-international-dx": (
         "il primo weekend completo di Maggio",
         [(2026, 5, 2)],
@@ -2006,6 +2010,25 @@ def test_ok_dx_rtty_carries_no_deadline_because_the_sponsor_contradicts_itself(
         ("ok-om-dx-cw", date(2026, 11, 22)),
     ):
         assert expand(by_id(catalog, cid), 2026)[0].log_due.date() == due
+
+
+def test_makrothen_runs_three_periods_and_carries_no_deadline(catalog):
+    """
+    PL259's Makrothen RTTY Contest: 0000-0800Z and 1600-2400Z Saturday, 0800-1600Z
+    Sunday, on the second full weekend of October (October 10-11 in 2026). One
+    log, three periods -- so three occurrences, with the Saturday gap and the
+    overnight gap left off the air. The rules page states a 2025 log deadline
+    while announcing the 2026 dates, so no deadline is encoded.
+    """
+    c = by_id(catalog, "makrothen-rtty")
+    assert "log_deadline_days" not in c
+    occ = sorted(expand(c, 2026), key=lambda o: o.start)
+    assert [(o.start, o.end) for o in occ] == [
+        (datetime(2026, 10, 10, 0, 0, tzinfo=UTC), datetime(2026, 10, 10, 8, 0, tzinfo=UTC)),
+        (datetime(2026, 10, 10, 16, 0, tzinfo=UTC), datetime(2026, 10, 11, 0, 0, tzinfo=UTC)),
+        (datetime(2026, 10, 11, 8, 0, tzinfo=UTC), datetime(2026, 10, 11, 16, 0, tzinfo=UTC)),
+    ]
+    assert all(o.log_due is None for o in occ)
 
 
 # Records where the sponsor publishes dates and never states a rule. Each is
