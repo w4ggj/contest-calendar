@@ -1994,8 +1994,8 @@ test("Makrothen runs three periods and carries no deadline", () => {
   // PL259's Makrothen RTTY Contest: 0000-0800Z and 1600-2400Z Saturday, 0800-1600Z
   // Sunday, on the second full weekend of October (October 10-11 in 2026). One
   // log, three periods -- so three occurrences, with the gaps left off the air.
-  // The rules page states a 2025 log deadline while announcing the 2026 dates, so
-  // no deadline is encoded.
+  // The sponsor states the 2026 deadline as an instant (2359Z 21 October), not the
+  // stored end plus a whole number of days, so no deadline is encoded.
   const c = byId("makrothen-rtty");
   expect(c.log_deadline_days).toBeUndefined();
   const occ = [...expand(c, 2026)].sort((a, b) => a.start!.getTime() - b.start!.getTime());

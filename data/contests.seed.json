@@ -7850,7 +7850,7 @@
       "name": "Helvetia Contest",
       "sponsor": "USKA",
       "country": "CH",
-      "rules_url": "https://uska.ch/download/reglement-fuer-den-helvetia-wettbewerb-maerz-2026-de/",
+      "rules_url": "https://uska.ch/de/download/reglement-helvetia-contest-2026-de/",
       "sponsor_home": "https://uska.ch/",
       "log_submit_url": "https://contestlog.uska.ch",
       "log_format": "Cabrillo",
@@ -7907,7 +7907,7 @@
         }
       ],
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-10-07",
       "source_note": "uska.ch Reglement fuer den Helvetia-Wettbewerb, Ausgabe Maerz 2026. 2.1 Datum und Zeit: 'Letztes volles Wochenende im April, Samstag 13:00 UTC bis Sonntag 12:59 UTC.' (Last full weekend in April, Saturday 13:00 UTC to Sunday 12:59 UTC.) 2.4 Baender: '160 m, 80 m, 40 m, 20 m, 15 m und 10 m'. 2.5.1 Schweizer Stationen: 'Rapport (RS oder RST) und dem Kanton (z.B. 59 ZH, 599 ZH)'; 2.5.2 auslaendische Stationen: 'Rapport (RS oder RST) und der laufenden, mindestens dreistelligen Verbindungsnummer'. 2.7 gives 10 points for a QSO with Switzerland, 1 within one's own continent and 3 to another continent; multipliers are cantons plus DXCC entities per band. 2.9 requires a six-hour rest taken in at most two periods. Power: 'High Power 1000 Watt, Low Power 100 Watt', QRP 'CW maximal 5 Watt / SSB maximal 10 Watt / Fuer digitale Betriebsarten maximal 5 Watt'. Digital is defined in the Reglement: 'Digital - Damit sind Modes wie RTTY, PSK31, PSK63, FT4 und FT8 gemeint. Cabrillo Tag fuer RTTY = RY, bzw. PSK31, PSK63, FT4 und FT8 = DG' (Digital means modes such as RTTY, PSK31, PSK63, FT4 and FT8; the Cabrillo tag for RTTY is RY, and DG for PSK31, PSK63, FT4 and FT8). 11 Log: 'Die Logs sind innert 8 Tagen zwingend ueber das webbasierte User-Interface auf der USKA-Website einzureichen: https://contestlog.uska.ch.' Entry is open beyond Switzerland: the Reglement says the contest is 'in der Schweiz und im Ausland ausgeschrieben' (announced in Switzerland and abroad). USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
       "note": "The last full weekend of April, encoded as n=-1: April 2026 has full weekends on the 4th/5th, 11th/12th, 18th/19th and 25th/26th, so the rule gives 25-26 April, which is what USKA's own KW-Contest page prints. USKA also prints 24-25 April 2027 there, and the rule reproduces that too. Operators must take a six-hour rest in at most two periods; the record carries the full 24-hour window because that is when the contest is on air.",
       "summary": "Switzerland's national DX contest over the last full weekend of April. Cantons are the multiplier, so Swiss stations are worth chasing on every band, and CW, SSB and digital each count separately.",
@@ -7922,7 +7922,7 @@
       "name": "USKA Field Day (CW)",
       "sponsor": "USKA",
       "country": "CH",
-      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-02-Reglement-fuer-den-Field-Day-Ausgabe-Mai-2026-DE.pdf",
+      "rules_url": "https://uska.ch/de/download/reglement-field-day-2026-de/",
       "sponsor_home": "https://uska.ch/",
       "log_submit_url": "https://contestlog.uska.ch",
       "log_format": "Cabrillo",
@@ -7953,7 +7953,7 @@
         "time": "1459"
       },
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-10-07",
       "source_note": "uska.ch Reglement fuer den Field Day, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'CW: Erstes volles Wochenende im Juni, Samstag 15:00 UTC bis Sonntag 14:59 UTC. / SSB: Erstes volles Wochenende im September, Samstag 13:00 UTC bis Sonntag 12:59 UTC.' (CW: first full weekend in June, Saturday 15:00 UTC to Sunday 14:59 UTC; SSB: first full weekend in September, Saturday 13:00 UTC to Sunday 12:59 UTC.) 1.3 Standort: 'Der Standort muss sich in der Schweiz befinden.' (The location must be in Switzerland.) 2.5 Kontrollaustausch: RS(T) plus a serial of at least three digits -- 'Bei Verbindungen mit festen Stationen genuegt der RS/RST-Rapport (ohne Verbindungsnummer)'. Points: 2 for a fixed station in Europe, 3 outside, 4 for a portable station in Europe and 6 outside; portable means /p, /m, /mm or /am. 11 Log: 'Die Logs sind innert 8 Tagen zwingend ueber das webbasierte User-Interface auf der USKA-Website einzureichen: https://contestlog.uska.ch.' Entry notice is due by 12:00 UTC on the Friday before. USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
       "note": "One of USKA's two Field Day legs; they share a Reglement and differ only in month, mode and start time, so they are two records. The first full weekend of June 2026 is 6-7 June and of September 2026 is 5-6 September, both of which USKA's KW-Contest page prints.",
       "summary": "USKA's CW Field Day: 24 hours from a Swiss location, with portable stations worth double the points of fixed ones.",
@@ -7971,7 +7971,7 @@
       "name": "USKA Field Day (SSB)",
       "sponsor": "USKA",
       "country": "CH",
-      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-02-Reglement-fuer-den-Field-Day-Ausgabe-Mai-2026-DE.pdf",
+      "rules_url": "https://uska.ch/de/download/reglement-field-day-2026-de/",
       "sponsor_home": "https://uska.ch/",
       "log_submit_url": "https://contestlog.uska.ch",
       "log_format": "Cabrillo",
@@ -8002,7 +8002,7 @@
         "time": "1259"
       },
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-10-07",
       "source_note": "uska.ch Reglement fuer den Field Day, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'CW: Erstes volles Wochenende im Juni, Samstag 15:00 UTC bis Sonntag 14:59 UTC. / SSB: Erstes volles Wochenende im September, Samstag 13:00 UTC bis Sonntag 12:59 UTC.' (CW: first full weekend in June, Saturday 15:00 UTC to Sunday 14:59 UTC; SSB: first full weekend in September, Saturday 13:00 UTC to Sunday 12:59 UTC.) 1.3 Standort: 'Der Standort muss sich in der Schweiz befinden.' (The location must be in Switzerland.) 2.5 Kontrollaustausch: RS(T) plus a serial of at least three digits -- 'Bei Verbindungen mit festen Stationen genuegt der RS/RST-Rapport (ohne Verbindungsnummer)'. Points: 2 for a fixed station in Europe, 3 outside, 4 for a portable station in Europe and 6 outside; portable means /p, /m, /mm or /am. 11 Log: 'Die Logs sind innert 8 Tagen zwingend ueber das webbasierte User-Interface auf der USKA-Website einzureichen: https://contestlog.uska.ch.' Entry notice is due by 12:00 UTC on the Friday before. USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
       "note": "One of USKA's two Field Day legs; they share a Reglement and differ only in month, mode and start time, so they are two records. The first full weekend of June 2026 is 6-7 June and of September 2026 is 5-6 September, both of which USKA's KW-Contest page prints.",
       "summary": "USKA's SSB Field Day: 24 hours from a Swiss location, with portable stations worth double the points of fixed ones.",
@@ -8020,7 +8020,7 @@
       "name": "USKA National Mountain Day (NMD)",
       "sponsor": "USKA",
       "country": "CH",
-      "rules_url": "https://uska.ch/download/reglement-fuer-den-national-mountain-day-ausgabe-mai-2026-d/",
+      "rules_url": "https://uska.ch/de/download/reglement-nmd-2026-de/",
       "sponsor_home": "https://uska.ch/",
       "log_format": "Cabrillo",
       "log_deadline_days": 8,
@@ -8048,7 +8048,7 @@
         "time": "0959"
       },
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-10-07",
       "source_note": "uska.ch Reglement fuer den National Mountain Day, Ausgabe Mai 2026. 4 Datum und Zeit: 'Dritter Sonntag im Juli, 06:00 UTC bis 09:59 UTC.' (Third Sunday in July, 06:00 UTC to 09:59 UTC.) 2 Betriebsarten: 'Zulaessige Betriebsarten sind CW und SSB. CW-Verbindungen sind im Bandsegment 3510 - 3560 kHz abzuwickeln. SSB-Verbindungen sind im Bandsegment 3600 - 3650 kHz abzuwickeln. Dem Rufzeichen muss der Zusatz /P angehaengt werden. ... Remote-Betrieb ist nicht zulaessig.' 3 Standort: 'Der Standort muss sich in der Schweiz befinden und mindestens 800 m ueber Meer liegen.' 6b Gewicht: 'Die gesamte Stationseinrichtung darf hoechstens sechs Kilogramm wiegen' -- no mains power and no pre-existing antennas. 9 Bewertung: 4 points for a QSO with an NMD station, 1 for any other. Logs go to nmd@uska.ch within 8 days; entries must be registered by the Tuesday before at nmd.uska.ch/anmeldung. USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
       "note": "USKA splits the four hours into halves (06:00-07:59 and 08:00-09:59) only to allow one repeat QSO per mode with each NMD station; it is one continuous contest and is encoded as one span. The third Sunday of July 2026 is the 19th, which is the date USKA's KW-Contest page prints.",
       "summary": "Four hours of 80m from a Swiss summit above 800 m, carrying everything you need in six kilos. Non-NMD stations are worked for a point and need send only a report.",
@@ -8066,7 +8066,7 @@
       "name": "USKA Weihnachtswettbewerb (SSB / Digital)",
       "sponsor": "USKA",
       "country": "CH",
-      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-04-Reglement-fuer-den-Weihnachtswettbewerb-Ausgabe-Mai-2026-DE.pdf",
+      "rules_url": "https://uska.ch/de/download/reglement-weihnachtswettbewerb-2026-de/",
       "sponsor_home": "https://uska.ch/",
       "log_submit_url": "https://contestlog.uska.ch",
       "log_format": "Cabrillo",
@@ -8122,7 +8122,7 @@
         "time": "0959"
       },
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-10-07",
       "source_note": "uska.ch Reglement fuer den Weihnachtswettbewerb, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC / CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC / Digital: Erster und zweiter Samstag im Dezember, 10:00 bis 10:59 UTC.' (SSB: first Saturday in December; CW: second Saturday in December, both 07:00-09:59 UTC; Digital: first and second Saturday in December, 10:00-10:59 UTC.) 2.4 Baender: '80 m und 40 m'. 2.5 Kontrollaustausch: RS(T) and the canton abbreviation. Eligibility: 'Der Weihnachtwettbewerb wird fuer Funkamateure sowie Empfangsamateure in der Schweiz ausgeschrieben' and 'Der Standort muss sich in der Schweiz befinden.' Digital is defined in the Reglement: 'Digital - Damit sind Modes wie RTTY, PSK31, PSK63, FT4 und FT8 gemeint. Cabrillo Tag fuer RTTY = RY, bzw. PSK31, PSK63, FT4 und FT8 = DG' (Digital means modes such as RTTY, PSK31, PSK63, FT4 and FT8; the Cabrillo tag for RTTY is RY, and DG for PSK31, PSK63, FT4 and FT8). USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
       "note": "USKA runs the Weihnachtswettbewerb on two Saturdays, and each Saturday is a phone-or-CW morning followed by a separate digital hour. This record is the first Saturday: SSB 07:00-09:59 UTC and digital 10:00-10:59 UTC, encoded as two sessions because the hour between them is not part of the contest. The two Saturdays are two records because they are different modes, not two legs of one event. The first Saturday of December 2026 is the 5th and the second the 12th, the dates USKA's KW-Contest page prints. USKA states no log deadline in this Reglement -- the other three KW Reglemente all say 'innert 8 Tagen' and this one says nothing at all -- so no interval is encoded rather than one borrowed from its siblings.",
       "summary": "USKA's Christmas contest on 80m and 40m: a SSB morning on the first Saturday of December, then a digital hour. Cantons are the exchange.",
@@ -8140,7 +8140,7 @@
       "name": "USKA Weihnachtswettbewerb (CW / Digital)",
       "sponsor": "USKA",
       "country": "CH",
-      "rules_url": "https://uska.ch/wp-content/uploads/2026/05/2026-04-Reglement-fuer-den-Weihnachtswettbewerb-Ausgabe-Mai-2026-DE.pdf",
+      "rules_url": "https://uska.ch/de/download/reglement-weihnachtswettbewerb-2026-de/",
       "sponsor_home": "https://uska.ch/",
       "log_submit_url": "https://contestlog.uska.ch",
       "log_format": "Cabrillo",
@@ -8196,7 +8196,7 @@
         "time": "0959"
       },
       "verified": true,
-      "rules_url_checked": "2026-08-19",
+      "rules_url_checked": "2026-10-07",
       "source_note": "uska.ch Reglement fuer den Weihnachtswettbewerb, Ausgabe Mai 2026. 2.1 Datum und Zeit: 'SSB: Erster Samstag im Dezember, 07:00 bis 09:59 UTC / CW: Zweiter Samstag im Dezember, 07:00 bis 09:59 UTC / Digital: Erster und zweiter Samstag im Dezember, 10:00 bis 10:59 UTC.' (SSB: first Saturday in December; CW: second Saturday in December, both 07:00-09:59 UTC; Digital: first and second Saturday in December, 10:00-10:59 UTC.) 2.4 Baender: '80 m und 40 m'. 2.5 Kontrollaustausch: RS(T) and the canton abbreviation. Eligibility: 'Der Weihnachtwettbewerb wird fuer Funkamateure sowie Empfangsamateure in der Schweiz ausgeschrieben' and 'Der Standort muss sich in der Schweiz befinden.' Digital is defined in the Reglement: 'Digital - Damit sind Modes wie RTTY, PSK31, PSK63, FT4 und FT8 gemeint. Cabrillo Tag fuer RTTY = RY, bzw. PSK31, PSK63, FT4 und FT8 = DG' (Digital means modes such as RTTY, PSK31, PSK63, FT4 and FT8; the Cabrillo tag for RTTY is RY, and DG for PSK31, PSK63, FT4 and FT8). USKA's own KW-Contest page (uska.ch/kw-contest/) prints the 2026 dates separately from the Reglemente: Helvetia 25.-26. April, Field Day 6.-7. Juni and 5.-6. September, NMD 19. Juli, Weihnachtswettbewerb 5. und 12. Dezember. Every one of them is reproduced by the encoded rule.",
       "note": "USKA runs the Weihnachtswettbewerb on two Saturdays, and each Saturday is a phone-or-CW morning followed by a separate digital hour. This record is the second Saturday: CW 07:00-09:59 UTC and digital 10:00-10:59 UTC, encoded as two sessions because the hour between them is not part of the contest. The two Saturdays are two records because they are different modes, not two legs of one event. The first Saturday of December 2026 is the 5th and the second the 12th, the dates USKA's KW-Contest page prints. USKA states no log deadline in this Reglement -- the other three KW Reglemente all say 'innert 8 Tagen' and this one says nothing at all -- so no interval is encoded rather than one borrowed from its siblings.",
       "summary": "USKA's Christmas contest on 80m and 40m: a CW morning on the second Saturday of December, then a digital hour. Cantons are the exchange.",
@@ -14024,7 +14024,7 @@
         "15m",
         "10m"
       ],
-      "exchange": "A 4-character grid locator. Scoring is distance-based, with a multiplier factor per band.",
+      "exchange": "The first 4 characters of your Maidenhead grid locator (e.g. FM19, JO41); no RST. Send the same locator for every QSO.",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 10,
@@ -14070,16 +14070,28 @@
           }
         }
       ],
-      "verified": false,
+      "verified": true,
       "rules_url_checked": "2026-10-07",
-      "source_note": "NOT YET QUOTED FROM THE SPONSOR. pl259.org disallows automated fetching in its robots.txt, so the usual fetch-and-quote flow did not apply and this page was not crawled. The rule was relayed by the owner (Joe, W4GGJ) from the contest manager's rules page, K6TU being the named manager: second full weekend of October; three periods anchored on the Saturday -- 0000-0800Z and 1600-2400Z Saturday, 0800-1600Z Sunday; one combined log; RTTY; 80, 40, 20, 15 and 10 m; exchange a 4-character grid locator; distance-based scoring with band factors. PL259 itself publishes October 10-11 2026 for this year's running, which the generated dates match. Sponsor wording, the log deadline and its year are to be pasted from a browser read and quoted here; verified stays false until they are.",
-      "note": "ACCESS RESTRICTION, NOT A SOURCING GAP: robots.txt on pl259.org disallows automated fetching, so no crawler touches this page; a human reads it and the text is pasted in. PL259 is a sponsor, not an aggregator, so the record is legitimate once that read is quoted. LOG DEADLINE DELIBERATELY ABSENT: the rules page states a 2025 log deadline while announcing the 2026 dates, so log_deadline_days is left unset and both statements are to be quoted here, as with JARL's All Asian DX Contest and OK DX RTTY. THREE PERIODS, ONE LOG: the contest is on the air in three blocks with gaps between them (0800-1600Z Saturday and 1600Z Sunday to Monday are off), which is why this record uses the sessions array; a single 0000Z Saturday to 1600Z Sunday block would put it on the air through hours it does not run. No power categories, log format or log submission URL recorded -- none were relayed.",
-      "summary": "A three-period RTTY contest on the second full weekend of October, scored by the distance between 4-character grid squares with a factor per band.",
+      "source_note": "pl259.org/makrothen/makrothen-rules/, read by the owner in a browser and pasted 2026-10-07 (the site's robots.txt disallows automated fetching, so it was not crawled): 'The contest takes place on the second full weekend of October each year. The next contest dates are Saturday 10th and Sunday 11th October 2026, with three separate periods: Saturday 00:00-08:00 UTC and 16:00-24:00 UTC and Sunday 08:00-16:00 UTC. A station may participate in all three periods and should submit one combined log for all periods.' Mode: 'using RTTY'. Bands: 'Only the 80, 40, 20, 15 and 10 meter bands may be used.' Exchange: 'Send the first 4 characters of the \"Maidenhead Grid Square Locator\" ... No RST report is required.' Scoring: QSO points are the distance in km between the two grid-square centres, rounded down, times a band factor (80m 2.0, 40m 1.5, 20/15/10m 1.0); same grid square scores 100 with no band factor; there are no multipliers. Power: 'Total output power must not exceed 100 watts' (Low) and '1500 watts' (High). Log: 'Logs MUST be submitted in CABRILLO format' through the Makrothen Log Submission form. Deadline: 'All logs must be received by 2359Z on 21st October 2026 in order to qualify.' Sponsor: 'Pizza Lovers 259 (PL259) ... The Contest Manager is Stu Phillips, K6TU.'",
+      "note": "ACCESS RESTRICTION: robots.txt on pl259.org disallows automated fetching, so the page is never crawled; a human reads it and the text is pasted in. PL259 is the sponsor, not an aggregator. scripts/check_links.py skips this host. LOG DEADLINE ABSENT BY DESIGN: the sponsor states a dated instant for this edition, 2359Z on 21 October 2026, not a span. The stored end is 1600Z on Sunday 11 October, so the sponsor's instant is 10 days 7 hours 59 minutes later and no whole number of days reproduces it; log_deadline_days is left unset, the same treatment as JARL's All Asian DX Contest. (The relayed brief said the page showed a 2025 deadline; the pasted text shows 2026. If the live page differs, the live page wins.) THREE PERIODS, ONE LOG: the contest is on the air in three blocks, which is why this record uses the sessions array; a single 0000Z Saturday to 1600Z Sunday block would put it on the air through the 0800-1600Z Saturday gap and the 0000-0800Z Sunday gap. Operator categories (single-op/multi-op, one or multiple receivers, each low or high power) are eight in all and are not modelled here; only the two power limits are. Recent rule changes the sponsor flags: from 2025 a logged clock error beyond plus or minus 2 minutes makes a log a checklog; from 2026 a human must initiate frequency changes, calling and logging, and autonomous systems are prohibited. Self-spotting is not permitted in any category. A club competition runs for fun, with a separate listing.",
+      "summary": "A three-period RTTY contest on the second full weekend of October, scored by the distance between 4-character grid squares with a bonus on 40 and 80 metres.",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false,
-        "note": "No entrant clause was relayed, and the exchange (a grid locator) carries no home-country distinction, so worldwide is a reading, not a quote."
-      }
+        "verified": true,
+        "note": "'For amateurs around the world to contact as many other amateurs as possible' -- no entrant restriction is stated."
+      },
+      "log_format": "Cabrillo",
+      "log_submit_url": "https://www.pl259.org/makrothen/log-submission/",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        }
+      ]
     }
   ]
 }
