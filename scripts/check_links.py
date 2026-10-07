@@ -47,6 +47,11 @@ UA = "TavaOne-ContestCalendar-LinkCheck/1.0 (+https://tavaone.com; W4GGJ)"
 PER_HOST_DELAY = 2.0
 RETRY_STATUSES = {429, 503}
 
+# Hosts whose robots.txt disallows automated fetching. They are never requested,
+# and are reported as skipped rather than silently counted live or broken. A
+# human checks these in a browser (see data/sources.md).
+NO_AUTOMATED_FETCH = {"www.pl259.org", "pl259.org"}
+
 
 def _request(url: str, method: str) -> int:
     req = urllib.request.Request(url, method=method, headers={"User-Agent": UA})
@@ -104,6 +109,10 @@ def main() -> int:
         targets.append((c["id"], c.get("sponsor", ""), url))
 
     # Dedupe -- several contests share one rules page (Rookie Roundup x3).
+    skipped = sorted(
+        {u for _, _, u in targets if u and urlparse(u).netloc in NO_AUTOMATED_FETCH}
+    )
+    targets = [t for t in targets if t[2] not in skipped]
     unique_urls = sorted({u for _, _, u in targets if u})
     by_host: dict[str, list[str]] = defaultdict(list)
     for u in unique_urls:
@@ -130,6 +139,8 @@ def main() -> int:
         print(f"                    {url}")
 
     print(f"\n  {len(ok)} live, {len(broken)} broken")
+    for u in skipped:
+        print(f"  SKIPPED (robots.txt disallows automated fetching): {u}")
 
     if broken:
         print(
