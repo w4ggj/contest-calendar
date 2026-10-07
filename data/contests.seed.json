@@ -14024,7 +14024,7 @@
         "15m",
         "10m"
       ],
-      "exchange": "A 4-character grid locator. Scoring is distance-based, with a multiplier factor per band.",
+      "exchange": "The first 4 characters of your Maidenhead grid locator (e.g. FM19, JO41); no RST. Send the same locator for every QSO.",
       "recurrence": {
         "type": "nth_full_weekend",
         "month": 10,
@@ -14070,16 +14070,28 @@
           }
         }
       ],
-      "verified": false,
+      "verified": true,
       "rules_url_checked": "2026-10-07",
-      "source_note": "NOT YET QUOTED FROM THE SPONSOR. pl259.org disallows automated fetching in its robots.txt, so the usual fetch-and-quote flow did not apply and this page was not crawled. The rule was relayed by the owner (Joe, W4GGJ) from the contest manager's rules page, K6TU being the named manager: second full weekend of October; three periods anchored on the Saturday -- 0000-0800Z and 1600-2400Z Saturday, 0800-1600Z Sunday; one combined log; RTTY; 80, 40, 20, 15 and 10 m; exchange a 4-character grid locator; distance-based scoring with band factors. PL259 itself publishes October 10-11 2026 for this year's running, which the generated dates match. Sponsor wording, the log deadline and its year are to be pasted from a browser read and quoted here; verified stays false until they are.",
-      "note": "ACCESS RESTRICTION, NOT A SOURCING GAP: robots.txt on pl259.org disallows automated fetching, so no crawler touches this page; a human reads it and the text is pasted in. PL259 is a sponsor, not an aggregator, so the record is legitimate once that read is quoted. LOG DEADLINE DELIBERATELY ABSENT: the rules page states a 2025 log deadline while announcing the 2026 dates, so log_deadline_days is left unset and both statements are to be quoted here, as with JARL's All Asian DX Contest and OK DX RTTY. THREE PERIODS, ONE LOG: the contest is on the air in three blocks with gaps between them (0800-1600Z Saturday and 1600Z Sunday to Monday are off), which is why this record uses the sessions array; a single 0000Z Saturday to 1600Z Sunday block would put it on the air through hours it does not run. No power categories, log format or log submission URL recorded -- none were relayed.",
-      "summary": "A three-period RTTY contest on the second full weekend of October, scored by the distance between 4-character grid squares with a factor per band.",
+      "source_note": "pl259.org/makrothen/makrothen-rules/, read by the owner in a browser and pasted 2026-10-07 (the site's robots.txt disallows automated fetching, so it was not crawled): 'The contest takes place on the second full weekend of October each year. The next contest dates are Saturday 10th and Sunday 11th October 2026, with three separate periods: Saturday 00:00-08:00 UTC and 16:00-24:00 UTC and Sunday 08:00-16:00 UTC. A station may participate in all three periods and should submit one combined log for all periods.' Mode: 'using RTTY'. Bands: 'Only the 80, 40, 20, 15 and 10 meter bands may be used.' Exchange: 'Send the first 4 characters of the \"Maidenhead Grid Square Locator\" ... No RST report is required.' Scoring: QSO points are the distance in km between the two grid-square centres, rounded down, times a band factor (80m 2.0, 40m 1.5, 20/15/10m 1.0); same grid square scores 100 with no band factor; there are no multipliers. Power: 'Total output power must not exceed 100 watts' (Low) and '1500 watts' (High). Log: 'Logs MUST be submitted in CABRILLO format' through the Makrothen Log Submission form. Deadline: 'All logs must be received by 2359Z on 21st October 2026 in order to qualify.' Sponsor: 'Pizza Lovers 259 (PL259) ... The Contest Manager is Stu Phillips, K6TU.'",
+      "note": "ACCESS RESTRICTION: robots.txt on pl259.org disallows automated fetching, so the page is never crawled; a human reads it and the text is pasted in. PL259 is the sponsor, not an aggregator. scripts/check_links.py skips this host. LOG DEADLINE ABSENT BY DESIGN: the sponsor states a dated instant for this edition, 2359Z on 21 October 2026, not a span. The stored end is 1600Z on Sunday 11 October, so the sponsor's instant is 10 days 7 hours 59 minutes later and no whole number of days reproduces it; log_deadline_days is left unset, the same treatment as JARL's All Asian DX Contest. (The relayed brief said the page showed a 2025 deadline; the pasted text shows 2026. If the live page differs, the live page wins.) THREE PERIODS, ONE LOG: the contest is on the air in three blocks, which is why this record uses the sessions array; a single 0000Z Saturday to 1600Z Sunday block would put it on the air through the 0800-1600Z Saturday gap and the 0000-0800Z Sunday gap. Operator categories (single-op/multi-op, one or multiple receivers, each low or high power) are eight in all and are not modelled here; only the two power limits are. Recent rule changes the sponsor flags: from 2025 a logged clock error beyond plus or minus 2 minutes makes a log a checklog; from 2026 a human must initiate frequency changes, calling and logging, and autonomous systems are prohibited. Self-spotting is not permitted in any category. A club competition runs for fun, with a separate listing.",
+      "summary": "A three-period RTTY contest on the second full weekend of October, scored by the distance between 4-character grid squares with a bonus on 40 and 80 metres.",
       "eligibility": {
         "scope": "worldwide",
-        "verified": false,
-        "note": "No entrant clause was relayed, and the exchange (a grid locator) carries no home-country distinction, so worldwide is a reading, not a quote."
-      }
+        "verified": true,
+        "note": "'For amateurs around the world to contact as many other amateurs as possible' -- no entrant restriction is stated."
+      },
+      "log_format": "Cabrillo",
+      "log_submit_url": "https://www.pl259.org/makrothen/log-submission/",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        }
+      ]
     }
   ]
 }

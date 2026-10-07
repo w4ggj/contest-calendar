@@ -2017,8 +2017,9 @@ def test_makrothen_runs_three_periods_and_carries_no_deadline(catalog):
     PL259's Makrothen RTTY Contest: 0000-0800Z and 1600-2400Z Saturday, 0800-1600Z
     Sunday, on the second full weekend of October (October 10-11 in 2026). One
     log, three periods -- so three occurrences, with the Saturday gap and the
-    overnight gap left off the air. The rules page states a 2025 log deadline
-    while announcing the 2026 dates, so no deadline is encoded.
+    overnight gap left off the air. The sponsor states the 2026 deadline as an
+    instant (2359Z 21 October), not the stored end plus a whole number of days,
+    so no deadline is encoded.
     """
     c = by_id(catalog, "makrothen-rtty")
     assert "log_deadline_days" not in c

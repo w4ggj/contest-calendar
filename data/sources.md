@@ -1803,27 +1803,24 @@ and it does not stop.
 Rules: <https://www.pl259.org/makrothen/makrothen-rules/>.
 
 **Why the usual fetch-and-quote flow did not apply.** `pl259.org` disallows automated fetching
-in its `robots.txt`. The page was not crawled and must not be. The access restriction is the
-whole reason this record carries no quoted sponsor wording yet; it is not a sourcing gap and
-not an aggregator problem. PL259 is the sponsor, so the record is legitimate once a human has
-read the page. The owner reads it in a browser and pastes the text, or checks the encoded
-record against what he reads.
+in its `robots.txt`. The page was not crawled and must not be, and `scripts/check_links.py`
+skips the host and reports it as skipped. The owner read the rules in a browser and pasted
+the text on 2026-10-07; `source_note` quotes that paste. PL259 is the sponsor, not an
+aggregator, so the record is legitimate once a human has read it — and now `verified: true`.
 
-**What is encoded, as relayed by the owner:** second full weekend of October; three periods
-anchored on the Saturday — 0000–0800Z and 1600–2400Z Saturday, 0800–1600Z Sunday; one combined
-log; RTTY; 80/40/20/15/10 m; exchange a 4-character grid locator; distance-based scoring with
-band factors. The generated 2026 dates match PL259's published October 10–11. The three
-periods are three `sessions`, so the off-air gaps stay off the calendar.
+**What is encoded:** second full weekend of October; three `sessions` — 0000–0800Z and
+1600–2400Z Saturday, 0800–1600Z Sunday; one combined log; RTTY; 80/40/20/15/10 m; 4-character
+grid exchange; Low Power 100 W and High Power 1500 W; Cabrillo through the sponsor's
+submission form. The paste states the 2026 dates as 10–11 October, which the generated dates match.
 
-**`verified: false` until the text is pasted.** `source_note` says so in capitals and holds no
-quotation, because there is nothing to quote yet. When the paste arrives: quote the rule,
-the periods and the exchange, set `verified: true`, and update `rules_url_checked`.
+**The log deadline is deliberately absent.** The brief said the page showed a 2025 deadline.
+The pasted text says "2359Z on 21st October 2026". That is an instant for this edition, not a
+span, and the stored end (1600Z Sunday) plus any whole number of days cannot reach it, so
+`log_deadline_days` is unset — the same treatment as JARL's All Asian DX Contest. If the live
+page differs from the paste, the live page wins.
 
-**The log deadline is deliberately absent.** The rules page states a 2025 log deadline while
-announcing the 2026 dates. `log_deadline_days` is left unset and both statements are to be
-quoted in the record's `note` from the paste — the same treatment as JARL's All Asian DX
-Contest and OK DX RTTY. Power categories, log format and log submission URL were not relayed
-and are not recorded.
+**Not modelled:** the eight operator categories (single/multi-op by one or multiple receivers,
+each at two power levels) and the club competition; the `note` records them.
 
 ## Pending verification
 
