@@ -20,7 +20,7 @@
  * every "N contests" count must be untouched by adding one.
  */
 
-import { describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import { SELF } from "cloudflare:test";
 
 import { CATALOG } from "../src/catalog.js";
@@ -34,6 +34,19 @@ import {
 } from "../src/dx.js";
 
 const BASE = "https://contestcal.test";
+
+// The Worker reads the clock once per request, so these tests pin it instead of
+// inheriting today's date. They asserted that RI1FJL (13-29 Aug 2026) is on the
+// schedule, which is true only while it is live or upcoming -- they went red on
+// 2026-08-30 for no reason connected to the code. Only Date is faked: timers
+// stay real so SELF.fetch is unaffected.
+const FIXED_NOW = Date.UTC(2026, 7, 20, 12, 0, 0);
+beforeAll(() => {
+  vi.useFakeTimers({ toFake: ["Date"], now: FIXED_NOW });
+});
+afterAll(() => {
+  vi.useRealTimers();
+});
 const page = async (p: string) => await (await SELF.fetch(BASE + p)).text();
 
 describe("DXpeditions", () => {

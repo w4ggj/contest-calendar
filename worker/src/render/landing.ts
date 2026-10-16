@@ -596,6 +596,46 @@ function dxSection(
   );
 }
 
+/**
+ * Contests a band filter could not judge, listed instead of dropped.
+ *
+ * Same pattern as the DXpedition section: empty `bands` means unrecorded, so the
+ * filter would otherwise hide a contest over a gap in our data. Rows are the
+ * plain list style (no rail) because the section is not a duration chart, and
+ * each row says it is not matched rather than implying the band is fine.
+ */
+function unrecordedSection(view: NowView, params: URLSearchParams): string {
+  if (!view.unrecordedRows.length) return "";
+  const rows = view.unrecordedRows
+    .map((o) => {
+      const { start, end } = spanOf(o);
+      const live = start.getTime() <= view.now && end.getTime() > view.now;
+      const rel = relative(start.getTime() - view.now);
+      return (
+        `<li class="row">` +
+        nameCell(o, params) +
+        `<div class="track" aria-hidden="true"></div>` +
+        (live
+          ? `<div class="row-count soon">on the air now</div>`
+          : `<div class="row-count" data-countdown="start" ` +
+            `data-until="${isoAttr(start)}">${esc(rel.text)}</div>`) +
+        `</li>`
+      );
+    })
+    .join("");
+  return (
+    `<section aria-labelledby="lg-unrecorded">` +
+    `<h2 class="legend" id="lg-unrecorded">Bands not recorded` +
+    `<span class="count">${view.unrecordedRows.length}</span></h2>` +
+    `<p class="dx-note">Shown whatever band you picked: we have not read these ` +
+    `contests' bands off the sponsor's rules, so the band filter cannot say ` +
+    `whether they match. Check the rules before you count on a band. ` +
+    `<a href="${esc(relink(params, ["band", "bands"]))}">Clear the band filter</a>.</p>` +
+    `<ol class="rows">${rows}</ol>` +
+    `</section>`
+  );
+}
+
 function sections(view: NowView, input: LandingInput): string {
   const { filters, params } = input;
   const nothing = view.totalConsidered === 0;
@@ -622,7 +662,8 @@ function sections(view: NowView, input: LandingInput): string {
     // the most perishable thing on this page.
     dxSection(view, params) +
     (view.weekApplies ? weekSection(view.next7, view.now, weekEmpty, params) : "") +
-    laterSection(view, laterEmpty, params)
+    laterSection(view, laterEmpty, params) +
+    unrecordedSection(view, params)
   );
 }
 

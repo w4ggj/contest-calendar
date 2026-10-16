@@ -314,6 +314,23 @@ describe("unrecorded bands", () => {
     expect(html).toContain(unbanded[0].name);
   });
 
+  it("lists them under their own heading instead of dropping them", async () => {
+    // The caveat names them; the section shows them, with a working link to the
+    // rules page, because a band filter cannot judge a contest whose bands we
+    // have not read.
+    const html = await page(
+      `/?band=20m&range=365d&q=${encodeURIComponent(unbanded[0].name)}`,
+    );
+    expect(html).toContain('id="lg-unrecorded"');
+    const section = html.slice(html.indexOf('aria-labelledby="lg-unrecorded"'));
+    expect(section).toContain(`/contest/${unbanded[0].id}`);
+    expect(section).toContain("Shown whatever band you picked");
+  });
+
+  it("has no such section when no band filter is active", async () => {
+    expect(await page("/?range=365d")).not.toContain("lg-unrecorded");
+  });
+
   it("stays quiet when no band filter is active", async () => {
     expect(await page("/")).not.toContain('class="caveat"');
   });

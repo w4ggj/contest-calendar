@@ -204,6 +204,8 @@ export interface FilterOutcome {
    * The caller is expected to say so on the page.
    */
   unrecordedBands: string[];
+  /** The dropped occurrences themselves, so a page can list them. */
+  unrecordedOccurrences: Occurrence[];
 }
 
 /**
@@ -230,6 +232,7 @@ export function filterWithNotes(
 
   const kept: Occurrence[] = [];
   const unrecorded = new Set<string>();
+  const unrecordedOccurrences: Occurrence[] = [];
 
   for (const o of occurrences) {
     if (wantIds && !wantIds.has(o.contest_id)) continue;
@@ -249,6 +252,7 @@ export function filterWithNotes(
     if (wantBands) {
       if (!o.bands.length) {
         unrecorded.add(o.name);
+        unrecordedOccurrences.push(o);
         continue;
       }
       const fams = bandFamilies(o.bands).map((b) => b.toLowerCase());
@@ -258,7 +262,11 @@ export function filterWithNotes(
     kept.push(o);
   }
 
-  return { kept, unrecordedBands: [...unrecorded].sort() };
+  return {
+    kept,
+    unrecordedBands: [...unrecorded].sort(),
+    unrecordedOccurrences,
+  };
 }
 
 export function applyFilters(
@@ -371,6 +379,12 @@ export interface NowView {
   /** Contests a band filter had to drop because their bands are unrecorded.
    *  The page says so rather than letting them vanish. */
   unrecordedBands: string[];
+  /**
+   * The same contests as rows: each one's next (or current) running inside the
+   * window. Listed under their own heading so a band filter does not make them
+   * vanish over a gap in our data.
+   */
+  unrecordedRows: Occurrence[];
 }
 
 export function buildNowView(
@@ -439,6 +453,17 @@ export function buildNowView(
       ? `Rest of ${window!.label.toLowerCase()}`
       : window!.label;
 
+  const seen = new Set<string>();
+  const unrecordedRows: Occurrence[] = [];
+  for (const o of [...outcome.unrecordedOccurrences].sort(
+    (a, b) => spanOf(a).start - spanOf(b).start,
+  )) {
+    const { start, end } = spanOf(o);
+    if (end < from || start > to || end <= nowMs || seen.has(o.contest_id)) continue;
+    seen.add(o.contest_id);
+    unrecordedRows.push(o);
+  }
+
   return {
     now: nowMs,
     window: window ?? {
@@ -456,6 +481,7 @@ export function buildNowView(
     laterRangeEnd: isDefault ? (useMonth ? monthEnd : nowMs + 30 * DAY_MS) : to,
     totalConsidered: live.length + next7.length + later.length,
     unrecordedBands: outcome.unrecordedBands,
+    unrecordedRows,
   };
 }
 

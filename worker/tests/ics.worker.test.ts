@@ -477,8 +477,11 @@ describe("GET /api/ics — the horizon", () => {
     const ranged = await SELF.fetch(`${BASE}/api/ics?from=2027-03-01&to=2027-03-31`);
     const window = ranged.headers.get("x-ics-window")!;
     expect(window.startsWith("2027-03-01")).toBe(true);
+    // A range is OVERLAP, not "starts inside": a contest running 28 Feb into
+    // 1 Mar belongs to a March query, and the feed is right to include it.
     for (const ev of parse(await ranged.text()).events) {
-      expect(get(ev, "DTSTART")!.slice(0, 6)).toBe("202703");
+      expect(get(ev, "DTEND")!.slice(0, 8) >= "20270301").toBe(true);
+      expect(get(ev, "DTSTART")!.slice(0, 8) <= "20270331").toBe(true);
     }
   });
 

@@ -2051,3 +2051,7 @@ Not encoded:
 - **Connecticut, Utah, Wyoming**: no standalone party (New England QSO Party / 7QP).
 
 Digital: Louisiana, Mississippi, Missouri, Kansas, Delaware, South Carolina, Tennessee, Texas, Virginia, New Mexico, North Carolina, South Dakota, Iowa, North Dakota, Oklahoma, Wisconsin, West Virginia, 7QP, Illinois allow digital in some form; only Delaware, South Carolina, New Mexico, South Dakota and Mississippi/Kansas (FT4/8 category) take FT8/FT4 in the main event. Indiana, Kentucky, Michigan, Minnesota, Maryland-DC, Ohio, Pennsylvania, Georgia, Colorado, Florida, Washington, Arizona, California, Ontario, Quebec, BC, Prairies and Alabama are CW/phone only (or digital unconfirmed).
+
+## 2026-10-15 — JARL links re-checked
+
+`check_links.py` on 2026-10-15 reported all eight www.jarl.org rules URLs as broken (URLError). A re-run an hour later returned 300 live, 0 broken, and each of the eight pages was fetched and read: all return real rules pages (no meta-refresh to the top page, which is how www.jarl.org answers a path that does not exist), and the three English pages still carry the wording quoted in the 2026-08-17 JARL row ("third Saturday in June", "first Saturday in September", "third Saturday in October", "January 2"). No URL or record changed. The outage was a fact about the web server, not about the pages.

@@ -383,11 +383,14 @@ export function unrecordedNote(view: NowView, params: URLSearchParams): string {
   return (
     `<p class="caveat">` +
     `${names.length === 1 ? "One contest is" : `${names.length} contests are`} ` +
-    `not shown because we have not read ${
+    `not matched to your band filter because we have not read ${
       names.length === 1 ? "its" : "their"
     } bands off the sponsor's own rules yet: ${esc(list)}. ` +
-    `<a href="${esc(relink(params, ["band", "bands"]))}">Clear the band filter</a> to see ` +
-    `${names.length === 1 ? "it" : "them"}.` +
+    `That is a gap in this catalog, not a fact about the contest, so ` +
+    `${names.length === 1 ? "it is" : "they are"} listed under ` +
+    `<a href="#lg-unrecorded">Bands not recorded</a> below. ` +
+    `<a href="${esc(relink(params, ["band", "bands"]))}">Clear the band filter</a> ` +
+    `to see ${names.length === 1 ? "it" : "them"} in the schedule.` +
     `</p>`
   );
 }
