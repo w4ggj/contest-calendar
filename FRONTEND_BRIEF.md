@@ -127,7 +127,7 @@ render the wall-clock time with a marker — "06:00 your local time" — and do 
 Persist in the URL so views are shareable and survive reload.
 
 - **Mode** — CW, SSB, RTTY, Digital, FT8/FT4, Mixed
-- **Band** — 160 through 10m, then 6m, 2m, 1.25m, 70cm and Microwave (33cm and up). Split 2026-10-15 from a single "VHF+" box, which left a 2m operator unable to filter to 2m. 1.25m (222 MHz) is its own box so it cannot answer a 2m question. Old `band=VHF+` links still resolve (`LEGACY_BAND_ALIASES`).
+- **Band** — 160 through 10m, then 6m, 4m, 2m, 1.25m, 70cm and Microwave (33cm and up). 4m (70 MHz) added the same day for the IARU Region 1 70 MHz contests. Split 2026-10-15 from a single "VHF+" box, which left a 2m operator unable to filter to 2m. 1.25m (222 MHz) is its own box so it cannot answer a 2m question. Old `band=VHF+` links still resolve (`LEGACY_BAND_ALIASES`).
 - **Duration** — under 2h / 2–12h / 12–24h / 24h+
 - **Date range**
 - **Sponsor**

@@ -1828,6 +1828,15 @@ test("RAC Canada Winter is manual because no rule fits", () => {
 // the CQ 160 SSB hypothesis, fitted to a few years of dates, took eleven years of
 // published dates to unseat. If a stated rule turns up, the record upgrades.
 const MANUAL_NO_RULE_PUBLISHED: Record<string, [number, number, number][]> = {
+  "darc-vhf-uhf-shf": [[2026, 3, 7], [2026, 5, 2], [2026, 7, 4]],
+  "darc-ukw-fruehling": [[2026, 4, 4]],
+  "darc-ukw-winter-fieldday": [[2026, 2, 7], [2026, 2, 8]],
+  "darc-ukw-sommer-fieldday": [[2026, 8, 1], [2026, 8, 2]],
+  "wab-50mhz-phone": [[2026, 6, 21]],
+  "wab-144mhz-phone": [[2026, 9, 6]],
+  "baltic-contest": [[2026, 5, 16]],
+  "labre-rs-digi": [[2025, 2, 1]],
+  "eu-psk-dx": [[2025, 5, 17], [2026, 5, 16], [2027, 5, 15], [2028, 5, 20], [2029, 5, 19]],
   "kcj-contest": [[2023, 8, 19], [2024, 8, 17], [2025, 8, 16], [2026, 8, 15]],
   "kcj-top-band": [[2023, 2, 11], [2024, 2, 10], [2025, 2, 8], [2026, 2, 14]],
   "classic-exchange-cw": [[2026, 11, 1], [2026, 11, 3]],
@@ -1867,6 +1876,42 @@ test("SRR digital cup keeps each round's own clock", () => {
 
 test("AM is a mode of its own", () => {
   expect(byId("awa-am-qso-party").modes).toEqual(["AM"]);
+});
+
+const STATED_RULE_DATES: Record<string, [number, number, number][]> = {
+  "iaru-r1-50mhz-mgm": [[2026, 4, 18]],
+  "iaru-r1-70mhz-mgm": [[2026, 5, 16]],
+  "iaru-r1-50mhz": [[2026, 6, 20]],
+  "iaru-r1-70mhz": [[2026, 7, 18]],
+  "iaru-r1-145mhz": [[2026, 9, 5]],
+  "iaru-r1-uhf-uw": [[2026, 10, 3]],
+  "apsprint-spring-cw": [[2026, 2, 14], [2027, 2, 13]],
+  "apsprint-fall-cw": [[2026, 10, 18], [2027, 10, 17]],
+  "apsprint-ssb": [[2026, 6, 13], [2027, 6, 12]],
+  "acqp": [[2027, 6, 6], [2028, 6, 4]],
+  "mrasz-urh-rf": [[2026, 7, 4]],
+};
+
+test("VHF and pass-five stated rules land on the sponsor's dates", () => {
+  for (const [cid, dates] of Object.entries(STATED_RULE_DATES)) {
+    const c = byId(cid);
+    for (const [y, m, d] of dates) {
+      const got = expand(c, y).map((o) => isoDate(o.start!));
+      expect(got, `${cid} ${y}`).toContain(D(y, m, d));
+    }
+  }
+});
+
+test("IARU Region 1 contests run fourteen hundred to fourteen hundred", () => {
+  for (const cid of Object.keys(STATED_RULE_DATES).filter((k) => k.startsWith("iaru-r1-"))) {
+    const [o] = expand(byId(cid), 2026);
+    expect([new Date(o.start!).getUTCHours(), new Date(o.end!).getUTCHours()], cid).toEqual([14, 14]);
+    expect(new Date(o.end!).getTime() - new Date(o.start!).getTime(), cid).toBe(24 * 3600 * 1000);
+  }
+});
+
+test("four metres is a band of its own", () => {
+  expect(byId("iaru-r1-70mhz").bands).toEqual(["4m"]);
 });
 
 test("NZART field day moves when February has three full weekends", () => {
@@ -4001,7 +4046,7 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
   "rsgb-ft4-series", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
   "uarl-champ-rtty", "uarl-champ-ssb", "uarl-lp-cup-cw", "uba-bma",
   "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
-  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb",
+  "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb", "baltic-contest", "darc-ukw-fruehling", "darc-ukw-sommer-fieldday", "darc-ukw-winter-fieldday", "darc-vhf-uhf-shf", "wab-144mhz-phone", "wab-50mhz-phone",
   "ure-eartty",
  "awa-am-qso-party", "awa-bruce-kelley", "awa-linc-cundall", "classic-exchange-cw", "classic-exchange-phone", "fmre-rtty", "kcj-contest", "kcj-top-band",
 ].sort();
@@ -4014,6 +4059,7 @@ const DARK_WITHOUT_EXPLANATION = [
   "srr-russian-dx",     // holds 2027 only -- invisible for all of 2026
   "awa-rollins-dx",  // holds 2027 only -- invisible for all of 2026
   "srr-digital-cup",  // holds 2025 only -- invisible in 2026 AND 2027
+  "labre-rs-digi",  // holds 2025 only -- invisible in 2026 AND 2027
 ].sort();
 
 function latestManualYear(c: Contest): number | null {

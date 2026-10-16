@@ -209,7 +209,7 @@ nothing can query.
 
 ```
 modes   CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
-bands   160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
+bands   160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 4m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
 ```
 
 `modes` keeps the sponsor's own order — `CW/SSB`, not the vocabulary's. The specifics a

@@ -110,7 +110,7 @@ export function modeFamilies(modes: string[]): ModeFamily[] {
  * Band families, low to high. HF is one box per band because 40m and 10m are
  * different contests entirely. Above that the catalog's ladder collapses only
  * where an operator's equipment does: 33cm and up are one "Microwave" box,
- * while 6m, 2m, 1.25m and 70cm each stay their own. They used to be one
+ * while 6m, 4m, 2m, 1.25m and 70cm each stay their own. They used to be one
  * "VHF+" box, which meant a 2m operator could not filter to 2m -- a worse
  * failure than any missing contest, since the contests were there and
  * unreachable. 1.25m (222 MHz) is a box of its own rather than a rider on a
@@ -118,7 +118,7 @@ export function modeFamilies(modes: string[]): ModeFamily[] {
  */
 export const BAND_FAMILIES = [
   "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",
-  "6m", "2m", "1.25m", "70cm", "Microwave",
+  "6m", "4m", "2m", "1.25m", "70cm", "Microwave",
 ] as const;
 export type BandFamily = (typeof BAND_FAMILIES)[number];
 

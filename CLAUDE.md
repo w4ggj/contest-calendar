@@ -21,7 +21,7 @@ Activate the venv **before** running the TypeScript suite too — see below.
 
 ```powershell
 # Python -- the reference engine
-python -m pytest -q            # expect: 512 passed
+python -m pytest -q            # expect: 515 passed
 python scripts\validate.py     # expect: ARRL 2026 rule-engine validation: 21/21 match
 python scripts\check_links.py  # sponsor rules URLs still resolve
 python scripts\coverage.py     # regenerate the registry's coverage block
@@ -30,7 +30,7 @@ python scripts\coverage.py --check   # ...or just report where the catalog is th
 # TypeScript -- what actually serves the site
 cd engine
 npm install                    # node_modules is gitignored; needed on a fresh clone
-npm test                       # expect: 522 passed (509 mirrored + 13 parity)
+npm test                       # expect: 525 passed (512 mirrored + 13 parity)
 npm run typecheck
 ```
 
@@ -97,7 +97,7 @@ which is a worse failure than an unverified record. Read it before planning a so
 
 ```
 modes       CW · SSB · AM · FM · RTTY · Digital · FT8/FT4 · Mixed
-bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
+bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 4m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
 ```
 
 Free text lives in `submodes` ("PSK31", "RTTY 75 baud") and `bands_note`, which are

@@ -2115,3 +2115,18 @@ Each sponsor publishes dates per edition and states no recurrence, so each recor
 | `srr-digital-cup` | srr.ru regulation PDF | 2025-09-20 15:00-18:59 and 2025-09-21 06:00-09:59 UTC, RTTY45. No 2026 edition seen. |
 
 Not encoded: the Russian Radio Team Championship (a qualified-teams sports championship at a field site, 18 Jul 2026, not an open contest).
+
+## 2026-10-15 VHF option-C and re-probe pass
+
+| Record | Sponsor page | What was read |
+| --- | --- | --- |
+| `iaru-r1-50mhz-mgm`, `-70mhz-mgm`, `-50mhz`, `-70mhz`, `-145mhz`, `-uhf-uw` | IARU Region 1 VHF Handbook 10.03, contest rules section | Third Saturday of April / May / June / July, first Saturday of September / October; 14:00 UTC Saturday to 14:00 UTC Sunday. 2026: Apr 18, May 16, Jun 20, Jul 18, Sep 5, Oct 3. |
+| `darc-vhf-uhf-shf`, `darc-ukw-fruehling`, `darc-ukw-winter-fieldday`, `darc-ukw-sommer-fieldday` | darc.de UKW contest pages | 2026 per-edition dates only (manual). |
+| `mrasz-urh-rf`, `mrasz-magyar-kupa`, `mrasz-rfwd-urh` | mrasz.hu rules pages | First full weekend of July; first full weekends of March, May, June; 18 April. |
+| `hemus-vhf` | vhfcontest.bfra.bg PDF and page | Sunday 2 Aug 2026; start 09:00 (PDF) vs 06:00 (page). |
+| `wab-50mhz-phone`, `wab-144mhz-phone` | wab.intermip.net Contest Dates 2026 | 21 Jun and 6 Sep 2026 (manual). |
+| `eu-psk-dx` | eupsk.club rules PDF | 2025-05-17, 2026-05-16, 2027-05-15, 2028-05-20, 2029-05-19 (manual). |
+| `apsprint-spring-cw`, `apsprint-fall-cw`, `apsprint-ssb` | jsfc.org/apsprint/aprule.txt | 2nd Saturday of Feb, 3rd Sunday of Oct, 2nd Saturday of Jun. |
+| `acqp` | acqp.ca/rules | First Sunday of June, 1400Z to 0100Z. |
+| `baltic-contest` | lrsf.lt rules (61st) | 16-17 May 2026 (manual). |
+| `labre-rs-digi` | labre-rs.org.br | 1-2 Feb 2025 (manual, unverified end time). |

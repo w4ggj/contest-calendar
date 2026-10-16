@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 323 contest definitions → 1105 occurrences for 2026. 512 Python tests,
-522 TypeScript tests, 204 Worker tests. Engine complete in both languages — no known
+**Current state:** 346 contest definitions → 1133 occurrences for 2026. 515 Python tests,
+525 TypeScript tests, 204 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -60,11 +60,11 @@ to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do 
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 512 passed
+python -m pytest -q               # expect: 515 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 522 passed (509 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 525 passed (512 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 204 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 
@@ -179,7 +179,7 @@ sourcing* and stays if it is already here.
 
 The 2026-08-23 line above is **narrowed, not repealed**. Joe's decision:
 
-- **Keep the 25 VHF/UHF-only records already in the catalog** (count taken 2026-10-15 over 313
+- **Keep the 25 VHF/UHF-only records already in the catalog** (count taken 2026-10-15 over 313, before this pass added 23
   contests: 25 VHF-only, 37 HF+VHF, 237 HF-only, 14 with bands unrecorded).
 - **In scope for new sourcing: the major national series** — ARRL VHF, the IARU Region 1
   weekend contests, and the national UKW / UKV series (DARC UKW, ÖVSV AOEE, HRS UKV, MRASZ and
@@ -195,6 +195,23 @@ The 2026-08-23 line above is **narrowed, not repealed**. Joe's decision:
 The band filter was split the same day (`6m`, `2m`, `1.25m`, `70cm`, `Microwave`) because a
 single "VHF+" box made 2m unfilterable — that is a defect in finding contests that *are* here,
 independent of how many more get sourced.
+
+**What the first option-C sourcing pass found (2026-10-15).** Encoded: the six IARU Region 1
+contests (50 and 70 MHz MGM, 50 and 70 MHz CW/SSB, 145 MHz, UHF/Microwaves — one record each at
+IARU, not one per society; rule is in the VHF Handbook), four DARC UKW contests (`manual`, 2026
+only: DARC states no recurrence), MRASZ's international VHF contest, Magyar Kupa and RF-WD URH,
+the Hemus 144 MHz contest (`verified:false`: two start times) and WAB's 50 and 144 MHz Phone
+contests (`manual`, 2026 only). **Not encoded, on purpose:** the ÖVSV VHF/UHF/Microwave Activity
+Contest and HRS's 9A Activity Contest — both run on "the 3rd Sunday of the month" but with one
+month on a different clock (June ends 1500 instead of 1300/1200), and a rule type holding one
+clock cannot say so; a per-month clock extension is the work, not a guess at a single clock.
+The ÖVSV "AOEE" name matches nothing: the Austrian UKW championship scores contests run by
+others. DARC's Mikrowellen-Wettbewerb is microwave-only and so out. Unresolved: REP's sprint
+(rep.pt refuses connections from here), UT5EU VHF Memorial (no page found).
+
+`4m` (70 MHz) joined `CATALOG_BANDS` and the filter's families the same day, because the IARU
+70 MHz contests are otherwise unfilterable. `1.25m` has its own box too (Joe's list had four:
+6m, 2m, 70cm, microwave). `vhf+` remains a legacy alias.
 
 ---
 

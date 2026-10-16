@@ -71,6 +71,7 @@ describe("filter vocabulary", () => {
     expect(bandFamilies(["2m"])).toEqual(["2m"]);
     expect(bandFamilies(["70cm"])).toEqual(["70cm"]);
     expect(bandFamilies(["1.25m"])).toEqual(["1.25m"]);
+    expect(bandFamilies(["4m"])).toEqual(["4m"]);
     expect(bandFamilies(["33cm", "23cm", "13cm", "3cm"])).toEqual(["Microwave"]);
     expect(bandFamilies(["2m", "70cm"])).not.toContain("1.25m");
   });

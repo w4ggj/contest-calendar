@@ -278,3 +278,14 @@ classicexchange.org publishes the CX rules only as `announcments/CX_Rules.pdf`. 
 - **Classic Exchange:** the rules PDF has now been read (Fall 2026, Rev 1) and the two fall sessions per mode are encoded as `manual` records. Still wanted from a person: the **Winter** edition's dates and whether CX states a recurrence anywhere, so the records can upgrade from `manual`.
 - **AWA:** the four events are encoded as `manual` records from the currently posted year only. Still wanted: the event coordinator's confirmation of previous years' dates, or a stated recurrence.
 - **SRR:** only the 2025 Cup on Digital Modes (RTTY) is encoded; ask SRR whether a 2026 edition exists.
+
+### Update 2026-10-15 (VHF option C and re-probe pass)
+
+- **QRP ARCI Spring and End-of-Summer Digital Sprints:** not on the rebuilt qrparci.org. Ask the contest manager whether they still run.
+- **LABRE-RS Digi Contest:** held once (1-2 Feb 2025, 90th anniversary); ask whether it recurs, and whether the published end of "20:59 UTC" is a typo for 23:59.
+- **Collegiate QSO Party:** the bands, modes and exchange are in a OneDrive Info Packet that refuses non-browser fetches; someone needs to open it in a browser and read it.
+- **YB DX RTTY / YBDXPI FT8 / YBDXPI SSB:** ybdxpi.org returns an empty page to scripts; a browser check is needed.
+- **rep.pt (REP, Portugal):** refused connections from here for the Navy Day Digital and the World Amateur Radio Day sprint; retry from another network.
+- **Hemus VHF Contest:** ask the organisers whether it starts 06:00 or 09:00 UTC (their PDF and web page disagree).
+- **DARC UKW, WAB, Baltic Contest:** each publishes dates per edition and states no recurrence; they are `manual` and go dark after their 2026 dates. Add the 2027 dates when published.
+- **OeVSV and HRS activity contests:** need a rule type that holds a per-month clock before they can be encoded.

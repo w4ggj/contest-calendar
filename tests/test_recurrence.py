@@ -1832,6 +1832,15 @@ def test_rac_canada_winter_is_manual_because_no_rule_fits(catalog):
 # the CQ 160 SSB hypothesis, fitted to a few years of dates, took eleven years of
 # published dates to unseat. If a stated rule turns up, the record upgrades.
 MANUAL_NO_RULE_PUBLISHED = {
+    "darc-vhf-uhf-shf": [(2026, 3, 7), (2026, 5, 2), (2026, 7, 4)],
+    "darc-ukw-fruehling": [(2026, 4, 4)],
+    "darc-ukw-winter-fieldday": [(2026, 2, 7), (2026, 2, 8)],
+    "darc-ukw-sommer-fieldday": [(2026, 8, 1), (2026, 8, 2)],
+    "wab-50mhz-phone": [(2026, 6, 21)],
+    "wab-144mhz-phone": [(2026, 9, 6)],
+    "baltic-contest": [(2026, 5, 16)],
+    "labre-rs-digi": [(2025, 2, 1)],
+    "eu-psk-dx": [(2025, 5, 17), (2026, 5, 16), (2027, 5, 15), (2028, 5, 20), (2029, 5, 19)],
     "kcj-contest": [(2023, 8, 19), (2024, 8, 17), (2025, 8, 16), (2026, 8, 15)],
     "kcj-top-band": [(2023, 2, 11), (2024, 2, 10), (2025, 2, 8), (2026, 2, 14)],
     "classic-exchange-cw": [(2026, 11, 1), (2026, 11, 3)],
@@ -1874,6 +1883,40 @@ def test_srr_digital_cup_keeps_each_rounds_own_clock(catalog):
 def test_am_is_a_mode_of_its_own(catalog):
     assert by_id(catalog, "awa-am-qso-party")["modes"] == ["AM"]
     assert "SSB" not in by_id(catalog, "awa-am-qso-party")["modes"]
+
+
+STATED_RULE_DATES = {
+    "iaru-r1-50mhz-mgm": [(2026, 4, 18)],
+    "iaru-r1-70mhz-mgm": [(2026, 5, 16)],
+    "iaru-r1-50mhz": [(2026, 6, 20)],
+    "iaru-r1-70mhz": [(2026, 7, 18)],
+    "iaru-r1-145mhz": [(2026, 9, 5)],
+    "iaru-r1-uhf-uw": [(2026, 10, 3)],
+    "apsprint-spring-cw": [(2026, 2, 14), (2027, 2, 13)],
+    "apsprint-fall-cw": [(2026, 10, 18), (2027, 10, 17)],
+    "apsprint-ssb": [(2026, 6, 13), (2027, 6, 12)],
+    "acqp": [(2027, 6, 6), (2028, 6, 4)],
+    "mrasz-urh-rf": [(2026, 7, 4)],
+}
+
+
+def test_vhf_and_pass_five_stated_rules_land_on_the_sponsors_dates(catalog):
+    for cid, dates in STATED_RULE_DATES.items():
+        c = by_id(catalog, cid)
+        for y, m, d in dates:
+            got = sorted(o.start.date() for o in expand(c, y))
+            assert date(y, m, d) in got, (cid, y)
+
+
+def test_iaru_region_1_contests_run_fourteen_hundred_to_fourteen_hundred(catalog):
+    for cid in [k for k in STATED_RULE_DATES if k.startswith("iaru-r1-")]:
+        (o,) = expand(by_id(catalog, cid), 2026)
+        assert (o.start.hour, o.end.hour) == (14, 14), cid
+        assert (o.end - o.start).total_seconds() == 24 * 3600, cid
+
+
+def test_four_metres_is_a_band_of_its_own(catalog):
+    assert by_id(catalog, "iaru-r1-70mhz")["bands"] == ["4m"]
 
 
 def test_nzart_field_day_moves_when_february_has_three_full_weekends(catalog):
@@ -4100,6 +4143,7 @@ EXPIRE_AFTER_CATALOG_YEAR = {
     "uarl-lp-cup-cw", "uba-bma", "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw",
     "uba-on-80-40-ssb", "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
     "uba-spring-80m-ssb", "ure-eartty",
+    "baltic-contest", "darc-ukw-fruehling", "darc-ukw-sommer-fieldday", "darc-ukw-winter-fieldday", "darc-vhf-uhf-shf", "wab-144mhz-phone", "wab-50mhz-phone",
     "awa-am-qso-party", "awa-bruce-kelley", "awa-linc-cundall", "classic-exchange-cw", "classic-exchange-phone", "fmre-rtty", "kcj-contest", "kcj-top-band",
 }
 
@@ -4112,6 +4156,7 @@ DARK_WITHOUT_EXPLANATION = {
     "rca-nacional-40m",   # holds 2025 only -- invisible in 2026 AND 2027
     "awa-rollins-dx",  # holds 2027 only -- invisible for all of 2026
     "srr-digital-cup",  # holds 2025 only -- invisible in 2026 AND 2027
+    "labre-rs-digi",  # holds 2025 only -- invisible in 2026 AND 2027
 }
 
 

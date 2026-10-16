@@ -112,8 +112,8 @@
       "catalog_sponsors": [
         "DARC"
       ],
-      "encoded": 13,
-      "encoded_verified": 11,
+      "encoded": 17,
+      "encoded_verified": 15,
       "estimated_total": 13,
       "status": "complete",
       "notes": "SOURCED 2026-08-18 from darc.de/der-club/referate/conteste/ -- the last unworked tier-1 org. Eight encoded: WAE DX CW/SSB/RTTY, WAG, the 10m Contest, the Weihnachtswettbewerb, and the quarterly FT4 and RTTY-Kurzcontest series. Every date and every log deadline was checked against DARC's own \"Termine DARC KW Conteste 2026\" table at /darc-kw-conteste/kw-conteste/, which is the registered url. estimated_total now counts the HF contests DARC runs itself and lists there: the five not encoded are the Ostercontest, the Hell Contest, the HELL-Kurzcontest, the Ausbildungscontest and the CW-Ausbildungscontest. The IARU Region 1 Fieldday appears on that table but is IARU's event, not DARC's -- same call as UBA. DARC's UKW/VHF contests are a separate referat and are not counted here. VHF/UHF IS OUT OF SCOPE as of 2026-08-23 -- see HANDOVER.md, 'Scope: HF'. What this entry describes as separate work is now a decision rather than a deferral, and the records already held stay and are maintained. COMPLETE 2026-08-23 at 13. The five that were out of scope of the first pass are encoded: the Ostercontest, the Hell Contest, the HELL-Kurzcontest, the Ausbildungscontest and the CW-Ausbildungscontest. All twelve of their 2026 dates match DARC's own Termine table.\n\nTWO OF THE FIVE TURNED OUT TO BE RULES RATHER THAN DATES. The Hell Contest states 'Oktober, erstes vollstaendiges Wochenende'. And DARC's three short contests take one month of each quarter in turn on a Tuesday evening -- RTTY in months 1/4/7/10 and FT4 in 2/5/8/11 were already encoded, and the CW-Ausbildungscontest completes it at 3/6/9/12, all on the second Tuesday. The HELL-Kurzcontest is the odd one: same quarterly shape but the THIRD Tuesday of 2/5/8/11. Both series' rules are derived from DARC's four published dates each and are marked verified: false for exactly that reason.\n\nTWO RECORDS CARRY NO BANDS -- the HELL-Kurzcontest has no Ausschreibung linked at all, and the CW-Ausbildungscontest's page is prose about teaching CW rather than rules. Both say so and both are excluded by every band filter.\n\nTHE OSTERCONTEST IS THE CATALOG'S FIRST EASTER-ANCHORED CONTEST. DARC states 'Ostermontag', which is computable, but there is no Easter rule type in either engine so it is stored as a date and joins the expiry cliff. Adding the rule type is the right fix WHEN A SECOND EASTER-ANCHORED CONTEST APPEARS -- the same standard that added per-date times once the 3.5 MHz series became the second consumer."
@@ -381,8 +381,8 @@
       "catalog_sponsors": [
         "MRASZ"
       ],
-      "encoded": 3,
-      "encoded_verified": 3,
+      "encoded": 6,
+      "encoded_verified": 6,
       "estimated_total": 7,
       "status": "partial",
       "notes": "HA-DX, YL-OM and the World Amateur Radio Day HF leg encoded. Not yet read: RHOB, URHOB, the Junior contest, the Straight Key Memorial Contest, Tisza Kupa and the VHF leg of RF-WD. HA-DX has its own host at ha-dx.com, which MRASZ links as its own; the 2026 count is from MRASZ's own competition index, not a guess. VHF/UHF IS OUT OF SCOPE as of 2026-08-23 -- see HANDOVER.md, 'Scope: HF'. What this entry describes as separate work is now a decision rather than a deferral, and the records already held stay and are maintained. READ AGAIN 2026-08-23 and the gap is smaller than it looked. Of the six listed as unread, URHOB and the VHF leg of RF-WD are VHF/UHF and out of scope, which leaves four: RHOB, the Junior RH contest, the Straight Key Memorial Contest and the Tisza Kupa. MRASZ's index links rhob.mrasz.hu, skmc.hu and tiszacup.eu -- three separate hosts, none of them MRASZ's own domain -- and the Junior contest and the 23 October IFI contest have no rules link at all.\n\nRHOB was read and NOT encoded: its page gives the date (11 January 2026, moved to the Sunday because 'a hagyomanyosan versenynapkent szolgalo szombat 2026-ban munkanap lesz' -- the Saturday that traditionally serves as contest day is a working day in 2026) and points at a separate Versenykiiras for the bands, modes, exchange and deadline. A record with a date and nothing else is not a record. The remaining three hosts are unread."
@@ -395,7 +395,7 @@
       "catalog_sponsors": [
         "BFRA"
       ],
-      "encoded": 1,
+      "encoded": 2,
       "encoded_verified": 1,
       "estimated_total": 2,
       "status": "partial",
@@ -1132,6 +1132,104 @@
       "estimated_total": 1,
       "status": "in_progress",
       "notes": "ADDED 2026-10-15 from the discovery worklist; encoded as manual-rule records because the sponsor publishes dates per edition and no recurrence."
+    },
+    {
+      "org": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "url": "https://www.iaru-r1.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "IARU Region 1 VHF+ Committee"
+      ],
+      "encoded": 6,
+      "encoded_verified": 6,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "JSFC",
+      "country": "JP",
+      "url": "https://jsfc.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "JSFC"
+      ],
+      "encoded": 3,
+      "encoded_verified": 3,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "European PSK Club",
+      "country": "INTL",
+      "url": "https://eupsk.club/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "European PSK Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "ACQP Organizing Committee",
+      "country": "CA",
+      "url": "https://www.acqp.ca/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ACQP Organizing Committee"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "LRSF",
+      "country": "LT",
+      "url": "https://www.lrsf.lt/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "LRSF"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "Worked All Britain Awards Group",
+      "country": "GB",
+      "url": "https://wab.intermip.net/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Worked All Britain Awards Group"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "LABRE-RS",
+      "country": "BR",
+      "url": "https://labre-rs.org.br/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "LABRE-RS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
     }
   ],
   "tier_5_qso_parties": [
@@ -1771,22 +1869,22 @@
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
     "as_of": "2026-10-15",
-    "total_encoded": 323,
-    "total_verified": 289,
+    "total_encoded": 346,
+    "total_verified": 310,
     "total_retired": 10,
     "by_tier": {
       "tier_1_major_international": {
         "orgs": 11,
         "orgs_worked": 11,
-        "encoded": 85,
-        "verified": 77,
+        "encoded": 89,
+        "verified": 81,
         "retired": 2
       },
       "tier_2_european_societies": {
         "orgs": 22,
         "orgs_worked": 22,
-        "encoded": 68,
-        "verified": 68,
+        "encoded": 72,
+        "verified": 71,
         "retired": 0
       },
       "tier_3_other_regions": {
@@ -1797,10 +1895,10 @@
         "retired": 0
       },
       "tier_4_specialty_clubs": {
-        "orgs": 31,
-        "orgs_worked": 29,
-        "encoded": 78,
-        "verified": 71,
+        "orgs": 38,
+        "orgs_worked": 36,
+        "encoded": 93,
+        "verified": 85,
         "retired": 8
       },
       "tier_5_qso_parties": {
@@ -1813,31 +1911,31 @@
     },
     "by_mode": {
       "digital_capable": {
-        "encoded": 111,
-        "verified": 90
+        "encoded": 115,
+        "verified": 93
       },
       "digital_only": {
-        "encoded": 63,
-        "verified": 57
+        "encoded": 67,
+        "verified": 60
       },
       "ft8_ft4": {
-        "encoded": 37,
+        "encoded": 38,
         "verified": 29
       },
       "cw_or_ssb_only": {
-        "encoded": 197,
-        "verified": 185
+        "encoded": 206,
+        "verified": 194
       }
     },
     "by_region": {
       "Europe": {
-        "encoded": 126,
-        "verified": 119,
+        "encoded": 137,
+        "verified": 129,
         "retired": 2
       },
       "North America": {
-        "encoded": 117,
-        "verified": 94,
+        "encoded": 118,
+        "verified": 95,
         "retired": 8
       },
       "Africa": {
@@ -1846,8 +1944,13 @@
         "retired": 0
       },
       "Asia": {
-        "encoded": 20,
-        "verified": 18,
+        "encoded": 23,
+        "verified": 21,
+        "retired": 0
+      },
+      "International": {
+        "encoded": 15,
+        "verified": 14,
         "retired": 0
       },
       "Oceania": {
@@ -1855,13 +1958,8 @@
         "verified": 15,
         "retired": 0
       },
-      "International": {
-        "encoded": 8,
-        "verified": 7,
-        "retired": 0
-      },
       "South America": {
-        "encoded": 3,
+        "encoded": 4,
         "verified": 3,
         "retired": 0
       }
@@ -1878,18 +1976,23 @@
         "retired": 0
       },
       "GB": {
-        "encoded": 27,
-        "verified": 26,
+        "encoded": 29,
+        "verified": 28,
         "retired": 2
       },
       "DE": {
-        "encoded": 24,
-        "verified": 21,
+        "encoded": 28,
+        "verified": 25,
         "retired": 0
       },
       "JP": {
-        "encoded": 13,
-        "verified": 12,
+        "encoded": 16,
+        "verified": 15,
+        "retired": 0
+      },
+      "INTL": {
+        "encoded": 15,
+        "verified": 14,
         "retired": 0
       },
       "BE": {
@@ -1897,19 +2000,14 @@
         "verified": 12,
         "retired": 0
       },
-      "INTL": {
-        "encoded": 8,
-        "verified": 7,
+      "CA": {
+        "encoded": 7,
+        "verified": 5,
         "retired": 0
       },
       "AU": {
         "encoded": 7,
         "verified": 7,
-        "retired": 0
-      },
-      "CA": {
-        "encoded": 6,
-        "verified": 4,
         "retired": 0
       },
       "NZ": {
@@ -1923,6 +2021,11 @@
         "retired": 0
       },
       "CH": {
+        "encoded": 6,
+        "verified": 6,
+        "retired": 0
+      },
+      "HU": {
         "encoded": 6,
         "verified": 6,
         "retired": 0
@@ -1947,6 +2050,11 @@
         "verified": 4,
         "retired": 0
       },
+      "BG": {
+        "encoded": 4,
+        "verified": 3,
+        "retired": 0
+      },
       "RO": {
         "encoded": 4,
         "verified": 1,
@@ -1967,12 +2075,7 @@
         "verified": 3,
         "retired": 0
       },
-      "HU": {
-        "encoded": 3,
-        "verified": 3,
-        "retired": 0
-      },
-      "BG": {
+      "LT": {
         "encoded": 3,
         "verified": 3,
         "retired": 0
@@ -1985,6 +2088,11 @@
       "OC": {
         "encoded": 2,
         "verified": 2,
+        "retired": 0
+      },
+      "BR": {
+        "encoded": 2,
+        "verified": 1,
         "retired": 0
       },
       "NL": {
@@ -2012,11 +2120,6 @@
         "verified": 2,
         "retired": 0
       },
-      "LT": {
-        "encoded": 2,
-        "verified": 2,
-        "retired": 0
-      },
       "RU": {
         "encoded": 2,
         "verified": 2,
@@ -2025,11 +2128,6 @@
       "AR": {
         "encoded": 2,
         "verified": 2,
-        "retired": 0
-      },
-      "BR": {
-        "encoded": 1,
-        "verified": 1,
         "retired": 0
       },
       "ID": {
@@ -2062,7 +2160,7 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 39.0,
+      "largest_region_share_pct": 39.6,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "CRSA",
@@ -2088,10 +2186,12 @@
       "ft8activity-1296",
       "ft8activity-144",
       "ft8activity-432",
+      "hemus-vhf",
       "iowa-qso-party",
       "jarl-new-year-qso-party",
       "kansas-qso-party",
       "kentucky-qso-party",
+      "labre-rs-digi",
       "louisiana-qso-party",
       "maryland-dc-qso-party",
       "mississippi-qso-party",

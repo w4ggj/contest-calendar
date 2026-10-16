@@ -2,9 +2,9 @@
  "_about": "DISCOVERY ONLY. Names located via a third-party index; nothing here is a source for any contest fact. Work an item by reading the SPONSOR's own rules page. status: todo | encoded | skip (with reason) | blocked (with reason).",
  "index": "https://www.contestcalendar.com/alphabetical.php",
  "summary": {
-  "blocked": 91,
-  "encoded": 240,
-  "todo": 388
+  "blocked": 80,
+  "encoded": 254,
+  "todo": 385
  },
  "items": [
   {
@@ -14,7 +14,7 @@
    "closest": "ure-eartty",
    "closest_score": 0.778,
    "status": "blocked",
-   "reason": "2026-10-15: no active sponsor page found (greyed in index)",
+   "reason": "2026-10-15: no active sponsor page found (greyed in index) | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -25,7 +25,7 @@
    "closest": "sartg-ww-rtty",
    "closest_score": 0.591,
    "status": "blocked",
-   "reason": "2026-10-15: no active sponsor page found (greyed in index)",
+   "reason": "2026-10-15: no active sponsor page found (greyed in index) | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -36,7 +36,7 @@
    "closest": "sarl-africa-ft4",
    "closest_score": 0.538,
    "status": "blocked",
-   "reason": "2026-10-15: no active sponsor page found (greyed in index)",
+   "reason": "2026-10-15: no active sponsor page found (greyed in index) | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -47,7 +47,7 @@
    "closest": "arrl-digital",
    "closest_score": 0.69,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
+   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -69,7 +69,7 @@
    "closest": "arrl-digital",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -91,7 +91,7 @@
    "closest": "arrl-digital",
    "closest_score": 0.467,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -113,7 +113,7 @@
    "closest": "sp-dx-rtty",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -135,7 +135,7 @@
    "closest": "ure-eapsk63",
    "closest_score": 0.824,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -143,10 +143,10 @@
    "index_ref": 27,
    "name": "EU PSK DX Contest",
    "index_greyed": false,
-   "closest": "ure-eapsk63",
+   "closest": "eu-psk-dx",
    "closest_score": 0.588,
-   "status": "blocked",
-   "reason": "2026-10-15: only 2004-era rules found, no evidence it still runs",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as eu-psk-dx (manual with the five editions the sponsor lists, 2025-2029).",
    "digital": true,
    "priority": 0
   },
@@ -157,7 +157,7 @@
    "closest": "ure-eapsk63",
    "closest_score": 0.556,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -168,7 +168,7 @@
    "closest": "ure-eapsk63",
    "closest_score": 0.5,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found",
+   "reason": "2026-10-15: no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -189,7 +189,7 @@
    "closest": "makrothen-rtty",
    "closest_score": 0.692,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -197,10 +197,10 @@
    "index_ref": 759,
    "name": "LABRE-RS Digi Contest",
    "index_greyed": false,
-   "closest": "sarl-hf-digital",
+   "closest": "labre-rs-digi",
    "closest_score": 0.645,
-   "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as labre-rs-digi (manual, 2025 only; end time looks mistyped; verified:false).",
    "digital": true,
    "priority": 0
   },
@@ -211,7 +211,7 @@
    "closest": "ww-digi",
    "closest_score": 0.605,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -222,7 +222,7 @@
    "closest": "podxs-pskfest",
    "closest_score": 0.5,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -244,7 +244,7 @@
    "closest": "naqp-rtty",
    "closest_score": 0.538,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -255,7 +255,7 @@
    "closest": "uarl-champ-rtty",
    "closest_score": 0.689,
    "status": "blocked",
-   "reason": "2026-10-15: no standalone rules found; probably an overlay on NAQP RTTY",
+   "reason": "2026-10-15: no standalone rules found; probably an overlay on NAQP RTTY | 2026-10-15: sponsor (SMC, w9smc.com/nacc) runs it as an overlay on NAQP RTTY, scored from the same weekend, not a separate event; recorded as naqp-rtty, not a separate record.",
    "digital": true,
    "priority": 0
   },
@@ -287,7 +287,7 @@
    "closest": "podxs-pskfest",
    "closest_score": 0.784,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found; podxs-pskfest may be the same event, needs a human to compare",
+   "reason": "2026-10-15: no sponsor page found; podxs-pskfest may be the same event, needs a human to compare | 2026-10-15 re-probe: absent from PODXS's own contest index.",
    "digital": true,
    "priority": 0
   },
@@ -298,7 +298,7 @@
    "closest": "rep-portugal-day-hf",
    "closest_score": 0.571,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe: rep.pt refused the connection from here. Retry from another network.",
    "digital": true,
    "priority": 0
   },
@@ -309,7 +309,7 @@
    "closest": "arrl-digital",
    "closest_score": 0.783,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found",
+   "reason": "2026-10-15: no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -330,7 +330,7 @@
    "closest": "fists-sprint-summer-sun",
    "closest_score": 0.6,
    "status": "blocked",
-   "reason": "2026-10-15: QRP ARCI digital sprint pages not found; greyed in index",
+   "reason": "2026-10-15: QRP ARCI digital sprint pages not found; greyed in index | 2026-10-15 re-probe: not on the rebuilt qrparci.org. Ask the contest manager (NEEDS_A_HUMAN).",
    "digital": true,
    "priority": 0
   },
@@ -341,7 +341,7 @@
    "closest": "fists-sprint-spring-sun",
    "closest_score": 0.643,
    "status": "blocked",
-   "reason": "2026-10-15: QRP ARCI digital sprint pages not found; greyed in index",
+   "reason": "2026-10-15: QRP ARCI digital sprint pages not found; greyed in index | 2026-10-15 re-probe: not on the rebuilt qrparci.org. Ask the contest manager (NEEDS_A_HUMAN).",
    "digital": true,
    "priority": 0
   },
@@ -428,7 +428,7 @@
    "closest": "sarl-qrp-summer",
    "closest_score": 0.533,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe: Troy Amateur Radio Association site not found. Retry.",
    "digital": true,
    "priority": 0
   },
@@ -439,7 +439,7 @@
    "closest": "ure-eartty",
    "closest_score": 0.545,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe: Troy Amateur Radio Association site not found. Retry.",
    "digital": true,
    "priority": 0
   },
@@ -450,7 +450,7 @@
    "closest": "sarl-hf-digital",
    "closest_score": 0.558,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe: Troy Amateur Radio Association site not found. Retry.",
    "digital": true,
    "priority": 0
   },
@@ -461,7 +461,7 @@
    "closest": "naqp-rtty",
    "closest_score": 0.606,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -483,7 +483,7 @@
    "closest": "uarl-champ-rtty",
    "closest_score": 0.727,
    "status": "blocked",
-   "reason": "2026-10-15: no current sponsor page found; only a 2005 qsl.net mirror",
+   "reason": "2026-10-15: no current sponsor page found; only a 2005 qsl.net mirror | 2026-10-15 re-probe: urdxc.org/rtty carries a banner of 10 Sep 2023 cancelling it 'until the end of the war'; last edition 2021. Defunct, not encoded.",
    "digital": true,
    "priority": 0
   },
@@ -494,7 +494,7 @@
    "closest": "ww-digi",
    "closest_score": 0.595,
    "status": "blocked",
-   "reason": "2026-10-15: no current sponsor page found; only a 2005 qsl.net mirror",
+   "reason": "2026-10-15: no current sponsor page found; only a 2005 qsl.net mirror | 2026-10-15 re-probe: urdxc.org/digi returns 404; izmail-dx.com parked. Not found.",
    "digital": true,
    "priority": 0
   },
@@ -505,7 +505,7 @@
    "closest": "arrl-digital",
    "closest_score": 0.727,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found by search; try the sponsor domain by hand",
+   "reason": "2026-10-15: no sponsor page found by search; try the sponsor domain by hand | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -560,7 +560,7 @@
    "closest": "rsgb-autumn-cw",
    "closest_score": 0.536,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe: WAB's own pages list its data-mode contests as discontinued; last found 2019.",
    "digital": true,
    "priority": 0
   },
@@ -571,7 +571,7 @@
    "closest": "darc-rtty-kurzcontest",
    "closest_score": 0.541,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found",
+   "reason": "2026-10-15: no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": true,
    "priority": 0
   },
@@ -582,7 +582,7 @@
    "closest": "sp-dx-rtty",
    "closest_score": 0.8,
    "status": "blocked",
-   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled",
+   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled | 2026-10-15 re-probe: ybdxpi.org answers 200 with an empty body to curl. Not tried in a browser; retry that way.",
    "digital": true,
    "priority": 0
   },
@@ -593,7 +593,7 @@
    "closest": "frr-yo-dx-hf",
    "closest_score": 0.556,
    "status": "blocked",
-   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled",
+   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled | 2026-10-15 re-probe: ybdxpi.org answers 200 with an empty body to curl. Not tried in a browser; retry that way.",
    "digital": true,
    "priority": 0
   },
@@ -648,7 +648,7 @@
    "closest": "wia-harry-angel-sprint",
    "closest_score": 0.585,
    "status": "blocked",
-   "reason": "2026-10-15: VHF/UHF sprint series: sponsor not identified from any sponsor-owned page; not pursued",
+   "reason": "2026-10-15: VHF/UHF sprint series: sponsor not identified from any sponsor-owned page; not pursued | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -659,7 +659,7 @@
    "closest": "ars-spartan-sprint",
    "closest_score": 0.615,
    "status": "blocked",
-   "reason": "2026-10-15: VHF/UHF sprint series: sponsor not identified from any sponsor-owned page; not pursued",
+   "reason": "2026-10-15: VHF/UHF sprint series: sponsor not identified from any sponsor-owned page; not pursued | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -670,7 +670,7 @@
    "closest": "cq-160-ssb",
    "closest_score": 0.588,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": false,
    "priority": 2
   },
@@ -758,7 +758,7 @@
    "closest": "arrl-10m",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": false,
    "priority": 2
   },
@@ -780,7 +780,7 @@
    "closest": "sarl-africa-all-mode-dx",
    "closest_score": 0.5,
    "status": "blocked",
-   "reason": "2026-10-15: greyed in index; no sponsor page found",
+   "reason": "2026-10-15: greyed in index; no sponsor page found | 2026-10-15 re-probe with varied search terms: still no sponsor page found (or only a long-dead one). Closure now settled.",
    "digital": false,
    "priority": 2
   },
@@ -846,7 +846,7 @@
    "closest": "rac-canada-day",
    "closest_score": 0.609,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules) | 2026-10-15 re-probe: WIA announced a one-off repeat on 25 April in a 5 Jan 2022 news item; it is not on the WIA's current contest list. Not found.",
    "digital": false,
    "priority": 2
   },
@@ -923,7 +923,7 @@
    "closest": "arrl-10ghz-leg1",
    "closest_score": 0.444,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -931,10 +931,10 @@
    "index_ref": 164,
    "name": "Asia-Pacific Fall Sprint, CW",
    "index_greyed": false,
-   "closest": "ars-spartan-sprint",
+   "closest": "apsprint-fall-cw",
    "closest_score": 0.578,
-   "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as apsprint-fall-cw (stated rule: 3rd Sunday of October).",
    "digital": false,
    "priority": 2
   },
@@ -942,10 +942,10 @@
    "index_ref": 248,
    "name": "Asia-Pacific Spring Sprint, CW",
    "index_greyed": false,
-   "closest": "ars-spartan-sprint",
+   "closest": "apsprint-spring-cw",
    "closest_score": 0.596,
-   "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as apsprint-spring-cw (stated rule: 2nd Saturday of February).",
    "digital": false,
    "priority": 2
   },
@@ -953,10 +953,10 @@
    "index_ref": 42,
    "name": "Asia-Pacific Sprint, SSB",
    "index_greyed": false,
-   "closest": "nzart-sprint-ssb",
+   "closest": "apsprint-ssb",
    "closest_score": 0.615,
-   "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as apsprint-ssb (stated rule: 2nd Saturday of June; sponsor's results list labels the 2026 running CW, unresolved).",
    "digital": false,
    "priority": 2
   },
@@ -964,10 +964,10 @@
    "index_ref": 773,
    "name": "Atlantic Canada QSO Party",
    "index_greyed": false,
-   "closest": "rac-canada-day",
+   "closest": "acqp",
    "closest_score": 0.621,
-   "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as acqp (stated rule: first Sunday of June).",
    "digital": false,
    "priority": 2
   },
@@ -978,7 +978,7 @@
    "closest": "agcw-vhf-uhf",
    "closest_score": 0.545,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -1041,10 +1041,10 @@
    "index_ref": 28,
    "name": "Baltic Contest",
    "index_greyed": false,
-   "closest": "bc-qso-party",
+   "closest": "baltic-contest",
    "closest_score": 0.5,
-   "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as baltic-contest (manual, 2026 only: the sponsor states no standing rule).",
    "digital": false,
    "priority": 2
   },
@@ -1198,7 +1198,7 @@
    "closest": "ft-challenge",
    "closest_score": 0.545,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules)",
+   "reason": "2026-10-15: no sponsor-owned rules page located (search and sponsor-home probes only found aggregators, a dead host, or a page with no rules) | 2026-10-15 re-probe: LIVE (collegiateqsoparty.com; 2026 Oct 3 0000Z to Oct 4 2359Z, 'each Fall') but bands, modes and exchange are only in a OneDrive Info Packet that refuses non-browser fetches. Not encoded until it is read in a browser.",
    "digital": false,
    "priority": 2
   },
@@ -1220,7 +1220,7 @@
    "closest": "trac-ta-vhf-uhf",
    "closest_score": 0.595,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -1297,7 +1297,7 @@
    "closest": "trac-ta-vhf-uhf",
    "closest_score": 0.606,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -2075,10 +2075,10 @@
    "index_ref": 750,
    "name": "Hemus VHF Contest - 144 MHz",
    "index_greyed": false,
-   "closest": "sarl-vhf-uhf-fm",
+   "closest": "hemus-vhf",
    "closest_score": 0.5,
-   "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as hemus-vhf (verified:false; the sponsor gives two different start times).",
    "digital": false,
    "priority": 2
   },
@@ -2174,10 +2174,10 @@
    "index_ref": 654,
    "name": "IARU Region 1 145 MHz Contest",
    "index_greyed": false,
-   "closest": "ari-contest-sezioni-hf",
+   "closest": "iaru-r1-145mhz",
    "closest_score": 0.514,
-   "status": "todo",
-   "reason": "",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as iaru-r1-145mhz (handbook rule: first Saturday of September).",
    "digital": false,
    "priority": 2
   },
@@ -2185,10 +2185,10 @@
    "index_ref": 701,
    "name": "IARU Region 1 50 MHz Contest",
    "index_greyed": false,
-   "closest": "rep-50mhz",
+   "closest": "iaru-r1-50mhz",
    "closest_score": 0.564,
-   "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as iaru-r1-50mhz (handbook rule: third Saturday of June).",
    "digital": false,
    "priority": 2
   },
@@ -2199,7 +2199,7 @@
    "closest": "rep-50mhz",
    "closest_score": 0.524,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: not a contest of this name; the handbook defines four: 50 and 70 MHz MGM (iaru-r1-50mhz-mgm, iaru-r1-70mhz-mgm) and 50 and 70 MHz CW/SSB (iaru-r1-50mhz, iaru-r1-70mhz). All four encoded.",
    "digital": false,
    "priority": 2
   },
@@ -2207,10 +2207,10 @@
    "index_ref": 702,
    "name": "IARU Region 1 70 MHz Contest",
    "index_greyed": false,
-   "closest": "ari-contest-sezioni-hf",
+   "closest": "iaru-r1-70mhz",
    "closest_score": 0.529,
-   "status": "todo",
-   "reason": "",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as iaru-r1-70mhz (handbook rule: third Saturday of July; uses the new 4m band token).",
    "digital": false,
    "priority": 2
   },
@@ -2218,10 +2218,10 @@
    "index_ref": 655,
    "name": "IARU Region 1 UHF/Microwaves Contest",
    "index_greyed": false,
-   "closest": "ari-contest-sezioni-hf",
+   "closest": "iaru-r1-uhf-uw",
    "closest_score": 0.476,
-   "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as iaru-r1-uhf-uw (handbook rule: first Saturday of October).",
    "digital": false,
    "priority": 2
   },
@@ -2793,7 +2793,7 @@
    "closest": "ars-spartan-sprint",
    "closest_score": 0.634,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -2881,7 +2881,7 @@
    "closest": "podxs-40m-firecracker",
    "closest_score": 0.475,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -2947,7 +2947,7 @@
    "closest": "ncj-sprint-rtty",
    "closest_score": 0.507,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -2958,7 +2958,7 @@
    "closest": "fists-sprint-winter-sat",
    "closest_score": 0.438,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -3057,7 +3057,7 @@
    "closest": "ncj-sprint-cw",
    "closest_score": 0.7,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -3618,7 +3618,7 @@
    "closest": "cq-ww-vhf",
    "closest_score": 0.552,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -3772,7 +3772,7 @@
    "closest": "mrasz-rfwd-hf",
    "closest_score": 0.548,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15 probe (in VHF scope): rep.pt refused the connection; unverified. Retry from another network. MRASZ's RF-WD URH (mrasz-rfwd-urh) is a different event.",
    "digital": false,
    "priority": 2
   },
@@ -4058,7 +4058,7 @@
    "closest": "rsgb-80mcc-cw",
    "closest_score": 0.54,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -4597,7 +4597,7 @@
    "closest": "nzart-memorial-contest",
    "closest_score": 0.625,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15 probe (in VHF scope): no sponsor page found. Not pursued further.",
    "digital": false,
    "priority": 2
   },
@@ -4619,7 +4619,7 @@
    "closest": "fists-sprint-fall-sat",
    "closest_score": 0.531,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -4707,7 +4707,7 @@
    "closest": "rsgb-low-power",
    "closest_score": 0.564,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: read the sponsor's 2026 dates page; it still shows only 3 Aug 2025 (a Sunday, though labelled Saturday) and no 2026 date, so nothing is encoded. Re-check when WAB posts 2027.",
    "digital": false,
    "priority": 2
   },
@@ -4715,10 +4715,10 @@
    "index_ref": 506,
    "name": "WAB 144 MHz Phone",
    "index_greyed": false,
-   "closest": "rsgb-1_8mhz-first",
+   "closest": "wab-144mhz-phone",
    "closest_score": 0.562,
-   "status": "todo",
-   "reason": "",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as wab-144mhz-phone (manual, 2026 only: WAB publishes per edition).",
    "digital": false,
    "priority": 2
   },
@@ -4737,10 +4737,10 @@
    "index_ref": 505,
    "name": "WAB 50 MHz Phone",
    "index_greyed": false,
-   "closest": "uba-on-80-40-ssb",
+   "closest": "wab-50mhz-phone",
    "closest_score": 0.621,
-   "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "status": "encoded",
+   "reason": "2026-10-15: encoded as wab-50mhz-phone (manual, 2026 only: WAB publishes per edition).",
    "digital": false,
    "priority": 2
   },
@@ -4806,7 +4806,7 @@
    "closest": "fists-sprint-winter-sun",
    "closest_score": 0.651,
    "status": "blocked",
-   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md",
+   "reason": "2026-10-15: out of scope: VHF/UHF/microwave, per the 2026-08-23 HF decision in HANDOVER.md | 2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 2
   },
@@ -5004,7 +5004,7 @@
    "closest": "uba-dx-ssb",
    "closest_score": 0.7,
    "status": "blocked",
-   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled",
+   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled | 2026-10-15 re-probe: ybdxpi.org answers 200 with an empty body to curl. Not tried in a browser; retry that way.",
    "digital": false,
    "priority": 2
   },
@@ -5246,7 +5246,7 @@
    "closest": "arrl-10m",
    "closest_score": 0.75,
    "status": "todo",
-   "reason": "",
+   "reason": "2026-10-15: outside the VHF option-C scope (microwave, EME, meteor scatter, SBMS or a sprint series, see HANDOVER.md 'VHF/UHF: option C'); stays out, not probed.",
    "digital": false,
    "priority": 3
   },

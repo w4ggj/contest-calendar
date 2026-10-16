@@ -17356,6 +17356,1129 @@
         "verified": true,
         "note": "Regulation has groups for Russian (A1/A2/B) and foreign (C1/C2) participants."
       }
+    },
+    {
+      "id": "iaru-r1-50mhz-mgm",
+      "name": "IARU Region 1 50 MHz MGM Contest",
+      "sponsor": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "rules_url": "https://www.iaru-r1.org/about-us/committees-and-working-groups/vhf-uhf-shf-committee-c5/vhf-up-contesting/",
+      "log_format": "EDI",
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "MGM (machine generated modes)"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "bands_note": "50 MHz only; machine-generated modes are allowed only in the specific 50 and 70 MHz MGM contests.",
+      "exchange": "Report + 4-character locator (no serial number)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "Log deadline is not a fixed offset (EDI 'no later than the first Wednesday following the contest weekend at 23:59:59 UTC'), so log_deadline_days is not encoded.",
+      "source_note": "VHF Handbook 10.03 (https://www.iaru-r1.org/wp-content/uploads/2026/02/VHF_Handbook_V10_03_final.pdf), section 'RULES IARU R1 50/70 MHZ, 145 MHZ AND UHF/uW CONTESTS': 'IARU Region 1 50 MHz MGM Contest will begin on the third Saturday of April'; 'Each contest will commence at 14:00 UTC on the Saturday and end at 14:00 UTC on the Sunday.' Sponsor's hub calendar: 2026 Apr 18-19. Categories: SO, MO, 6H, each as an MGM section. Read 2026-10-15.",
+      "summary": "Region 1's 50 MHz machine-generated-mode weekend: 24 hours on the third weekend of April, grid locators only.",
+      "sponsor_home": "https://www.iaru-r1.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Not encoded as an entity list: the sponsor limits entry to Region 1 ('All licensed radio amateurs in Region 1 may participate in the contest'; special high-power licences enter as check logs only), and enumerating every Region 1 entity is not done here. Stations elsewhere cannot enter but may be worked."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "iaru-r1-70mhz-mgm",
+      "name": "IARU Region 1 70 MHz MGM Contest",
+      "sponsor": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "rules_url": "https://www.iaru-r1.org/about-us/committees-and-working-groups/vhf-uhf-shf-committee-c5/vhf-up-contesting/",
+      "log_format": "EDI",
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "MGM (machine generated modes)"
+      ],
+      "bands": [
+        "4m"
+      ],
+      "bands_note": "70 MHz only; machine-generated modes are allowed only in the specific 50 and 70 MHz MGM contests.",
+      "exchange": "Report + 4-character locator (no serial number)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "Log deadline is not a fixed offset (EDI 'no later than the first Wednesday following the contest weekend at 23:59:59 UTC'), so log_deadline_days is not encoded.",
+      "source_note": "VHF Handbook 10.03 (https://www.iaru-r1.org/wp-content/uploads/2026/02/VHF_Handbook_V10_03_final.pdf), section 'RULES IARU R1 50/70 MHZ, 145 MHZ AND UHF/uW CONTESTS': 'IARU Region 1 70 MHz MGM Contest will begin on the third Saturday of May'; 'Each contest will commence at 14:00 UTC on the Saturday and end at 14:00 UTC on the Sunday.' Sponsor's hub calendar: 2026 May 16-17. Categories: SO, MO, 6H, each as an MGM section. Read 2026-10-15.",
+      "summary": "Region 1's 70 MHz machine-generated-mode weekend: 24 hours on the third weekend of May, grid locators only.",
+      "sponsor_home": "https://www.iaru-r1.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Not encoded as an entity list: the sponsor limits entry to Region 1 ('All licensed radio amateurs in Region 1 may participate in the contest'; special high-power licences enter as check logs only), and enumerating every Region 1 entity is not done here. Stations elsewhere cannot enter but may be worked."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "iaru-r1-50mhz",
+      "name": "IARU Region 1 50 MHz Contest",
+      "sponsor": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "rules_url": "https://www.iaru-r1.org/about-us/committees-and-working-groups/vhf-uhf-shf-committee-c5/vhf-up-contesting/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "submodes": [],
+      "bands": [
+        "6m"
+      ],
+      "bands_note": "50 MHz only. The sponsor's rule: contacts in A1A (CW), J3E (SSB) or F3E (FM).",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator (e.g. 59003 JO20DB)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "Log deadline is not a fixed offset (EDI 'no later than the first Wednesday following the contest weekend at 23:59:59 UTC'), so log_deadline_days is not encoded.",
+      "source_note": "VHF Handbook 10.03 (https://www.iaru-r1.org/wp-content/uploads/2026/02/VHF_Handbook_V10_03_final.pdf), section 'RULES IARU R1 50/70 MHZ, 145 MHZ AND UHF/uW CONTESTS': 'IARU Region 1 50 MHz (CW-SSB Only) Contest will begin on the third Saturday of June'; 'Each contest will commence at 14:00 UTC on the Saturday and end at 14:00 UTC on the Sunday.' Sponsor's hub calendar: 2026 Jun 20-21. Categories: SO, MO, 6H. Read 2026-10-15.",
+      "summary": "Region 1's 50 MHz CW/SSB weekend: 24 hours on the third weekend of June.",
+      "sponsor_home": "https://www.iaru-r1.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Not encoded as an entity list: the sponsor limits entry to Region 1 ('All licensed radio amateurs in Region 1 may participate in the contest'; special high-power licences enter as check logs only), and enumerating every Region 1 entity is not done here. Stations elsewhere cannot enter but may be worked."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "iaru-r1-70mhz",
+      "name": "IARU Region 1 70 MHz Contest",
+      "sponsor": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "rules_url": "https://www.iaru-r1.org/about-us/committees-and-working-groups/vhf-uhf-shf-committee-c5/vhf-up-contesting/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "submodes": [],
+      "bands": [
+        "4m"
+      ],
+      "bands_note": "70 MHz only. The sponsor's rule: contacts in A1A (CW), J3E (SSB) or F3E (FM).",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator (e.g. 59003 JO20DB)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 7,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "Log deadline is not a fixed offset (EDI 'no later than the first Wednesday following the contest weekend at 23:59:59 UTC'), so log_deadline_days is not encoded.",
+      "source_note": "VHF Handbook 10.03 (https://www.iaru-r1.org/wp-content/uploads/2026/02/VHF_Handbook_V10_03_final.pdf), section 'RULES IARU R1 50/70 MHZ, 145 MHZ AND UHF/uW CONTESTS': 'IARU Region 1 70 MHz (CW-SSB Only) Contest will begin on the third Saturday of July'; 'Each contest will commence at 14:00 UTC on the Saturday and end at 14:00 UTC on the Sunday.' Sponsor's hub calendar: 2026 Jul 18-19. Categories: SO, MO, 6H. Read 2026-10-15.",
+      "summary": "Region 1's 70 MHz CW/SSB weekend: 24 hours on the third weekend of July.",
+      "sponsor_home": "https://www.iaru-r1.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Not encoded as an entity list: the sponsor limits entry to Region 1 ('All licensed radio amateurs in Region 1 may participate in the contest'; special high-power licences enter as check logs only), and enumerating every Region 1 entity is not done here. Stations elsewhere cannot enter but may be worked."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "iaru-r1-145mhz",
+      "name": "IARU Region 1 145 MHz Contest",
+      "sponsor": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "rules_url": "https://www.iaru-r1.org/about-us/committees-and-working-groups/vhf-uhf-shf-committee-c5/vhf-up-contesting/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "submodes": [],
+      "bands": [
+        "2m"
+      ],
+      "bands_note": "144 MHz band only.",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator (e.g. 59003 JO20DB)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "Log deadline is not a fixed offset (EDI 'no later than the first Wednesday following the contest weekend at 23:59:59 UTC'), so log_deadline_days is not encoded.",
+      "source_note": "VHF Handbook 10.03 (https://www.iaru-r1.org/wp-content/uploads/2026/02/VHF_Handbook_V10_03_final.pdf), section 'RULES IARU R1 50/70 MHZ, 145 MHZ AND UHF/uW CONTESTS': 'IARU Region 1 145 MHz contest will begin on the first Saturday of September'; 'Each contest will commence at 14:00 UTC on the Saturday and end at 14:00 UTC on the Sunday.' Sponsor's hub calendar: 2026 Sep 5-6; 2025 Sep 6-7 per the same page's archive. Categories: SO, MO, SO-LP, MO-LP, 6H (Low Power is 100 W PEP with one antenna system). Read 2026-10-15.",
+      "summary": "Region 1's 2m weekend: 24 hours on the first weekend of September, the one most European VHF operators plan their year around.",
+      "sponsor_home": "https://www.iaru-r1.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Not encoded as an entity list: the sponsor limits entry to Region 1 ('All licensed radio amateurs in Region 1 may participate in the contest'; special high-power licences enter as check logs only), and enumerating every Region 1 entity is not done here. Stations elsewhere cannot enter but may be worked."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "iaru-r1-uhf-uw",
+      "name": "IARU Region 1 UHF/Microwaves Contest",
+      "sponsor": "IARU Region 1 VHF+ Committee",
+      "country": "INTL",
+      "rules_url": "https://www.iaru-r1.org/about-us/committees-and-working-groups/vhf-uhf-shf-committee-c5/vhf-up-contesting/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "submodes": [],
+      "bands": [
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "Sponsor names 435 MHz, 1.3, 2.4, 3.4, 5.7, 10 GHz and a millimetre group (24, 47, 76, 122, 134, 245 GHz). Only 70cm, 23cm, 13cm and 3cm are recorded as tokens; 3.4 GHz, 5.7 GHz and the millimetre bands have no token here.",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator (e.g. 59003 JO20DB)",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "Log deadline is not a fixed offset (EDI 'no later than the first Wednesday following the contest weekend at 23:59:59 UTC'), so log_deadline_days is not encoded.",
+      "source_note": "VHF Handbook 10.03 (https://www.iaru-r1.org/wp-content/uploads/2026/02/VHF_Handbook_V10_03_final.pdf), section 'RULES IARU R1 50/70 MHZ, 145 MHZ AND UHF/uW CONTESTS': 'IARU Region 1 UHF/Microwaves contest will begin on the first Saturday of October'; 'Each contest will commence at 14:00 UTC on the Saturday and end at 14:00 UTC on the Sunday.' Sponsor's hub calendar: 2026 Oct 3-4. Categories: SO, MO (SO-LP, MO-LP and 6H on 435 MHz). Read 2026-10-15.",
+      "summary": "Region 1's UHF and microwave weekend: 24 hours on the first weekend of October, 435 MHz up to the millimetre bands.",
+      "sponsor_home": "https://www.iaru-r1.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Not encoded as an entity list: the sponsor limits entry to Region 1 ('All licensed radio amateurs in Region 1 may participate in the contest'; special high-power licences enter as check logs only), and enumerating every Region 1 entity is not done here. Stations elsewhere cannot enter but may be worked."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "darc-vhf-uhf-shf",
+      "name": "DARC VHF-/UHF-/SHF-Wettbewerb",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/ukw/tnukwcontest000/tnukwcontest00700/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "Sponsor lists 145 MHz, 435 MHz, 1.3, 2.3, 3.4, 5.7, 10, 24, 47, 76, 122, 134 and 245 GHz and above 300 GHz. Only 2m, 70cm, 23cm, 13cm and 3cm are recorded as tokens; 2.3 GHz is 13cm, 3.4 and 5.7 GHz and the millimetre bands have none.",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-07",
+            "2026-05-02",
+            "2026-07-04"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1359"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-03-07, 2026-05-02, 2026-07-04); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. Only the 2026 Ausschreibung was read; earlier DARC years were not checked.",
+      "source_note": "darc.de UKW contest pages (index https://www.darc.de/der-club/referate/conteste/ukw/ukw-conteste/ 'Termine DARC UKW Conteste 2026'): March 2026-03-07 14:00 to 03-08 13:59 UTC (log 03-15), May 2026-05-02 to 05-03 (log 05-10), July 2026-07-04 to 07-05 (log 07-12). The March Ausschreibung was read in full; the May and July dates and clock come from the index table, not their own pages. Classes: Single Operator, Multi Operator, Trainee, Checklog; Low Power (100 W) and 6-hour classes on 145 and 435 MHz in the March edition. Read 2026-10-15.",
+      "summary": "Germany's three-times-a-year VHF/UHF/SHF contest: 24 hours in March, May and July, grid locators and serial numbers.",
+      "sponsor_home": "https://www.darc.de/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "DL"
+        ],
+        "verified": true,
+        "note": "'Teilnahmeberechtigt sind alle von einem Stationsstandort auf dem Staatsgebiet der Bundesrepublik Deutschland aus operierenden Amateurfunkstationen' -- stations in Germany enter; others may be worked."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "darc-ukw-fruehling",
+      "name": "DARC UKW Frühlingswettbewerb",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/ukw/tnukwcontest001/tnukwcontest007000/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "Sponsor lists 145 MHz, 435 MHz, 1.3, 2.3, 3.4, 5.7, 10, 24, 47, 76, 122, 134 and 245 GHz and above 300 GHz. Only 2m, 70cm, 23cm, 13cm and 3cm are recorded as tokens; 2.3 GHz is 13cm, 3.4 and 5.7 GHz and the millimetre bands have none.",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-04"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1559"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-04-04); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. Only the 2026 Ausschreibung was read; earlier DARC years were not checked.",
+      "source_note": "darc.de UKW contest pages (index https://www.darc.de/der-club/referate/conteste/ukw/ukw-conteste/ 'Termine DARC UKW Conteste 2026'): 2026-04-04 12:00 to 15:59 UTC (a single Saturday afternoon), log 04-11. Classes: Single Operator, Multi Operator, Trainee, Checklog. Read 2026-10-15.",
+      "summary": "Germany's four-hour spring VHF/UHF/SHF contest on a Saturday afternoon.",
+      "sponsor_home": "https://www.darc.de/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "DL"
+        ],
+        "verified": true,
+        "note": "'Teilnahmeberechtigt sind alle von einem Stationsstandort auf dem Staatsgebiet der Bundesrepublik Deutschland aus operierenden Amateurfunkstationen' -- stations in Germany enter; others may be worked."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "darc-ukw-winter-fieldday",
+      "name": "DARC UKW-Winter-Fieldday",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/ukw/tnukwcontest007/tnukwcontest0070/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm"
+      ],
+      "bands_note": "Saturday carries 1.3 GHz then 2.3/3.4/5.7 GHz; Sunday carries 435 MHz then 145 MHz. Each date holds the whole day's bracket from the first band's start to the last band's end; the bands are not run simultaneously. 3.4 and 5.7 GHz have no token here.",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-02-07",
+              "start": "0900",
+              "end": "1329"
+            },
+            {
+              "date": "2026-02-08",
+              "start": "0900",
+              "end": "1259"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1329"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-02-07, 2026-02-08); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. Only the 2026 Ausschreibung was read; earlier DARC years were not checked.",
+      "source_note": "darc.de UKW contest pages (index https://www.darc.de/der-club/referate/conteste/ukw/ukw-conteste/ 'Termine DARC UKW Conteste 2026'): Sat 2026-02-07 09:00-10:59 UTC on 1.3 GHz and 11:00-13:29 on 2.3/3.4/5.7 GHz; Sun 2026-02-08 09:00-10:59 on 435 MHz and 11:00-12:59 on 145 MHz. Log deadline 2026-02-15. Classes: Single Operator, Trainee, Checklog (portable stations, /p). Read 2026-10-15.",
+      "summary": "Germany's winter portable VHF-through-microwave day: two sessions, microwaves on Saturday and 70cm/2m on Sunday.",
+      "sponsor_home": "https://www.darc.de/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "DL"
+        ],
+        "verified": true,
+        "note": "'Teilnahmeberechtigt sind alle von einem Stationsstandort auf dem Staatsgebiet der Bundesrepublik Deutschland aus operierenden Amateurfunkstationen' -- stations in Germany enter; others may be worked."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "darc-ukw-sommer-fieldday",
+      "name": "DARC UKW-Sommer-Fieldday",
+      "sponsor": "DARC",
+      "country": "DE",
+      "rules_url": "https://www.darc.de/der-club/referate/conteste/ukw/tnukwcontest003/tnukwcontest007004/",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm"
+      ],
+      "bands_note": "Saturday carries 1.3 GHz then 2.3/3.4/5.7 GHz; Sunday carries 435 MHz then 145 MHz. Each date holds the whole day's bracket from the first band's start to the last band's end; the bands are not run simultaneously. 3.4 and 5.7 GHz have no token here.",
+      "exchange": "RS(T) + serial number from 001 per band + 6-character locator",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-08-01",
+              "start": "0700",
+              "end": "1229"
+            },
+            {
+              "date": "2026-08-02",
+              "start": "0700",
+              "end": "1159"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1229"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-08-01, 2026-08-02); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. Only the 2026 Ausschreibung was read; earlier DARC years were not checked.",
+      "source_note": "darc.de UKW contest pages (index https://www.darc.de/der-club/referate/conteste/ukw/ukw-conteste/ 'Termine DARC UKW Conteste 2026'): Sat 2026-08-01 07:00-09:29 UTC on 1.3 GHz and 09:30-12:29 on 2.3/3.4/5.7 GHz; Sun 2026-08-02 07:00-09:29 on 435 MHz and 09:30-11:59 on 145 MHz. Log deadline 2026-08-09. Classes: Single Operator, Trainee, Checklog (portable stations, /p). Read 2026-10-15.",
+      "summary": "Germany's summer portable VHF-through-microwave day: two sessions, microwaves on Saturday and 70cm/2m on Sunday.",
+      "sponsor_home": "https://www.darc.de/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "DL"
+        ],
+        "verified": true,
+        "note": "'Teilnahmeberechtigt sind alle von einem Stationsstandort auf dem Staatsgebiet der Bundesrepublik Deutschland aus operierenden Amateurfunkstationen' -- stations in Germany enter; others may be worked."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "mrasz-urh-rf",
+      "name": "Nemzetközi URH RF. Verseny (HA-VHF/UHF/SHF)",
+      "sponsor": "MRASZ",
+      "country": "HU",
+      "rules_url": "https://mrasz.hu/radioforgalmi-versenyek/17-szakagak/radioforgalom-urh/106-nemzetkozi-urh-rf-verseny-versenykiirasa-ha-vhf-uhf-shf",
+      "log_format": "EDI",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "Sponsor: '2 m and above', all bands permitted by the IARU Region 1 band plan. Only 2m, 70cm, 23cm, 13cm and 3cm are recorded as tokens.",
+      "exchange": "RS/RST + serial number from 001 per band + locator (e.g. 589 011 JN97HP)",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1359"
+      },
+      "verified": true,
+      "note": "Log: EDI only via log.mrasz.hu, due 23:59 on the 8th day after the contest. Rules valid from 2020-01-01; the 2026 Hungarian date was not read.",
+      "source_note": "mrasz.hu rules page: 'minden év júliusának 1. teljes hétvégéjén' (every year on the 1st full weekend of July), Saturday 14:00 UT to Sunday 13:59 UT; CW and SSB; 2 m and above. Categories: single-op multiband, 6H, 6H U21, 2 m, 70 cm, 23 cm and up; multi-op multiband, 2 m, 70 cm, 23 cm and up. Read 2026-10-15.",
+      "summary": "Hungary's international VHF/UHF/SHF contest: 24 hours on the first full weekend of July.",
+      "sponsor_home": "https://mrasz.hu/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HA"
+        ],
+        "verified": true,
+        "note": "Licensed Hungarian amateurs (and, for the international contest, foreign amateurs staying in Hungary) enter; others may be worked."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "mrasz-magyar-kupa",
+      "name": "URH Magyar Kupa Rádióforgalmi Versenysorozat",
+      "sponsor": "MRASZ",
+      "country": "HU",
+      "rules_url": "https://mrasz.hu/radioforgalmi-versenyek/17-szakagak/radioforgalom-urh/104-urh-magyar-kupa-r-f-versenysorozat-mk-vhf-uhf-shf-versenykiirasa",
+      "log_format": "EDI",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "bands": [
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "March and May rounds cover 2 m and above; the June round covers 23 cm and above only, so a 2m or 70cm filter overstates June. Only 2m, 70cm, 23cm, 13cm and 3cm are recorded as tokens.",
+      "exchange": "RS/RST + serial number from 001 per band + locator (e.g. 589 011 JN97HP)",
+      "recurrence": {
+        "type": "composite",
+        "rules": [
+          {
+            "type": "nth_full_weekend",
+            "month": 3,
+            "n": 1
+          },
+          {
+            "type": "nth_full_weekend",
+            "month": 5,
+            "n": 1
+          },
+          {
+            "type": "nth_full_weekend",
+            "month": 6,
+            "n": 1
+          }
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1359"
+      },
+      "verified": true,
+      "note": "Rules valid from 2025-01-01; the Hungarian 2026 dates were not read, though the first full weekends of March and May 2026 (7-8 Mar, 2-3 May) coincide with the DARC and OeVSV subregional dates.",
+      "source_note": "mrasz.hu rules page: a three-round series 'minden évben', each round Saturday 14:00 UT to Sunday 13:59 UT on the first full weekend of March (2 m+), May (2 m+) and June (23 cm+); CW, SSB, FM. Categories: single-op all band, single-op 6H all band, multi-op all band. Read 2026-10-15.",
+      "summary": "Hungary's three-round VHF/UHF/SHF cup: first full weekends of March, May and June, 24 hours each.",
+      "sponsor_home": "https://mrasz.hu/",
+      "eligibility": {
+        "scope": "entity_list",
+        "entities": [
+          "HA"
+        ],
+        "verified": true,
+        "note": "Licensed Hungarian amateurs (and, for the international contest, foreign amateurs staying in Hungary) enter; others may be worked."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "mrasz-rfwd-urh",
+      "name": "Amatőr rádiózás világnapja RF-WD URH",
+      "sponsor": "MRASZ",
+      "country": "HU",
+      "rules_url": "https://mrasz.hu/radioforgalmi-versenyek/17-szakagak/radioforgalom-urh/320-amator-radiozas-vilagnapja-rf-wd-urh-versenykiiras",
+      "log_format": "EDI",
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "2m"
+      ],
+      "bands_note": "144 MHz: CW 144.035-144.150 MHz, phone 144.150-144.390 MHz. The sponsor writes 'phone'; SSB is this catalog's reading of that segment.",
+      "exchange": "RS(T) + age + QTH locator",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 4,
+        "day": 18
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1730"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1829"
+      },
+      "verified": true,
+      "note": "Six 10-minute periods inside the hour. Log: EDI, by midnight of the third day after. Not the REP (Portugal) World Amateur Radio Day sprint, which could not be read.",
+      "source_note": "mrasz.hu rules page: 'évente április 18.-án 17.30 UT-tól 18.29 UT-ig' (every year on 18 April, 17:30 to 18:29 UT); six 10-minute periods. Read 2026-10-15.",
+      "summary": "Hungary's World Amateur Radio Day 2m contest: one hour on 18 April, six ten-minute periods.",
+      "sponsor_home": "https://mrasz.hu/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: open to all radio amateurs."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "hemus-vhf",
+      "name": "Hemus VHF Contest 144 MHz",
+      "sponsor": "BFRA",
+      "country": "BG",
+      "rules_url": "https://vhfcontest.bfra.bg/contest/hemus-vhf-contest-2026",
+      "log_format": "EDI",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "bands": [
+        "2m"
+      ],
+      "bands_note": "144 MHz only.",
+      "exchange": "RS(T) + serial number from 001 + 6-character locator",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 1,
+        "time": "0900"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1359"
+      },
+      "verified": false,
+      "note": "THE SPONSOR CONTRADICTS ITSELF ON THE START. The rules PDF's date line, itself garbled ('Every Sunday of the 1st full weekend of August - from 09:00 GMT to 13:59 GMT on August 2, 2026'), gives 09:00-13:59 UTC; the contest page for the same edition says 06:00-13:59 UTC, 7 hours. The PDF is encoded; ask the organisers. The recurrence is this catalog's reading of that garbled sentence as the Sunday of the first full weekend of August.",
+      "source_note": "vhfcontest.bfra.bg 'Hemus VHF Contest 2026' PDF (https://vhfcontest.bfra.bg/contest-documents/24/download), run by Radio Club Troyan and the Bulgarian Federation of Radioamateurs: Sunday 2 August 2026, 09:00 to 13:59 GMT per the PDF; CW, SSB, FM on 144 MHz; log by EDI to vhfcontest.bfra.bg/robot within 8 days. Categories: SO, SO LZ, MO, MO LZ. Read 2026-10-15.",
+      "summary": "Bulgaria's 2m contest on the Sunday of the first August weekend; the sponsor's start time is stated two ways.",
+      "sponsor_home": "https://vhfcontest.bfra.bg/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: 'All licensed radio amateurs'."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "wab-50mhz-phone",
+      "name": "WAB 50 MHz Phone Contest",
+      "sponsor": "Worked All Britain Awards Group",
+      "country": "GB",
+      "rules_url": "https://wab.intermip.net/Contest%20Dates.php",
+      "log_format": null,
+      "log_deadline_days": 10,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "6m"
+      ],
+      "bands_note": "WAB's 2m phone contests use the whole band.",
+      "exchange": "RS + serial number from 001 + WAB square (stations in GB, NI, IoM and the Channel Islands); stations elsewhere send RS + serial. Send a locator as well: the 50 and 144 MHz contests coincide with RSGB events.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-06-21"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0800"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-06-21); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. WAB's rule A4: 'DATES and TIMES: As specified by annual publication in the W.A.B. Newsletter and on the W.A.B. Web Site.' The 144 MHz Low Power Phone contest is not encoded: its page still shows a 2025 date and no 2026 one.",
+      "source_note": "wab.intermip.net 'Contest Dates - 2026' (page last updated 11 Aug 2026) and Contest Rules (effective 20 November 2025): Sunday 21 June 2026, 08:00-14:00 UTC; entries close 01 July 2026. All WAB contests are SSB only (rule A11.18). Logs 'within 10 days of the date of the contest'; 40 days outside Europe. Open to 'All licensed Amateurs and Short Wave Listeners'. Read 2026-10-15.",
+      "summary": "Worked All Britain's six-metre SSB contest: six hours on a June Sunday, with the WAB square as the exchange.",
+      "sponsor_home": "https://wab.intermip.net/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: 'All licensed Amateurs and Short Wave Listeners'."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "wab-144mhz-phone",
+      "name": "WAB 144 MHz Phone Contest",
+      "sponsor": "Worked All Britain Awards Group",
+      "country": "GB",
+      "rules_url": "https://wab.intermip.net/Contest%20Dates.php",
+      "log_format": null,
+      "log_deadline_days": 10,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "2m"
+      ],
+      "bands_note": "WAB's 2m phone contests use the whole band.",
+      "exchange": "RS + serial number from 001 + WAB square (stations in GB, NI, IoM and the Channel Islands); stations elsewhere send RS + serial. Send a locator as well: the 50 and 144 MHz contests coincide with RSGB events.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-06"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-09-06); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. WAB's rule A4: 'DATES and TIMES: As specified by annual publication in the W.A.B. Newsletter and on the W.A.B. Web Site.' The 144 MHz Low Power Phone contest is not encoded: its page still shows a 2025 date and no 2026 one.",
+      "source_note": "wab.intermip.net 'Contest Dates - 2026' (page last updated 11 Aug 2026) and Contest Rules (effective 20 November 2025): Sunday 06 September 2026, 10:00-14:00 UTC; entries close 16 September 2026. All WAB contests are SSB only (rule A11.18). Logs 'within 10 days of the date of the contest'; 40 days outside Europe. Open to 'All licensed Amateurs and Short Wave Listeners'. Read 2026-10-15.",
+      "summary": "Worked All Britain's two-metre SSB contest: four hours on a September Sunday, with the WAB square as the exchange.",
+      "sponsor_home": "https://wab.intermip.net/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: 'All licensed Amateurs and Short Wave Listeners'."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "eu-psk-dx",
+      "name": "EU PSK DX Contest",
+      "sponsor": "European PSK Club",
+      "country": "INTL",
+      "rules_url": "https://eupsk.club/eupskdx/eupskdxrules.pdf",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "BPSK63"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Sponsor suggests segments around x.070-x.080 MHz (3.580-3.590 on 80 m).",
+      "exchange": "EU stations send RST + EU area code (e.g. 599 NOTMSE); DX stations send RST + serial number from 001",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-05-17"
+          ],
+          "2026": [
+            "2026-05-16"
+          ],
+          "2027": [
+            "2027-05-15"
+          ],
+          "2028": [
+            "2028-05-20"
+          ],
+          "2029": [
+            "2029-05-19"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2025-05-17, 2026-05-16, 2027-05-15, 2028-05-20, 2029-05-19); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. The sponsor lists the 22nd to 26th editions; each falls on the third weekend of May, but only the dates are stated.",
+      "source_note": "eupsk.club rules PDF: 22nd 12:00 UTC 17.05.2025 to 12:00 UTC 18.05.2025; 23rd 16-17.05.2026; 24th 15-16.05.2027; 25th 20-21.05.2028; 26th 19-20.05.2029. BPSK63 (Cabrillo 'PM'). Categories SO-100 and SO-005; groups EU and DX. Cabrillo upload at ua9qcq.com/submit_log.php 'no later than 5 days after the contest ends'. Open to amateurs worldwide. Read 2026-10-15.",
+      "summary": "The European PSK Club's BPSK63 contest: 24 hours on the third weekend of May, EU stations sending an area code.",
+      "sponsor_home": "https://eupsk.club/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: open to amateurs worldwide; EU and DX are entrant groups."
+      },
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "apsprint-spring-cw",
+      "name": "Asia-Pacific Spring Sprint, CW",
+      "sponsor": "JSFC",
+      "country": "JP",
+      "rules_url": "https://jsfc.org/apsprint/aprule.txt",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m"
+      ],
+      "exchange": "RS(T) + serial number from 001; multipliers are WPX prefixes",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "verified": true,
+      "note": "Single operator, single radio only (no SO2R; a second receiver is allowed); legal-limit power. Logs by e-mail to apsprint@jsfc.org, Cabrillo strongly recommended, 'within 7 days after end of contest'. ",
+      "source_note": "jsfc.org Asia-Pacific Sprint rules (revised Jan 2024, updated June 2026): 'Spring (20m/40m CW) - 2nd Saturday of February (13 Feb. 2027) 1100-1300 UTC'. Latest running listed: #93, 14 February 2026. Open to all. Read 2026-10-15.",
+      "summary": "The Japan Sprint and Fun Contest group's two-hour Asia-Pacific Sprint, CW leg.",
+      "sponsor_home": "https://jsfc.org/apsprint/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor's rules restrict no country."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "apsprint-fall-cw",
+      "name": "Asia-Pacific Fall Sprint, CW",
+      "sponsor": "JSFC",
+      "country": "JP",
+      "rules_url": "https://jsfc.org/apsprint/aprule.txt",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW"
+      ],
+      "bands": [
+        "20m",
+        "15m"
+      ],
+      "exchange": "RS(T) + serial number from 001; multipliers are WPX prefixes",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 3,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0200"
+      },
+      "verified": true,
+      "note": "Single operator, single radio only (no SO2R; a second receiver is allowed); legal-limit power. Logs by e-mail to apsprint@jsfc.org, Cabrillo strongly recommended, 'within 7 days after end of contest'. ",
+      "source_note": "jsfc.org Asia-Pacific Sprint rules (revised Jan 2024, updated June 2026): 'Fall (15m/20m CW) - 3rd Sunday of October (17 Oct. 2027) 0000-0200 UTC'. The rules header also gives the current running: 18 October 2026, 0000-0200 UTC. Open to all. Read 2026-10-15.",
+      "summary": "The Japan Sprint and Fun Contest group's two-hour Asia-Pacific Sprint, CW leg.",
+      "sponsor_home": "https://jsfc.org/apsprint/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor's rules restrict no country."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "apsprint-ssb",
+      "name": "Asia-Pacific Sprint, SSB",
+      "sponsor": "JSFC",
+      "country": "JP",
+      "rules_url": "https://jsfc.org/apsprint/aprule.txt",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "SSB"
+      ],
+      "bands": [
+        "20m",
+        "15m"
+      ],
+      "exchange": "RS(T) + serial number from 001; multipliers are WPX prefixes",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1100"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "verified": true,
+      "note": "Single operator, single radio only (no SO2R; a second receiver is allowed); legal-limit power. Logs by e-mail to apsprint@jsfc.org, Cabrillo strongly recommended, 'within 7 days after end of contest'. UNRESOLVED: the sponsor's results list labels the 13 June 2026 running (#94) '(CW)', while the rules' summer slot and the 2025 running say SSB. The page for #94 was not opened.",
+      "source_note": "jsfc.org Asia-Pacific Sprint rules (revised Jan 2024, updated June 2026): 'Summer (15m/20m SSB) - 2nd Saturday of June (12 June 2027) 1100-1300 UTC'. 2026 and 2025 runnings fell on 13 June and 14 June. Open to all. Read 2026-10-15.",
+      "summary": "The Japan Sprint and Fun Contest group's two-hour Asia-Pacific Sprint, SSB leg.",
+      "sponsor_home": "https://jsfc.org/apsprint/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor's rules restrict no country."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "acqp",
+      "name": "Atlantic Canada QSO Party",
+      "sponsor": "ACQP Organizing Committee",
+      "country": "CA",
+      "rules_url": "https://www.acqp.ca/rules/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 10,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "'80-40-20-15-10m only.' Sponsor: SSB, CW or Mixed mode; no digital modes; no cross-mode contacts.",
+      "exchange": "Atlantic Canada stations send RS(T) + 5-letter province/county or division code; out-of-region stations send RS(T) + province/state abbreviation; other non-W/VE stations send RS(T) + DX",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0100"
+      },
+      "verified": true,
+      "note": "Eleven hours since the 'New 11 hours' change. Logs uploaded at acqp.ca/logs 'within 10 days after the contest ends'.",
+      "source_note": "acqp.ca rules page: 'Date: First Sunday of June June 6, 2027 (June 4, 2028) (June 3, 2029) (June 2, 2030)'; '1400Z Sunday until 0100Z Monday (11am ADT Sunday until 10pm ADT Sunday)'. Categories inside Atlantic Canada: Single Op High, Low, QRP, Mobile, Portable, Multi-Club, Multi Operator; outside: Single Op High, Low, QRP, Multi Operator. Read 2026-10-15.",
+      "summary": "Atlantic Canada's QSO party: eleven hours on the first Sunday of June.",
+      "sponsor_home": "https://www.acqp.ca/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: open to all amateurs worldwide; Atlantic Canada stations are the targets."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "baltic-contest",
+      "name": "Baltic Contest",
+      "sponsor": "LRSF",
+      "country": "LT",
+      "rules_url": "https://www.lrsf.lt/en/balticcontestrules/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "80 m only: CW 3510-3600 kHz, SSB 3600-3750 kHz.",
+      "exchange": "RS(T) + serial number from 001",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-05-16"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0200"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-05-16); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. The sponsor writes '(3rd full weekend)' after this year's dates but states no standing rule, and a non-sponsor notice put the 57th contest on 22-23 May 2021, which was not the third weekend; so none is inferred.",
+      "source_note": "lrsf.lt 'The 61th BALTIC CONTEST (2026)': 'from 2100UTC May 16, 2026 till 0200UTC May 17, 2026 (3rd full weekend)'. CW and SSB on 80 m; sections A single op CW/SSB, B CW, C SSB, D assisted, E multi-op single TX, F SWL; QSOs with Russia and Belarus are not counted; Cabrillo to lrsf@lrsf.lt, deadline 24 May 2026 (7 days). Open to radio amateurs worldwide. Read 2026-10-15.",
+      "summary": "Lithuania's 80 m contest: five hours on a May night, exchanging serial numbers.",
+      "sponsor_home": "https://www.lrsf.lt/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Sponsor: open to radio amateurs worldwide."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "labre-rs-digi",
+      "name": "LABRE-RS Digi Contest",
+      "sponsor": "LABRE-RS",
+      "country": "BR",
+      "rules_url": "https://labre-rs.org.br/labre-rs-digi-contest/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Sponsor lists 80, 40, 20, 15 and 10 m; one stream only.",
+      "exchange": "4-character grid square",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-02-01"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2059"
+      },
+      "verified": false,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2025-02-01); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. THE END TIME LOOKS WRONG: the page says it ends on day 2 'às 20:59 (UTC)', which may be a typo for 23:59; it is recorded as written. Held only for the 90th-anniversary edition; no later one was found.",
+      "source_note": "labre-rs.org.br/labre-rs-digi-contest/: starts 'no dia 1 de fevereiro de 2025 às 00:00 (UTC)' and ends day 2 'às 20:59 (UTC)'. FT4 and FT8; Single Op (HP 1500 W, LP 100 W, QRP 5 W), Multi One, Multi Multi, Groups; Cabrillo through HamPass only, e-mail logs not accepted. Read 2026-10-15.",
+      "summary": "Rio Grande do Sul's FT4/FT8 contest, held once so far for LABRE-RS's 90th anniversary.",
+      "sponsor_home": "https://labre-rs.org.br/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Described as international in scope; no restriction stated."
+      },
+      "submodes": [],
+      "rules_url_checked": "2026-10-15"
     }
   ]
 }
