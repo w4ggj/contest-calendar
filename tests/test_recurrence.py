@@ -1172,6 +1172,27 @@ def test_ft8_activity_runs_the_first_second_and_third_wednesday_by_band(catalog)
     assert (c[9], c[-1]) == (date(2026, 10, 21), date(2026, 12, 16))
 
 
+def test_alara_is_the_last_full_weekend_of_august(catalog):
+    """
+    alara.org.au: 'Contest is always on the last FULL weekend of August'; 2026
+    runs Saturday 29th 0600 UTC to Sunday 30th 0559 UTC. 31 Aug 2026 is a
+    Monday, so 29/30 is the last weekend that is whole inside August.
+    """
+    rows = lambda y: [(o.start.date(), o.start.hour, o.end.date(), o.end.hour, o.end.minute)
+                      for o in expand(by_id(catalog, "alara-contest"), y)]
+    assert rows(2026) == [(date(2026, 8, 29), 6, date(2026, 8, 30), 5, 59)]
+    assert rows(2027) == [(date(2027, 8, 28), 6, date(2027, 8, 29), 5, 59)]
+
+
+def test_a1club_awt_is_every_wednesday_1145_to_1300_utc(catalog):
+    """a1club.org/contest/awt: 'every Wednesday from 11:45Z to 13:00Z'."""
+    occ = sorted(expand(by_id(catalog, "a1club-awt"), 2026), key=lambda o: o.start)
+    assert len(occ) == 52
+    assert all(o.start.weekday() == 2 and (o.start.hour, o.start.minute) == (11, 45)
+               and o.duration_hours == 1.25 for o in occ)
+    assert (occ[0].start.date(), occ[-1].start.date()) == (date(2026, 1, 7), date(2026, 12, 30))
+
+
 def test_agcw_fixed_date_contests_track_the_calendar_not_the_week(catalog):
     """
     Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and
@@ -3975,12 +3996,13 @@ def test_unrecorded_bands_are_the_documented_exception(catalog):
     """
     unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
     # Plus nine state QSO parties (2026-10-15) whose sponsors say "all bands except
-    # ..." or give no list; see the Tier 5 section of data/sources.md.
+    # ..." or give no list; see the Tier 5 section of data/sources.md. Plus a1club-awt
+    # (2026-10-15): its bands sit in a guideline PDF that was not transcribed.
     assert unrecorded == sorted(["darc-cw-ausbildungscontest",
         "darc-hell-kurz",
         "jarl-new-year-qso-party",
         "zs-sota-activity-weekend",
-        "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party"])
+        "a1club-awt", "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party"])
 
 
 def test_bands_note_never_stands_in_for_a_band_list(catalog):

@@ -264,3 +264,11 @@ Each of these is blocked on a sponsor, not on more work. Details in `data/source
 - **10-10 International digital contests** (Fall/Spring/Open Season PSK) and the **YO International PSK31 Contest:** 10-10.org and yo5crq.ro answer HTTP 406 to automated fetches. Read the rules in a browser and send them, or the contests stay uncatalogued.
 - **VHF/UHF FT8 Activity (3 records):** `verified: false`; the sponsor states the Wednesday pattern for 2026 only. Re-read ft8activity.eu/rules when 2027 rules are published.
 - **VHF/UHF "Fall/Spring Sprint" series (nine index entries):** no sponsor-owned page identified (possibly Northern Lights Radio Society; nlrs.ca did not connect). Point to the sponsor's own page.
+
+## Antique Wireless Association events (added 2026-10-15)
+
+The four AWA operating events (Bruce Kelley 1929 QSO Party, Linc Cundall Memorial CW, John Rollins Memorial DX, AM QSO Party) publish a fresh dates-and-rules page each year ("Each year's contest has a unique set of details and rules"), so no recurrence rule can be encoded without guessing. Ask the AWA event coordinator (listed on antiquewireless.org/homepage/operating-events/) whether each follows a stable pattern, and record the reply, with the person's name and date, as a `source_note`.
+
+## Classic Exchange rules PDF (added 2026-10-15)
+
+classicexchange.org publishes the CX rules only as `announcments/CX_Rules.pdf`. Someone needs to open it and read off the recurrence (winter and fall CW and Phone events), bands and exchange; the text could not be extracted automatically.

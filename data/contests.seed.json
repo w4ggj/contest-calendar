@@ -16749,6 +16749,88 @@
       },
       "source_note": "ft8activity.eu/rules (2026): 'Every third Wednesday of each month for the 23 cm band'; 'Round period: 17:00 to 21:00 UTC'; 'Only electronic logs in ADIF format'; 'maximum 5 (five) days from the end of each round'. The 2026 round table lists every date and each is the stated nth Wednesday. Read 2026-10-15.",
       "summary": "A four-hour FT8 activity night, once a month, on one VHF/UHF band; one point per unique callsign, multiplied by grids worked."
+    },
+    {
+      "id": "alara-contest",
+      "name": "ALARA Contest",
+      "sponsor": "ALARA",
+      "country": "AU",
+      "rules_url": "https://www.alara.org.au/contests/index.html",
+      "log_format": null,
+      "log_deadline_days": 31,
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Sponsor: 'All HF Bands except 160m & WARC Bands'. The phone section is not restricted to SSB; the sponsor writes 'Phone'. Logs are paper or electronic (Word/Excel), not Cabrillo.",
+      "exchange": "RS/RST and serial number from 001; ALARA members add 'ALARA member' and name; others add name and whether YL or OM",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": -1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0559"
+      },
+      "verified": true,
+      "source_note": "alara.org.au/contests/index.html (46th contest, 2026): 'NOTE: Contest is always on the last FULL weekend of August.' STARTS Saturday 29th August 2026 0600 UTC, ENDS Sunday 30th August 2026 0559 UTC; 'Combined phone and CW run over 24 hours'; 'All licensed operators throughout the world are invited to participate'; 'YLs work everyone; OMs work YLs only'. 29-30 August 2026 is the last full weekend (31 August is a Monday). Logs due 30th September 2026, 31 days after the end. Read 2026-10-15.",
+      "summary": "The Australian Ladies Amateur Radio Association's 24-hour phone-and-CW contest: YLs work everyone, OMs work only YLs.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://www.alara.org.au/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rules: 'All licensed operators throughout the world are invited to participate'; OMs may work YLs only."
+      }
+    },
+    {
+      "id": "a1club-awt",
+      "name": "A1Club Weekly Test (AWT)",
+      "sponsor": "A1 Club",
+      "country": "JP",
+      "rules_url": "https://a1club.org/contest/awt/",
+      "log_format": null,
+      "modes": [
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [],
+      "recurrence": {
+        "type": "weekly",
+        "weekday": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1145"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "verified": true,
+      "source_note": "a1club.org/contest/awt (updated 2026.03.20): 'AWT is a CW contest held on every Wednesday from 11:45Z to 13:00Z (20:45-22:00JST). The first 15min is for QRS A1CLUB and open to everyone who loves CW.' The Japanese text adds that the first 15 minutes are QRS at 15 WPM or slower and that anyone may take part. Read 2026-10-15.",
+      "note": "Bands and exchange are in the guideline PDF, which this catalog has not transcribed; they are left unrecorded rather than guessed. Entry form fields suggest a City/State/Province code and a member flag.",
+      "summary": "A weekly 75-minute CW test from Japan's A1 Club, open to everyone, whose first quarter-hour is a slow-speed (QRS) window.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://a1club.org/A1_club_e.htm",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Page: run by the A1 Club but 'anyone' may take part (Japanese text)."
+      }
     }
   ]
 }

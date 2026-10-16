@@ -1217,6 +1217,29 @@ test("FT8 Activity runs the first second and third Wednesday by band", () => {
   expect([c[9], c[11]]).toEqual([D(2026, 10, 21), D(2026, 12, 16)]);
 });
 
+test("ALARA is the last full weekend of August", () => {
+  // alara.org.au: 'Contest is always on the last FULL weekend of August'; 2026 runs
+  // Saturday 29th 0600 UTC to Sunday 30th 0559 UTC. 31 Aug 2026 is a Monday, so
+  // 29/30 is the last weekend that is whole inside August.
+  const rows = (y: number) =>
+    expand(byId("alara-contest"), y).map((o) => [
+      isoDate(o.start!), o.start!.getUTCHours(), isoDate(o.end!), o.end!.getUTCHours(), o.end!.getUTCMinutes(),
+    ]);
+  expect(rows(2026)).toEqual([[D(2026, 8, 29), 6, D(2026, 8, 30), 5, 59]]);
+  expect(rows(2027)).toEqual([[D(2027, 8, 28), 6, D(2027, 8, 29), 5, 59]]);
+});
+
+test("A1Club AWT is every Wednesday 1145 to 1300 UTC", () => {
+  // a1club.org/contest/awt: 'every Wednesday from 11:45Z to 13:00Z'.
+  const occ = expand(byId("a1club-awt"), 2026).sort((a, b) => a.start!.getTime() - b.start!.getTime());
+  expect(occ.length).toBe(52);
+  expect(
+    occ.every((o) => o.start!.getUTCDay() === 3 && o.start!.getUTCHours() === 11 &&
+      o.start!.getUTCMinutes() === 45 && o.duration_hours === 1.25),
+  ).toBe(true);
+  expect([isoDate(occ[0].start!), isoDate(occ[51].start!)]).toEqual([D(2026, 1, 7), D(2026, 12, 30)]);
+});
+
 test("AGCW fixed-date contests track the calendar not the week", () => {
   // Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and
   // German Unity Day. They must land on the same date every year and drift
@@ -3879,7 +3902,7 @@ describe("catalog vocabularies", () => {
       "darc-hell-kurz",
       "jarl-new-year-qso-party",
       "zs-sota-activity-weekend",
-      "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party",
+      "a1club-awt", "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party",
     ].sort());
   });
 

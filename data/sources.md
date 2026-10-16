@@ -2088,3 +2088,15 @@ Sponsors located through the discovery index and search, then every fact read on
 | `ft8activity-144`, `-432`, `-1296` | ft8activity.eu/rules | First, second and third Wednesday of each month for 2 m, 70 cm and 23 cm, 17:00-21:00 UTC. **Unverified**: the sponsor states the pattern for "January to December 2026" only, so it is read as a rule but not confirmed for another year. All 12 listed 2026 dates match. |
 
 Not encoded: the 10-10 International digital contests (10-10.org answers HTTP 406 to automated fetches), the YO International PSK31 Contest (yo5crq.ro answers 406; only a 2010 listing found), nine VHF/UHF sprint entries whose sponsor could not be identified from any sponsor-owned page, and several greyed-out index rows. All marked `blocked` in `data/discovery_worklist.json` with the reason.
+
+## 2026-10-15 — Batch 3 from the discovery worklist
+
+Sponsors located through the discovery index, then every fact read on the sponsor's own site.
+
+| Contest | Sponsor page | Rule as the sponsor states it |
+| --- | --- | --- |
+| `alara-contest` | alara.org.au/contests/index.html | "Contest is always on the last FULL weekend of August"; 2026: Saturday 29th 0600 UTC to Sunday 30th 0559 UTC; combined phone and CW, 24 hours; worldwide; YLs work everyone, OMs work YLs only. Verified. |
+| `a1club-awt` | a1club.org/contest/awt | "held on every Wednesday from 11:45Z to 13:00Z", first 15 minutes QRS. Verified. Bands and exchange are in the guideline PDF, which was not transcribed, so both are left unrecorded. |
+| (matched) AGCW Straight Key Party | agcw.de | The AGCW site's own menu pairs "Handtastenparty" with "Straight Key Party"; already encoded as `agcw-htp-80m` and `agcw-htp-40m`. |
+
+Not encoded, and why: the four AWA events (antiquewireless.org says "Each year's contest has a unique set of details and rules" and publishes only that year's dates); the two Classic Exchange events (classicexchange.org publishes its rules only as a PDF announcement that could not be extracted here); Balkan HF (bfra.bg describes one 2024 edition, the organiser rotates); the 10-10 Spring/Fall CW, Digital, Mobile and Spirit of 76 contests (10-10 International's own QSO Party schedule lists only Winter Phone, Summer Phone and the Day Sprint, all already in the catalog); seventeen VHF/UHF/microwave rows, closed as out of scope under the 2026-08-23 HF decision; and seven names with no sponsor-owned rules page found. **A browser User-Agent turns several earlier "HTTP 406" sites readable** (10-10.org, antiquewireless.org, alara.org.au, bfra.bg, a1club.org). The batch-2 blocks on 10-10 and yo5crq.ro were therefore a fetch-header problem, not a source problem; 10-10 is now resolved as above, and yo5crq.ro still redirects (301) and was not pursued.
