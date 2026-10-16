@@ -10484,6 +10484,9 @@
         "dates": {
           "2025": [
             "2025-10-18"
+          ],
+          "2026": [
+            "2026-10-17"
           ]
         }
       },
@@ -10496,9 +10499,9 @@
         "time": "2330"
       },
       "verified": true,
-      "rules_url_checked": "2026-08-19",
-      "source_note": "lu4aa.org/wp/concurso-nacional-40m/, Radio Club Argentino's own bases: 'Fecha y Hora Sabado 18 de octubre de 2025 18:30 a 20:30 hora LU (21:30 a 23:30 hora UTC)'. Banda: '40 metros, en el segmento comprendido entre 7.100 y 7.300 kHz'. Modo: 'LSB'. Participantes: 'Estaciones fijas argentinas y de paises limitrofes. Radioclubes argentinos y de paises limitrofes.' Categorias: 'Monooperador Baja Potencia 100 W maximo. Radioclub/Equipo Multioperador Baja Potencia 100 W maximo.' Serie a pasar: 'Luego del reporte RS, la serie sera los dos ultimos digitos correspondientes al ano en que el participante obtuvo su primera licencia de radioaficionado. Ejemplo: Si Ud. obtuvo su licencia en el ano 1998, el reporte a pasar sera 59 98.'",
-      "note": "RCA PUBLISHES ONE EDITION AT A TIME, NOT A RULE. The bases page states a single dated running and no recurrence, so this is a manual record holding exactly what RCA published and nothing more. Both of RCA's national contests are in that state, and both of the dates on offer as of 2026-08-19 have already passed, so neither puts anything on a forward calendar today. That is the honest position: a plausible ordinal fitted to one date would be a rule RCA has not written. When RCA announces the next edition it is one line each. The times are stated by RCA in UTC alongside local Argentine time, so no zone resolution is involved.",
+      "rules_url_checked": "2026-10-15",
+      "source_note": "lu4aa.org/wp/concurso-nacional-40m/, Radio Club Argentino's own bases: 'Fecha y Hora Sabado 18 de octubre de 2025 18:30 a 20:30 hora LU (21:30 a 23:30 hora UTC)'. Banda: '40 metros, en el segmento comprendido entre 7.100 y 7.300 kHz'. Modo: 'LSB'. Participantes: 'Estaciones fijas argentinas y de paises limitrofes. Radioclubes argentinos y de paises limitrofes.' Categorias: 'Monooperador Baja Potencia 100 W maximo. Radioclub/Equipo Multioperador Baja Potencia 100 W maximo.' Serie a pasar: 'Luego del reporte RS, la serie sera los dos ultimos digitos correspondientes al ano en que el participante obtuvo su primera licencia de radioaficionado. Ejemplo: Si Ud. obtuvo su licencia en el ano 1998, el reporte a pasar sera 59 98.' Re-read 2026-10-15: the page now announces Saturday 17 October 2026, 18:30-20:30 local (21:30-23:30 UTC), same rules; 40m 7100-7300 kHz LSB, web-form logs, deadline 25 October.",
+      "note": "RCA PUBLISHES ONE EDITION AT A TIME, NOT A RULE. The bases page states a single dated running and no recurrence, so this is a manual record holding exactly what RCA published and nothing more. Both of RCA's national contests are in that state, and as of 2026-08-19 both dates on offer had passed; the 40m contest's 2026 edition (17 October) was added 2026-10-15. That is the honest position: a plausible ordinal fitted to one date would be a rule RCA has not written. When RCA announces the next edition it is one line each. The times are stated by RCA in UTC alongside local Argentine time, so no zone resolution is involved.",
       "summary": "Radio Club Argentino's national 40m contest: two hours of LSB for Argentine stations and those of bordering countries, exchanging the year you were first licensed.",
       "eligibility": {
         "scope": "entity_list",
@@ -18479,6 +18482,632 @@
       },
       "submodes": [],
       "rules_url_checked": "2026-10-15"
+    },
+    {
+      "id": "oevsv-activity",
+      "name": "ÖVSV VHF/UHF/Microwave Activity Contest",
+      "sponsor": "ÖVSV",
+      "country": "AT",
+      "rules_url": "https://www.oevsv.at/funkbetrieb/contests-wettbewerbe/contestsaktivitaet/",
+      "sponsor_home": "https://www.oevsv.at/",
+      "log_submit_url": "https://mikrowelle.oevsv.at/",
+      "log_format": "EDI",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB",
+        "AM",
+        "FM"
+      ],
+      "submodes": [],
+      "bands": [
+        "6m",
+        "2m",
+        "70cm",
+        "23cm",
+        "13cm",
+        "3cm"
+      ],
+      "bands_note": "Also 3.4, 5.7 and 24 GHz and light (Lichtsprechen) classes; 6m, 2m, 70cm, 23cm and 13cm are classes of their own.",
+      "exchange": "Callsign, RS(T), serial number and 6-character locator.",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 6,
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "month_times": {
+          "6": {
+            "end": "1500"
+          }
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "oevsv.at contest page and the rules PDF (Aktivitaetskontest-Adaption-der-Kontestregeln-ab-2022.pdf): 'Termine: jeder 3. Sonntag im Monat (12 Bewerbe pro Jahr)'; 'Betriebszeit: 07:00h UTC bis 13:00h UTC, Ausnahme im Juni: 07-15h UT'. The page's own 2026 list: 18 Jan, 15 Feb, 15 Mar, 19 Apr, 17 May, 21 Jun, 19 Jul, 16 Aug, 20 Sep. Modes: all analogue modes (CW, SSB, AM, FM). Eligibility: 'Alle Inhaber einer gültigen Amateurfunkbewilligung'. Log within 8 days of the contest, 23:00 UTC, uploaded at mikrowelle.oevsv.at. Read 2026-10-15.",
+      "note": "June is the one month on a different clock: 0700-1500 instead of 0700-1300, encoded with month_times. The page's dated list prints the June 2026 running as '07:00 - 14:59 UTC' while the rules text says 15:00; the rules text is encoded. No repeaters or transponders, no /M, each station once per band.",
+      "summary": "Austria's monthly VHF-through-microwave activity night: the third Sunday of every month, six hours (eight in June).",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Alle Inhaber einer gültigen Amateurfunkbewilligung' -- ÖVSV's own wording: every holder of a valid amateur licence."
+      }
+    },
+    {
+      "id": "hrs-9a-activity",
+      "name": "9A Activity Contest",
+      "sponsor": "HRS",
+      "country": "HR",
+      "rules_url": "https://www.hrvhf.net/index.php/9a-activity-contest",
+      "sponsor_home": "https://www.hamradio.hr/",
+      "log_submit_url": "https://www.hrvhf.net/",
+      "log_format": "EDI",
+      "log_deadline_days": 8,
+      "modes": [
+        "CW",
+        "SSB",
+        "FM"
+      ],
+      "submodes": [],
+      "bands": [
+        "6m",
+        "4m",
+        "2m",
+        "70cm",
+        "23cm"
+      ],
+      "bands_note": "Every VHF, UHF and microwave band from 50 MHz to 250 GHz in the IARU Region 1 band plan; the controlled band set holds only the first five, the rest (2.3 GHz and up) are not filterable.",
+      "exchange": "RS(T), serial number (001 per band, restarting each period) and WW locator.",
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 6,
+        "months": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "month_times": {
+          "6": {
+            "end": "1500"
+          }
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "hrvhf.net, 'Pravila UKV natjecanja 9A Activity Contest' (HRS's own VHF contest site): 'Termin svakog od 11 perioda je treća nedjelja u mjesecu i to počevši od siječnja i zaključno sa studenim'; 'Od 0700 do 1200 UTC, osim 6. perioda koji traje do 1500 UTC zbog preklapanja sa Alpe-Adria contestom'. Modes 'CW, SSB i FM'. Eligibility: 'sve licencirane postaje iz Republike Hrvatske i iz zemalja članica IARU-a'. Scoring 1 km = 1 point. Logs in EDI per band within 8 days of each period. Read 2026-10-15.",
+      "note": "Eleven periods a year, January to November: there is none in December. June (the sixth period) ends at 1500 UTC instead of 1200 because it overlaps the IARU R1 50/70 MHz contest. Categories include FM-only classes on 144 MHz.",
+      "summary": "Croatia's monthly VHF-and-up activity contest: the third Sunday from January to November, five hours (eight in June).",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "'Sve licencirane postaje iz Republike Hrvatske i iz zemalja članica IARU-a' -- licensed stations from Croatia and from IARU member countries; not enumerated as an entity list."
+      }
+    },
+    {
+      "id": "agb-nemiga",
+      "name": "AGB NEMIGA Contest",
+      "sponsor": "AGB",
+      "country": "BY",
+      "rules_url": "http://ev5agb.com/contest/agb_nemiga.htm",
+      "sponsor_home": "http://ev5agb.com/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB",
+        "Digital"
+      ],
+      "submodes": [
+        "FT8",
+        "FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "CW 3510-3555 kHz and SSB 3700-3750 kHz on 80m, plus 40m; FT8/FT4 categories exist.",
+      "exchange": "Non-members: RS(T) and serial number. AGB members: RS(T), serial number and AGB member number. FT8/FT4: the normal QSO exchange.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 3,
+        "weekday": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "ev5agb.com/contest/agb_nemiga.htm, Activity Group of Belarus' own page: 'Third Friday of September', 1600-1700 UT, 40m and 80m. Logs in Cabrillo by e-mail (eu1eu@mail.ru / agbcontest@ev5agb.com) or on paper, 'target date for 4 week'. Read 2026-10-15.",
+      "note": "The AGB pages are stale: the examples are dated 2022-2023 and the log deadline text still reads 15.01.2022, and no 2024-2026 date is published, so whether it is still run is unconfirmed. 2026 date derived from the stated rule only.",
+      "summary": "A one-hour evening sprint from the Activity Group of Belarus: third Friday of September, 80 and 40 metres.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Licensed amateurs worldwide and SWLs per the AGB rules page; the page is stale, so unverified."
+      }
+    },
+    {
+      "id": "agb-nysb",
+      "name": "AGB New Year Snowball",
+      "sponsor": "AGB",
+      "country": "BY",
+      "rules_url": "http://ev5agb.com/contest/agb_nysb.htm",
+      "sponsor_home": "http://ev5agb.com/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB",
+        "Digital"
+      ],
+      "submodes": [
+        "FT8",
+        "FT4"
+      ],
+      "bands": [],
+      "exchange": "Non-members: RS(T) and serial number. AGB members: RS(T), serial number and AGB member number. FT8/FT4: the normal QSO exchange.",
+      "recurrence": {
+        "type": "fixed_date",
+        "month": 1,
+        "day": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "0100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "ev5agb.com/contest/agb_nysb.htm: 'First January 0000-0100 UT'; FT8/FT4 added 2020; log 'target date for 3 week'. Read 2026-10-15.",
+      "note": "Bands: Bands are not stated; the listed CW 3510-3555 kHz and SSB 3700-3750 kHz segments imply 80m but the page never says so, so none is recorded. The AGB pages are stale: the examples are dated 2022-2023 and the log deadline text still reads 15.01.2022, and no 2024-2026 date is published, so whether it is still run is unconfirmed. 2026 date derived from the stated rule only. The page says '8 periods' but names only four 15-minute periods.",
+      "summary": "The Activity Group of Belarus' New Year hour: 0000-0100 UTC on 1 January.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Licensed amateurs worldwide and SWLs per the AGB rules page; the page is stale, so unverified."
+      }
+    },
+    {
+      "id": "agb-party",
+      "name": "AGB-Party",
+      "sponsor": "AGB",
+      "country": "BY",
+      "rules_url": "http://ev5agb.com/contest/agb_party.htm",
+      "sponsor_home": "http://ev5agb.com/",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB",
+        "Digital"
+      ],
+      "submodes": [
+        "FT8",
+        "FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m"
+      ],
+      "bands_note": "CW 3510-3555 kHz and SSB 3700-3750 kHz on 80m, plus 40m.",
+      "exchange": "Non-members: RS(T) and serial number. AGB members: RS(T), serial number and AGB member number. FT8/FT4: the normal QSO exchange.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 12,
+        "n": 3,
+        "weekday": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "ev5agb.com/contest/agb_party.htm: 'Third Friday of December', 1600-1700 UT, 40m and 80m; the page's example date is 16 Dec 2022. Read 2026-10-15.",
+      "note": "The AGB pages are stale: the examples are dated 2022-2023 and the log deadline text still reads 15.01.2022, and no 2024-2026 date is published, so whether it is still run is unconfirmed. 2026 date derived from the stated rule only.",
+      "summary": "A one-hour evening party from the Activity Group of Belarus: third Friday of December, 80 and 40 metres.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Licensed amateurs worldwide and SWLs per the AGB rules page; the page is stale, so unverified."
+      }
+    },
+    {
+      "id": "arlhs-spring-lights",
+      "name": "ARLHS Spring Lights QSO Party",
+      "sponsor": "ARLHS",
+      "country": "US",
+      "rules_url": "https://arlhs.com/events/spring-lights-qso-party/",
+      "sponsor_home": "https://arlhs.com/",
+      "modes": [
+        "Mixed"
+      ],
+      "submodes": [],
+      "bands": [],
+      "exchange": "Optional serial number plus QTH (lighthouse number, state, province or DX). Members: call, member number, state. Non-members: call, name, state.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-04-02",
+              "start": "0000",
+              "end": "2359"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 7,
+        "time": "2359"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "arlhs.com/events/spring-lights-qso-party/: 2026 running '2 Apr 0000Z - 9 Apr 2400Z'; the FAQ says only 'generally held in April'. Any mode that carries the exchange. Read 2026-10-15.",
+      "note": "Bands: Unrecorded: the rules contradict themselves (section 1: 160m and up with no WARC credit; section 2: 'any and all bands'). No recurrence is stated, so this is a manual record holding the one published 2026 running (eight days, 2 to 9 April). The default clock spans the week; the per-date entry restates the first day. Bands contradict themselves in the rules, so none is recorded. No log method or deadline is stated.",
+      "summary": "A week-long April QSO party for lighthouse activators and chasers, run by the US Lighthouse Society.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "No eligibility statement found on the page."
+      }
+    },
+    {
+      "id": "bcc-qso-party",
+      "name": "BCC QSO Party",
+      "sponsor": "BCC",
+      "country": "DE",
+      "rules_url": "https://www.bavarian-contest-club.de/2026/03/bcc-qso-partys-2026-ausschreibung/",
+      "sponsor_home": "https://www.bavarian-contest-club.de/",
+      "log_submit_url": "http://dl6mhw.de/~dl6mhw/bcc",
+      "log_format": "Cabrillo",
+      "modes": [
+        "CW",
+        "SSB",
+        "RTTY"
+      ],
+      "submodes": [],
+      "bands": [
+        "80m"
+      ],
+      "bands_note": "",
+      "exchange": "RS(T) plus T-shirt size (XS to 5XL; 000 if none). Call 'CQ BCC'. Each station once per mode.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            {
+              "date": "2026-03-19",
+              "start": "1900",
+              "end": "2059"
+            },
+            {
+              "date": "2026-09-17",
+              "start": "1800",
+              "end": "1959"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2059"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "bavarian-contest-club.de 2026 Ausschreibung: Thursday 19 March 1900-2059 UTC and Thursday 17 September 1800-1959 UTC, 80m, CW/SSB/RTTY. Cabrillo upload at dl6mhw.de/~dl6mhw/bcc, deadline one hour after the end. Read 2026-10-15.",
+      "note": "Two runnings a year with different clocks, published for 2026 only; no recurrence is stated, so manual. The classes page says both 'QRP/Low/High' and 'keine Leistungsbeschraenkung'.",
+      "summary": "The Bavarian Contest Club's two-hour Thursday-evening 80m QSO parties, spring and autumn, with a T-shirt-size exchange.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "No eligibility restriction stated."
+      }
+    },
+    {
+      "id": "foc-bill-windle-qp",
+      "name": "Bill Windle QSO Party",
+      "sponsor": "FOC",
+      "country": "GB",
+      "rules_url": "https://www.g4foc.org/bill-windle-qso-party/",
+      "sponsor_home": "https://www.g4foc.org/",
+      "log_submit_url": "https://focqp.g4foc.org",
+      "log_deadline_days": 7,
+      "modes": [
+        "Mixed"
+      ],
+      "submodes": [],
+      "bands": [],
+      "exchange": "RST, name and FOC number (non-members: RST and name).",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2022": [
+            "2022-03-26",
+            "2022-09-10"
+          ],
+          "2023": [
+            "2023-03-25",
+            "2023-09-16"
+          ],
+          "2024": [
+            "2024-03-23",
+            "2024-09-14"
+          ],
+          "2025": [
+            "2025-09-27"
+          ],
+          "2026": [
+            "2026-03-28",
+            "2026-09-26"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "g4foc.org/bill-windle-qso-party: 'held twice a year'; dates listed 2011-2026, among them 2026: 28 March and 26 September. 0000-2359 UTC. Honour-system web form at focqp.g4foc.org, due 7 days after. All amateurs worldwide. Read 2026-10-15.",
+      "note": "Bands: All bands except the WARC bands; the rules text 'from 015 to 040kHz on all bands' looks garbled, so bands are left unrecorded.  FOC itself says this is 'not a contest' (an activity day) yet ranks QSO counts per continent, so it is listed as the sponsor's event rather than a scored contest. No recurrence rule is written; the page lists dates per year (earlier years back to 2011 are published but only 2022-2026 are encoded). No mode is stated (the call is 'CQ BW'), so Mixed is recorded as 'any'; bands are not cleanly stated.",
+      "summary": "The First Class Operators' Club's twice-yearly activity day honouring Bill Windle.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "All amateurs worldwide."
+      }
+    },
+    {
+      "id": "orari-bogor-old-new",
+      "name": "Bogor Old and New Contest",
+      "sponsor": "ORARI",
+      "country": "ID",
+      "rules_url": "https://contest.orari-bogor.org/rule/",
+      "sponsor_home": "https://contest.orari-bogor.org/",
+      "log_format": "N1MM UDC",
+      "log_deadline_days": 31,
+      "modes": [
+        "SSB"
+      ],
+      "submodes": [],
+      "bands": [
+        "80m",
+        "40m",
+        "10m"
+      ],
+      "bands_note": "One band only, chosen from 80m, 40m and 10m.",
+      "exchange": "RS plus operator age (YL 00, MO 01).",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            "2025-12-31"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0900"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "contest.orari-bogor.org/rule/: annual at the year-turn; editions 31 Dec 2021, 31 Dec 2022 and Wednesday 31 Dec 2025 0900-2359 UTC; web upload, due 31 January. Read 2026-10-15.",
+      "note": "Run by ORARI Lokal Bogor (a local club of the national ORARI). No rule is written, only editions, and the next one is unpublished, so the record holds 2025 only and shows nothing forward. Times for 2021-22 were not read.",
+      "summary": "An Indonesian local club's New Year's Eve SSB contest where the exchange is your age.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Amateurs worldwide."
+      }
+    },
+    {
+      "id": "cq-m-dx",
+      "name": "CQ-M International DX Contest",
+      "sponsor": "SRR",
+      "country": "RU",
+      "rules_url": "https://srr.ru/wp-content/uploads/2026/05/Reglament_MS_KV_CQ-M_2026.pdf",
+      "sponsor_home": "https://srr.ru/",
+      "log_submit_url": "https://ua9qcq.com",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 10,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "",
+      "exchange": "RS(T) plus serial number from 001.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1159"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "srr.ru 2026 regulation PDF (identical wording in 2024): 'Соревнование проводится ежегодно во вторые полные выходные мая'; 2026: 12:00 UTC 9 May to 11:59 UTC 10 May. Cabrillo web upload only, 10 days after. Read 2026-10-15.",
+      "note": "Bands are stated as 1.8-28 MHz without the WARC bands. The rules' home site cqm.srr.ru returned HTTP 500 when read. /M and /MM are not multipliers.",
+      "summary": "The Russian Radio Society's CQ-M international DX contest: 24 hours of CW and SSB on the second full weekend of May.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Open to all."
+      }
+    },
+    {
+      "id": "cva-dx-cw",
+      "name": "CVA DX Contest (CW)",
+      "sponsor": "CRAEC",
+      "country": "BR",
+      "rules_url": "https://cvadx.org/regulamento/",
+      "sponsor_home": "https://cvadx.org/",
+      "log_submit_url": "https://cvadx.org/envio-de-logs",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "",
+      "exchange": "Brazil: RS(T) plus state. Elsewhere: RS(T) plus continent. Military stations: RS(T) plus MIL.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2100"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "cvadx.org/regulamento (updated 03/08/2026, 67th edition): 'Terceiro final de semana de agosto'; 2026 CW 15 Aug 1800 UTC to 16 Aug 2100 UTC. Cabrillo 3.0 upload, deadline 23:59 UTC on the fifth day. Read 2026-10-15.",
+      "note": "'Third weekend' is read as the ordinal full weekend; the rules do not say whether it could instead count from the month's end. The 2026 CW dates (15-16 August) fit either reading.",
+      "summary": "Brazil's army-radio-club DX contest, CW leg: 27 hours on the third weekend of August.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Civilian and military stations worldwide."
+      }
+    },
+    {
+      "id": "cva-dx-ssb",
+      "name": "CVA DX Contest (SSB)",
+      "sponsor": "CRAEC",
+      "country": "BR",
+      "rules_url": "https://cvadx.org/regulamento/",
+      "sponsor_home": "https://cvadx.org/",
+      "log_submit_url": "https://cvadx.org/envio-de-logs",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "SSB"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "",
+      "exchange": "Brazil: RS plus state. Elsewhere: RS plus continent. Military stations: RS plus MIL.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": 4
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2100"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "cvadx.org/regulamento (updated 03/08/2026, 67th edition): 'Quarto final de semana de agosto'; 2026 SSB 22 Aug 1800 UTC to 23 Aug 2100 UTC; log deadline 28 Aug 23:59 UTC. Read 2026-10-15.",
+      "note": "'Fourth weekend' read as the ordinal full weekend; counted from the month's end it would be 8-9 August, so the stated 2026 dates fit only the ordinal reading.",
+      "summary": "Brazil's army-radio-club DX contest, SSB leg: 27 hours on the fourth weekend of August.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Civilian and military stations worldwide."
+      }
     }
   ]
 }

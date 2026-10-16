@@ -1828,6 +1828,10 @@ test("RAC Canada Winter is manual because no rule fits", () => {
 // the CQ 160 SSB hypothesis, fitted to a few years of dates, took eleven years of
 // published dates to unseat. If a stated rule turns up, the record upgrades.
 const MANUAL_NO_RULE_PUBLISHED: Record<string, [number, number, number][]> = {
+  "arlhs-spring-lights": [[2026, 4, 2]],
+  "bcc-qso-party": [[2026, 3, 19], [2026, 9, 17]],
+  "foc-bill-windle-qp": [[2022, 3, 26], [2022, 9, 10], [2023, 3, 25], [2023, 9, 16], [2024, 3, 23], [2024, 9, 14], [2025, 9, 27], [2026, 3, 28], [2026, 9, 26]],
+  "orari-bogor-old-new": [[2025, 12, 31]],
   "darc-vhf-uhf-shf": [[2026, 3, 7], [2026, 5, 2], [2026, 7, 4]],
   "darc-ukw-fruehling": [[2026, 4, 4]],
   "darc-ukw-winter-fieldday": [[2026, 2, 7], [2026, 2, 8]],
@@ -1879,6 +1883,12 @@ test("AM is a mode of its own", () => {
 });
 
 const STATED_RULE_DATES: Record<string, [number, number, number][]> = {
+  "agb-nemiga": [[2026, 9, 18]],
+  "agb-nysb": [[2027, 1, 1]],
+  "agb-party": [[2026, 12, 18]],
+  "cq-m-dx": [[2026, 5, 9]],
+  "cva-dx-cw": [[2026, 8, 15]],
+  "cva-dx-ssb": [[2026, 8, 22]],
   "iaru-r1-50mhz-mgm": [[2026, 4, 18]],
   "iaru-r1-70mhz-mgm": [[2026, 5, 16]],
   "iaru-r1-50mhz": [[2026, 6, 20]],
@@ -2550,6 +2560,58 @@ test("monthly_nth_weekday skips short months but not malformed rules", () => {
   expect(caught).not.toBeInstanceOf(NoAnchorsThisYear);
 });
 
+test("monthly month_times overrides only the named month", () => {
+  // OeVSV and HRS run the third Sunday of the month, but June ends at 1500
+  // instead of the usual hour. `month_times` moves that one month's clock and
+  // leaves every other month on the record's own start/end.
+  const rule = {
+    type: "monthly_nth_weekday",
+    n: 3,
+    weekday: 6,
+    months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    month_times: { "6": { end: "1500" } },
+  };
+  const occ = expand(synthetic(rule), 2026);
+  expect(occ.length).toBe(12);
+  for (const o of occ) {
+    const june = o.start!.getUTCMonth() === 5;
+    expect([o.start!.getUTCHours(), o.end!.getUTCHours()]).toEqual([0, june ? 15 : 1]);
+    expect(isoDate(o.start!)).toBe(isoDate(o.end!));
+  }
+});
+
+test("monthly month_times offsets default to the records own", () => {
+  const rule = {
+    type: "monthly_nth_weekday",
+    n: 1,
+    weekday: 5,
+    months: [3, 4],
+    month_times: { "4": { start: "2200", end_day_offset: 1, end: "0200" } },
+  };
+  const [march, april] = expand(synthetic(rule), 2026);
+  expect(march.end!.getTime() - march.start!.getTime()).toBe(3600 * 1000);
+  expect([april.start!.getUTCHours(), april.start!.getUTCDate()]).toEqual([22, 4]);
+  expect([april.end!.getUTCHours(), april.end!.getUTCDate()]).toEqual([2, 5]);
+});
+
+test("activity contests run a longer June", () => {
+  const expected: Record<string, [number, number]> = {
+    "oevsv-activity": [13, 12],
+    "hrs-9a-activity": [12, 11],
+  };
+  for (const [cid, [usualEnd, months]] of Object.entries(expected)) {
+    const occ = expand(byId(cid), 2026);
+    expect(occ.length, cid).toBe(months);
+    for (const o of occ) {
+      const d = o.start!.getUTCDate();
+      expect(weekdayOf(o.start!), cid).toBe(6);
+      expect(d >= 15 && d <= 21, cid).toBe(true);
+      const want = o.start!.getUTCMonth() === 5 ? 15 : usualEnd;
+      expect([o.start!.getUTCHours(), o.end!.getUTCHours()], cid).toEqual([7, want]);
+    }
+  }
+});
+
 // ---------------------------------------------------------------------------
 // Sponsor validation -- the remaining Tier 2 European societies
 //
@@ -3084,7 +3146,7 @@ test("RCA holds only the editions Argentina published", () => {
   // the place where inventing a rule would be most tempting and least
   // defensible.
   for (const [cid, year, day] of [
-    ["rca-nacional-40m", 2025, D(2025, 10, 18)],
+    ["rca-nacional-40m", 2026, D(2026, 10, 17)],
     ["rca-nacional-80m", 2026, D(2026, 6, 13)],
   ] as const) {
     const c = byId(cid);
@@ -3994,7 +4056,7 @@ describe("catalog vocabularies", () => {
       "darc-hell-kurz",
       "jarl-new-year-qso-party",
       "zs-sota-activity-weekend",
-      "a1club-awt", "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party",
+      "a1club-awt", "agb-nysb", "arlhs-spring-lights", "foc-bill-windle-qp", "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party",
     ].sort());
   });
 
@@ -4048,6 +4110,7 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
   "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
   "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb", "baltic-contest", "darc-ukw-fruehling", "darc-ukw-sommer-fieldday", "darc-ukw-winter-fieldday", "darc-vhf-uhf-shf", "wab-144mhz-phone", "wab-50mhz-phone",
   "ure-eartty",
+  "arlhs-spring-lights", "bcc-qso-party", "foc-bill-windle-qp", "rca-nacional-40m",
  "awa-am-qso-party", "awa-bruce-kelley", "awa-linc-cundall", "classic-exchange-cw", "classic-exchange-phone", "fmre-rtty", "kcj-contest", "kcj-top-band",
 ].sort();
 
@@ -4055,7 +4118,7 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
 // why. `active_until` means "the sponsor stopped running it"; neither of these
 // has that evidence, so setting it would be a claim we cannot support.
 const DARK_WITHOUT_EXPLANATION = [
-  "rca-nacional-40m",   // holds 2025 only -- invisible in 2026 AND 2027
+  "orari-bogor-old-new",  // holds 2025 only -- invisible in 2026 AND 2027
   "srr-russian-dx",     // holds 2027 only -- invisible for all of 2026
   "awa-rollins-dx",  // holds 2027 only -- invisible for all of 2026
   "srr-digital-cup",  // holds 2025 only -- invisible in 2026 AND 2027

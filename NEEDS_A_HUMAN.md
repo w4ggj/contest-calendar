@@ -289,3 +289,13 @@ classicexchange.org publishes the CX rules only as `announcments/CX_Rules.pdf`. 
 - **Hemus VHF Contest:** ask the organisers whether it starts 06:00 or 09:00 UTC (their PDF and web page disagree).
 - **DARC UKW, WAB, Baltic Contest:** each publishes dates per edition and states no recurrence; they are `manual` and go dark after their 2026 dates. Add the 2027 dates when published.
 - **OeVSV and HRS activity contests:** need a rule type that holds a per-month clock before they can be encoded.
+
+### Update 2026-10-15 (discovery batch 4)
+
+- **OeVSV and HRS activity contests:** now encoded as `oevsv-activity` and `hrs-9a-activity` using `month_times`. Still wanted: ÖVSV to confirm whether June ends 14:59 (dated list) or 15:00 (rules text); we encoded 15:00.
+- **CQMM DX:** rules are only a OneDrive .docx and PDFs (cqmmdx.com/assets/cqmmdx/pdf/cqmmdx_rules_en.pdf returned an error page). Someone needs to open them in a browser and read times, bands, exchange and log deadline; the sponsor's page says the third weekend of April.
+- **AGB (Activity Group of Belarus):** NEMIGA, New Year Snowball and AGB-Party pages carry 2022-2023 examples only. Ask whether they are still run.
+- **Bill Windle QSO Party (FOC):** ask for the mode and the exact band list (the page text is garbled), and for the 2027 dates.
+- **Bogor Old and New:** ask ORARI Bogor for the 2026 date and the 2021-22 clock times.
+- **ARLHS Spring Lights:** ask whether it recurs in April, and which bands (the rules contradict themselves).
+- **CVA DX Contest:** ask CRAEC whether "third weekend" means the third full weekend (our reading) or counts from the month's end.

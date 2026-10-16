@@ -21,7 +21,7 @@ Activate the venv **before** running the TypeScript suite too — see below.
 
 ```powershell
 # Python -- the reference engine
-python -m pytest -q            # expect: 515 passed
+python -m pytest -q            # expect: 518 passed
 python scripts\validate.py     # expect: ARRL 2026 rule-engine validation: 21/21 match
 python scripts\check_links.py  # sponsor rules URLs still resolve
 python scripts\coverage.py     # regenerate the registry's coverage block
@@ -30,7 +30,7 @@ python scripts\coverage.py --check   # ...or just report where the catalog is th
 # TypeScript -- what actually serves the site
 cd engine
 npm install                    # node_modules is gitignored; needed on a fresh clone
-npm test                       # expect: 525 passed (512 mirrored + 13 parity)
+npm test                       # expect: 528 passed (515 mirrored + 13 parity)
 npm run typecheck
 ```
 
@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 204 passed
+npm test                       # expect: 205 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -71,6 +71,9 @@ Practically:
 - Catalog edits go to `data/` only. Both engines read the same JSON — never fork it.
 - `CATALOG_MODES` and `CATALOG_BANDS` are declared in **both** engines and are held equal by
   a test that parses the Python source. Adding a token means editing both, same commit.
+- `monthly_nth_weekday` takes an optional `month_times` map (`{"6": {"end": "1500"}}`) for a
+  sponsor whose month runs a different clock — ÖVSV and HRS end June at 1500. Unnamed fields
+  and months keep the record's own `start`/`end`; `describeAnchor()` says it out loud.
 - Run **both** suites before committing. Green Python alone proves nothing about what ships.
 
 ## The registry counts itself

@@ -602,6 +602,23 @@ function exceptClause(rule: RecurrenceRule): string {
 }
 
 /**
+ * `month_times` on a monthly rule: one month runs a different clock (ÖVSV and
+ * HRS activity contests end later in June). Said out loud, because a rule that
+ * moved a contest's hours without the page saying so would be a silent change.
+ */
+function monthTimesClause(rule: RecurrenceRule): string {
+  const parts: string[] = [];
+  for (const [m, t] of Object.entries(rule.month_times ?? {})) {
+    const bits: string[] = [];
+    if (t.start) bits.push(`starts ${t.start} UTC`);
+    if (t.end) bits.push(`ends ${t.end} UTC`);
+    if (!bits.length) continue;
+    parts.push(`${MONTHS[Number(m)]} ${bits.join(" and ")}`);
+  }
+  return parts.length ? `; ${joinList(parts)} instead of the usual hours` : "";
+}
+
+/**
  * Render a recurrence rule the way a sponsor writes it.
  *
  * "Fourth full weekend of June" is genuinely useful and it is the one thing no
@@ -627,8 +644,11 @@ function describeAnchor(rule: RecurrenceRule): string {
       return `${WEEKDAYS[rule.weekday!]} nearest ${MONTHS[rule.month!]} ${rule.day}`;
     case "monthly_nth_weekday": {
       const when = `${ordinal(rule.n!)} ${WEEKDAYS[rule.weekday!]}`;
-      if (!rule.months || rule.months.length === 12) return `${when} of every month`;
-      return `${when} of ${joinList(rule.months.map((m) => MONTHS[m]))}`;
+      const base =
+        !rule.months || rule.months.length === 12
+          ? `${when} of every month`
+          : `${when} of ${joinList(rule.months.map((m) => MONTHS[m]))}`;
+      return base + monthTimesClause(rule);
     }
     // NZART's sprints run "each Tuesday in April and August" -- the months were
     // being dropped here, so the phrase claimed a weekly contest that runs all

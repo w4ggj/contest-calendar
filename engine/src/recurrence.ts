@@ -135,6 +135,7 @@ export interface RecurrenceRule {
   n?: number;
   weekday?: number;
   months?: number[];
+  month_times?: Record<string, Partial<ManualDate>>;
   weekends?: { month: number; n: number }[];
   rules?: RecurrenceRule[];
   dates?: Record<string, string[]>;
@@ -815,6 +816,26 @@ export function expand(
         end: {
           day_offset: entry.end_day_offset ?? contest.end.day_offset,
           time: entry.end ?? contest.end.time,
+        },
+      }];
+    });
+  }
+
+  // Per-month times, for a monthly series with one month on a different clock.
+  // `month_times` maps a month number, as a string, to the fields to override;
+  // months it does not name keep the record's own clock.
+  if (contest.recurrence.type === "monthly_nth_weekday" && contest.recurrence.month_times) {
+    anchors.forEach((anchor, i) => {
+      const over = contest.recurrence.month_times![String(anchor.getUTCMonth() + 1)];
+      if (over === undefined) return;
+      perDate[i] = [{
+        start: {
+          day_offset: over.start_day_offset ?? contest.start.day_offset,
+          time: over.start ?? contest.start.time,
+        },
+        end: {
+          day_offset: over.end_day_offset ?? contest.end.day_offset,
+          time: over.end ?? contest.end.time,
         },
       }];
     });

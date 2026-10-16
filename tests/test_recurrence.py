@@ -1832,6 +1832,10 @@ def test_rac_canada_winter_is_manual_because_no_rule_fits(catalog):
 # the CQ 160 SSB hypothesis, fitted to a few years of dates, took eleven years of
 # published dates to unseat. If a stated rule turns up, the record upgrades.
 MANUAL_NO_RULE_PUBLISHED = {
+    "arlhs-spring-lights": [(2026, 4, 2)],
+    "bcc-qso-party": [(2026, 3, 19), (2026, 9, 17)],
+    "foc-bill-windle-qp": [(2022, 3, 26), (2022, 9, 10), (2023, 3, 25), (2023, 9, 16), (2024, 3, 23), (2024, 9, 14), (2025, 9, 27), (2026, 3, 28), (2026, 9, 26)],
+    "orari-bogor-old-new": [(2025, 12, 31)],
     "darc-vhf-uhf-shf": [(2026, 3, 7), (2026, 5, 2), (2026, 7, 4)],
     "darc-ukw-fruehling": [(2026, 4, 4)],
     "darc-ukw-winter-fieldday": [(2026, 2, 7), (2026, 2, 8)],
@@ -1886,6 +1890,12 @@ def test_am_is_a_mode_of_its_own(catalog):
 
 
 STATED_RULE_DATES = {
+    "agb-nemiga": [(2026, 9, 18)],
+    "agb-nysb": [(2027, 1, 1)],
+    "agb-party": [(2026, 12, 18)],
+    "cq-m-dx": [(2026, 5, 9)],
+    "cva-dx-cw": [(2026, 8, 15)],
+    "cva-dx-ssb": [(2026, 8, 22)],
     "iaru-r1-50mhz-mgm": [(2026, 4, 18)],
     "iaru-r1-70mhz-mgm": [(2026, 5, 16)],
     "iaru-r1-50mhz": [(2026, 6, 20)],
@@ -2597,6 +2607,54 @@ def test_monthly_nth_weekday_skips_short_months_but_not_malformed_rules():
     assert not isinstance(exc.value, NoAnchorsThisYear)
 
 
+def test_monthly_month_times_overrides_only_the_named_month():
+    """
+    OeVSV and HRS run the third Sunday of the month, but June ends at 1500
+    instead of the usual hour. `month_times` moves that one month's clock and
+    leaves every other month on the record's own start/end.
+    """
+    rule = {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 6,
+        "months": list(range(1, 13)),
+        "month_times": {"6": {"end": "1500"}},
+    }
+    occ = expand(_synthetic(rule), 2026)
+    assert len(occ) == 12
+    for o in occ:
+        if o.start.month == 6:
+            assert (o.start.hour, o.end.hour) == (0, 15)
+        else:
+            assert (o.start.hour, o.end.hour) == (0, 1)
+        assert o.start.date() == o.end.date()
+
+
+def test_monthly_month_times_offsets_default_to_the_records_own():
+    rule = {
+        "type": "monthly_nth_weekday",
+        "n": 1,
+        "weekday": 5,
+        "months": [3, 4],
+        "month_times": {"4": {"start": "2200", "end_day_offset": 1, "end": "0200"}},
+    }
+    march, april = expand(_synthetic(rule), 2026)
+    assert (march.end - march.start).total_seconds() == 3600
+    assert (april.start.hour, april.start.day) == (22, 4)
+    assert (april.end.hour, april.end.day) == (2, 5)
+
+
+def test_activity_contests_run_a_longer_june(catalog):
+    expected = {"oevsv-activity": (13, 12), "hrs-9a-activity": (12, 11)}
+    for cid, (usual_end, months) in expected.items():
+        occ = expand(by_id(catalog, cid), 2026)
+        assert len(occ) == months, cid
+        assert all(o.start.weekday() == 6 and 15 <= o.start.day <= 21 for o in occ), cid
+        for o in occ:
+            want = 15 if o.start.month == 6 else usual_end
+            assert (o.start.hour, o.end.hour) == (7, want), (cid, o.start)
+
+
 # ---------------------------------------------------------------------------
 # Sponsor validation -- the remaining Tier 2 European societies
 #
@@ -3117,7 +3175,7 @@ def test_rca_holds_only_the_editions_argentina_published(catalog):
     the place where inventing a rule would be most tempting and least
     defensible.
     """
-    for cid, year, day in (("rca-nacional-40m", 2025, date(2025, 10, 18)),
+    for cid, year, day in (("rca-nacional-40m", 2026, date(2026, 10, 17)),
                            ("rca-nacional-80m", 2026, date(2026, 6, 13))):
         c = by_id(catalog, cid)
         assert c["recurrence"]["type"] == "manual", cid
@@ -4095,7 +4153,7 @@ def test_unrecorded_bands_are_the_documented_exception(catalog):
         "darc-hell-kurz",
         "jarl-new-year-qso-party",
         "zs-sota-activity-weekend",
-        "a1club-awt", "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party"])
+        "a1club-awt", "agb-nysb", "arlhs-spring-lights", "foc-bill-windle-qp", "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party"])
 
 
 def test_bands_note_never_stands_in_for_a_band_list(catalog):
@@ -4144,6 +4202,7 @@ EXPIRE_AFTER_CATALOG_YEAR = {
     "uba-on-80-40-ssb", "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
     "uba-spring-80m-ssb", "ure-eartty",
     "baltic-contest", "darc-ukw-fruehling", "darc-ukw-sommer-fieldday", "darc-ukw-winter-fieldday", "darc-vhf-uhf-shf", "wab-144mhz-phone", "wab-50mhz-phone",
+    "arlhs-spring-lights", "bcc-qso-party", "foc-bill-windle-qp", "rca-nacional-40m",
     "awa-am-qso-party", "awa-bruce-kelley", "awa-linc-cundall", "classic-exchange-cw", "classic-exchange-phone", "fmre-rtty", "kcj-contest", "kcj-top-band",
 }
 
@@ -4153,7 +4212,7 @@ EXPIRE_AFTER_CATALOG_YEAR = {
 # pinned here instead, which is the honest form of the same statement.
 DARK_WITHOUT_EXPLANATION = {
     "srr-russian-dx",     # holds 2027 only -- invisible for all of 2026
-    "rca-nacional-40m",   # holds 2025 only -- invisible in 2026 AND 2027
+    "orari-bogor-old-new",  # holds 2025 only -- invisible in 2026 AND 2027
     "awa-rollins-dx",  # holds 2027 only -- invisible for all of 2026
     "srr-digital-cup",  # holds 2025 only -- invisible in 2026 AND 2027
     "labre-rs-digi",  # holds 2025 only -- invisible in 2026 AND 2027

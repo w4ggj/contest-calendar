@@ -2130,3 +2130,20 @@ Not encoded: the Russian Radio Team Championship (a qualified-teams sports champ
 | `acqp` | acqp.ca/rules | First Sunday of June, 1400Z to 0100Z. |
 | `baltic-contest` | lrsf.lt rules (61st) | 16-17 May 2026 (manual). |
 | `labre-rs-digi` | labre-rs.org.br | 1-2 Feb 2025 (manual, unverified end time). |
+
+## 2026-10-15 Discovery batch 4 and the monthly activity contests
+
+| Record | Sponsor page | What was read |
+| --- | --- | --- |
+| `oevsv-activity` | oevsv.at contest page and rules PDF | Third Sunday of every month, 0700-1300 UTC, June 0700-1500 (page's dated list prints 14:59 for June; rules text 15:00 encoded). |
+| `hrs-9a-activity` | hrvhf.net 9A Activity Contest rules | Third Sunday January to November, 0700-1200, June to 1500. |
+| `agb-nemiga`, `agb-nysb`, `agb-party` | ev5agb.com/contest pages | Third Friday of September; 1 January 0000-0100; third Friday of December. Pages stale (2022-2023 examples), unverified. |
+| `arlhs-spring-lights` | arlhs.com/events/spring-lights-qso-party | 2-9 April 2026 (manual). |
+| `bcc-qso-party` | bavarian-contest-club.de 2026 Ausschreibung | Thu 19 Mar 1900-2059 and Thu 17 Sep 1800-1959 UTC (manual). |
+| `foc-bill-windle-qp` | g4foc.org/bill-windle-qso-party | Per-year dates 2022-2026 (manual); sponsor says it is not a contest. |
+| `orari-bogor-old-new` | contest.orari-bogor.org/rule | 31 Dec 2025 0900-2359 UTC (manual). |
+| `cq-m-dx` | srr.ru 2026 regulation PDF | Second full weekend of May, 1200Z Sat to 1159Z Sun. |
+| `cva-dx-cw`, `cva-dx-ssb` | cvadx.org/regulamento | Third and fourth full weekends of August, 1800Z Sat to 2100Z Sun. |
+| `rca-nacional-40m` | lu4aa.org/wp/concurso-nacional-40m | 17 Oct 2026 added to the manual dates. |
+
+Not encoded: CQMM DX (rules only as OneDrive docx/PDF); ARCI QRP SK Memorial, ARR BPSK63, Brazil Independence Day BPSK31, BUBBA Summer QRP Sprint, CIS DX CW and QPSK63, CQ SA SSB, CQ-WE, CQIR (not found); Batavia DX, CLARA Chatter Party, Council of Europe RC, COVID-19 event (defunct); Battle of Carabobo, Black Sea Cup, Cookie Crumble QRP, CQC Winter QSO Party (unreachable, dormant or suspended).

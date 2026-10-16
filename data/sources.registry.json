@@ -367,8 +367,8 @@
       "catalog_sponsors": [
         "ÖVSV"
       ],
-      "encoded": 2,
-      "encoded_verified": 2,
+      "encoded": 3,
+      "encoded_verified": 3,
       "estimated_total": 2,
       "status": "complete",
       "notes": "AOEE 80/40m and AOEC 160m, the HF-Referat's two HF events; the AOEE VHF/UHF legs belong to the UKW referat and are separate work. Catalog sponsor string is the umlaut form OeVSV writes itself. The AOEC 160m Ausschreibung on offer is still the 2025 edition -- pending. VHF/UHF IS OUT OF SCOPE as of 2026-08-23 -- see HANDOVER.md, 'Scope: HF'. What this entry describes as separate work is now a decision rather than a deferral, and the records already held stay and are maintained."
@@ -437,8 +437,8 @@
       "catalog_sponsors": [
         "HRS"
       ],
-      "encoded": 1,
-      "encoded_verified": 1,
+      "encoded": 2,
+      "encoded_verified": 2,
       "estimated_total": 1,
       "status": "complete",
       "notes": "Croatian DX Contest encoded -- HRS's only HF contest. Its other calendar entries are VHF/UHF events run by the UKV referat and are separate work. VHF/UHF IS OUT OF SCOPE as of 2026-08-23 -- see HANDOVER.md, 'Scope: HF'. What this entry describes as separate work is now a decision rather than a deferral, and the records already held stay and are maintained."
@@ -481,8 +481,8 @@
       "catalog_sponsors": [
         "SRR"
       ],
-      "encoded": 1,
-      "encoded_verified": 1,
+      "encoded": 2,
+      "encoded_verified": 2,
       "estimated_total": 8,
       "status": "partial",
       "notes": "Russian DX Contest encoded, and only for 2027: rdxc.org publishes a date rather than a recurrence rule, and the only edition currently announced is 20-21 March 2027. RAEM, Russian 160m, the Russian WW series and the RCC Cup are on separate hosts and have not been read. READ AGAIN 2026-08-23. rdxc.org carries the Russian DX Contest ALONE and links none of SRR's other contests -- the SRR logo appears there as a sponsor and nothing more -- so each of the others needs its own host found. raem.srr.ru was found and read: the RAEM Contest, 'E. T. Krenkel Memorial', 28 December, 0000-1159 UTC, CW. NOT ENCODED, because that page is the 2025 edition (the 53rd) and SRR publishes one year at a time -- the same annual-publisher pattern as RCA and UARL. Encoding a past edition would add a record that is dark on arrival. Re-check for the 54th.\n\nAlso unfound: the Russian 160m contest, the Russian WW series and the RCC Cup, each on a host of its own that has not been located."
@@ -567,7 +567,7 @@
       "catalog_sponsors": [
         "ORARI"
       ],
-      "encoded": 1,
+      "encoded": 2,
       "encoded_verified": 1,
       "estimated_total": 2,
       "status": "partial",
@@ -1230,6 +1230,76 @@
       "estimated_total": 1,
       "status": "in_progress",
       "notes": "ADDED 2026-10-15 (VHF option C / re-probe pass); encoded from the sponsor's own page."
+    },
+    {
+      "org": "AGB",
+      "country": "BY",
+      "url": "http://ev5agb.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "AGB"
+      ],
+      "encoded": 3,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (discovery batch 4); encoded from the sponsor's own page."
+    },
+    {
+      "org": "ARLHS",
+      "country": "US",
+      "url": "https://arlhs.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ARLHS"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (discovery batch 4); encoded from the sponsor's own page."
+    },
+    {
+      "org": "BCC",
+      "country": "DE",
+      "url": "https://www.bavarian-contest-club.de/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "BCC"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (discovery batch 4); encoded from the sponsor's own page."
+    },
+    {
+      "org": "FOC",
+      "country": "GB",
+      "url": "https://www.g4foc.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "FOC"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (discovery batch 4); encoded from the sponsor's own page."
+    },
+    {
+      "org": "CRAEC",
+      "country": "BR",
+      "url": "https://cvadx.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "CRAEC"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 1,
+      "status": "in_progress",
+      "notes": "ADDED 2026-10-15 (discovery batch 4); encoded from the sponsor's own page."
     }
   ],
   "tier_5_qso_parties": [
@@ -1863,14 +1933,15 @@
     "AU": "Oceania",
     "NZ": "Oceania",
     "OC": "Oceania",
-    "INTL": "International"
+    "INTL": "International",
+    "BY": "Europe"
   },
   "$region_map_note": "OC is not an ISO country code. It is the code for a contest whose sponsor is a multi-national body inside one region -- currently only the Oceania DX Contest Committee, a joint VK/ZL committee. INTL is the same idea a level up, for a sponsor with no region at all. Neither is a country, and neither should be used where a national society owns the contest.",
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
     "as_of": "2026-10-15",
-    "total_encoded": 346,
-    "total_verified": 310,
+    "total_encoded": 358,
+    "total_verified": 316,
     "total_retired": 10,
     "by_tier": {
       "tier_1_major_international": {
@@ -1883,22 +1954,22 @@
       "tier_2_european_societies": {
         "orgs": 22,
         "orgs_worked": 22,
-        "encoded": 72,
-        "verified": 71,
+        "encoded": 75,
+        "verified": 74,
         "retired": 0
       },
       "tier_3_other_regions": {
         "orgs": 13,
         "orgs_worked": 9,
-        "encoded": 52,
+        "encoded": 53,
         "verified": 50,
         "retired": 0
       },
       "tier_4_specialty_clubs": {
-        "orgs": 38,
-        "orgs_worked": 36,
-        "encoded": 93,
-        "verified": 85,
+        "orgs": 43,
+        "orgs_worked": 41,
+        "encoded": 101,
+        "verified": 88,
         "retired": 8
       },
       "tier_5_qso_parties": {
@@ -1911,30 +1982,30 @@
     },
     "by_mode": {
       "digital_capable": {
-        "encoded": 115,
-        "verified": 93
+        "encoded": 121,
+        "verified": 94
       },
       "digital_only": {
         "encoded": 67,
         "verified": 60
       },
       "ft8_ft4": {
-        "encoded": 38,
+        "encoded": 40,
         "verified": 29
       },
       "cw_or_ssb_only": {
-        "encoded": 206,
-        "verified": 194
+        "encoded": 210,
+        "verified": 197
       }
     },
     "by_region": {
       "Europe": {
-        "encoded": 137,
-        "verified": 129,
+        "encoded": 145,
+        "verified": 133,
         "retired": 2
       },
       "North America": {
-        "encoded": 118,
+        "encoded": 119,
         "verified": 95,
         "retired": 8
       },
@@ -1944,7 +2015,7 @@
         "retired": 0
       },
       "Asia": {
-        "encoded": 23,
+        "encoded": 24,
         "verified": 21,
         "retired": 0
       },
@@ -1959,14 +2030,14 @@
         "retired": 0
       },
       "South America": {
-        "encoded": 4,
-        "verified": 3,
+        "encoded": 6,
+        "verified": 5,
         "retired": 0
       }
     },
     "by_country": {
       "US": {
-        "encoded": 110,
+        "encoded": 111,
         "verified": 89,
         "retired": 8
       },
@@ -1976,13 +2047,13 @@
         "retired": 0
       },
       "GB": {
-        "encoded": 29,
+        "encoded": 30,
         "verified": 28,
         "retired": 2
       },
       "DE": {
-        "encoded": 28,
-        "verified": 25,
+        "encoded": 29,
+        "verified": 26,
         "retired": 0
       },
       "JP": {
@@ -2040,6 +2111,11 @@
         "verified": 4,
         "retired": 0
       },
+      "BR": {
+        "encoded": 4,
+        "verified": 3,
+        "retired": 0
+      },
       "FR": {
         "encoded": 4,
         "verified": 4,
@@ -2075,7 +2151,17 @@
         "verified": 3,
         "retired": 0
       },
+      "AT": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
       "LT": {
+        "encoded": 3,
+        "verified": 3,
+        "retired": 0
+      },
+      "RU": {
         "encoded": 3,
         "verified": 3,
         "retired": 0
@@ -2085,12 +2171,17 @@
         "verified": 3,
         "retired": 0
       },
+      "BY": {
+        "encoded": 3,
+        "verified": 0,
+        "retired": 0
+      },
       "OC": {
         "encoded": 2,
         "verified": 2,
         "retired": 0
       },
-      "BR": {
+      "ID": {
         "encoded": 2,
         "verified": 1,
         "retired": 0
@@ -2105,7 +2196,7 @@
         "verified": 2,
         "retired": 0
       },
-      "AT": {
+      "HR": {
         "encoded": 2,
         "verified": 2,
         "retired": 0
@@ -2120,24 +2211,9 @@
         "verified": 2,
         "retired": 0
       },
-      "RU": {
-        "encoded": 2,
-        "verified": 2,
-        "retired": 0
-      },
       "AR": {
         "encoded": 2,
         "verified": 2,
-        "retired": 0
-      },
-      "ID": {
-        "encoded": 1,
-        "verified": 1,
-        "retired": 0
-      },
-      "HR": {
-        "encoded": 1,
-        "verified": 1,
         "retired": 0
       },
       "RS": {
@@ -2160,7 +2236,7 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 39.6,
+      "largest_region_share_pct": 40.5,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "CRSA",
@@ -2171,8 +2247,12 @@
       ]
     },
     "unverified_ids": [
+      "agb-nemiga",
+      "agb-nysb",
+      "agb-party",
       "agcw-zap-merit",
       "alabama-qso-party",
+      "arlhs-spring-lights",
       "arrl-222-and-up",
       "arrl-january-vhf",
       "arrl-kids-day-jan",
@@ -2183,6 +2263,7 @@
       "cwops-cw-open",
       "darc-cw-ausbildungscontest",
       "darc-hell-kurz",
+      "foc-bill-windle-qp",
       "ft8activity-1296",
       "ft8activity-144",
       "ft8activity-432",
@@ -2200,6 +2281,7 @@
       "north-carolina-qso-party",
       "north-dakota-qso-party",
       "oklahoma-qso-party",
+      "orari-bogor-old-new",
       "rsgb-ft4-activity-day",
       "sarl-top-band-qso",
       "scry-ww-rtty",

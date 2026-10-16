@@ -302,6 +302,8 @@ def resolve_anchors(rule: dict[str, Any], year: int) -> list[date]:
         anchors = [target + timedelta(days=shift)]
     elif kind == "monthly_nth_weekday":
         # e.g. ARS Spartan Sprint: first Monday of every month.
+        # `month_times` ({"6": {"start": "0700", "end": "1500"}}) overrides the
+        # record's clock for the named months only -- see expand().
         anchors = []
         for m in rule.get("months", list(range(1, 13))):
             try:
@@ -582,6 +584,30 @@ def expand(
                         "time": entry.get("end", contest["end"]["time"]),
                     },
                 }]
+
+    # Per-month times, for a monthly series with one month on a different
+    # clock (ONSV's and HRS's activity contests end two or three hours later in
+    # June). `month_times` maps a month number, as a string, to the fields to
+    # override; months it does not name keep the record's own clock.
+    if rule.get("type") == "monthly_nth_weekday" and rule.get("month_times"):
+        for i, anchor in enumerate(anchors):
+            over = rule["month_times"].get(str(anchor.month))
+            if over is None:
+                continue
+            per_date[i] = [{
+                "start": {
+                    "day_offset": over.get(
+                        "start_day_offset", contest["start"]["day_offset"]
+                    ),
+                    "time": over.get("start", contest["start"]["time"]),
+                },
+                "end": {
+                    "day_offset": over.get(
+                        "end_day_offset", contest["end"]["day_offset"]
+                    ),
+                    "time": over.get("end", contest["end"]["time"]),
+                },
+            }]
 
     elig = eligibility_for(contest, my_entity)
 

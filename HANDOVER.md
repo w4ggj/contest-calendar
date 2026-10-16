@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 346 contest definitions → 1133 occurrences for 2026. 515 Python tests,
-525 TypeScript tests, 204 Worker tests. Engine complete in both languages — no known
+**Current state:** 358 contest definitions → 1168 occurrences for 2026. 518 Python tests,
+528 TypeScript tests, 205 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -60,12 +60,12 @@ to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do 
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 515 passed
+python -m pytest -q               # expect: 518 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 525 passed (512 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 204 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
+cd engine; npm install; npm test   # expect: 528 passed (515 mirrored + 13 parity)
+cd ..\worker; npm install; npm test # expect: 205 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -201,10 +201,13 @@ contests (50 and 70 MHz MGM, 50 and 70 MHz CW/SSB, 145 MHz, UHF/Microwaves — o
 IARU, not one per society; rule is in the VHF Handbook), four DARC UKW contests (`manual`, 2026
 only: DARC states no recurrence), MRASZ's international VHF contest, Magyar Kupa and RF-WD URH,
 the Hemus 144 MHz contest (`verified:false`: two start times) and WAB's 50 and 144 MHz Phone
-contests (`manual`, 2026 only). **Not encoded, on purpose:** the ÖVSV VHF/UHF/Microwave Activity
-Contest and HRS's 9A Activity Contest — both run on "the 3rd Sunday of the month" but with one
-month on a different clock (June ends 1500 instead of 1300/1200), and a rule type holding one
-clock cannot say so; a per-month clock extension is the work, not a guess at a single clock.
+contests (`manual`, 2026 only). **Encoded later the same day, once `month_times` existed:** the ÖVSV
+VHF/UHF/Microwave Activity Contest (`oevsv-activity`) and HRS's 9A Activity Contest
+(`hrs-9a-activity`) — both run on "the 3rd Sunday of the month" with June on a different clock
+(ends 1500 instead of 1300/1200). `month_times` is an optional map on `monthly_nth_weekday`,
+month number as a string → `{start, end, start_day_offset, end_day_offset}` (all optional; an
+unnamed field or month keeps the record's own value). ÖVSV's page lists June 2026 as "07:00 -
+14:59 UTC" but its rules text says 15:00; the rules text is encoded.
 The ÖVSV "AOEE" name matches nothing: the Austrian UKW championship scores contests run by
 others. DARC's Mikrowellen-Wettbewerb is microwave-only and so out. Unresolved: REP's sprint
 (rep.pt refuses connections from here), UT5EU VHF Memorial (no page found).
@@ -525,7 +528,7 @@ duplicated.
 | `nth_weekday` | `month`, `n`, `weekday` | NAQP RTTY winter = last Saturday of Feb |
 | `fixed_date` | `month`, `day` | Straight Key Night = Jan 1 |
 | `nearest_weekday` | `month`, `day`, `weekday` | WIA Remembrance Day = Saturday nearest Aug 15 |
-| `monthly_nth_weekday` | `n`, `weekday`, optional `months` | SKCC WES = 2nd Saturday monthly |
+| `monthly_nth_weekday` | `n`, `weekday`, optional `months`, optional `month_times` | SKCC WES = 2nd Saturday monthly; ÖVSV activity = 3rd Sunday, June ends 1500 |
 | `weekly` | `weekday`, optional `months` | CWT anchors on Wednesday; NZART sprints run Tuesdays in April and August only |
 | `multi_weekend` | `weekends: [{month, n}]` | NAQP CW = Jan #2 + Aug #1 |
 | `composite` | `rules: [...]` | NAQP RTTY = last-Sat-Feb + 3rd-full-wknd-Jul |
@@ -600,3 +603,7 @@ synthetic definition — the distinction is real and will recur.
 
 Not a club site, not a logging tool, not a scores database, not a social feature. One job:
 find a contest to enter. Anything that doesn't serve that gets cut.
+
+## Discovery worklist: batch 4 (2026-10-15)
+
+Batch 4 took 29 index names. **11 encoded (38%)**: AGB NEMIGA, AGB New Year Snowball, AGB-Party, ARLHS Spring Lights, BCC QSO Party, Bill Windle QSO Party, Bogor Old and New, CQ-M International DX, CVA DX CW, CVA DX SSB, and Argentina National 7 MHz (already in the catalog as `rca-nacional-40m`; it gained its 2026 date, so 10 new records). CQMM DX is live but its rules are only a OneDrive docx, so it is blocked (41% counting it). The other 17 were not found, defunct or dormant. Yield by batch: 10%, 11%, 5% (10% on HF names), the 16% re-probe, and now 38% -- the tail is not exhausted, and the stop rule did not fire. The AGB records are `verified: false`: the pages carry 2022-2023 examples and no current date. `month_times` on `monthly_nth_weekday` (see the rule table) carries the ÖVSV and HRS June clocks. Per-name outcomes are in `data/discovery_worklist.json`.

@@ -72,6 +72,17 @@ describe("the rule, in plain language", () => {
     );
   });
 
+  it("says out loud the month that runs a different clock", () => {
+    // OeVSV and HRS: third Sunday, but June ends at 1500. `month_times` moves
+    // the hours, so the rule text has to say so.
+    expect(describeRule(contestById("oevsv-activity")!.recurrence)).toBe(
+      "Third Sunday of every month; June ends 1500 UTC instead of the usual hours",
+    );
+    expect(describeRule(contestById("hrs-9a-activity")!.recurrence)).toBe(
+      "Third Sunday of January, February, March, April, May, June, July, August, September, October and November; June ends 1500 UTC instead of the usual hours",
+    );
+  });
+
   it("counts backwards past last, the way BFRA states it", () => {
     // "The weekend before the last full weekend of November", encoded n = -2.
     expect(describeRule(contestById("bfra-lz-dx")!.recurrence)).toBe(
@@ -476,11 +487,11 @@ describe("what it does not become", () => {
     });
 
     it("omits the Google link when there is no instant to add", async () => {
-      // rca-nacional-40m holds 2025 dates only, so it has no next running. A
+      // orari-bogor-old-new holds 2025 dates only, so it has no next running. A
       // dead button beside "the sponsor publishes annually" would contradict
       // the sentence next to it.
-      const html = await page("/contest/rca-nacional-40m");
-      expect(nextOccurrences("rca-nacional-40m", Date.now(), 1)).toHaveLength(0);
+      const html = await page("/contest/orari-bogor-old-new");
+      expect(nextOccurrences("orari-bogor-old-new", Date.now(), 1)).toHaveLength(0);
       expect(html).not.toContain("calendar/render?action=TEMPLATE");
       expect(html).not.toContain(">Add to Google Calendar<");
 
