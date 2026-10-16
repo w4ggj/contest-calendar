@@ -39,6 +39,31 @@ TIERS = [
 ]
 
 
+# A contest is "digital-capable" if the sponsor allows any digital mode. `Mixed`
+# counts: the filter table treats it as matching every digital token. The tests
+# recompute this independently.
+DIGITAL_MODES = {"Digital", "RTTY", "FT8/FT4", "Mixed"}
+DIGITAL_ONLY_MODES = {"Digital", "RTTY", "FT8/FT4"}
+
+
+def mode_split(contests: list) -> dict:
+    """How much of the catalog a digital operator can enter."""
+    def tally(rows: list) -> dict:
+        return {"encoded": len(rows), "verified": sum(1 for c in rows if c.get("verified"))}
+
+    modes = [set(c.get("modes", [])) for c in contests]
+    return {
+        "digital_capable": tally([c for c, m in zip(contests, modes) if m & DIGITAL_MODES]),
+        "digital_only": tally(
+            [c for c, m in zip(contests, modes) if m and m <= DIGITAL_ONLY_MODES]
+        ),
+        "ft8_ft4": tally([c for c, m in zip(contests, modes) if m & {"FT8/FT4", "Mixed"}]),
+        "cw_or_ssb_only": tally(
+            [c for c, m in zip(contests, modes) if m and m <= {"CW", "SSB"}]
+        ),
+    }
+
+
 def org_entries(reg: dict):
     """Every org entry across the list-shaped tiers, with its tier key."""
     for tier in TIERS:
@@ -123,6 +148,7 @@ def compute(contests: list, reg: dict) -> dict:
         "total_verified": sum(1 for c in contests if c.get("verified")),
         "total_retired": sum(1 for c in contests if "active_until" in c),
         "by_tier": by_tier,
+        "by_mode": mode_split(contests),
         "by_region": dict(sorted(by_region.items(), key=lambda kv: -kv[1]["encoded"])),
         "by_country": dict(sorted(by_country.items(), key=lambda kv: -kv[1]["encoded"])),
         "thin": {
@@ -187,6 +213,19 @@ def render(coverage: dict, reg: dict) -> str:
     # because it was a placeholder dict with no orgs in it. It became a real
     # list-shaped tier on 2026-08-23 when the Florida Contest Group was encoded,
     # so it comes through the loop above like the other four.
+    out.append("")
+
+    bm = coverage["by_mode"]
+    out.append("  By mode                          enc   ver   share")
+    for key, label in (
+        ("digital_capable", "digital-capable"),
+        ("digital_only", "  of which digital-only"),
+        ("ft8_ft4", "FT8/FT4 (incl. Mixed)"),
+        ("cw_or_ssb_only", "CW/SSB only"),
+    ):
+        row = bm[key]
+        share = 100.0 * row["encoded"] / t if t else 0.0
+        out.append(f"    {label:28s} {row['encoded']:4d}  {row['verified']:4d}  {share:5.1f}%")
     out.append("")
 
     out.append("  By region                        enc   ver   share")

@@ -1965,3 +1965,23 @@ each at two power levels) and the club competition; the `note` records them.
   of this pattern after Oceania and SARL, which is enough to say plainly: **a broken link in
   this project is a fact about a web server, and the record it points at is innocent until
   something contradicts its wording.**
+
+## Digital contests: WW Digi, FT Roundup, and the European FT8 Club — 2026-10-15
+
+Asked for: WW Digi DX, FT8 Roundup (December), and the European FT8 Club's FT4 DX (February)
+and FT8 DX (April) contests.
+
+- **WW Digi** was already encoded on 2026-08-21 (`ww-digi`, verified); ww-digi.com re-read today
+  and unchanged: "always the last full weekend of August", 2026 = 29-30 Aug.
+- **FT8 Roundup is discontinued.** rttycontesting.com/ft-roundup/: "The FT Roundup has been
+  discontinued." It names the replacement: the **International FT Challenge**, encoded as
+  `ft-challenge` (first full weekend of December, 1800Z Sat to 2359Z Sun, FT4/FT8, 80-10m, grid + SNR).
+  The rules page names no organiser, so the sponsor field is the contest's name; the record says so.
+  Its own page contradicts itself on the year (date line 2025, header 2026); both fit the rule.
+- **BLOCKED — European FT8 Club (FT4 DX in February, FT8 DX in April).** The only place the club
+  publishes is europeanft8club.wordpress.com, and on 2026-10-15 every page, including
+  `/2026/04/26/ft4-dx-contest-2027/` and `/2025/02/23/ft8-dx-contest-2025/`, answers
+  "This site is currently private." Search snippets give dates and scoring, but a search snippet
+  is not the sponsor's page, and the snippets disagree with each other across years (the
+  February contest's date, bands and multiplier rule all changed). Not encoded. Revisit if the
+  blog is made public; otherwise it needs an email to the club.

@@ -323,6 +323,19 @@ def test_registry_coverage_is_current(catalog):
         catalog
     )
     assert cov["sponsors_missing_from_registry"] == []
+
+    # Mode split: recomputed from the sponsor-recorded `modes`, not from the script.
+    def _mode_row(pred):
+        rows = [c for c in catalog if pred(set(c.get("modes", [])))]
+        return {"encoded": len(rows), "verified": sum(1 for c in rows if c.get("verified"))}
+
+    digital = {"Digital", "RTTY", "FT8/FT4", "Mixed"}
+    assert cov["by_mode"] == {
+        "digital_capable": _mode_row(lambda m: bool(m & digital)),
+        "digital_only": _mode_row(lambda m: bool(m) and m <= digital - {"Mixed"}),
+        "ft8_ft4": _mode_row(lambda m: bool(m & {"FT8/FT4", "Mixed"})),
+        "cw_or_ssb_only": _mode_row(lambda m: bool(m) and m <= {"CW", "SSB"}),
+    }
     assert cov["unverified_ids"] == sorted(
         c["id"] for c in catalog if not c.get("verified")
     )
@@ -4199,3 +4212,16 @@ def test_the_two_engines_declare_the_same_vocabularies():
         block = ts.split(f"export const {name} = [")[1].split("]")[0]
         declared = tuple(v.strip().strip('",') for v in block.split(",") if v.strip())
         assert declared == values, f"{name} differs between the engines"
+
+
+# rttycontesting.com/ft-challenge/rules/: "First full weekend of December",
+# "December 6-7, 2025" in the rules text and "5-6 December 2026" in its header.
+FT_CHALLENGE_PUBLISHED = {2025: date(2025, 12, 6), 2026: date(2026, 12, 5)}
+
+
+@pytest.mark.parametrize("year,day", sorted(FT_CHALLENGE_PUBLISHED.items()))
+def test_ft_challenge_reproduces_every_date_the_sponsor_published(catalog, year, day):
+    occ = expand(by_id(catalog, "ft-challenge"), year)[0]
+    assert occ.start.date() == day
+    assert (occ.start.hour, occ.start.minute) == (18, 0)
+    assert occ.duration_hours == pytest.approx(30, abs=0.1)

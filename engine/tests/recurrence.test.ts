@@ -338,6 +338,21 @@ test("registry coverage is current", () => {
   );
   const cov = reg.coverage;
 
+  // Mode split: recomputed from the sponsor-recorded `modes`, not from the script.
+  const modeRow = (pred: (m: Set<string>) => boolean) => {
+    const rows = catalog.filter((c) => pred(new Set(c.modes ?? [])));
+    return { encoded: rows.length, verified: rows.filter((c) => c.verified).length };
+  };
+  const digital = new Set(["Digital", "RTTY", "FT8/FT4", "Mixed"]);
+  const has = (m: Set<string>, set: Set<string>) => [...m].some((x) => set.has(x));
+  const within = (m: Set<string>, set: Set<string>) => m.size > 0 && [...m].every((x) => set.has(x));
+  expect(cov.by_mode).toEqual({
+    digital_capable: modeRow((m) => has(m, digital)),
+    digital_only: modeRow((m) => within(m, new Set(["Digital", "RTTY", "FT8/FT4"]))),
+    ft8_ft4: modeRow((m) => has(m, new Set(["FT8/FT4", "Mixed"]))),
+    cw_or_ssb_only: modeRow((m) => within(m, new Set(["CW", "SSB"]))),
+  });
+
   for (const c of catalog) {
     expect(owner.has(c.sponsor ?? ""), `${c.id}: sponsor unregistered`).toBe(true);
     expect(regions[c.country ?? ""], `${c.id}: country not in region_map`).toBeDefined();
@@ -4078,3 +4093,17 @@ test("a long entity list is summarised, not recited", () => {
     }
   });
 });
+
+// rttycontesting.com/ft-challenge/rules/: "First full weekend of December",
+// "December 6-7, 2025" in the rules text and "5-6 December 2026" in its header.
+const FT_CHALLENGE_PUBLISHED: [number, number][] = [[2025, 6], [2026, 5]];
+
+test.each(FT_CHALLENGE_PUBLISHED)(
+  "FT Challenge reproduces every date the sponsor published: %i",
+  (year, day) => {
+    const occ = expand(byId("ft-challenge"), year)[0];
+    expect(isoDate(occ.start!)).toBe(D(year, 12, day));
+    expect(occ.start!.getUTCHours()).toBe(18);
+    expect(occ.duration_hours).toBeCloseTo(30, 0);
+  },
+);

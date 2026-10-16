@@ -12328,6 +12328,54 @@
       }
     },
     {
+      "id": "ft-challenge",
+      "name": "International FT Challenge",
+      "sponsor": "International FT Challenge",
+      "country": "INTL",
+      "rules_url": "https://www.rttycontesting.com/ft-challenge/rules/",
+      "sponsor_home": "https://www.rttycontesting.com/",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [
+        "FT4",
+        "FT8"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Five bands only: 80, 40, 20, 15 and 10 meters.",
+      "exchange": "A four-character Maidenhead grid square and SNR. A missing grid square defaults to ZZ00.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "log_deadline_days": 7,
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "rttycontesting.com/ft-challenge/rules/, the contest's own rules page. Date: 'First full weekend of December. Begins 1800 UTC Saturday, ends 2359 UTC Sunday (December 6-7, 2025).' The page header reads '5-6 December 2026'. 'Entrants may operate the entire 30-hour contest period but only the first 24 hours of operation are scored.' Mode: 'Only FT4 and FT8 modes are permitted.' Bands: 'FT4 or FT8 on 80-, 40-, 20-, 15- and 10-meter bands.' Exchange: '4-character Grid Square and SNR. Missing Grid Square defaults to ZZ00.' Log deadline: 'All entries must be uploaded by 2359 UTC December 14, 2025' (seven days).",
+      "note": "THE SUCCESSOR TO THE FT ROUNDUP. The sponsor's own FT Roundup page says 'The FT Roundup has been discontinued' and that 'A new contest has been created to take its place. It is called the FT Challenge.' The Roundup is therefore not encoded: it is gone, and its latest listed results are 2023. THE RULES PAGE DOES NOT NAME ITS ORGANISER. The site's tagline is 'Dedicated to Digital Mode Contesting' and the sponsor field carries the contest's name rather than a person or club that the sponsor did not state. THE PAGE CONTRADICTS ITSELF ON THE YEAR: the date line is still the 2025 one ('December 6-7, 2025') while the header says 5-6 December 2026. Both are the first full weekend of December, so the rule is unambiguous; the stale line is the sponsor's. The scored period is 24 of 30 hours; the record carries the full 30-hour window, which is what an operator needs to plan around. High power (over 100 W) is classified as a checklog, so this is a low-power and QRP contest.",
+      "summary": "Thirty hours of FT4 and FT8 on five HF bands, the first full weekend of December, scored on distance between grid squares.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "'Amateurs worldwide contact and exchange QSO information with other amateurs using FT4 or FT8.' 'Any station may work any other station.' No entity restriction is stated."
+      }
+    },
+    {
       "id": "florida-qso-party",
       "name": "Florida QSO Party",
       "sponsor": "Florida Contest Group",
