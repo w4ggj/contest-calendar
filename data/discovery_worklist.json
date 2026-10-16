@@ -102,7 +102,7 @@
    "closest": "sp-dx-rtty",
    "closest_score": 0.8,
    "status": "blocked",
-   "reason": "2026-10-15: drcg.de returns HTTP 403 to automated fetch and the index greys it; needs a human to read in a browser",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: drcg.de now answers 200. Sponsor post of 2024-06-04 says there will be no further contest ('we give up'): discontinued, nothing to encode.",
    "digital": true,
    "priority": 0
   },
@@ -124,7 +124,7 @@
    "closest": "sartg-ww-rtty",
    "closest_score": 0.558,
    "status": "blocked",
-   "reason": "2026-10-15: drcg.de returns HTTP 403 to automated fetch; needs a human to read in a browser",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: drcg.de now answers 200. Sponsor post of 2024-06-04 says there will be no further contest: discontinued, nothing to encode.",
    "digital": true,
    "priority": 0
   },
@@ -233,7 +233,7 @@
    "closest": "ure-eartty",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: FMRE host rtty.fmre.mx does not resolve and www.fmre.org.mx returns 410",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: rtty.fmre.mx now resolves. Page shows the 2026 International XE Contest, Sat 7 Feb 12:00Z to Sun 8 Feb 23:59Z, but states no recurrence and the rules page (reglas.html) is not machine-readable; needs a human to read the rules.",
    "digital": true,
    "priority": 0
   },
@@ -352,7 +352,7 @@
    "closest": "sarl-hf-digital",
    "closest_score": 0.588,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": true,
    "priority": 0
   },
@@ -363,7 +363,7 @@
    "closest": "srr-russian-dx",
    "closest_score": 0.571,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": true,
    "priority": 0
   },
@@ -374,7 +374,7 @@
    "closest": "srr-russian-dx",
    "closest_score": 0.611,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": true,
    "priority": 0
   },
@@ -385,7 +385,7 @@
    "closest": "sartg-ww-rtty",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": true,
    "priority": 0
   },
@@ -396,7 +396,7 @@
    "closest": "ww-digi",
    "closest_score": 0.81,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": true,
    "priority": 0
   },
@@ -604,7 +604,7 @@
    "closest": "ure-eapsk63",
    "closest_score": 0.625,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2010 listing found; yo5crq.ro answers HTTP 406 to automated fetch; needs a human to check in a browser",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: yo5crq.ro now redirects to a hosting default page; the contest has no live sponsor page.",
    "digital": true,
    "priority": 0
   },
@@ -615,7 +615,7 @@
    "closest": "arrl-digital",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: 10-10.org answers HTTP 406 to automated fetch; needs a human to read in a browser",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: ten-ten.org/qso-party-schedule answers 200 and lists only Winter Phone, Summer Phone and the Day Sprint (all encoded); no digital contest on the sponsor's schedule.",
    "digital": true,
    "priority": 1
   },
@@ -626,7 +626,7 @@
    "closest": "tenten-winter-phone",
    "closest_score": 0.541,
    "status": "blocked",
-   "reason": "2026-10-15: 10-10.org answers HTTP 406 to automated fetch; greyed in index",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: not on the sponsor's schedule page (see 10-10 Fall Digital).",
    "digital": true,
    "priority": 1
   },
@@ -637,7 +637,7 @@
    "closest": "tenten-day-sprint",
    "closest_score": 0.571,
    "status": "blocked",
-   "reason": "2026-10-15: 10-10.org answers HTTP 406 to automated fetch; greyed in index",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: not on the sponsor's schedule page (see 10-10 Fall Digital).",
    "digital": true,
    "priority": 1
   },
@@ -1176,7 +1176,7 @@
    "closest": "jarl-aa-dx-cw",
    "closest_score": 0.529,
    "status": "blocked",
-   "reason": "2026-10-15: classicexchange.org publishes rules only as a PDF announcement (CX_Rules.pdf) this session could not extract; needs a human to read it",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: the Classic Exchange rules PDF is readable: Fall 2026 CW Nov 1 1400Z-Nov 2 0800Z and Nov 3-4, Phone Nov 15-16 and 17-18, 160-2m. It states 2026 dates only, no recurrence rule; not encodable without inference.",
    "digital": false,
    "priority": 2
   },
@@ -1187,7 +1187,7 @@
    "closest": "jarl-aa-dx-phone",
    "closest_score": 0.556,
    "status": "blocked",
-   "reason": "2026-10-15: classicexchange.org publishes rules only as a PDF announcement (CX_Rules.pdf) this session could not extract; needs a human to read it",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: the Classic Exchange rules PDF is readable: Fall 2026 CW Nov 1 1400Z-Nov 2 0800Z and Nov 3-4, Phone Nov 15-16 and 17-18, 160-2m. It states 2026 dates only, no recurrence rule; not encodable without inference.",
    "digital": false,
    "priority": 2
   },
@@ -2441,7 +2441,7 @@
    "closest": "sarl-top-band-qso",
    "closest_score": 0.667,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: kcj-cw.com 42nd KCJ Top Band Contest rules PDF read: 1200Z Feb 14 to 1200Z Feb 15 2026, CW, 160m. Dates per edition, no stated recurrence; Feb 14-15 2026 is the second full weekend.",
    "digital": false,
    "priority": 2
   },
@@ -2452,7 +2452,7 @@
    "closest": "rsgb-club-calls",
    "closest_score": 0.471,
    "status": "blocked",
-   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: sponsor site is kcj-cw.com (the earlier www.kcj.jp guess was a different site). 47th KCJ Contest rules PDF read: 1200Z Aug 15 to 1200Z Aug 16 2026, CW, 160-6m ex WARC and 3.8, RST + prefecture code or CQ zone. The page states dates per edition, not a recurrence; Aug 15-16 2026 is the third full weekend. Encodable as verified:false on that inference, or on the sponsor's 2025 PDF if it agrees.",
    "digital": false,
    "priority": 2
   },
@@ -3981,7 +3981,7 @@
    "closest": "arrl-iaru-hf",
    "closest_score": 0.632,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": false,
    "priority": 2
   },
@@ -3992,7 +3992,7 @@
    "closest": "jarl-ww-rtty",
    "closest_score": 0.565,
    "status": "blocked",
-   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
+   "reason": "2026-10-15 re-probe with a browser User-Agent: srr.ru answers 200 and publishes per-year regulations (e.g. SRR Digital Cup 2025, RTTY45, 20-21 Sep 2025), but this exact contest name matches no current SRR event and no recurrence is stated.",
    "digital": false,
    "priority": 2
   },
