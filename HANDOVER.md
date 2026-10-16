@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 313 contest definitions → 1093 occurrences for 2026. 508 Python tests,
-518 TypeScript tests, 202 Worker tests. Engine complete in both languages — no known
+**Current state:** 323 contest definitions → 1105 occurrences for 2026. 512 Python tests,
+522 TypeScript tests, 204 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -60,12 +60,12 @@ to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do 
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 508 passed
+python -m pytest -q               # expect: 512 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 518 passed (505 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 202 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
+cd engine; npm install; npm test   # expect: 522 passed (509 mirrored + 13 parity)
+cd ..\worker; npm install; npm test # expect: 204 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -141,7 +141,7 @@ visibility rather than error, and both records are correct as they stand.
 
 ---
 
-## Scope: HF, decided 2026-08-23
+## Scope: HF, decided 2026-08-23 — **amended 2026-10-15, see "VHF/UHF: option C" below**
 
 **Sourcing effort goes to HF.** VHF and UHF contests are not sought out, and a VHF-only gap is
 not a gap this project is trying to close.
@@ -174,6 +174,51 @@ removed:
 A contest belongs in scope if it is **worked on HF** — 160 m through 10 m. A contest that
 permits VHF alongside HF is in scope. A contest that is VHF/UHF only is out of scope *for new
 sourcing* and stays if it is already here.
+
+### VHF/UHF: option C, decided 2026-10-15 (Joe) — the boundary, so nobody reopens it
+
+The 2026-08-23 line above is **narrowed, not repealed**. Joe's decision:
+
+- **Keep the 25 VHF/UHF-only records already in the catalog** (count taken 2026-10-15 over 313
+  contests: 25 VHF-only, 37 HF+VHF, 237 HF-only, 14 with bands unrecorded).
+- **In scope for new sourcing: the major national series** — ARRL VHF, the IARU Region 1
+  weekend contests, and the national UKW / UKV series (DARC UKW, ÖVSV AOEE, HRS UKV, MRASZ and
+  their peers). Sourced from the sponsor's own page like everything else.
+- **Out of scope, and staying out: microwave beyond what is already here, EME, SBMS and meteor
+  scatter.** Those are specialist communities with their own calendars; the two 10 GHz legs and
+  the QO-100 party already catalogued stay as verified work, but no new microwave/EME/SBMS
+  records are sought. The worklist's NA meteor-scatter rallies, the North American Meteor
+  Scatter Sprint, SBMS 2.3 GHz & Up and ARRL EME stay `todo`/closed on this boundary.
+- A VHF/UHF name from the discovery worklist is probed **only if it falls inside this scope**;
+  otherwise it stays closed with the scope as the reason.
+
+The band filter was split the same day (`6m`, `2m`, `1.25m`, `70cm`, `Microwave`) because a
+single "VHF+" box made 2m unfilterable — that is a defect in finding contests that *are* here,
+independent of how many more get sourced.
+
+---
+
+## Dates but no rule: encoded with `manual`, decided 2026-10-15 (Joe)
+
+Where a sponsor publishes dates **per edition** and states no recurrence, the record uses the
+`manual` rule type holding exactly the dates the sponsor published, and a year it has not
+announced yields nothing (the RAC Canada Winter precedent). **Do not infer a rule from two or
+three years of PDFs** — that is how the CQ 160 SSB hypothesis went wrong, and it took eleven
+years of published dates to settle. If a stated rule turns up later, the record upgrades from
+`manual`. Applied to: `kcj-contest`, `kcj-top-band`, `classic-exchange-cw`,
+`classic-exchange-phone`, `fmre-rtty` (Mexico RTTY), `awa-bruce-kelley`, `awa-linc-cundall`,
+`awa-rollins-dx`, `awa-am-qso-party`, `srr-digital-cup`. Mirrored tests:
+`test_dates_but_no_rule_records_*` in both engines.
+
+Consequence: eight of these hold 2026 only and join `EXPIRE_AFTER_CATALOG_YEAR`; two
+(`awa-rollins-dx`, `srr-digital-cup`) are in `DARK_WITHOUT_EXPLANATION`. **The December re-check
+therefore gains four sponsors**: KCJ (kcj-cw.com), Classic Exchange (classicexchange.org), FMRE
+(rtty.fmre.mx — `reglas/Rules_FMRE_RTTY_<year>.pdf` is derivable) and AWA
+(antiquewireless.org/homepage/operating-events/), plus SRR (srr.ru) for a 2026 Digital Cup.
+
+`AM` joined `CATALOG_MODES` (both engines) on the same day, because the AWA AM QSO Party is
+AM-only and recording it as SSB would state something the sponsor does not permit. Six records
+that had `submodes: ["AM"]` now carry `AM` in `modes`.
 
 ---
 

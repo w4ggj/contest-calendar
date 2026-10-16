@@ -297,7 +297,7 @@ Done 2026-08-16. Both fields are now controlled sets, declared once per engine a
 asserted against the catalog by all three suites.
 
 ```
-modes       CW · SSB · RTTY · Digital · FT8/FT4 · Mixed
+modes       CW · SSB · AM · FM · RTTY · Digital · FT8/FT4 · Mixed   (FM added 2026-08-19, AM 2026-10-15)
 bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m
             2m 1.25m 70cm 33cm 23cm 13cm 3cm
 ```

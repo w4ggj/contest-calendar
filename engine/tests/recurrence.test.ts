@@ -1823,6 +1823,52 @@ test("RAC Canada Winter is manual because no rule fits", () => {
   expect(expand(byId("rac-canada-winter"), 2027)).toEqual([]);
 });
 
+// Sponsors that publish dates edition by edition and state no recurrence. Each is
+// manual so that only what the sponsor actually published is on the calendar --
+// the CQ 160 SSB hypothesis, fitted to a few years of dates, took eleven years of
+// published dates to unseat. If a stated rule turns up, the record upgrades.
+const MANUAL_NO_RULE_PUBLISHED: Record<string, [number, number, number][]> = {
+  "kcj-contest": [[2023, 8, 19], [2024, 8, 17], [2025, 8, 16], [2026, 8, 15]],
+  "kcj-top-band": [[2023, 2, 11], [2024, 2, 10], [2025, 2, 8], [2026, 2, 14]],
+  "classic-exchange-cw": [[2026, 11, 1], [2026, 11, 3]],
+  "classic-exchange-phone": [[2026, 11, 15], [2026, 11, 17]],
+  "fmre-rtty": [[2023, 2, 4], [2024, 2, 3], [2025, 2, 1], [2026, 2, 7]],
+  "awa-bruce-kelley": [[2026, 11, 14], [2026, 11, 21]],
+  "awa-linc-cundall": [[2026, 1, 14], [2026, 1, 17]],
+  "awa-rollins-dx": [[2027, 3, 26]],
+  "awa-am-qso-party": [[2026, 9, 26]],
+  "srr-digital-cup": [[2025, 9, 20], [2025, 9, 21]],
+};
+
+test("dates-but-no-rule records reproduce what the sponsor published", () => {
+  for (const [cid, published] of Object.entries(MANUAL_NO_RULE_PUBLISHED)) {
+    const c = byId(cid);
+    expect(c.recurrence.type, cid).toBe("manual");
+    const got: string[] = [];
+    for (let y = 2022; y <= 2030; y++) for (const o of expand(c, y)) got.push(isoDate(o.start!));
+    expect(got.sort(), cid).toEqual(published.map(([y, m, d]) => D(y, m, d)).sort());
+  }
+});
+
+test("dates-but-no-rule records yield nothing for an unannounced year", () => {
+  for (const [cid, published] of Object.entries(MANUAL_NO_RULE_PUBLISHED)) {
+    const c = byId(cid);
+    const latest = Math.max(...published.map((p) => p[0]));
+    expect(expand(c, latest + 1), cid).toEqual([]);
+    expect(expand(c, 2031), cid).toEqual([]);
+  }
+});
+
+test("SRR digital cup keeps each round's own clock", () => {
+  const [a, b] = expand(byId("srr-digital-cup"), 2025);
+  expect([new Date(a.start!).getUTCHours(), new Date(a.end!).getUTCHours(), new Date(a.end!).getUTCMinutes()]).toEqual([15, 18, 59]);
+  expect([new Date(b.start!).getUTCHours(), new Date(b.end!).getUTCHours(), new Date(b.end!).getUTCMinutes()]).toEqual([6, 9, 59]);
+});
+
+test("AM is a mode of its own", () => {
+  expect(byId("awa-am-qso-party").modes).toEqual(["AM"]);
+});
+
 test("NZART field day moves when February has three full weekends", () => {
   // NZART: 'when February only has three full weekends then field day will be
   // held on Saturday 28th February and Sunday 1st March ... This will occur in
@@ -3329,11 +3375,12 @@ test("Australia Day opens the day before the holiday", () => {
     expect(isoDate(o.end!), String(year)).toBe(D(year, 1, 26));
     expect(o.duration_hours).toBe(12);
   }
-  // WIA's "Phone" covers AM, FM and SSB; FM has a token and AM does not.
+  // WIA's "Phone" covers AM, FM and SSB; each has its own token.
   const c = byId("wia-australia-day");
   expect(c.modes).toContain("FM");
   expect(c.modes).toContain("SSB");
-  expect(c.submodes).toEqual(["AM"]);
+  expect(c.modes).toContain("AM");
+  expect(c.submodes).toEqual([]);
 });
 
 // WWROF publishes future dates on its front page and keeps a rules PDF per
@@ -3956,6 +4003,7 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
   "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw", "uba-on-80-40-ssb",
   "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw", "uba-spring-80m-ssb",
   "ure-eartty",
+ "awa-am-qso-party", "awa-bruce-kelley", "awa-linc-cundall", "classic-exchange-cw", "classic-exchange-phone", "fmre-rtty", "kcj-contest", "kcj-top-band",
 ].sort();
 
 // Records that already produce nothing this year WITHOUT active_until to say
@@ -3964,6 +4012,8 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
 const DARK_WITHOUT_EXPLANATION = [
   "rca-nacional-40m",   // holds 2025 only -- invisible in 2026 AND 2027
   "srr-russian-dx",     // holds 2027 only -- invisible for all of 2026
+  "awa-rollins-dx",  // holds 2027 only -- invisible for all of 2026
+  "srr-digital-cup",  // holds 2025 only -- invisible in 2026 AND 2027
 ].sort();
 
 function latestManualYear(c: Contest): number | null {

@@ -272,3 +272,9 @@ The four AWA operating events (Bruce Kelley 1929 QSO Party, Linc Cundall Memoria
 ## Classic Exchange rules PDF (added 2026-10-15)
 
 classicexchange.org publishes the CX rules only as `announcments/CX_Rules.pdf`. Someone needs to open it and read off the recurrence (winter and fall CW and Phone events), bands and exchange; the text could not be extracted automatically.
+
+### Update 2026-10-15 (manual-rule pass)
+
+- **Classic Exchange:** the rules PDF has now been read (Fall 2026, Rev 1) and the two fall sessions per mode are encoded as `manual` records. Still wanted from a person: the **Winter** edition's dates and whether CX states a recurrence anywhere, so the records can upgrade from `manual`.
+- **AWA:** the four events are encoded as `manual` records from the currently posted year only. Still wanted: the event coordinator's confirmation of previous years' dates, or a stated recurrence.
+- **SRR:** only the 2025 Cup on Digital Modes (RTTY) is encoded; ask SRR whether a 2026 edition exists.

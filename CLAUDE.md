@@ -21,7 +21,7 @@ Activate the venv **before** running the TypeScript suite too — see below.
 
 ```powershell
 # Python -- the reference engine
-python -m pytest -q            # expect: 508 passed
+python -m pytest -q            # expect: 512 passed
 python scripts\validate.py     # expect: ARRL 2026 rule-engine validation: 21/21 match
 python scripts\check_links.py  # sponsor rules URLs still resolve
 python scripts\coverage.py     # regenerate the registry's coverage block
@@ -30,7 +30,7 @@ python scripts\coverage.py --check   # ...or just report where the catalog is th
 # TypeScript -- what actually serves the site
 cd engine
 npm install                    # node_modules is gitignored; needed on a fresh clone
-npm test                       # expect: 518 passed (505 mirrored + 13 parity)
+npm test                       # expect: 522 passed (509 mirrored + 13 parity)
 npm run typecheck
 ```
 
@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 202 passed
+npm test                       # expect: 204 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -96,7 +96,7 @@ which is a worse failure than an unverified record. Read it before planning a so
 ## Modes and bands are controlled sets
 
 ```
-modes       CW · SSB · FM · RTTY · Digital · FT8/FT4 · Mixed
+modes       CW · SSB · AM · FM · RTTY · Digital · FT8/FT4 · Mixed
 bands       160m 80m 60m 40m 30m 20m 17m 15m 12m 10m 6m 2m 1.25m 70cm 33cm 23cm 13cm 3cm
 ```
 
@@ -112,8 +112,8 @@ not read its source is the failure this project exists to avoid.
 
 The record says exactly what it is; **the filter is what widens.** `Digital` matches
 Digital, RTTY, FT8/FT4 and Mixed; `FT8/FT4` matches FT8/FT4 and Mixed; every specific mode
-also matches Mixed, and `Mixed` matches only Mixed. **`FM` and `SSB` do not subsume each
-other** — SSB doubled as a general phone token until 2026-08-19, and an FM-only contest
+also matches Mixed, and `Mixed` matches only Mixed. **`FM`, `AM` and `SSB` do not subsume one
+another** — SSB doubled as a general phone token until 2026-08-19, and an FM-only contest
 recorded as SSB states something the sponsor does not permit. Never inflate the record — a row that
 prints "RTTY/Digital" for an RTTY-only contest overstates what the sponsor permits. The
 table is in `worker/src/schedule.ts` (`MODE_SUBSUMES`) and asserted in

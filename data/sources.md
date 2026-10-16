@@ -2100,3 +2100,18 @@ Sponsors located through the discovery index, then every fact read on the sponso
 | (matched) AGCW Straight Key Party | agcw.de | The AGCW site's own menu pairs "Handtastenparty" with "Straight Key Party"; already encoded as `agcw-htp-80m` and `agcw-htp-40m`. |
 
 Not encoded, and why: the four AWA events (antiquewireless.org says "Each year's contest has a unique set of details and rules" and publishes only that year's dates); the two Classic Exchange events (classicexchange.org publishes its rules only as a PDF announcement that could not be extracted here); Balkan HF (bfra.bg describes one 2024 edition, the organiser rotates); the 10-10 Spring/Fall CW, Digital, Mobile and Spirit of 76 contests (10-10 International's own QSO Party schedule lists only Winter Phone, Summer Phone and the Day Sprint, all already in the catalog); seventeen VHF/UHF/microwave rows, closed as out of scope under the 2026-08-23 HF decision; and seven names with no sponsor-owned rules page found. **A browser User-Agent turns several earlier "HTTP 406" sites readable** (10-10.org, antiquewireless.org, alara.org.au, bfra.bg, a1club.org). The batch-2 blocks on 10-10 and yo5crq.ro were therefore a fetch-header problem, not a source problem; 10-10 is now resolved as above, and yo5crq.ro still redirects (301) and was not pursued.
+
+## 2026-10-15 — Dates-but-no-rule contests, encoded with `manual`
+
+Each sponsor publishes dates per edition and states no recurrence, so each record holds only the dates the sponsor published and an unannounced year yields nothing. If a stated rule turns up, the record upgrades.
+
+| Contest | Sponsor page | Dates published |
+| --- | --- | --- |
+| `kcj-contest` | kcj-cw.com rules PDFs and contest_info.php | 1200Z Sat to 1200Z Sun: 2023-08-19, 2024-08-17, 2025-08-16, 2026-08-15 (47th). 160-6 m except 3.8 MHz and WARC. |
+| `kcj-top-band` | kcj-cw.com | 160 m CW, same clock: 2023-02-11, 2024-02-10, 2025-02-08, 2026-02-14 (42nd). |
+| `classic-exchange-cw`, `-phone` | classicexchange.org Fall 2026 CX Rules (Rev 1) | CW 2026-11-01 and 11-03; Phone 2026-11-15 and 11-17; each 1400Z to 0800Z next day. Winter edition not read. |
+| `fmre-rtty` | rtty.fmre.mx/reglas/Rules_FMRE_RTTY_<year>.pdf | 1200Z Sat to 2359Z Sun: 2023-02-04, 2024-02-03, 2025-02-01, 2026-02-07 (28th). |
+| `awa-bruce-kelley`, `awa-linc-cundall`, `awa-rollins-dx`, `awa-am-qso-party` | antiquewireless.org operating-events pages | Currently posted year only: 2026 (two weekends / two sessions / 26 Sep) and 2027-03-26 for Rollins. |
+| `srr-digital-cup` | srr.ru regulation PDF | 2025-09-20 15:00-18:59 and 2025-09-21 06:00-09:59 UTC, RTTY45. No 2026 edition seen. |
+
+Not encoded: the Russian Radio Team Championship (a qualified-teams sports championship at a field site, 18 Jul 2026, not an open contest).

@@ -86,7 +86,7 @@ export const SATURDAY = 5;
 // it vanish. Mirrored in contestcal/recurrence.py.
 
 export const CATALOG_MODES = [
-  "CW", "SSB", "FM", "RTTY", "Digital", "FT8/FT4", "Mixed",
+  "CW", "SSB", "AM", "FM", "RTTY", "Digital", "FT8/FT4", "Mixed",
 ] as const;
 
 export const CATALOG_BANDS = [

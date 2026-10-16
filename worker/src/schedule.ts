@@ -69,7 +69,7 @@ export function occurrencesForYear(year: number, myEntity = "K"): Occurrence[] {
  * but itself -- selecting "Mixed" means "contests where more than one mode
  * counts", which a CW-only contest is not.
  */
-export const MODE_FAMILIES = ["CW", "SSB", "FM", "RTTY", "Digital", "FT8/FT4", "Mixed"] as const;
+export const MODE_FAMILIES = ["CW", "SSB", "AM", "FM", "RTTY", "Digital", "FT8/FT4", "Mixed"] as const;
 export type ModeFamily = (typeof MODE_FAMILIES)[number];
 
 /** Filter token -> the record modes it accepts. */
@@ -81,6 +81,10 @@ const MODE_SUBSUMES: Record<ModeFamily, readonly ModeFamily[]> = {
   // allowed SSB -- and stopped being fine at SARL's VHF/UHF FM Mode Contest,
   // which is FM only. Calling that SSB would state something the sponsor does
   // not permit, which is the one thing this table exists to prevent.
+  // AM is its own mode for the same reason FM is: an AM-only event (the
+  // AWA AM QSO Party) recorded as SSB would state something the sponsor does
+  // not permit.
+  "AM": ["AM", "Mixed"],
   "FM": ["FM", "Mixed"],
   "RTTY": ["RTTY", "Mixed"],
   "Digital": ["Digital", "RTTY", "FT8/FT4", "Mixed"],

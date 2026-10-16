@@ -1827,6 +1827,55 @@ def test_rac_canada_winter_is_manual_because_no_rule_fits(catalog):
     assert expand(by_id(catalog, "rac-canada-winter"), 2027) == []
 
 
+# Sponsors that publish dates edition by edition and state no recurrence. Each is
+# manual so that only what the sponsor actually published is on the calendar --
+# the CQ 160 SSB hypothesis, fitted to a few years of dates, took eleven years of
+# published dates to unseat. If a stated rule turns up, the record upgrades.
+MANUAL_NO_RULE_PUBLISHED = {
+    "kcj-contest": [(2023, 8, 19), (2024, 8, 17), (2025, 8, 16), (2026, 8, 15)],
+    "kcj-top-band": [(2023, 2, 11), (2024, 2, 10), (2025, 2, 8), (2026, 2, 14)],
+    "classic-exchange-cw": [(2026, 11, 1), (2026, 11, 3)],
+    "classic-exchange-phone": [(2026, 11, 15), (2026, 11, 17)],
+    "fmre-rtty": [(2023, 2, 4), (2024, 2, 3), (2025, 2, 1), (2026, 2, 7)],
+    "awa-bruce-kelley": [(2026, 11, 14), (2026, 11, 21)],
+    "awa-linc-cundall": [(2026, 1, 14), (2026, 1, 17)],
+    "awa-rollins-dx": [(2027, 3, 26)],
+    "awa-am-qso-party": [(2026, 9, 26)],
+    "srr-digital-cup": [(2025, 9, 20), (2025, 9, 21)],
+}
+
+
+def test_dates_but_no_rule_records_reproduce_what_the_sponsor_published(catalog):
+    for cid, published in MANUAL_NO_RULE_PUBLISHED.items():
+        c = by_id(catalog, cid)
+        assert c["recurrence"]["type"] == "manual", cid
+        got = sorted(
+            o.start.date()
+            for y in range(2022, 2031)
+            for o in expand(c, y)
+        )
+        assert got == sorted(date(*p) for p in published), cid
+
+
+def test_dates_but_no_rule_records_yield_nothing_for_an_unannounced_year(catalog):
+    for cid, published in MANUAL_NO_RULE_PUBLISHED.items():
+        c = by_id(catalog, cid)
+        latest = max(p[0] for p in published)
+        assert expand(c, latest + 1) == [], cid
+        assert expand(c, 2031) == [], cid
+
+
+def test_srr_digital_cup_keeps_each_rounds_own_clock(catalog):
+    a, b = expand(by_id(catalog, "srr-digital-cup"), 2025)
+    assert (a.start.hour, a.end.hour, a.end.minute) == (15, 18, 59)
+    assert (b.start.hour, b.end.hour, b.end.minute) == (6, 9, 59)
+
+
+def test_am_is_a_mode_of_its_own(catalog):
+    assert by_id(catalog, "awa-am-qso-party")["modes"] == ["AM"]
+    assert "SSB" not in by_id(catalog, "awa-am-qso-party")["modes"]
+
+
 def test_nzart_field_day_moves_when_february_has_three_full_weekends(catalog):
     """
     NZART: 'when February only has three full weekends then field day will be
@@ -3377,10 +3426,11 @@ def test_australia_day_opens_the_day_before_the_holiday(catalog):
         assert o.end.date() == date(year, 1, 26)
         assert o.duration_hours == 12
 
-    # WIA's "Phone" covers AM, FM and SSB; FM has a token and AM does not.
+    # WIA's "Phone" covers AM, FM and SSB; each has its own token.
     c = by_id(catalog, "wia-australia-day")
     assert "FM" in c["modes"] and "SSB" in c["modes"]
-    assert c["submodes"] == ["AM"]
+    assert "AM" in c["modes"]
+    assert c["submodes"] == []
 
 
 # WWROF publishes future dates on its front page and keeps a rules PDF per
@@ -4050,6 +4100,7 @@ EXPIRE_AFTER_CATALOG_YEAR = {
     "uarl-lp-cup-cw", "uba-bma", "uba-on-2m", "uba-on-6m", "uba-on-80-40-cw",
     "uba-on-80-40-ssb", "uba-spring-2m", "uba-spring-6m", "uba-spring-80m-cw",
     "uba-spring-80m-ssb", "ure-eartty",
+    "awa-am-qso-party", "awa-bruce-kelley", "awa-linc-cundall", "classic-exchange-cw", "classic-exchange-phone", "fmre-rtty", "kcj-contest", "kcj-top-band",
 }
 
 # Records that already produce nothing this year WITHOUT active_until to say
@@ -4059,6 +4110,8 @@ EXPIRE_AFTER_CATALOG_YEAR = {
 DARK_WITHOUT_EXPLANATION = {
     "srr-russian-dx",     # holds 2027 only -- invisible for all of 2026
     "rca-nacional-40m",   # holds 2025 only -- invisible in 2026 AND 2027
+    "awa-rollins-dx",  # holds 2027 only -- invisible for all of 2026
+    "srr-digital-cup",  # holds 2025 only -- invisible in 2026 AND 2027
 }
 
 

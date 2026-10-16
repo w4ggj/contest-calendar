@@ -9430,11 +9430,10 @@
       "modes": [
         "SSB",
         "CW",
-        "FM"
-      ],
-      "submodes": [
+        "FM",
         "AM"
       ],
+      "submodes": [],
       "bands": [
         "6m"
       ],
@@ -10582,11 +10581,10 @@
       "modes": [
         "CW",
         "SSB",
-        "FM"
-      ],
-      "submodes": [
+        "FM",
         "AM"
       ],
+      "submodes": [],
       "verified": true,
       "rules_url_checked": "2026-08-19",
       "eligibility": {
@@ -10639,11 +10637,10 @@
       "modes": [
         "CW",
         "SSB",
-        "FM"
-      ],
-      "submodes": [
+        "FM",
         "AM"
       ],
+      "submodes": [],
       "verified": true,
       "rules_url_checked": "2026-08-19",
       "eligibility": {
@@ -10695,11 +10692,10 @@
       "modes": [
         "CW",
         "SSB",
-        "FM"
-      ],
-      "submodes": [
+        "FM",
         "AM"
       ],
+      "submodes": [],
       "verified": true,
       "rules_url_checked": "2026-08-19",
       "eligibility": {
@@ -10755,11 +10751,10 @@
       "modes": [
         "CW",
         "SSB",
-        "FM"
-      ],
-      "submodes": [
+        "FM",
         "AM"
       ],
+      "submodes": [],
       "verified": true,
       "rules_url_checked": "2026-08-19",
       "eligibility": {
@@ -11758,11 +11753,10 @@
         "SSB",
         "FM",
         "CW",
-        "FT8/FT4"
-      ],
-      "submodes": [
+        "FT8/FT4",
         "AM"
       ],
+      "submodes": [],
       "bands": [
         "160m",
         "80m",
@@ -16830,6 +16824,537 @@
         "scope": "worldwide",
         "verified": true,
         "note": "Page: run by the A1 Club but 'anyone' may take part (Japanese text)."
+      }
+    },
+    {
+      "id": "kcj-contest",
+      "name": "KCJ Contest",
+      "sponsor": "Keymen's Club of Japan",
+      "country": "JP",
+      "rules_url": "https://kcj-cw.com/php/contest_info.php?k=dx",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "bands_note": "Sponsor: 1.8-50 MHz except the 3.8 MHz band and the WARC bands.",
+      "exchange": "Japanese stations send RST and prefecture/district code (e.g. 599 TK); DX stations send RST and CQ zone",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2023": [
+            "2023-08-19"
+          ],
+          "2024": [
+            "2024-08-17"
+          ],
+          "2025": [
+            "2025-08-16"
+          ],
+          "2026": [
+            "2026-08-15"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2023-08-19, 2024-08-17, 2025-08-16, 2026-08-15); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual.",
+      "source_note": "kcj-cw.com rules PDFs (<year>_<n>_kcj_dx_t.pdf) and contest_info page: CW, 1200Z Saturday to 1200Z Sunday; starts 2023-08-19, 2024-08-17, 2025-08-16, 2026-08-15 (47th). Log deadline 1500Z 31 Aug 2026, about 15 days after the end. Read 2026-10-15.",
+      "summary": "Japan's Keymen's Club CW contest in August: 24 hours where Japanese stations are the multipliers.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://kcj-cw.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "KCJ rules invite stations in Japan and overseas; DX stations work Japanese stations."
+      }
+    },
+    {
+      "id": "kcj-top-band",
+      "name": "KCJ Top Band Contest",
+      "sponsor": "Keymen's Club of Japan",
+      "country": "JP",
+      "rules_url": "https://kcj-cw.com/php/contest_info.php?k=dx",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 16,
+      "modes": [
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m"
+      ],
+      "bands_note": "160 m only.",
+      "exchange": "Japanese stations send RST and prefecture/district code (e.g. 599 TK); DX stations send RST and CQ zone",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2023": [
+            "2023-02-11"
+          ],
+          "2024": [
+            "2024-02-10"
+          ],
+          "2025": [
+            "2025-02-08"
+          ],
+          "2026": [
+            "2026-02-14"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2023-02-11, 2024-02-10, 2025-02-08, 2026-02-14); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual.",
+      "source_note": "kcj-cw.com rules PDFs and contest_info page: CW, 160 m, 1200Z Saturday to 1200Z Sunday; starts 2023-02-11, 2024-02-10, 2025-02-08, 2026-02-14 (42nd). 2026 was NOT 7 February, which is why no ordinal is encoded. Log deadline 1500Z 2 Mar 2026, 16 days after the end. Read 2026-10-15.",
+      "summary": "Keymen's Club of Japan's 160 m CW contest in February.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://kcj-cw.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "KCJ rules invite stations in Japan and overseas; DX stations work Japanese stations."
+      }
+    },
+    {
+      "id": "classic-exchange-cw",
+      "name": "Classic Exchange (CW)",
+      "sponsor": "Classic Exchange",
+      "country": "US",
+      "rules_url": "https://classicexchange.org/",
+      "log_format": null,
+      "modes": [
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "bands_note": "Sponsor: 160-80-40-20-15-10-6-2.",
+      "exchange": "RST, QTH (state/province/country), operator name, and the make and model of your receiver and transmitter",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-11-01",
+            "2026-11-03"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0800"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-11-01, 2026-11-03); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. Two sessions per running (Sunday and Tuesday). A Winter edition exists but its dates were not read, so none are recorded. Logs due 15 Dec 2026 to logs@classicexchange.org; the deadline is not a fixed offset so it is not encoded.",
+      "source_note": "classicexchange.org 'Fall 2026 CX Rules' (Rev 1, 21 Jan 26), the 50th anniversary edition: CW sessions Sunday 1 Nov 1400Z to Monday 0800Z and Tuesday 3 Nov 1400Z to Wednesday 0800Z. Read 2026-10-15.",
+      "summary": "A vintage-and-classic-gear exchange: you send the make and model of your receiver and transmitter. Two 18-hour sessions in each mode.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://classicexchange.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The rules as read restrict no country; open participation was not stated in so many words."
+      }
+    },
+    {
+      "id": "classic-exchange-phone",
+      "name": "Classic Exchange (Phone)",
+      "sponsor": "Classic Exchange",
+      "country": "US",
+      "rules_url": "https://classicexchange.org/",
+      "log_format": null,
+      "modes": [
+        "SSB",
+        "AM"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "bands_note": "Sponsor: 160-80-40-20-15-10-6-2. The sponsor's frequency table has both AM and SSB windows.",
+      "exchange": "RST, QTH (state/province/country), operator name, and the make and model of your receiver and transmitter",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-11-15",
+            "2026-11-17"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0800"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-11-15, 2026-11-17); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. Two sessions per running (Sunday and Tuesday). A Winter edition exists but its dates were not read, so none are recorded. Logs due 15 Dec 2026 to logs@classicexchange.org; the deadline is not a fixed offset so it is not encoded.",
+      "source_note": "classicexchange.org 'Fall 2026 CX Rules' (Rev 1, 21 Jan 26), the 50th anniversary edition: Phone sessions Sunday 15 Nov 1400Z to Monday 0800Z and Tuesday 17 Nov 1400Z to Wednesday 0800Z. Read 2026-10-15.",
+      "summary": "A vintage-and-classic-gear exchange: you send the make and model of your receiver and transmitter. Two 18-hour sessions in each mode.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://classicexchange.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "The rules as read restrict no country; open participation was not stated in so many words."
+      }
+    },
+    {
+      "id": "fmre-rtty",
+      "name": "Mexico RTTY International Contest",
+      "sponsor": "FMRE",
+      "country": "MX",
+      "rules_url": "https://rtty.fmre.mx/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 38,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "Baudot RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Sponsor: 3.5-28 MHz, WARC bands prohibited. Baudot RTTY only.",
+      "exchange": "Mexican stations send RS and state; DX stations send RS and a serial number from 001",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2023": [
+            "2023-02-04"
+          ],
+          "2024": [
+            "2024-02-03"
+          ],
+          "2025": [
+            "2025-02-01"
+          ],
+          "2026": [
+            "2026-02-07"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2023-02-04, 2024-02-03, 2025-02-01, 2026-02-07); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual.",
+      "source_note": "rtty.fmre.mx/reglas/Rules_FMRE_RTTY_<year>.pdf for 2023-2026: 36 hours, 1200Z Saturday to 2359Z Sunday; starts 2023-02-04, 2024-02-03, 2025-02-01, 2026-02-07 (28th edition). Cabrillo to rtty@fmre.mx; 2026 log deadline 18 Mar, 38 days after the end. Call 'CQ XE TEST'. Read 2026-10-15.",
+      "summary": "The Federacion Mexicana de Radioexperimentadores' 36-hour Baudot RTTY contest in early February.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://rtty.fmre.mx/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Open to all; Mexican stations exchange state, DX stations a serial."
+      }
+    },
+    {
+      "id": "awa-bruce-kelley",
+      "name": "Bruce Kelley 1929 QSO Party",
+      "sponsor": "Antique Wireless Association",
+      "country": "US",
+      "rules_url": "https://antiquewireless.org/homepage/operating-events/",
+      "log_format": null,
+      "modes": [
+        "CW"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "Hand keys; transmitters of 1929 design or earlier (self-excited).",
+      "exchange": "RST, name, state, two-digit design year, transmitter type and input power",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-11-14",
+            "2026-11-21"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2300"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0300"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-11-14, 2026-11-21); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. The AWA says each year's details are unique. Earlier years were not collected.",
+      "source_note": "antiquewireless.org operating-events pages: 2026 edition on two weekends: Saturday 14 Nov 2300Z to Monday 16 Nov 0300Z and Saturday 21 Nov 2300Z to Monday 23 Nov 0300Z. Logs on the AWA PDF form in UTC. Read 2026-10-15.",
+      "summary": "An AWA event for operators using transmitters of 1929 design or earlier, run over two weekends in November.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://antiquewireless.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Event pages restrict by equipment era, not by country; open participation was not stated in so many words."
+      }
+    },
+    {
+      "id": "awa-linc-cundall",
+      "name": "Linc Cundall Memorial AM and CW Event",
+      "sponsor": "Antique Wireless Association",
+      "country": "US",
+      "rules_url": "https://antiquewireless.org/homepage/operating-events/",
+      "log_format": null,
+      "modes": [
+        "CW",
+        "AM"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "Pre-1950 equipment.",
+      "exchange": "Callsign, RST, name and state",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-01-14",
+            "2026-01-17"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2300"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-01-14, 2026-01-17); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. The AWA says each year's details are unique. Earlier years were not collected.",
+      "source_note": "antiquewireless.org operating-events pages: 2026 edition: Wednesday 14 Jan 2300 GMT to Thursday 15 Jan 2300 GMT and Saturday 17 Jan 2300 to Sunday 18 Jan 2300 (both 24 hours). Read 2026-10-15.",
+      "summary": "An AWA AM and CW event for pre-1950 gear, in two 24-hour sessions in January.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://antiquewireless.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Event pages restrict by equipment era, not by country; open participation was not stated in so many words."
+      }
+    },
+    {
+      "id": "awa-rollins-dx",
+      "name": "John Rollins Memorial DX Event",
+      "sponsor": "Antique Wireless Association",
+      "country": "US",
+      "rules_url": "https://antiquewireless.org/homepage/operating-events/",
+      "log_format": null,
+      "modes": [
+        "CW",
+        "AM"
+      ],
+      "submodes": [],
+      "bands": [
+        "80m",
+        "40m",
+        "20m"
+      ],
+      "bands_note": "Antique/vintage gear.",
+      "exchange": "Callsign, RST, name, state/province, and the manufacture dates of your receiver and transmitter",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2027": [
+            "2027-03-26"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 3,
+        "time": "0200"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2027-03-26); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. The AWA says each year's details are unique. Earlier years were not collected.",
+      "source_note": "antiquewireless.org operating-events pages: Next edition: Friday 26 Mar 2027 2200Z to Monday 29 Mar 0200Z. Read 2026-10-15.",
+      "summary": "An AWA DX weekend in March for operators of antique equipment, who exchange the manufacture dates of their gear.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://antiquewireless.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Event pages restrict by equipment era, not by country; open participation was not stated in so many words."
+      }
+    },
+    {
+      "id": "awa-am-qso-party",
+      "name": "AWA AM QSO Party",
+      "sponsor": "Antique Wireless Association",
+      "country": "US",
+      "rules_url": "https://antiquewireless.org/homepage/operating-events/",
+      "log_format": null,
+      "modes": [
+        "AM"
+      ],
+      "submodes": [],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "10m"
+      ],
+      "bands_note": "Sponsor lists 160/75/40/20/10; AM only.",
+      "exchange": "As given in the AWA event details",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-26"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (2026-09-26); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. The AWA says each year's details are unique. Earlier years were not collected.",
+      "source_note": "antiquewireless.org operating-events pages: 2026: Saturday 26 Sep 2000 UTC to Sunday 27 Sep 2400 UTC. Scoresheet and logsheet due by 2400 UTC 25 Oct 2026 to W8ACR. Read 2026-10-15.",
+      "summary": "The Antique Wireless Association's AM-only phone QSO party in late September.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://antiquewireless.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": false,
+        "note": "Event pages restrict by equipment era, not by country; open participation was not stated in so many words."
+      },
+      "log_deadline_days": 28
+    },
+    {
+      "id": "srr-digital-cup",
+      "name": "SRR Cup on Digital Modes (RTTY)",
+      "sponsor": "Russian Amateur Radio Union",
+      "country": "RU",
+      "rules_url": "https://srr.ru/wp-content/uploads/2025/08/Reglament-Kubok-SRR-po-TSVS-2025-RTTY.pdf",
+      "log_format": null,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "RTTY45"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "RTTY45 only. Two rounds of four hours each.",
+      "exchange": "Serial number from 001 plus the first four characters of the QTH locator",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2025": [
+            {
+              "date": "2025-09-20",
+              "start": "1500",
+              "end": "1859"
+            },
+            {
+              "date": "2025-09-21",
+              "start": "0600",
+              "end": "0959"
+            }
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "1859"
+      },
+      "verified": true,
+      "note": "DATES ARE STATED PER EDITION; THE SPONSOR PUBLISHES NO RECURRENCE RULE. Only the dates the sponsor has actually published are encoded (20 and 21 September 2025); a year it has not announced yields nothing rather than a guess. If a stated rule turns up, this record upgrades from manual. No 2026 edition was seen on srr.ru.",
+      "source_note": "srr.ru regulation 'Kubok SRR po TSVS 2025 RTTY': two rounds, Saturday 2025-09-20 15:00-18:59 UTC and Sunday 2025-09-21 06:00-09:59 UTC, RTTY45, 80/40/20/15/10 m, 8 counted hours; groups A1/A2/B (Russian stations) and C1/C2 (foreign). Read 2026-10-15.",
+      "summary": "The Russian Amateur Radio Union's RTTY cup, run as two four-hour rounds on a September weekend.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://srr.ru/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Regulation has groups for Russian (A1/A2/B) and foreign (C1/C2) participants."
       }
     }
   ]
