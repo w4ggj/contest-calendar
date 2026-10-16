@@ -257,3 +257,11 @@ Each of these is blocked on a sponsor, not on more work. Details in `data/source
 - **Digital contests with no current sponsor page found** (marked `blocked` in `data/discovery_worklist.json`, each with its reason): Ukrainian DX DIGI / Classic RTTY, the Russian digital contests (only a 2017 SRR PDF), YB DX RTTY / YBDXPI, Alessandro Volta RTTY, LABRE-RS Digi, Bucharest Digital, KCJ. If you know the sponsor's own page for any, that is all it takes; aggregators can't be used.
 - **CQ WW VHF** is encoded `verified: false`: the split-weekend rule rests on 2025 and 2026 only and the start time moved from 12:00 to 14:00 UTC. Check the 2027 rules when CQ publishes them.
 - **REP (Portugal):** concursos.rep.pt and www.rep.pt time out on connect from this machine; three links unchecked. Re-run `scripts/check_links.py` later.
+
+## Discovery batches 1-2, 2026-10-15
+
+- **DARC RTTY Sprint** (index ref 744): DARC's own pages never use that name, so it is NOT matched to `darc-rtty-kurzcontest`. Ask DARC's Referat Conteste whether they are the same event; if so, record the answer as a `source_note` with the person's name and date.
+- **10-10 International digital contests** (Fall/Spring/Open Season PSK) and the **YO International PSK31 Contest:** 10-10.org and yo5crq.ro answer HTTP 406 to automated fetches. Read the rules in a browser and send them, or the contests stay uncatalogued.
+- **VHF/UHF FT8 Activity (3 records):** `verified: false`; the sponsor states the Wednesday pattern for 2026 only. Re-read ft8activity.eu/rules when 2027 rules are published.
+- **VHF/UHF "Fall/Spring Sprint" series (nine index entries):** no sponsor-owned page identified (possibly Northern Lights Radio Society; nlrs.ca did not connect). Point to the sponsor's own page.
+- **Flaky test:** one worker run showed 3 failures in `dx.worker.test.ts`, then passed 201/201 on rerun. Cause not found; if it recurs, check it for clock or concurrency dependence.
