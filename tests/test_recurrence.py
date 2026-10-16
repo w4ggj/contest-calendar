@@ -1085,6 +1085,44 @@ def test_cq_ww_vhf_runs_two_weekends_two_weeks_apart(catalog):
     assert [o.start.date() for o in occ25] == [date(2025, 7, 5), date(2025, 7, 19)]
 
 
+def test_igry_ww_rtty_is_second_full_april_weekend_for_thirty_hours(catalog):
+    """
+    ig-ry.de: 'Every year the 2nd full weekend of April, from Saturday 12.00z to
+    Sunday 18.00z. In 2027: 10. - 11. April.'
+    """
+    occ = expand(by_id(catalog, "igry-ww-rtty"), 2027)
+    assert [(o.start.date(), o.start.hour, o.duration_hours) for o in occ] == [
+        (date(2027, 4, 10), 12, 30)
+    ]
+
+
+def test_volta_rtty_is_second_full_may_weekend_for_twenty_four_hours(catalog):
+    """
+    contestvolta.it rules: 'second full weekend of May from 12:00 UTC on
+    Saturday to 12:00 UTC on Sunday'; the 2026 running was 9-10 May.
+    """
+    occ = expand(by_id(catalog, "volta-rtty-dx"), 2026)
+    assert [(o.start.date(), o.start.hour, o.duration_hours) for o in occ] == [
+        (date(2026, 5, 9), 12, 24)
+    ]
+
+
+def test_scry_rtty_runs_two_sessions_across_the_last_august_weekend(catalog):
+    """
+    rttyops.com: 2027 'Period 1: 22:00 UTC Friday to 12:00 Saturday; Period 2:
+    12:00 UTC Sunday to 23:59 Sunday' (27-29 August); 2028 25-27 August; 2029
+    24-26 August.
+    """
+    def starts(y):
+        return sorted(expand(by_id(catalog, "scry-ww-rtty"), y), key=lambda o: o.start)
+
+    assert [(o.start.date(), o.start.hour) for o in starts(2027)] == [
+        (date(2027, 8, 27), 22), (date(2027, 8, 29), 12)
+    ]
+    assert [o.start.date() for o in starts(2028)] == [date(2028, 8, 25), date(2028, 8, 27)]
+    assert [o.start.date() for o in starts(2029)] == [date(2029, 8, 24), date(2029, 8, 26)]
+
+
 def test_agcw_fixed_date_contests_track_the_calendar_not_the_week(catalog):
     """
     Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and

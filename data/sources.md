@@ -2063,3 +2063,15 @@ Located through a discovery index (name only); every fact read from the sponsor'
 2026-10-15, later: `check_links.py` reported three concursos.rep.pt URLs (REP, Portugal) as URLError. Both concursos.rep.pt and www.rep.pt time out on connect from this machine, so the whole host is unreachable rather than the pages moved. No record changed; re-run when the host answers.
 
 **CQ WW VHF changed its start time between 2025 and 2026.** The 2025 rules PDF reads "Starts 12:00:00 UTC Saturday  Ends 12:00:00 UTC Sunday"; the 2026 rules read 14:00:00 UTC. Nothing on either page announces the change. That is the second sponsor found changing times without notice after the ARRL 10 GHz contests, and it is exactly the case the source monitor (`SOURCE_MONITOR_BRIEF.md`) exists to catch: a content-hash diff of the rules page would have flagged it.
+
+## 2026-10-15 — RTTY batch from the discovery worklist
+
+Sponsors were located through the rttyops.com contest list (a locator only) and then read on their own sites.
+
+| Contest | Sponsor page | Rule as the sponsor states it |
+| --- | --- | --- |
+| `igry-ww-rtty` | ig-ry.de/ig-ry-ww-contest | "Every year the 2nd full weekend of April, from Saturday 12.00z to Sunday 18.00z. In 2027: 10. - 11. April." Verified. |
+| `volta-rtty-dx` | contestvolta.it/rules.pdf (Nov 2025) | "second full weekend of May from 12:00 UTC on Saturday to 12:00 UTC on Sunday". Verified. The .com domain serves the same site only inside a frame; the .it address is the readable one. |
+| `scry-ww-rtty` | rttyops.com SCRY rules | 2027: Friday 22:00 to Saturday 12:00 UTC, then Sunday 12:00 to 23:59 UTC (27-29 August); 2028 and 2029 also fit the last full August weekend. **Unverified**: the page still carries 2021-era text beside the new dates and states no recurrence rule. |
+
+Not encoded, and why: Ukrainian DX Classic RTTY (urdxc.org) shows only 2019 rules and results to 2021, so there is no evidence it still runs; RTTYops Weekend Sprint and Weeksprint have ambiguous times; XE FMRE RTTY's host does not resolve; the DRCG pages answer HTTP 403 to automated fetches. Each is marked `blocked` in `data/discovery_worklist.json` with its reason. `DARC RTTY Sprint` in the index was matched by name to `darc-rtty-kurzcontest`.

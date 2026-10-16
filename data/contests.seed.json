@@ -16232,6 +16232,188 @@
         "verified": true,
         "note": "cqww-vhf.com rules I: 'for amateurs around the world to contact as many amateurs as possible'."
       }
+    },
+    {
+      "id": "igry-ww-rtty",
+      "name": "IG-RY World Wide RTTY Contest",
+      "sponsor": "Interest Group RTTY (IG-RY)",
+      "country": "DE",
+      "rules_url": "https://ig-ry.de/ig-ry-ww-contest",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "RTTY 45.45 baud"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "Five bands only: 3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "RS(T) plus the four-digit year of the operator's first official amateur licence (multi-operator entries use the oldest operator's)",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": true,
+      "source_note": "ig-ry.de/ig-ry-ww-contest: 'Every year the 2nd full weekend of April, from Saturday 12.00z to Sunday 18.00z. In 2027: 10. - 11. April.' 'Five bands only: 3.5, 7, 14, 21 and 28 MHz.' Mode RTTY (Baudot, 45.45 baud). Categories SO-HP-AB (1500 W), SO-LP-AB (100 W) and Multi-Op single transmitter (1500 W). Exchange RS(T) plus the four-digit year of the operator's first official amateur licence. Logs in Cabrillo within five days of the end. 10-11 April 2027 is the second full weekend of April. Verified 2026-10-15.",
+      "summary": "Thirty hours of RTTY on the five contest bands where you send the year you were first licensed; the number you give is the multiplier you are.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://ig-ry.de/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "ig-ry.de rules: an open worldwide contest; every station may be worked."
+      }
+    },
+    {
+      "id": "volta-rtty-dx",
+      "name": "Alessandro Volta RTTY DX Contest",
+      "sponsor": "SSB and RTTY Club of COMO (A.R.I.)",
+      "country": "IT",
+      "rules_url": "https://www.contestvolta.it/rules.pdf",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 15,
+      "modes": [
+        "RTTY"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "3.5, 7, 14, 21 and 28 MHz.",
+      "exchange": "RST plus serial number from 001 plus CQ zone",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1200"
+      },
+      "verified": true,
+      "source_note": "contestvolta.it/rules.pdf (updated November 2025): 'The contest always takes place on the second full weekend of May from 12:00 UTC on Saturday to 12:00 UTC on Sunday.' RTTY only on 3.5, 7, 14, 21 and 28 MHz. Exchange RST, serial number from 001 and CQ zone. Cabrillo upload only, logs no later than 15 days after the end. The home page counts the 2026 running as the 60th. Verified 2026-10-15.",
+      "summary": "Italy's long-running RTTY DX contest, held since the 1960s on the second full May weekend; send RST, a serial number and your CQ zone.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://www.contestvolta.it/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "contestvolta.it rules: an international DX contest open to all stations."
+      }
+    },
+    {
+      "id": "scry-ww-rtty",
+      "name": "RTTYops WW SCRY RTTY Contest",
+      "sponsor": "RTTYops",
+      "country": "INTL",
+      "rules_url": "https://rttyops.com/index.php/contests/cq-rttyops-ww-scry-rtty/cq-rttyops-ww-scry2-rtty-rules",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "RTTY 45 baud"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "No WARC bands.",
+      "exchange": "RST plus the four-digit year of the operator's first licence",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 8,
+        "n": -1
+      },
+      "start": {
+        "day_offset": -1,
+        "time": "2200"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": -1,
+            "time": "2200"
+          },
+          "end": {
+            "day_offset": 0,
+            "time": "1200"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": false,
+      "source_note": "rttyops.com SCRY rules: 'In 2027, the last weekend of August, 1th session 27th to 28th August & 2nd session 29th August 2027 Period 1: 22:00 UTC Friday to 12:00 Saturday; Period 2: 12:00 UTC Sunday to 23:59 Sunday'. Future dates listed: 2028 25th-27th August, 2029 24th-26th August. All three fit the last full weekend of August with the Friday evening start. RTTY (Baudot, 45 baud) on 160-10 m without WARC; exchange RST plus the year of first licence; Cabrillo logs within 7 days. Read 2026-10-15.",
+      "note": "The rules page still carries 2021-era boilerplate (a licence-year range ending 2021) beside the updated 2027-2029 dates, so the page is not fully maintained. Dates fit one rule across three years but the sponsor states no recurrence rule; re-read the next edition.",
+      "summary": "Successor to the Scandinavian-Baltic RTTY contest: two sessions across the last August weekend, scored on first-licence years.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://rttyops.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "rttyops.com rules: worldwide; Scandinavian and Baltic prefixes are extra multipliers for outside stations."
+      }
     }
   ]
 }

@@ -1147,6 +1147,37 @@ test("CQ WW VHF runs two weekends two weeks apart", () => {
   expect(sorted(2025).map((o) => isoDate(o.start!))).toEqual([D(2025, 7, 5), D(2025, 7, 19)]);
 });
 
+test("IG-RY WW RTTY is the second full April weekend for thirty hours", () => {
+  // ig-ry.de: 'Every year the 2nd full weekend of April, from Saturday 12.00z to
+  // Sunday 18.00z. In 2027: 10. - 11. April.'
+  const occ = expand(byId("igry-ww-rtty"), 2027);
+  expect(occ.map((o) => [isoDate(o.start!), o.start!.getUTCHours(), o.duration_hours])).toEqual([
+    [D(2027, 4, 10), 12, 30],
+  ]);
+});
+
+test("Volta RTTY is the second full May weekend for twenty four hours", () => {
+  // contestvolta.it rules: 'second full weekend of May from 12:00 UTC on
+  // Saturday to 12:00 UTC on Sunday'; the 2026 running was 9-10 May.
+  const occ = expand(byId("volta-rtty-dx"), 2026);
+  expect(occ.map((o) => [isoDate(o.start!), o.start!.getUTCHours(), o.duration_hours])).toEqual([
+    [D(2026, 5, 9), 12, 24],
+  ]);
+});
+
+test("SCRY RTTY runs two sessions across the last August weekend", () => {
+  // rttyops.com: 2027 'Period 1: 22:00 UTC Friday to 12:00 Saturday; Period 2:
+  // 12:00 UTC Sunday to 23:59 Sunday' (27-29 August); 2028 25-27 August; 2029
+  // 24-26 August.
+  const starts = (y: number) =>
+    expand(byId("scry-ww-rtty"), y).sort((a, b) => a.start!.getTime() - b.start!.getTime());
+  expect(starts(2027).map((o) => [isoDate(o.start!), o.start!.getUTCHours()])).toEqual([
+    [D(2027, 8, 27), 22], [D(2027, 8, 29), 12],
+  ]);
+  expect(starts(2028).map((o) => isoDate(o.start!))).toEqual([D(2028, 8, 25), D(2028, 8, 27)]);
+  expect(starts(2029).map((o) => isoDate(o.start!))).toEqual([D(2029, 8, 24), D(2029, 8, 26)]);
+});
+
 test("AGCW fixed-date contests track the calendar not the week", () => {
   // Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and
   // German Unity Day. They must land on the same date every year and drift

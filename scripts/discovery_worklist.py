@@ -128,6 +128,7 @@ COVERED = {
     228: "mrasz-ha-dx", 206: "hrs-9a-dx", 223: "darc-10m", 210: "darc-xmas",
     668: "darc-ostercontest", 146: "agcw-dtc", 255: "agcw-sta", 188: "oevsv-aoec-160m",
     588: "wia-trans-tasman", 737: "nzart-sprint-cw", 628: "pears-national-vhf-uhf",
+    744: "darc-rtty-kurzcontest", 540: "nccc-ns-rtty", 416: "bartg-sprint-psk63",
 }
 
 MATCH_AT = 0.86  # at or above: treated as already in the catalog
