@@ -1070,6 +1070,21 @@ def test_agcw_vhf_uhf_has_four_dates_with_two_sessions_each(catalog):
         assert day[0].end == day[1].start, "UHF leg must start as the VHF leg ends"
 
 
+def test_cq_ww_vhf_runs_two_weekends_two_weeks_apart(catalog):
+    """
+    cqww-vhf.com 2026 rules: 'SSB/CW/FM: July 4-5   Digital: July 18-19 ...
+    Starts 14:00:00 UTC Saturday  Ends 14:00:00 UTC Sunday'; the 2025 rules PDF
+    reads July 5-6 and July 19-20. Two sessions a year, 14 days apart, each 24h.
+    """
+    occ = sorted(expand(by_id(catalog, "cq-ww-vhf"), 2026), key=lambda o: o.start)
+    assert [(o.start.date(), o.start.hour) for o in occ] == [
+        (date(2026, 7, 4), 14), (date(2026, 7, 18), 14)
+    ]
+    assert all(o.duration_hours == 24 for o in occ)
+    occ25 = sorted(expand(by_id(catalog, "cq-ww-vhf"), 2025), key=lambda o: o.start)
+    assert [o.start.date() for o in occ25] == [date(2025, 7, 5), date(2025, 7, 19)]
+
+
 def test_agcw_fixed_date_contests_track_the_calendar_not_the_week(catalog):
     """
     Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and

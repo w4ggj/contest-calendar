@@ -2,8 +2,9 @@
  "_about": "DISCOVERY ONLY. Names located via a third-party index; nothing here is a source for any contest fact. Work an item by reading the SPONSOR's own rules page. status: todo | encoded | skip (with reason) | blocked (with reason).",
  "index": "https://www.contestcalendar.com/alphabetical.php",
  "summary": {
-  "encoded": 189,
-  "todo": 530
+  "blocked": 17,
+  "encoded": 219,
+  "todo": 483
  },
  "items": [
   {
@@ -29,17 +30,6 @@
    "priority": 0
   },
   {
-   "index_ref": 230,
-   "name": "BARTG RTTY Sprint",
-   "index_greyed": false,
-   "closest": "bartg-sprint",
-   "closest_score": 0.828,
-   "status": "todo",
-   "reason": "",
-   "digital": true,
-   "priority": 0
-  },
-  {
    "index_ref": 677,
    "name": "Batavia FT8 Contest",
    "index_greyed": true,
@@ -56,8 +46,8 @@
    "index_greyed": false,
    "closest": "arrl-digital",
    "closest_score": 0.69,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
    "digital": true,
    "priority": 0
   },
@@ -67,8 +57,8 @@
    "index_greyed": false,
    "closest": "ww-digi",
    "closest_score": 0.829,
-   "status": "todo",
-   "reason": "",
+   "status": "encoded",
+   "reason": "cq-ww-vhf, 2026-10-15, from cqww-vhf.com",
    "digital": true,
    "priority": 0
   },
@@ -210,8 +200,8 @@
    "index_greyed": false,
    "closest": "sarl-hf-digital",
    "closest_score": 0.645,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
    "digital": true,
    "priority": 0
   },
@@ -271,17 +261,6 @@
    "priority": 0
   },
   {
-   "index_ref": 741,
-   "name": "NCCC FT4 Sprint",
-   "index_greyed": false,
-   "closest": "nccc-ns-ft4",
-   "closest_score": 0.811,
-   "status": "todo",
-   "reason": "",
-   "digital": true,
-   "priority": 0
-  },
-  {
    "index_ref": 540,
    "name": "NCCC RTTY Sprint",
    "index_greyed": true,
@@ -298,17 +277,6 @@
    "index_greyed": true,
    "closest": "nccc-ns-rtty",
    "closest_score": 0.766,
-   "status": "todo",
-   "reason": "",
-   "digital": true,
-   "priority": 0
-  },
-  {
-   "index_ref": 334,
-   "name": "Open Ukraine RTTY Championship",
-   "index_greyed": false,
-   "closest": "uarl-champ-cw",
-   "closest_score": 0.69,
    "status": "todo",
    "reason": "",
    "digital": true,
@@ -381,24 +349,13 @@
    "priority": 0
   },
   {
-   "index_ref": 653,
-   "name": "RSGB FT4 Contest",
-   "index_greyed": false,
-   "closest": "rsgb-iota",
-   "closest_score": 0.706,
-   "status": "todo",
-   "reason": "",
-   "digital": true,
-   "priority": 0
-  },
-  {
    "index_ref": 595,
    "name": "Russian Cup Digital Contest",
    "index_greyed": false,
    "closest": "sarl-hf-digital",
    "closest_score": 0.588,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": true,
    "priority": 0
   },
@@ -408,8 +365,8 @@
    "index_greyed": true,
    "closest": "srr-russian-dx",
    "closest_score": 0.571,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": true,
    "priority": 0
   },
@@ -419,8 +376,8 @@
    "index_greyed": false,
    "closest": "srr-russian-dx",
    "closest_score": 0.611,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": true,
    "priority": 0
   },
@@ -430,8 +387,8 @@
    "index_greyed": false,
    "closest": "sartg-ww-rtty",
    "closest_score": 0.667,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": true,
    "priority": 0
   },
@@ -441,19 +398,8 @@
    "index_greyed": false,
    "closest": "ww-digi",
    "closest_score": 0.81,
-   "status": "todo",
-   "reason": "",
-   "digital": true,
-   "priority": 0
-  },
-  {
-   "index_ref": 628,
-   "name": "SARL VHF/UHF Digital Contest",
-   "index_greyed": false,
-   "closest": "sarl-hf-digital",
-   "closest_score": 0.857,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": true,
    "priority": 0
   },
@@ -540,8 +486,8 @@
    "index_greyed": false,
    "closest": "uarl-champ-rtty",
    "closest_score": 0.727,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no current sponsor page found; only a 2005 qsl.net mirror",
    "digital": true,
    "priority": 0
   },
@@ -551,8 +497,8 @@
    "index_greyed": false,
    "closest": "ww-digi",
    "closest_score": 0.595,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no current sponsor page found; only a 2005 qsl.net mirror",
    "digital": true,
    "priority": 0
   },
@@ -606,8 +552,8 @@
    "index_greyed": false,
    "closest": "jarl-ww-rtty",
    "closest_score": 0.821,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: sponsor's own page not located",
    "digital": true,
    "priority": 0
   },
@@ -639,8 +585,8 @@
    "index_greyed": false,
    "closest": "sp-dx-rtty",
    "closest_score": 0.8,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled",
    "digital": true,
    "priority": 0
   },
@@ -650,8 +596,8 @@
    "index_greyed": false,
    "closest": "frr-yo-dx-hf",
    "closest_score": 0.556,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled",
    "digital": true,
    "priority": 0
   },
@@ -694,17 +640,6 @@
    "index_greyed": true,
    "closest": "tenten-day-sprint",
    "closest_score": 0.571,
-   "status": "todo",
-   "reason": "",
-   "digital": true,
-   "priority": 1
-  },
-  {
-   "index_ref": 716,
-   "name": "ARRL Inter. Digital Contest",
-   "index_greyed": false,
-   "closest": "arrl-digital",
-   "closest_score": 0.8,
    "status": "todo",
    "reason": "",
    "digital": true,
@@ -887,17 +822,6 @@
    "priority": 2
   },
   {
-   "index_ref": 255,
-   "name": "AGCW Semi-Automatic Key Evening",
-   "index_greyed": false,
-   "closest": "arrl-straight-key-night",
-   "closest_score": 0.481,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 109,
    "name": "AGCW Straight Key Party",
    "index_greyed": false,
@@ -914,17 +838,6 @@
    "index_greyed": false,
    "closest": "alabama-qso-party",
    "closest_score": 0.667,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 188,
-   "name": "All Austrian 160-Meter Contest",
-   "index_greyed": false,
-   "closest": "oevsv-aoec-160m",
-   "closest_score": 0.735,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -956,8 +869,8 @@
    "index_ref": 477,
    "name": "Araucaria World Wide VHF Contest",
    "index_greyed": true,
-   "closest": "jarl-ww-rtty",
-   "closest_score": 0.636,
+   "closest": "cq-ww-vhf",
+   "closest_score": 0.78,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -1354,8 +1267,8 @@
    "index_greyed": false,
    "closest": "cq-ww-ssb",
    "closest_score": 0.821,
-   "status": "todo",
-   "reason": "",
+   "status": "encoded",
+   "reason": "cq-ww-vhf, 2026-10-15, from cqww-vhf.com",
    "digital": false,
    "priority": 2
   },
@@ -1426,17 +1339,6 @@
    "priority": 2
   },
   {
-   "index_ref": 206,
-   "name": "Croatian DX Contest",
-   "index_greyed": false,
-   "closest": "hrs-9a-dx",
-   "closest_score": 0.786,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 534,
    "name": "CVA DX Contest, CW",
    "index_greyed": false,
@@ -1481,44 +1383,11 @@
    "priority": 2
   },
   {
-   "index_ref": 223,
-   "name": "DARC 10-Meter Contest",
-   "index_greyed": false,
-   "closest": "arrl-10m",
-   "closest_score": 0.846,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 210,
-   "name": "DARC Christmas Contest",
-   "index_greyed": false,
-   "closest": "darc-xmas",
-   "closest_score": 0.696,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 776,
    "name": "DARC CW-Training Contest",
    "index_greyed": false,
    "closest": "darc-wag",
    "closest_score": 0.667,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 668,
-   "name": "DARC Easter Contest",
-   "index_greyed": false,
-   "closest": "darc-xmas",
-   "closest_score": 0.7,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -1585,28 +1454,6 @@
    "index_greyed": true,
    "closest": "south-dakota-qso-party",
    "closest_score": 0.48,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 249,
-   "name": "Dutch PACC Contest",
-   "index_greyed": false,
-   "closest": "pacc",
-   "closest_score": 0.571,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 693,
-   "name": "Dutch PACCdigi Contest",
-   "index_greyed": false,
-   "closest": "paccdigi",
-   "closest_score": 0.727,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -1803,8 +1650,8 @@
    "index_ref": 398,
    "name": "eXtreme CW World-Wide Challenge",
    "index_greyed": true,
-   "closest": "cq-ww-cw",
-   "closest_score": 0.565,
+   "closest": "cq-ww-vhf",
+   "closest_score": 0.583,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -2130,17 +1977,6 @@
    "priority": 2
   },
   {
-   "index_ref": 146,
-   "name": "German Telegraphy Contest",
-   "index_greyed": false,
-   "closest": "agcw-dtc",
-   "closest_score": 0.488,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 30,
    "name": "Great Lakes QSO Party",
    "index_greyed": true,
@@ -2311,17 +2147,6 @@
    "index_greyed": true,
    "closest": "cq-ww-cw",
    "closest_score": 0.8,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 228,
-   "name": "Hungarian DX Contest",
-   "index_greyed": false,
-   "closest": "ari-international-dx",
-   "closest_score": 0.667,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -2619,8 +2444,8 @@
    "index_greyed": false,
    "closest": "sarl-top-band-qso",
    "closest_score": 0.667,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
    "digital": false,
    "priority": 2
   },
@@ -2630,8 +2455,8 @@
    "index_greyed": false,
    "closest": "rsgb-club-calls",
    "closest_score": 0.471,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no sponsor page found in search; try sponsor domain by hand",
    "digital": false,
    "priority": 2
   },
@@ -3794,8 +3619,8 @@
    "index_ref": 497,
    "name": "QRP ARCI VHF Contest",
    "index_greyed": true,
-   "closest": "sarl-africa-ft4",
-   "closest_score": 0.519,
+   "closest": "cq-ww-vhf",
+   "closest_score": 0.552,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -3945,39 +3770,6 @@
    "priority": 2
   },
   {
-   "index_ref": 233,
-   "name": "REF Contest, CW",
-   "index_greyed": false,
-   "closest": "ure-cncw",
-   "closest_score": 0.714,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 260,
-   "name": "REF Contest, SSB",
-   "index_greyed": false,
-   "closest": "cq-wpx-ssb",
-   "closest_score": 0.7,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 372,
-   "name": "REF DDFM 6m Contest",
-   "index_greyed": false,
-   "closest": "ref-ddfm-50mhz",
-   "closest_score": 0.8,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 667,
    "name": "REP HF-VHF-UHF-SHF Sprint - World Amateur Radio Day",
    "index_greyed": false,
@@ -4049,28 +3841,6 @@
    "index_greyed": true,
    "closest": "rsgb-1_8mhz-second",
    "closest_score": 0.703,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 458,
-   "name": "RSGB 80m Autumn Series, CW",
-   "index_greyed": false,
-   "closest": "rsgb-autumn-cw",
-   "closest_score": 0.852,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 459,
-   "name": "RSGB 80m Autumn Series, SSB",
-   "index_greyed": false,
-   "closest": "rsgb-autumn-ssb",
-   "closest_score": 0.857,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -4214,8 +3984,8 @@
    "index_greyed": false,
    "closest": "arrl-iaru-hf",
    "closest_score": 0.632,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": false,
    "priority": 2
   },
@@ -4225,8 +3995,8 @@
    "index_greyed": false,
    "closest": "jarl-ww-rtty",
    "closest_score": 0.565,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: only a 2017 SRR PDF (srr.ru), one-off dates, no current edition or stated recurrence",
    "digital": false,
    "priority": 2
   },
@@ -4594,17 +4364,6 @@
    "priority": 2
   },
   {
-   "index_ref": 588,
-   "name": "Trans-Tasman Low-Bands Challenge",
-   "index_greyed": false,
-   "closest": "wia-trans-tasman",
-   "closest_score": 0.792,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 536,
    "name": "TRC DX Contest",
    "index_greyed": false,
@@ -4687,28 +4446,6 @@
    "index_greyed": true,
    "closest": "uba-on-2m",
    "closest_score": 0.667,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 157,
-   "name": "UBA ON Contest, CW",
-   "index_greyed": false,
-   "closest": "uba-dx-cw",
-   "closest_score": 0.8,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
-   "index_ref": 144,
-   "name": "UBA ON Contest, SSB",
-   "index_greyed": false,
-   "closest": "uba-dx-ssb",
-   "closest_score": 0.824,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -5125,8 +4862,8 @@
    "index_ref": 319,
    "name": "World Wide Holyland Contest",
    "index_greyed": false,
-   "closest": "ww-digi",
-   "closest_score": 0.65,
+   "closest": "cq-ww-vhf",
+   "closest_score": 0.667,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -5270,8 +5007,8 @@
    "index_greyed": false,
    "closest": "uba-dx-ssb",
    "closest_score": 0.7,
-   "status": "todo",
-   "reason": "",
+   "status": "blocked",
+   "reason": "2026-10-15: no 2026 sponsor notice found; third-party calendar showed 2025 cancelled",
    "digital": false,
    "priority": 2
   },
@@ -5419,22 +5156,11 @@
    "priority": 2
   },
   {
-   "index_ref": 737,
-   "name": "ZL Sprint",
-   "index_greyed": false,
-   "closest": "bartg-sprint",
-   "closest_score": 0.667,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 2
-  },
-  {
    "index_ref": 632,
    "name": "Zombie Shuffle",
    "index_greyed": false,
-   "closest": "hammies-qso-party",
-   "closest_score": 0.381,
+   "closest": "cq-ww-vhf",
+   "closest_score": 0.4,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -5518,44 +5244,11 @@
    "priority": 3
   },
   {
-   "index_ref": 88,
-   "name": "ARRL 10 GHz and Up Contest",
-   "index_greyed": false,
-   "closest": "arrl-10ghz-leg1",
-   "closest_score": 0.778,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 3
-  },
-  {
    "index_ref": 417,
    "name": "ARRL EME Contest",
    "index_greyed": false,
    "closest": "arrl-10m",
    "closest_score": 0.75,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 3
-  },
-  {
-   "index_ref": 256,
-   "name": "ARRL Inter. DX Contest, CW",
-   "index_greyed": false,
-   "closest": "arrl-dx-cw",
-   "closest_score": 0.769,
-   "status": "todo",
-   "reason": "",
-   "digital": false,
-   "priority": 3
-  },
-  {
-   "index_ref": 289,
-   "name": "ARRL Inter. DX Contest, SSB",
-   "index_greyed": false,
-   "closest": "arrl-dx-ssb",
-   "closest_score": 0.786,
    "status": "todo",
    "reason": "",
    "digital": false,
@@ -5870,6 +5563,17 @@
    "priority": 0
   },
   {
+   "index_ref": 230,
+   "name": "BARTG RTTY Sprint",
+   "index_greyed": false,
+   "closest": "bartg-sprint",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": true,
+   "priority": 0
+  },
+  {
    "index_ref": 703,
    "name": "BARTG Sprint PSK63 Contest",
    "index_greyed": false,
@@ -5969,6 +5673,17 @@
    "priority": 0
   },
   {
+   "index_ref": 741,
+   "name": "NCCC FT4 Sprint",
+   "index_greyed": false,
+   "closest": "nccc-ns-ft4",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": true,
+   "priority": 0
+  },
+  {
    "index_ref": 263,
    "name": "North American QSO Party, RTTY",
    "index_greyed": false,
@@ -5995,6 +5710,17 @@
    "name": "OK DX RTTY Contest",
    "index_greyed": false,
    "closest": "ok-dx-rtty",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": true,
+   "priority": 0
+  },
+  {
+   "index_ref": 334,
+   "name": "Open Ukraine RTTY Championship",
+   "index_greyed": false,
+   "closest": "uarl-champ-rtty",
    "closest_score": 1.0,
    "status": "encoded",
    "reason": "",
@@ -6035,6 +5761,17 @@
    "priority": 0
   },
   {
+   "index_ref": 653,
+   "name": "RSGB FT4 Contest",
+   "index_greyed": false,
+   "closest": "rsgb-ft4-series",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": true,
+   "priority": 0
+  },
+  {
    "index_ref": 718,
    "name": "RSGB FT4 International Activity Day",
    "index_greyed": false,
@@ -6061,6 +5798,17 @@
    "name": "SARL HF Digital Contest",
    "index_greyed": false,
    "closest": "sarl-hf-digital",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": true,
+   "priority": 0
+  },
+  {
+   "index_ref": 628,
+   "name": "SARL VHF/UHF Digital Contest",
+   "index_greyed": false,
+   "closest": "pears-national-vhf-uhf",
    "closest_score": 1.0,
    "status": "encoded",
    "reason": "",
@@ -6143,6 +5891,17 @@
    "reason": "",
    "digital": true,
    "priority": 0
+  },
+  {
+   "index_ref": 716,
+   "name": "ARRL Inter. Digital Contest",
+   "index_greyed": false,
+   "closest": "arrl-digital",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": true,
+   "priority": 1
   },
   {
    "index_ref": 501,
@@ -6233,6 +5992,17 @@
    "priority": 2
   },
   {
+   "index_ref": 255,
+   "name": "AGCW Semi-Automatic Key Evening",
+   "index_greyed": false,
+   "closest": "agcw-sta",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
    "index_ref": 214,
    "name": "AGCW VHF/UHF Contest",
    "index_greyed": false,
@@ -6270,6 +6040,17 @@
    "name": "All Asian DX Contest, Phone",
    "index_greyed": false,
    "closest": "jarl-aa-dx-phone",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 188,
+   "name": "All Austrian 160-Meter Contest",
+   "index_greyed": false,
+   "closest": "oevsv-aoec-160m",
    "closest_score": 1.0,
    "status": "encoded",
    "reason": "",
@@ -6442,6 +6223,17 @@
    "priority": 2
   },
   {
+   "index_ref": 206,
+   "name": "Croatian DX Contest",
+   "index_greyed": false,
+   "closest": "hrs-9a-dx",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
    "index_ref": 532,
    "name": "CWOps CW Open",
    "index_greyed": false,
@@ -6457,6 +6249,61 @@
    "name": "CWops Test (CWT)",
    "index_greyed": false,
    "closest": "cwops-cwt",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 223,
+   "name": "DARC 10-Meter Contest",
+   "index_greyed": false,
+   "closest": "darc-10m",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 210,
+   "name": "DARC Christmas Contest",
+   "index_greyed": false,
+   "closest": "darc-xmas",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 668,
+   "name": "DARC Easter Contest",
+   "index_greyed": false,
+   "closest": "darc-ostercontest",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 249,
+   "name": "Dutch PACC Contest",
+   "index_greyed": false,
+   "closest": "pacc",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 693,
+   "name": "Dutch PACCdigi Contest",
+   "index_greyed": false,
+   "closest": "paccdigi",
    "closest_score": 1.0,
    "status": "encoded",
    "reason": "",
@@ -6530,6 +6377,17 @@
    "priority": 2
   },
   {
+   "index_ref": 146,
+   "name": "German Telegraphy Contest",
+   "index_greyed": false,
+   "closest": "agcw-dtc",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
    "index_ref": 326,
    "name": "Helvetia Contest",
    "index_greyed": false,
@@ -6557,6 +6415,17 @@
    "index_greyed": false,
    "closest": "ure-rey-de-espana-ssb",
    "closest_score": 0.917,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 228,
+   "name": "Hungarian DX Contest",
+   "index_greyed": false,
+   "closest": "mrasz-ha-dx",
+   "closest_score": 1.0,
    "status": "encoded",
    "reason": "",
    "digital": false,
@@ -6926,6 +6795,61 @@
    "priority": 2
   },
   {
+   "index_ref": 233,
+   "name": "REF Contest, CW",
+   "index_greyed": false,
+   "closest": "ref-coupe-du-ref-cw",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 260,
+   "name": "REF Contest, SSB",
+   "index_greyed": false,
+   "closest": "ref-coupe-du-ref-ssb",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 372,
+   "name": "REF DDFM 6m Contest",
+   "index_greyed": false,
+   "closest": "ref-ddfm-50mhz",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 458,
+   "name": "RSGB 80m Autumn Series, CW",
+   "index_greyed": false,
+   "closest": "rsgb-autumn-cw",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 459,
+   "name": "RSGB 80m Autumn Series, SSB",
+   "index_greyed": false,
+   "closest": "rsgb-autumn-ssb",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
    "index_ref": 275,
    "name": "RSGB 80m Club Championship, CW",
    "index_greyed": false,
@@ -7146,6 +7070,17 @@
    "priority": 2
   },
   {
+   "index_ref": 588,
+   "name": "Trans-Tasman Low-Bands Challenge",
+   "index_greyed": false,
+   "closest": "wia-trans-tasman",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
    "index_ref": 261,
    "name": "UBA DX Contest, CW",
    "index_greyed": false,
@@ -7183,6 +7118,28 @@
    "name": "UBA ON Contest, 6m",
    "index_greyed": false,
    "closest": "uba-on-6m",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 157,
+   "name": "UBA ON Contest, CW",
+   "index_greyed": false,
+   "closest": "uba-on-80-40-cw",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
+   "index_ref": 144,
+   "name": "UBA ON Contest, SSB",
+   "index_greyed": false,
+   "closest": "uba-on-80-40-ssb",
    "closest_score": 1.0,
    "status": "encoded",
    "reason": "",
@@ -7322,6 +7279,17 @@
    "priority": 2
   },
   {
+   "index_ref": 737,
+   "name": "ZL Sprint",
+   "index_greyed": false,
+   "closest": "nzart-sprint-cw",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 2
+  },
+  {
    "index_ref": 156,
    "name": "10-10 Int. 10-10 Day Sprint",
    "index_greyed": false,
@@ -7377,6 +7345,17 @@
    "priority": 3
   },
   {
+   "index_ref": 88,
+   "name": "ARRL 10 GHz and Up Contest",
+   "index_greyed": false,
+   "closest": "arrl-10ghz-leg1",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 3
+  },
+  {
    "index_ref": 199,
    "name": "ARRL 10-Meter Contest",
    "index_greyed": false,
@@ -7414,6 +7393,28 @@
    "name": "ARRL Field Day",
    "index_greyed": false,
    "closest": "arrl-field-day",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 3
+  },
+  {
+   "index_ref": 256,
+   "name": "ARRL Inter. DX Contest, CW",
+   "index_greyed": false,
+   "closest": "arrl-dx-cw",
+   "closest_score": 1.0,
+   "status": "encoded",
+   "reason": "",
+   "digital": false,
+   "priority": 3
+  },
+  {
+   "index_ref": 289,
+   "name": "ARRL Inter. DX Contest, SSB",
+   "index_greyed": false,
+   "closest": "arrl-dx-ssb",
    "closest_score": 1.0,
    "status": "encoded",
    "reason": "",

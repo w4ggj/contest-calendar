@@ -16144,6 +16144,94 @@
         "verified": true,
         "note": ""
       }
+    },
+    {
+      "id": "cq-ww-vhf",
+      "name": "CQ World Wide VHF Contest",
+      "sponsor": "CQ Magazine",
+      "country": "US",
+      "rules_url": "https://cqww-vhf.com/rules/",
+      "log_submit_url": "https://cqww-vhf.com/logcheck/",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "CW",
+        "SSB",
+        "FM",
+        "Digital"
+      ],
+      "submodes": [
+        "FT4",
+        "FT8",
+        "MSK144",
+        "Q65"
+      ],
+      "bands": [
+        "6m",
+        "2m"
+      ],
+      "bands_note": "50 and 144 MHz only. Analog modes (SSB/CW/FM) on the first weekend, digital modes only on the second.",
+      "exchange": "Callsign and 4-character Maidenhead grid locator; no signal report",
+      "power_categories": [
+        {
+          "name": "High Power",
+          "max_watts": 1500
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 10
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 7,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 15,
+        "time": "1400"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "1400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 14,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 15,
+            "time": "1400"
+          }
+        }
+      ],
+      "verified": false,
+      "source_note": "cqww-vhf.com/rules (2026): 'SSB/CW/FM: July 4-5   Digital: July 18-19. Starts 14:00:00 UTC Saturday Ends 14:00:00 UTC Sunday'; 'Only analog modes (SSB/CW/FM) during the SSB/CW weekend. Only digital modes (FT4, FT8, MSK144, Q65, etc) during the Digital weekend.' The 2025 rules PDF on the same site has July 5-6 and July 19-20 at 12:00 UTC. Both split-weekend years are the first Saturday of July and the Saturday two weeks later; the sponsor states no recurrence rule, and the start time moved from 12:00 to 14:00 UTC between the two. The rules PDFs for 2016-2024 show a single weekend at 18:00-21:00 UTC in mid-July (third Saturday), so the pattern is two years old.",
+      "note": "UNVERIFIED RULE: the split-weekend pattern (first full July weekend for SSB/CW/FM, digital two weeks later) rests on two years of sponsor rules (2025, 2026) and the start time changed between them (12:00 UTC in 2025, 14:00 UTC in 2026). Encoded at the 2026 clock time. Re-read the 2027 rules when published.",
+      "summary": "Six- and two-metre grid-square contest. One weekend for SSB, CW and FM, a second for digital modes only; multiplier is grids worked per band.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://cqww-vhf.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "cqww-vhf.com rules I: 'for amateurs around the world to contact as many amateurs as possible'."
+      }
     }
   ]
 }

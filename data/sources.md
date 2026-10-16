@@ -2055,3 +2055,9 @@ Digital: Louisiana, Mississippi, Missouri, Kansas, Delaware, South Carolina, Ten
 ## 2026-10-15 — JARL links re-checked
 
 `check_links.py` on 2026-10-15 reported all eight www.jarl.org rules URLs as broken (URLError). A re-run an hour later returned 300 live, 0 broken, and each of the eight pages was fetched and read: all return real rules pages (no meta-refresh to the top page, which is how www.jarl.org answers a path that does not exist), and the three English pages still carry the wording quoted in the 2026-08-17 JARL row ("third Saturday in June", "first Saturday in September", "third Saturday in October", "January 2"). No URL or record changed. The outage was a fact about the web server, not about the pages.
+
+## 2026-10-15 — CQ World Wide VHF Contest (`cq-ww-vhf`)
+
+Located through a discovery index (name only); every fact read from the sponsor's own site, cqww-vhf.com: the 2026 rules page and PDF, and the archived rules PDFs for 2016-2025 linked from `/rules/rules_archive`. 2026: "SSB/CW/FM: July 4-5  Digital: July 18-19 ... Starts 14:00:00 UTC Saturday Ends 14:00:00 UTC Sunday"; 6 m and 2 m only; exchange callsign plus 4-character grid; "Only digital modes (FT4, FT8, MSK144, Q65, etc) during the Digital weekend". 2025 PDF: July 5-6 and July 19-20 at 12:00 UTC. 2016-2024 PDFs: one weekend, 18:00-21:00 UTC, third Saturday of July. **Left `verified: false`**: the split-weekend rule rests on two years, the sponsor states no recurrence rule, and the clock time changed between them. Re-read the 2027 rules when published.
+
+2026-10-15, later: `check_links.py` reported three concursos.rep.pt URLs (REP, Portugal) as URLError. Both concursos.rep.pt and www.rep.pt time out on connect from this machine, so the whole host is unreachable rather than the pages moved. No record changed; re-run when the host answers.

@@ -1133,6 +1133,20 @@ test("AGCW VHF/UHF has four dates with two sessions each", () => {
   }
 });
 
+test("CQ WW VHF runs two weekends two weeks apart", () => {
+  // cqww-vhf.com 2026 rules: 'SSB/CW/FM: July 4-5   Digital: July 18-19 ...
+  // Starts 14:00:00 UTC Saturday  Ends 14:00:00 UTC Sunday'; the 2025 rules PDF
+  // reads July 5-6 and July 19-20. Two sessions a year, 14 days apart, each 24h.
+  const sorted = (y: number) =>
+    expand(byId("cq-ww-vhf"), y).sort((a, b) => a.start!.getTime() - b.start!.getTime());
+  const occ = sorted(2026);
+  expect(occ.map((o) => [isoDate(o.start!), o.start!.getUTCHours()])).toEqual([
+    [D(2026, 7, 4), 14], [D(2026, 7, 18), 14],
+  ]);
+  expect(occ.every((o) => o.duration_hours === 24)).toBe(true);
+  expect(sorted(2025).map((o) => isoDate(o.start!))).toEqual([D(2025, 7, 5), D(2025, 7, 19)]);
+});
+
 test("AGCW fixed-date contests track the calendar not the week", () => {
   // Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and
   // German Unity Day. They must land on the same date every year and drift

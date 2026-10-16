@@ -116,6 +116,20 @@ def best_match(n: str, keys: list[tuple[str, str]]) -> tuple[str, float]:
     return best, round(score, 3)
 
 
+# Index rows a human has matched to a catalog record by hand, where the names
+# differ too much for the fuzzy pass (index_ref -> catalog id). Reviewed 2026-10-15
+# by comparing names only; the match asserts "same contest", never "same facts".
+COVERED = {
+    716: "arrl-digital", 256: "arrl-dx-cw", 289: "arrl-dx-ssb", 88: "arrl-10ghz-leg1",
+    230: "bartg-sprint", 249: "pacc", 693: "paccdigi", 741: "nccc-ns-ft4",
+    334: "uarl-champ-rtty", 653: "rsgb-ft4-series", 233: "ref-coupe-du-ref-cw",
+    260: "ref-coupe-du-ref-ssb", 372: "ref-ddfm-50mhz", 157: "uba-on-80-40-cw",
+    144: "uba-on-80-40-ssb", 458: "rsgb-autumn-cw", 459: "rsgb-autumn-ssb",
+    228: "mrasz-ha-dx", 206: "hrs-9a-dx", 223: "darc-10m", 210: "darc-xmas",
+    668: "darc-ostercontest", 146: "agcw-dtc", 255: "agcw-sta", 188: "oevsv-aoec-160m",
+    588: "wia-trans-tasman", 737: "nzart-sprint-cw", 628: "pears-national-vhf-uhf",
+}
+
 MATCH_AT = 0.86  # at or above: treated as already in the catalog
 
 
@@ -157,6 +171,8 @@ def main() -> int:
         old = prior.get(n["index_ref"], {})
         close, score = best_match(norm(n["name"]), keys)
         status = old.get("status", "todo")
+        if n["index_ref"] in COVERED:
+            close, score = COVERED[n["index_ref"]], 1.0
         if score >= MATCH_AT and status == "todo":
             status = "encoded"
         e = {**n, "closest": close, "closest_score": score, "status": status,

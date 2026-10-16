@@ -251,3 +251,9 @@ Each of these is blocked on a sponsor, not on more work. Details in `data/source
 - **Sponsor unnamed on their rules pages:** Arizona, New Mexico, Oklahoma, Kansas, Canadian
   Prairies, New England QSO Parties. The party's own name stands in as sponsor.
 - **Maryland-DC QSO Party:** the Anne Arundel RC contest pages return 404/500; only a 2024 PDF is readable.
+
+## Discovery sweep, 2026-10-15
+
+- **Digital contests with no current sponsor page found** (marked `blocked` in `data/discovery_worklist.json`, each with its reason): Ukrainian DX DIGI / Classic RTTY, the Russian digital contests (only a 2017 SRR PDF), YB DX RTTY / YBDXPI, Alessandro Volta RTTY, LABRE-RS Digi, Bucharest Digital, KCJ. If you know the sponsor's own page for any, that is all it takes; aggregators can't be used.
+- **CQ WW VHF** is encoded `verified: false`: the split-weekend rule rests on 2025 and 2026 only and the start time moved from 12:00 to 14:00 UTC. Check the 2027 rules when CQ publishes them.
+- **REP (Portugal):** concursos.rep.pt and www.rep.pt time out on connect from this machine; three links unchecked. Re-run `scripts/check_links.py` later.
