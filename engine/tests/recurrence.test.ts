@@ -1178,6 +1178,45 @@ test("SCRY RTTY runs two sessions across the last August weekend", () => {
   expect(starts(2029).map((o) => isoDate(o.start!))).toEqual([D(2029, 8, 24), D(2029, 8, 26)]);
 });
 
+test("URC DX RTTY is the first Friday of October", () => {
+  // unicomradio.com: 'annually on the first Friday of October ... October 3, 2025;
+  // October 2, 2026; October 1, 2027; October 6, 2028; October 5, 2029'.
+  const got = Object.fromEntries(
+    [2025, 2026, 2027, 2028, 2029].map((y) => [y, expand(byId("urc-dx-rtty"), y).map((o) => isoDate(o.start!))]),
+  );
+  expect(got).toEqual({
+    2025: [D(2025, 10, 3)], 2026: [D(2026, 10, 2)], 2027: [D(2027, 10, 1)],
+    2028: [D(2028, 10, 6)], 2029: [D(2029, 10, 5)],
+  });
+});
+
+test("TRC contests run thirty six hours from 0600 Saturday", () => {
+  // trcdx.org: TRC DX 'first full weekend of October (October 3 / 4, 2026) from
+  // 06:00 UTC on Saturday till 18:00 UTC on Sunday'; TRC DIGI 'second full
+  // weekend of December (December 13/14, 2025)', 12/13 December 2026.
+  const rows = (id: string, y: number) =>
+    expand(byId(id), y).map((o) => [isoDate(o.start!), o.start!.getUTCHours(), o.duration_hours]);
+  expect(rows("trc-dx", 2026)).toEqual([[D(2026, 10, 3), 6, 36]]);
+  expect(rows("trc-digi", 2025)).toEqual([[D(2025, 12, 13), 6, 36]]);
+  expect(rows("trc-digi", 2026)).toEqual([[D(2026, 12, 12), 6, 36]]);
+});
+
+test("FT8 Activity runs the first second and third Wednesday by band", () => {
+  // ft8activity.eu 2026 round table: 144 MHz on the first Wednesday (Jan 7, Dec 2),
+  // 432 MHz on the second (Jan 14, Oct 14), 1296 MHz on the third (Oct 21, Dec 16);
+  // 17:00 to 21:00 UTC.
+  const days = (id: string) => {
+    const occ = expand(byId(id), 2026).sort((a, b) => a.start!.getTime() - b.start!.getTime());
+    expect(occ.every((o) => o.start!.getUTCHours() === 17 && o.duration_hours === 4)).toBe(true);
+    return occ.map((o) => isoDate(o.start!));
+  };
+  const a = days("ft8activity-144"), b = days("ft8activity-432"), c = days("ft8activity-1296");
+  expect([a.length, b.length, c.length]).toEqual([12, 12, 12]);
+  expect([a[0], a[11]]).toEqual([D(2026, 1, 7), D(2026, 12, 2)]);
+  expect([b[0], b[9]]).toEqual([D(2026, 1, 14), D(2026, 10, 14)]);
+  expect([c[9], c[11]]).toEqual([D(2026, 10, 21), D(2026, 12, 16)]);
+});
+
 test("AGCW fixed-date contests track the calendar not the week", () => {
   // Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and
   // German Unity Day. They must land on the same date every year and drift

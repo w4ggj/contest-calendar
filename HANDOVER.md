@@ -18,8 +18,8 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 305 contest definitions → 1001 occurrences for 2026. 503 Python tests,
-513 TypeScript tests, 201 Worker tests. Engine complete in both languages — no known
+**Current state:** 311 contest definitions → 1040 occurrences for 2026. 506 Python tests,
+516 TypeScript tests, 201 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -60,11 +60,11 @@ to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do 
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 503 passed
+python -m pytest -q               # expect: 506 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 513 passed (500 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 516 passed (503 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 201 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 

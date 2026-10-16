@@ -2074,4 +2074,17 @@ Sponsors were located through the rttyops.com contest list (a locator only) and 
 | `volta-rtty-dx` | contestvolta.it/rules.pdf (Nov 2025) | "second full weekend of May from 12:00 UTC on Saturday to 12:00 UTC on Sunday". Verified. The .com domain serves the same site only inside a frame; the .it address is the readable one. |
 | `scry-ww-rtty` | rttyops.com SCRY rules | 2027: Friday 22:00 to Saturday 12:00 UTC, then Sunday 12:00 to 23:59 UTC (27-29 August); 2028 and 2029 also fit the last full August weekend. **Unverified**: the page still carries 2021-era text beside the new dates and states no recurrence rule. |
 
-Not encoded, and why: Ukrainian DX Classic RTTY (urdxc.org) shows only 2019 rules and results to 2021, so there is no evidence it still runs; RTTYops Weekend Sprint and Weeksprint have ambiguous times; XE FMRE RTTY's host does not resolve; the DRCG pages answer HTTP 403 to automated fetches. Each is marked `blocked` in `data/discovery_worklist.json` with its reason. `DARC RTTY Sprint` in the index was matched by name to `darc-rtty-kurzcontest`.
+Not encoded, and why: Ukrainian DX Classic RTTY (urdxc.org) shows only 2019 rules and results to 2021, so there is no evidence it still runs; RTTYops Weekend Sprint and Weeksprint have ambiguous times; XE FMRE RTTY's host does not resolve; the DRCG pages answer HTTP 403 to automated fetches. Each is marked `blocked` in `data/discovery_worklist.json` with its reason. `DARC RTTY Sprint` in the index is NOT matched to `darc-rtty-kurzcontest`: DARC's own pages never use that name, so it stays unresolved.
+
+## 2026-10-15 — Batch 2 from the discovery worklist
+
+Sponsors located through the discovery index and search, then every fact read on the sponsor's own site.
+
+| Contest | Sponsor page | Rule as the sponsor states it |
+| --- | --- | --- |
+| `urc-dx-rtty` | unicomradio.com/urc-dx-rtty-contest | "annually on the first Friday of October ... 00:00:01 UTC to 23:59:59 UTC", with 2025-2029 dates listed, each a first Friday. Verified. Sponsor is a radio retailer's club; event began 2024. |
+| `trc-dx` | trcdx.org/rules-trc-dx | "The first full weekend of October (October 3 / 4, 2026) from 06:00 UTC on Saturday till 18:00 UTC on Sunday"; CW and SSB, 160-10 m. Verified. |
+| `trc-digi` | trcdx.org/rules-trc-digi | "The second full weekend of December" (13/14 December 2025; 12/13 December 2026 on the club's calendar page), same 06:00-18:00 UTC, RTTY. Verified. |
+| `ft8activity-144`, `-432`, `-1296` | ft8activity.eu/rules | First, second and third Wednesday of each month for 2 m, 70 cm and 23 cm, 17:00-21:00 UTC. **Unverified**: the sponsor states the pattern for "January to December 2026" only, so it is read as a rule but not confirmed for another year. All 12 listed 2026 dates match. |
+
+Not encoded: the 10-10 International digital contests (10-10.org answers HTTP 406 to automated fetches), the YO International PSK31 Contest (yo5crq.ro answers 406; only a 2010 listing found), nine VHF/UHF sprint entries whose sponsor could not be identified from any sponsor-owned page, and several greyed-out index rows. All marked `blocked` in `data/discovery_worklist.json` with the reason.

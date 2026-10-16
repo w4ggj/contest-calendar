@@ -128,7 +128,7 @@ COVERED = {
     228: "mrasz-ha-dx", 206: "hrs-9a-dx", 223: "darc-10m", 210: "darc-xmas",
     668: "darc-ostercontest", 146: "agcw-dtc", 255: "agcw-sta", 188: "oevsv-aoec-160m",
     588: "wia-trans-tasman", 737: "nzart-sprint-cw", 628: "pears-national-vhf-uhf",
-    744: "darc-rtty-kurzcontest", 540: "nccc-ns-rtty", 416: "bartg-sprint-psk63",
+    540: "nccc-ns-rtty", 416: "bartg-sprint-psk63",
 }
 
 MATCH_AT = 0.86  # at or above: treated as already in the catalog
@@ -148,7 +148,9 @@ def main() -> int:
     a = ap.parse_args()
 
     prior = {}
+    prior_batches = []
     if OUT.exists():
+        prior_batches = json.loads(OUT.read_text(encoding="utf-8")).get("batches", [])
         prior = {e["index_ref"]: e for e in json.loads(OUT.read_text(encoding="utf-8"))["items"]}
 
     if a.show is not None and not a.offline and OUT.exists():
@@ -194,9 +196,12 @@ def main() -> int:
     OUT.write_text(json.dumps({
         "_about": ("DISCOVERY ONLY. Names located via a third-party index; nothing here is a "
                    "source for any contest fact. Work an item by reading the SPONSOR's own "
-                   "rules page. status: todo | encoded | skip (with reason) | blocked (with reason)."),
+                   "rules page. status: todo | encoded | skip (with reason) | blocked (with reason). "
+                   "batches: yield per batch -- names processed vs contests actually encoded; "
+                   "when a batch of ~30 yields one or none, the tail is exhausted."),
         "index": INDEX_URL,
         "summary": summary,
+        "batches": prior_batches,
         "items": items,
     }, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     print(f"{len(names)} index names; {summary}")

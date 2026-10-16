@@ -1123,6 +1123,55 @@ def test_scry_rtty_runs_two_sessions_across_the_last_august_weekend(catalog):
     assert [o.start.date() for o in starts(2029)] == [date(2029, 8, 24), date(2029, 8, 26)]
 
 
+def test_urc_dx_rtty_is_the_first_friday_of_october(catalog):
+    """
+    unicomradio.com: 'annually on the first Friday of October ... October 3, 2025;
+    October 2, 2026; October 1, 2027; October 6, 2028; October 5, 2029'.
+    """
+    got = {
+        y: [o.start.date() for o in expand(by_id(catalog, "urc-dx-rtty"), y)]
+        for y in (2025, 2026, 2027, 2028, 2029)
+    }
+    assert got == {
+        2025: [date(2025, 10, 3)], 2026: [date(2026, 10, 2)], 2027: [date(2027, 10, 1)],
+        2028: [date(2028, 10, 6)], 2029: [date(2029, 10, 5)],
+    }
+
+
+def test_trc_contests_run_thirty_six_hours_from_0600_saturday(catalog):
+    """
+    trcdx.org: TRC DX 'first full weekend of October (October 3 / 4, 2026) from
+    06:00 UTC on Saturday till 18:00 UTC on Sunday'; TRC DIGI 'second full
+    weekend of December (December 13/14, 2025)', 12/13 December 2026.
+    """
+    dx = expand(by_id(catalog, "trc-dx"), 2026)
+    assert [(o.start.date(), o.start.hour, o.duration_hours) for o in dx] == [
+        (date(2026, 10, 3), 6, 36)
+    ]
+    dg = lambda y: [(o.start.date(), o.start.hour, o.duration_hours)
+                    for o in expand(by_id(catalog, "trc-digi"), y)]
+    assert dg(2025) == [(date(2025, 12, 13), 6, 36)]
+    assert dg(2026) == [(date(2026, 12, 12), 6, 36)]
+
+
+def test_ft8_activity_runs_the_first_second_and_third_wednesday_by_band(catalog):
+    """
+    ft8activity.eu 2026 round table: 144 MHz on the first Wednesday (Jan 7, Dec 2),
+    432 MHz on the second (Jan 14, Oct 14), 1296 MHz on the third (Oct 21, Dec 16);
+    17:00 to 21:00 UTC.
+    """
+    def days(cid):
+        occ = expand(by_id(catalog, cid), 2026)
+        assert all(o.start.hour == 17 and o.duration_hours == 4 for o in occ)
+        return [o.start.date() for o in sorted(occ, key=lambda o: o.start)]
+
+    a, b, c = days("ft8activity-144"), days("ft8activity-432"), days("ft8activity-1296")
+    assert len(a) == len(b) == len(c) == 12
+    assert (a[0], a[-1]) == (date(2026, 1, 7), date(2026, 12, 2))
+    assert (b[0], b[9]) == (date(2026, 1, 14), date(2026, 10, 14))
+    assert (c[9], c[-1]) == (date(2026, 10, 21), date(2026, 12, 16))
+
+
 def test_agcw_fixed_date_contests_track_the_calendar_not_the_week(catalog):
     """
     Three AGCW contests hang off fixed dates -- New Year's Day, May 1st, and

@@ -16414,6 +16414,341 @@
         "verified": true,
         "note": "rttyops.com rules: worldwide; Scandinavian and Baltic prefixes are extra multipliers for outside stations."
       }
+    },
+    {
+      "id": "urc-dx-rtty",
+      "name": "URC DX RTTY Contest",
+      "sponsor": "Unicom Radio Club",
+      "country": "INTL",
+      "rules_url": "https://unicomradio.com/urc-dx-rtty-contest/",
+      "log_submit_url": "https://ua9qcq.com/submit_log.php",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 5,
+      "modes": [
+        "RTTY"
+      ],
+      "submodes": [
+        "RTTY 45.45 baud"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "RST plus a three-letter territory code from the URC Territories List (maritime mobile send MMS)",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 1,
+        "weekday": 4,
+        "months": [
+          10
+        ]
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0000"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "source_note": "unicomradio.com/urc-dx-rtty-contest: 'The URC DX RTTY Contest will take place annually on the first Friday of October. The contest runs from 00:00:01 UTC to 23:59:59 UTC on the following dates: October 3, 2025; October 2, 2026; October 1, 2027; October 6, 2028; October 5, 2029.' Every listed date is the first Friday of October. RTTY 45.45 baud on 160-10 m (no WARC). Categories SOAB-HP, SOAB-LP (100 W), MOST. Cabrillo logs within 5 days. Verified 2026-10-15.",
+      "note": "The sponsor is a radio retailer's club and the event began in 2024, so the rule rests on the sponsor's own five-year date list rather than a long history.",
+      "summary": "A one-day RTTY contest on the first Friday of October where the exchange is a territory code rather than a zone, so every region of a big country is a separate multiplier.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://unicomradio.com/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rules: 'invites amateur radio operators worldwide'; contacts with any station are eligible."
+      }
+    },
+    {
+      "id": "trc-dx",
+      "name": "TRC DX Contest",
+      "sponsor": "Thracian Rose Club",
+      "country": "BG",
+      "rules_url": "https://trcdx.org/rules-trc-dx/",
+      "log_submit_url": "https://trcdx.org/upload-logs",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "CW",
+        "SSB"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "IARU band plan applies. A station may be worked once on CW and once on SSB per band.",
+      "exchange": "RS(T) plus serial number; TRC members add 'TRC' after the serial",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": true,
+      "source_note": "trcdx.org/rules-trc-dx: 'The first full weekend of October (October 3 / 4, 2026) from 06:00 UTC on Saturday till 18:00 UTC on Sunday'; 'Period of operation: 36 hours. Single Operator stations may operate for only 24 of these 36 hours'; 'Band and mode: 160, 80, 40, 20, 15, 10 m ; CW, SSB.' Logs 'WITHIN SEVEN (7) DAYS after the end of the contest'. The contest-calendar page repeats the 2026 dates. 3-4 October 2026 is the first full weekend. Verified 2026-10-15.",
+      "summary": "Bulgaria's Thracian Rose Club contest: 36 hours of CW and SSB where working a club member is worth ten points.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://trcdx.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rules score contacts between stations on different continents and in the same continent; open to all stations."
+      }
+    },
+    {
+      "id": "trc-digi",
+      "name": "TRC DIGI Contest",
+      "sponsor": "Thracian Rose Club",
+      "country": "BG",
+      "rules_url": "https://trcdx.org/rules-trc-digi/",
+      "log_submit_url": "https://trcdx.org/upload-logs",
+      "log_format": "Cabrillo",
+      "log_deadline_days": 7,
+      "modes": [
+        "RTTY"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "bands_note": "IARU band plan applies.",
+      "exchange": "RS(T) plus serial number; TRC members add 'TRC' after the serial",
+      "power_categories": [
+        {
+          "name": "High Power"
+        },
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "QRP",
+          "max_watts": 5
+        }
+      ],
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 12,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "0600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": true,
+      "source_note": "trcdx.org/rules-trc-digi (2025): 'The second full weekend of December (December 13/14, 2025) from 06:00 UTC on Saturday till 18:00 UTC on Sunday'; 'Mode: RTTY'; 'Bands: 160, 80, 40, 20, 15, 10 m'. The contest-calendar page gives 12/13 December 2026, again the second full weekend. Logs 'WITHIN SEVEN (7) DAYS'. Verified 2026-10-15.",
+      "summary": "The Thracian Rose Club's RTTY contest in December: 36 hours, 24 of them operated, with a separate scoring class for club members.",
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://trcdx.org/",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Open to all stations; separate TRC-member and non-member categories."
+      }
+    },
+    {
+      "sponsor": "QSO BANAT Association (YO2KQT)",
+      "country": "RO",
+      "rules_url": "https://ft8activity.eu/rules/",
+      "log_format": "ADIF",
+      "log_deadline_days": 5,
+      "exchange": "Callsign and 4-character grid locator",
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://ft8activity.eu/",
+      "note": "UNVERIFIED RULE: the sponsor states the Wednesday pattern for 'January to December 2026' only. It lists all twelve 2026 dates and each matches the stated nth Wednesday; re-read the 2027 rules when published.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rules: an 'OPEN' contest; 'each and every ham radio with a valid license'."
+      },
+      "id": "ft8activity-144",
+      "name": "VHF-UHF FT8 Activity: 144 MHz",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [],
+      "bands": [
+        "2m"
+      ],
+      "bands_note": "144 MHz: FT8 144.174, FT4 144.170.",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 100
+        },
+        {
+          "name": "High Power"
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 1,
+        "weekday": 2
+      },
+      "source_note": "ft8activity.eu/rules (2026): 'Every first Wednesday of each month for the 2m band'; 'Round period: 17:00 to 21:00 UTC'; 'Only electronic logs in ADIF format'; 'maximum 5 (five) days from the end of each round'. The 2026 round table lists every date and each is the stated nth Wednesday. Read 2026-10-15.",
+      "summary": "A four-hour FT8 activity night, once a month, on one VHF/UHF band; one point per unique callsign, multiplied by grids worked."
+    },
+    {
+      "sponsor": "QSO BANAT Association (YO2KQT)",
+      "country": "RO",
+      "rules_url": "https://ft8activity.eu/rules/",
+      "log_format": "ADIF",
+      "log_deadline_days": 5,
+      "exchange": "Callsign and 4-character grid locator",
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://ft8activity.eu/",
+      "note": "UNVERIFIED RULE: the sponsor states the Wednesday pattern for 'January to December 2026' only. It lists all twelve 2026 dates and each matches the stated nth Wednesday; re-read the 2027 rules when published.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rules: an 'OPEN' contest; 'each and every ham radio with a valid license'."
+      },
+      "id": "ft8activity-432",
+      "name": "VHF-UHF FT8 Activity: 432 MHz",
+      "modes": [
+        "FT8/FT4"
+      ],
+      "submodes": [],
+      "bands": [
+        "70cm"
+      ],
+      "bands_note": "432 MHz: FT8 432.174, FT4 432.170.",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 75
+        },
+        {
+          "name": "High Power"
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 2,
+        "weekday": 2
+      },
+      "source_note": "ft8activity.eu/rules (2026): 'Every second Wednesday of each month for the 70cm band'; 'Round period: 17:00 to 21:00 UTC'; 'Only electronic logs in ADIF format'; 'maximum 5 (five) days from the end of each round'. The 2026 round table lists every date and each is the stated nth Wednesday. Read 2026-10-15.",
+      "summary": "A four-hour FT8 activity night, once a month, on one VHF/UHF band; one point per unique callsign, multiplied by grids worked."
+    },
+    {
+      "sponsor": "QSO BANAT Association (YO2KQT)",
+      "country": "RO",
+      "rules_url": "https://ft8activity.eu/rules/",
+      "log_format": "ADIF",
+      "log_deadline_days": 5,
+      "exchange": "Callsign and 4-character grid locator",
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "sponsor_home": "https://ft8activity.eu/",
+      "note": "UNVERIFIED RULE: the sponsor states the Wednesday pattern for 'January to December 2026' only. It lists all twelve 2026 dates and each matches the stated nth Wednesday; re-read the 2027 rules when published.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": "Rules: an 'OPEN' contest; 'each and every ham radio with a valid license'."
+      },
+      "id": "ft8activity-1296",
+      "name": "VHF-UHF FT8 Activity: 1296 MHz",
+      "modes": [
+        "Digital"
+      ],
+      "submodes": [
+        "FT8"
+      ],
+      "bands": [
+        "23cm"
+      ],
+      "bands_note": "1296 MHz: FT8 or any other digital mode.",
+      "power_categories": [
+        {
+          "name": "Low Power",
+          "max_watts": 10
+        },
+        {
+          "name": "High Power"
+        }
+      ],
+      "recurrence": {
+        "type": "monthly_nth_weekday",
+        "n": 3,
+        "weekday": 2
+      },
+      "source_note": "ft8activity.eu/rules (2026): 'Every third Wednesday of each month for the 23 cm band'; 'Round period: 17:00 to 21:00 UTC'; 'Only electronic logs in ADIF format'; 'maximum 5 (five) days from the end of each round'. The 2026 round table lists every date and each is the stated nth Wednesday. Read 2026-10-15.",
+      "summary": "A four-hour FT8 activity night, once a month, on one VHF/UHF band; one point per unique callsign, multiplied by grids worked."
     }
   ]
 }
