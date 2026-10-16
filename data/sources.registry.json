@@ -966,6 +966,538 @@
       "estimated_total": 1,
       "status": "complete",
       "notes": "Florida QSO Party encoded 2026-08-23. Sponsor's own wording is 'Starts the last Saturday of April' -- a last-SATURDAY rule, not last-full-weekend, and the two diverge whenever 30 April is a Saturday (next in 2033). Two sessions with a night between them, 1600Z Sat to 0159Z Sun and 1200Z to 2159Z Sun, which is what the sessions array is for. NO DIGITAL: 'No digital QSOs are allowed in the FQP', which is unusual for a state party and worth knowing before filtering. This is the owner's home state and was already named first under the tier's local_priority, so encoding it alone does not reopen the sequencing argument."
+    },
+    {
+      "org": "Alabama Contest Group",
+      "country": "US",
+      "url": "https://alabamacontestgroup.org/aqp/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Alabama Contest Group"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Bands are not listed on the page in a form usable here (no WARC, no 160 stated), so bands are left empty (unrecorded). Digital modes are not mentioned.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Northern California Contest Club",
+      "country": "US",
+      "url": "https://www.cqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Northern California Contest Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. HF 160-10 is recorded; VHF was not confirmed from the rules text.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Grand Mesa Contesters of Colorado",
+      "country": "US",
+      "url": "https://coloradoqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Grand Mesa Contesters of Colorado"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Dates are computed from the sponsor's stated rule; no 2026 date page was read."
+    },
+    {
+      "org": "First State Amateur Radio Club",
+      "country": "US",
+      "url": "https://www.fsarc.org/qsoparty/qsohome.htm",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "First State Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The rules page read is the 2024 edition; the home page carries the 2026 times. Bands are only 'suggested' (HF excluding WARC, any band 6m up), so bands are left empty (unrecorded)."
+    },
+    {
+      "org": "Southeastern Contest Club and Southeast DX Club",
+      "country": "US",
+      "url": "https://gaqsoparty.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Southeastern Contest Club and Southeast DX Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The band list is not stated on the page, so bands are left empty (unrecorded)."
+    },
+    {
+      "org": "Arizona QSO Party",
+      "country": "US",
+      "url": "https://www.azqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Arizona QSO Party"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. SPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified."
+    },
+    {
+      "org": "Western Illinois Amateur Radio Club",
+      "country": "US",
+      "url": "https://w9awe.org/ilqp/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Western Illinois Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Recurrence anchors on the Saturday of the third full weekend with the session on the Sunday (day offset 1). FT4/FT8 contacts earn no credit, so the FT token is not recorded. No WARC bands."
+    },
+    {
+      "org": "New Mexico QSO Party",
+      "country": "US",
+      "url": "https://www.newmexicoqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "New Mexico QSO Party"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. No WARC or 60m. 2027 date (April 10) is published on the sponsor's rules.\n\nSPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified."
+    },
+    {
+      "org": "New York QSO Party Committee",
+      "country": "US",
+      "url": "https://nyqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "New York QSO Party Committee"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Rules PDF v1.1 dated 2026-09-25; text read from v1.0. Digital modes appear only as a Mixed-category option (no FT8-style modes), so Digital is not recorded. All bands except 30, 17 and 12m; the band list was not itemised, so VHF is not asserted."
+    },
+    {
+      "org": "PA QSO Party Association",
+      "country": "US",
+      "url": "https://www.paqso.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "PA QSO Party Association"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. All bands except WARC and 60m; no itemised list, so bands are left empty (unrecorded). 2027 dates (9-10 October) are published."
+    },
+    {
+      "org": "Columbia Amateur Radio Club",
+      "country": "US",
+      "url": "https://scqso.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Columbia Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. "
+    },
+    {
+      "org": "Prairie Dog Amateur Radio Club",
+      "country": "US",
+      "url": "https://pdarc.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Prairie Dog Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. 160m to 70cm excluding WARC; no itemised list, so bands are left empty (unrecorded). The old sdqsoparty.com is stale and was ignored."
+    },
+    {
+      "org": "Tennessee Contest Group",
+      "country": "US",
+      "url": "https://tnqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Tennessee Contest Group"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. All bands except 60, 30, 17 and 12m; bands left empty (unrecorded). 2027 home page gives 5 September."
+    },
+    {
+      "org": "Texas DX Society",
+      "country": "US",
+      "url": "https://www.txqp.net/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Texas DX Society"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. 'Third weekend' is read as the third full weekend; 2026 (19-20 Sep) agrees with the sponsor's published dates. All bands except 60, 30, 17, 12m; bands left empty (unrecorded)."
+    },
+    {
+      "org": "Central Oregon DX Club",
+      "country": "US",
+      "url": "http://ws7n.net/7QP/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Central Oregon DX Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Rules dated 02/09/2026. The 7QP is the only party for Oregon, Utah and Wyoming."
+    },
+    {
+      "org": "Sterling Park Amateur Radio Club",
+      "country": "US",
+      "url": "https://www.qsl.net/sterling/VA_QSO_Party/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Sterling Park Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. 160m up, no WARC; bands left empty (unrecorded). Sunday session ends '2400Z', recorded as 2359."
+    },
+    {
+      "org": "Western Washington DX Club",
+      "country": "US",
+      "url": "https://salmonrun.wwdxc.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Western Washington DX Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Rules page last updated 22 July 2024."
+    },
+    {
+      "org": "New England QSO Party",
+      "country": "US",
+      "url": "https://neqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "New England QSO Party"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Digital modes are only implied by the scoring line ('CW (includes digital modes)'), so Digital is not recorded. Rules dated 4/27/2026. Also serves Connecticut, which has no standalone party.\n\nSPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified."
+    },
+    {
+      "org": "Contest Club Ontario",
+      "country": "CA",
+      "url": "http://www.va3cco.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Contest Club Ontario"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Digital is not mentioned (unconfirmed). 2027 dates (17-18 April) are published."
+    },
+    {
+      "org": "Club Radio Amateur de l'Outaouais",
+      "country": "CA",
+      "url": "https://quebecqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Club Radio Amateur de l'Outaouais"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Main sponsor listed as the Federation des clubs de radioamateurs du Quebec; the rules page is run by the CRAO. 80-2m excluding WARC. Sunday 2026 is 19 April."
+    },
+    {
+      "org": "Hoosier DX and Contest Club",
+      "country": "US",
+      "url": "http://www.hdxcc.org/inqp/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Hoosier DX and Contest Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. "
+    },
+    {
+      "org": "Kentucky Contest Group",
+      "country": "US",
+      "url": "https://kyqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Kentucky Contest Group"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. LIVE RULES ARE A 2027 DRAFT ('we welcome your comments') and the sponsor is 'considering moving the start to 10am or 11am EDT', so the 1300Z start is provisional. 2026 rules text is no longer on the page."
+    },
+    {
+      "org": "Anne Arundel Radio Club",
+      "country": "US",
+      "url": "https://w3vpr.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Anne Arundel Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. MEDIUM CONFIDENCE: the sponsor's contest pages returned 404/500 on 2026-10-15; the only readable rules are a PDF revised 06 AUG 2024. No 2026 date was readable. Bands are inferred from the exclusions (no WARC, 60m or VHF/UHF)."
+    },
+    {
+      "org": "Mad River Radio Club",
+      "country": "US",
+      "url": "https://miqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Mad River Radio Club"
+      ],
+      "encoded": 2,
+      "encoded_verified": 2,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. "
+    },
+    {
+      "org": "Minnesota Wireless Association",
+      "country": "US",
+      "url": "https://www.w0aa.org/mn-qso-party/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Minnesota Wireless Association"
+      ],
+      "encoded": 1,
+      "encoded_verified": 1,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The rules PDF read is the 2027 edition (dated June 8, 2026); a 2026 PDF was not located. HF excluding WARC."
+    },
+    {
+      "org": "Vicksburg Amateur Radio Club",
+      "country": "US",
+      "url": "https://arrlmiss.org/mississippi-qso-party/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Vicksburg Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. 'First weekend of April' is ambiguous when 1 April falls mid-week, so only the published 2026 date is recorded. Hosted on the ARRL Mississippi Section site; the rules name the Vicksburg ARC contest committee as decision body, with no formal 'sponsored by' line.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Boeing Employees Amateur Radio Society-St. Louis",
+      "country": "US",
+      "url": "https://moqp.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Boeing Employees Amateur Radio Society-St. Louis"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The date moves around Easter, which is why this is manual.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Kansas QSO Party",
+      "country": "US",
+      "url": "https://ksqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Kansas QSO Party"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The rules name a coordinator (W0BH) and a club call (KS0KS, Santa Fe Trail ARC), not a formal sponsor.\n\nSPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Jefferson Amateur Radio Club",
+      "country": "US",
+      "url": "http://laqp.w5gad.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Jefferson Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Site header names the Jefferson ARC; the footer adds the Louisiana Contest Club.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Story County Amateur Radio Club",
+      "country": "US",
+      "url": "http://www.w0yl.com/IAQP",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Story County Amateur Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The page itself says WSJT-X FT8/FT4 'will NOT work at this time', so only Digital is recorded. Any band except 60, 30, 17, 12m. The rules live on the contest page; the PDF linked there is the stale 2018 text.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Burlington County Radio Club",
+      "country": "US",
+      "url": "https://sites.google.com/view/k2td-bcrc/nj-qp",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Burlington County Radio Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. Digital was paraphrased by the research pass and not confirmed, so only CW and SSB are recorded.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Raleigh Amateur Radio Society",
+      "country": "US",
+      "url": "http://ncqsoparty.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Raleigh Amateur Radio Society"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The stated rule ('fourth Sunday after the first Saturday in February') is not expressible in the engine, so two published dates are recorded manually.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "ARRL North Dakota Section",
+      "country": "US",
+      "url": "http://ndarrlsection.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "ARRL North Dakota Section"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. No WARC bands.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Oklahoma QSO Party",
+      "country": "US",
+      "url": "http://k5cm.com/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Oklahoma QSO Party"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. SPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "West Allis Radio Amateur Club",
+      "country": "US",
+      "url": "https://www.warac.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "West Allis Radio Amateur Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. No band list is stated, so bands are left empty (unrecorded).\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "West Virginia State Amateur Radio Council",
+      "country": "US",
+      "url": "https://www.qsl.net/wvqp/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "West Virginia State Amateur Radio Council"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The rule is a date anchor ('June 20, or the Saturday before'), not expressible in the engine, so 2026 only is recorded. The rules contain a typo on the end date. 80-10m excluding WARC.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Orca DX and Contest Club",
+      "country": "CA",
+      "url": "https://www.orcadxcc.org/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Orca DX and Contest Club"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. The rules page carries stale typos. No WARC bands.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
+    },
+    {
+      "org": "Canadian Prairies QSO Party",
+      "country": "CA",
+      "url": "https://cpqp.ve6hams.ca/",
+      "url_verified": true,
+      "catalog_sponsors": [
+        "Canadian Prairies QSO Party"
+      ],
+      "encoded": 1,
+      "encoded_verified": 0,
+      "estimated_total": 1,
+      "status": "complete",
+      "notes": "ADDED 2026-10-15. SPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it."
     }
   ],
   "$tier_5_qso_parties_note": {
@@ -1004,7 +1536,7 @@
         "url_verified": false
       }
     ],
-    "sequencing": "FLORIDA ENCODED 2026-08-23, and deliberately ALONE. It is the owner's home state and this entry already named it first under local_priority, so it is the one record that does not reopen the sequencing argument below. Sponsor's own wording: 'Starts the last Saturday of April' -- a last-SATURDAY rule, not last-full-weekend -- two sessions with a night between them, and NO DIGITAL, which is unusual for a state party and worth knowing before filtering. The other ~45 remain not-started for the reason that follows, which has not changed. Roughly 45 US state QSO parties plus Canadian provincial parties. Each has its own sponsoring club and site. The State QSO Party Challenge (stateqsoparty.com) indexes them but is itself an aggregator -- use it only to locate sponsors, then source from each sponsor directly. Florida QSO Party is local priority for GCCC. NOTE ON SEQUENCING: this tier is 50 more US contests. The catalog is already 71% North American, so working tier 5 before tiers 2 and 3 would make the imbalance worse, not better."
+    "sequencing": "TIER 5 WORKED 2026-10-15, at the owner's instruction. The original note deferred this tier because the catalog was 'already 71% North American'; that was stale. Measured by scripts/coverage.py on 2026-10-15 BEFORE this pass the catalog was 262 contests: Europe 45.0%, North America 26.7%. Adding 39 state/provincial parties moves it to Europe 39.2%, North America 36.2% -- the imbalance the deferral feared did not materialise, and Europe is still the largest region. Florida was encoded alone on 2026-08-23 ('Starts the last Saturday of April', two sessions, NO DIGITAL); the rest followed. NOT ENCODED, and why: Arkansas (rules give 'third Saturday in May' but no UTC times), Hawaii (the rules' dates contradict their own weekdays), Idaho (Saturday start time reads 'xxxxZ'), Nebraska (rules file unreadable, sponsor unnamed), Nevada (not held in 2026, no 2027 date), Atlantic Canada (page dates inconsistent), Montana (sponsor's own page: no sponsor since 2017), Oregon (discontinued after 2005; covered by the 7th Call Area QSO Party), Connecticut/Utah/Wyoming (no standalone party). Detail in data/sources.md. Each party has its own sponsoring club and site; stateqsoparty.com was used only to locate sponsors. Sponsors that publish dates but no recurrence rule are manual and unverified by design."
   },
   "region_map": {
     "$comment": "Maps a contest record's `country` to the region used in coverage.by_region. Both engines read this rather than hard-coding a mapping. A country in the catalog that is missing here fails a test.",
@@ -1057,8 +1589,8 @@
   "coverage": {
     "$comment": "GENERATED by scripts/coverage.py from data/contests.seed.json. Do not hand-edit -- both test suites recompute it and fail on any drift, which is the point: this is the one block in the file that cannot go stale.",
     "as_of": "2026-10-15",
-    "total_encoded": 262,
-    "total_verified": 250,
+    "total_encoded": 301,
+    "total_verified": 272,
     "total_retired": 10,
     "by_tier": {
       "tier_1_major_international": {
@@ -1090,29 +1622,29 @@
         "retired": 8
       },
       "tier_5_qso_parties": {
-        "orgs": 1,
-        "orgs_worked": 1,
-        "encoded": 1,
-        "verified": 1,
+        "orgs": 39,
+        "orgs_worked": 39,
+        "encoded": 40,
+        "verified": 23,
         "retired": 0
       }
     },
     "by_mode": {
       "digital_capable": {
-        "encoded": 81,
-        "verified": 75
+        "encoded": 100,
+        "verified": 84
       },
       "digital_only": {
         "encoded": 53,
         "verified": 51
       },
       "ft8_ft4": {
-        "encoded": 29,
-        "verified": 25
+        "encoded": 35,
+        "verified": 29
       },
       "cw_or_ssb_only": {
-        "encoded": 170,
-        "verified": 165
+        "encoded": 190,
+        "verified": 178
       }
     },
     "by_region": {
@@ -1122,8 +1654,8 @@
         "retired": 2
       },
       "North America": {
-        "encoded": 70,
-        "verified": 65,
+        "encoded": 109,
+        "verified": 87,
         "retired": 8
       },
       "Africa": {
@@ -1154,8 +1686,8 @@
     },
     "by_country": {
       "US": {
-        "encoded": 68,
-        "verified": 63,
+        "encoded": 103,
+        "verified": 83,
         "retired": 8
       },
       "ZA": {
@@ -1186,6 +1718,11 @@
       "INTL": {
         "encoded": 6,
         "verified": 6,
+        "retired": 0
+      },
+      "CA": {
+        "encoded": 6,
+        "verified": 4,
         "retired": 0
       },
       "AU": {
@@ -1251,11 +1788,6 @@
       "PT": {
         "encoded": 3,
         "verified": 3,
-        "retired": 0
-      },
-      "CA": {
-        "encoded": 2,
-        "verified": 2,
         "retired": 0
       },
       "OC": {
@@ -1343,7 +1875,7 @@
       "$comment": "Where the catalog is not a world calendar yet. `regions_with_nothing` is the headline: a region with zero contests is invisible to every operator in it, which is a worse failure than an unverified record.",
       "regions_with_nothing": [],
       "largest_region": "Europe",
-      "largest_region_share_pct": 45.0,
+      "largest_region_share_pct": 39.2,
       "tiers_barely_started": [],
       "orgs_blocked_at_source": [
         "CRSA",
@@ -1355,17 +1887,34 @@
     },
     "unverified_ids": [
       "agcw-zap-merit",
+      "alabama-qso-party",
       "arrl-222-and-up",
       "arrl-january-vhf",
       "arrl-kids-day-jan",
+      "bc-qso-party",
+      "california-qso-party",
+      "canadian-prairies-qso-party",
       "cwops-cw-open",
       "darc-cw-ausbildungscontest",
       "darc-hell-kurz",
+      "iowa-qso-party",
       "jarl-new-year-qso-party",
+      "kansas-qso-party",
+      "kentucky-qso-party",
+      "louisiana-qso-party",
+      "maryland-dc-qso-party",
+      "mississippi-qso-party",
+      "missouri-qso-party",
+      "new-jersey-qso-party",
+      "north-carolina-qso-party",
+      "north-dakota-qso-party",
+      "oklahoma-qso-party",
       "rsgb-ft4-activity-day",
       "sarl-top-band-qso",
       "stew-perry",
-      "trac-ta-vhf-uhf"
+      "trac-ta-vhf-uhf",
+      "west-virginia-qso-party",
+      "wisconsin-qso-party"
     ],
     "sponsors_missing_from_registry": []
   },

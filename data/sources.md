@@ -1985,3 +1985,69 @@ and FT8 DX (April) contests.
   is not the sponsor's page, and the snippets disagree with each other across years (the
   February contest's date, bands and multiplier rule all changed). Not encoded. Revisit if the
   blog is made public; otherwise it needs an email to the club.
+
+## Tier 5: state and provincial QSO parties — 2026-10-15
+
+Asked for at the owner's instruction (the sequencing note that deferred this tier cited a 71%
+North American catalog; the measured share was 26.7% before this pass, 36.2% after). Every
+record is read from the party's own sponsor page; stateqsoparty.com only located sponsors.
+`rules_url_checked` is 2026-10-15 on all of them. Dates in the tests are the ones each sponsor
+published, except Colorado and Maryland-DC, where the sponsor states only the rule.
+Where a sponsor publishes dates but no rule the record is `manual` and `verified: false`
+(one date is not a rule); where the sponsor names no club the party's own name is the sponsor.
+
+| Party | Sponsor | Rules page | Verified | Modes |
+| --- | --- | --- | --- | --- |
+| Alabama QSO Party | Alabama Contest Group | https://alabamacontestgroup.org/aqp/rules/ | no | SSB, CW |
+| California QSO Party | Northern California Contest Club | https://cqp.org/pdf/CQP_2026_Rules.pdf | no | SSB, CW |
+| Colorado QSO Party | Grand Mesa Contesters of Colorado | https://coloradoqsoparty.org/getting-started/rules/ | yes | SSB, CW |
+| Delaware QSO Party | First State Amateur Radio Club | https://www.fsarc.org/qsoparty/rules-2024.html | yes | SSB, CW, Digital, FT8/FT4 |
+| Georgia QSO Party | Southeastern Contest Club and Southeast DX Club | https://gaqsoparty.com/georgia-qso-party-rules/ | yes | SSB, CW |
+| Arizona QSO Party | Arizona QSO Party | https://www.azqp.org/rules | yes | SSB, CW |
+| Illinois QSO Party | Western Illinois Amateur Radio Club | https://w9awe.org/ilqp/ | yes | SSB, CW, Digital |
+| New Mexico QSO Party | New Mexico QSO Party | https://www.newmexicoqsoparty.org/wp/details/rules/ | yes | SSB, CW, Digital, FT8/FT4 |
+| New York QSO Party | New York QSO Party Committee | https://nyqp.org/wordpress/nyqp-rules/ | yes | SSB, CW |
+| Ohio QSO Party | Mad River Radio Club | https://www.ohqp.org/index.php/rules/ | yes | SSB, CW |
+| Pennsylvania QSO Party | PA QSO Party Association | https://www.paqso.org/files/PAQSO_Rules.pdf | yes | SSB, CW |
+| South Carolina QSO Party | Columbia Amateur Radio Club | https://scqso.com/wp-content/uploads/2026/02/SCQPRULES2024_0126.pdf | yes | SSB, CW, Digital, FT8/FT4 |
+| South Dakota QSO Party | Prairie Dog Amateur Radio Club | https://pdarc.org/sd-qso-party | yes | SSB, CW, Digital, FT8/FT4 |
+| Tennessee QSO Party | Tennessee Contest Group | https://tnqp.org/wp-content/uploads/2026/08/Tennessee-QSO-Party-2026-Rules.pdf | yes | SSB, CW, Digital |
+| Texas QSO Party | Texas DX Society | https://www.txqp.net/?page_id=23 | yes | SSB, CW, Digital |
+| 7th Call Area QSO Party | Central Oregon DX Club | http://ws7n.net/7QP/new/Page.asp?content=rules | yes | SSB, CW, Digital |
+| Virginia QSO Party | Sterling Park Amateur Radio Club | https://www.qsl.net/sterling/VA_QSO_Party/2026_VQP/2026_VAQP_Rules.htm | yes | SSB, CW, Digital |
+| Washington State Salmon Run | Western Washington DX Club | https://salmonrun.wwdxc.org/rules/ | yes | SSB, CW |
+| New England QSO Party | New England QSO Party | https://neqp.org/rules/ | yes | SSB, CW |
+| Ontario QSO Party | Contest Club Ontario | http://www.va3cco.com/oqp/rules.htm | yes | SSB, CW |
+| Quebec QSO Party | Club Radio Amateur de l'Outaouais | https://quebecqsoparty.org/reglements-quebec-qso-party/ | yes | SSB, CW |
+| Indiana QSO Party | Hoosier DX and Contest Club | http://www.hdxcc.org/inqp/rules.html | yes | SSB, CW |
+| Kentucky QSO Party | Kentucky Contest Group | https://kyqsoparty.org/rules/ | no | SSB, CW |
+| Maryland-DC QSO Party | Anne Arundel Radio Club | https://www.w3vpr.org/sites/default/files/mdcqsoparty/Documents/Maryland-DC_QSO_Party_Rules_2020-03-04.pdf | no | SSB, CW |
+| Michigan QSO Party | Mad River Radio Club | https://miqp.org/index.php/rules/ | yes | SSB, CW |
+| Minnesota QSO Party | Minnesota Wireless Association | https://www.w0aa.org/wp-content/docs/mnqp/MNQP_2027_Contest_Rules_A.pdf | yes | SSB, CW |
+| Mississippi QSO Party | Vicksburg Amateur Radio Club | https://arrlmiss.org/wp-content/uploads/2025/12/2026-MS-QSO-PARTY-RULES-FINAL.pdf | no | CW, SSB, RTTY, FT8/FT4 |
+| Missouri QSO Party | Boeing Employees Amateur Radio Society-St. Louis | https://www.w0ma.org/mo_qso_party/results/thisyear/moqp-2026-rules-final.pdf | no | SSB, CW, Digital |
+| Kansas QSO Party | Kansas QSO Party | https://ksqsoparty.org/rules/KSQPRules2026.pdf | no | SSB, CW, RTTY, FT8/FT4 |
+| Louisiana QSO Party | Jefferson Amateur Radio Club | http://laqp.w5gad.org/rules | no | SSB, CW, Digital |
+| Iowa QSO Party | Story County Amateur Radio Club | http://www.w0yl.com/IAQP | no | SSB, CW, Digital |
+| New Jersey QSO Party | Burlington County Radio Club | https://sites.google.com/view/k2td-bcrc/nj-qp/rules | no | SSB, CW |
+| North Carolina QSO Party | Raleigh Amateur Radio Society | http://ncqsoparty.org/rules/ | no | SSB, CW, Digital |
+| North Dakota QSO Party | ARRL North Dakota Section | http://ndarrlsection.com/2026/2026_nd_qsp_party_rules.pdf | no | SSB, CW, Digital |
+| Oklahoma QSO Party | Oklahoma QSO Party | http://k5cm.com/okqp2026rules.pdf | no | SSB, CW, Digital |
+| Wisconsin QSO Party | West Allis Radio Amateur Club | https://www.warac.org/wqp/wiqp_rules.htm | no | SSB, CW, Digital |
+| West Virginia QSO Party | West Virginia State Amateur Radio Council | https://www.qsl.net/wvqp/2026rules.pdf | no | SSB, CW, Digital |
+| British Columbia QSO Party | Orca DX and Contest Club | https://www.orcadxcc.org/bcqp_rules.html | no | SSB, CW |
+| Canadian Prairies QSO Party | Canadian Prairies QSO Party | https://cpqp.ve6hams.ca/rules/ | no | SSB, CW |
+
+Not encoded:
+
+- **Arkansas** (arkqp.com): "The third Saturday in May" but no UTC times on the page.
+- **Hawaii** (hawaiiqsoparty.org): rules say Aug 21-23 2026, weekdays fit 2027, home page says 2027.
+- **Idaho** (idahoqsoparty.org): "Always the second full weekend of March"; Saturday start time is "xxxxZ".
+- **Nebraska**: rules file unreadable, sponsor unnamed; a third-party time was not used.
+- **Nevada** (nvqso.com): "second weekend in October" per the 2025 rules, but not held in 2026 and no 2027 date; TLS certificate also fails.
+- **Atlantic Canada** (acqp.ca): "First Sunday of June", but the page lists June 6 2027 under a June 7 header; rules URL unconfirmed.
+- **Montana**: the former sponsor's own page says "has not had a sponsor since 2017".
+- **Oregon**: discontinued after 2005; covered by the 7th Call Area QSO Party (`7th-call-area-qso-party`).
+- **Connecticut, Utah, Wyoming**: no standalone party (New England QSO Party / 7QP).
+
+Digital: Louisiana, Mississippi, Missouri, Kansas, Delaware, South Carolina, Tennessee, Texas, Virginia, New Mexico, North Carolina, South Dakota, Iowa, North Dakota, Oklahoma, Wisconsin, West Virginia, 7QP, Illinois allow digital in some form; only Delaware, South Carolina, New Mexico, South Dakota and Mississippi/Kansas (FT4/8 category) take FT8/FT4 in the main event. Indiana, Kentucky, Michigan, Minnesota, Maryland-DC, Ohio, Pennsylvania, Georgia, Colorado, Florida, Washington, Arizona, California, Ontario, Quebec, BC, Prairies and Alabama are CW/phone only (or digital unconfirmed).

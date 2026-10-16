@@ -233,3 +233,21 @@ These are Claude's to do and need nothing from you — listed only so the bounda
 - **The REP FT4 schema question** — whether to add per-date times so a series with three
   editions at two different clock times can be one record. A design decision, not a human one.
 - **Encoding whatever these letters bring back.**
+
+---
+
+## Added 2026-10-15 — digital and state-party blockers
+
+Each of these is blocked on a sponsor, not on more work. Details in `data/sources.md`
+("Digital contests" and "Tier 5" sections).
+
+- **European FT8 Club (FT4 DX in February, FT8 DX in April):** its only publication point,
+  europeanft8club.wordpress.com, answers "This site is currently private." Ask the club to make
+  the rules public or send them.
+- **Nebraska QSO Party:** rules file unreadable and no sponsor named. Ask for the rules.
+- **Idaho QSO Party:** Saturday start time is printed as "xxxxZ". Ask the committee.
+- **Hawaii QSO Party:** rules contradict their own weekdays (2026 vs 2027).
+- **Arkansas QSO Party:** "third Saturday in May" but no UTC times.
+- **Sponsor unnamed on their rules pages:** Arizona, New Mexico, Oklahoma, Kansas, Canadian
+  Prairies, New England QSO Parties. The party's own name stands in as sponsor.
+- **Maryland-DC QSO Party:** the Anne Arundel RC contest pages return 404/500; only a 2024 PDF is readable.

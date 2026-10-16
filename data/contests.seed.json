@@ -14140,6 +14140,2010 @@
           "max_watts": 1500
         }
       ]
+    },
+    {
+      "id": "alabama-qso-party",
+      "name": "Alabama QSO Party",
+      "sponsor": "Alabama Contest Group",
+      "country": "US",
+      "rules_url": "https://alabamacontestgroup.org/aqp/rules/",
+      "sponsor_home": "https://alabamacontestgroup.org/aqp/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [],
+      "exchange": "Alabama stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-07-25"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0300"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://alabamacontestgroup.org/aqp/rules/), read 2026-10-15: 1500Z 25 Jul to 0300Z 26 Jul 2026; the landing page is stale (2024) and says rules are the same as 2025. CW/Phone only; no digital is mentioned.",
+      "note": "Bands are not listed on the page in a form usable here (no WARC, no 160 stated), so bands are left empty (unrecorded). Digital modes are not mentioned.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Alabama's July party: one 12-hour CW and phone session, county multipliers.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "california-qso-party",
+      "name": "California QSO Party",
+      "sponsor": "Northern California Contest Club",
+      "country": "US",
+      "rules_url": "https://cqp.org/pdf/CQP_2026_Rules.pdf",
+      "sponsor_home": "https://www.cqp.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "California stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-10-03"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2200"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://cqp.org/pdf/CQP_2026_Rules.pdf), read 2026-10-15: 1600Z 3 Oct to 2200Z 4 Oct 2026; CW and phone, no digital.",
+      "note": "HF 160-10 is recorded; VHF was not confirmed from the rules text.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "California's long October party: 30 hours of CW and phone, 58 counties.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "colorado-qso-party",
+      "name": "Colorado QSO Party",
+      "sponsor": "Grand Mesa Contesters of Colorado",
+      "country": "US",
+      "rules_url": "https://coloradoqsoparty.org/getting-started/rules/",
+      "sponsor_home": "https://coloradoqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Colorado stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://coloradoqsoparty.org/getting-started/rules/), read 2026-10-15: 'second Saturday in September', 14:00Z Saturday to 03:59Z Sunday; 'Digital modes are not permitted'.",
+      "note": "Dates are computed from the sponsor's stated rule; no 2026 date page was read.",
+      "summary": "Colorado's September party: CW and phone only, 64 counties, no digital.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "delaware-qso-party",
+      "name": "Delaware QSO Party",
+      "sponsor": "First State Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://www.fsarc.org/qsoparty/rules-2024.html",
+      "sponsor_home": "https://www.fsarc.org/qsoparty/qsohome.htm",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "bands": [],
+      "exchange": "Delaware stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.fsarc.org/qsoparty/rules-2024.html), read 2026-10-15: 'First full weekend in May'; 1700Z Saturday to 2359Z Sunday (home page, 2026). FT8/FT4 allowed via the Field Day-style overlay.",
+      "note": "The rules page read is the 2024 edition; the home page carries the 2026 times. Bands are only 'suggested' (HF excluding WARC, any band 6m up), so bands are left empty (unrecorded).",
+      "summary": "Delaware's May party, with FT8 and FT4 allowed alongside CW and phone.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "georgia-qso-party",
+      "name": "Georgia QSO Party",
+      "sponsor": "Southeastern Contest Club and Southeast DX Club",
+      "country": "US",
+      "rules_url": "https://gaqsoparty.com/georgia-qso-party-rules/",
+      "sponsor_home": "https://gaqsoparty.com/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [],
+      "exchange": "Georgia stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1800"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0359"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://gaqsoparty.com/georgia-qso-party-rules/), read 2026-10-15: '2nd full weekend of April'; sessions 1800Z Saturday to 0359Z Sunday and 1400Z to 2359Z Sunday; 'Digital contacts aren't allowed'.",
+      "note": "The band list is not stated on the page, so bands are left empty (unrecorded).",
+      "summary": "Georgia's April party in two sessions, CW and SSB only.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "arizona-qso-party",
+      "name": "Arizona QSO Party",
+      "sponsor": "Arizona QSO Party",
+      "country": "US",
+      "rules_url": "https://www.azqp.org/rules",
+      "sponsor_home": "https://www.azqp.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Arizona stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0500"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.azqp.org/rules), read 2026-10-15: '2nd October Saturday'; 1500Z Saturday 10 Oct to 0500Z Sunday 11 Oct 2026; CW and phone.",
+      "note": "SPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.",
+      "summary": "Arizona's October party: 14 hours of CW and phone.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "illinois-qso-party",
+      "name": "Illinois QSO Party",
+      "sponsor": "Western Illinois Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://w9awe.org/ilqp/",
+      "sponsor_home": "https://w9awe.org/ilqp/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Illinois stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 1,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 2,
+        "time": "0100"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://w9awe.org/ilqp/), read 2026-10-15: 'Held Annually on Sunday the third full weekend of October'; 1700Z 18 Oct to 0100Z 19 Oct 2026. FT4/FT8 earn no credit.",
+      "note": "Recurrence anchors on the Saturday of the third full weekend with the session on the Sunday (day offset 1). FT4/FT8 contacts earn no credit, so the FT token is not recorded. No WARC bands.",
+      "summary": "Illinois's party is a Sunday-afternoon sprint of the third full October weekend; digital is allowed but FT modes get no credit.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "new-mexico-qso-party",
+      "name": "New Mexico QSO Party",
+      "sponsor": "New Mexico QSO Party",
+      "country": "US",
+      "rules_url": "https://www.newmexicoqsoparty.org/wp/details/rules/",
+      "sponsor_home": "https://www.newmexicoqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "New Mexico stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 4,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0200"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.newmexicoqsoparty.org/wp/details/rules/), read 2026-10-15: 'Second Saturday of April, 8:00 MDT (1400 UTC) to 20:00 MDT (0200 UTC)'; FT8/FT4 valid only with the full exchange.",
+      "note": "No WARC or 60m. 2027 date (April 10) is published on the sponsor's rules.\n\nSPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.",
+      "summary": "New Mexico's April party, with FT8 and FT4 valid when the full exchange is sent.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "new-york-qso-party",
+      "name": "New York QSO Party",
+      "sponsor": "New York QSO Party Committee",
+      "country": "US",
+      "rules_url": "https://nyqp.org/wordpress/nyqp-rules/",
+      "sponsor_home": "https://nyqp.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "New York stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 10,
+        "n": 3,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0159"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://nyqp.org/wordpress/nyqp-rules/), read 2026-10-15: 'Third Saturday in October', 14:00Z to 01:59Z; CW, Phone and Mixed categories; RTTY/digital only in Mixed.",
+      "note": "Rules PDF v1.1 dated 2026-09-25; text read from v1.0. Digital modes appear only as a Mixed-category option (no FT8-style modes), so Digital is not recorded. All bands except 30, 17 and 12m; the band list was not itemised, so VHF is not asserted.",
+      "summary": "New York's October party: CW and phone, with digital only in a Mixed category.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "ohio-qso-party",
+      "name": "Ohio QSO Party",
+      "sponsor": "Mad River Radio Club",
+      "country": "US",
+      "rules_url": "https://www.ohqp.org/index.php/rules/",
+      "sponsor_home": "https://www.ohqp.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Ohio stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 4,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0400"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.ohqp.org/index.php/rules/), read 2026-10-15: 'fourth Saturday of August', 1600Z Saturday to 0400Z Sunday; CW and SSB only.",
+      "note": "2027 date (Saturday 28 August) is published by the sponsor.",
+      "summary": "Ohio's late-August party: 12 hours of CW and SSB.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "pennsylvania-qso-party",
+      "name": "Pennsylvania QSO Party",
+      "sponsor": "PA QSO Party Association",
+      "country": "US",
+      "rules_url": "https://www.paqso.org/files/PAQSO_Rules.pdf",
+      "sponsor_home": "https://www.paqso.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [],
+      "exchange": "Pennsylvania stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2200"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1300"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2200"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.paqso.org/files/PAQSO_Rules.pdf), read 2026-10-15: 'Always the 2nd Full Weekend in October'; 1600Z Saturday to 0400Z Sunday and 1300Z to 2200Z Sunday; CW and Phone only (digital removed).",
+      "note": "All bands except WARC and 60m; no itemised list, so bands are left empty (unrecorded). 2027 dates (9-10 October) are published.",
+      "summary": "Pennsylvania's October party in two sessions, CW and phone only.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "south-carolina-qso-party",
+      "name": "South Carolina QSO Party",
+      "sponsor": "Columbia Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://scqso.com/wp-content/uploads/2026/02/SCQPRULES2024_0126.pdf",
+      "sponsor_home": "https://scqso.com/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "South Carolina stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 4,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0159"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://scqso.com/wp-content/uploads/2026/02/SCQPRULES2024_0126.pdf), read 2026-10-15: 'Begins at 1500Z on the 4th Saturday in February and ends on the following Sunday at 0159Z'; RTTY, PSK, FT8 and FT4 explicitly allowed.",
+      "summary": "South Carolina's February party; FT8 and FT4 are explicitly welcome alongside CW and phone.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "south-dakota-qso-party",
+      "name": "South Dakota QSO Party",
+      "sponsor": "Prairie Dog Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://pdarc.org/sd-qso-party",
+      "sponsor_home": "https://pdarc.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital",
+        "FT8/FT4"
+      ],
+      "bands": [],
+      "exchange": "South Dakota stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 10,
+        "n": 2
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://pdarc.org/sd-qso-party), read 2026-10-15: '2nd full weekend of October', 1800Z Saturday to 1800Z Sunday (10-11 Oct 2026); phone, CW, digital and mixed with 'standard FT exchanges'.",
+      "note": "160m to 70cm excluding WARC; no itemised list, so bands are left empty (unrecorded). The old sdqsoparty.com is stale and was ignored.",
+      "summary": "South Dakota's October party, 24 hours, with FT exchanges accepted.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "tennessee-qso-party",
+      "name": "Tennessee QSO Party",
+      "sponsor": "Tennessee Contest Group",
+      "country": "US",
+      "rules_url": "https://tnqp.org/wp-content/uploads/2026/08/Tennessee-QSO-Party-2026-Rules.pdf",
+      "sponsor_home": "https://tnqp.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [],
+      "exchange": "Tennessee stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 9,
+        "n": 1,
+        "weekday": 6
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0300"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://tnqp.org/wp-content/uploads/2026/08/Tennessee-QSO-Party-2026-Rules.pdf), read 2026-10-15: 'first Sunday of September' (About page); 1700Z Sunday 6 Sep to 0300Z Monday 7 Sep 2026; any digital mode that supports the exchange.",
+      "note": "All bands except 60, 30, 17 and 12m; bands left empty (unrecorded). 2027 home page gives 5 September.",
+      "summary": "Tennessee's party is a Sunday-afternoon event on the first Sunday of September.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "texas-qso-party",
+      "name": "Texas QSO Party",
+      "sponsor": "Texas DX Society",
+      "country": "US",
+      "rules_url": "https://www.txqp.net/?page_id=23",
+      "sponsor_home": "https://www.txqp.net/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [],
+      "exchange": "Texas stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2000"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0200"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2000"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.txqp.net/?page_id=23), read 2026-10-15: 'THIRD WEEKEND (SATURDAY AND SUNDAY) IN SEPTEMBER'; 1400Z Saturday to 0200Z Sunday and 1400Z to 2000Z Sunday.",
+      "note": "'Third weekend' is read as the third full weekend; 2026 (19-20 Sep) agrees with the sponsor's published dates. All bands except 60, 30, 17, 12m; bands left empty (unrecorded).",
+      "summary": "Texas's September party in two sessions with phone, CW and digital.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "7th-call-area-qso-party",
+      "name": "7th Call Area QSO Party",
+      "sponsor": "Central Oregon DX Club",
+      "country": "US",
+      "rules_url": "http://ws7n.net/7QP/new/Page.asp?content=rules",
+      "sponsor_home": "http://ws7n.net/7QP/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Seventh-area stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 5,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0700"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://ws7n.net/7QP/new/Page.asp?content=rules), read 2026-10-15: '1300 UTC Saturday to 0700 UTC Sunday (... the first Saturday in May)'; WSJT modes not allowed.",
+      "note": "Rules dated 02/09/2026. The 7QP is the only party for Oregon, Utah and Wyoming.",
+      "summary": "The 7QP covers AZ, ID, MT, NV, OR, UT, WA and WY in one May event; WSJT-style modes are excluded.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "virginia-qso-party",
+      "name": "Virginia QSO Party",
+      "sponsor": "Sterling Park Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://www.qsl.net/sterling/VA_QSO_Party/2026_VQP/2026_VAQP_Rules.htm",
+      "sponsor_home": "https://www.qsl.net/sterling/VA_QSO_Party/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [],
+      "exchange": "Virginia stations send serial number and county or city; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 3,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.qsl.net/sterling/VA_QSO_Party/2026_VQP/2026_VAQP_Rules.htm), read 2026-10-15: '3rd full weekend in March'; 2026 sessions Saturday 21 Mar 1400Z to Sunday 0400Z and Sunday 1200Z to 2400Z.",
+      "note": "160m up, no WARC; bands left empty (unrecorded). Sunday session ends '2400Z', recorded as 2359.",
+      "summary": "Virginia's March party in two sessions; phone, CW and digital.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "washington-salmon-run",
+      "name": "Washington State Salmon Run",
+      "sponsor": "Western Washington DX Club",
+      "country": "US",
+      "rules_url": "https://salmonrun.wwdxc.org/rules/",
+      "sponsor_home": "https://salmonrun.wwdxc.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "exchange": "Washington stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 9,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0700"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://salmonrun.wwdxc.org/rules/), read 2026-10-15: 'third full (two-day) weekend of September'; 1600Z Saturday to 0700Z Sunday then 1600Z to 2400Z Sunday; 'cannot accept WJST modes (e.g. FT-8/FT-4)'.",
+      "note": "Rules page last updated 22 July 2024.",
+      "summary": "Washington's Salmon Run in two sessions; CW and phone only.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "new-england-qso-party",
+      "name": "New England QSO Party",
+      "sponsor": "New England QSO Party",
+      "country": "US",
+      "rules_url": "https://neqp.org/rules/",
+      "sponsor_home": "https://neqp.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "New England stations send serial number and county or town; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "2000"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "2000"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0500"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1300"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://neqp.org/rules/), read 2026-10-15: 'First full weekend of May'; 2000Z Saturday to 0500Z Sunday and 1300Z to 2400Z Sunday; 'two points per CW (includes digital modes)'.",
+      "note": "Digital modes are only implied by the scoring line ('CW (includes digital modes)'), so Digital is not recorded. Rules dated 4/27/2026. Also serves Connecticut, which has no standalone party.\n\nSPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.",
+      "summary": "The six New England states in one May party, in two sessions.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "ontario-qso-party",
+      "name": "Ontario QSO Party",
+      "sponsor": "Contest Club Ontario",
+      "country": "CA",
+      "rules_url": "http://www.va3cco.com/oqp/rules.htm",
+      "sponsor_home": "http://www.va3cco.com/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Ontario stations send serial number and county or district; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2000"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1800"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0300"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1200"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2000"
+          }
+        }
+      ],
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://www.va3cco.com/oqp/rules.htm), read 2026-10-15: 'third full weekend of April'; 1800Z Saturday to 0300Z Sunday and 1200Z to 2000Z Sunday (rev 01 Mar 2026).",
+      "note": "Digital is not mentioned (unconfirmed). 2027 dates (17-18 April) are published.",
+      "summary": "Ontario's April party in two sessions; no WARC bands.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "quebec-qso-party",
+      "name": "Quebec QSO Party",
+      "sponsor": "Club Radio Amateur de l'Outaouais",
+      "country": "CA",
+      "rules_url": "https://quebecqsoparty.org/reglements-quebec-qso-party/",
+      "sponsor_home": "https://quebecqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Quebec stations send RS(T) and region; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 1,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://quebecqsoparty.org/reglements-quebec-qso-party/), read 2026-10-15: 'le dimanche de la troisieme fin de semaine complete d'avril', 13:00-24:00 UTC; phone (SSB/FM) and CW only.",
+      "note": "Main sponsor listed as the Federation des clubs de radioamateurs du Quebec; the rules page is run by the CRAO. 80-2m excluding WARC. Sunday 2026 is 19 April.",
+      "summary": "Quebec's party is one Sunday of 11 hours in the third full April weekend.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "indiana-qso-party",
+      "name": "Indiana QSO Party",
+      "sponsor": "Hoosier DX and Contest Club",
+      "country": "US",
+      "rules_url": "http://www.hdxcc.org/inqp/rules.html",
+      "sponsor_home": "http://www.hdxcc.org/inqp/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Indiana stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 5,
+        "n": 1
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0259"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://www.hdxcc.org/inqp/rules.html), read 2026-10-15: 'Contest starts at 1500 UTC Saturday and ends at 0259 UTC Sunday the first full weekend of May.' 'For 2026, this is May 2-3.'",
+      "summary": "Indiana's May party: CW and phone, 92 counties.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "kentucky-qso-party",
+      "name": "Kentucky QSO Party",
+      "sponsor": "Kentucky Contest Group",
+      "country": "US",
+      "rules_url": "https://kyqsoparty.org/rules/",
+      "sponsor_home": "https://kyqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Kentucky stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 6,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1300"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://kyqsoparty.org/rules/), read 2026-10-15: 'Saturday June 5th, 2027 (always the 1st Saturday in June)', 1300Z to 0100Z; 'NO digital QSOs'.",
+      "note": "LIVE RULES ARE A 2027 DRAFT ('we welcome your comments') and the sponsor is 'considering moving the start to 10am or 11am EDT', so the 1300Z start is provisional. 2026 rules text is no longer on the page.",
+      "summary": "Kentucky's June party: CW and phone only.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "maryland-dc-qso-party",
+      "name": "Maryland-DC QSO Party",
+      "sponsor": "Anne Arundel Radio Club",
+      "country": "US",
+      "rules_url": "https://www.w3vpr.org/sites/default/files/mdcqsoparty/Documents/Maryland-DC_QSO_Party_Rules_2020-03-04.pdf",
+      "sponsor_home": "https://w3vpr.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Maryland-DC stations send call and county or city; others send state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 8,
+        "n": 2,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0400"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.w3vpr.org/sites/default/files/mdcqsoparty/Documents/Maryland-DC_QSO_Party_Rules_2020-03-04.pdf), read 2026-10-15: 'a single 14-hour operating period beginning on the second Saturday in August at 1400 UTC and ending at 0400 Sunday UTC'; only phone and CW.",
+      "note": "MEDIUM CONFIDENCE: the sponsor's contest pages returned 404/500 on 2026-10-15; the only readable rules are a PDF revised 06 AUG 2024. No 2026 date was readable. Bands are inferred from the exclusions (no WARC, 60m or VHF/UHF).",
+      "summary": "Maryland and DC's August party: 14 hours of phone and CW.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "michigan-qso-party",
+      "name": "Michigan QSO Party",
+      "sponsor": "Mad River Radio Club",
+      "country": "US",
+      "rules_url": "https://miqp.org/index.php/rules/",
+      "sponsor_home": "https://miqp.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Michigan stations send RST and county; others send RST and state, province or DX.",
+      "recurrence": {
+        "type": "nth_full_weekend",
+        "month": 4,
+        "n": 3
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0400"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://miqp.org/index.php/rules/), read 2026-10-15: 'occurs annually on the Saturday of the third full weekend in April'; 16Z Saturday until 04Z Sunday; 'Next MiQP Sat 17 Apr 2027'.",
+      "summary": "Michigan's April party: 12 hours of CW and SSB on 80-10m.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "minnesota-qso-party",
+      "name": "Minnesota QSO Party",
+      "sponsor": "Minnesota Wireless Association",
+      "country": "US",
+      "rules_url": "https://www.w0aa.org/wp-content/docs/mnqp/MNQP_2027_Contest_Rules_A.pdf",
+      "sponsor_home": "https://www.w0aa.org/mn-qso-party/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Minnesota stations send first name and county; others send first name and state, province or DX.",
+      "recurrence": {
+        "type": "nth_weekday",
+        "month": 2,
+        "n": 1,
+        "weekday": 5
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 0,
+        "time": "2359"
+      },
+      "verified": true,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.w0aa.org/wp-content/docs/mnqp/MNQP_2027_Contest_Rules_A.pdf), read 2026-10-15: 'Contest runs on the first Saturday of February from 1400 through 2359 UTC'; 'always the first Saturday in February'; 2026-02-07 and 2027-02-06 listed.",
+      "note": "The rules PDF read is the 2027 edition (dated June 8, 2026); a 2026 PDF was not located. HF excluding WARC.",
+      "summary": "Minnesota's February party: a ten-hour CW and phone Saturday.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "mississippi-qso-party",
+      "name": "Mississippi QSO Party",
+      "sponsor": "Vicksburg Amateur Radio Club",
+      "country": "US",
+      "rules_url": "https://arrlmiss.org/wp-content/uploads/2025/12/2026-MS-QSO-PARTY-RULES-FINAL.pdf",
+      "sponsor_home": "https://arrlmiss.org/mississippi-qso-party/",
+      "modes": [
+        "CW",
+        "SSB",
+        "RTTY",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Mississippi stations send report and county; FT4/8 stations send report and grid square; others send report and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-04"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0200"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://arrlmiss.org/wp-content/uploads/2025/12/2026-MS-QSO-PARTY-RULES-FINAL.pdf), read 2026-10-15: 'Starts: 1400z / 4 April 2026, Ends: 0200z / 5 April 2026'; 'Modes: CW, SSB, RTTY, FT4/8'; 'held the first weekend of April each year'.",
+      "note": "'First weekend of April' is ambiguous when 1 April falls mid-week, so only the published 2026 date is recorded. Hosted on the ARRL Mississippi Section site; the rules name the Vicksburg ARC contest committee as decision body, with no formal 'sponsored by' line.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Mississippi's April party, with RTTY and FT4/8 alongside CW and SSB.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "missouri-qso-party",
+      "name": "Missouri QSO Party",
+      "sponsor": "Boeing Employees Amateur Radio Society-St. Louis",
+      "country": "US",
+      "rules_url": "https://www.w0ma.org/mo_qso_party/results/thisyear/moqp-2026-rules-final.pdf",
+      "sponsor_home": "https://moqp.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm"
+      ],
+      "exchange": "Missouri stations send RST and county; others send RST and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-11"
+          ],
+          "2027": [
+            "2027-04-03"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2000"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0400"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2000"
+          }
+        }
+      ],
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.w0ma.org/mo_qso_party/results/thisyear/moqp-2026-rules-final.pdf), read 2026-10-15: 'For 2026 due to the Easter weekend the contest is on 11-12th of April'; 2027: Apr 3 and 4 (moqp.org); 'FT4/FT8 or similar modes that do not allow free text sending will not be allowed'.",
+      "note": "The date moves around Easter, which is why this is manual.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Missouri's spring party in two sessions; digital counts but FT8 and FT4 do not.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "kansas-qso-party",
+      "name": "Kansas QSO Party",
+      "sponsor": "Kansas QSO Party",
+      "country": "US",
+      "rules_url": "https://ksqsoparty.org/rules/KSQPRules2026.pdf",
+      "sponsor_home": "https://ksqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "RTTY",
+        "FT8/FT4"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m"
+      ],
+      "exchange": "Kansas stations send report and county; others send report and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-08-29"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2000"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0200"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2000"
+          }
+        }
+      ],
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://ksqsoparty.org/rules/KSQPRules2026.pdf), read 2026-10-15: '29 Aug 2026 1400 - 0200 UTC 30 Aug 2026 1400 - 2000 UTC'; 'Contact stations on 80, 40, 20, 15, 10 and 6 meters'; separate FT4/8 entry category.",
+      "note": "The rules name a coordinator (W0BH) and a club call (KS0KS, Santa Fe Trail ARC), not a formal sponsor.\n\nSPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Kansas's late-August party in two sessions, with RTTY and a separate FT4/8 category.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "louisiana-qso-party",
+      "name": "Louisiana QSO Party",
+      "sponsor": "Jefferson Amateur Radio Club",
+      "country": "US",
+      "rules_url": "http://laqp.w5gad.org/rules",
+      "sponsor_home": "http://laqp.w5gad.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Louisiana stations send report and parish; others send report and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-04"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0200"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://laqp.w5gad.org/rules), read 2026-10-15: 'The Louisiana QSO Party will run from 14:00 UTC April 4, 2026 to 02:00 UTC April 5, 2026'; '3.3 Digital - includes RTTY and any digital mode that supports the required exchange'.",
+      "note": "Site header names the Jefferson ARC; the footer adds the Louisiana Contest Club.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Louisiana's April party with parish multipliers; digital counts.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "iowa-qso-party",
+      "name": "Iowa QSO Party",
+      "sponsor": "Story County Amateur Radio Club",
+      "country": "US",
+      "rules_url": "http://www.w0yl.com/IAQP",
+      "sponsor_home": "http://www.w0yl.com/IAQP",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m",
+        "1.25m",
+        "70cm"
+      ],
+      "exchange": "Iowa stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-19"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0200"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://www.w0yl.com/IAQP), read 2026-10-15: 'Saturday, September 19, 2026 from 9AM - 9PM US Central Time (1400Z, September 19 - 0200Z, September 20)'; 'FT modes are allowed as long as the FULL Iowa QSO Party exchange is completed by BOTH parties'.",
+      "note": "The page itself says WSJT-X FT8/FT4 'will NOT work at this time', so only Digital is recorded. Any band except 60, 30, 17, 12m. The rules live on the contest page; the PDF linked there is the stale 2018 text.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Iowa's September party; digital counts, though WSJT-X FT8/FT4 cannot carry the full exchange.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "new-jersey-qso-party",
+      "name": "New Jersey QSO Party",
+      "sponsor": "Burlington County Radio Club",
+      "country": "US",
+      "rules_url": "https://sites.google.com/view/k2td-bcrc/nj-qp/rules",
+      "sponsor_home": "https://sites.google.com/view/k2td-bcrc/nj-qp",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "New Jersey stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-09-12"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0200"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://sites.google.com/view/k2td-bcrc/nj-qp/rules), read 2026-10-15: Saturday 12 Sep 2026, 1400Z to 0200Z, with 'NOTE CHANGED DATE! 1 week earlier'; 80-10m.",
+      "note": "Digital was paraphrased by the research pass and not confirmed, so only CW and SSB are recorded.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "New Jersey's September party, moved a week earlier in 2026.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "north-carolina-qso-party",
+      "name": "North Carolina QSO Party",
+      "sponsor": "Raleigh Amateur Radio Society",
+      "country": "US",
+      "rules_url": "http://ncqsoparty.org/rules/",
+      "sponsor_home": "http://ncqsoparty.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "North Carolina stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-01"
+          ],
+          "2027": [
+            "2027-02-28"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1500"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://ncqsoparty.org/rules/), read 2026-10-15: 'fourth Sunday after the first Saturday in February'; 1500Z 1 Mar to 0100Z 2 Mar 2026; 2027 banner gives 28 Feb. FT8/FT4 are excluded from the main contest (separate Weak Signal Showcase).",
+      "note": "The stated rule ('fourth Sunday after the first Saturday in February') is not expressible in the engine, so two published dates are recorded manually.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "North Carolina's Sunday-afternoon party; digital counts but FT8/FT4 run in a separate showcase.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "north-dakota-qso-party",
+      "name": "North Dakota QSO Party",
+      "sponsor": "ARRL North Dakota Section",
+      "country": "US",
+      "rules_url": "http://ndarrlsection.com/2026/2026_nd_qsp_party_rules.pdf",
+      "sponsor_home": "http://ndarrlsection.com/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "North Dakota stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-04-11"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "1800"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://ndarrlsection.com/2026/2026_nd_qsp_party_rules.pdf), read 2026-10-15: 1800Z 11 Apr to 1800Z 12 Apr 2026; phone, CW and digital (RTTY/PSK), no FT8.",
+      "note": "No WARC bands.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "North Dakota's April party, 24 hours; digital counts but not FT8.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "oklahoma-qso-party",
+      "name": "Oklahoma QSO Party",
+      "sponsor": "Oklahoma QSO Party",
+      "country": "US",
+      "rules_url": "http://k5cm.com/okqp2026rules.pdf",
+      "sponsor_home": "http://k5cm.com/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m",
+        "6m",
+        "2m"
+      ],
+      "exchange": "Oklahoma stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-14"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1400"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2200"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0200"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1400"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2200"
+          }
+        }
+      ],
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (http://k5cm.com/okqp2026rules.pdf), read 2026-10-15: Saturday 14 Mar 1400Z to Sunday 0200Z and Sunday 15 Mar 1400Z-2200Z, 2026; digital allowed but no FT8/FT4.",
+      "note": "SPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Oklahoma's March party in two sessions; digital counts but not FT8.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "wisconsin-qso-party",
+      "name": "Wisconsin QSO Party",
+      "sponsor": "West Allis Radio Amateur Club",
+      "country": "US",
+      "rules_url": "https://www.warac.org/wqp/wiqp_rules.htm",
+      "sponsor_home": "https://www.warac.org/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [],
+      "exchange": "Wisconsin stations send serial number and county; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-03-15"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1800"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0100"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.warac.org/wqp/wiqp_rules.htm), read 2026-10-15: 15 Mar 2026, 1800Z to 0100Z 16 Mar; digital (RTTY, PSK) allowed, FT8/FT4 not accepted.",
+      "note": "No band list is stated, so bands are left empty (unrecorded).\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "Wisconsin's March party, moved in 2026 to avoid the DST change.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "west-virginia-qso-party",
+      "name": "West Virginia QSO Party",
+      "sponsor": "West Virginia State Amateur Radio Council",
+      "country": "US",
+      "rules_url": "https://www.qsl.net/wvqp/2026rules.pdf",
+      "sponsor_home": "https://www.qsl.net/wvqp/",
+      "modes": [
+        "SSB",
+        "CW",
+        "Digital"
+      ],
+      "bands": [
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "West Virginia stations send RS(T) and county; others send RS(T) and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-06-20"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0400"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.qsl.net/wvqp/2026rules.pdf), read 2026-10-15: 'if June 20th is not a Saturday, held the Saturday immediately prior'; 1600Z Saturday to 0400Z Sunday.",
+      "note": "The rule is a date anchor ('June 20, or the Saturday before'), not expressible in the engine, so 2026 only is recorded. The rules contain a typo on the end date. 80-10m excluding WARC.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "West Virginia's June party, tied to 20 June (the Saturday on or before it).",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "bc-qso-party",
+      "name": "British Columbia QSO Party",
+      "sponsor": "Orca DX and Contest Club",
+      "country": "CA",
+      "rules_url": "https://www.orcadxcc.org/bcqp_rules.html",
+      "sponsor_home": "https://www.orcadxcc.org/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "160m",
+        "80m",
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "BC stations send serial number and district; others send serial number and state, province or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-02-07"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1600"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "2359"
+      },
+      "sessions": [
+        {
+          "start": {
+            "day_offset": 0,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "0359"
+          }
+        },
+        {
+          "start": {
+            "day_offset": 1,
+            "time": "1600"
+          },
+          "end": {
+            "day_offset": 1,
+            "time": "2359"
+          }
+        }
+      ],
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://www.orcadxcc.org/bcqp_rules.html), read 2026-10-15: Feb 7-8, 2026; Saturday 1600Z to Sunday 0359Z and Sunday 1600Z-2359Z; phone and CW.",
+      "note": "The rules page carries stale typos. No WARC bands.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "British Columbia's February party in two sessions.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
+    },
+    {
+      "id": "canadian-prairies-qso-party",
+      "name": "Canadian Prairies QSO Party",
+      "sponsor": "Canadian Prairies QSO Party",
+      "country": "CA",
+      "rules_url": "https://cpqp.ve6hams.ca/rules/",
+      "sponsor_home": "https://cpqp.ve6hams.ca/",
+      "modes": [
+        "SSB",
+        "CW"
+      ],
+      "bands": [
+        "40m",
+        "20m",
+        "15m",
+        "10m"
+      ],
+      "exchange": "Prairie stations send RS(T) and district; others send RS(T) and province, state or DX.",
+      "recurrence": {
+        "type": "manual",
+        "dates": {
+          "2026": [
+            "2026-05-09"
+          ],
+          "2027": [
+            "2027-05-08"
+          ]
+        }
+      },
+      "start": {
+        "day_offset": 0,
+        "time": "1700"
+      },
+      "end": {
+        "day_offset": 1,
+        "time": "0300"
+      },
+      "verified": false,
+      "rules_url_checked": "2026-10-15",
+      "source_note": "Sponsor's own rules (https://cpqp.ve6hams.ca/rules/), read 2026-10-15: 1700Z 9 May to 0300Z 10 May 2026 (the page's own header has a '2025' typo); 2027: 8 May; CW and SSB only.",
+      "note": "SPONSOR NOT NAMED on the rules page; the party's own name is used as the sponsor so the registry join works. Replace when a club is identified.\n\nMANUAL AND UNVERIFIED BECAUSE A PUBLISHED DATE IS NOT A RULE. The sponsor states the dates for the year(s) listed and no recurrence wording, so none is invented here; the next announcement settles it.",
+      "summary": "The Canadian Prairies' May party: CW and SSB on four bands.",
+      "eligibility": {
+        "scope": "worldwide",
+        "verified": true,
+        "note": ""
+      }
     }
   ]
 }

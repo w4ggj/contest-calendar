@@ -37,7 +37,7 @@ it actually publishes". It needs letters to societies, like QRP ARCI, not more s
 come from nine South African clubs that publish through SARL's Contest Manual. Every region has something: Asia, Oceania and South America came off
 zero on 2026-08-17, and Europe went 19 → 59 records on 2026-08-18 with the Tier 2 societies
 and DARC, then to 85 on 2026-08-19 with the last twelve. Europe is now 49.7% of the catalog
-and North America 36.3%, down from 71% in July. All eight tier-1 orgs are done and **tier 2 is
+and North America 36.3%, down from 71% in July. As of 2026-10-15 (301 contests, after Tier 5 was worked: 39 state and provincial QSO parties) it is Europe 39.2%, North America 36.2%; by mode, 33.2% are digital-capable and 11.6% take FT8/FT4 (`coverage.by_mode`). All eight tier-1 orgs are done and **tier 2 is
 21 of 21** — REP closed it on 2026-08-19, and NRAU encodes nothing because it is blocked at
 source. Measured rather than assumed: run
 `python scripts\coverage.py --check`.
@@ -60,11 +60,11 @@ to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do 
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 423 passed
+python -m pytest -q               # expect: 496 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
-cd engine; npm install; npm test   # expect: 436 passed (423 mirrored + 13 parity)
+cd engine; npm install; npm test   # expect: 509 passed (496 mirrored + 13 parity)
 cd ..\worker; npm install; npm test # expect: 147 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 

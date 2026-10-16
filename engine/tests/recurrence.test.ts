@@ -3788,12 +3788,15 @@ describe("catalog vocabularies", () => {
       .filter((c) => !(c.bands ?? []).length)
       .map((c) => c.id)
       .sort();
+    // Plus nine state QSO parties (2026-10-15) whose sponsors say "all bands
+    // except ..." or give no list; see the Tier 5 section of data/sources.md.
     expect(unrecorded).toEqual([
       "darc-cw-ausbildungscontest",
       "darc-hell-kurz",
       "jarl-new-year-qso-party",
       "zs-sota-activity-weekend",
-    ]);
+      "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party",
+    ].sort());
   });
 
   test("bands_note never stands in for a band list", () => {
@@ -3838,6 +3841,7 @@ const EXPIRE_AFTER_CATALOG_YEAR = [
   "arsi-vu-rookie", "cwops-cw-open", "darc-ausbildungscontest",
   "darc-ostercontest", "erau-es-ll-kv", "irts-80m-counties", "lrmd-wal",
   "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter", "rca-nacional-80m",
+  "alabama-qso-party", "bc-qso-party", "california-qso-party", "iowa-qso-party", "kansas-qso-party", "louisiana-qso-party", "mississippi-qso-party", "new-jersey-qso-party", "north-dakota-qso-party", "oklahoma-qso-party", "west-virginia-qso-party", "wisconsin-qso-party",
   "rsgb-80mcc-cw", "rsgb-80mcc-data", "rsgb-80mcc-ssb", "rsgb-autumn-cw",
   "rsgb-autumn-data", "rsgb-autumn-ssb", "rsgb-ft4-activity-day",
   "rsgb-ft4-series", "sarl-top-band-qso", "stew-perry", "uarl-champ-cw",
@@ -4105,5 +4109,69 @@ test.each(FT_CHALLENGE_PUBLISHED)(
     expect(isoDate(occ.start!)).toBe(D(year, 12, day));
     expect(occ.start!.getUTCHours()).toBe(18);
     expect(occ.duration_hours).toBeCloseTo(30, 0);
+  },
+);
+
+// Tier 5 state/provincial QSO parties (2026-10-15). Each row is a date the sponsor published, or -- where the
+// sponsor states only a rule (Colorado, Maryland-DC) -- the date that rule yields; see data/sources.md.
+const QSO_PARTY_DATES: [string, number, number, number, number, number][] = [
+  ["arizona-qso-party", 2026, 10, 10, 15, 0],
+  ["colorado-qso-party", 2026, 9, 12, 14, 0],
+  ["delaware-qso-party", 2026, 5, 2, 17, 0],
+  ["georgia-qso-party", 2026, 4, 11, 18, 0],
+  ["illinois-qso-party", 2026, 10, 18, 17, 0],
+  ["new-mexico-qso-party", 2026, 4, 11, 14, 0],
+  ["new-mexico-qso-party", 2027, 4, 10, 14, 0],
+  ["new-york-qso-party", 2026, 10, 17, 14, 0],
+  ["ohio-qso-party", 2026, 8, 22, 16, 0],
+  ["ohio-qso-party", 2027, 8, 28, 16, 0],
+  ["pennsylvania-qso-party", 2026, 10, 10, 16, 0],
+  ["pennsylvania-qso-party", 2027, 10, 9, 16, 0],
+  ["south-carolina-qso-party", 2026, 2, 28, 15, 0],
+  ["south-dakota-qso-party", 2026, 10, 10, 18, 0],
+  ["tennessee-qso-party", 2026, 9, 6, 17, 0],
+  ["tennessee-qso-party", 2027, 9, 5, 17, 0],
+  ["texas-qso-party", 2026, 9, 19, 14, 0],
+  ["7th-call-area-qso-party", 2026, 5, 2, 13, 0],
+  ["virginia-qso-party", 2026, 3, 21, 14, 0],
+  ["washington-salmon-run", 2026, 9, 19, 16, 0],
+  ["new-england-qso-party", 2026, 5, 2, 20, 0],
+  ["ontario-qso-party", 2026, 4, 18, 18, 0],
+  ["ontario-qso-party", 2027, 4, 17, 18, 0],
+  ["quebec-qso-party", 2026, 4, 19, 13, 0],
+  ["indiana-qso-party", 2026, 5, 2, 15, 0],
+  ["kentucky-qso-party", 2027, 6, 5, 13, 0],
+  ["maryland-dc-qso-party", 2026, 8, 8, 14, 0],
+  ["michigan-qso-party", 2026, 4, 18, 16, 0],
+  ["michigan-qso-party", 2027, 4, 17, 16, 0],
+  ["minnesota-qso-party", 2026, 2, 7, 14, 0],
+  ["minnesota-qso-party", 2027, 2, 6, 14, 0],
+  ["mississippi-qso-party", 2026, 4, 4, 14, 0],
+  ["missouri-qso-party", 2026, 4, 11, 14, 0],
+  ["missouri-qso-party", 2027, 4, 3, 14, 0],
+  ["kansas-qso-party", 2026, 8, 29, 14, 0],
+  ["louisiana-qso-party", 2026, 4, 4, 14, 0],
+  ["iowa-qso-party", 2026, 9, 19, 14, 0],
+  ["alabama-qso-party", 2026, 7, 25, 15, 0],
+  ["california-qso-party", 2026, 10, 3, 16, 0],
+  ["new-jersey-qso-party", 2026, 9, 12, 14, 0],
+  ["north-carolina-qso-party", 2026, 3, 1, 15, 0],
+  ["north-carolina-qso-party", 2027, 2, 28, 15, 0],
+  ["north-dakota-qso-party", 2026, 4, 11, 18, 0],
+  ["oklahoma-qso-party", 2026, 3, 14, 14, 0],
+  ["wisconsin-qso-party", 2026, 3, 15, 18, 0],
+  ["west-virginia-qso-party", 2026, 6, 20, 16, 0],
+  ["bc-qso-party", 2026, 2, 7, 16, 0],
+  ["canadian-prairies-qso-party", 2026, 5, 9, 17, 0],
+  ["canadian-prairies-qso-party", 2027, 5, 8, 17, 0],
+];
+
+test.each(QSO_PARTY_DATES)(
+  "QSO party %s reproduces the dates in the sources note: %i",
+  (cid, year, month, day, hour, minute) => {
+    const occ = expand(byId(cid), year)[0];
+    expect(isoDate(occ.start!)).toBe(D(year, month, day));
+    expect(occ.start!.getUTCHours()).toBe(hour);
+    expect(occ.start!.getUTCMinutes()).toBe(minute);
   },
 );

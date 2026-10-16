@@ -3872,10 +3872,13 @@ def test_unrecorded_bands_are_the_documented_exception(catalog):
     pages for them, they leave this list.
     """
     unrecorded = sorted(c["id"] for c in catalog if not c.get("bands"))
-    assert unrecorded == ["darc-cw-ausbildungscontest",
+    # Plus nine state QSO parties (2026-10-15) whose sponsors say "all bands except
+    # ..." or give no list; see the Tier 5 section of data/sources.md.
+    assert unrecorded == sorted(["darc-cw-ausbildungscontest",
         "darc-hell-kurz",
         "jarl-new-year-qso-party",
-        "zs-sota-activity-weekend"]
+        "zs-sota-activity-weekend",
+        "alabama-qso-party", "delaware-qso-party", "georgia-qso-party", "pennsylvania-qso-party", "south-dakota-qso-party", "tennessee-qso-party", "texas-qso-party", "virginia-qso-party", "wisconsin-qso-party"])
 
 
 def test_bands_note_never_stands_in_for_a_band_list(catalog):
@@ -3915,6 +3918,7 @@ EXPIRE_AFTER_CATALOG_YEAR = {
     "arsi-vu-rookie", "cwops-cw-open", "darc-ausbildungscontest",
     "darc-ostercontest", "erau-es-ll-kv", "irts-80m-counties", "lrmd-wal",
     "ncj-sprint-cw", "ncj-sprint-rtty", "rac-canada-winter",
+    "alabama-qso-party", "bc-qso-party", "california-qso-party", "iowa-qso-party", "kansas-qso-party", "louisiana-qso-party", "mississippi-qso-party", "new-jersey-qso-party", "north-dakota-qso-party", "oklahoma-qso-party", "west-virginia-qso-party", "wisconsin-qso-party",
     "rca-nacional-80m", "rsgb-80mcc-cw", "rsgb-80mcc-data", "rsgb-80mcc-ssb",
     "rsgb-autumn-cw", "rsgb-autumn-data", "rsgb-autumn-ssb",
     "rsgb-ft4-activity-day", "rsgb-ft4-series", "sarl-top-band-qso",
@@ -4225,3 +4229,65 @@ def test_ft_challenge_reproduces_every_date_the_sponsor_published(catalog, year,
     assert occ.start.date() == day
     assert (occ.start.hour, occ.start.minute) == (18, 0)
     assert occ.duration_hours == pytest.approx(30, abs=0.1)
+
+
+# Tier 5 state/provincial QSO parties (2026-10-15). Each row is a date the sponsor published, or -- where the
+# sponsor states only a rule (Colorado, Maryland-DC) -- the date that rule yields; see data/sources.md.
+QSO_PARTY_DATES = [
+    ("arizona-qso-party", 2026, date(2026, 10, 10), (15, 0)),
+    ("colorado-qso-party", 2026, date(2026, 9, 12), (14, 0)),
+    ("delaware-qso-party", 2026, date(2026, 5, 2), (17, 0)),
+    ("georgia-qso-party", 2026, date(2026, 4, 11), (18, 0)),
+    ("illinois-qso-party", 2026, date(2026, 10, 18), (17, 0)),
+    ("new-mexico-qso-party", 2026, date(2026, 4, 11), (14, 0)),
+    ("new-mexico-qso-party", 2027, date(2027, 4, 10), (14, 0)),
+    ("new-york-qso-party", 2026, date(2026, 10, 17), (14, 0)),
+    ("ohio-qso-party", 2026, date(2026, 8, 22), (16, 0)),
+    ("ohio-qso-party", 2027, date(2027, 8, 28), (16, 0)),
+    ("pennsylvania-qso-party", 2026, date(2026, 10, 10), (16, 0)),
+    ("pennsylvania-qso-party", 2027, date(2027, 10, 9), (16, 0)),
+    ("south-carolina-qso-party", 2026, date(2026, 2, 28), (15, 0)),
+    ("south-dakota-qso-party", 2026, date(2026, 10, 10), (18, 0)),
+    ("tennessee-qso-party", 2026, date(2026, 9, 6), (17, 0)),
+    ("tennessee-qso-party", 2027, date(2027, 9, 5), (17, 0)),
+    ("texas-qso-party", 2026, date(2026, 9, 19), (14, 0)),
+    ("7th-call-area-qso-party", 2026, date(2026, 5, 2), (13, 0)),
+    ("virginia-qso-party", 2026, date(2026, 3, 21), (14, 0)),
+    ("washington-salmon-run", 2026, date(2026, 9, 19), (16, 0)),
+    ("new-england-qso-party", 2026, date(2026, 5, 2), (20, 0)),
+    ("ontario-qso-party", 2026, date(2026, 4, 18), (18, 0)),
+    ("ontario-qso-party", 2027, date(2027, 4, 17), (18, 0)),
+    ("quebec-qso-party", 2026, date(2026, 4, 19), (13, 0)),
+    ("indiana-qso-party", 2026, date(2026, 5, 2), (15, 0)),
+    ("kentucky-qso-party", 2027, date(2027, 6, 5), (13, 0)),
+    ("maryland-dc-qso-party", 2026, date(2026, 8, 8), (14, 0)),
+    ("michigan-qso-party", 2026, date(2026, 4, 18), (16, 0)),
+    ("michigan-qso-party", 2027, date(2027, 4, 17), (16, 0)),
+    ("minnesota-qso-party", 2026, date(2026, 2, 7), (14, 0)),
+    ("minnesota-qso-party", 2027, date(2027, 2, 6), (14, 0)),
+    ("mississippi-qso-party", 2026, date(2026, 4, 4), (14, 0)),
+    ("missouri-qso-party", 2026, date(2026, 4, 11), (14, 0)),
+    ("missouri-qso-party", 2027, date(2027, 4, 3), (14, 0)),
+    ("kansas-qso-party", 2026, date(2026, 8, 29), (14, 0)),
+    ("louisiana-qso-party", 2026, date(2026, 4, 4), (14, 0)),
+    ("iowa-qso-party", 2026, date(2026, 9, 19), (14, 0)),
+    ("alabama-qso-party", 2026, date(2026, 7, 25), (15, 0)),
+    ("california-qso-party", 2026, date(2026, 10, 3), (16, 0)),
+    ("new-jersey-qso-party", 2026, date(2026, 9, 12), (14, 0)),
+    ("north-carolina-qso-party", 2026, date(2026, 3, 1), (15, 0)),
+    ("north-carolina-qso-party", 2027, date(2027, 2, 28), (15, 0)),
+    ("north-dakota-qso-party", 2026, date(2026, 4, 11), (18, 0)),
+    ("oklahoma-qso-party", 2026, date(2026, 3, 14), (14, 0)),
+    ("wisconsin-qso-party", 2026, date(2026, 3, 15), (18, 0)),
+    ("west-virginia-qso-party", 2026, date(2026, 6, 20), (16, 0)),
+    ("bc-qso-party", 2026, date(2026, 2, 7), (16, 0)),
+    ("canadian-prairies-qso-party", 2026, date(2026, 5, 9), (17, 0)),
+    ("canadian-prairies-qso-party", 2027, date(2027, 5, 8), (17, 0)),
+]
+
+
+@pytest.mark.parametrize("cid,year,day,hm", QSO_PARTY_DATES)
+def test_qso_party_reproduces_the_dates_in_the_sources_note(catalog, cid, year, day, hm):
+    occ = expand(by_id(catalog, cid), year)[0]
+    assert occ.start.date() == day
+    assert (occ.start.hour, occ.start.minute) == hm
