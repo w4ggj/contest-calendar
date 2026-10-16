@@ -21,7 +21,7 @@
  */
 
 import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
-import { SELF } from "cloudflare:test";
+import worker from "../src/index.js";
 
 import { CATALOG } from "../src/catalog.js";
 import {
@@ -39,7 +39,10 @@ const BASE = "https://contestcal.test";
 // inheriting today's date. They asserted that RI1FJL (13-29 Aug 2026) is on the
 // schedule, which is true only while it is live or upcoming -- they went red on
 // 2026-08-30 for no reason connected to the code. Only Date is faked: timers
-// stay real so SELF.fetch is unaffected.
+// stay real. Requests go straight to the handler rather than through SELF.fetch,
+// so the faked Date is the one the handler reads: SELF crosses into the runtime
+// that serves requests, and a run where that clock was the real one showed no
+// DXpeditions at all (RI1FJL had ended). The test below pins the clock itself.
 const FIXED_NOW = Date.UTC(2026, 7, 20, 12, 0, 0);
 beforeAll(() => {
   vi.useFakeTimers({ toFake: ["Date"], now: FIXED_NOW });
@@ -47,11 +50,17 @@ beforeAll(() => {
 afterAll(() => {
   vi.useRealTimers();
 });
-const page = async (p: string) => await (await SELF.fetch(BASE + p)).text();
+const page = async (p: string) => await (await worker.fetch(new Request(BASE + p))).text();
 
 describe("DXpeditions", () => {
+  it("renders against the pinned clock, not today's", async () => {
+    // Every other test here assumes it. If the handler reads a different clock
+    // the failures further down are about the date, so fail here, by name.
+    expect(await page("/")).toContain('data-now="2026-08-20T12:00:00');
+  });
+
   it("serves /dx and groups by what a reader can act on", async () => {
-    const r = await SELF.fetch(BASE + "/dx");
+    const r = await worker.fetch(new Request(BASE + "/dx"));
     expect(r.status).toBe(200);
     const html = await r.text();
     expect(html).toContain("Coming up");

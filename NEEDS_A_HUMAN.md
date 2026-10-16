@@ -264,4 +264,3 @@ Each of these is blocked on a sponsor, not on more work. Details in `data/source
 - **10-10 International digital contests** (Fall/Spring/Open Season PSK) and the **YO International PSK31 Contest:** 10-10.org and yo5crq.ro answer HTTP 406 to automated fetches. Read the rules in a browser and send them, or the contests stay uncatalogued.
 - **VHF/UHF FT8 Activity (3 records):** `verified: false`; the sponsor states the Wednesday pattern for 2026 only. Re-read ft8activity.eu/rules when 2027 rules are published.
 - **VHF/UHF "Fall/Spring Sprint" series (nine index entries):** no sponsor-owned page identified (possibly Northern Lights Radio Society; nlrs.ca did not connect). Point to the sponsor's own page.
-- **Flaky test:** one worker run showed 3 failures in `dx.worker.test.ts`, then passed 201/201 on rerun. Cause not found; if it recurs, check it for clock or concurrency dependence.
