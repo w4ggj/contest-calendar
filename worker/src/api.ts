@@ -24,6 +24,7 @@ import {
   allSponsors,
   applyFilters,
   BAND_FAMILIES,
+  LEGACY_BAND_ALIASES,
   contestById,
   describeRule,
   DURATION_BUCKETS,
@@ -104,7 +105,9 @@ function bool(params: URLSearchParams, name: string): boolean {
 
 export function parseFilters(params: URLSearchParams): Filters {
   const modes = multi(params, "mode", "modes");
-  const bands = multi(params, "band", "bands");
+  const bands = multi(params, "band", "bands").flatMap(
+    (b) => LEGACY_BAND_ALIASES[b.toLowerCase()] ?? [b],
+  );
   const durations = multi(params, "duration", "durations");
   const sponsors = multi(params, "sponsor", "sponsors");
   const ids = multi(params, "id", "ids");

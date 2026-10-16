@@ -13,7 +13,6 @@
 import type { Occurrence } from "../../../engine/src/recurrence.js";
 import { CATALOG_SIZE } from "../catalog.js";
 import {
-  bandFamilies,
   durationBucketOf,
   type Filters,
   type NowView,
@@ -130,19 +129,23 @@ function metaLine(o: Occurrence): string {
     parts.push(`<span class="mode">${esc(label)}</span>`);
   }
 
-  const bands = bandFamilies(o.bands);
-  if (bands.length) {
-    // Contiguous runs collapse: 160m..10m reads "160-10m", not nine tokens.
-    const label =
-      bands.length > 2
-        ? `${bands[0].replace(/m$/, "")}-${bands[bands.length - 1]}`
-        : bands.join("/");
-    parts.push(esc(label));
-  }
+  if (o.bands.length) parts.push(esc(bandLabel(o.bands)));
 
   if (o.sponsor) parts.push(esc(o.sponsor));
 
   return parts.join('<span class="dot"> · </span>');
+}
+
+/**
+ * The sponsor's bands as recorded, collapsed to a run when there are many:
+ * "160-10m", "6m-3cm". Built from the catalog's own bands rather than the
+ * filter's families so a 2m-and-70cm contest never reads as "2-Microwave".
+ */
+export function bandLabel(bands: string[]): string {
+  if (bands.length <= 3) return bands.join("/");
+  const first = bands[0];
+  const last = bands[bands.length - 1];
+  return `${/^\d+m$/.test(first) && /m$/.test(last) ? first.slice(0, -1) : first}-${last}`;
 }
 
 function whenLine(o: Occurrence): string {

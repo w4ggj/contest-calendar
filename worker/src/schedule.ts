@@ -103,28 +103,36 @@ export function modeFamilies(modes: string[]): ModeFamily[] {
 }
 
 /**
- * Band families, low to high: the catalog's ladder with everything above 6m
- * collapsed to VHF+.
- *
- * The catalog records 2m, 70cm and 3cm separately -- see `CATALOG_BANDS` -- but
- * offering eighteen checkboxes to answer "what can I work this weekend" is
- * worse than offering twelve. VHF+ is where the collapse costs least: a station
- * equipped for 70cm is equipped for 2m, so the bands above 6m are one decision
- * for almost everyone. HF is not: 40m and 10m are different contests entirely.
+ * Band families, low to high. HF is one box per band because 40m and 10m are
+ * different contests entirely. Above that the catalog's ladder collapses only
+ * where an operator's equipment does: 33cm and up are one "Microwave" box,
+ * while 6m, 2m, 1.25m and 70cm each stay their own. They used to be one
+ * "VHF+" box, which meant a 2m operator could not filter to 2m -- a worse
+ * failure than any missing contest, since the contests were there and
+ * unreachable. 1.25m (222 MHz) is a box of its own rather than a rider on a
+ * neighbour: a record that says 222 MHz must not answer a 2m question.
  */
 export const BAND_FAMILIES = [
-  "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m", "6m", "VHF+",
+  "160m", "80m", "60m", "40m", "30m", "20m", "17m", "15m", "12m", "10m",
+  "6m", "2m", "1.25m", "70cm", "Microwave",
 ] as const;
 export type BandFamily = (typeof BAND_FAMILIES)[number];
 
-const HF_BANDS = new Set<string>(BAND_FAMILIES.slice(0, 11));
+/** Catalog bands that fold into the Microwave box: 902 MHz and up. */
+const MICROWAVE_BANDS = new Set<string>(["33cm", "23cm", "13cm", "3cm"]);
+const OWN_BOX = new Set<string>(BAND_FAMILIES.filter((b) => b !== "Microwave"));
+
+/** Old `band=VHF+` links were shared and bookmarked; they still mean what they meant. */
+export const LEGACY_BAND_ALIASES: Record<string, string[]> = {
+  "vhf+": ["2m", "1.25m", "70cm", "Microwave"],
+};
 
 export function bandFamilies(bands: string[]): BandFamily[] {
   const out = new Set<BandFamily>();
   for (const raw of bands) {
     const b = raw.trim();
-    if (HF_BANDS.has(b)) out.add(b as BandFamily);
-    else out.add("VHF+"); // 2m, 1.25m, 70cm, 33cm, 23cm, 13cm, 3cm
+    if (OWN_BOX.has(b)) out.add(b as BandFamily);
+    else if (MICROWAVE_BANDS.has(b)) out.add("Microwave");
   }
   return BAND_FAMILIES.filter((b) => out.has(b));
 }

@@ -53,9 +53,8 @@ describe("filter vocabulary", () => {
   });
 
   it("offers a band filter reachable from every band the catalog records", () => {
-    // Not equality: the ladder is deliberately collapsed above 6m, so 2m
-    // through 3cm all answer to VHF+. What must hold is that no recorded band
-    // is unreachable.
+    // Not equality: 33cm through 3cm share one Microwave box. What must hold
+    // is that no recorded band is unreachable.
     const unreachable = CATALOG_BANDS.filter((b) => bandFamilies([b]).length === 0);
     expect(unreachable).toEqual([]);
   });
@@ -64,6 +63,28 @@ describe("filter vocabulary", () => {
     const reachable = new Set(CATALOG.flatMap((c) => bandFamilies(c.bands ?? [])));
     const dead = BAND_FAMILIES.filter((b) => !reachable.has(b));
     expect(dead, `filters no record can satisfy: ${dead.join(", ")}`).toEqual([]);
+  });
+
+  it("lets a 2m operator filter to 2m, and 222 MHz does not answer to it", () => {
+    // The reason the VHF+ box was split: one box for everything above 6m made
+    // 2m, 1.25m and 70cm indistinguishable to the reader who owns one of them.
+    expect(bandFamilies(["2m"])).toEqual(["2m"]);
+    expect(bandFamilies(["70cm"])).toEqual(["70cm"]);
+    expect(bandFamilies(["1.25m"])).toEqual(["1.25m"]);
+    expect(bandFamilies(["33cm", "23cm", "13cm", "3cm"])).toEqual(["Microwave"]);
+    expect(bandFamilies(["2m", "70cm"])).not.toContain("1.25m");
+  });
+
+  it("filters on 2m through the API and keeps old band=VHF+ links working", async () => {
+    const two = (await (await get("/api/contests?band=2m&year=2026")).json()) as any;
+    const ids = (r: any) => new Set<string>(r.occurrences.map((c: any) => c.contest_id ?? c.id));
+    expect(two.occurrences.length).toBeGreaterThan(0);
+    // arrl-10ghz is 3cm only: it must not appear under 2m.
+    expect(ids(two).has("arrl-10ghz-leg1")).toBe(false);
+    const legacy = await get("/api/contests?band=VHF%2B&year=2026");
+    expect(legacy.status).toBe(200);
+    const legacyIds = ids(await legacy.json());
+    expect(legacyIds.has("arrl-10ghz-leg1") || legacyIds.has("arrl-10ghz-leg2")).toBe(true);
   });
 
   it("widens Digital to cover RTTY and FT8/FT4, and narrows FT8/FT4 to itself", () => {
