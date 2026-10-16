@@ -18,7 +18,7 @@ scheduling rules taken from each sponsor's own published rules; dates for any ye
 computed on demand. That means no year horizon, one-line fixes when a sponsor changes a
 rule, and every date traceable to a source.
 
-**Current state:** 302 contest definitions → 997 occurrences for 2026. 497 Python tests,
+**Current state:** 302 contest definitions → 997 occurrences for 2026. 500 Python tests,
 510 TypeScript tests, 201 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
@@ -60,7 +60,7 @@ to sponsors, one PDF lookup, and a watch-list with dates. Nothing Claude can do 
 ```powershell
 pip install -r requirements.txt   # REQUIRED on Windows -- tzdata
 python scripts\validate.py        # expect: 21/21 match
-python -m pytest -q               # expect: 497 passed
+python -m pytest -q               # expect: 500 passed
 python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 

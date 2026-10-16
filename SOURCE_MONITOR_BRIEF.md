@@ -59,6 +59,17 @@ Fold in `scripts/check_links.py`'s logic. Same per-host throttling — you're hi
 volunteer-run servers and a burst of concurrent requests returns 503s that look exactly like
 dead links.
 
+**A whole-host failure is not a set of broken links.** If every page on a host fails at the
+connection level (DNS, refused, timeout — no HTTP status at all), report "host unreachable,
+N pages unchecked" and do **not** fail the run. A server that is down says nothing about its
+pages and nobody can act on it from here; on 2026-10-15 `www.jarl.org` (8 pages) and
+`concursos.rep.pt` (3) both reported as broken when the hosts were simply unreachable, and
+the JARL pages were fine an hour later. An HTTP answer (404, 410, …) is a real break. A host
+that answers some pages and not others stays broken. Because a lapsed domain looks identical,
+the monitor must remember: escalate a host that has been unreachable for several consecutive
+runs, so "briefly down" and "gone" are told apart by time, not guessed. `check_links.classify()`
+is the reference implementation.
+
 ### 3. Stale verification
 
 Flag any record whose `rules_url_checked` is more than 12 months old. This is the cheapest

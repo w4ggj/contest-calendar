@@ -98,6 +98,38 @@ def check_host_group(urls: list[str]) -> list[tuple[str, int | str]]:
     return out
 
 
+def classify(targets, status_by_url):
+    """
+    Split results into live, broken, and unreachable-by-host.
+
+    A status that is an int is an HTTP answer: the host is up and the page is
+    wrong, so 404 etc. is BROKEN. A status that is a string is an exception --
+    the connection itself failed. When EVERY page on a host failed that way the
+    host is down (or blocking us), which is a fact about the server, not about
+    the pages; those are reported as unreachable and excluded from `broken`.
+    A host with some answers and some connection failures stays broken: it is up.
+    """
+    host_of = lambda u: urlparse(u).netloc
+    answered = defaultdict(bool)
+    for u, s in status_by_url.items():
+        if isinstance(s, int):
+            answered[host_of(u)] = True
+
+    ok, broken = [], []
+    unreachable: dict[str, list] = defaultdict(list)
+    for cid, sponsor, url in targets:
+        status = status_by_url.get(url, "no url")
+        row = (cid, sponsor, url, status)
+        if status == 200:
+            ok.append(row)
+        elif url and isinstance(status, str) and status != "no url" \
+                and not answered[host_of(url)]:
+            unreachable[host_of(url)].append(row)
+        else:
+            broken.append(row)
+    return ok, broken, dict(unreachable)
+
+
 def main() -> int:
     year = int(sys.argv[1]) if len(sys.argv) > 1 else date.today().year
 
@@ -129,16 +161,22 @@ def main() -> int:
         for group in pool.map(check_host_group, by_host.values()):
             status_by_url.update(dict(group))
 
-    ok, broken = [], []
-    for cid, sponsor, url in targets:
-        status = status_by_url.get(url, "no url")
-        (ok if status == 200 else broken).append((cid, sponsor, url, status))
+    ok, broken, unreachable = classify(targets, status_by_url)
 
     for cid, sponsor, url, status in broken:
         print(f"  BROKEN [{status}]  {cid}")
         print(f"                    {url}")
 
     print(f"\n  {len(ok)} live, {len(broken)} broken")
+    for host, rows in sorted(unreachable.items()):
+        print(f"  HOST UNREACHABLE  {host}: {len(rows)} page(s) unchecked ({rows[0][3]})")
+    if unreachable:
+        print(
+            "  (A host that refuses every connection says nothing about its pages, and\n"
+            "   nobody can act on it from here. Not counted as broken; does not fail the run.\n"
+            "   A lapsed domain looks the same -- if a host stays on this list run after\n"
+            "   run, look at it by hand.)"
+        )
     for u in skipped:
         print(f"  SKIPPED (robots.txt disallows automated fetching): {u}")
 
