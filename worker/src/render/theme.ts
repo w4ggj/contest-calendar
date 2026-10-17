@@ -147,8 +147,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-ui);
-  font-size: 16px;
-  line-height: 1.45;
+  font-size: 1rem;
+  line-height: 1.6;
   /* No page-wide texture. There was a faint scan rule here, left from the older
      direction; with the rail carrying real spectral colour it was one accessory
      too many, and it repainted the full page height for something nobody was
@@ -169,7 +169,7 @@ a:hover { color: var(--ink); }
 .skip {
   position: absolute; left: -9999px; top: 0;
   background: var(--amber); color: #000; padding: .6rem 1rem; z-index: 50;
-  font: 600 0.85rem/1 var(--font-mono);
+  font: 600 1rem/1 var(--font-mono);
 }
 .skip:focus { left: .5rem; top: .5rem; }
 
@@ -182,8 +182,8 @@ a:hover { color: var(--ink); }
 .strip-in {
   max-width: var(--shell); margin: 0 auto; padding: .5rem 1rem;
   display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
-  font: 500 0.7rem/1.4 var(--font-mono);
-  letter-spacing: .16em; text-transform: uppercase;
+  font: 500 1rem/1.4 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
 }
 .strip-in strong { color: var(--ink-dim); font-weight: 600; }
@@ -196,8 +196,8 @@ a:hover { color: var(--ink); }
 .ident { display: flex; flex-direction: column; gap: .3rem; margin-right: auto; }
 .ident h1 {
   margin: 0;
-  font: 700 .84rem/1.2 var(--font-mono);
-  letter-spacing: .14em; text-transform: uppercase;
+  font: 700 1rem/1.2 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink);
 }
 /* The title is a link home, and it goes to a CLEAN schedule -- no query. That
@@ -212,7 +212,7 @@ a:hover { color: var(--ink); }
 .ident h1 a:hover { color: var(--cyan); }
 .ident .tag {
   margin: 0;
-  font: 400 .72rem/1.4 var(--font-ui);
+  font: 400 1rem/1.4 var(--font-ui);
   letter-spacing: 0; text-transform: none;
   color: var(--ink-faint);
 }
@@ -244,12 +244,12 @@ a:hover { color: var(--ink); }
   display: flex; align-items: baseline; gap: .1em;
 }
 .utc .z {
-  font-size: .34em; letter-spacing: .2em; font-weight: 500;
+  font-size: .34em; letter-spacing: .06em; font-weight: 500;
   color: var(--amber-dim); align-self: flex-start; padding-top: .35em;
 }
 .utc-date {
-  font: 500 0.78rem/1.4 var(--font-mono);
-  letter-spacing: .2em; text-transform: uppercase;
+  font: 500 1rem/1.4 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint); margin: .5rem 0 0;
 }
 
@@ -264,8 +264,8 @@ a:hover { color: var(--ink); }
   min-height: 1.65rem;
 }
 .local-label {
-  font: 500 0.72rem/1.5 var(--font-mono);
-  letter-spacing: .16em; text-transform: uppercase;
+  font: 500 1rem/1.5 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint); margin: .25rem 0 0;
 }
 .local-label b { color: var(--ink-dim); font-weight: 600; }
@@ -273,7 +273,7 @@ a:hover { color: var(--ink); }
 .tally {
   margin: .9rem 0 0; padding: 0; list-style: none;
   display: flex; gap: 1.5rem; flex-wrap: wrap;
-  font: 500 0.78rem/1.3 var(--font-mono);
+  font: 500 1rem/1.3 var(--font-mono);
   letter-spacing: .06em;
 }
 .tally b {
@@ -289,14 +289,14 @@ a:hover { color: var(--ink); }
   border-left: 1px solid var(--rule); padding-left: 1.5rem; margin-left: -.5rem;
 }
 .tally .tot b { color: var(--ink-dim); }
-.tally span { color: var(--ink-faint); text-transform: uppercase; letter-spacing: .16em; font-size: .7rem; }
+.tally span { color: var(--ink-faint); text-transform: uppercase; letter-spacing: .06em; font-size: 1rem; }
 
 /* -- section legends --------------------------------------------------- */
 
 .legend {
   display: flex; align-items: center; gap: .75rem;
   margin: 2.25rem 0 .85rem;
-  font: 600 0.72rem/1 var(--font-mono);
+  font: 600 1rem/1 var(--font-mono);
   letter-spacing: .22em; text-transform: uppercase;
   color: var(--ink-dim);
 }
@@ -304,7 +304,7 @@ a:hover { color: var(--ink); }
   content: ""; flex: 1; height: 1px; background: var(--rule);
 }
 .legend .count {
-  color: var(--ink-faint); letter-spacing: .1em; font-weight: 500;
+  color: var(--ink-faint); letter-spacing: .06em; font-weight: 500;
 }
 .legend.on { color: var(--amber); }
 .legend.on::after { background: linear-gradient(to right, var(--amber-dim), var(--rule) 40%); }
@@ -341,14 +341,14 @@ a:hover { color: var(--ink); }
 /* The name links off-site to the sponsor's own rules. Mark it, quietly --
    an unmarked outbound link on a calendar row reads as "detail page". */
 .row-name .ext {
-  font-size: .7em; color: var(--ink-faint);
+  font-size: 1rem; color: var(--ink-faint);
   margin-left: .25em; vertical-align: .15em;
 }
 .row-name a:hover .ext, .row-name a:focus-visible .ext { color: var(--cyan); }
 
 .row-meta {
   margin: .2rem 0 0;
-  font: 500 0.74rem/1.5 var(--font-mono);
+  font: 500 1rem/1.5 var(--font-mono);
   letter-spacing: .04em;
   color: var(--ink-faint);
   display: flex; flex-wrap: wrap; gap: .1rem .5rem;
@@ -358,7 +358,7 @@ a:hover { color: var(--ink); }
 
 .row-when {
   margin: .25rem 0 0;
-  font: 500 0.76rem/1.5 var(--font-mono);
+  font: 500 1rem/1.5 var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--ink-dim);
   letter-spacing: .01em;
@@ -373,8 +373,8 @@ a:hover { color: var(--ink); }
 /* Unverified is stated, never hidden. A calendar that admits uncertainty is
    more trustworthy than one that does not. */
 .flag {
-  font: 600 0.66rem/1 var(--font-mono);
-  letter-spacing: .12em; text-transform: uppercase;
+  font: 600 1rem/1 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--amber); border: 1px solid var(--amber-dim);
   padding: .2em .4em; border-radius: var(--radius);
   white-space: nowrap;
@@ -382,7 +382,7 @@ a:hover { color: var(--ink); }
 .flag.muted { color: var(--ink-faint); border-color: var(--rule); }
 
 .row-count {
-  font: 600 0.8rem/1.3 var(--font-mono);
+  font: 600 1rem/1.3 var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--ink-dim);
   letter-spacing: .02em;
@@ -394,7 +394,7 @@ a:hover { color: var(--ink); }
 /* -- the schedule table ------------------------------------------------
    One row per contest; its sessions stack inside the Date / Start / End /
    Starts-in cells as .sess blocks, which share a line height so line N of each
-   cell is the same session. Wide screens get the table; below 860px (the same
+   cell is the same session. Wide screens get the table; below 1280px (the same
    breakpoint the live row's axis uses) the table is hidden and the cards are
    shown, because nine columns do not fit a phone and sideways scrolling is the
    thing being avoided. Both are in the markup, so nothing waits on script.
@@ -403,50 +403,55 @@ a:hover { color: var(--ink); }
 
 .tbl-note {
   margin: 0 0 .5rem;
-  font: 500 0.74rem/1.4 var(--font-mono); letter-spacing: .04em;
+  font: 500 1rem/1.4 var(--font-mono); letter-spacing: .04em;
   color: var(--ink-faint);
 }
 .tbl-wrap { display: none; }
 .gcards { list-style: none; margin: 0; padding: 0; }
-@media (min-width: 860px) {
-  .tbl-wrap { display: block; }
+@media (min-width: 1280px) {
+  .tbl-wrap { display: block; overflow-x: auto; }
   .gcards { display: none; }
 }
 
 .ctab { width: 100%; border-collapse: collapse; }
 .ctab th, .ctab td {
   text-align: left; vertical-align: top;
-  padding: .5rem .7rem .5rem 0;
+  padding: .8rem .5rem;
   border-top: 1px solid var(--rule-soft);
 }
+.ctab tbody tr:nth-child(even) > * { background: var(--panel); }
 .ctab tbody tr:last-child > * { border-bottom: 1px solid var(--rule-soft); }
 .ctab thead th {
-  border-top: 0; border-bottom: 1px solid var(--rule);
-  padding-bottom: .4rem;
-  font: 600 0.64rem/1.2 var(--font-mono);
-  letter-spacing: .12em; text-transform: uppercase;
+  border-top: 0; border-bottom: 2px solid var(--rule);
+  background: var(--panel-2);
+  padding-top: .7rem; padding-bottom: .7rem;
+  font: 600 1rem/1.2 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint); white-space: nowrap;
 }
 .ctab thead a { color: var(--ink-dim); text-decoration: none; }
 .ctab thead a:hover, .ctab thead a:focus-visible { color: var(--cyan); }
 .ctab thead th[aria-sort] a { color: var(--ink); }
+.sort-ind { color: var(--ink-faint); }
+.ctab thead a:hover .sort-ind, .ctab thead a:focus-visible .sort-ind,
+.ctab thead th[aria-sort] .sort-ind { color: var(--cyan); }
 
 .ctab td {
-  font: 500 0.76rem/1.5 var(--font-mono);
+  font: 500 1.05rem/1.6 var(--font-mono);
   font-variant-numeric: tabular-nums;
   color: var(--ink-dim);
 }
 .ctab .c-name { min-width: 10rem; font-weight: 600; }
-.ctab .c-name .row-name { font-size: .92rem; }
-.ctab .c-sp { font-family: inherit; font-size: .8rem; }
-.ctab .c-mode, .ctab .c-band { max-width: 9rem; }
+.ctab .c-name .row-name { font-size: 1.1rem; line-height: 1.4; }
+.ctab .c-sp { font-family: inherit; font-size: 1.05rem; }
+.ctab .c-mode, .ctab .c-band { max-width: 12rem; }
 .ctab .c-date, .ctab .c-start, .ctab .c-end, .ctab .c-in { white-space: nowrap; }
 .ctab .nsess {
   display: block; margin-top: .1rem;
-  font: 500 0.66rem/1.3 var(--font-mono); letter-spacing: .06em;
+  font: 500 1rem/1.3 var(--font-mono); letter-spacing: .06em;
   color: var(--ink-faint);
 }
-.sess { display: block; line-height: 1.5; }
+.sess { display: block; line-height: 1.6; }
 .sess.soon, .gin.soon { color: var(--amber); }
 .nr { color: var(--ink-faint); font-style: italic; }
 .ctab .rolling { color: var(--amber); }
@@ -468,10 +473,16 @@ a:hover { color: var(--ink); }
 }
 .gsess .row-when { margin: .1rem 0 0; }
 .gin {
-  font: 600 0.76rem/1.3 var(--font-mono);
+  font: 600 1rem/1.3 var(--font-mono);
   font-variant-numeric: tabular-nums; color: var(--ink-dim);
 }
 
+.tbl-tools {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem 1.1rem;
+  margin: 0 0 .6rem;
+  font: 500 1rem/1.4 var(--font-mono); letter-spacing: .04em;
+}
+.tbl-tools .tl { color: var(--ink-faint); text-transform: uppercase; letter-spacing: .06em; font-size: 1rem; }
 .linkbtn {
   font: inherit; color: var(--cyan); background: none; border: 0;
   padding: 0; cursor: pointer; text-decoration: underline;
@@ -510,9 +521,9 @@ a:hover { color: var(--ink); }
 .meter-text {
   position: absolute; inset: 0; display: flex; align-items: center;
   justify-content: flex-end; padding-right: .5rem;
-  font: 600 0.68rem/1 var(--font-mono);
+  font: 600 1rem/1 var(--font-mono);
   font-variant-numeric: tabular-nums;
-  letter-spacing: .1em; color: var(--ink-dim);
+  letter-spacing: .06em; color: var(--ink-dim);
   /* The label is right-aligned over the whole meter, so once a contest passes
      roughly three-quarters elapsed the fill runs underneath it and the reading
      sits on the hatch. Wide meters hide this; a 343px phone does not -- "74%
@@ -528,10 +539,10 @@ a:hover { color: var(--ink); }
   border: 1px dashed var(--rule);
   padding: 1.1rem 1rem;
   color: var(--ink-dim);
-  font-size: .92rem;
+  font-size: 1rem;
 }
 .empty p { margin: 0; }
-.empty p + p { margin-top: .4rem; color: var(--ink-faint); font-size: .86rem; }
+.empty p + p { margin-top: .4rem; color: var(--ink-faint); font-size: 1rem; }
 
 /* -- controls ---------------------------------------------------------- */
 
@@ -541,8 +552,8 @@ a:hover { color: var(--ink); }
 }
 .tzbar {
   display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;
-  font: 500 0.72rem/1 var(--font-mono);
-  letter-spacing: .1em; text-transform: uppercase; color: var(--ink-faint);
+  font: 500 1rem/1 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--ink-faint);
 }
 .tzbtn, .thbtn {
   font: inherit; letter-spacing: inherit; text-transform: inherit;
@@ -587,8 +598,8 @@ a:hover { color: var(--ink); }
   display: flex; align-items: baseline; gap: .75rem; flex-wrap: wrap;
   padding: .7rem .9rem;
   cursor: pointer;
-  font: 600 .74rem/1 var(--font-mono);
-  letter-spacing: .16em; text-transform: uppercase;
+  font: 600 1rem/1 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-dim);
 }
 /* A flex summary loses the native disclosure triangle, and a summary with no
@@ -601,7 +612,7 @@ a:hover { color: var(--ink); }
 .panel > summary:hover { color: var(--ink); }
 .panel > summary:hover::before { color: var(--ink-dim); }
 .panel > summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
-.panel-state { color: var(--ink-faint); letter-spacing: .1em; }
+.panel-state { color: var(--ink-faint); letter-spacing: .06em; }
 .panel-state .dot { color: var(--rule); }
 .panel[open] > summary { border-bottom: 1px solid var(--rule-soft); }
 
@@ -613,15 +624,15 @@ a:hover { color: var(--ink); }
 
 .f-search { display: grid; gap: .35rem; }
 .f-search label, .f-sponsor label, .f-dates-label, .fs legend {
-  font: 600 .68rem/1 var(--font-mono);
-  letter-spacing: .16em; text-transform: uppercase;
+  font: 600 1rem/1 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
   padding: 0;
 }
 .filters input[type="search"],
 .filters input[type="date"],
 .filters select {
-  font: 500 .9rem/1.3 var(--font-ui);
+  font: 500 1rem/1.3 var(--font-ui);
   background: var(--bg); color: var(--ink);
   border: 1px solid var(--rule); border-radius: var(--radius);
   padding: .5em .6em;
@@ -645,7 +656,7 @@ a:hover { color: var(--ink); }
 }
 .chip label {
   display: inline-block;
-  font: 500 .82rem/1 var(--font-mono);
+  font: 500 1rem/1 var(--font-mono);
   color: var(--ink-dim);
   background: var(--panel-2);
   border: 1px solid var(--rule); border-radius: var(--radius);
@@ -688,15 +699,15 @@ a:hover { color: var(--ink); }
   color: var(--ink-faint);
 }
 .f-dates label {
-  font: 500 .78rem/1 var(--font-mono);
+  font: 500 1rem/1 var(--font-mono);
   letter-spacing: .08em; text-transform: uppercase;
 }
 .f-sponsor { display: grid; gap: .35rem; }
 
 .f-actions { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
 .btn {
-  font: 600 .74rem/1 var(--font-mono);
-  letter-spacing: .12em; text-transform: uppercase;
+  font: 600 1rem/1 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-dim); text-decoration: none;
   background: var(--panel-2);
   border: 1px solid var(--rule); border-radius: var(--radius);
@@ -718,7 +729,7 @@ a:hover { color: var(--ink); }
   margin: .9rem 0 0;
   padding: .6rem .8rem;
   border-left: 2px solid var(--rule);
-  font: 500 .8rem/1.55 var(--font-mono);
+  font: 500 1rem/1.55 var(--font-mono);
   color: var(--ink-faint);
   max-width: 78ch;
 }
@@ -745,8 +756,8 @@ a:hover { color: var(--ink); }
    and only the document outline underneath it differs. */
 .ident .ident-name {
   margin: 0;
-  font: 700 .84rem/1.2 var(--font-mono);
-  letter-spacing: .14em; text-transform: uppercase;
+  font: 700 1rem/1.2 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink);
 }
 .ident .ident-name a { color: inherit; text-decoration: none; }
@@ -778,8 +789,8 @@ a:hover { color: var(--ink); }
 
 .backlink {
   margin: 0 0 2rem;
-  font: 500 .74rem/1 var(--font-mono);
-  letter-spacing: .1em; text-transform: uppercase;
+  font: 500 1rem/1 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
 }
 
 .prose { max-width: 68ch; color: var(--ink-dim); }
@@ -790,17 +801,17 @@ a:hover { color: var(--ink); }
 }
 .prose h2 {
   margin: 2.5rem 0 .9rem;
-  font: 600 .78rem/1.3 var(--font-mono);
-  letter-spacing: .14em; text-transform: uppercase;
+  font: 600 1rem/1.3 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
   padding-top: .9rem; border-top: 1px solid var(--rule);
 }
-.prose p { margin: 0 0 1rem; font: 400 .95rem/1.7 var(--font-ui); }
+.prose p { margin: 0 0 1rem; font: 400 1rem/1.7 var(--font-ui); }
 .prose .lede { font-size: 1.08rem; color: var(--ink); margin-bottom: 1.6rem; }
 .prose strong { color: var(--ink); font-weight: 600; }
 .prose em { font-style: italic; }
 .prose code {
-  font: 500 .85em/1 var(--font-mono);
+  font: 500 1em/1 var(--font-mono);
   color: var(--amber);
   background: var(--panel-2);
   border-radius: var(--radius);
@@ -812,13 +823,13 @@ a:hover { color: var(--ink); }
    followed by what it means, and a list would hide that shape. */
 .defs { margin: 0 0 1.2rem; display: grid; gap: .85rem; }
 .defs dt {
-  font: 600 .78rem/1.3 var(--font-mono);
+  font: 600 1rem/1.3 var(--font-mono);
   letter-spacing: .06em; color: var(--ink);
 }
 .defs dd {
   margin: .3rem 0 0; padding-left: .9rem;
   border-left: 1px solid var(--rule);
-  font: 400 .92rem/1.65 var(--font-ui);
+  font: 400 1rem/1.65 var(--font-ui);
 }
 
 /* -- the contest detail view -------------------------------------------
@@ -840,8 +851,8 @@ a:hover { color: var(--ink); }
 
 .dt-sponsor {
   margin: 0 0 .5rem;
-  font: 500 .74rem/1.4 var(--font-mono);
-  letter-spacing: .12em; text-transform: uppercase;
+  font: 500 1rem/1.4 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
 }
 .dt-sponsor .dot { color: var(--rule); }
@@ -851,7 +862,7 @@ a:hover { color: var(--ink); }
   font: 700 clamp(1.6rem, 5.5vw, 2.3rem)/1.15 var(--font-mono);
   letter-spacing: -.02em; color: var(--ink);
 }
-.detail h1 .flag { vertical-align: middle; font-size: .42em; }
+.detail h1 .flag { vertical-align: middle; font-size: 1rem; }
 
 .detail .lede {
   margin: 0 0 1.4rem;
@@ -860,15 +871,15 @@ a:hover { color: var(--ink); }
 
 .dt-cta { margin: 0 0 .5rem; display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; }
 .dt-cta-note {
-  font: 500 .72rem/1.4 var(--font-mono);
+  font: 500 1rem/1.4 var(--font-mono);
   color: var(--ink-faint); max-width: 34ch;
 }
 
 .dt-sec { margin: 2.4rem 0 0; }
 .dt-sec h2 {
   margin: 0 0 .9rem;
-  font: 600 .78rem/1.3 var(--font-mono);
-  letter-spacing: .14em; text-transform: uppercase;
+  font: 600 1rem/1.3 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
   padding-top: .9rem; border-top: 1px solid var(--rule);
 }
@@ -882,19 +893,19 @@ a:hover { color: var(--ink); }
 
 .clocks { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: .35rem; }
 .clock {
-  font: 500 .92rem/1.5 var(--font-mono);
+  font: 500 1rem/1.5 var(--font-mono);
   color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 .clock .sess {
   margin-left: .7rem;
-  font-size: .74rem; letter-spacing: .1em; text-transform: uppercase;
+  font-size: 1rem; letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
 }
 
 .detail .note {
   margin: 0 0 .6rem;
-  font: 500 .8rem/1.6 var(--font-mono); color: var(--ink-faint);
+  font: 500 1rem/1.6 var(--font-mono); color: var(--ink-faint);
 }
 .detail .note code { color: var(--amber); }
 .detail .note strong { color: var(--ink-dim); }
@@ -919,7 +930,7 @@ a:hover { color: var(--ink); }
 }
 .run-when {
   margin: 0;
-  font: 500 .9rem/1.5 var(--font-mono); color: var(--ink);
+  font: 500 1rem/1.5 var(--font-mono); color: var(--ink);
   font-variant-numeric: tabular-nums;
 }
 .run-when .dur { color: var(--ink-faint); }
@@ -928,16 +939,16 @@ a:hover { color: var(--ink); }
 .run-when .rolling { color: var(--amber); }
 .run-when .yr {
   margin-left: .6rem; color: var(--ink-faint);
-  font-size: .76rem; letter-spacing: .08em;
+  font-size: 1rem; letter-spacing: .08em;
 }
 .run-due {
   margin: 0;
-  font: 500 .76rem/1.5 var(--font-mono); color: var(--ink-faint);
+  font: 500 1rem/1.5 var(--font-mono); color: var(--ink-faint);
 }
 .empty-line {
   margin: 0; padding: .7rem .9rem;
   border-left: 2px solid var(--rule);
-  font: 400 .92rem/1.65 var(--font-ui); color: var(--ink-dim);
+  font: 400 1rem/1.65 var(--font-ui); color: var(--ink-dim);
 }
 .empty-line strong { color: var(--ink); font-weight: 600; }
 
@@ -945,22 +956,22 @@ a:hover { color: var(--ink); }
    are all "field: what the sponsor says". */
 .spec { margin: 0; display: grid; gap: .9rem; }
 .spec dt {
-  font: 600 .72rem/1.3 var(--font-mono);
-  letter-spacing: .12em; text-transform: uppercase;
+  font: 600 1rem/1.3 var(--font-mono);
+  letter-spacing: .06em; text-transform: uppercase;
   color: var(--ink-faint);
 }
 .spec dd {
   margin: .3rem 0 0; padding-left: .9rem;
   border-left: 1px solid var(--rule);
-  font: 400 .93rem/1.65 var(--font-ui); color: var(--ink);
+  font: 400 1rem/1.65 var(--font-ui); color: var(--ink);
 }
 .spec dd .sub {
   display: block; margin-top: .3rem;
-  font: 500 .8rem/1.55 var(--font-mono); color: var(--ink-faint);
+  font: 500 1rem/1.55 var(--font-mono); color: var(--ink-faint);
 }
 .spec dd q {
   display: block; quotes: none;
-  font: 400 .9rem/1.7 var(--font-ui); color: var(--ink-dim);
+  font: 400 1rem/1.7 var(--font-ui); color: var(--ink-dim);
 }
 .spec dd strong { color: var(--ink); font-weight: 600; }
 
@@ -980,7 +991,7 @@ a:hover { color: var(--ink); }
 
 .bandlist { display: flex; flex-wrap: wrap; gap: .3rem; }
 .band, .pw {
-  font: 500 .74rem/1 var(--font-mono);
+  font: 500 1rem/1 var(--font-mono);
   color: var(--ink-dim);
   border: 1px solid var(--rule); border-radius: var(--radius);
   padding: .4em .55em;
@@ -1013,7 +1024,7 @@ a:hover { color: var(--ink); }
 .foot {
   margin: 3rem 0 0; padding: 1.25rem 0 2.5rem;
   border-top: 1px solid var(--rule);
-  font: 500 0.74rem/1.6 var(--font-mono);
+  font: 500 1rem/1.6 var(--font-mono);
   color: var(--ink-faint);
   display: grid; gap: .5rem;
 }
@@ -1047,7 +1058,7 @@ a:hover { color: var(--ink); }
      wraps inside its own column instead of stealing the next one's line, and
      the column edge is what separates them. */
   .tally { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
-  .tally span { font-size: .64rem; letter-spacing: .1em; }
+  .tally span { font-size: 1rem; letter-spacing: .06em; }
 
   /* The meter cannot be read by touching it, so give it some height. */
   .meter { height: 1.6rem; }
@@ -1059,15 +1070,15 @@ a:hover { color: var(--ink); }
      enough that the name and the count share a line: two lines, 40px. The
      55px that buys back is a third of a contest row, at the top of the page
      where a phone can least afford it. */
-  .strip-in { gap: .35rem .9rem; font-size: .62rem; letter-spacing: .08em; }
+  .strip-in { gap: .35rem .9rem; font-size: 1rem; letter-spacing: .08em; }
   .strip-in .sep { display: none; }
 
   /* The ident is two lines by construction, so it cannot give a line back; it
      gives size instead, and the tagline wraps to two rather than pushing the
      iCal and API links onto a row of their own. */
   .ident { gap: .2rem; margin-right: 0; }
-  .ident h1 { font-size: .74rem; letter-spacing: .1em; }
-  .ident .tag { font-size: .68rem; line-height: 1.35; }
+  .ident h1 { font-size: 1rem; letter-spacing: .06em; }
+  .ident .tag { font-size: 1rem; line-height: 1.35; }
 
   /* Measured: the full tagline wraps to two lines at 360 and at 320, which put
      20px back on top of the hero the mobile pass had just taken off. The clause
@@ -1137,18 +1148,18 @@ a:hover { color: var(--ink); }
 .mo-head h1 { margin: 0; font-size: 1.5rem; letter-spacing: -.01em; }
 .mo-nav { display: flex; gap: .5rem; flex-wrap: wrap; margin: 0; }
 .mo-sub { margin: 0 0 1rem; max-width: 70ch;
-  font: 500 .8rem/1.6 var(--font-mono); color: var(--ink-faint); }
+  font: 500 1rem/1.6 var(--font-mono); color: var(--ink-faint); }
 .mo-sub strong { color: var(--ink-dim); }
 .viewswitch { margin: .6rem 0 0; }
 
 /* The page body must never scroll sideways, so the grid scrolls inside itself.
    A month is seven columns whatever the viewport is: collapsing it to a list on
    a phone would throw away the one thing this view exists to show. */
-.mo-wrap { overflow-x: auto; margin: 0 0 1.4rem; }
+.mo-wrap { overflow-x: auto; margin: 0 0 1.4rem; position: relative; } /* positioned so the absolutely placed .vh spans are clipped by it, not by the page */
 .mo-grid {
   width: 100%; min-width: 44rem;
   border-collapse: collapse; table-layout: fixed;
-  font: 500 .8rem/1.4 var(--font-mono);
+  font: 500 1rem/1.4 var(--font-mono);
 }
 .mo-grid th {
   padding: .35rem .5rem; text-align: left;
@@ -1174,7 +1185,7 @@ a:hover { color: var(--ink); }
 }
 .mo-day.today .mo-dn time { color: var(--amber); font-weight: 700; }
 .mo-c {
-  font-size: .7rem; color: var(--ink-faint);
+  font-size: 1rem; color: var(--ink-faint);
   border: 1px solid var(--rule-soft); border-radius: 999px;
   padding: 0 .3rem;
 }
@@ -1195,16 +1206,16 @@ a:hover { color: var(--ink); }
 /* "x2" where a contest runs more than one session in the same UTC day. Without
    the clock on the page those sessions would otherwise be the same title
    printed twice, which reads as a bug rather than as a fact about the contest. */
-.mo-x { color: var(--ink-faint); font-size: .7rem; flex: none; }
+.mo-x { color: var(--ink-faint); font-size: 1rem; flex: none; }
 
 /* A day the contest continues into is not a second running of it, and the grid
    must not read as though it were. Dimmer, and marked. */
 .mo-ev.cont a { border-left-style: dotted; opacity: .8; }
-.cont-mark { color: var(--ink-faint); font-size: .7rem; flex: none; }
+.cont-mark { color: var(--ink-faint); font-size: 1rem; flex: none; }
 .mo-ev.unver a { border-left-color: var(--rule); }
 
 @media (max-width: 640px) {
-  .mo-grid { min-width: 40rem; font-size: .72rem; }
+  .mo-grid { min-width: 40rem; font-size: 1rem; }
   .mo-day { height: 5.5rem; }
 }
 
@@ -1218,7 +1229,7 @@ a:hover { color: var(--ink); }
    amber because amber is time here and the thing worth knowing about a rare
    entity is that it is on NOW and will not be again for years. */
 
-.dx-mark { color: var(--amber); font-size: .7rem; flex: none; }
+.dx-mark { color: var(--amber); font-size: 1rem; flex: none; }
 .mo-ev.dx a { border-left-color: var(--amber); }
 .mo-ev.dx a:hover { border-left-color: var(--amber); color: var(--ink); }
 
@@ -1235,11 +1246,11 @@ a:hover { color: var(--ink); }
 .dx-call { color: var(--amber); letter-spacing: .04em; }
 .dx-when {
   margin: 0 0 .5rem;
-  font: 500 .8rem/1.5 var(--font-mono); color: var(--ink-dim);
+  font: 500 1rem/1.5 var(--font-mono); color: var(--ink-dim);
 }
 .dx-prov {
   display: inline-block; margin-left: .5rem;
-  font-size: .72rem; color: var(--ink-faint);
+  font-size: 1rem; color: var(--ink-faint);
   border: 1px dashed var(--rule); border-radius: 999px; padding: 0 .45rem;
 }
 .dx-sum { margin: 0 0 .8rem; color: var(--ink-dim); }
@@ -1272,18 +1283,18 @@ a:hover { color: var(--ink); }
 .dxrow-name .dx-call { color: var(--amber); letter-spacing: .04em; font-weight: 700; }
 .dxrow-meta, .dxrow-when {
   margin: .15rem 0 0;
-  font: 500 .76rem/1.5 var(--font-mono); color: var(--ink-faint);
+  font: 500 1rem/1.5 var(--font-mono); color: var(--ink-faint);
 }
 .dxrow-when .dxd { color: var(--ink-dim); }
 .dxrow-count {
   display: inline-block; margin-top: .2rem;
-  font: 600 .72rem/1.4 var(--font-mono); color: var(--ink-faint);
-  letter-spacing: .1em; text-transform: uppercase;
+  font: 600 1rem/1.4 var(--font-mono); color: var(--ink-faint);
+  letter-spacing: .06em; text-transform: uppercase;
 }
 .dxrow-count.soon { color: var(--amber); }
 .dx-note {
   margin: 0 0 .6rem; max-width: 78ch;
-  font: 500 .76rem/1.6 var(--font-mono); color: var(--ink-faint);
+  font: 500 1rem/1.6 var(--font-mono); color: var(--ink-faint);
 }
 
 /* A touch target for the one link a DX row has, matching the contest rows. */
@@ -1311,7 +1322,7 @@ a:hover { color: var(--ink); }
 @media print {
   html, body { background: #fff !important; color: #000 !important; }
   .skip, .strip, .readout, .panel, .viewswitch, .tzbar, .caveat, .unrec,
-  .gcards, .dxrows, .dx-note, .foot, .sort-ind { display: none !important; }
+  .gcards, .dxrows, .dx-note, .foot, .sort-ind, .tbl-tools { display: none !important; }
   .tbl-wrap { display: block !important; }
   .ctab, .ctab td, .ctab th, .ctab a, .legend, .tbl-note, .row-name a,
   .sess, .nsess, .nr { color: #000 !important; background: none !important; }

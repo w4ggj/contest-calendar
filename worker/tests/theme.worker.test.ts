@@ -239,10 +239,10 @@ describe("the phone", () => {
   });
 
   it("shows the card list until there is room for nine columns", () => {
-    // Hidden by default and revealed at 860px, so a phone never gets a layout
+    // Hidden by default and revealed at 1280px (nine columns at 1rem+ type need about 1200px), so a phone never gets a layout
     // that scrolls sideways, and the default is the safe one.
     expect(CSS).toMatch(/\.tbl-wrap\s*\{\s*display:\s*none;?\s*\}/);
-    expect(CSS).toMatch(/min-width:\s*860px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
+    expect(CSS).toMatch(/min-width:\s*1280px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
   });
 
   it("gives each tally count its own column rather than a shared line", () => {
@@ -259,5 +259,21 @@ describe("the phone", () => {
     // sits on the hatch. A 343px phone made that unreadable where a 730px
     // desktop meter hid it. No markup and no server-side geometry: a halo.
     expect(CSS).toMatch(/\.meter-text\s*\{[^}]*text-shadow:[^;]*var\(--panel\)/);
+  });
+});
+
+describe("type size", () => {
+  it("never sets text below 1rem, and sizes in rem rather than px", () => {
+    // A lot of the audience is older and the schedule is dense, so 16px is a
+    // floor, not a default. rem so the browser's own font-size setting scales it.
+    const sizes = [
+      ...CSS.matchAll(/font-size:\s*([\d.]+)(rem|px)/g),
+      ...CSS.matchAll(/font:[^;]*?\s([\d.]+)(rem|px)\//g),
+    ];
+    expect(sizes.length).toBeGreaterThan(20);
+    for (const [decl, n, unit] of sizes) {
+      expect(unit, `${decl} is in px`).not.toBe("px");
+      expect(Number(n), `${decl} is below 1${unit}`).toBeGreaterThanOrEqual(1);
+    }
   });
 });

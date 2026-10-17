@@ -53,7 +53,7 @@ import {
 } from "../dx.js";
 import { detailHref, relink } from "./filters.js";
 import { SITE_NAME, esc, masthead } from "./html.js";
-import { contestTable, groupCount, isoAttr } from "./landing.js";
+import { contestTable, groupCount, isoAttr, tableTools } from "./landing.js";
 import { pageLinks } from "./pages.js";
 import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
@@ -485,6 +485,12 @@ ${masthead(false, "Skip to the calendar")}
     base: "/month",
     anchor: "lg-month-table",
     caption: `Contests starting in ${title}`,
+    tools: tableTools(
+      relink(params, ["sort", "dir", "m", "range", "year"], {
+        from: `${monthParam(year, month)}-01`,
+        to: new Date(dayMs(year, month + 1, 1) - 1).toISOString().slice(0, 10),
+      }, "/api/csv"),
+    ),
   })}
   </section>`
       : ""

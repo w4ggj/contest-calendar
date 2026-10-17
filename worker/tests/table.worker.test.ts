@@ -50,6 +50,14 @@ describe("the landing table", () => {
     expect(html).not.toContain('class="track');
   });
 
+  it("shows a sort affordance on every column, not only the active one", async () => {
+    const html = await page("/?sort=sponsor");
+    const head = /<thead>(.*?)<\/thead>/s.exec(html)![1];
+    const inds = [...head.matchAll(/class="sort-ind"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    expect(inds).toHaveLength(9);
+    expect(inds.filter((x) => x.includes("⇅"))).toHaveLength(8);
+  });
+
   it("marks the active column with aria-sort and flips direction on the next link", async () => {
     const html = await page("/?sort=sponsor&dir=asc");
     expect(html).toMatch(/<th scope="col" class="c-sp" aria-sort="ascending"><a href="[^"]*dir=desc/);
@@ -72,9 +80,12 @@ describe("the landing table", () => {
     );
   });
 
-  it("offers CSV and print next to iCal and JSON, with the print button hidden until JS runs", async () => {
+  it("puts CSV and print above the first table, ahead of the footer", async () => {
     const html = await page("/?mode=CW");
     expect(html).toMatch(/href="\/api\/csv\?[^"]*mode=CW[^"]*" download/);
+    expect(html.indexOf('class="tbl-tools"')).toBeLessThan(html.indexOf('<table class="ctab">'));
+    expect(html.indexOf('id="printbtn"')).toBeLessThan(html.indexOf('<footer'));
+    expect(html).toContain("<noscript>");
     expect(html).toMatch(/<button type="button" class="linkbtn" id="printbtn" hidden>/);
   });
 });

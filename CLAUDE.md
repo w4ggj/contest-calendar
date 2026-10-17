@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 207 passed
+npm test                       # expect: 209 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -161,18 +161,26 @@ side effects** — do not reorder those imports, and do not import anything abov
 touches the engine. `/api/health` reports both the active resolver and the one the runtime
 *would* have chosen; when they differ, the pin is what is keeping contests on the hour.
 
+## Type size is a floor
+
+Nothing on the site renders below **1rem**, and sizes are rem so browser font settings scale
+them (`theme.worker.test.ts` fails on any `font-size`/`font` below 1 or in px). Table data is
+1.05rem. At that size nine columns need ~1200px, so the table shows from **1280px** and the
+card list below it; `.tbl-wrap` keeps `overflow-x:auto` only as a guard for a long record.
+
 ## The schedule table
 
 Below the live cards, `/` and `/month` render `contestTable()` (`render/landing.ts`): nine
 sortable columns, **one row per contest** with its sessions stacked in the Date / Start / End /
 Starts-in cells (CWT, SST and the NCCC sprints read as one entry). The same groups are also
-emitted as a card list; CSS alone shows the cards below 860px and the table above, so a phone
+emitted as a card list; CSS alone shows the cards below 1280px and the table above, so a phone
 never scrolls sideways and nothing needs JS to pick a layout. Sorting is plain links
 (`?sort=&dir=`), unrecorded values sort last in both directions. The contest name links to
 `/contest/:id`, not straight to the sponsor — the rules link lives there. The per-row timeline
 rail and `daylabel.ts` were removed. `/api/csv` (alias `/contests.csv`) exports one row per
-occurrence over the current filter; `csvField()` defuses leading `= + - @`. Print is a button
-revealed by JS plus `@media print`.
+occurrence over the current filter; `csvField()` defuses leading `= + - @`. The export bar (CSV, Print) sits above the first table, not in the footer. Print is a button
+revealed by JS (`noscript` says to use the browser's Print, which the `@media print` rules cover); zebra rows,
+a solid header and a ⇅ affordance on every sortable header.
 
 ## The Worker
 

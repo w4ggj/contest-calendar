@@ -342,6 +342,8 @@ export interface TableContext {
   /** Id of the section heading, so a sort click lands where it was made. */
   anchor: string;
   caption: string;
+  /** Export bar shown above the table (see tableTools). */
+  tools?: string;
 }
 
 function headCell(col: (typeof COLUMNS)[number], spec: SortSpec, ctx: TableContext): string {
@@ -353,7 +355,7 @@ function headCell(col: (typeof COLUMNS)[number], spec: SortSpec, ctx: TableConte
   return (
     `<th scope="col" class="${col.cls}"${aria}>` +
     `<a href="${esc(href)}">${esc(col.label)}` +
-    `<span class="sort-ind" aria-hidden="true">${active ? (spec.dir === "asc" ? " ▲" : " ▼") : ""}</span>` +
+    `<span class="sort-ind" aria-hidden="true">${active ? (spec.dir === "asc" ? " ▲" : " ▼") : " ⇅"}</span>` +
     `</a></th>`
   );
 }
@@ -474,6 +476,7 @@ export function contestTable(occs: Occurrence[], ctx: TableContext): string {
         `repeats share a row.</p>`;
 
   return (
+    (ctx.tools ?? "") +
     note +
     `<div class="tbl-wrap"><table class="ctab">` +
     `<caption class="vh">${esc(ctx.caption)}</caption>` +
@@ -481,6 +484,21 @@ export function contestTable(occs: Occurrence[], ctx: TableContext): string {
     `<tbody>${groups.map((g) => tableRow(g, ctx)).join("")}</tbody>` +
     `</table></div>` +
     `<ol class="gcards">${groups.map((g) => groupCard(g, ctx)).join("")}</ol>`
+  );
+}
+
+/**
+ * Export bar above the first table. CSV is a plain link; Print is a button
+ * because it needs window.print, so it is revealed by script. Without script
+ * the noscript line says what to do instead -- the print stylesheet applies to
+ * the browser's own Print either way.
+ */
+export function tableTools(csvHref: string): string {
+  return (
+    `<p class="tbl-tools"><span class="tl">Export this view</span>` +
+    `<a href="${esc(csvHref)}" download>CSV</a>` +
+    `<button type="button" class="linkbtn" id="printbtn" hidden>Print</button>` +
+    `<noscript><span class="tl">Print: use your browser's Print (Ctrl+P)</span></noscript></p>`
   );
 }
 
@@ -539,6 +557,7 @@ function weekSection(
   nowMs: number,
   empty: string,
   params: URLSearchParams,
+  tools = "",
 ): string {
   const body = next7.length
     ? contestTable(next7, {
@@ -547,6 +566,7 @@ function weekSection(
         base: "/",
         anchor: "lg-week",
         caption: "Contests starting in the next 7 days",
+        tools,
       })
     : empty;
 
@@ -563,6 +583,7 @@ function laterSection(
   view: NowView,
   empty: string,
   params: URLSearchParams,
+  tools = "",
 ): string {
   if (!view.later.length) {
     return empty
@@ -582,6 +603,7 @@ function laterSection(
       base: "/",
       anchor: "lg-later",
       caption: view.laterLabel,
+      tools,
     }) +
     `</section>`
   );
@@ -762,6 +784,7 @@ function sections(view: NowView, input: LandingInput): string {
   const { filters, params } = input;
   const nothing = view.totalConsidered === 0;
   const what = describeSelection(filters);
+  const tools = tableTools(relink(params, ["sort", "dir"], {}, "/api/csv"));
 
   const weekEmpty = !view.weekApplies
     ? ""
@@ -783,8 +806,10 @@ function sections(view: NowView, input: LandingInput): string {
     // Directly under the live contests: an operation on the air right now is
     // the most perishable thing on this page.
     dxSection(view, params) +
-    (view.weekApplies ? weekSection(view.next7, view.now, weekEmpty, params) : "") +
-    laterSection(view, laterEmpty, params) +
+    (view.weekApplies
+      ? weekSection(view.next7, view.now, weekEmpty, params, view.next7.length ? tools : "")
+      : "") +
+    laterSection(view, laterEmpty, params, view.weekApplies && view.next7.length ? "" : tools) +
     unrecordedSection(view, params)
   );
 }
@@ -871,8 +896,6 @@ ${masthead(true, "Skip to contests")}
     <p class="links">
       <a href="/api/ics">Subscribe (iCal)</a>
       <a href="/api/contests?year=${now.getUTCFullYear()}">This year as JSON</a>
-      <a href="${esc(relink(input.params, ["sort", "dir"], {}, "/api/csv"))}" download>Export CSV</a>
-      <button type="button" class="linkbtn" id="printbtn" hidden>Print</button>
       <a href="/api/health">Health</a>
     </p>
     <p class="feed-note">Apple Calendar, Outlook and Thunderbird take that feed
