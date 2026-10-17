@@ -410,6 +410,12 @@ function startsIn(o: Occurrence, now: number): string {
   );
 }
 
+/** Escaped, with a break opportunity after each slash so "SSB/CW/Digital" can
+ *  fold onto two lines instead of setting the column's minimum width. */
+function breakable(v: string): string {
+  return esc(v).replace(/\//g, "/<wbr>");
+}
+
 function tableRow(g: ContestGroup, ctx: TableContext): string {
   const s = g.sessions;
   const o = s[0];
@@ -430,12 +436,12 @@ function tableRow(g: ContestGroup, ctx: TableContext): string {
     // data-d is the contest's bucket, from durationBucketOf -- the colour role.
     `<td class="c-dur" data-d="${durationBucketOf(o.duration_hours)}">${dur.join("")}</td>` +
     `<td class="c-mode">${
-      modeLabel(o) ? esc(modeLabel(o)) : `<span class="nr">not recorded</span>`
+      modeLabel(o) ? breakable(modeLabel(o)) : `<span class="nr">not recorded</span>`
     }</td>` +
     `<td class="c-band">${
-      o.bands.length ? esc(bandLabel(o.bands)) : `<span class="nr">not recorded</span>`
+      o.bands.length ? breakable(bandLabel(o.bands)) : `<span class="nr">not recorded</span>`
     }</td>` +
-    `<td class="c-sp">${esc(o.sponsor)}</td>` +
+    `<td class="c-sp"><span class="clamp2" title="${esc(o.sponsor)}">${esc(o.sponsor)}</span></td>` +
     `<td class="c-in">${s.map((x) => startsIn(x, ctx.now)).join("")}</td>` +
     `</tr>`
   );

@@ -394,8 +394,8 @@ a:hover { color: var(--ink); }
 /* -- the schedule table ------------------------------------------------
    One row per contest; its sessions stack inside the Date / Start / End /
    Starts-in cells as .sess blocks, which share a line height so line N of each
-   cell is the same session. Wide screens get the table; below 1280px (the same
-   breakpoint the live row's axis uses) the table is hidden and the cards are
+   cell is the same session. Wide screens get the table; below 1100px (this is
+   not the live row's axis breakpoint) the table is hidden and the cards are
    shown, because nine columns do not fit a phone and sideways scrolling is the
    thing being avoided. Both are in the markup, so nothing waits on script.
    Colour keeps its three roles: amber is time (a countdown inside six hours),
@@ -408,7 +408,7 @@ a:hover { color: var(--ink); }
 }
 .tbl-wrap { display: none; }
 .gcards { list-style: none; margin: 0; padding: 0; }
-@media (min-width: 1280px) {
+@media (min-width: 1100px) {
   .tbl-wrap { display: block; overflow-x: auto; }
   .gcards { display: none; }
 }
@@ -416,7 +416,7 @@ a:hover { color: var(--ink); }
 .ctab { width: 100%; border-collapse: collapse; }
 .ctab th, .ctab td {
   text-align: left; vertical-align: top;
-  padding: .8rem .5rem;
+  padding: .8rem .35rem;
   border-top: 1px solid var(--rule-soft);
 }
 .ctab tbody tr:nth-child(even) > * { background: var(--panel); }
@@ -426,7 +426,7 @@ a:hover { color: var(--ink); }
   background: var(--panel-2);
   padding-top: .7rem; padding-bottom: .7rem;
   font: 600 1rem/1.2 var(--font-mono);
-  letter-spacing: .06em; text-transform: uppercase;
+  letter-spacing: .02em; text-transform: uppercase;
   color: var(--ink-faint); white-space: nowrap;
 }
 .ctab thead a { color: var(--ink-dim); text-decoration: none; }
@@ -441,9 +441,16 @@ a:hover { color: var(--ink); }
   font-variant-numeric: tabular-nums;
   color: var(--ink-dim);
 }
-.ctab .c-name { min-width: 10rem; font-weight: 600; }
+.ctab .c-name { min-width: 8.5rem; font-weight: 600; }
 .ctab .c-name .row-name { font-size: 1.1rem; line-height: 1.4; }
-.ctab .c-sp { font-family: inherit; font-size: 1.05rem; }
+.ctab .c-sp { font-family: inherit; font-size: 1.05rem; max-width: 10rem; }
+/* Two lines at most: a long society name was running to four and making its
+   row twice the height of its neighbours. The full name is the title attribute
+   and is always on the contest's own page. */
+.clamp2 {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  line-clamp: 2; overflow: hidden;
+}
 .ctab .c-mode, .ctab .c-band { max-width: 12rem; }
 .ctab .c-date, .ctab .c-start, .ctab .c-end, .ctab .c-in { white-space: nowrap; }
 .ctab .nsess {

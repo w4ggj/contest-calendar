@@ -72,6 +72,18 @@ describe("the landing table", () => {
     }
   });
 
+  it("clamps the sponsor to two lines and keeps the full name as a title", async () => {
+    const html = await page("/");
+    const cells = [...html.matchAll(/<td class="c-sp"><span class="clamp2" title="([^"]+)">([^<]+)<\/span>/g)];
+    expect(cells.length).toBeGreaterThan(0);
+    for (const [, title, text] of cells) expect(title).toBe(text);
+  });
+
+  it("offers a line break after each slash in the Mode cell", async () => {
+    const html = await page("/");
+    expect(html).toMatch(/<td class="c-mode">[^<]*\/<wbr>/);
+  });
+
   it("renders the card twin alongside, so CSS alone decides which shows", async () => {
     const html = await page("/");
     expect(html).toContain('<ol class="gcards">');

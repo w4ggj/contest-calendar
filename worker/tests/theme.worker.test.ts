@@ -239,10 +239,10 @@ describe("the phone", () => {
   });
 
   it("shows the card list until there is room for nine columns", () => {
-    // Hidden by default and revealed at 1280px (nine columns at 1rem+ type need about 1200px), so a phone never gets a layout
+    // Hidden by default and revealed at 1100px (nine columns at 1rem+ type need about 1060px), so a phone never gets a layout
     // that scrolls sideways, and the default is the safe one.
     expect(CSS).toMatch(/\.tbl-wrap\s*\{\s*display:\s*none;?\s*\}/);
-    expect(CSS).toMatch(/min-width:\s*1280px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
+    expect(CSS).toMatch(/min-width:\s*1100px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
   });
 
   it("gives each tally count its own column rather than a shared line", () => {

@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 209 passed
+npm test                       # expect: 211 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -165,7 +165,7 @@ touches the engine. `/api/health` reports both the active resolver and the one t
 
 Nothing on the site renders below **1rem**, and sizes are rem so browser font settings scale
 them (`theme.worker.test.ts` fails on any `font-size`/`font` below 1 or in px). Table data is
-1.05rem. At that size nine columns need ~1200px, so the table shows from **1280px** and the
+1.05rem. At that size nine columns need ~1060px (sponsor capped at two lines, padding .35rem), so the table shows from **1100px** and the
 card list below it; `.tbl-wrap` keeps `overflow-x:auto` only as a guard for a long record.
 
 ## The schedule table
@@ -173,7 +173,7 @@ card list below it; `.tbl-wrap` keeps `overflow-x:auto` only as a guard for a lo
 Below the live cards, `/` and `/month` render `contestTable()` (`render/landing.ts`): nine
 sortable columns, **one row per contest** with its sessions stacked in the Date / Start / End /
 Starts-in cells (CWT, SST and the NCCC sprints read as one entry). The same groups are also
-emitted as a card list; CSS alone shows the cards below 1280px and the table above, so a phone
+emitted as a card list; CSS alone shows the cards below 1100px and the table above, so a phone
 never scrolls sideways and nothing needs JS to pick a layout. Sorting is plain links
 (`?sort=&dir=`), unrecorded values sort last in both directions. The contest name links to
 `/contest/:id`, not straight to the sponsor — the rules link lives there. The per-row timeline
