@@ -62,6 +62,8 @@
  * contest names and prose. An instrument's silkscreen is monospaced too.
  */
 
+import { modeRules } from "./modes.js";
+
 /**
  * Light tokens, declared once and used twice: `prefers-color-scheme` for the
  * reader who has never touched the switch, and `[data-theme="light"]` for the
@@ -77,8 +79,8 @@ const LIGHT = String.raw`
   --rule-soft: #D4DEE8;
 
   --ink:       #0C1620;
-  --ink-dim:   #44566A;
-  --ink-faint: #55697E;
+  --ink-dim:   #3A4C5F;
+  --ink-faint: #44566A;
 
   --amber:     #B03A00;
   --amber-dim: #C98A5E;
@@ -93,6 +95,12 @@ const LIGHT = String.raw`
   --d4: #06304F;
 `;
 
+/** Mode-chip colours per palette, generated from MODE_COLORS so a new mode
+ *  cannot exist without them. Light is emitted for both ways of being light. */
+const MODE_DARK = modeRules("dark");
+const MODE_LIGHT_AUTO = modeRules("light", ":root:not([data-theme]) ");
+const MODE_LIGHT_SET = modeRules("light", ':root[data-theme="light"] ');
+
 export const CSS = String.raw`
 :root {
   color-scheme: dark;
@@ -105,8 +113,8 @@ export const CSS = String.raw`
   --rule-soft: #16232F;
 
   --ink:       #D5E3F0;
-  --ink-dim:   #869CB2;
-  --ink-faint: #6B8299;
+  --ink-dim:   #9BB0C5;
+  --ink-faint: #8CA2B8;
 
   /* AMBER IS TIME. CYAN IS INTERACTIVE. THE RAMP IS LENGTH. */
   --amber:     #FF9E2C;
@@ -137,6 +145,25 @@ export const CSS = String.raw`
   :root:not([data-theme]) { ${LIGHT} }
 }
 :root[data-theme="light"] { ${LIGHT} }
+
+/* -- mode chips: one hue per token in the mode vocabulary ----------------
+   Text always names the mode; the hue is a second channel. Pills are tinted
+   with a bordered edge so they cannot be mistaken for the duration stripe,
+   which is a bar on the cell edge. See render/modes.ts. */
+${MODE_DARK}
+@media (prefers-color-scheme: light) {
+${MODE_LIGHT_AUTO}
+}
+${MODE_LIGHT_SET}
+.mchips { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .3rem .35rem; }
+.mchip {
+  display: inline-block; white-space: nowrap;
+  padding: .05rem .5rem; border-radius: 3px;
+  font: 600 1rem/1.4 var(--font-mono); letter-spacing: .02em;
+  color: var(--mf, var(--ink-dim)); background: var(--mb, var(--panel-2));
+  border: 1px solid var(--mbd, var(--rule));
+}
+.msub { color: var(--ink-faint); font: 500 1rem/1.4 var(--font-mono); }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -394,7 +421,7 @@ a:hover { color: var(--ink); }
 /* -- the schedule table ------------------------------------------------
    One row per contest; its sessions stack inside the Date / Start / End /
    Starts-in cells as .sess blocks, which share a line height so line N of each
-   cell is the same session. Wide screens get the table; below 1100px (this is
+   cell is the same session. Wide screens get the table; below 1140px (this is
    not the live row's axis breakpoint) the table is hidden and the cards are
    shown, because nine columns do not fit a phone and sideways scrolling is the
    thing being avoided. Both are in the markup, so nothing waits on script.
@@ -408,7 +435,7 @@ a:hover { color: var(--ink); }
 }
 .tbl-wrap { display: none; }
 .gcards { list-style: none; margin: 0; padding: 0; }
-@media (min-width: 1100px) {
+@media (min-width: 1140px) {
   .tbl-wrap { display: block; overflow-x: auto; }
   .gcards { display: none; }
 }

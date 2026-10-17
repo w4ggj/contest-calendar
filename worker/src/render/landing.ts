@@ -10,6 +10,7 @@
  * shows nothing on a bad phone connection in a park.
  */
 
+import { modeChips } from "./modes.js";
 import type { Occurrence } from "../../../engine/src/recurrence.js";
 import { CATALOG_SIZE } from "../catalog.js";
 import {
@@ -121,7 +122,7 @@ function metaLine(o: Occurrence): string {
   // it widens Digital to cover RTTY and FT8/FT4 -- and rendering it here made a
   // row read "RTTY/Digital" for a contest whose sponsor allows only RTTY.
   if (o.modes.length) {
-    parts.push(`<span class="mode">${esc(modeLabel(o))}</span>`);
+    parts.push(`<span class="mode">${modeChips(o.modes, o.submodes)}</span>`);
   }
 
   if (o.bands.length) parts.push(esc(bandLabel(o.bands)));
@@ -389,13 +390,6 @@ function endOf(o: Occurrence): string {
         `${sameDay ? "" : ` ${esc(zDate(end))}`}</time>`;
 }
 
-/** The record's own modes, verbatim -- see metaLine for why not the families. */
-function modeLabel(o: Occurrence): string {
-  return o.modes.length
-    ? o.modes.join("/") + (o.submodes.length ? ` (${o.submodes.join(", ")})` : "")
-    : "";
-}
-
 /** The countdown for one session. The page's states are all decided at render
  *  time; the client only ticks the ones that are still in the future. */
 function startsIn(o: Occurrence, now: number): string {
@@ -436,7 +430,7 @@ function tableRow(g: ContestGroup, ctx: TableContext): string {
     // data-d is the contest's bucket, from durationBucketOf -- the colour role.
     `<td class="c-dur" data-d="${durationBucketOf(o.duration_hours)}">${dur.join("")}</td>` +
     `<td class="c-mode">${
-      modeLabel(o) ? breakable(modeLabel(o)) : `<span class="nr">not recorded</span>`
+      o.modes.length ? modeChips(o.modes, o.submodes) : `<span class="nr">not recorded</span>`
     }</td>` +
     `<td class="c-band">${
       o.bands.length ? breakable(bandLabel(o.bands)) : `<span class="nr">not recorded</span>`

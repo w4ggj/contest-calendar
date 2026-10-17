@@ -25,7 +25,8 @@ import { SELF } from "cloudflare:test";
 
 import { CSS } from "../src/render/theme.js";
 import { THEME_BOOT } from "../src/render/client.js";
-import { DURATION_BUCKETS, durationBucketOf } from "../src/schedule.js";
+import { DURATION_BUCKETS, durationBucketOf, MODE_FAMILIES } from "../src/schedule.js";
+import { MODE_COLORS, modeChips } from "../src/render/modes.js";
 
 const BASE = "https://contestcal.test";
 const page = async (path = "/") => await (await SELF.fetch(BASE + path)).text();
@@ -239,10 +240,10 @@ describe("the phone", () => {
   });
 
   it("shows the card list until there is room for nine columns", () => {
-    // Hidden by default and revealed at 1100px (nine columns at 1rem+ type need about 1060px), so a phone never gets a layout
+    // Hidden by default and revealed at 1140px (nine columns at 1rem+ type need about 1080px plus margins and a scrollbar), so a phone never gets a layout
     // that scrolls sideways, and the default is the safe one.
     expect(CSS).toMatch(/\.tbl-wrap\s*\{\s*display:\s*none;?\s*\}/);
-    expect(CSS).toMatch(/min-width:\s*1100px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
+    expect(CSS).toMatch(/min-width:\s*1140px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
   });
 
   it("gives each tally count its own column rather than a shared line", () => {
@@ -274,6 +275,73 @@ describe("type size", () => {
     for (const [decl, n, unit] of sizes) {
       expect(unit, `${decl} is in px`).not.toBe("px");
       expect(Number(n), `${decl} is below 1${unit}`).toBeGreaterThanOrEqual(1);
+    }
+  });
+});
+
+describe("mode chips", () => {
+  it("colours exactly the mode vocabulary, in both palettes", () => {
+    // Adding a mode to MODE_FAMILIES without a colour is a type error; this is
+    // the runtime half, and it also catches a stale colour for a removed mode.
+    expect(Object.keys(MODE_COLORS).sort()).toEqual([...MODE_FAMILIES].sort());
+    for (const m of MODE_FAMILIES) {
+      expect(CSS, `${m} has no dark rule`).toContain(`.mchip[data-m="${m}"] { --mf: ${MODE_COLORS[m].dark.fg}`);
+      expect(CSS, `${m} has no light rule`).toContain(
+        `:root[data-theme="light"] .mchip[data-m="${m}"] { --mf: ${MODE_COLORS[m].light.fg}`,
+      );
+      expect(CSS, `${m} has no system-light rule`).toContain(
+        `:root:not([data-theme]) .mchip[data-m="${m}"] { --mf: ${MODE_COLORS[m].light.fg}`,
+      );
+    }
+  });
+
+  it("gives every mode its own hue", () => {
+    for (const theme of ["dark", "light"] as const) {
+      const fgs = MODE_FAMILIES.map((m) => MODE_COLORS[m][theme].fg);
+      expect(new Set(fgs).size).toBe(fgs.length);
+    }
+  });
+
+  it("keeps chip text at AAA (7:1) against its own background, and the edge at 3:1", () => {
+    for (const m of MODE_FAMILIES) {
+      for (const theme of ["dark", "light"] as const) {
+        const s = MODE_COLORS[m][theme];
+        expect(contrast(s.fg, s.bg), `${m} ${theme} text`).toBeGreaterThanOrEqual(7);
+        expect(contrast(s.bd, s.bg), `${m} ${theme} edge`).toBeGreaterThanOrEqual(2.8);
+      }
+    }
+  });
+
+  it("prints the mode as text, never colour alone, and keeps unknown tokens", () => {
+    const html = modeChips(["CW", "SSB", "Klingon"], ["PSK31"]);
+    expect(html).toContain('<span class="mchip" data-m="CW">CW</span>');
+    expect(html).toContain('<span class="mchip" data-m="SSB">SSB</span>');
+    expect(html).toContain('<span class="mchip">Klingon</span>');
+    expect(html).toContain('<span class="msub">PSK31</span>');
+  });
+
+  it("renders chips in the table, the card and the detail page", async () => {
+    const home = await page("/");
+    expect(home).toMatch(/<td class="c-mode"><span class="mchips"><span class="mchip" data-m="/);
+    expect(home).toMatch(/<span class="mode"><span class="mchips">/);
+    const detail = await page("/contest/cq-ww-cw");
+    expect(detail).toMatch(/<span class="mchip" data-m="CW">CW<\/span>/);
+  });
+});
+
+describe("text tokens clear AA on every surface they sit on", () => {
+  const surfaces = ["--bg", "--panel", "--panel-2"];
+  const sets: [string, Record<string, string>][] = [
+    ["dark", DARK],
+    ...LIGHT_BLOCKS.map((b, i) => [`light[${i}]`, tokens(b)] as [string, Record<string, string>]),
+  ];
+  it("ink, ink-dim and ink-faint, including the table header's panel-2", () => {
+    for (const [name, t] of sets) {
+      for (const surf of surfaces) {
+        expect(contrast(t["--ink"], t[surf]), `${name} ink on ${surf}`).toBeGreaterThanOrEqual(7);
+        expect(contrast(t["--ink-dim"], t[surf]), `${name} ink-dim on ${surf}`).toBeGreaterThanOrEqual(7);
+        expect(contrast(t["--ink-faint"], t[surf]), `${name} ink-faint on ${surf}`).toBeGreaterThanOrEqual(4.5);
+      }
     }
   });
 });

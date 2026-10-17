@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 216 passed
+npm test                       # expect: 222 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -148,6 +148,18 @@ Touch sizing keys on `(pointer: coarse)`, never on width: a touchscreen laptop n
 a narrow desktop window does not. Reasoning and the measured findings are in
 `FRONTEND_BRIEF.md` under "Design direction shipped" and "Section 6 shipped".
 
+### Mode chips
+
+Every mode renders as a chip (`modeChips()` in `worker/src/render/modes.ts`) — a fourth colour role,
+**one hue per family in `MODE_COLORS`**, light and dark swatches each. `MODE_COLORS` is a
+`Record<ModeFamily, …>`, so adding a mode without a colour fails the typecheck, and
+`theme.worker.test.ts` fails the build on a missing, duplicate or sub-7:1 swatch (text against its own
+chip background is AAA; borders clear 3:1 on the panel). **The chip always carries the mode's name**, never
+colour alone. There is deliberately **no sponsor chip**: a hue per sponsor would encode nothing, which is
+decoration. DXpedition mode lists stay plain text for the same reason: they are not filterable modes there.
+`--ink-dim` / `--ink-faint` were raised so they clear AA on every surface they sit on (the old dark
+`--ink-faint` was 4.16:1 on the table header); a test walks token × surface.
+
 ## Time zones
 
 `engine/src/zones.ts` has two wall-clock → UTC resolvers held to each other by the parity
@@ -165,7 +177,7 @@ touches the engine. `/api/health` reports both the active resolver and the one t
 
 Nothing on the site renders below **1rem**, and sizes are rem so browser font settings scale
 them (`theme.worker.test.ts` fails on any `font-size`/`font` below 1 or in px). Table data is
-1.05rem. At that size nine columns need ~1060px (sponsor capped at two lines, padding .35rem), so the table shows from **1100px** and the
+1.05rem. At that size nine columns need ~1080px (sponsor capped at two lines, padding .35rem) plus margins and a scrollbar, so the table shows from **1140px** and the
 card list below it; `.tbl-wrap` keeps `overflow-x:auto` only as a guard for a long record.
 
 ## Month navigation
@@ -177,7 +189,7 @@ card list below it; `.tbl-wrap` keeps `overflow-x:auto` only as a guard for a lo
 Below the live cards, `/` and `/month` render `contestTable()` (`render/landing.ts`): nine
 sortable columns, **one row per contest** with its sessions stacked in the Date / Start / End /
 Starts-in cells (CWT, SST and the NCCC sprints read as one entry). The same groups are also
-emitted as a card list; CSS alone shows the cards below 1100px and the table above, so a phone
+emitted as a card list; CSS alone shows the cards below 1140px and the table above, so a phone
 never scrolls sideways and nothing needs JS to pick a layout. Sorting is plain links
 (`?sort=&dir=`), unrecorded values sort last in both directions. The contest name links to
 `/contest/:id`, not straight to the sponsor — the rules link lives there. The per-row timeline

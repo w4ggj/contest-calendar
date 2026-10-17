@@ -27,6 +27,7 @@
  * form state it often does not.
  */
 
+import { modeChips } from "./modes.js";
 import {
   eligibilityFor,
   type Contest,
@@ -344,10 +345,7 @@ function operatingSection(contest: Contest, entity: string): string {
     row(
       "Modes",
       modes.length
-        ? esc(modes.join(" / ")) +
-            (contest.submodes?.length
-              ? ` <span class="sub">${esc(contest.submodes.join(", "))}</span>`
-              : "")
+        ? modeChips(modes, contest.submodes ?? [])
         : unrecorded("not read off the sponsor's page yet"),
     ),
   );

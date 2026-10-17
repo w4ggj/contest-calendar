@@ -79,9 +79,11 @@ describe("the landing table", () => {
     for (const [, title, text] of cells) expect(title).toBe(text);
   });
 
-  it("offers a line break after each slash in the Mode cell", async () => {
+  it("sets each mode as its own chip, so a multi-mode cell wraps between modes", async () => {
     const html = await page("/");
-    expect(html).toMatch(/<td class="c-mode">[^<]*\/<wbr>/);
+    const cell = /<td class="c-mode">((?:(?!<\/td>).)*)<\/td>/s.exec(html)![1];
+    expect(cell).toContain('<span class="mchips">');
+    expect(cell).not.toContain("<wbr>");
   });
 
   it("renders the card twin alongside, so CSS alone decides which shows", async () => {
