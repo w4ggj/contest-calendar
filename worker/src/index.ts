@@ -14,6 +14,7 @@ import {
   handleContest,
   handleContests,
   handleHealth,
+  handleCsv,
   handleIcs,
   handleMeta,
   handleSearch,
@@ -211,6 +212,8 @@ export default {
         response = handleSearch(url, nowMs);
       } else if (path === "/api/ics" || path === "/contests.ics") {
         response = handleIcs(url, nowMs);
+      } else if (path === "/api/csv" || path === "/contests.csv") {
+        response = handleCsv(url, nowMs);
       } else if (findPage(path.slice(1))) {
         // /about, /data, /contact. Static prose, so they can be cached harder
         // than the landing view -- nothing in them is a function of `now`.

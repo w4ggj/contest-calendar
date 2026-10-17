@@ -309,24 +309,15 @@ a:hover { color: var(--ink); }
 .legend.on { color: var(--amber); }
 .legend.on::after { background: linear-gradient(to right, var(--amber-dim), var(--rule) 40%); }
 
-/* -- the shared axis --------------------------------------------------- */
-
-/* The day ruler and every row are laid out on ONE axis, declared here and
-   nowhere else.
-   They are necessarily separate boxes -- a ruler, then a list of rows -- so the
-   only thing holding a label above the bar it names is that both read this
-   variable. Declaring grid-template-columns directly on .ruler or .row
-   anywhere else re-opens the bug this replaced: a later .ruler rule won over
-   the media query at equal specificity, the labels stretched across the whole
-   card while the bars stayed in the middle column, and a Friday contest sat
-   under Sunday's label.
-   Fixed lengths rather than content-sized ones, so two grids reading the same
-   template cannot resolve to different widths even in principle. */
+/* -- the live row's axis ------------------------------------------------
+   Name, elapsed meter, countdown. Declared once, here: the week's rail that
+   used to share it is gone (the schedule is a table now), but the live cards
+   still need three columns on a wide screen and one on a phone. */
 :root { --axis: 1fr; }
 @media (min-width: 860px) { :root { --axis: 20rem minmax(0, 1fr) 8.5rem; } }
 
-.ruler, .row { display: grid; grid-template-columns: var(--axis); }
-@media (min-width: 860px) { .ruler, .row { align-items: center; } }
+.row { display: grid; grid-template-columns: var(--axis); }
+@media (min-width: 860px) { .row { align-items: center; } }
 
 /* -- rows -------------------------------------------------------------- */
 
@@ -400,87 +391,92 @@ a:hover { color: var(--ink); }
 .row-count .unit { color: var(--ink-faint); font-weight: 500; }
 .row-count.soon { color: var(--amber); }
 
-/* -- the signature: a shared 7-day rail -------------------------------- */
+/* -- the schedule table ------------------------------------------------
+   One row per contest; its sessions stack inside the Date / Start / End /
+   Starts-in cells as .sess blocks, which share a line height so line N of each
+   cell is the same session. Wide screens get the table; below 860px (the same
+   breakpoint the live row's axis uses) the table is hidden and the cards are
+   shown, because nine columns do not fit a phone and sideways scrolling is the
+   thing being avoided. Both are in the markup, so nothing waits on script.
+   Colour keeps its three roles: amber is time (a countdown inside six hours),
+   cyan is the sort links, and the duration cell carries --d1..--d4. */
 
-/* --days is set on .rail by the renderer: the window is whole UTC days from
-   midnight today, so the cells line up with real day boundaries rather than
-   with the moment the page happened to be requested. The ruler and every row
-   read it, which is what keeps the bars on the same axis as the labels. */
-.rail { --days: 8; }
-
-/* Columns come from --axis above, deliberately not from here. */
-.ruler { gap: 0 .9rem; margin: 0 0 .1rem; }
-.ruler-pad { display: none; }
-@media (min-width: 860px) { .ruler-pad { display: block; } }
-
-.ruler-track {
-  position: relative;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  border-bottom: 1px solid var(--rule);
-}
-.ruler-day {
-  font: 500 0.62rem/1 var(--font-mono);
-  letter-spacing: .12em; text-transform: uppercase;
+.tbl-note {
+  margin: 0 0 .5rem;
+  font: 500 0.74rem/1.4 var(--font-mono); letter-spacing: .04em;
   color: var(--ink-faint);
-  padding: 0 0 .3rem .3rem;
-  border-left: 1px solid var(--rule-soft);
-  overflow: hidden; white-space: nowrap;
 }
-.ruler-day:first-child { border-left: 0; padding-left: 0; }
-.ruler-day.we { color: var(--ink-dim); }
-
-/* The now-line: amber, because amber is time. */
-.now-line {
-  position: absolute; top: 0; bottom: -1px; width: 1px;
-  background: var(--amber);
-  box-shadow: 0 0 6px var(--amber);
-}
-.now-line::before {
-  content: ""; position: absolute; top: 0; left: -2px;
-  width: 5px; height: 5px; background: var(--amber);
-  clip-path: polygon(50% 100%, 0 0, 100% 0);
+.tbl-wrap { display: none; }
+.gcards { list-style: none; margin: 0; padding: 0; }
+@media (min-width: 860px) {
+  .tbl-wrap { display: block; }
+  .gcards { display: none; }
 }
 
-.track {
-  position: relative;
-  height: 1.35rem;
-  margin: .35rem 0 .15rem;
-  /* Day gridlines, so a bar can be read against the ruler without a mouse.
-     No background-size: in a repeating gradient the percentage already
-     resolves against the element, and setting a tile as well divides twice. */
-  background-image: repeating-linear-gradient(
-    to right, var(--rule-soft) 0 1px, transparent 1px calc(100% / var(--days))
-  );
+.ctab { width: 100%; border-collapse: collapse; }
+.ctab th, .ctab td {
+  text-align: left; vertical-align: top;
+  padding: .5rem .7rem .5rem 0;
+  border-top: 1px solid var(--rule-soft);
 }
-@media (min-width: 860px) { .track { margin: 0; } }
+.ctab tbody tr:last-child > * { border-bottom: 1px solid var(--rule-soft); }
+.ctab thead th {
+  border-top: 0; border-bottom: 1px solid var(--rule);
+  padding-bottom: .4rem;
+  font: 600 0.64rem/1.2 var(--font-mono);
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-faint); white-space: nowrap;
+}
+.ctab thead a { color: var(--ink-dim); text-decoration: none; }
+.ctab thead a:hover, .ctab thead a:focus-visible { color: var(--cyan); }
+.ctab thead th[aria-sort] a { color: var(--ink); }
 
-/* A trace, coloured by how long the contest runs. 'data-d' is the row's own
-   duration bucket, straight off durationBucketOf() -- so the bar cannot claim
-   a length the row's text does not, and the four stops are the four the filter
-   offers. The bright edge is the leading edge: the moment it starts, which is
-   the thing you are actually scanning for. */
-.bar {
-  position: absolute; top: .25rem; bottom: .25rem;
-  left: var(--s); width: var(--w);
-  min-width: 3px;
-  --trace: var(--d2);
-  background: color-mix(in srgb, var(--trace) 22%, transparent);
-  border-left: 2px solid var(--trace);
-  border-radius: 0 1px 1px 0;
+.ctab td {
+  font: 500 0.76rem/1.5 var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-dim);
 }
-.bar[data-d="lt2"]   { --trace: var(--d1); }
-.bar[data-d="2-12"]  { --trace: var(--d2); }
-.bar[data-d="12-24"] { --trace: var(--d3); }
-.bar[data-d="gte24"] { --trace: var(--d4); }
-.bar.clip-l { border-left-style: dashed; }
-.bar.clip-r::after {
-  content: ""; position: absolute; right: -1px; top: 0; bottom: 0; width: 4px;
-  background: repeating-linear-gradient(
-    to bottom, var(--trace) 0 2px, transparent 2px 4px
-  );
+.ctab .c-name { min-width: 10rem; font-weight: 600; }
+.ctab .c-name .row-name { font-size: .92rem; }
+.ctab .c-sp { font-family: inherit; font-size: .8rem; }
+.ctab .c-mode, .ctab .c-band { max-width: 9rem; }
+.ctab .c-date, .ctab .c-start, .ctab .c-end, .ctab .c-in { white-space: nowrap; }
+.ctab .nsess {
+  display: block; margin-top: .1rem;
+  font: 500 0.66rem/1.3 var(--font-mono); letter-spacing: .06em;
+  color: var(--ink-faint);
 }
+.sess { display: block; line-height: 1.5; }
+.sess.soon, .gin.soon { color: var(--amber); }
+.nr { color: var(--ink-faint); font-style: italic; }
+.ctab .rolling { color: var(--amber); }
+
+/* The duration cell is the colour role: a stripe in the contest's bucket. */
+.ctab .c-dur { --trace: var(--d2); padding-left: .6rem; box-shadow: inset 3px 0 0 var(--trace); }
+.ctab .c-dur[data-d="lt2"]   { --trace: var(--d1); }
+.ctab .c-dur[data-d="2-12"]  { --trace: var(--d2); }
+.ctab .c-dur[data-d="12-24"] { --trace: var(--d3); }
+.ctab .c-dur[data-d="gte24"] { --trace: var(--d4); }
+
+/* The phone layout of the same groups. */
+.gcard { border-top: 1px solid var(--rule-soft); padding: .7rem 0; }
+.gcard:last-child { border-bottom: 1px solid var(--rule-soft); }
+.gsess { list-style: none; margin: .25rem 0 0; padding: 0; }
+.gsess li {
+  display: flex; flex-wrap: wrap; align-items: baseline;
+  justify-content: space-between; gap: .05rem .8rem;
+}
+.gsess .row-when { margin: .1rem 0 0; }
+.gin {
+  font: 600 0.76rem/1.3 var(--font-mono);
+  font-variant-numeric: tabular-nums; color: var(--ink-dim);
+}
+
+.linkbtn {
+  font: inherit; color: var(--cyan); background: none; border: 0;
+  padding: 0; cursor: pointer; text-decoration: underline;
+}
+.linkbtn[hidden] { display: none; }
 
 /* -- live rows --------------------------------------------------------- */
 
@@ -1053,18 +1049,8 @@ a:hover { color: var(--ink); }
   .tally { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; }
   .tally span { font-size: .64rem; letter-spacing: .1em; }
 
-  /* Eight day labels across ~328px gives each one 41px, and "Today 15" needs
-     58px -- so every label was being clipped by the cell's own overflow rule,
-     including the one that says which day is today. Thin the ticks instead:
-     label every other cell and let it spill into the blank neighbour, which is
-     what a chart does when the axis runs out of room. The gridlines still mark
-     all eight days, so nothing is lost but ink. */
-  .ruler-day { font-size: .58rem; letter-spacing: .02em; padding-left: .2rem; overflow: visible; }
-  .ruler-day:nth-child(even) { font-size: 0; }
-
-  /* A bar is the only thing here that cannot be read by touching it, so give
-     it the height back that the ruler gave up. */
-  .track, .meter { height: 1.6rem; }
+  /* The meter cannot be read by touching it, so give it some height. */
+  .meter { height: 1.6rem; }
 
   /* The masthead wrapped to three lines at 390px -- 95px of chrome above the
      hero -- and each line ended on a dangling "/", because a separator that
@@ -1120,8 +1106,8 @@ a:hover { color: var(--ink); }
      The contest name is the page's primary target -- 25 per screenful, each
      the link to the sponsor's rules this whole project exists to point at --
      and it was the smallest thing on the page a thumb had to hit. */
-  .strip-in a, .foot .links a, .row-name a { position: relative; }
-  .strip-in a::after, .foot .links a::after, .row-name a::after {
+  .strip-in a, .foot .links a, .row-name a, .ctab thead a { position: relative; }
+  .strip-in a::after, .foot .links a::after, .row-name a::after, .ctab thead a::after {
     content: ""; position: absolute;
     left: 0; right: 0; top: 50%; height: 44px;
     transform: translateY(-50%);
@@ -1317,5 +1303,22 @@ a:hover { color: var(--ink); }
     transition-duration: .001ms !important;
   }
   .lamp { opacity: 1; }
+}
+
+/* -- print ------------------------------------------------------------------
+   The schedule table on paper: no chrome, no controls, no cards, black on
+   white regardless of the theme the reader had chosen on screen. */
+@media print {
+  html, body { background: #fff !important; color: #000 !important; }
+  .skip, .strip, .readout, .panel, .viewswitch, .tzbar, .caveat, .unrec,
+  .gcards, .dxrows, .dx-note, .foot, .sort-ind { display: none !important; }
+  .tbl-wrap { display: block !important; }
+  .ctab, .ctab td, .ctab th, .ctab a, .legend, .tbl-note, .row-name a,
+  .sess, .nsess, .nr { color: #000 !important; background: none !important; }
+  .ctab tr { break-inside: avoid; }
+  .ctab thead { display: table-header-group; }
+  .ctab .c-dur { box-shadow: none; }
+  .legend::after { display: none; }
+  a { text-decoration: none; }
 }
 `;

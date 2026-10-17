@@ -53,7 +53,7 @@ import {
 } from "../dx.js";
 import { detailHref, relink } from "./filters.js";
 import { SITE_NAME, esc, masthead } from "./html.js";
-import { isoAttr } from "./landing.js";
+import { contestTable, groupCount, isoAttr } from "./landing.js";
 import { pageLinks } from "./pages.js";
 import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
@@ -392,6 +392,12 @@ export function renderMonth(input: MonthInput): string {
       .map((o) => o.contest_id),
   );
   const shown = monthIds.size;
+  // The table lists what STARTS in the month, which is what monthIds counts; the
+  // grid also draws spillover from the neighbouring months, the table does not.
+  const monthOccs = outcome.kept.filter((o) => {
+    const d = (o.start ?? o.start_wall)!;
+    return d.getUTCFullYear() === year && d.getUTCMonth() + 1 === month;
+  });
   const dxThisMonth = dxInRange(first, last).length;
   const title = `${MONTHS[month - 1]} ${year}`;
 
@@ -466,6 +472,23 @@ ${masthead(false, "Skip to the calendar")}
     <tbody>${rows.join("")}</tbody>
   </table>
   </div>
+
+  ${
+    monthOccs.length
+      ? `<section aria-labelledby="lg-month-table">
+  <h2 class="legend" id="lg-month-table">Every session in ${esc(title)}<span class="count">${groupCount(
+          monthOccs,
+        )}</span></h2>
+  ${contestTable(monthOccs, {
+    now: nowMs,
+    params,
+    base: "/month",
+    anchor: "lg-month-table",
+    caption: `Contests starting in ${title}`,
+  })}
+  </section>`
+      : ""
+  }
 
   <footer class="foot">
     <p>Dates are computed from recurrence rules taken from each sponsor's own

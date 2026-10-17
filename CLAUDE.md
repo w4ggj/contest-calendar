@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 205 passed
+npm test                       # expect: 207 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -130,11 +130,11 @@ backticks anywhere inside it**, not even in a comment, because they terminate th
 
 Three roles, and each one is a mapping rather than a decoration: **amber is time**, **cyan is
 interactive**, **`--d1`…`--d4` are the four `DURATION_BUCKETS`**. The ramp exists because
-width saturates — a two-hour sprint on a seven-day rail is the 3px floor and so is a
-four-hour one. Adding a bucket means adding its colour in the same commit; `theme.worker.test.ts`
+bar width saturates — the timeline rail is gone, but the ramp stays as the colour of the
+Duration cell's stripe, so length keeps a second channel. Adding a bucket means adding its colour in the same commit; `theme.worker.test.ts`
 fails the build otherwise, on the same reasoning as `CATALOG_MODES`.
 
-A bar's `data-d` comes from `durationBucketOf(o.duration_hours)`, **never from the drawn
+A row's `data-d` (on `td.c-dur`) comes from `durationBucketOf(o.duration_hours)`, **never from the drawn
 geometry**, which is clamped to the seven-day window. Colour states the contest; width states
 the part of it you can see.
 
@@ -160,6 +160,19 @@ DST vectors before a request is served. **`worker/src/index.ts` imports it first
 side effects** — do not reorder those imports, and do not import anything above it that
 touches the engine. `/api/health` reports both the active resolver and the one the runtime
 *would* have chosen; when they differ, the pin is what is keeping contests on the hour.
+
+## The schedule table
+
+Below the live cards, `/` and `/month` render `contestTable()` (`render/landing.ts`): nine
+sortable columns, **one row per contest** with its sessions stacked in the Date / Start / End /
+Starts-in cells (CWT, SST and the NCCC sprints read as one entry). The same groups are also
+emitted as a card list; CSS alone shows the cards below 860px and the table above, so a phone
+never scrolls sideways and nothing needs JS to pick a layout. Sorting is plain links
+(`?sort=&dir=`), unrecorded values sort last in both directions. The contest name links to
+`/contest/:id`, not straight to the sponsor — the rules link lives there. The per-row timeline
+rail and `daylabel.ts` were removed. `/api/csv` (alias `/contests.csv`) exports one row per
+occurrence over the current filter; `csvField()` defuses leading `= + - @`. Print is a button
+revealed by JS plus `@media print`.
 
 ## The Worker
 

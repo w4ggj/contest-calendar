@@ -252,7 +252,7 @@ describe("date ranges", () => {
 
   it("returns more contests as the range widens", async () => {
     const count = (html: string) =>
-      (html.match(/<li class="row/g) ?? []).length;
+      (html.match(/<tr class="crow"/g) ?? []).length;
     const week = count(await page("/?range=7d"));
     const year = count(await page("/?range=365d"));
     expect(year).toBeGreaterThan(week);

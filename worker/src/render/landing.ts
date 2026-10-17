@@ -35,11 +35,8 @@ import { pageLinks } from "./pages.js";
 import { ICON_LINKS } from "./icon.js";
 import { CSS } from "./theme.js";
 import { CLIENT_JS, THEME_BOOT } from "./client.js";
-import { dayCellLabel } from "./daylabel.js";
 
 const DAY_MS = 86_400_000;
-
-export type RailWindow = { start: number; end: number; days: number };
 
 export { esc };
 
@@ -124,9 +121,7 @@ function metaLine(o: Occurrence): string {
   // it widens Digital to cover RTTY and FT8/FT4 -- and rendering it here made a
   // row read "RTTY/Digital" for a contest whose sponsor allows only RTTY.
   if (o.modes.length) {
-    const label =
-      o.modes.join("/") + (o.submodes.length ? ` (${o.submodes.join(", ")})` : "");
-    parts.push(`<span class="mode">${esc(label)}</span>`);
+    parts.push(`<span class="mode">${esc(modeLabel(o))}</span>`);
   }
 
   if (o.bands.length) parts.push(esc(bandLabel(o.bands)));
@@ -225,115 +220,273 @@ function nameCell(o: Occurrence, params: URLSearchParams): string {
 }
 
 // ---------------------------------------------------------------------------
-// The rail
+// The table
 // ---------------------------------------------------------------------------
 
-/**
- * The rail's window: whole UTC days, starting at midnight today.
+/*
+ * Everything below the live cards is a table, grouped one row per contest.
  *
- * Day-aligned rather than starting at `now`, because the cells are labelled
- * with day names and a cell labelled "Sat 15" that actually spans 02:12 Sat to
- * 02:12 Sun is a chart that lies. Eight cells, not seven: the section promises
- * a rolling seven days from this moment, so the last contest in it can land
- * anywhere inside the eighth calendar day.
- */
-export function railWindow(nowMs: number): RailWindow {
-  const d = new Date(nowMs);
-  const start = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-  const days = 8;
-  return { start, end: start + days * DAY_MS, days };
-}
-
-/**
- * Where an instant sits across the rail: 0 at the window's left edge, 1 at its
- * right.
+ * Why grouped: CWops Test is eight rows of a thirty-three-row page, the NCCC
+ * sprints six, K1USN SST three -- about half the page was five contests
+ * repeating. A contest is the thing a reader scans for; its sessions are a
+ * detail of it, so they sit in the Date / Start / End / Starts-in cells, one
+ * line each, and line up across those cells because every cell stacks the same
+ * `.sess` blocks at the same height.
  *
- * The now-line, every bar and the day cells are all placed from this one
- * function, so "the same fraction" means the same offset in the same box. That
- * is the entire claim the chart makes, and it is only true if nothing else
- * computes a position of its own.
+ * The table is the wide layout. Below the breakpoint (theme.ts) it is hidden
+ * and the same groups are shown as a card list, because nine columns do not fit
+ * a phone and sideways scrolling is the failure being avoided. Both are always
+ * in the markup: which one shows is a CSS decision, so there is no script that
+ * must run before the page has a layout.
  */
-export function railFraction(instantMs: number, win: RailWindow): number {
-  return (instantMs - win.start) / (win.end - win.start);
+
+export const SORT_KEYS = [
+  "contest", "date", "start", "end", "duration", "mode", "band", "sponsor", "in",
+] as const;
+export type SortKey = (typeof SORT_KEYS)[number];
+export interface SortSpec {
+  key: SortKey;
+  dir: "asc" | "desc";
+}
+export const DEFAULT_SORT: SortSpec = { key: "date", dir: "asc" };
+
+/** Sorting is links (`?sort=band&dir=desc`), so it works with JavaScript off and
+ *  survives a reload. An unknown value falls back rather than 400ing: a stale
+ *  bookmark should still show the schedule. */
+export function parseSort(params: URLSearchParams): SortSpec {
+  const key = params.get("sort");
+  if (!key || !(SORT_KEYS as readonly string[]).includes(key)) return DEFAULT_SORT;
+  return { key: key as SortKey, dir: params.get("dir") === "desc" ? "desc" : "asc" };
 }
 
-/** Which day cell an instant lands in, 0-based; -1 outside the window. */
-export function railSlot(instantMs: number, win: RailWindow): number {
-  const f = railFraction(instantMs, win);
-  if (f < 0 || f >= 1) return -1;
-  return Math.floor(f * win.days);
+export interface ContestGroup {
+  id: string;
+  sessions: Occurrence[];
 }
 
-/** Clamp a span to the window and express it as percentages of the window. */
-function railGeometry(
-  o: Occurrence,
-  win: RailWindow,
-): { left: number; width: number; clipL: boolean; clipR: boolean } {
-  const { start, end } = spanOf(o);
-  const s = Math.max(start.getTime(), win.start);
-  const e = Math.min(end.getTime(), win.end);
-  const left = railFraction(s, win);
-  return {
-    left: left * 100,
-    width: Math.max(railFraction(e, win) - left, 0) * 100,
-    clipL: start.getTime() < win.start,
-    clipR: end.getTime() > win.end,
-  };
-}
-
-function railRow(o: Occurrence, win: RailWindow): string {
-  const g = railGeometry(o, win);
-  const cls = ["bar", g.clipL ? "clip-l" : "", g.clipR ? "clip-r" : ""]
-    .filter(Boolean)
-    .join(" ");
-  // Decorative: every fact it encodes is already in the text of the row.
-  //
-  // `data-d` is the row's own duration bucket and the stylesheet colours the
-  // bar from it -- the rail's spectral ramp. Taken from `durationBucketOf()`
-  // rather than recomputed from the geometry, because the geometry is CLAMPED
-  // to the window: a 48-hour contest that starts on the last day of the rail
-  // draws as a 12-hour sliver, and colouring it from what is drawn would tell
-  // the reader it is a 12-hour contest. Colour states the contest; width states
-  // the part of it you can see.
-  return (
-    `<div class="track" aria-hidden="true">` +
-    `<div class="${cls}" data-d="${durationBucketOf(o.duration_hours)}" ` +
-    `style="--s:${g.left.toFixed(3)}%;--w:${g.width.toFixed(3)}%"></div>` +
-    `</div>`
-  );
-}
-
-/**
- * The day labels, and the now-line, above the bars.
- *
- * The ruler is a sibling of the rows rather than their parent, so it carries no
- * width of its own: both read the `--axis` template in the stylesheet, which is
- * declared exactly once. Each cell also carries the UTC instant it starts at,
- * because the client relabels these in the reader's zone when the toggle flips
- * -- the cells stay where they are, being instants, and only their names change.
- */
-function ruler(win: RailWindow, nowMs: number): string {
-  const cells: string[] = [];
-  for (let i = 0; i < win.days; i++) {
-    const at = win.start + i * DAY_MS;
-    const dow = new Date(at).getUTCDay();
-    const weekend = dow === 0 || dow === 6;
-    cells.push(
-      `<div class="ruler-day${weekend ? " we" : ""}" ` +
-        `data-day="${isoAttr(new Date(at))}">` +
-        `${esc(dayCellLabel(at, i, "UTC"))}</div>`,
-    );
+/** One group per contest, in order of each contest's first session. */
+export function groupSessions(occs: Occurrence[]): ContestGroup[] {
+  const byId = new Map<string, ContestGroup>();
+  for (const o of occs) {
+    const g = byId.get(o.contest_id);
+    if (g) g.sessions.push(o);
+    else byId.set(o.contest_id, { id: o.contest_id, sessions: [o] });
   }
-  const nowPct = railFraction(nowMs, win) * 100;
-  return (
-    `<div class="ruler" aria-hidden="true">` +
-    `<div class="ruler-pad"></div>` +
-    `<div class="ruler-track">${cells.join("")}` +
-    `<div class="now-line" style="left:${nowPct.toFixed(3)}%"></div>` +
-    `</div>` +
-    `<div class="ruler-pad"></div>` +
-    `</div>`
+  const groups = [...byId.values()];
+  for (const g of groups) {
+    g.sessions.sort((a, b) => spanOf(a).start.getTime() - spanOf(b).start.getTime());
+  }
+  return groups.sort(
+    (a, b) =>
+      spanOf(a.sessions[0]).start.getTime() - spanOf(b.sessions[0]).start.getTime() ||
+      (a.id < b.id ? -1 : a.id > b.id ? 1 : 0),
   );
+}
+
+function sortValue(g: ContestGroup, key: SortKey): string | number | null {
+  const o = g.sessions[0];
+  const { start, end } = spanOf(o);
+  switch (key) {
+    case "contest": return o.name.toLowerCase();
+    case "date":
+    case "in": return start.getTime();
+    case "start": return start.getUTCHours() * 60 + start.getUTCMinutes();
+    case "end": return end.getTime();
+    case "duration": return o.duration_hours;
+    case "mode": return o.modes.length ? o.modes.join("/").toLowerCase() : null;
+    case "band": return o.bands.length ? bandLabel(o.bands) : null;
+    case "sponsor": return o.sponsor ? o.sponsor.toLowerCase() : null;
+  }
+}
+
+/** Unrecorded values sort last in BOTH directions: a gap in our data is not the
+ *  smallest or the largest value of anything. */
+export function sortGroups(groups: ContestGroup[], spec: SortSpec): ContestGroup[] {
+  const sign = spec.dir === "desc" ? -1 : 1;
+  return [...groups].sort((a, b) => {
+    const va = sortValue(a, spec.key);
+    const vb = sortValue(b, spec.key);
+    if (va === null || vb === null) {
+      if (va !== vb) return va === null ? 1 : -1;
+    } else {
+      const c =
+        typeof va === "number" && typeof vb === "number"
+          ? va - vb
+          : String(va).localeCompare(String(vb), "en", { numeric: true });
+      if (c) return c * sign;
+    }
+    return (
+      spanOf(a.sessions[0]).start.getTime() - spanOf(b.sessions[0]).start.getTime() ||
+      (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)
+    );
+  });
+}
+
+const COLUMNS: { key: SortKey; label: string; cls: string }[] = [
+  { key: "contest", label: "Contest", cls: "c-name" },
+  { key: "date", label: "Date", cls: "c-date" },
+  { key: "start", label: "Start", cls: "c-start" },
+  { key: "end", label: "End", cls: "c-end" },
+  { key: "duration", label: "Duration", cls: "c-dur" },
+  { key: "mode", label: "Mode", cls: "c-mode" },
+  { key: "band", label: "Band", cls: "c-band" },
+  { key: "sponsor", label: "Sponsor", cls: "c-sp" },
+  { key: "in", label: "Starts in", cls: "c-in" },
+];
+
+export interface TableContext {
+  now: number;
+  params: URLSearchParams;
+  /** Path the sort links point at: "/" or "/month". */
+  base: string;
+  /** Id of the section heading, so a sort click lands where it was made. */
+  anchor: string;
+  caption: string;
+}
+
+function headCell(col: (typeof COLUMNS)[number], spec: SortSpec, ctx: TableContext): string {
+  const active = spec.key === col.key;
+  const nextDir = active && spec.dir === "asc" ? "desc" : "asc";
+  const href =
+    relink(ctx.params, [], { sort: col.key, dir: nextDir }, ctx.base) + `#${ctx.anchor}`;
+  const aria = active ? ` aria-sort="${spec.dir === "asc" ? "ascending" : "descending"}"` : "";
+  return (
+    `<th scope="col" class="${col.cls}"${aria}>` +
+    `<a href="${esc(href)}">${esc(col.label)}` +
+    `<span class="sort-ind" aria-hidden="true">${active ? (spec.dir === "asc" ? " ▲" : " ▼") : ""}</span>` +
+    `</a></th>`
+  );
+}
+
+function sess(inner: string, cls = ""): string {
+  return `<span class="sess${cls ? ` ${cls}` : ""}">${inner}</span>`;
+}
+
+function dateOf(o: Occurrence): string {
+  const { start } = spanOf(o);
+  // data-t="date": the client rewrites it to the reader's local date, which can
+  // be a day away from the UTC one.
+  return o.local_rolling
+    ? esc(zDate(start))
+    : `<time datetime="${isoAttr(start)}" data-t="date">${esc(zDate(start))}</time>`;
+}
+
+function startOf(o: Occurrence): string {
+  const { start } = spanOf(o);
+  return o.local_rolling
+    ? `<span class="rolling">${esc(zTime(start).replace("Z", ""))} local</span>`
+    : `<time datetime="${isoAttr(start)}" data-t="start">${esc(zTime(start))}</time>`;
+}
+
+function endOf(o: Occurrence): string {
+  const { start, end } = spanOf(o);
+  const sameDay = start.toISOString().slice(0, 10) === end.toISOString().slice(0, 10);
+  return o.local_rolling
+    ? `<span class="rolling">${esc(zTime(end).replace("Z", ""))} local</span>`
+    : `<time datetime="${isoAttr(end)}" data-t="end">${esc(zTime(end))}` +
+        `${sameDay ? "" : ` ${esc(zDate(end))}`}</time>`;
+}
+
+/** The record's own modes, verbatim -- see metaLine for why not the families. */
+function modeLabel(o: Occurrence): string {
+  return o.modes.length
+    ? o.modes.join("/") + (o.submodes.length ? ` (${o.submodes.join(", ")})` : "")
+    : "";
+}
+
+/** The countdown for one session. The page's states are all decided at render
+ *  time; the client only ticks the ones that are still in the future. */
+function startsIn(o: Occurrence, now: number): string {
+  const { start, end } = spanOf(o);
+  if (o.local_rolling) return sess("your local clock", "cd");
+  if (end.getTime() <= now) return sess("ended", "cd");
+  if (start.getTime() <= now) return sess("on the air now", "cd soon");
+  const rel = relative(start.getTime() - now);
+  return sess(
+    esc(rel.text),
+    `cd${rel.soon ? " soon" : ""}" data-countdown="start" data-until="${isoAttr(start)}`,
+  );
+}
+
+function tableRow(g: ContestGroup, ctx: TableContext): string {
+  const s = g.sessions;
+  const o = s[0];
+  const durations = s.map((x) => x.duration_hours);
+  const sameDuration = durations.every((d) => d === durations[0]);
+  const dur = (sameDuration ? [o] : s).map((x) => sess(esc(humanDuration(x.duration_hours))));
+
+  return (
+    `<tr class="crow">` +
+    `<th scope="row" class="c-name"><span class="row-name">` +
+    `<a href="${esc(detailHref(o.contest_id, ctx.params))}">${esc(o.name)}</a>` +
+    `${flags(o)}</span>` +
+    (s.length > 1 ? `<span class="nsess">${s.length} sessions</span>` : "") +
+    `</th>` +
+    `<td class="c-date">${s.map((x) => sess(dateOf(x))).join("")}</td>` +
+    `<td class="c-start">${s.map((x) => sess(startOf(x))).join("")}</td>` +
+    `<td class="c-end">${s.map((x) => sess(endOf(x))).join("")}</td>` +
+    // data-d is the contest's bucket, from durationBucketOf -- the colour role.
+    `<td class="c-dur" data-d="${durationBucketOf(o.duration_hours)}">${dur.join("")}</td>` +
+    `<td class="c-mode">${
+      modeLabel(o) ? esc(modeLabel(o)) : `<span class="nr">not recorded</span>`
+    }</td>` +
+    `<td class="c-band">${
+      o.bands.length ? esc(bandLabel(o.bands)) : `<span class="nr">not recorded</span>`
+    }</td>` +
+    `<td class="c-sp">${esc(o.sponsor)}</td>` +
+    `<td class="c-in">${s.map((x) => startsIn(x, ctx.now)).join("")}</td>` +
+    `</tr>`
+  );
+}
+
+/** The phone layout of the same group: a card, its sessions as a list. */
+function groupCard(g: ContestGroup, ctx: TableContext): string {
+  const o = g.sessions[0];
+  return (
+    `<li class="gcard">` +
+    `<h3 class="row-name"><a href="${esc(detailHref(o.contest_id, ctx.params))}">` +
+    `${esc(o.name)}</a>${flags(o)}</h3>` +
+    `<p class="row-meta">${metaLine(o)}</p>` +
+    `<ul class="gsess">` +
+    g.sessions
+      .map(
+        (x) =>
+          `<li><span class="row-when">${whenLine(x)}</span>` +
+          `${startsIn(x, ctx.now).replace('class="sess', 'class="gin')}</li>`,
+      )
+      .join("") +
+    `</ul></li>`
+  );
+}
+
+/**
+ * Occurrences as a sortable, grouped table plus its card-list twin.
+ * Returns "" for nothing; the caller owns the empty state.
+ */
+export function contestTable(occs: Occurrence[], ctx: TableContext): string {
+  if (!occs.length) return "";
+  const spec = parseSort(ctx.params);
+  const groups = sortGroups(groupSessions(occs), spec);
+  const note =
+    occs.length === groups.length
+      ? ""
+      : `<p class="tbl-note">${occs.length} sessions across ${groups.length} contests; ` +
+        `repeats share a row.</p>`;
+
+  return (
+    note +
+    `<div class="tbl-wrap"><table class="ctab">` +
+    `<caption class="vh">${esc(ctx.caption)}</caption>` +
+    `<thead><tr>${COLUMNS.map((c) => headCell(c, spec, ctx)).join("")}</tr></thead>` +
+    `<tbody>${groups.map((g) => tableRow(g, ctx)).join("")}</tbody>` +
+    `</table></div>` +
+    `<ol class="gcards">${groups.map((g) => groupCard(g, ctx)).join("")}</ol>`
+  );
+}
+
+/** Contests in a window, as a count of rows rather than of sessions. */
+export function groupCount(occs: Occurrence[]): number {
+  return new Set(occs.map((o) => o.contest_id)).size;
 }
 
 // ---------------------------------------------------------------------------
@@ -387,34 +540,20 @@ function weekSection(
   empty: string,
   params: URLSearchParams,
 ): string {
-  const win = railWindow(nowMs);
-
   const body = next7.length
-    ? `<div class="rail" style="--days:${win.days}">` +
-      ruler(win, nowMs) +
-      `<ol class="rows">` +
-      next7
-        .map((o) => {
-          const { start } = spanOf(o);
-          const rel = relative(start.getTime() - nowMs);
-          return (
-            `<li class="row">` +
-            nameCell(o, params) +
-            railRow(o, win) +
-            `<div class="row-count${rel.soon ? " soon" : ""}" ` +
-            `data-countdown="start" data-until="${isoAttr(start)}">` +
-            `${esc(rel.text)}</div>` +
-            `</li>`
-          );
-        })
-        .join("") +
-      `</ol></div>`
+    ? contestTable(next7, {
+        now: nowMs,
+        params,
+        base: "/",
+        anchor: "lg-week",
+        caption: "Contests starting in the next 7 days",
+      })
     : empty;
 
   return (
     `<section aria-labelledby="lg-week">` +
     `<h2 class="legend" id="lg-week">Next 7 days` +
-    `<span class="count">${next7.length}</span></h2>` +
+    `<span class="count">${groupCount(next7)}</span></h2>` +
     body +
     `</section>`
   );
@@ -433,26 +572,17 @@ function laterSection(
       : "";
   }
 
-  const rows = view.later
-    .map((o) => {
-      const { start } = spanOf(o);
-      const rel = relative(start.getTime() - view.now);
-      return (
-        `<li class="row">` +
-        nameCell(o, params) +
-        `<div class="track" aria-hidden="true"></div>` +
-        `<div class="row-count" data-countdown="start" ` +
-        `data-until="${isoAttr(start)}">${esc(rel.text)}</div>` +
-        `</li>`
-      );
-    })
-    .join("");
-
   return (
     `<section aria-labelledby="lg-later">` +
     `<h2 class="legend" id="lg-later">${esc(view.laterLabel)}` +
-    `<span class="count">${view.later.length}</span></h2>` +
-    `<ol class="rows">${rows}</ol>` +
+    `<span class="count">${groupCount(view.later)}</span></h2>` +
+    contestTable(view.later, {
+      now: view.now,
+      params,
+      base: "/",
+      anchor: "lg-later",
+      caption: view.laterLabel,
+    }) +
     `</section>`
   );
 }
@@ -609,23 +739,6 @@ function dxSection(
  */
 function unrecordedSection(view: NowView, params: URLSearchParams): string {
   if (!view.unrecordedRows.length) return "";
-  const rows = view.unrecordedRows
-    .map((o) => {
-      const { start, end } = spanOf(o);
-      const live = start.getTime() <= view.now && end.getTime() > view.now;
-      const rel = relative(start.getTime() - view.now);
-      return (
-        `<li class="row">` +
-        nameCell(o, params) +
-        `<div class="track" aria-hidden="true"></div>` +
-        (live
-          ? `<div class="row-count soon">on the air now</div>`
-          : `<div class="row-count" data-countdown="start" ` +
-            `data-until="${isoAttr(start)}">${esc(rel.text)}</div>`) +
-        `</li>`
-      );
-    })
-    .join("");
   return (
     `<section aria-labelledby="lg-unrecorded">` +
     `<h2 class="legend" id="lg-unrecorded">Bands not recorded` +
@@ -634,7 +747,13 @@ function unrecordedSection(view: NowView, params: URLSearchParams): string {
     `contests' bands off the sponsor's rules, so the band filter cannot say ` +
     `whether they match. Check the rules before you count on a band. ` +
     `<a href="${esc(relink(params, ["band", "bands"]))}">Clear the band filter</a>.</p>` +
-    `<ol class="rows">${rows}</ol>` +
+    contestTable(view.unrecordedRows, {
+      now: view.now,
+      params,
+      base: "/",
+      anchor: "lg-unrecorded",
+      caption: "Contests whose bands are not recorded",
+    }) +
     `</section>`
   );
 }
@@ -752,6 +871,8 @@ ${masthead(true, "Skip to contests")}
     <p class="links">
       <a href="/api/ics">Subscribe (iCal)</a>
       <a href="/api/contests?year=${now.getUTCFullYear()}">This year as JSON</a>
+      <a href="${esc(relink(input.params, ["sort", "dir"], {}, "/api/csv"))}" download>Export CSV</a>
+      <button type="button" class="linkbtn" id="printbtn" hidden>Print</button>
       <a href="/api/health">Health</a>
     </p>
     <p class="feed-note">Apple Calendar, Outlook and Thunderbird take that feed

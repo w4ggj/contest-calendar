@@ -19,7 +19,7 @@ computed on demand. That means no year horizon, one-line fixes when a sponsor ch
 rule, and every date traceable to a source.
 
 **Current state:** 358 contest definitions → 1168 occurrences for 2026. 518 Python tests,
-528 TypeScript tests, 205 Worker tests. Engine complete in both languages — no known
+528 TypeScript tests, 207 Worker tests. Engine complete in both languages — no known
 structural gaps. **Deployed** at <https://contest-calendar.jleone0.workers.dev>: the API,
 the Now / next-7-days landing view, filters and search, the iCal feed, and — since
 2026-08-19 — the contest detail view at `/contest/:id`. `modes` and `bands` are controlled
@@ -65,7 +65,7 @@ python scripts\check_links.py
 python scripts\coverage.py --check # expect: Registry coverage is current.
 
 cd engine; npm install; npm test   # expect: 528 passed (515 mirrored + 13 parity)
-cd ..\worker; npm install; npm test # expect: 205 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
+cd ..\worker; npm install; npm test # expect: 207 passed (parity inside workerd, the API, filters, iCal, theme, pages, detail, icon)
 ```
 
 Both TypeScript suites shell out to Python for their parity checks, so run
@@ -343,8 +343,7 @@ The palette was cream-and-warm-brown, which is the exact default the `frontend-d
 warns about. It is now a panadapter: a near-black `#050B12` field with amber and cyan, read
 off waterfall displays and rig front panels. **Colour is a mapping, not a mood** — amber is
 time, cyan is interactive, and `--d1`…`--d4` are the four `DURATION_BUCKETS`. That last one
-exists because the rail's bar width saturates: on a seven-day window a two-hour sprint and a
-four-hour one are both the 3px floor, so length gets a second channel. A bar's `data-d` comes
+exists because bar width saturated (the rail has since been replaced by the schedule table; the colour now stripes the Duration cell), so length gets a second channel. A row's `data-d` comes
 from `durationBucketOf(duration_hours)` and **never from the drawn geometry**, which is
 clamped to the window — the colour states the contest, the width states the part of it you
 can see. Add a bucket and you add a stop, same commit; `theme.worker.test.ts` fails otherwise.

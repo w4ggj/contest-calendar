@@ -73,7 +73,7 @@ describe("the duration ramp is a mapping, not a decoration", () => {
     const buckets = Object.keys(DURATION_BUCKETS);
 
     for (const key of buckets) {
-      expect(CSS, `no bar rule for the ${key} bucket`).toContain(`.bar[data-d="${key}"]`);
+      expect(CSS, `no stripe rule for the ${key} bucket`).toContain(`.c-dur[data-d="${key}"]`);
       expect(CSS, `the ${key} chip carries no ramp colour`).toContain(
         `.chip:has(input[name="duration"][value="${key}"])`,
       );
@@ -90,28 +90,21 @@ describe("the duration ramp is a mapping, not a decoration", () => {
     }
   });
 
-  it("colours the bar from the contest's length, not the length it can draw", async () => {
-    // The geometry is clamped to the seven-day window, so a 48-hour contest
-    // starting on the rail's last day draws as a 12-hour sliver. Colouring from
-    // what is drawn would tell the reader it is a 12-hour contest -- an
-    // overstatement of exactly the kind the catalog rules forbid.
-    //
+  it("colours the stripe from the contest's length, as the row states it", async () => {
     // Checked against the row's own rendered duration text rather than against
     // the value that produced the attribute, so the two independent renderings
     // of one fact have to agree.
     const html = await page("/");
-    const rows = html.split('<li class="row').slice(1);
+    const rows = html.split('<tr class="crow"').slice(1);
     expect(rows.length).toBeGreaterThan(0);
 
     let checked = 0;
     for (const row of rows) {
-      const bar = /data-d="([^"]+)"/.exec(row);
-      const dur = /class="dur">([^<]+)</.exec(row);
-      if (!bar || !dur) continue; // rows past the rail carry no bar
-
-      const m = /(?:(\d+)h)?\s*(?:(\d+)m)?/.exec(dur[1].trim())!;
+      const m0 = /class="c-dur" data-d="([^"]+)"><span class="sess">([^<]+)</.exec(row);
+      if (!m0) continue;
+      const m = /(?:(\d+)h)?\s*(?:(\d+)m)?/.exec(m0[2].trim())!;
       const hours = Number(m[1] ?? 0) + Number(m[2] ?? 0) / 60;
-      expect(bar[1], `row reading "${dur[1]}" is coloured as ${bar[1]}`).toBe(
+      expect(m0[1], `row reading "${m0[2]}" is coloured as ${m0[1]}`).toBe(
         durationBucketOf(hours),
       );
       checked++;
@@ -245,13 +238,11 @@ describe("the phone", () => {
     expect(coarse).toMatch(/height:\s*44px/);
   });
 
-  it("stops the rail's day labels being clipped by their own cells", () => {
-    // Eight labels across a 360px phone gives each 41px and "Today 15" needs
-    // 58px, so every label was being cut off -- including the one naming today.
-    const narrow = /@media \(max-width: 599px\) \{([\s\S]*?)\n\}/.exec(CSS);
-    expect(narrow, "no narrow-screen block").not.toBeNull();
-    expect(narrow![1]).toMatch(/\.ruler-day\s*\{[^}]*overflow:\s*visible/);
-    expect(narrow![1]).toContain(".ruler-day:nth-child(even)");
+  it("shows the card list until there is room for nine columns", () => {
+    // Hidden by default and revealed at 860px, so a phone never gets a layout
+    // that scrolls sideways, and the default is the safe one.
+    expect(CSS).toMatch(/\.tbl-wrap\s*\{\s*display:\s*none;?\s*\}/);
+    expect(CSS).toMatch(/min-width:\s*860px\)\s*\{\s*\.tbl-wrap\s*\{\s*display:\s*block/);
   });
 
   it("gives each tally count its own column rather than a shared line", () => {

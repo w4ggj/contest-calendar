@@ -54,7 +54,7 @@ describe("links to the sponsor's rules", () => {
     // 44px hit area; a second inline link in the same row would put two of
     // them within a few pixels of each other.
     const html = await page("/");
-    const names = [...html.matchAll(/class="row-name">(.*?)<\/h3>/g)].map((m) => m[1]);
+    const names = [...html.matchAll(/class="row-name">(.*?)<\/(?:h3|span)>/g)].map((m) => m[1]);
     expect(names.length, "no contest rows on the page").toBeGreaterThan(0);
     for (const cell of names) {
       expect([...cell.matchAll(/<a /g)].length, `row has more than one link: ${cell}`).toBe(1);

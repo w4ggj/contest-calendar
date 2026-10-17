@@ -595,6 +595,77 @@ export function handleIcs(url: URL, nowMs: number): Response {
   });
 }
 
+/** One CSV field. Quotes when it must; defuses a leading formula character. */
+export function csvField(v: string): string {
+  // A cell that opens with = + - @ is executed as a formula by spreadsheets.
+  // Nothing in the catalog does today; the export should not depend on that.
+  const safe = /^[=+\-@\t\r]/.test(v) ? `'${v}` : v;
+  return /[",\r\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
+}
+
+export const CSV_COLUMNS = [
+  "contest_id", "name", "sponsor", "start_utc", "end_utc", "duration_hours",
+  "modes", "bands", "verified", "can_enter", "local_rolling", "rules_url",
+] as const;
+
+/**
+ * GET /api/csv -- and /contests.csv. The landing page's rows as a spreadsheet.
+ *
+ * The same filter params as the page, and the same window: `?range=`/`?from=`/
+ * `?to=` when given, otherwise the page's own default (now to the later of
+ * month-end and thirty days). One row per OCCURRENCE, not per grouped table row
+ * -- grouping is a reading aid, and a spreadsheet wants to sort and filter on a
+ * single session per line. The default window deliberately is not the iCal
+ * feed's year-plus: "export what I am looking at" is the request.
+ */
+export function handleCsv(url: URL, nowMs: number): Response {
+  const filters = parseFilters(url.searchParams);
+  const page = parsePageWindow(url.searchParams, nowMs);
+  const now = new Date(nowMs);
+  const monthEnd = Date.UTC(now.getUTCFullYear(), now.getUTCMonth() + 1, 1);
+  const from = page ? page.from : nowMs;
+  const to = page ? page.to : Math.max(monthEnd, nowMs + 30 * DAY_MS);
+
+  const occurrences = applyFilters(
+    occurrencesInRange(from, to, filters.entity),
+    filters,
+  );
+
+  const lines = [CSV_COLUMNS.join(",")];
+  for (const o of occurrences) {
+    const s = (o.start ?? o.start_wall)!;
+    const e = (o.end ?? o.end_wall)!;
+    lines.push(
+      [
+        o.contest_id,
+        o.name,
+        o.sponsor,
+        s.toISOString(),
+        e.toISOString(),
+        String(o.duration_hours),
+        o.modes.join("/"),
+        o.bands.join("/"),
+        String(!!o.verified),
+        String(!!o.can_enter),
+        String(!!o.local_rolling),
+        o.rules_url ?? "",
+      ]
+        .map(csvField)
+        .join(","),
+    );
+  }
+
+  return new Response(lines.join("\r\n") + "\r\n", {
+    headers: {
+      "content-type": "text/csv; charset=utf-8",
+      "content-disposition": 'attachment; filename="contests.csv"',
+      "access-control-allow-origin": "*",
+      ...cacheable(3600),
+      "x-csv-rows": String(occurrences.length),
+    },
+  });
+}
+
 /** GET /api/meta -- the vocabulary the filters accept. */
 export function handleMeta(): Response {
   return json(

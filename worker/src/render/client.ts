@@ -20,13 +20,7 @@
  *     instant ending in Z,
  *   - never convert a `local_rolling` row -- those have no instant, and the
  *     server marks them with .rolling rather than emitting a <time>.
- *
- * The rail's day labels are the one thing here that is not formatting-only, so
- * they use the server's own `dayCellLabel`, interpolated below as source rather
- * than retyped. A second copy would be a second implementation of a date.
  */
-
-import { dayCellLabel } from "./daylabel.js";
 
 /**
  * The stored display choice, applied before the first paint.
@@ -111,10 +105,6 @@ export const CLIENT_JS = String.raw`
   function localTime(d) { return timeFmt.format(d); }
   function localDate(d) { return dateFmt.format(d); }
 
-  // The server's own day-label function, shipped as source. Not a copy of it --
-  // the same one, so a label can never mean something different up here.
-  var dayCellLabel = ${dayCellLabel.toString()};
-
   // ---- UTC formatting (must match the server's, or the toggle flickers) --
   var DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
   var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -129,26 +119,18 @@ export const CLIENT_JS = String.raw`
     if (saved === "local" && canConvert) mode = "local";
   } catch (e4) { /* private mode: stay on UTC */ }
 
-  // The rail's cells are UTC days and stay put in either mode -- they are
-  // instants, and so are the bars drawn against them. What changes is the name:
-  // at 0304Z Friday a reader in New York is still on Thursday, and a rail
-  // headed "Today 14" would be labelling a day they have not reached.
-  function paintRuler() {
-    var cells = doc.querySelectorAll(".ruler-day[data-day]");
-    var tz = mode === "local" && canConvert ? zone : "UTC";
-    for (var i = 0; i < cells.length; i++) {
-      var t = Date.parse(cells[i].getAttribute("data-day"));
-      if (isNaN(t)) continue;
-      cells[i].textContent = dayCellLabel(t, i, tz);
-    }
-  }
-
   function paintTimes() {
     var nodes = doc.querySelectorAll("time[datetime][data-t]");
     for (var i = 0; i < nodes.length; i++) {
       var el = nodes[i];
       var d = new Date(el.getAttribute("datetime"));
       if (isNaN(d.getTime())) continue;
+
+      // The table's Date cell holds the date and nothing else.
+      if (el.getAttribute("data-t") === "date") {
+        el.textContent = mode === "local" ? localDate(d) : utcDate(d);
+        continue;
+      }
 
       // Whether the date is shown at all is the server's decision: it omits the
       // date on an end time that lands on the start's day. Read that back off
@@ -161,7 +143,6 @@ export const CLIENT_JS = String.raw`
         el.textContent = hadDate ? utcTime(d) + " " + utcDate(d) : utcTime(d);
       }
     }
-    paintRuler();
     doc.body.setAttribute("data-tz", mode);
   }
 
@@ -291,6 +272,14 @@ export const CLIENT_JS = String.raw`
   } else if (localEl) {
     // No usable zone: drop the empty placeholder rather than leave a dash.
     localEl.textContent = "";
+  }
+
+  // ---- print -----------------------------------------------------------
+  // A button, not a link, so it only exists where window.print does.
+  var printBtn = doc.getElementById("printbtn");
+  if (printBtn && typeof window.print === "function") {
+    printBtn.hidden = false;
+    printBtn.addEventListener("click", function () { window.print(); });
   }
 
   // ---- filters ---------------------------------------------------------

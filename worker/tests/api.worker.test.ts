@@ -12,13 +12,9 @@ import { describe, expect, it } from "vitest";
 import {
   esc,
   humanDuration,
-  railFraction,
-  railSlot,
-  railWindow,
   relative,
 } from "../src/render/landing.js";
 import { CLIENT_JS } from "../src/render/client.js";
-import { dayCellLabel } from "../src/render/daylabel.js";
 import { CSS } from "../src/render/theme.js";
 
 const BASE = "https://contestcal.test";
@@ -207,146 +203,6 @@ describe("how the page says times out loud", () => {
     // which an operator would actually change their evening.
     expect(relative(3 * 3_600_000).soon).toBe(true);
     expect(relative(9 * 3_600_000).soon).toBe(false);
-  });
-});
-
-describe("the 7-day rail", () => {
-  it("starts at a UTC midnight, so its day labels are not a lie", () => {
-    // A cell labelled "Sat 15" that actually spans 0212Z Sat to 0212Z Sun is a
-    // chart that misreads by up to a day, which is worse than no chart.
-    const win = railWindow(Date.parse("2026-08-13T22:14:37.512Z"));
-    expect(new Date(win.start).toISOString()).toBe("2026-08-13T00:00:00.000Z");
-    expect(win.end - win.start).toBe(win.days * 86_400_000);
-  });
-
-  it("is wide enough to hold anything the section promises", () => {
-    // The section promises a rolling seven days from *now*, so the last
-    // occurrence in it can land inside the eighth calendar day.
-    const now = Date.parse("2026-08-13T23:59:59.000Z");
-    const win = railWindow(now);
-    expect(win.end).toBeGreaterThanOrEqual(now + 7 * 86_400_000);
-  });
-
-  it("positions every bar inside the rail", async () => {
-    const html = await (await get("/")).text();
-    const bars = [...html.matchAll(/--s:([\d.]+)%;--w:([\d.]+)%/g)];
-    expect(bars.length).toBeGreaterThan(0);
-    for (const [, s, w] of bars) {
-      const left = Number(s);
-      const width = Number(w);
-      expect(left).toBeGreaterThanOrEqual(0);
-      expect(left + width).toBeLessThanOrEqual(100.001);
-    }
-  });
-
-  it("maps a known instant to its own day slot", () => {
-    // The failure this pins: the day labels and the bars were laid out in two
-    // different boxes, so a contest at 2000Z on the rail's first day appeared
-    // under the label for the third. The mapping itself was never wrong -- but
-    // nothing asserted what fraction an instant was supposed to land at, so
-    // there was nothing to check the drawing against.
-    const win = railWindow(Date.parse("2026-08-14T03:04:00Z"));
-    const at2000 = win.start + 20 * 3_600_000;
-
-    expect(railSlot(at2000, win)).toBe(0);
-    expect(railFraction(at2000, win) * 100).toBeCloseTo(10.4167, 3);
-    // Inside the first eighth of the rail, nowhere near the third.
-    expect(railFraction(at2000, win)).toBeLessThan(1 / 8);
-
-    // Each boundary lands exactly on its cell edge, first to last.
-    for (let i = 0; i < win.days; i++) {
-      const midnight = win.start + i * 86_400_000;
-      expect(railFraction(midnight, win) * 100).toBeCloseTo(i * 12.5, 9);
-      expect(railSlot(midnight, win)).toBe(i);
-    }
-    expect(railSlot(win.end, win)).toBe(-1);
-    expect(railSlot(win.start - 1, win)).toBe(-1);
-  });
-
-  it("places the page's own bars where the mapping says", async () => {
-    const html = await (await get("/")).text();
-    const now = Date.parse(html.match(/data-now="([^"]+)"/)![1]);
-    const win = railWindow(now);
-
-    const rail = html.slice(html.indexOf('class="rail"'));
-    const bars = [
-      ...rail.matchAll(/datetime="([^"]+)" data-t="start"[\s\S]*?--s:([\d.]+)%/g),
-    ];
-    expect(bars.length).toBeGreaterThan(0);
-
-    for (const [, iso, left] of bars) {
-      const expected = railFraction(Date.parse(iso), win) * 100;
-      expect(
-        Math.abs(Number(left) - expected),
-        `bar for ${iso} drawn at ${left}%, mapping says ${expected.toFixed(3)}%`,
-      ).toBeLessThan(0.002);
-    }
-  });
-
-  it("lays the ruler and the rows out on one axis, declared once", () => {
-    // Two grids that merely happen to carry the same template drift the moment
-    // one of them is edited -- which is what happened: a later `.ruler` rule
-    // won over the media query at equal specificity, so the labels spanned the
-    // whole card while the bars stayed in the middle column.
-    const blocks = [...CSS.matchAll(/([^{}]+)\{([^{}]*)\}/g)];
-    const axis = blocks.filter(
-      ([, sel, body]) =>
-        /grid-template-columns/.test(body) && /\.(ruler|row)(?![\w-])/.test(sel),
-    );
-
-    expect(axis.length, "the rail's axis is declared in more than one place").toBe(1);
-    expect(axis[0][1]).toContain(".ruler");
-    expect(axis[0][1]).toContain(".row");
-    expect(axis[0][2]).toMatch(/grid-template-columns:\s*var\(--axis\)/);
-  });
-
-  it("puts the now-line where now actually is, not at the left edge", async () => {
-    const html = await (await get("/")).text();
-    const m = html.match(/class="now-line" style="left:([\d.]+)%"/);
-    expect(m, "no now-line in the rendered rail").not.toBeNull();
-    // 0% would mean the rail restarts at whatever moment the page was
-    // requested -- which is what made the day labels wrong.
-    expect(Number(m![1])).toBeLessThan(12.5);
-  });
-});
-
-describe("the rail's day labels", () => {
-  const NBSP = "\u00A0";
-
-  it("names the reader's date once the toggle flips, not UTC's", () => {
-    // 0304Z Friday 14 August: UTC has rolled over, New York has not -- it is
-    // 2304 on Thursday the 13th there. A rail headed "Today 14" in local mode
-    // is labelling a day the reader has not reached.
-    const win = railWindow(Date.parse("2026-08-14T03:04:00Z"));
-
-    const utc = dayCellLabel(win.start, 0, "UTC");
-    const local = dayCellLabel(win.start, 0, "America/New_York");
-    expect(utc).toBe(`Today${NBSP}14`);
-    expect(local).toBe(`Today${NBSP}13`);
-    expect(local, "the first day label is identical in both modes").not.toBe(utc);
-
-    // The weekday moves with it, so the cell cannot half-agree with itself.
-    const next = win.start + 86_400_000;
-    expect(dayCellLabel(next, 1, "UTC")).toBe(`Sat${NBSP}15`);
-    expect(dayCellLabel(next, 1, "America/New_York")).toBe(`Fri${NBSP}14`);
-
-    // East of Greenwich the dates already agree, and nothing should change.
-    expect(dayCellLabel(win.start, 0, "Asia/Tokyo")).toBe(`Today${NBSP}14`);
-  });
-
-  it("hands the client the instants and the same function to relabel them", async () => {
-    const html = await (await get("/")).text();
-
-    const cells = [...html.matchAll(/class="ruler-day[^"]*" data-day="([^"]+)"/g)];
-    expect(cells.length).toBe(8);
-    // Cell boundaries are UTC midnights and travel as instants, so relabelling
-    // never has to parse a local-time string.
-    for (const [, iso] of cells) expect(iso).toMatch(/T00:00:00\.000Z$/);
-
-    // The client relabels with the server's function, shipped as source. A
-    // second copy of this logic is a second implementation of a date.
-    expect(CLIENT_JS).toContain(dayCellLabel.toString());
-    expect(CLIENT_JS).toMatch(/textContent = dayCellLabel\(/);
   });
 });
 
