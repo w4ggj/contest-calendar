@@ -38,7 +38,7 @@ npm run typecheck
 # Worker -- the API and the landing view, tested inside workerd
 cd worker
 npm install
-npm test                       # expect: 211 passed
+npm test                       # expect: 216 passed
 npm run typecheck              # two projects: workerd sources, then the Node-side setup
 npm run dev                    # wrangler dev on :8787
 npm run probe                  # re-measure Temporal/Intl across compatibility dates
@@ -167,6 +167,10 @@ Nothing on the site renders below **1rem**, and sizes are rem so browser font se
 them (`theme.worker.test.ts` fails on any `font-size`/`font` below 1 or in px). Table data is
 1.05rem. At that size nine columns need ~1060px (sponsor capped at two lines, padding .35rem), so the table shows from **1100px** and the
 card list below it; `.tbl-wrap` keeps `overflow-x:auto` only as a guard for a long record.
+
+## Month navigation
+
+`/month?m=YYYY-MM` is the one canonical spelling (shareable, back-button safe). Prev/next/This month are links; the month and year picker is a plain GET form sending `mo`/`yr`, which `index.ts` turns into a 302 to `?m=` so it works with JS off. `parseMonth` bounds are 1970-2200 (what Date can answer), deliberately not a catalog horizon. The landing page's "later" heading links to next month's calendar, including when that section is empty.
 
 ## The schedule table
 

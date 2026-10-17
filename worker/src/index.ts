@@ -143,6 +143,23 @@ export default {
         // The month grid. Same filters as the schedule, so a reader who
         // narrowed to CW keeps that view when they switch to the calendar.
         const filters = parseFilters(url.searchParams);
+        // The picker form sends mo/yr; turn them into the canonical ?m= so the
+        // address bar, history and any shared link all carry one spelling.
+        const mo = url.searchParams.get("mo");
+        const yr = url.searchParams.get("yr");
+        if (mo !== null || yr !== null) {
+          const m = `${(yr ?? "").trim().padStart(4, "0")}-${(mo ?? "").trim().padStart(2, "0")}`;
+          if (parseMonth(m, nowMs) && /^\d+$/.test((yr ?? "").trim())) {
+            const to = new URL(url);
+            to.searchParams.delete("mo");
+            to.searchParams.delete("yr");
+            to.searchParams.set("m", m);
+            return new Response(null, {
+              status: 302,
+              headers: { location: to.pathname + to.search, "cache-control": "no-store" },
+            });
+          }
+        }
         const when = parseMonth(url.searchParams.get("m"), nowMs);
         if (!when) {
           // A malformed `m` is a 400 rather than a silent fallback to this

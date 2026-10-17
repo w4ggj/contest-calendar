@@ -1157,6 +1157,21 @@ a:hover { color: var(--ink); }
 .mo-sub { margin: 0 0 1rem; max-width: 70ch;
   font: 500 1rem/1.6 var(--font-mono); color: var(--ink-faint); }
 .mo-sub strong { color: var(--ink-dim); }
+.mo-pick {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .7rem;
+  margin: .2rem 0 1rem;
+  font: 500 1rem/1.4 var(--font-mono); color: var(--ink-dim);
+}
+.mo-pick select, .mo-pick input[type="number"] {
+  font: 500 1rem/1.4 var(--font-mono); color: var(--ink);
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 4px;
+  padding: .45rem .6rem; min-height: 2.4rem;
+}
+.mo-pick input[type="number"] { width: 6.5rem; }
+.legend .legend-link {
+  color: var(--cyan); text-transform: none; letter-spacing: .02em;
+  font-weight: 500; white-space: nowrap;
+}
 .viewswitch { margin: .6rem 0 0; }
 
 /* The page body must never scroll sideways, so the grid scrolls inside itself.

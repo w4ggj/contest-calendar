@@ -96,9 +96,15 @@ export function parseMonth(
   const year = Number(m[1]);
   const month = Number(m[2]);
   if (month < 1 || month > 12) return null;
-  if (year < 1990 || year > 2100) return null;
+  // Bounds are about what a Date and the zone database can answer for, not about
+  // a planning horizon: the engine expands any year, so the picker must not stop
+  // at the catalog's own edge.
+  if (year < MONTH_MIN_YEAR || year > MONTH_MAX_YEAR) return null;
   return { year, month };
 }
+
+export const MONTH_MIN_YEAR = 1970;
+export const MONTH_MAX_YEAR = 2200;
 
 /** `YYYY-MM`, for links. */
 function monthParam(year: number, month: number): string {
@@ -376,6 +382,22 @@ export function renderMonth(input: MonthInput): string {
   const thisMonth = { year: nowM.getUTCFullYear(), month: nowM.getUTCMonth() + 1 };
   const link = (y: number, m: number) =>
     esc(relink(params, [], { m: monthParam(y, m) }, "/month"));
+  // A plain GET form, so it works with JavaScript off: it sends mo and yr, and
+  // the Worker answers with a redirect to the canonical ?m=YYYY-MM, which is
+  // the URL that ends up in the address bar, the history and a shared link.
+  const pickHidden = [...params]
+    .filter(([k, v]) => v && k !== "m" && k !== "mo" && k !== "yr")
+    .map(([k, v]) => `<input type="hidden" name="${esc(k)}" value="${esc(v)}">`)
+    .join("");
+  const picker = `<form class="mo-pick" action="/month" method="get">${pickHidden}
+      <label for="mo-month">Month</label>
+      <select id="mo-month" name="mo">${MONTHS.map(
+        (n, i) => `<option value="${i + 1}"${i + 1 === month ? " selected" : ""}>${esc(n)}</option>`,
+      ).join("")}</select>
+      <label for="mo-year">Year</label>
+      <input id="mo-year" name="yr" type="number" inputmode="numeric" min="${MONTH_MIN_YEAR}" max="${MONTH_MAX_YEAR}" value="${year}" required>
+      <button class="btn" type="submit">Go</button>
+    </form>`;
 
   // DISTINCT CONTESTS, not occurrences. The first version counted
   // outcome.kept and said "89 contests running this month" -- but CWops Test
@@ -443,6 +465,7 @@ ${masthead(false, "Skip to the calendar")}
       <a class="btn ghost" href="${esc(relink(params, ["m"], {}, "/dx"))}">DXpeditions</a>
     </p>
   </div>
+  ${picker}
 
   <p class="mo-sub">${shown} contest${shown === 1 ? "" : "s"}${
     dxThisMonth ? ` and ${dxThisMonth} DXpedition${dxThisMonth === 1 ? "" : "s"}` : ""

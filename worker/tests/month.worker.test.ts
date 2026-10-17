@@ -259,3 +259,38 @@ describe("the month grid", () => {
     expect((html.match(/<td class="mo-day/g) ?? []).length).toBeGreaterThan(27);
   });
 });
+
+describe("month navigation", () => {
+  it("accepts years well past the old horizon and refuses only the absurd", () => {
+    expect(parseMonth("2027-01", 0)).toEqual({ year: 2027, month: 1 });
+    expect(parseMonth("2150-06", 0)).toEqual({ year: 2150, month: 6 });
+    expect(parseMonth("9999-01", 0)).toBeNull();
+  });
+
+  it("renders a no-JS picker form that keeps the reader's filters", async () => {
+    const html = await page("/month?m=2026-11&mode=CW");
+    expect(html).toMatch(/<form class="mo-pick" action="\/month" method="get">/);
+    expect(html).toContain('<input type="hidden" name="mode" value="CW">');
+    expect(html).not.toContain('name="m" value');
+    expect(html).toMatch(/<option value="11" selected>/);
+  });
+
+  it("redirects the picker's mo/yr to the canonical ?m=", async () => {
+    const r = await SELF.fetch(BASE + "/month?mode=CW&mo=1&yr=2027", { redirect: "manual" });
+    expect(r.status).toBe(302);
+    const loc = new URL(r.headers.get("location")!, BASE);
+    expect(loc.pathname).toBe("/month");
+    expect(loc.searchParams.get("m")).toBe("2027-01");
+    expect(loc.searchParams.get("mode")).toBe("CW");
+    expect(loc.searchParams.has("mo")).toBe(false);
+  });
+
+  it("renders a far-future month", async () => {
+    expect((await get("/month?m=2035-03")).status).toBe(200);
+  });
+
+  it("lets the landing page's later section go on to next month", async () => {
+    const html = await page("/?mode=CW");
+    expect(html).toMatch(/<a class="legend-link" href="\/month\?[^"]*m=\d{4}-\d{2}[^"]*">[A-Z][a-z]+ calendar →<\/a>/);
+  });
+});

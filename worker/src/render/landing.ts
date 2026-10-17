@@ -585,6 +585,20 @@ function weekSection(
   );
 }
 
+/** The way on from the "later" heading: the calendar for the month after the one
+ *  the page is in, carrying the reader's filters. Always offered, including when
+ *  the section is empty -- an empty heading with nowhere to go is a dead end. */
+function nextMonthLink(view: NowView, params: URLSearchParams): string {
+  const d = new Date(view.now);
+  const n = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 1));
+  const m = `${n.getUTCFullYear()}-${String(n.getUTCMonth() + 1).padStart(2, "0")}`;
+  const name = n.toLocaleString("en", { month: "long", timeZone: "UTC" });
+  return (
+    `<a class="legend-link" href="${esc(relink(params, ["m", "sort", "dir"], { m }, "/month"))}">` +
+    `${esc(name)} calendar →</a>`
+  );
+}
+
 function laterSection(
   view: NowView,
   empty: string,
@@ -595,14 +609,14 @@ function laterSection(
     return empty
       ? `<section aria-labelledby="lg-later">` +
         `<h2 class="legend" id="lg-later">${esc(view.laterLabel)}` +
-        `<span class="count">0</span></h2>${empty}</section>`
+        `<span class="count">0</span>${nextMonthLink(view, params)}</h2>${empty}</section>`
       : "";
   }
 
   return (
     `<section aria-labelledby="lg-later">` +
     `<h2 class="legend" id="lg-later">${esc(view.laterLabel)}` +
-    `<span class="count">${groupCount(view.later)}</span></h2>` +
+    `<span class="count">${groupCount(view.later)}</span>${nextMonthLink(view, params)}</h2>` +
     contestTable(view.later, {
       now: view.now,
       params,
